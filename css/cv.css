@@ -1,0 +1,66 @@
+/**
+ * Build up the design now that we have normalized the browser.
+ */
+
+/* Start building up my design */
+
+html { text-align: center;
+  width:800px;
+}
+body {
+  position:relative;
+  width: 800px;
+  height: 300px;
+  margin: 0 auto;
+  padding-left:2em;
+  text-align:left; 
+}
+
+html { font-family:Monospace, Georgia, Courier, "New Times Roman", serif; }
+h1,h2,h3,h4,h5,h6 { font-family:Courier; }
+div,p,pre,a,ul { font-family:Monospace, Georgia, "New Times Roman", serif; }
+pre { border-bottom : 1px dotted black; padding-bottom:10px; } 
+
+h1 { font-size: 18; padding-top:0.5em; padding-bottom:1em; }
+h2 { font-size: 16; padding-top:0.5em; padding-bottom:1em; }
+h3 { font-size: 14; padding-top:0.5em; padding-bottom:1em; }
+h4 { font-size: 12; padding-top:0.5em; padding-bottom:1em; }
+h5 { font-size: 11; padding-top:0.5em; padding-bottom:1em; }
+h6 { font-size: 10; padding-top:0.5em; padding-bottom:1em; }
+
+p { padding-top:0; padding-bottom:0.5em; }
+
+a:link {color: #cc3300; text-decoration:none;} 
+a:visited {color: #cc3300; text-decoration:none;} 
+a:hover {color: #0000cc; text-decoration:underline;} 
+a:active {color: #cc3300; text-decoration:underline;} 
+a {color: #cc3300; text-decoration:underline;}
+
+em { font-family: cursive; }
+
+ol {
+  list-style:lower-roman;
+}
+
+
+ul {
+  list-style:square;
+}
+
+ul > li {
+  margin-left:2.5em;
+}
+
+blockquote {
+  padding-left:2em;
+  margin-left:2.5em;  
+}
+
+pre, code {
+  background-color:#e6e6e6;
+  color:#800040;
+}
+
+td {
+  padding-right:1em;
+}

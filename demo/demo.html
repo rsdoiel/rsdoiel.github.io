@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Mashup - nearest events</title>    
+
+<!--meta cluster--> 
+<meta charset="UTF-8"> 
+<meta name="robots" content="all"> 
+ 
+<!--favicon & live bookmark--> 
+<link rel="shortcut icon" type="image/ico" href="http://www.usc.edu/favicon.ico"> 
+ 
+<!--css-->
+<link rel="stylesheet" href="css/template.css" type="text/css"> 
+
+<!-- mashup specific styling -->
+<link href='css/demo.css' rel='stylesheet' type='text/css' />
+
+</head>
+<body>
+<div id="usc"> 
+	<a href="http://www.usc.edu">University of Southern California</a> 
+</div><!--/#usc--> 
+ 
+<div id="branding">Mashup - nearest events</div><!--/#branding--> 
+
+<div class="content-main">
+  <div class="content-sub">
+    <p>This demonstration queries the USC Map's data API to get a list of locations with building codes and coordinates. Next it queries the new Event Calendar API for a list of events happening in the next 125 hours. Then it sorts the events by distance from your current position producing a list of event names, links and times. This demo is intended to run in Chrome or Safari base browser. You will need to authorize access to location information. Firefox on mobile may also work.</p>
+  </div>
+
+<div id="event-list" class="content-example"></div>
+<p></p>
+<div id="status"></div>
+</div>
+<div id="site-info">
+	<p> <a href="http://its.usc.edu/~rsdoiel/demo" title="link to presentation table of contents">USCMAP/EO3 BETA APIS</a> demonstration program by <author>R. S. Doiel, Software Engineer, USC Web Services</author></p>
+	<span id="copyright">copyright &copy; 2010 University of Southern California</span>
+</div><!-- /#site-info -->
+
+<!-- BEGIN: 3rd party JavaScript -->
+<script src="js/jquery.js"></script>
+<!-- END: 3rd Party JavaScript -->
+
+<!-- BEGIN: Demo Code -->
+<script>
+var	MASHUP = {
+	my_position : false,
+	locations : {},
+	calendar_events : []
+}; 
+
+MASHUP.calcDistance = function (coords1, coords2) {
+    var theta, dist, x1, x2,
+      deg2rad = function (degree) {
+        return (degree * Math.PI / 180);
+      }, 
+      rad2deg = function (radian) {
+        return (radian / Math.PI) * 180;
+      };
+  
+    
+    x1 = deg2rad(coords1.latitude);
+    x2 = deg2rad(coords2.latitude);
+    theta = deg2rad(coords1.longitude - coords2.longitude);
+  
+    dist = Math.sin(x1) * Math.sin(x2) + 
+            Math.cos(x1) * Math.cos(x2) * Math.cos(theta);
+  
+    dist = Math.acos(dist);
+    dist = rad2deg(dist);
+  
+    /* Return in miles */
+    return (dist * 60 * 1.1515);
+  };
+
+MASHUP.log = function (msg) {
+	console.log(msg + "\n");
+	$('#status').html(msg + '<br />');
+};
+
+MASHUP.getPosition = function (position) {
+	var i;
+	
+	MASHUP.log("You are at longitude: " + position.coords.longitude + 
+							" and latitude: " + position.coords.latitude);
+	MASHUP.my_position = position;
+};
+
+MASHUP.failedPosition = function (msg) {
+	MASHUP.log("failedPosition: " + msg);
+	MASHUP.my_position = false;
+	throw ("Geo Location failed.");
+};
+
+MASHUP.populateLocations = function (data, textStatus) {
+	if (textStatus !== undefined) { 
+		MASHUP.log("Location list returned with status " + textStatus);
+	} else {
+		MASHUP.log("Updating location list.");
+		for (i in data) {
+		  if (data[i].building_code.trim() != "") {
+				MASHUP.locations[data[i].building_code] = data[i];
+			}
+		}
+	}
+};
+
+MASHUP.populateEvents = function (data, textStatus) {
+	if (textStatus === undefined) {
+		MASHUP.log("Updating calendar event list.");
+		for (i in data) {
+		  if (data[i].building_code != "") {
+				MASHUP.calendar_events.push(data[i]);
+		  }
+		}
+	} else {
+		MASHUP.log("Error event list returned status " + textStatus);
+	}
+};
+
+MASHUP.runApp = function () {
+  var MyMiniService;
+
+	MASHUP.log("Setting up ...");
+	$.getJSON('http://web-app.usc.edu/ws/uscmap/api/locations?fields=lat,lng,building_code&callback=?', function (data, textStatus) {
+		MASHUP.populateLocations(data, textStatus);
+	});
+
+	$.getJSON("http://web-app.usc.edu/ws/eo3/api/highlights/32/now/+125%20hours?callback=?", function (data, textStatus) {
+		MASHUP.populateEvents(data, textStatus);
+	});
+
+	// Get your location
+	if (navigator.geolocation) {
+		MASHUP.log("Requesting geolocation data ...");
+		navigator.geolocation.getCurrentPosition(MASHUP.getPosition, MASHUP.failedPosition);
+	} else {
+		MASHUP.log('Your browser does not support geolocation.');
+		throw("geolocation not supported.");
+	}
+
+	MyMiniService = setInterval(function () {
+		var location_processing_complete = false,
+				event_processing_complete = false,
+				event_list = {}, i, keys = [];
+	
+		MASHUP.log("Thinking ...");
+		if (location_processing_complete === false &&
+				MASHUP.my_position !== false) {
+			for (i in MASHUP.locations) {
+				MASHUP.locations[i].distance = MASHUP.calcDistance(
+				          MASHUP.my_position.coords, 
+					         {'latitude' : MASHUP.locations[i].lat, 
+					          'longitude' : MASHUP.locations[i].lng });	
+				location_processing_complete = true;
+			}
+		}
+	
+		if (location_processing_complete) {
+			for (i in MASHUP.calendar_events) {
+				if (MASHUP.calendar_events[i].building_code) {
+					dist = MASHUP.locations[
+					         MASHUP.calendar_events[i].building_code].distance;
+					MASHUP.calendar_events[i].distance = dist;
+					event_list[dist.toString()] = i;
+					event_processing_complete = true;
+				}
+			}
+			keys = Object.keys(event_list);
+			keys.sort(function (a, b) { 
+				var a_float = parseFloat(a), b_float = parseFloat(b); 
+				if (a_float < b_float) { 
+					return -1; 
+				} else if (a_float > b_float) { 
+					return 1; 
+				} 
+				return 0; 
+			});
+	
+			$('#event-list').append('<ol>');
+			// Output appended in loop to give a sense of more interactivity
+			for (i in keys) {
+				e = MASHUP.calendar_events[event_list[keys[i]]];
+				$('#event-list').append(
+  				'<li><a href="http://web-app.usc.edu/ws/eo3/dashboard/calendar/32/' +
+  				 e.event_id + '" target="_caldetails">' +
+	  			 e.title + '</a><br />Venue: ' + e.venue + '<br />' +
+		  		'schedule: ' + e.schedule + '<br />distance: ' +
+		  		 e.distance + ' miles (approximate) </li>' );
+			}
+			$('#event-list').append('</ol>');
+		}
+	
+		if (event_processing_complete === true && 
+				location_processing_complete === true) {
+			MASHUP.log("All done thinking.");
+			clearInterval(MyMiniService);
+		}
+	}, 1000);
+};
+
+$(document).ready(MASHUP.runApp);
+</script>
+<!-- END: Demo Code -->
+
+</html>

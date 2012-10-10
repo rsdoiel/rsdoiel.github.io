@@ -1,0 +1,70 @@
+/**
+* Project: Style template
+* Author: Tim Wright
+* Created on: 07.28.2010
+----------------------------------*/
+
+body,div,dl,dt,dd,ul,ol,
+li,h1,h2,h3,h4,h5,h6,
+pre,form,fieldset,p,
+blockquote,th,td            { margin:0;padding:0;}
+body                        { line-height:1;}
+h1,h2,h3,h4,h5,h6,p         { font-size:100%;font-weight:400;}
+ol,ul                       { list-style:none;}
+caption,cite,code,th        { font-style:normal;font-weight:400;}
+fieldset,img                { border:0;}
+caption,th                  { text-align:left;}
+:focus                      { outline:0; }
+table                       { border-collapse:collapse;border-spacing:0;}
+hr                          { border:0;border-top:1px solid #555;margin:0;height:1px;}
+label,button,
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"]         { cursor:pointer;}
+a                           { overflow:hidden; }
+
+/*
+ * General elements
+----------------------------------*/
+html                        { text-align:center; }
+body                        { text-align:left;color:#333;font:.8em/1.4em Arial, Sans-serif;background:#fff url(http://www.usc.edu/x/usc_homepage/assets/images/bg_body.jpg) repeat-y center 0;width:956px;margin:0 auto 15px;}
+h1,h2,h2                    { font-family:Georgia, "Times New Roman", serif; }
+h1                          { font-size:2.2em;}
+h2                          { font-size:2em;padding:10px 0; }
+h3                          { font-size:1.6em;line-height:1.3; }
+h4                          { font-size:1.2em;}
+h5                          { font-size:1.2em;font-weight:700;}
+h6                          { font-size:1.2em;}
+h2,h3,h4,h5,h6              { line-height:1.5; }
+p,
+ul,
+ol,
+dl                          { font-size:14px;padding:0 0 15px;line-height:1.5;color:#777; }
+dt                          { margin-top:15px;font-weight:700;}
+table                       { margin:10px;width:100%;}
+table th                    { font-weight:400;padding:2px;font-size:18px;vertical-align:top;}
+table td                    { padding:2px;font-size:11px;}
+table tr:nth-child(2n+2)    { background:#f3f3f3; }
+
+blockquote                  { background:#f3f3f3;border-left:4px solid #ccc;width:90%;margin:20px auto;padding:10px; }
+
+/*
+   Anchors
+*/
+a                           { text-decoration:none;color:#900; }
+a:hover, 
+a:focus                     { color:#333; }
+
+/* skip menu */
+.accessibility              { position:absolute;top:-9999px;left:-9999px; }
+.accessibility:focus        { position:static; }
+
+/*
+ * Layout elements
+----------------------------------*/
+
+/*
+   Branding, usually the header
+*/
+#usc                        { background:#900;padding:15px; }
+#usc a                      { display:block;background:url(http://www.usc.edu/x/usc_homepage/assets/images/usc.jpg) no-repeat 0 0;width:416px;height:46px;text-indent:-9999px; }
