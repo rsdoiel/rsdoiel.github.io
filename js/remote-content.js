@@ -54,13 +54,12 @@ makeGithubList = function (items) {
   	var name = items[ky].name,
 		description = items[ky].description,
 		url = items[ky].url,
-		if (typeof items[ky].language !== "undefined") {
-			language = '(' + items[ky].language + ')';
-		} else {
-			language = "";
+		language = items[ky].language;
+		if (! language) {
+			language = "text";
 		}
   	parts.push('<li><a href="' +
-		url + '">' + name + '</a>' + language + ' ' + description + '</li>');
+		url + '">' + name + '</a> (' + language + ') ' + description + '</li>');
   });
  // parts.push('</ul>');
   return parts.join("");
