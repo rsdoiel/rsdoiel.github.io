@@ -54,9 +54,13 @@ makeGithubList = function (items) {
   	var name = items[ky].name,
 		description = items[ky].description,
 		url = items[ky].url,
-		language = items[ky].language;
+		if (typeof items[ky].language !== "undefined") {
+			language = '(' + items[ky].language + ')';
+		} else {
+			language = "";
+		}
   	parts.push('<li><a href="' +
-		url + '">' + name + '</a> (' + language + ') ' + description + '</li>');
+		url + '">' + name + '</a>' + language + ' ' + description + '</li>');
   });
  // parts.push('</ul>');
   return parts.join("");
