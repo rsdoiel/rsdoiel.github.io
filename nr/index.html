@@ -8,12 +8,21 @@
     <body>
     Hello World
     <input id="dropbox-chooser" type="dropbox-chooser" name="selected-file" style="visibility: hidden;"/>
+    <script src="http://yui.yahooapis.com/3.9.1/build/yui/yui-min.js"></script>
     <script type="text/javascript">
-        document.getElementById("dropbox-chooser").addEventListener("DbxChooserSuccess",
-            function(e) {
-                alert("Here's the chosen file: " + e.files[0].link);
-                console.log("DEBUG HEre's a link", e.files[0].link);
-            }, false);
+        YUI().use("node", function (Y) {
+        var choose = Y.one("#dropbox-chooser"),
+            options = {
+                linkType: "preview", // or "direct",
+                multiselect: false,
+                success: function(files) {
+                    console.log("Here's the file link:" + files[0].link)
+                },
+                cancel:  function() {} 
+            };
+
+            Dropbox.choose(options);
+        });
     </script>
     </body>
 </html>
