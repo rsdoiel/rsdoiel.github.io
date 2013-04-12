@@ -10,15 +10,16 @@
     <input id="dropbox-chooser" type="dropbox-chooser" name="selected-file" style="visibility: hidden;"/>
     <script src="http://yui.yahooapis.com/3.9.1/build/yui/yui-min.js"></script>
     <script type="text/javascript">
-        YUI().use("node", "event", function (Y) {
+        YUI().use("node", function (Y) {
             var choose = Y.one("#dropbox-chooser"),
                 options = {
                     linkType: "preview", // or "direct",
                     multiselect: false,
                     success: function (files) {
-                        Y.log("Here's the file link:" + files[0].link)
+                        console.log("Here's the file link:" + files[0].link);
                     },
                     cancel: function () {
+                        console.log("Cancel clicked");
                     } 
                 };
 
