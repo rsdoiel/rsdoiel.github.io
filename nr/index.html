@@ -15,15 +15,18 @@
                 options = {
                     linkType: "preview", // or "direct",
                     multiselect: false,
-                    success: function(files) {
-                        console.log("Here's the file link:" + files[0].link)
+                    success: function (files) {
+                        Y.log("Here's the file link:" + files[0].link)
                     },
-                    cancel:  function() {} 
+                    cancel: function () {
+                    } 
                 };
 
             choose.on("click", function (e) {
+                Y.log("dropbox-chooser clicked");
                 Dropbox.choose(options);
             });
+            Y.log("Bottom of Y function.");
         });
     </script>
     </body>
