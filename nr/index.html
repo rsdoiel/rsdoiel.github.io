@@ -10,7 +10,7 @@
     <input id="dropbox-chooser" type="dropbox-chooser" name="selected-file" style="visibility: hidden;"/>
     <script src="http://yui.yahooapis.com/3.9.1/build/yui/yui-min.js"></script>
     <script type="text/javascript">
-        YUI().use("node", function (Y) {
+        YUI().use("node", "event", function (Y) {
             var choose = Y.one("#dropbox-chooser"),
                 options = {
                     linkType: "preview", // or "direct",
