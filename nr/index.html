@@ -11,17 +11,19 @@
     <script src="http://yui.yahooapis.com/3.9.1/build/yui/yui-min.js"></script>
     <script type="text/javascript">
         YUI().use("node", function (Y) {
-        var choose = Y.one("#dropbox-chooser"),
-            options = {
-                linkType: "preview", // or "direct",
-                multiselect: false,
-                success: function(files) {
-                    console.log("Here's the file link:" + files[0].link)
-                },
-                cancel:  function() {} 
-            };
+            var choose = Y.one("#dropbox-chooser"),
+                options = {
+                    linkType: "preview", // or "direct",
+                    multiselect: false,
+                    success: function(files) {
+                        console.log("Here's the file link:" + files[0].link)
+                    },
+                    cancel:  function() {} 
+                };
 
-            Dropbox.choose(options);
+            choose.on("click", function (e) {
+                Dropbox.choose(options);
+            });
         });
     </script>
     </body>
