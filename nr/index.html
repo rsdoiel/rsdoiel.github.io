@@ -12,11 +12,18 @@
         <input type="dropbox-chooser" name="selected-file" style="visibility: hidden;" data-link-type="direct" />
     </form>
     <script>
-        document.getElementById("db-chooser").addEventListener("DbxChooserSuccess",
-            function(e) {
-                alert("Here's the chosen file: " + e.files[0].link)
-                console.log(e.files[0]);
-            }, false);
+        var options = {
+            linkType: "direct",
+            multiselect: false,
+            success: function(files) {
+                alert("Here's the file link:" + files[0].link)
+                console.log(files[0]);// DEBUG
+            },
+            cancel:  function() {
+                console.log("Cancel called");// DEBUG
+            }
+        };
+        Dropbox.choose(options); 
     </script>
     </body>
 </html>
