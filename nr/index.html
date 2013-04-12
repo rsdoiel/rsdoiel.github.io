@@ -8,9 +8,6 @@
     </head>
     <body>
     Hello World
-    <form>
-        <input type="dropbox-chooser" name="selected-file" style="visibility: hidden;" data-link-type="direct" />
-    </form>
     <script>
         var options = {
             linkType: "direct",
@@ -23,6 +20,7 @@
                 console.log("Cancel called");// DEBUG
             }
         };
+        console.log(options);// DEBUG
         Dropbox.choose(options); 
     </script>
     </body>
