@@ -7,25 +7,13 @@
     </head>
     <body>
     Hello World
-    <form><input type="dropbox-chooser" name="selected-file" id="db-chooser"/></form>
-    <script>
-        var options = {
-            linkType: "direct",
-            multiselect: false,
-            success: function(files) {
-                alert("Here's the file link:" + files[0].link)
-                console.log(files[0]);// DEBUG
-            },
-            cancel:  function() {
-                console.log("Cancel called");// DEBUG
-            }
-        };
-        console.log(options);// DEBUG
+    <input type="dropbox-chooser" name="selected-file" style="visibility: hidden;"/>
+    <script type="text/javascript">
         document.getElementById("db-chooser").addEventListener("DbxChooserSuccess",
             function(e) {
-                alert("Here's the chosen file: " + e.files[0].link)
+                alert("Here's the chosen file: " + e.files[0].link);
+                console.log("DEBUG HEre's a link", e.files[0].link);
             }, false);
-        Dropbox.choose(options); 
     </script>
     </body>
 </html>
