@@ -9,7 +9,7 @@
     Hello World
     <input type="dropbox-chooser" name="selected-file" style="visibility: hidden;"/>
     <script type="text/javascript">
-        document.getElementById("db-chooser").addEventListener("DbxChooserSuccess",
+        document.getElementById("dropbox-chooser").addEventListener("DbxChooserSuccess",
             function(e) {
                 alert("Here's the chosen file: " + e.files[0].link);
                 console.log("DEBUG HEre's a link", e.files[0].link);
