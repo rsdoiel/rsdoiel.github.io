@@ -6,46 +6,6 @@
 /*global YUI */
 YUI().use("node-base", "jsonp", function (Y) {
   "use strict";
-  /**
-   * Setup and layout content for activity at Google Reader
-   */
-  var makeReaderDeck = function (item) {
-    var title;
-
-    if (typeof item.alternate.href !== "undefined") {
-      title = '<a href="' + item.alternate.href + '">' + item.title + '</a>';
-    } else {
-      title = item.title;
-    }
-    if (typeof item.summary !== "undefined") {
-      return '<li>' + title + ' -<br />' + item.summary + '</li>';
-    }
-    return '<li>' + title + '</li>';
-  };
-
-  /**
-   * Setup a layout for bringing in content from Blogger
-   */
-  var makeBloggerDeck = function (item) {
-    var title, j = 0;
-  
-    if (typeof item.link !== "undefined") {
-      j = 0;
-      while(j < item.link.length) {
-        if (item.link[j].rel === 'alternate') {
-          title = '<a href="' + item.link[j].href + '">' + item.title.$t + '</a>';
-          j = item.link.length;
-        }
-        j += 1;
-      }
-    } else {
-      title = item.title.$t;
-    }
-    if (typeof item.summary !== "undefined") {
-      return '<li>' + title + ' -<br />' + item.summary.$t + '</li>';
-    }
-    return '<li>' + title + '</li>';
-  };
 
   /**
    * Setup and layout content pulls for Github
@@ -89,9 +49,7 @@ YUI().use("node-base", "jsonp", function (Y) {
           }
         }
       }
-      Y.one('#github-my-repos').append(makeGithubList(repos));
-    } else {
-      Y.one('#github-my-repos').append("Can't reach github.com");
+      Y.one('#github-my-repos').setHTML(makeGithubList(repos));
     }
   });
 
@@ -108,9 +66,7 @@ YUI().use("node-base", "jsonp", function (Y) {
           }
         }
       }
-      Y.one('#github-uscwebservices-repos').append(makeGithubList(repos));
-    } else {
-      Y.one('#github-uscwebservices-repos').append("Can't reach github.com");
+      Y.one('#github-uscwebservices-repos').setHTML(makeGithubList(repos));
     }
   });
 });
