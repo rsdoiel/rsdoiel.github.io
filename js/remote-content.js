@@ -34,9 +34,11 @@ YUI().use("node-base", "jsonp", function (Y) {
         Y.log(data, "debug");
         if (data.length > 0) {
             for (i = 0; i < data.length; i += 1) {
+                Y.log(data[i], "debug");
                 if (typeof data[i].repository !== "undefined" &&
-                        data[i].repository.actor === "rsdoiel" &&
-                        data[i].repository.type === "PushEvent") {
+                        data[i].actor === "rsdoiel" &&
+                        data[i].type === "PushEvent") {
+                    Y.log("added ith " + i, "debug");
                     repos[data[i].repository.name] = data[i].repository;
                 }
             }
