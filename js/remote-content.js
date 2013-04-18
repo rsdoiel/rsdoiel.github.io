@@ -13,6 +13,7 @@ YUI().use("node-base", "jsonp", function (Y) {
   var makeGithubList = function (items) {
     var i = 0, parts = [];
 
+    Y.log(items, "debug");
     //  parts.push('<ul>');
     Object.keys(items).forEach(function (ky, i) {
       var name = items[ky].name,
@@ -22,8 +23,8 @@ YUI().use("node-base", "jsonp", function (Y) {
 		  if (! language) {
 			language = "text";
 		  }
-  	  parts.push('<li><a href="' +
-		  url + '">' + name + '</a> (' + language + ') ' + description + '</li>');
+          parts.push('<li><a href="' +
+		    url + '">' + name + '</a> (' + language + ') ' + description + '</li>');
     });
     // parts.push('</ul>');
     return parts.join("");
@@ -39,14 +40,13 @@ YUI().use("node-base", "jsonp", function (Y) {
   /* urls.github_my_repos */
   Y.jsonp(urls.github_rsdoiel + "?callback={callback}", function (data) {  
     var i = 0, repos = {};
+    Y.log(data, "debug");
     if (data.length > 0) {
       for (i = 0; i < data.length; i += 1) {
         if (data[i].repository !== undefined &&
-             (data[i].repository.owner === "rsdoiel" ||
-          data[i].repository.owner === "uscwebservices")) {
-          if (repos[data[i].repository.name] === undefined) {
-            repos[data[i].repository.name] = data[i].repository;
-          }
+            (data[i].repository.owner === "rsdoiel" ||
+              data[i].repository.owner === "uscwebservices")) {
+          repos[data[i].repository.name] = data[i].repository;
         }
       }
       Y.one('#github-my-repos').setHTML(makeGithubList(repos));
@@ -60,10 +60,8 @@ YUI().use("node-base", "jsonp", function (Y) {
       for (i = 0; i < data.length; i += 1) {
         if (data[i].repository !== undefined &&
             (data[i].repository.owner === "rsdoiel" ||
-          data[i].repository.owner === "uscwebservices")) {
-          if (repos[data[i].repository.name] === undefined) {
-            repos[data[i].repository.name] = data[i].repository;
-          }
+              data[i].repository.owner === "uscwebservices")) {
+          repos[data[i].repository.name] = data[i].repository;
         }
       }
       Y.one('#github-uscwebservices-repos').setHTML(makeGithubList(repos));
