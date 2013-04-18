@@ -77,43 +77,40 @@ YUI().use("node-base", "jsonp", function (Y) {
   };
   
   /* urls.github_my_repos */
-  Y.jsonp(urls.github_rsdoiel + "?callback={callback}", 
-          function (data) {  
-              var i = 0, repos = {};
-              Y.log("DEBUG got data, setting up to render it now.", "debug");
-              Y.log(data, "debug");
-                if (data.length > 0) {
-    	            for (i = 0; i < data.length; i += 1) {
-		                if (data[i].repository !== undefined &&
-				             (data[i].repository.owner === "rsdoiel" ||
-				            data[i].repository.owner === "uscwebservices")) {
-			                if (repos[data[i].repository.name] === undefined) {
-				                repos[data[i].repository.name] = data[i].repository;
-			                }
-		                }
-	                }
-                    Y.one('#github-my-repos').append(makeGithubList(repos));
-                } else {
-                    Y.one('#github-my-repos').append("Can't reach github.com");
-                }
-        });
+  Y.jsonp(urls.github_rsdoiel + "?callback={callback}", function (data) {  
+    var i = 0, repos = {};
+    if (data.length > 0) {
+      for (i = 0; i < data.length; i += 1) {
+        if (data[i].repository !== undefined &&
+             (data[i].repository.owner === "rsdoiel" ||
+          data[i].repository.owner === "uscwebservices")) {
+          if (repos[data[i].repository.name] === undefined) {
+            repos[data[i].repository.name] = data[i].repository;
+          }
+        }
+      }
+      Y.one('#github-my-repos').append(makeGithubList(repos));
+    } else {
+      Y.one('#github-my-repos').append("Can't reach github.com");
+    }
+  });
 
   /* urls.github_uscwebservices_repos */
   Y.jsonp(urls.github_uscwebservices, function (data) {  
-  	        var i = 0, repos = {};
-            if (data.length > 0) {
-    	        for (i = 0; i < data.length; i += 1) {
-		            if (data[i].repository !== undefined &&
-				            (data[i].repository.owner === "rsdoiel" ||
-				        data[i].repository.owner === "uscwebservices")) {
-			            if (repos[data[i].repository.name] === undefined) {
-				            repos[data[i].repository.name] = data[i].repository;
-			            }
-		            }
-	            }
-                Y.one('#github-uscwebservices-repos').append(makeGithubList(repos));
-            } else {
-                Y.one('#github-uscwebservices-repos').append("Can't reach github.com");
-            }
-         });
+    var i = 0, repos = {};
+    if (data.length > 0) {
+      for (i = 0; i < data.length; i += 1) {
+        if (data[i].repository !== undefined &&
+            (data[i].repository.owner === "rsdoiel" ||
+          data[i].repository.owner === "uscwebservices")) {
+          if (repos[data[i].repository.name] === undefined) {
+            repos[data[i].repository.name] = data[i].repository;
+          }
+        }
+      }
+      Y.one('#github-uscwebservices-repos').append(makeGithubList(repos));
+    } else {
+      Y.one('#github-uscwebservices-repos').append("Can't reach github.com");
+    }
+  });
 });
