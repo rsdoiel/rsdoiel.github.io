@@ -80,6 +80,8 @@ YUI().use("node-base", "jsonp", function (Y) {
   Y.jsonp(urls.github_rsdoiel + "?callback={callback}", 
           function (data) {  
               var i = 0, repos = {};
+              Y.log("DEBUG got data, setting up to render it now.", "debug");
+              Y.log(data, "debug");
                 if (data.length > 0) {
     	            for (i = 0; i < data.length; i += 1) {
 		                if (data[i].repository !== undefined &&
