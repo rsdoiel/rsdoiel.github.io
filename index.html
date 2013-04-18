@@ -43,11 +43,8 @@
                                 </ul></li>
                         </ul>
                 </section>
-        	<section class="news">
-                        <h4>What have I been up to?</h4>
-                        <div class="recent-experiments">
-                                <ul id='github-repos'></ul>
-        		</div>
+                <section class="news">
+                        <div id="recent-experiments"></div>
                 </section>
                 <nav>
                         <ul class="no-bullet">
@@ -55,7 +52,30 @@
                                 <li><a href="cv.html">CV</a></li>
                         </ul>
                 </nav>
-                
+
+				<!-- BEGIN: Handlebars Templates -->
+				<script id="github-activities-template" type="text/x-handlebars-template">
+                    <h4>What have I been up to?</h4>
+					<ul>
+						{{#items}}
+						<li><a href="{{url}}" title="{{name}} repository link">{{name}}</a> 
+							{{#if language}}
+							({{language}})<br/>
+							{{/if}}
+							{{#if description}}
+								{{description}}
+							{{/if}}
+							{{#if activity}}
+								{{activity}}
+							{{/if}}
+							{{#if when}}
+								at {{when}}
+							{{/if}}
+						</li>						
+						{{/items}}
+					</ul>
+				</script>
+				<!-- END: Handlebars Templates -->
                 <!-- BEGIN: Javascript -->
                 <script src="http://yui.yahooapis.com/3.9.1/build/yui/yui-min.js"></script>
                 <script type="text/javascript" src="js/remote-content.js"></script>  

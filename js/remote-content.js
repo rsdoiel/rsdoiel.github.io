@@ -4,45 +4,42 @@
  */
 /*jslint browser: true, undef: true, newcaps: true, indent: 4 */
 /*global YUI */
-YUI().use("node-base", "jsonp", function (Y) {
+YUI().use("node-base", "jsonp", "handlebars", function (Y) {
     "use strict";
+    var source = Y.one("#github-activities-template").getHTML(),
+        template = Y.Handlebars.compile(source);
 
-    /**
-     * Setup and layout content pulls for Github
-     */
-    function makeGithubList (items) {
-        var i = 0, parts = [];
-        
-        Y.log(items, "debug");
-        Object.keys(items).forEach(function (ky, i) {
-            var name = items[ky].name,
-                description = items[ky].description,
-                url = items[ky].url,
-                language = items[ky].language;
-            if (! language) {
-                language = "text";
-            }
-            parts.push('<li><a href="' +
-            url + '">' + name + '</a> (' + language + ') ' + description + '</li>');
-        });
-        return parts.join("");
-    }
+    Y.log("getting jsonp response", "debug");
+    /* Grab interesting items */
+    Y.jsonp("https://api.github.com/users/rsdoiel/events?callback={callback}", function (json) {  
+        var repos = {},
+            items = [],
+            i = 0,
+            data = json.data;
 
-    /* urls.github_my_repos */
-    Y.jsonp("https://github.com/rsdoiel.json?callback={callback}", function (data) {  
-        var i = 0, repos = {};
+        Y.log("jsonp responded", "debug");
         Y.log(data, "debug");
         if (data.length > 0) {
+            Y.log("jsonp data length " + data.length);
             for (i = 0; i < data.length; i += 1) {
+                Y.log("ith " + i, "debug");
                 Y.log(data[i], "debug");
-                if (typeof data[i].repository !== "undefined" &&
-                        data[i].actor === "rsdoiel" &&
-                        data[i].type === "PushEvent") {
-                    Y.log("added ith " + i, "debug");
-                    repos[data[i].repository.name] = data[i].repository;
+                if ((data[i].type === "PushEvent" ||
+                            data[i].type === "CreateEvent" ||
+                            data[i].type === "ForkEvent") &&
+                        data[i].actor.login === "rsdoiel" &&
+                        typeof repos[data[i].repo.name] === "undefined") {
+                    repos[data[i].repo.name] = true;
+                    items.push({
+                        name: data[i].repo.name,
+                        url: 'https://github.com/' + data[i].repo.name,
+                        activity: data[i].type.replace(/Event/,''),
+                        when: new Date(data[i].created_at)
+                    });
                 }
             }
-            Y.one('#github-repos').setHTML(makeGithubList(repos));
+            Y.log(items, "debug");
+            Y.one('#recent-experiments').setHTML(template({items: items}));
         }
     });
 });
