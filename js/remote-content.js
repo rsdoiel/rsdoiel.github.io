@@ -4,7 +4,7 @@
  */
 /*jslint browser: true, undef: true, newcaps: true, indent: 2 */
 /*global YUI */
-YUI().use("node-base", "io", function (Y) {
+YUI().use("node-base", "jsonp", function (Y) {
   "use strict";
   /**
    * Setup and layout content for activity at Google Reader
@@ -77,17 +77,9 @@ YUI().use("node-base", "io", function (Y) {
   };
   
   /* urls.github_my_repos */
-  Y.io(urls.github_rsdoiel, {
-      on: {
-          success: function (id, response, args) {  
-              var data,
-  	            i = 0, repos = {};
-                try {
-                    data = JSON.parse(reponse.responseText);
-                } catch (e) {
-                    Y.one('#github-my-repos').append(e);
-                    return;
-                }
+  Y.jsonp(urls.github_rsdoiel + "?callback={callback}", 
+          function (data) {  
+              var i = 0, repos = {};
                 if (data.length > 0) {
     	            for (i = 0; i < data.length; i += 1) {
 		                if (data[i].repository !== undefined &&
@@ -102,21 +94,11 @@ YUI().use("node-base", "io", function (Y) {
                 } else {
                     Y.one('#github-my-repos').append("Can't reach github.com");
                 }
-        }
-      }
-  });
+        });
 
   /* urls.github_uscwebservices_repos */
-  Y.io(urls.github_uscwebservices, {
-      on: {
-          success: function (id, response, args) {  
-  	        var data, i = 0, repos = {};
-                try {
-                    data = JSON.parse(reponse.responseText);
-                } catch (e) {
-                    Y.one('#github-uscwebservices-repos').append(e);
-                    return;
-                }
+  Y.jsonp(urls.github_uscwebservices, function (data) {  
+  	        var i = 0, repos = {};
             if (data.length > 0) {
     	        for (i = 0; i < data.length; i += 1) {
 		            if (data[i].repository !== undefined &&
@@ -131,7 +113,5 @@ YUI().use("node-base", "io", function (Y) {
             } else {
                 Y.one('#github-uscwebservices-repos').append("Can't reach github.com");
             }
-         }
-      }
-  });
+         });
 });
