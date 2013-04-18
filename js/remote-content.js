@@ -35,7 +35,8 @@ YUI().use("node-base", "jsonp", function (Y) {
         if (data.length > 0) {
             for (i = 0; i < data.length; i += 1) {
                 if (typeof data[i].repository !== "undefined" &&
-                    (data[i].repository.owner === "rsdoiel" || data[i].repository.owner === "uscwebservices")) {
+                        data[i].repository.actor === "rsdoiel" &&
+                        data[i].repository.type === "PushEvent") {
                     repos[data[i].repository.name] = data[i].repository;
                 }
             }
