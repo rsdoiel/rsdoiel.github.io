@@ -24,16 +24,13 @@ YUI().use("node-base", "jsonp", "handlebars", function (Y) {
             for (i = 0; i < data.length; i += 1) {
                 Y.log("ith " + i, "debug");
                 Y.log(data[i], "debug");
-                if ((data[i].type === "PushEvent" ||
-                            data[i].type === "CreateEvent" ||
-                            data[i].type === "ForkEvent") &&
-                        data[i].actor.login === "rsdoiel" &&
+                if ((data[i].actor.login === "rsdoiel" &&
                         typeof repos[data[i].repo.name] === "undefined") {
                     repos[data[i].repo.name] = true;
                     items.push({
                         name: data[i].repo.name,
                         url: 'https://github.com/' + data[i].repo.name,
-                        activity: data[i].type.replace(/Event/,''),
+                        activity: data[i].type.trim(),
                         when: new Date(data[i].created_at)
                     });
                 }
