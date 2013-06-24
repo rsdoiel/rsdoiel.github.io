@@ -1,0 +1,216 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <title>where-am-i.md</title>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+        <link href="css/styles.css" rel="stylesheet" media="all">
+    </head>
+    <body>
+        <header><h1>where-am-i.md</h1></header>
+        <section>
+        <h2>Exercise Where Am I?</h2>
+<ul>
+<li>Programming goal<ul>
+<li>compare the page name <em>where-am-i.html</em> with the <em>href</em> in a <em>ul</em> list of anchors elements</li>
+<li>if there is a match set replace the anchor element with a span containing a <em>here</em> class.</li>
+</ul>
+</li>
+<li>Learning objectives<ul>
+<li>Work with a list of elements</li>
+<li>Look into each one</li>
+<li>Replace elements as well as its innerHTML</li>
+</ul>
+</li>
+</ul>
+<h3>Steps</h3>
+<p>Do the following things</p>
+<ul>
+<li>Add a <em>style</em> block in <em>head</em></li>
+<li>Add a <em>nav</em> element before section</li>
+<li>I the name section add a list of seven URLs, one should be for the webpage <em>where-am-i.html</em></li>
+<li>in the <em>style</em> element of <em>head</em> add a CSS class named &quot;here&quot;, that swaps the foreground and background colors</li>
+<li>Look up examples for using <em>Y.all()</em> and _Y.each() at <a href="http://yuilibrary.com/yui/docs/node">yuilibrary.com</a></li>
+<li>In your <em>Y</em> function use CSS solitor to get a list of ALL <em>li</em> elements with <em>anchors</em></li>
+<li>For each <em>li</em> get the containing anchor, check if the <em>href</em> points at <em>where-am-i.html</em><ul>
+<li>If so update the <em>li</em> so it has a span instead of an anchor and a class of <em>here</em></li>
+</ul>
+</li>
+</ul>
+<h3>Solution</h3>
+<p>Copy <em>seed-file.html</em> to <em>where-am-i.html</em>.  Add the nav markup and styles blocks in <em>where-am-i.html</em>.</p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;Where am I?&lt;/title&gt;
+            &lt;style&gt;
+                li {
+                    color: blue;
+                    background-color: white;
+                }
+
+                .here {
+                    color: white;
+                    background-color: blue;
+                }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;header&gt;Where am I?&lt;/header&gt;
+            &lt;nav&gt;
+                &lt;ol&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/1&quot;&gt;One&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/2&quot;&gt;Two&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/3&quot;&gt;Three&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/4&quot;&gt;Four&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;where-am-i.html&quot;&gt;Am I here?&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/6&quot;&gt;Six&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/7&quot;&gt;Seven&lt;/a&gt;&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/nav&gt;
+            &lt;section&gt;Main content goes here&lt;/section&gt;
+            &lt;footer&gt;Footer things go here&lt;/footer&gt;
+            &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                // Your code goes here
+            });
+            &lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<p>Now were ready to start working on a <em>Y</em> function where the behavior takes place. We need to
+get a list of all <em>li</em>. Working inside our <em>Y</em> let&#39;s save the handles to the elements.</p>
+<pre><code class="language-JavaScript">            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                // Your code goes here
+                var allLi = Y.all(&quot;nav ol &gt; li&quot;);
+                // Now we should have a list to all the li
+            });
+            &lt;/script&gt;</code></pre>
+<p>We can iterate over that list and see if we find a match. During development I have found it helpful
+to use <em>Y.log()</em> to write information to the consule. Before we have a whole solution I will do that here.
+Our JavaScript block should now look something like--</p>
+<pre><code class="language-JavaScript">            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                // Your code goes here
+                var allLi = Y.all(&quot;nav ol &gt; li&quot;);
+                Y.log(allLi, &quot;debug&quot;);
+                // Now we should have a list to all the li
+                allLi.each(function (li) {
+                    var anchor = li.one(&quot;a&quot;);
+                    if (anchor) {
+                        // Write the li to the console
+                        Y.log(li, &quot;debug&quot;);
+                        // Write our anchor element to console
+                        Y.log(anchor, &quot;debug&quot;);
+                    } else {
+                        Y.log(&quot;Could not find anchor in li&quot;, &quot;error&quot;);
+                    }
+                });
+            });
+            &lt;/script&gt;</code></pre>
+<p>We can add a check of the <em>href</em> attribute of the <em>anchor</em> and decide if we need to change things.</p>
+<pre><code class="language-JavaScript">            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                // Your code goes here
+                var allLi = Y.all(&quot;nav ol &gt; li&quot;);
+                Y.log(allLi, &quot;debug&quot;);
+                // Now we should have a list to all the li
+                allLi.each(function (li) {
+                    var anchor = li.one(&quot;a&quot;);
+                    if (anchor) {
+                        // Write the li to the console
+                        Y.log(li, &quot;debug&quot;);
+                        // Write our anchor element to console
+                        Y.log(anchor, &quot;debug&quot;);
+                        if (anchor.get(&quot;href&quot;).indexOf(&quot;where-am-i.html&quot;) &gt; 0) {
+                            Y.log(&quot;Need to update the anchor&quot;, &quot;debug&quot;);
+                        }
+                    } else {
+                        Y.log(&quot;Could not find anchor in li&quot;, &quot;error&quot;);
+                    }
+                });
+            });
+            &lt;/script&gt;</code></pre>
+<p>If we add in chaning the <em>innerHTML</em> of the <em>li</em> as needed we ready to put this all together--</p>
+<p><a href="solution-where-am-i.html">solution-where-am-i.html</a></p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;Where am I?&lt;/title&gt;
+            &lt;style&gt;
+                li {
+                    color: blue;
+                    background-color: white;
+                }
+
+                .here {
+                    color: white;
+                    background-color: blue;
+                }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;header&gt;Where am I?&lt;/header&gt;
+            &lt;nav&gt;
+                &lt;ol&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/1&quot;&gt;One&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/2&quot;&gt;Two&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/3&quot;&gt;Three&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/4&quot;&gt;Four&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;where-am-i.html&quot;&gt;Am I here?&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/6&quot;&gt;Six&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://example.com/7&quot;&gt;Seven&lt;/a&gt;&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/nav&gt;
+            &lt;section&gt;Our navigation should update to show visually which link is &quot;here&quot; and swap
+            that for a span. Browser console should include log messages.&lt;/section&gt;
+            &lt;footer&gt;&lt;/footer&gt;
+            &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                // Your code goes here
+                var allLi = Y.all(&quot;nav &gt; ol &gt; li&quot;);
+                // Now we should have a list to all the li
+                Y.log(allLi, &quot;debug&quot;);
+                allLi.each(function (li) {
+                    var anchor = li.one(&quot;a&quot;);
+                    if (anchor) {
+                        // Write the li to the console
+                        // Write our anchor element to console
+                        Y.log(anchor.get(&quot;href&quot;), &quot;debug&quot;);
+                        if (anchor.get(&quot;href&quot;).indexOf(&quot;where-am-i.html&quot;) &gt; 0) {
+                            Y.log(&quot;Need to update the anchor&quot;, &quot;debug&quot;);
+                            li.setHTML(&#39;&lt;span class=&quot;here&quot;&gt;&#39; + anchor.get(&#39;text&#39;) + &#39;&lt;/span&gt;&#39;);
+                        }
+                    } else {
+                        Y.log(&quot;Could not find anchor in li&quot;, &quot;error&quot;);
+                    }
+                });
+            });
+            &lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+
+        </section>
+        
+        <footer>
+            <div class="copyright-notice">copyright &copy; 2013</div>
+            <div class="license">Released under the <a href="http://opensource.org/licenses/BSD-2-Clause">BSD 2-Clause</a> license.</div>
+        </footer>
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        YUI().use("node", function (Y) {
+            var allH2 = Y.all("h2");
+            allH2.each(function (h2) {
+                var key = h2.getHTML(),
+                    anchor = Y.one('a[href="#' + key.toLowerCase() + '"]');
+                if (anchor) {
+                    h2.setHTML('<a name="' + key.toLowerCase() + '">' + key + '</a>');
+                }
+            });
+        });
+        </script>
+    </body>
+</html>

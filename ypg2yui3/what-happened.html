@@ -1,0 +1,98 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <title>what-happened.md</title>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+        <link href="css/styles.css" rel="stylesheet" media="all">
+    </head>
+    <body>
+        <header><h1>what-happened.md</h1></header>
+        <section>
+        <h4>What happened?</h4>
+<p>This is another example of showing making more sense than telling but let me quickly outline the
+steps you normally take to get started.</p>
+<ol>
+<li>Load <em>YUI3</em> in the page</li>
+<li>In your Script blog (or JavaScript file using <em>YUI3</em>) include the <em>event</em> module.</li>
+<li>In your <em>Y</em> function select the object you want to listen to (e.g. a button) then use <em>on()</em> to add behavior.</li>
+</ol>
+<p>That is the basic approach. In this example let us create a simple webpage with a button in the middle and
+a status line in the footer.  When we pick up an event listened for then update the status line (e.g. mouse
+key pressed if a your clicks on the button). This is example let us listen for mouse clicks and the flick touch guesture.</p>
+<h4>Steps</h4>
+<p>Copy <em>seed-file.html</em> to <em>what-happened.html</em>. Do the following things</p>
+<ol>
+<li>Add a <em>button</em> element to the <em>section</em> element in our HTML markup</li>
+<li>Update the line where we <em>use()</em> <em>YUI</em> and generate our <em>Y</em> function to to include the <em>event</em> module.</li>
+<li>Select our button using <em>Y.one()</em></li>
+<li>Add listeners via <em>on()</em> method for click and flick</li>
+</ol>
+<h3>Solution</h3>
+<p>Like the digital clock this is pretty simple.  We are doing all the lifting in the <em>Y</em> function.
+In this case besides using <em>Y.one()</em> to get a handle to our button we are also add simple
+listener callbacks with the <em>on()</em> method.</p>
+<p>Notice the line in our script block <em>YUI().use(...)</em>.  After <em>node</em> and before our <em>Y</em> function
+is the <em>event</em> node.  Basically the <em>use()</em> function takes a list of module names, loads the 
+module and then passes that to the last parameter which is a function via our <em>Y</em> object.</p>
+<p><a href="solution-what-happened.html">solution-what-happened.html</a></p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;What Happened?&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;header&gt;What Happened?&lt;/header&gt;
+            &lt;section&gt;
+                &lt;button&gt;Press me&lt;/button&gt;
+                &lt;p&gt;press, click, touch or flick the button please.&lt;/p&gt;
+                &lt;div id=&quot;status&quot;&gt;Status messages will show here.&lt;/div&gt;
+            &lt;/section&gt;
+            &lt;footer&gt;&lt;/footer&gt;
+            &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+            &lt;script&gt;
+            // Notice we are adding the event module in our use() parameters. 
+            YUI().use(&quot;node&quot;, &quot;event&quot;, function (Y) {
+                // Your code goes here
+                var button = Y.one(&quot;button&quot;),
+                    status = Y.one(&quot;#status&quot;);
+                // Let&#39;s add our listeners
+                button.on(&quot;click&quot;, function (e) {
+                    status.setHTML(&quot;You clicked me.&quot;);
+                });
+
+                button.on(&quot;flick&quot;, function (e) {
+                    status.setHTML(&quot;You flicked me.&quot;);
+                });
+            });
+            &lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<p>Here are some helpful links from yuilibrary--</p>
+<ul>
+<li><a href="http://yuilibrary.com/yui/docs/event/">click</a> - general event module</li>
+<li><a href="http://yuilibrary.com/yui/docs/event/gestures.html">flick</a> - guesture examples</li>
+<li><a href="http://yuilibrary.com/yui/docs/event-custom/index.html">custom</a> - custom event examples</li>
+</ul>
+
+        </section>
+        
+        <footer>
+            <div class="copyright-notice">copyright &copy; 2013</div>
+            <div class="license">Released under the <a href="http://opensource.org/licenses/BSD-2-Clause">BSD 2-Clause</a> license.</div>
+        </footer>
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        YUI().use("node", function (Y) {
+            var allH2 = Y.all("h2");
+            allH2.each(function (h2) {
+                var key = h2.getHTML(),
+                    anchor = Y.one('a[href="#' + key.toLowerCase() + '"]');
+                if (anchor) {
+                    h2.setHTML('<a name="' + key.toLowerCase() + '">' + key + '</a>');
+                }
+            });
+        });
+        </script>
+    </body>
+</html>

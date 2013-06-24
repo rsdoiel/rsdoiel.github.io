@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Where am I?</title>
+        <style>
+            li {
+                color: blue;
+                background-color: white;
+            }
+            
+            .here {
+                color: white;
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <header>Where am I?</header>
+        <nav>
+            <ol>
+                <li><a href="http://example.com/1">One</a></li>
+                <li><a href="http://example.com/2">Two</a></li>
+                <li><a href="http://example.com/3">Three</a></li>
+                <li><a href="http://example.com/4">Four</a></li>
+                <li><a href="where-am-i.html">Am I here?</a></li>
+                <li><a href="http://example.com/6">Six</a></li>
+                <li><a href="http://example.com/7">Seven</a></li>
+            </ol>
+        </nav>
+        <section>Our navigation should update to show visually which link is "here" and swap
+        that for a span. Browser console should include log messages.</section>
+        <footer></footer>
+        <!-- get YUI3 on the page, and a script block for your code -->
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        YUI().use("node", function (Y) {
+            // Your code goes here
+            var allLi = Y.all("nav > ol > li");
+            // Now we should have a list to all the li
+            Y.log(allLi, "debug");
+            allLi.each(function (li) {
+                var anchor = li.one("a");
+                if (anchor) {
+                    // Write the li to the console
+                    // Write our anchor element to console
+                    Y.log(anchor.get("href"), "debug");
+                    if (anchor.get("href").indexOf("where-am-i.html") > 0) {
+                        Y.log("Need to update the anchor", "debug");
+                        li.setHTML('<span class="here">' + anchor.get('text') + '</span>');
+                    }
+                } else {
+                    Y.log("Could not find anchor in li", "error");
+                }
+            });
+        });
+        </script>
+    </body>
+</html>
