@@ -1,17 +1,17 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>digital-clock-2.md</title>
+        <title>clock-2.md</title>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
         <link href="css/styles.css" rel="stylesheet" media="all">
     </head>
     <body>
-        <header><h1>digital-clock-2.md</h1></header>
+        <header><h1>clock-2.md</h1></header>
         <section>
-        <h2>What Time is it?</h2>
+        <h2>Clock No. 2</h2>
 <ul>
 <li>Programming Goal<ul>
-<li>Create a simple <em>YUI</em> module out of our digital clock</li>
+<li>Create a simple <em>YUI</em> module out of our clock</li>
 </ul>
 </li>
 <li>Learning Objectives<ul>
@@ -21,38 +21,38 @@
 </ul>
 </li>
 </ul>
-<p>Let us turn our &quot;digital clock&quot; into a module. The idea is to create 
-an Object attached to your <em>Y</em> called <em>DigitalClock</em> you could then add
+<p>Let us turn our &quot;clock&quot; into a module. The idea is to create 
+an Object attached to your <em>Y</em> called <em>Clock</em> you could then add
 that to a <em>DOM</em> element.  An optional callback function to supported
 extending the module with a custom render function (e.g. an analog clock
 using Canvas).</p>
 <h3>Steps</h3>
-<p>Create a new file called <em>digital-clock-2.js</em>. We will put our module code there.
-Copy <em>seed-file.html</em> to <em>digital-clock-2.html</em>. Do the following things</p>
+<p>Create a new file called <em>clock-2.js</em>. We will put our module code there.
+Copy <em>seed-file.html</em> to <em>clock-2.html</em>. Do the following things</p>
 <ol>
-<li>In <em>digital-clock-2.html&#39;s _script</em> in-line element add configuration to point our our module.</li>
-<li>In <em>digital-clock-2.html&#39;s _script</em> in-line element update the <em>use()</em> function to include our module.</li>
-<li>Open our empty <em>digital-clock-2.js</em> file and create our module
+<li>In <em>clock-2.html&#39;s _script</em> in-line element add configuration to point our our module.</li>
+<li>In <em>clock-2.html&#39;s _script</em> in-line element update the <em>use()</em> function to include our module.</li>
+<li>Open our empty <em>clock-2.js</em> file and create our module
  a. create a namespace
  b. create a <em>render()</em> method that returns HTML markup as a string with current time<pre><code> - this should expect a _Date_ object as a parameter to be rendered.</code></pre>
  c. create a <em>run()</em> method that uses setInterval to update our clock every second. <pre><code> - first paramter is a CSS selector of an element which will hold our clock
  - second parameter should be the number of milliseconds between updates
  - an optional third parameter should allow for a custom render method overriding our default render method</code></pre>
  d. Include a requirement for our module of <em>node</em> so we can update the <em>DOM</em> elements targetted.</li>
-<li>Go back to our <em>digital-clock-2.html</em> file.</li>
-<li>Inside the <em>Y</em> on our in-line <em>script</em> element use <em>Y.DigitalClock()</em> to create our <em>clock</em> object and _run() to run it.</li>
+<li>Go back to our <em>clock-2.html</em> file.</li>
+<li>Inside the <em>Y</em> on our in-line <em>script</em> element use <em>Y.Clock()</em> to create our <em>clock</em> object and _run() to run it.</li>
 </ol>
 <h3>Solution</h3>
 <p>Here is the markup for our main HTML page. Note the use of a configuration in <em>YUI()</em>.</p>
-<p><a href="solution-digital-clock-2.html">solution-digital-clock-2.html</a></p>
+<p><a href="solution-clock-2.html">solution-clock-2.html</a></p>
 <pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
     &lt;html&gt;
         &lt;head&gt;
-            &lt;title&gt;Digital Clock 2&lt;/title&gt;
+            &lt;title&gt;Clock 2&lt;/title&gt;
             &lt;style&gt;&lt;/style&gt;
         &lt;/head&gt;
         &lt;body&gt;
-            &lt;header&gt;Digital Clock 2&lt;/header&gt;
+            &lt;header&gt;Clock 2&lt;/header&gt;
             &lt;section id=&quot;clock&quot;&gt;Main content goes here&lt;/section&gt;
             &lt;footer&gt;The section above should display the date and time. It should change every second.&lt;/footer&gt;
             &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
@@ -61,13 +61,13 @@ Copy <em>seed-file.html</em> to <em>digital-clock-2.html</em>. Do the following 
             // WE configure our _YUI()_ this time.
             YUI({
                 modules: {
-                    &quot;digital-clock&quot;: {
-                        fullpath: &quot;digital-clock-2.js&quot;
+                    &quot;clock&quot;: {
+                        fullpath: &quot;clock-2.js&quot;
                     }
                 }
-            }).use(&quot;node&quot;, &quot;digital-clock&quot;, function (Y) {
+            }).use(&quot;node&quot;, &quot;clock&quot;, function (Y) {
                 // Your code goes here
-                var clock = new Y.DigitalClock();
+                var clock = new Y.Clock();
                 clock.run(&quot;#clock&quot;, 1000);
             });
             &lt;/script&gt;
@@ -75,24 +75,24 @@ Copy <em>seed-file.html</em> to <em>digital-clock-2.html</em>. Do the following 
     &lt;/html&gt;</code></pre>
 <p>That is the easy part. Now let us create our module. After we define
 our modules core we then include a version number (e.g. 0.0.2 since this is our second
-digital clock prototype) and
+clock prototype) and
 a configuration options object including the required list of modules
 we need to run.</p>
-<p><a href="digital-clock-2.js">digital-clock-2.js</a></p>
+<p><a href="clock-2.js">clock-2.js</a></p>
 <pre><code class="language-JavaScript">    // Define out module using _YUI.add()_
-    YUI.add(&quot;digital-clock&quot;, function (Y) {
+    YUI.add(&quot;clock&quot;, function (Y) {
         // Create our namespace
-        Y.namespace(&quot;DigitalClock&quot;);
+        Y.namespace(&quot;Clock&quot;);
 
         // Setup a constructor with reasonable defaults
-        function DigitalClock () {};
-        DigitalClock.prototype.interval = 1000;
-        DigitalClock.prototype.int_id = null;
-        DigitalClock.prototype.selector = null;
-        DigitalClock.prototype.render = function (now) {
+        function Clock () {};
+        Clock.prototype.interval = 1000;
+        Clock.prototype.int_id = null;
+        Clock.prototype.selector = null;
+        Clock.prototype.render = function (now) {
             this.element.set(&quot;text&quot;, now.toString());
         };
-        DigitalClock.prototype.run = function (selector, interval, renderCallback) {
+        Clock.prototype.run = function (selector, interval, renderCallback) {
             var self = this;
 
             this.element = Y.one(selector);
@@ -104,14 +104,14 @@ we need to run.</p>
             }, interval);
             return this.int_id;
         };
-        DigitalClock.prototype.stop = function () {
+        Clock.prototype.stop = function () {
             if (this.int_id) {
                 clearInterval(this.int_id);
             }
         };
 
-        // Add our new Object as DigitalClock
-        Y.DigitalClock = DigitalClock;
+        // Add our new Object as Clock
+        Y.Clock = Clock;
     },
     // Semantic Version number
     &quot;0.0.2&quot;,

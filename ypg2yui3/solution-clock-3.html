@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Digital Clock 2</title>
+        <title> Clock 3</title>
         <style></style>
     </head>
     <body>
-        <header>Digital Clock 2</header>
+        <header> Clock 3</header>
         <section id="clock">Main content goes here</section>
         <footer>The section above should display the date and time. It should change every second.</footer>
+        <!-- Here are our handlebars templates -->
+        <script id="view" type="text/x-handlebars-template">
+            {{time}}
+        </script>
         <!-- get YUI3 on the page, and a script block for your code -->
         <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
         <script>
         // WE configure our _YUI()_ this time.
         YUI({
             modules: {
-                "digital-clock": {
-                    fullpath: "digital-clock-2.js"
+                "clock": {
+                    fullpath: "clock-3.js"
                 }
             }
-        }).use("node", "digital-clock", function (Y) {
+        }).use("node", "clock", function (Y) {
             // Your code goes here
-            var clock = new Y.DigitalClock();
-            clock.run("#clock", 1000);
+            var clock = new Y.Clock();
+            clock.run("#clock", 1000, "#view");
         });
         </script>
     </body>

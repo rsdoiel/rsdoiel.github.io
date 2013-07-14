@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Young-Persons-Guide-to-YUI3.md</title>
@@ -9,7 +9,7 @@
         <header><h1>Young-Persons-Guide-to-YUI3.md</h1></header>
         <section>
         <h1>Young Person&#39;s Guide to YUI3 (draft 0)</h1>
-<p>by R. S. Doiel, <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x72;&#x73;&#100;&#111;&#x69;&#101;&#x6c;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x72;&#x73;&#100;&#111;&#x69;&#101;&#x6c;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a>
+<p>by R. S. Doiel, <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x72;&#x73;&#100;&#x6f;&#105;&#101;&#x6c;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x72;&#x73;&#100;&#x6f;&#105;&#101;&#x6c;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a>
 Updated: 2013-07-14</p>
 <p>This is a gentle introduction to <a href="http://yuilibrary.com" title="YUI3 was at version 3.10.0 at the time this article was written">YUI3</a>. It does make a few assumptions-</p>
 <ul>
@@ -37,17 +37,12 @@ Google&#39;s search algorhythm still ranks legacy <em>YUI2</em> documentation hi
 <ul>
 <li><a href="#preface">Preface</a> -- What you&#39;ll need before you begin</li>
 <li><a href="#starting">Starting</a> -- The minimum to pull YUI3 into the webpage</li>
-<li><a href="#selectors">Selectors</a> -- Getting Access to parts of a webpage</li>
-<li><a href="#dom">DOM</a> -- interacting with innerHTML and attributes</li>
-<li><a href="#Exploration">Exploration</a> -- <ul>
-<li><a href="#query">Query</a> -- access and update elements in the page</li>
-<li><a href="#action">Action</a> -- Mouse clicks, keyboard commands and touch</li>
-<li><a href="#modules">Modules</a> -- Moving beyond YUI&#39;s <strong>node</strong></li>
+<li><a href="#selectors">Selectors</a> -- Accessing parts of a webpage</li>
+<li><a href="#actions">Actions</a> -- Mouse clicks, keyboard commands and touch</li>
+<li><a href="#modules">Modules</a> -- Beyond YUI&#39;s <strong>node</strong> and <strong>event</strong></li>
 <li><a href="#templates">Templates</a> -- Building out a page with <strong>Y.Handlebars</strong></li>
-<li><a href="#persistence">Persistence</a> -- Saving things for latter with <strong>Y.StorageLite</strong></li>
 <li><a href="#remote">Remote</a> -- Bring content into the page with <strong>Y.io</strong></li>
-</ul>
-</li>
+<li><a href="#persistence">Persistence</a> -- Saving things for latter with <strong>Y.StorageLite</strong></li>
 <li><a href="#reminders">Reminders</a> -- Should you use YUI for that?</li>
 </ul>
 <h2>Preface</h2>
@@ -161,7 +156,7 @@ they are similar. If you used a <em>$</em> in jQuery look for <em>Y</em> dot som
 YUI3, if you used a <em>$( ... )</em> then look at using either a <em>Y.one()</em> or
 <em>Y.all()</em> depending on whether you need a single element or a list of elements.</p>
 <h2>Selectors</h2>
-<h3>Getting access to parts of a webpage</h3>
+<h3>Accessing parts of a webpage</h3>
 <pre><code>    CSS selectors work the way you expect but save those references to be efficient!</code></pre>
 <p><em>YUI3</em> uses <a href="http://en.wikipedia.org/wiki/CSS" title="Cascading Style Sheets, they way to control how a webpage looks.">CSS</a> selectors to access parts of the webpage. This typically
 is by indentifing an element via an <em>id</em> or <em>class</em> attribute. You may also use
@@ -230,8 +225,7 @@ indicate the links we found.</p>
     &lt;/html&gt;</code></pre>
 <p>That&#39;s it. Take a look at this results with your browser.  You should see, very quickly I might add, a sentence
 indicating the links found.</p>
-<h2>DOM</h2>
-<h3>interacting with innerHTML and attributes</h3>
+<h3>innerHTML and attributes</h3>
 <p>JavaScript in the browser is useful for orchestrating behaviors. To do this
 we need to get the values inside HTML elements as well as their
 attributes. This is easy with <em>YUI3</em>. The <a href="http://yuilibrary.com/yui/docs/node/" title="The YUI3 Node module provides access to DOM elements.">node</a> module provides us with a
@@ -290,8 +284,8 @@ beyond the specifics discussed previously.</p>
             &lt;/script&gt;
         &lt;/body&gt;
     &lt;/html&gt;</code></pre>
-<h2>Query</h2>
-<h3>Clock No. 1</h3>
+<h3>Exercises</h3>
+<h4>Clock No. 1</h4>
 <ul>
 <li>Programming goal<ul>
 <li>build a minimal clock webpage</li>
@@ -305,8 +299,8 @@ beyond the specifics discussed previously.</p>
 </ul>
 <p>Using <em>YUI3</em> update content in the webpage every few seconds displaying the
 current time manipulate the CSS classes attach to the element showing the time.</p>
-<h4>Steps</h4>
-<p>Copy <em>seed-file.html</em> to <em>digital-clock-1.html</em>. Do the following things</p>
+<h5>Steps</h5>
+<p>Copy <em>seed-file.html</em> to <em>clock-1.html</em>. Do the following things</p>
 <ul>
 <li>Add an <em>id</em> attribute of &quot;clock&quot; to <em>section</em>.</li>
 <li>Add a <em>style</em> element in the <em>head</em> of the document setting font size of section to &quot;2em&quot;</li>
@@ -320,12 +314,12 @@ current time manipulate the CSS classes attach to the element showing the time.<
 <li>Each time your update the time swap the classes between <em>now-blue</em> and <em>now-red</em>.</li>
 <li>Load the webpage and watch to see if the section innerHTML changes every five seconds and also if the colors change too.</li>
 </ul>
-<h4>Notes</h4>
+<h5>Notes</h5>
 <ul>
 <li>In this tutorial I have opted for <a href="https://en.wikipedia.org/wiki/Inline_expansion" title="In-line is not necessarily a &#39;best practice&#39; particularlly in more complicated websites and applications.">in-line</a> code for convienence</li>
-<li>One approach to the solution is <a href="digital-clock-1.html">digital-clock-1.html</a>. Review it and compare with your own code.</li>
+<li>One approach to the solution is <a href="clock-1.html">clock-1.html</a>. Review it and compare with your own code.</li>
 </ul>
-<h3>Navigation list</h3>
+<h4>Navigation list</h4>
 <ul>
 <li>Programming goal<ul>
 <li>compare the page name of <em>where-am-i.html</em> with the <em>href</em> in a <em>ul</em> list of anchors elements</li>
@@ -339,7 +333,7 @@ current time manipulate the CSS classes attach to the element showing the time.<
 </ul>
 </li>
 </ul>
-<h4>Steps</h4>
+<h5>Steps</h5>
 <p>Copy <em>seed-file.html</em> to <em>where-am-i.html</em>.  Do the following things</p>
 <ul>
 <li>Add a <em>nav</em> element before section</li>
@@ -352,12 +346,12 @@ current time manipulate the CSS classes attach to the element showing the time.<
 </ul>
 </li>
 </ul>
-<h4>Notes</h4>
+<h5>Notes</h5>
 <ul>
 <li>We are using in-line code for simplicity of instruction</li>
 <li>One approach to the solution is <a href="where-am-i.html">where-am-i.html</a></li>
 </ul>
-<h2>Action</h2>
+<h2>Actions</h2>
 <p><em>YUI3</em> provides a robust event system which includes listening for mouse, key
 and touch events. Unlike other JavaScript frameworks <em>YUI3</em> approaches the
 development problem wholistically and doesn&#39;t create a separate library for
@@ -373,7 +367,8 @@ This is like the normal DOM events exposed in JavaScript or in libraries like
 <em>jQuery</em>. You can choose to handle the event, alter the propogation and stop
 listening to it. The key is to get a handle to the object and then use the
 <em>on()</em> method to setup a callback to use when the event happens.</p>
-<h3>What happened?</h3>
+<h3>Exercises</h3>
+<h4>What happened?</h4>
 <ul>
 <li>Programming goal<ul>
 <li>Display a button and monitor for click and flick events</li>
@@ -397,7 +392,7 @@ a button in the middle and a status line in the footer.  When we pick up an
 event listened for then update the status line (e.g. mouse key pressed if a
 your clicks on the button). This is example let&#39;s listen for clicks and flick
 guesture.</p>
-<h4>Steps</h4>
+<h5>Steps</h5>
 <p>Copy <em>seed-file.html</em> to <em>what-happened.html</em>. Do the following things</p>
 <ol>
 <li>Add a <em>button</em> element to the <em>section</em> element in our HTML markup</li>
@@ -405,7 +400,7 @@ guesture.</p>
 <li>Select our button using <em>Y.one()</em></li>
 <li>Add listeners via <em>on()</em> method for click and flick</li>
 </ol>
-<h4>Notes</h4>
+<h5>Notes</h5>
 <ul>
 <li>It is important to remember that event listeners do have an overhead, if you don&#39;t need it anymore then remove the listener.</li>
 <li>One approach to the solution is <a href="what-happened.html">what-happened.html</a></li>
@@ -504,7 +499,7 @@ to find our module with a little bit of <a href="http://yuilibrary.com/yui/docs/
 <li>Modules can be also submitted to <em>YUI</em>&#39;s gallery and be hosted in Yahoo&#39;s CDN</li>
 </ul>
 <p>Like DOM events working with modues is easier shown.</p>
-<h4>A quick aside on YUI Gallery</h4>
+<h3>A quick aside on YUI Gallery</h3>
 <p><em>YUI</em> supports a whole <a href="http://yuilibrary.com/gallery/" title="Gallery modules are linked from yuilibrary, many are available on Yahoo&#39;s CDN, but the source is often on github.com">gallery</a> of user contributed modules. Some specialized
 and some general purpose. The good thing is that you only load them if you
 need them.  You can specify a specific version of a module if you like. Before
@@ -517,10 +512,11 @@ functionality it had previously in core. Being in the gallery versus being in
 core is not a statement on the quality or importance of the code. Being in the
 gallery means your code could be included on Yahoo&#39;s CDN which simplifies using
 it for others. </p>
-<h3>What Time is it?</h3>
+<h3>Exercises</h3>
+<h4>What Time is it?</h4>
 <ul>
 <li>Programming Goal<ul>
-<li>Create a simple <em>YUI</em> module out of our digital clock</li>
+<li>Create a simple <em>YUI</em> module out of our clock</li>
 </ul>
 </li>
 <li>Learning Objectives<ul>
@@ -530,19 +526,19 @@ it for others. </p>
 </ul>
 </li>
 </ul>
-<p>Let us turn our &quot;digital clock&quot; into a module. The idea is to create 
+<p>Let us turn our &quot;clock&quot; into a module. The idea is to create 
 an Object attached to your <em>Y</em> called <em>DigitalClock</em> you could then add
 that to a <em>DOM</em> element.  It should also support an optional callback
 function to supported extending the module with a custom render function.
-This will allow your flexibility to extend the digital clock later
+This will allow your flexibility to extend the clock later
 (e.g. displaying as an analog clock using Canvas).</p>
-<h4>Steps</h4>
-<p>Create a new file called <em>digital-clock-2.js</em>. We will put our module code there.
-Copy <em>seed-file.html</em> to <em>digital-clock-2.html</em>. Do the following things</p>
+<h5>Steps</h5>
+<p>Create a new file called <em>clock-2.js</em>. We will put our module code there.
+Copy <em>seed-file.html</em> to <em>clock-2.html</em>. Do the following things</p>
 <ol>
-<li>In <em>digital-clock-2.html&#39;s _script</em> in-line element add configuration to point to our module.</li>
-<li>In <em>digital-clock-2.html&#39;s _script</em> in-line element update the <em>use()</em> function to include our module.</li>
-<li>Open our empty <em>digital-clock-2.js</em> file and 
+<li>In <em>clock-2.html&#39;s _script</em> in-line element add configuration to point to our module.</li>
+<li>In <em>clock-2.html&#39;s _script</em> in-line element update the <em>use()</em> function to include our module.</li>
+<li>Open our empty <em>clock-2.js</em> file and 
  a. create our module
  b. create a namespace
  c. create a <em>render()</em> method that returns HTML markup as a string of our clock&#39;s current time<pre><code> - this should expect a _Date_ object as a parameter to be rendered.</code></pre>
@@ -550,16 +546,16 @@ Copy <em>seed-file.html</em> to <em>digital-clock-2.html</em>. Do the following 
  - An optional second parameter should allow for a custom render method
  - If a render method is not provided use our default _render()_ we implemented.</code></pre>
 </li>
-<li>Go back to our <em>digital-clock-2.html</em> file.</li>
+<li>Go back to our <em>clock-2.html</em> file.</li>
 <li>Inside the <em>Y</em> on our in-line <em>script</em> element use <em>Y.DigitalClock.render()</em> to run our clock.</li>
 </ol>
-<h4>Notes</h4>
+<h5>Notes</h5>
 <ul>
 <li>We are using an external file for some of our JavaScript this time (i.e. our module)</li>
-<li>One possible solition is <a href="digital-clock-2.html">digital-clock-2.html</a> and <a href="digital-clock-2.js">digital-clock-2.js</a> holding our module code.</li>
+<li>One possible solition is <a href="clock-2.html">clock-2.html</a> and <a href="clock-2.js">clock-2.js</a> holding our module code.</li>
 </ul>
 <h2>Templates</h2>
-<h3>Building out a page with <strong>Y.Handlebars</strong></h3>
+<h3>Building a page with <strong>Y.Handlebars</strong></h3>
 <p>Templates are a convient solution to generating HTML from JavaScript functions.
 Templates in JavaScript can often be rendered server side as well as in the
 browser. This is true of <em>Handlbars</em> templates.  <em>Handlebars</em> is an extention
@@ -636,6 +632,7 @@ pre-render this server side for a pregressively enhanced experience.</p>
     &lt;/html&gt;</code></pre>
 <p>Of course you could also define your templates outside the document and bring
 them in via an <a href="http://docs.webplatform.org/wiki/apis/xhr" title="xdr - Cross Domain Request, also referred to as Ajax.">xdr</a> call.</p>
+<h3>Exercises</h3>
 <h4>Clock with Template</h4>
 <ul>
 <li>Programming Goal<ul>
@@ -647,16 +644,12 @@ them in via an <a href="http://docs.webplatform.org/wiki/apis/xhr" title="xdr - 
 </ul>
 </li>
 </ul>
-<h4>Steps</h4>
-<h4>Notes</h4>
+<h5>Steps</h5>
+<h5>Notes</h5>
 <ul>
-<li>One implementation is <a href="digital-clock-3.html">digital-clock-3.html</a></li>
+<li>One implementation is <a href="clock-3.html">clock-3.html</a></li>
 </ul>
-<h2>Persistence</h2>
-<h3>Saving things for latter with Y.StorageLite</h3>
-<p>FIXME: Let&#39;s save our alarms in the browser using the Y.StorageLite module</p>
 <h2>Remote</h2>
-<p>FIXME: Some times you want data from someplace else...</p>
 <h3>Bring content into the page with <strong>Y.io</strong> from <strong>io-base</strong></h3>
 <p>Sometimes we need data from other websites or even an <a href="http://wikipedia.org/wiki/API" title="Application Programming Interface - For our purposes today a way to get data from and push data to a web service">API</a> in our hosting
 website. It is nice to have that option in the browser and <em>YUI</em> has a module
@@ -755,7 +748,7 @@ documentation and <a href="http://yuilibrary.com/yui/utilities">Utilities</a> an
 Object specific docs extracted from the source code at
 <a href="http://yuilibrary.com/yui/docs/api/classes/IO.html">YUI Library, API Docs, IO</a>
 for specific implementation details.</p>
-<h5>An aside about IO</h5>
+<h3>An aside about IO</h3>
 <p><em>IO</em>&#39;s <em>Y.io</em> is a very configurable and flexible object.  I have shown only one
 idiomatic use to keep things simple. If all you were doing in your page was
 fetching <em>JSON</em> objects then you could use <em>Y.io</em>&#39;s  <em>getJSON()</em> function. This
@@ -766,12 +759,16 @@ you to do a complete <a href="http://en.wikipedia.org/wiki/Single_page_applicati
 It works both in the browser and in <em>Node</em>. That gives us a common way to setup
 remote API access that might be processed in a middle layer running on the
 server or directly in the client web browser.</p>
-<h3>Clock with alarms</h3>
-<h4>Steps</h4>
-<h4>Notes</h4>
+<h3>Exercises</h3>
+<h4>Clock with alarms</h4>
+<h5>Steps</h5>
+<h5>Notes</h5>
 <ul>
-<li>One implementation of our Digital Clock with Alarms pull is <a href="digital-clock-4.html">digital-clock-4.html</a></li>
+<li>One implementation of our Digital Clock with Alarms pull is <a href="clock-4.html">clock-4.html</a></li>
 </ul>
+<h2>Persistence</h2>
+<h3>Saving things for latter with Y.StorageLite</h3>
+<p>FIXME: Let&#39;s save our alarms in the browser using the Y.StorageLite module</p>
 <h2>Reminders</h2>
 <h3>Should you use YUI for that?</h3>
 <p>While <em>YUI3</em> is a very good library it is easy to get carried away. Here&#39;s some

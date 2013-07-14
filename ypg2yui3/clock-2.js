@@ -1,17 +1,17 @@
 // Define out module using _YUI.add()_
-YUI.add("digital-clock", function (Y) {
+YUI.add("clock", function (Y) {
     // Create our namespace
-    Y.namespace("DigitalClock");
+    Y.namespace("Clock");
 
     // Setup a constructor with reasonable defaults
-    function DigitalClock () {};
-    DigitalClock.prototype.interval = 1000;
-    DigitalClock.prototype.int_id = null;
-    DigitalClock.prototype.selector = null;
-    DigitalClock.prototype.render = function (now) {
+    function Clock () {};
+    Clock.prototype.interval = 1000;
+    Clock.prototype.int_id = null;
+    Clock.prototype.selector = null;
+    Clock.prototype.render = function (now) {
         this.element.set("text", now.toString());
     };
-    DigitalClock.prototype.run = function (selector, interval, renderCallback) {
+    Clock.prototype.run = function (selector, interval, renderCallback) {
         var self = this;
 
         this.element = Y.one(selector);
@@ -23,14 +23,14 @@ YUI.add("digital-clock", function (Y) {
         }, interval);
         return this.int_id;
     };
-    DigitalClock.prototype.stop = function () {
+    Clock.prototype.stop = function () {
         if (this.int_id) {
             clearInterval(this.int_id);
         }
     };
 
-    // Add our new Object as DigitalClock
-    Y.DigitalClock = DigitalClock;
+    // Add our new Object as Clock
+    Y.Clock = Clock;
 },
 // Semantic Version number
 "0.0.2",

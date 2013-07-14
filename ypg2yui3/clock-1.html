@@ -1,17 +1,17 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>digital-clock-1.md</title>
+        <title>clock-1.md</title>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
         <link href="css/styles.css" rel="stylesheet" media="all">
     </head>
     <body>
-        <header><h1>digital-clock-1.md</h1></header>
+        <header><h1>clock-1.md</h1></header>
         <section>
-        <h2>Exercise Digital Clock</h2>
+        <h2>Clock No. 1</h2>
 <ul>
 <li>Programming goal<ul>
-<li>build a simple digital clock in the webpage</li>
+<li>build a simple clock in the webpage</li>
 </ul>
 </li>
 <li>Learning objective <ul>
@@ -23,7 +23,7 @@
 <p>Using YUI3 update content in the webpage every five seconds displaying the current time manipulate
 the CSS classes attach to the element showing the time.</p>
 <h3>Steps</h3>
-<p>Copy <em>seed-file.html</em> to <em>digital-clock.html</em>. Do the following things</p>
+<p>Copy <em>seed-file.html</em> to <em>clock.html</em>. Do the following things</p>
 <ul>
 <li>Add an <em>id</em> attribute of &quot;clock&quot; to <em>section</em>.</li>
 <li>Add a <em>style</em> element in the <em>head</em> of the document setting font size of section to &quot;2em&quot;</li>
@@ -38,13 +38,13 @@ the CSS classes attach to the element showing the time.</p>
 <li>Load the webpage and watch to see if the section innerHTML changes every five seconds and also if the colors change too.</li>
 </ul>
 <h3>Solution</h3>
-<p>Here is one approach to the digital clock problem.  Ideally you have built yours first before reading this but this is provided
+<p>Here is one approach to the clock problem.  Ideally you have built yours first before reading this but this is provided
 both as a review of what you discovered and as a comparison.</p>
-<p><a href="solution-digital-clock.html">solution-digital-clock.html</a></p>
+<p><a href="solution-clock.html">solution-clock.html</a></p>
 <pre><code class="language-JavaScript">    &lt;!DOCTYPE html&gt;
     &lt;html&gt;
         &lt;head&gt;
-            &lt;title&gt;Digital Clock&lt;/title&gt;
+            &lt;title&gt;Clock&lt;/title&gt;
             &lt;style&gt;
             font-size: 2em;
             .red {
@@ -59,9 +59,9 @@ both as a review of what you discovered and as a comparison.</p>
             &lt;/style&gt;
         &lt;/head&gt;
         &lt;body&gt;
-            &lt;header&gt;Digital Clock&lt;/header&gt;
+            &lt;header&gt;Clock&lt;/header&gt;
             &lt;section id=&quot;clock&quot; class=&quot;blue&quot;&gt;Main content goes here&lt;/section&gt;
-            &lt;footer&gt;The section above should display the date and time. It should change every five seconds.&lt;/footer&gt;
+            &lt;footer&gt;The section above should display the date and time. It should change every second.&lt;/footer&gt;
             &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
             &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
             &lt;script&gt;
@@ -83,7 +83,7 @@ both as a review of what you discovered and as a comparison.</p>
                         clock.replaceClass(&quot;red&quot;, &quot;blue&quot;);
                     }
                     clock.set(&quot;text&quot;, new Date());
-                }, 5000);
+                }, 1000);
             });
             &lt;/script&gt;
         &lt;/body&gt;
