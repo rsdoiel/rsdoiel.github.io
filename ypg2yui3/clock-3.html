@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>clock-3.md</title>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+        <link href="http://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" media="all">
+        <link href="css/styles.css" rel="stylesheet" media="all">
+    </head>
+    <body>
+        <header><h1>clock-3.md</h1></header>
+        <section>
+        <h2>Clock with Templates</h2>
+<h3>Steps</h3>
+<p>Copy <em>clock-2.js</em> to <em>clock-3.js</em>. We will continue our improvements there.
+Copy <em>clock-2.html</em> to _clock-3.html. Do the following things</p>
+<ol>
+<li>In <em>clock-3.html</em> add to <em>script</em> blocks for our templates
+ a. One should have an <em>id</em> attribute containing <em>view</em> and the other <em>analog-view</em>.
+ b. Both <em>script</em> blocks should have a <em>type</em> attribute with <em>text/x-handlebars-template</em>.</li>
+<li>In <em>clock-3.html&#39;s _script</em> in-line element add configuration to point our our module (i.e. clock-3.js).</li>
+<li>In <em>clock-3.html&#39;s _script</em> in-line element update the <em>use()</em> function to include our module.</li>
+<li>Open <em>clock-3.js</em> file and modify our module to expect a template for layout
+ a. Update our <em>render()</em> method to accept a compiled <em>Handlebars</em> template.
+ b. Update our <em>run()</em> method to include source for the <em>Handlebars</em> template<pre><code> - first paramter is a CSS selector of an element which will hold our clock
+ - second parameter should be the number of milliseconds between updates
+ - third parameter is either a _selector_, template source code, or compiled template</code></pre>
+ c. Update the requires statement to include <em>handlebars</em>.</li>
+<li>Go back to our <em>clock-3.html</em> file.</li>
+<li>Inside the <em>Y</em> on our in-line <em>script</em> element use <em>Y.Clock()</em> to create our <em>clock</em> object and <em>run()</em> to run it.</li>
+</ol>
+<h3>Solution</h3>
+<p>Here is the markup for our main HTML page. Note the use of a configuration in <em>YUI()</em>.</p>
+<p><a href="solution-clock-3.html">solution-clock-3.html</a></p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt; Clock 3&lt;/title&gt;
+            &lt;style&gt;&lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;header&gt; Clock 3&lt;/header&gt;
+            &lt;section id=&quot;clock&quot;&gt;Main content goes here&lt;/section&gt;
+            &lt;footer&gt;The section above should display the date and time. It should change every second.&lt;/footer&gt;
+            &lt;!-- Here are our handlebars templates --&gt;
+            &lt;script id=&quot;view&quot; type=&quot;text/x-handlebars-template&quot;&gt;
+                {{time}}
+            &lt;/script&gt;
+            &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+            &lt;script&gt;
+            // WE configure our _YUI()_ this time.
+            YUI({
+                modules: {
+                    &quot;clock&quot;: {
+                        fullpath: &quot;clock-3.js&quot;
+                    }
+                }
+            }).use(&quot;node&quot;, &quot;clock&quot;, function (Y) {
+                // Your code goes here
+                var clock = new Y.Clock();
+                clock.run(&quot;#clock&quot;, 1000, &quot;#view&quot;);
+            });
+            &lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<p>That is the easy part. Now let us update our module. After we define
+our modules core we then include a version number (e.g. 0.0.3) and
+a configuration options object including the required list of modules
+we need to run.</p>
+<p><a href="clock-3.js">clock-3.js</a></p>
+<pre><code class="language-JavaScript">    /*jslint browser: true, indent: 4 */
+    /*global YUI */
+    // Define out module using _YUI.add()_
+    YUI.add(&quot;clock&quot;, function (Y) {
+        &quot;use strict&quot;;
+        // Create our namespace
+        Y.namespace(&quot;Clock&quot;);
+
+        // Setup a constructor with reasonable defaults
+        function Clock() {
+            Y.log(&#39;clock created&#39;, &#39;deubg&#39;);
+        }
+        Clock.prototype.interval = 1000;
+        Clock.prototype.int_id = null;
+        Clock.prototype.selector = null;
+        Clock.prototype.render = function (now) {
+            this.element.set(&quot;text&quot;, now.toString());
+        };
+        Clock.prototype.run = function (selector, interval, template) {
+            var self = this;
+
+            this.element = Y.one(selector);
+            if (typeof template === &quot;function&quot;) {
+                this.render = template;
+            }
+            this.int_id = setInterval(function () {
+                self.render(new Date());
+            }, interval);
+            return this.int_id;
+        };
+        Clock.prototype.stop = function () {
+            if (this.int_id) {
+                clearInterval(this.int_id);
+            }
+        };
+
+        // Add our new Object as Clock
+        Y.Clock = Clock;
+    },
+        // Semantic Version number
+        &quot;0.0.3&quot;,
+        // Configuration with list of modules we &#39;require&#39; 
+        {requires: [&quot;node-base&quot;, &quot;handlebars&quot;]});</code></pre>
+
+        </section>
+        
+        <footer>
+            <div class="copyright-notice">copyright &copy; 2013</div>
+            <div class="license">Released under the <a href="http://opensource.org/licenses/BSD-2-Clause">BSD 2-Clause</a> license.</div>
+        </footer>
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        YUI().use("node", function (Y) {
+            var allH2 = Y.all("h2");
+            allH2.each(function (h2) {
+                var key = h2.getHTML(),
+                    anchor = Y.one('a[href="#' + key.toLowerCase() + '"]');
+                if (anchor) {
+                    h2.setHTML('<a name="' + key.toLowerCase() + '">' + key + '</a>');
+                }
+            });
+        });
+        </script>
+    </body>
+</html>

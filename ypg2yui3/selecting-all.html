@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Y.all() Example</title>
+    </head>
+    <body>
+	    <!-- This is our ordered list of anchored tags -->
+        <ol>
+            <li><a href="http://yuilibrary.com">YUI Library</a></li>
+            <li><a href="http://github.com/yui/yui3">YUI3 on Github.com</a></li>
+            <li><a href="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js">Seed File</a> for YUI3 at the CDN</li>
+        </ol>
+        <!-- This div is where we will display what we find -->
+        <div id="results"></div>
+        <!-- load YUI3 on the page as normal -->
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <!-- Now write our script to cound the anchor elements and update div.results -->
+        <script>
+            // Load the node module and create our Y object.
+            YUI().use("node", function (Y) {
+                // Enumerate the anchor elements
+                var all_anchors = Y.all("a"),
+                    // Remember the place in the page to update the results
+                    div_results = Y.one("#results"),
+                    results = [];
+
+                    // Now we have our anchors, look through them collecting each href
+                    all_anchors.each(function (anchor) {
+                        // Grab the href from each anchor element and save it
+                        // in the results.
+                        results.push(anchor.get("href"));
+                    });
+                    // Display the results in div.results as HTML
+                    div_results.setHTML("The following links were found <em>" + results.join(", ") + "</em>");
+            });
+        </script>
+    </body>
+</html>

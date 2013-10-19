@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Hello World</title></head>
+    <body>
+        <p>Our message goes here</p>
+        <!-- Include YUI -->
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <!-- Include our module -->
+        <script src="hello-world.js"></script>
+        <!-- Now use our module -->
+        <script>
+        // Now we're ready to 'use' our Hello World and the YUI node module.
+        YUI().use("node", "hello-world", function (Y) {
+            // We can display Hello World message in the p element
+            Y.one("p").set("text", Y.helloWorld);
+        });
+        </script>
+    </body>
+</html>

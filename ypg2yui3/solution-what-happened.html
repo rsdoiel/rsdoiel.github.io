@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>What Happened?</title>
+    </head>
+    <body>
+        <header>What Happened?</header>
+        <section>
+            <button>Press me</button>
+            <p>press, click, touch or flick the button please.</p>
+            <div id="status">Status messages will show here.</div>
+        </section>
+        <footer></footer>
+        <!-- get YUI3 on the page, and a script block for your code -->
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        // Notice we are adding the event module in our use() parameters. 
+        YUI().use("node", "event", function (Y) {
+            // Your code goes here
+            var button = Y.one("button"),
+                status = Y.one("#status");
+            // Let's add our listeners
+            button.on("click", function (e) {
+                status.setHTML("You clicked me.");
+            });
+
+            button.on("flick", function (e) {
+                status.setHTML("You flicked me.");
+            });
+        });
+        </script>
+    </body>
+</html>

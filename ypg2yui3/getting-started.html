@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Getting Started</title>
+    </head>
+    <body>
+        <h1>Getting Started</h1>
+        <p>When YUI3 is loaded the title and h1 will be updated.</p>
+   			<script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
+        <script>
+            YUI().use("node-base", function (Y) {
+                Y.one("title").setHTML("Hello World");
+                Y.one("h1").setHTML("Yippee! It worked.");
+            });
+        </script>
+    </body>
+</html>

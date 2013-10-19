@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>clock-1.md</title>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+        <link href="http://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" media="all">
+        <link href="css/styles.css" rel="stylesheet" media="all">
+    </head>
+    <body>
+        <header><h1>clock-1.md</h1></header>
+        <section>
+        <h2>Clock No. 1</h2>
+<ul>
+<li>Programming goal<ul>
+<li>build a simple clock in the webpage</li>
+</ul>
+</li>
+<li>Learning objective <ul>
+<li>Explore the <em>node</em> module of <em>YUI</em></li>
+<li>Use additional methods besides <em>Y.get()</em>, <em>Y.set()</em> and <em>Y.setHTML()</em>.</li>
+</ul>
+</li>
+</ul>
+<p>Using YUI3 update content in the webpage every five seconds displaying the current time manipulate
+the CSS classes attach to the element showing the time.</p>
+<h3>Steps</h3>
+<p>Copy <em>seed-file.html</em> to <em>clock.html</em>. Do the following things</p>
+<ul>
+<li>Add an <em>id</em> attribute of &quot;clock&quot; to <em>section</em>.</li>
+<li>Add a <em>style</em> element in the <em>head</em> of the document setting font size of section to &quot;2em&quot;</li>
+<li>In your <em>style</em> element create two CSS classes<ul>
+<li>.now-blue { color: white; background-color: blue }</li>
+<li>.now-red { color: white; background-color: red }</li>
+</ul>
+</li>
+<li>Go to <a href="http://yuilibrary.com/yui/docs/node">yuilibrary.com</a> and find three methods for checking if a class is present, adding a class and removing a class.</li>
+<li>Inside your <em>Y</em> function use a JavaScript <em>setInterval()</em> to update the innerHTML with the current time every five seconds.</li>
+<li>Each time your update the time swap the classes between <em>now-blue</em> and <em>now-red</em>.</li>
+<li>Load the webpage and watch to see if the section innerHTML changes every five seconds and also if the colors change too.</li>
+</ul>
+<h3>Solution</h3>
+<p>Here is one approach to the clock problem.  Ideally you have built yours first before reading this but this is provided
+both as a review of what you discovered and as a comparison.</p>
+<p><a href="solution-clock.html">solution-clock.html</a></p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;Clock&lt;/title&gt;
+            &lt;style&gt;
+            font-size: 2em;
+            .red {
+                background-color: red;
+                color: white;
+            }
+
+            .blue {
+                background-color: blue;
+                color: white;
+            }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;header&gt;Clock&lt;/header&gt;
+            &lt;section id=&quot;clock&quot; class=&quot;blue&quot;&gt;Main content goes here&lt;/section&gt;
+            &lt;footer&gt;The section above should display the date and time. It should change every second.&lt;/footer&gt;
+            &lt;!-- get YUI3 on the page, and a script block for your code --&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+            &lt;script&gt;
+            YUI().use(&quot;node&quot;, function (Y) {
+                &quot;use strict&quot;;
+                // Your code goes here
+                var clock = Y.one(&quot;#clock&quot;);
+
+                clock.set(&quot;text&quot;, new Date());
+                clock.addClass(&quot;blue&quot;);
+                // Update the clock every five seconds
+                setInterval(function () {
+                    if (clock.hasClass(&quot;blue&quot;)) {
+                        Y.log(&quot;does hasClase(blue)&quot;, &quot;debug&quot;);
+                        Y.log(clock.hasClass(&quot;blue&quot;), &quot;debug&quot;);
+                        clock.replaceClass(&quot;blue&quot;, &quot;red&quot;);
+                    } else {
+                        Y.log(&quot;does not hasClase(blue)&quot;, &quot;debug&quot;);
+                        Y.log(clock.hasClass(&quot;red&quot;), &quot;debug&quot;);
+                        clock.replaceClass(&quot;red&quot;, &quot;blue&quot;);
+                    }
+                    clock.set(&quot;text&quot;, new Date());
+                }, 1000);
+            });
+            &lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<p>With the exception of adding the <em>setInterval()</em> block this looks allot like the first several examples.</p>
+
+        </section>
+        
+        <footer>
+            <div class="copyright-notice">copyright &copy; 2013</div>
+            <div class="license">Released under the <a href="http://opensource.org/licenses/BSD-2-Clause">BSD 2-Clause</a> license.</div>
+        </footer>
+        <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+        <script>
+        YUI().use("node", function (Y) {
+            var allH2 = Y.all("h2");
+            allH2.each(function (h2) {
+                var key = h2.getHTML(),
+                    anchor = Y.one('a[href="#' + key.toLowerCase() + '"]');
+                if (anchor) {
+                    h2.setHTML('<a name="' + key.toLowerCase() + '">' + key + '</a>');
+                }
+            });
+        });
+        </script>
+    </body>
+</html>
