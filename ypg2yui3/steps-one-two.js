@@ -12,6 +12,7 @@ YUI().use("node", function (Y) {
     // use Y.log()
     Y.log("The href is " + href);
     Y.log("The innerHTML is " + innerHTML);
-    // Step 2, use Y.set() to change the value wrapped by the anchor
-    Y.setHTML('(links to: <em>' + href + '</em>) '  + innerHTML);
+    // Step 2, use setHTML() to change the value wrapped by 
+    // the anchor
+    anchor.setHTML('(links to: <em>' + href + '</em>) '  + innerHTML);
 });

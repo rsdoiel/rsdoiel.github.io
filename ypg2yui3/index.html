@@ -10,7 +10,7 @@
         <header><h1>Young-Persons-Guide-to-YUI3.md</h1></header>
         <section>
         <h1>Young Person&#39;s Guide to YUI3 (draft 0)</h1>
-<p>by R. S. Doiel, <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x72;&#x73;&#x64;&#111;&#x69;&#101;&#108;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x72;&#x73;&#x64;&#111;&#x69;&#101;&#108;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>
+<p>by R. S. Doiel, <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x72;&#x73;&#100;&#111;&#105;&#x65;&#108;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x72;&#x73;&#100;&#111;&#105;&#x65;&#108;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a>
 Updated: 2013-10-19</p>
 <p>This is a gentle introduction to <a href="http://yuilibrary.com" title="YUI3 was at version 3.13.0 at the time this article was written">YUI3</a>. It does make a few assumptions-</p>
 <ul>
@@ -257,8 +257,9 @@ few to get useful work done. This is done in two steps</p>
         // use Y.log()
         Y.log(&quot;The href is &quot; + href);
         Y.log(&quot;The innerHTML is &quot; + innerHTML);
-        // Step 2, use Y.set() to change the value wrapped by the anchor
-        Y.setHTML(&#39;(links to: &lt;em&gt;&#39; + href + &#39;&lt;/em&gt;) &#39;  + innerHTML);
+        // Step 2, use setHTML() to change the value wrapped by 
+        // the anchor
+        anchor.setHTML(&#39;(links to: &lt;em&gt;&#39; + href + &#39;&lt;/em&gt;) &#39;  + innerHTML);
     });</code></pre>
 <p>Here&#39;s is an HTML page where that <a href="steps-one-two.html">interaction</a>
 can take place.</p>
