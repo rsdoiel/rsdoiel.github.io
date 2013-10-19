@@ -10,9 +10,9 @@
         <header><h1>Young-Persons-Guide-to-YUI3.md</h1></header>
         <section>
         <h1>Young Person&#39;s Guide to YUI3 (draft 0)</h1>
-<p>by R. S. Doiel, <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x72;&#115;&#100;&#111;&#105;&#101;&#108;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x72;&#115;&#100;&#111;&#105;&#101;&#108;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a>
+<p>by R. S. Doiel, <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x72;&#x73;&#x64;&#111;&#x69;&#101;&#108;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x72;&#x73;&#x64;&#111;&#x69;&#101;&#108;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>
 Updated: 2013-10-19</p>
-<p>This is a gentle introduction to <a href="http://yuilibrary.com" title="YUI3 was at version 3.10.0 at the time this article was written">YUI3</a>. It does make a few assumptions-</p>
+<p>This is a gentle introduction to <a href="http://yuilibrary.com" title="YUI3 was at version 3.13.0 at the time this article was written">YUI3</a>. It does make a few assumptions-</p>
 <ul>
 <li>You have a basic knowledge of JavaScript, HTML, CSS</li>
 <li>A basic idea of how the web works</li>
@@ -30,7 +30,7 @@ canonical documentation and you can read the source for <em>YUI3</em> at
 <li><a href="https://groups.google.com/forum/#!forum/yui-contrib">Google Groups</a></li>
 <li>IRC community on irc.freeenode.net under #yui.</li>
 <li><a href="http://stackoverflow.com/questions/tagged/yui3">Stackexchange</a></li>
-<li><a href="http://duckduckgo.com">DuckDuckGo</a>, use yui3 as one of your search terms</li>
+<li>Use your favorite search terms like &quot;yui3&quot;</li>
 </ol>
 <h1>Contents</h1>
 <ul>
@@ -88,7 +88,7 @@ presents several nice opportunities when you move beyond the browser--</p>
 <li>What you learn in the browser can be used server side</li>
 <li>The <em>YUI3</em> tool chain is Node based</li>
 <li><a href="http://developer.yahoo.com/cocktails/mojito/">Mojito</a> is based on on <em>YUI3</em> plus <em>Node</em></li>
-<li>Node runs on <em>Mac</em>, <em>Windows</em> and many <em>Unix</em> (e.g. Intel and Arm based <em>Linux</em>)</li>
+<li>Node runs on <em>Mac</em>,under <em>Windows</em> and many <em>Unix</em> systems (e.g. Intel and Arm based <em>Linux</em>)</li>
 </ol>
 <p>I have found the little <em>Node</em> webserver called 
 <a href="https://github.com/SimbCo/httpster">httpster</a> to be very help for 
@@ -151,7 +151,7 @@ a similar pattern.</p>
     });
     &lt;/script&gt;</code></pre>
 <p>The line with document ready includes a wrapping function providing a 
-namespace for your code. <em>YUI</em> also does this though technically my 
+scoped space for your code. <em>YUI</em> also does this though technically my 
 example loads a module called <em>node</em> to provide the features similar to 
 <em>jQuery</em>&#39;s <em>$</em> function. In <em>YUI</em> those functions are used from the 
 parameter passed in named <em>Y</em>.  Part of making the transition from 
@@ -161,15 +161,15 @@ used a <em>$</em> in jQuery look for <em>Y</em> dot something in YUI3, if you us
 on whether you need a single element or a list of elements.</p>
 <h2>Selectors</h2>
 <h3>Accessing parts of a webpage</h3>
-<p>CSS selectors work the way you expect but save those references to be 
-efficient!</p>
-<p><em>YUI3</em> uses <a href="http://en.wikipedia.org/wiki/CSS" title="Cascading Style Sheets, they way to control how a webpage looks.">CSS</a> selectors to access parts of the webpage. This 
-typically is by indentifing an element via an <em>id</em> or <em>class</em> attribute. 
-You may also use CSS psuedo classes and element relationships to target a 
-specific element in the page (e.g. the second <em>li</em> contained in a <em>ul</em> 
-list). There is a cost to caculating where in the <em>DOM</em> your element is so 
-like <em>jQuery</em> the best practice in <em>YUI3</em> is to save the reference if you 
-need it more than once. This can be done by assigning the reference to a 
+<p>CSS selectors allow you easily target elements in a webpage. <em>YUI3</em> 
+like most modern browser libraries allows you to access elements in
+a webpage using <a href="http://en.wikipedia.org/wiki/CSS" title="Cascading Style Sheets, they way to control how a webpage looks.">CSS</a> selectors. This typically is by indentifying an 
+element via an <em>id</em> or <em>class</em> attribute.  You may also use CSS psuedo 
+classes and element relationships to target a specific element in the 
+page (e.g. the second <em>li</em> contained in a <em>ul</em> list). There is a cost 
+to caculating where in the <em>DOM</em> your element is. The best practice
+in <em>YUI3</em> like other libraries is you need to access the element more 
+then once. This can be done by assigning the reference to a 
 variable. Here&#39;s an example <em>script</em> element showing the assignment and 
 use of the saved elements.</p>
 <pre><code class="language-HTML">            &lt;script&gt;
@@ -181,11 +181,11 @@ use of the saved elements.</p>
                     h1.setHTML(&quot;Yippee! I can be more efficient.&quot;);
                 });
             &lt;/script&gt;</code></pre>
-<p><em>YUI3</em> provides two function that take a selector. The first is <em>Y.one()</em>. 
+<p><em>YUI3</em> provides two functions that take a selector. The first is <em>Y.one()</em>. 
 It will give you the first element in the <a href="http://en.wikipedia.org/wiki/Document_Object_Model" title="The Object which the browser uses to allow access to parts of a webpage.">DOM</a> matching that selector. 
 In our example above that was <em>title</em> and <em>h1</em>.  If you had more than 
 one <em>h1</em> it would only give the first <em>h1</em> found. Usually this is what 
-you want.  Sometimes you want all the elements that match a selector 
+you want.  Sometimes you want all the elements matching a selector 
 (e.g. all the anchor elements in a page).  To get that you use <em>Y.all()</em>.
 That returns a list of elements. It is easiest to explain by showing.<br>Let us create a short document with a list of links to YUI3 resources. 
 Next we&#39;ll update part of the page to indicate the links we found.</p>
@@ -210,6 +210,7 @@ Next we&#39;ll update part of the page to indicate the links we found.</p>
             &lt;script&gt;
                 // Load the node module and create our Y object.
                 YUI().use(&quot;node&quot;, function (Y) {
+                    &quot;use strict&quot;;
                     // Enumerate the anchor elements
                     var all_anchors = Y.all(&quot;a&quot;),
                         // Remember the place in the page to update the results
@@ -228,8 +229,9 @@ Next we&#39;ll update part of the page to indicate the links we found.</p>
             &lt;/script&gt;
         &lt;/body&gt;
     &lt;/html&gt;</code></pre>
-<p>That&#39;s it. Take a look at this results with your browser. You should see, 
-very quickly I might add, a sentence indicating the links found.</p>
+<p>That&#39;s it. Take a look at this results with your 
+<a href="selecting-all.html">browser</a>. You should see, very quickly I might add,
+a sentence indicating the links found.</p>
 <h3>innerHTML and attributes</h3>
 <p>JavaScript in the browser is useful for orchestrating behaviors. To do 
 this we need to get the values inside HTML elements as well as their
@@ -240,19 +242,38 @@ few to get useful work done. This is done in two steps</p>
 <li>Get the node you want to work with via <em>Y.one()</em> or <em>Y.all()</em></li>
 <li>use <em>Y.get()</em>, <em>Y.set()</em>, and <em>Y.setHTML()</em> to interact with that element. </li>
 </ol>
+<p><a href="steps-one-two.js">steps-one-two.js</a></p>
 <pre><code class="language-JavaScript">    YUI().use(&quot;node&quot;, function (Y) {
         &quot;use strict&quot;;
-        // Step 1, get a handle to the node you want to work with in this case an anchor element
+        // Step 1, get a handle to the node you want to work with in 
+        // this case an anchor element
         var anchor = Y.one(&quot;a&quot;),
             // Now get the value of the href attribute.
             href = anchor.get(&quot;href&quot;),
             // Get the innerHTML of the anchor
             innerHTML = anchor.get(&quot;innerHTML&quot;);
 
-         // Too see the results in the JavaScript console of the browser use Y.log()
-         Y.log(&quot;The href is &quot; + href);
-         Y.log(&quot;The innerHTML is &quot; + innerHTML);
+        // Too see the results in the JavaScript console of the browser 
+        // use Y.log()
+        Y.log(&quot;The href is &quot; + href);
+        Y.log(&quot;The innerHTML is &quot; + innerHTML);
+        // Step 2, use Y.set() to change the value wrapped by the anchor
+        Y.setHTML(&#39;(links to: &lt;em&gt;&#39; + href + &#39;&lt;/em&gt;) &#39;  + innerHTML);
     });</code></pre>
+<p>Here&#39;s is an HTML page where that <a href="steps-one-two.html">interaction</a>
+can take place.</p>
+<p><a href="steps-one-two.html">steps-one-two.html</a></p>
+<pre><code class="language-HTML">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;&lt;title&gt;Steps One, Two&lt;/title&gt;
+        &lt;body&gt;
+            &lt;h1&gt;Steps One, Two&lt;/h1&gt;
+            &lt;p&gt;&lt;a href=&quot;steps-one-two.html&quot;&gt;An example anchor tag.&lt;/a&gt;&lt;/p&gt;
+            &lt;script src=&quot;http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
+
+            &lt;script src=&quot;steps-one-two.js&quot;&gt;&lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
 <p><em>YUI3</em>&#39;s <em>node</em> module wraps the <em>DOM</em> in a rich set of useful functions. 
 It allows us to use the same methods even on very old browsers (e.g. I.E. 6,
 Android 2.x browsers). There are a whole list of additional methods you 
