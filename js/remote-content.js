@@ -4,7 +4,7 @@
  */
 /*jslint browser: true, undef: true, newcaps: true, indent: 4 */
 /*global YUI */
-YUI().use("node-base", "jsonp", "handlebars", function (Y) {
+YUI({debug: false}).use("node-base", "jsonp", "handlebars", function (Y) {
     "use strict";
     var source = Y.one("#github-activities-template").getHTML(),
         template = Y.Handlebars.compile(source);
