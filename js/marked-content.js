@@ -6,14 +6,19 @@
 (function () {
     "use strict";
     xtag.register('marked-content', {
-        'extends': 'div',
         lifecycle: {
-            create: function () {
-                this.innerHTML = '<em>Hello World!</em>';
-                console.log("DEBUG this.href:", this.href);
-                // Get this.href
-                // Run through markdown
-                // replace into <marked-content></marked-content> element
+            created: function () {
+                console.log("DEBUG creating marked-content");
+                console.log("DEBUG created, href", this.href);
+                console.log("DEBUG created, innerHTML", this.innerHTML);
+            }
+        },
+        accessors: {
+            href: {
+                attribute: { url: ""}
+            },
+            innerHTML: {
+                attribute: { string: "" }
             }
         }
     });

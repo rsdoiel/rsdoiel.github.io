@@ -39,26 +39,8 @@
 <!-- END: HTML templates --->
 <!-- START: JavaScript -->
 <script type="text/javascript" src="js/http-GET.js"></script>
-<!-- <script type="text/javascript" src="js/marked-content.js"></script> -->
+<script type="text/javascript" src="js/marked-content.js"></script>
 <script>
-    xtag.register('marked-content', {
-        lifecycle: {
-            created: function () {
-                console.log("DEBUG creating marked-content");
-                console.log("DEBUG created, href", this.href);
-                console.log("DEBUG created, innerHTML", this.innerHTML);
-            }
-        },
-        accessors: {
-            href: {
-                attribute: { url: ""}
-            },
-            innerHTML: {
-                attribute: { string: "" }
-            }
-        }
-    });
-
     console.log("DEBUG waiting for DOMComponentsLoaded...");
     document.addEventListener('DOMComponentsLoaded', function(){
         console.log("DEBUG event fired, create marked-content");
