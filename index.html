@@ -10,6 +10,8 @@
                 <link href='http://fonts.googleapis.com/css?family=Oxygen+Mono' rel='stylesheet' type='text/css'>
                 <link rel="stylesheet" type="text/css" href="css/oxygen-mono.css" media="screen" />
                 <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
+                <link rel="stylesheet" type="text/css" href="brick-1.0.1.css"/>
+                <script type="text/javascript" src="brick-1.0.1.js"></script>
         </head>
         <body>
                 <header>
@@ -24,32 +26,8 @@
                         </div>
                 </header>
                 <section>
-                        <h3>Who am I?</h3>
-                        <p>I am a software engineer who develops web based systems for the University of Southern California.</p>
-                        <h2>Interests/Projects</h2>
-                        <ul>
-				<li>Re-learning Common Lisp via experiments on a Raspberry Pi</li>
-                                <li><a href="http://fargo.io" title="A web based outliner that can connect to blogs">Fargo</a>, Concord and Trex as blogging platform.</li>
-                                <li><a href="http://nodejs.org">NodeJS</a> and the integration of JavaScript both server side and client side.</li>
-                                <li><a href="http://mongodb.org">MongoDB</a> and other NoSQL databases</li>
-                                <li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS">Firefox OS</a></li>
-                                <li><a href="http://www.google.com/chromeos">ChromeOS</a>, I was a lucky CR-48 tester, regularly use a Samsung Series 5 and really enjoyed it.</li>
-                                <li><a href="https://npmjs.org/~rsdoiel">Node JS Modules</a><ul>
-                                        <li><a href="https://github.com/rsdoiel/mweave">wmeave</a> - An experiment in literate programming concepts, markdown and source code generation and extraction.</a></li>
-                                        <!-- <li><a href="https://github.com/rsdoiel/aha">Aha</a> - an experimental build system driven by comment markup in source files rather than a separate configuration files.</a> -->
-                                        <li><a href="https://github.com/rsdoiel/sqlish">Sqlish</a> - a SQL statement generator in JavaScript</li>
-                                        <li><a href="https://github.com/rsdoiel/opt">opt</a> - a little command line options parsing module.</li>
-                                        <li><a href="https://github.com/rsdoiel/extractor-js">Extractor JS</a> - a small scraper and spider library written for NodeJS</li>
-                                        <li><a href="https://github.com/rsdoiel/tbone">tbone</a> - a small library implemented in JavaScript for generating blocks of HTML5 markup based on a article by <a href="http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html">Jason Grosman</a> (see <a href="https://github.com/rsdoiel/tbone">github</a> or or try <code>git clone https://github.com/rsdoiel/tbone.git</code>)</li>
-                                        <li><a href="https://github.com/rsdoiel/stn">stn</a> - a simple timesheet notation library in JavaScript for merging my work log with services like Harvest.</li>
-                		</ul></li>
-                                <li><a href="https://github.com/rsdoiel">Other projects</a><ul>
-                                        <li><a href="https://github.com/rsdoiel/mongo-modules">mongo-modules</a> - a module system for Mongo 2.2 shell</li>
-                                </ul></li>
-                        </ul>
-                </section>
-                <section class="news">
-                        <div id="recent-experiments"></div>
+			<noscript><a href="index.md">About me</a></noscript>
+                    	<marked-content src="index.md"></marked-content>
                 </section>
                 <nav>
                         <ul class="no-bullet">
@@ -57,36 +35,10 @@
                                 <li><a href="cv.html">CV</a></li>
                         </ul>
                 </nav>
-
-				<!-- BEGIN: Handlebars Templates -->
-				<script id="github-activities-template" type="text/x-handlebars-template">
-                    <h4>What have I been up to?</h4>
-					<ul>
-                        <li><a href="ypg2yui3">Young Person's Guide to YUI3</a> (earily draft)</li>
-						{{#items}}
-						<li><a href="{{url}}" title="{{name}} repository link">{{name}}</a> 
-							{{#if language}}
-							({{language}})<br/>
-							{{/if}}
-							{{#if description}}
-								{{description}}
-							{{/if}}
-							{{#if activity}}
-								{{activity}}
-							{{/if}}
-							{{#if when}}
-								at {{when}}
-							{{/if}}
-						</li>						
-						{{/items}}
-					</ul>
-				</script>
-				<!-- END: Handlebars Templates -->
-                <!-- BEGIN: Javascript -->
-                <script src="http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js"></script>
-                
-                <script type="text/javascript" src="js/remote-content.js"></script>  
-                <!-- END: Javascript -->
+                <!-- START: JavaScript -->
+                <script type="text/javascript" src="js/http-get.js"></script>
+                <script type="text/javascript" src="js/marked-content.js"></script>
+                <!-- END: JavaScript -->
                 <!-- BEGIN: Google Analytics -->
                 <script type="text/javascript">
                 

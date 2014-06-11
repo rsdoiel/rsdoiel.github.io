@@ -1,4 +1,5 @@
-public_html
-===========
+rsdoiel.github.io
+=================
 
-My [public_html](http://rsdoiel.github.io) site at work.
+This is the repository the drives my personal website hosted on Github.
+
