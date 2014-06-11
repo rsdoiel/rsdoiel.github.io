@@ -1,16 +1,3 @@
-R. S. Doiel, Software Engineer/Analyst
-======================================
-    
-![Androidified Robert in a beret and black t-shirt.](http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png "When I press keys letters and punctuation sometimes appear on the surface.")
-
-
-    Robert Doiel
-    Senior Software Engineer/Analyst
-    [USC Web Services](http://www.usc.edu/its/webservices)
-    3434 S. Grand Ave. Suite 355-40
-    Los Angeles, CA 90089-2812
-    Phone: (213)740-2925
-
 
 ## Who am I?
 
@@ -36,3 +23,4 @@ I am a software engineer who develops web based systems for the University of So
 
 
 <recent-activity></recent-activity>
+

@@ -1,5 +1,3 @@
-Robert Doiel, Software Engineer/Analyst - CV
-============================================
 
 # Robert Doiel, Software Engineer/Analyst
 
