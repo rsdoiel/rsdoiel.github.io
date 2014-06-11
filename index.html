@@ -6,12 +6,12 @@
 
                 
                 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-                <link rel="stylesheet" type="text/css"  href="css/typewriter.css" media="screen" />
                 <link href='http://fonts.googleapis.com/css?family=Oxygen+Mono' rel='stylesheet' type='text/css'>
                 <link rel="stylesheet" type="text/css" href="css/oxygen-mono.css" media="screen" />
                 <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
-                <link rel="stylesheet" type="text/css" href="brick-1.0.1.css"/>
-                <script type="text/javascript" src="brick-1.0.1.js"></script>
+                <link rel="stylesheet" type="text/css" href="brick/brick-1.0.1.byob.min.css"/>
+                <script type="text/javascript" src="brick/brick-1.0.1.byob.min.js"></script>
+                <link rel="stylesheet" type="text/css"  href="css/style.css" media="screen" />
         </head>
         <body>
                 <header>
@@ -25,9 +25,9 @@
                                 Phone: (213)740-2925<br />
                         </div>
                 </header>
-                <section>
-			<noscript><a href="index.md">About me</a></noscript>
-                    	<marked-content src="index.md"></marked-content>
+                <section id="content">
+                    <noscript></noscript>
+                    <marked-content href="./index.md"><a href="index.md">About me</a></marked-content>
                 </section>
                 <nav>
                         <ul class="no-bullet">
@@ -35,22 +35,51 @@
                                 <li><a href="cv.html">CV</a></li>
                         </ul>
                 </nav>
-                <!-- START: JavaScript -->
-                <script type="text/javascript" src="js/http-get.js"></script>
-                <script type="text/javascript" src="js/marked-content.js"></script>
-                <!-- END: JavaScript -->
-                <!-- BEGIN: Google Analytics -->
-                <script type="text/javascript">
-                
-                var _gaq = _gaq || [];
-                    _gaq.push(['_setAccount', 'UA-35496709-1']);
-                    _gaq.push(['_trackPageview']); 
-                (function() {
-                	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-                })();
-                </script>
-                <!-- END: Google Analytics -->
+<!-- START: HTML templates --->
+<!-- END: HTML templates --->
+<!-- START: JavaScript -->
+<script type="text/javascript" src="js/http-GET.js"></script>
+<!-- <script type="text/javascript" src="js/marked-content.js"></script> -->
+<script>
+    xtag.register('marked-content', {
+        lifecycle: {
+            created: function () {
+                console.log("DEBUG creating marked-content");
+                console.log("DEBUG created, href", this.href);
+                console.log("DEBUG created, innerHTML", this.innerHTML);
+            }
+        },
+        accessors: {
+            href: {
+                attribute: { url: ""}
+            },
+            innerHTML: {
+                attribute: { string: "" }
+            }
+        }
+    });
+
+    console.log("DEBUG waiting for DOMComponentsLoaded...");
+    document.addEventListener('DOMComponentsLoaded', function(){
+        console.log("DEBUG event fired, create marked-content");
+        var MarkdownContent = document.querySelector('marked-content');
+        console.log("DEBUG", MarkdownContent);
+        //content.appendChild(MarkdownContent);
+        console.log("DEBUG content: ", content);
+    });
+</script>
+<!-- END: JavaScript -->
+<!-- BEGIN: Google Analytics -->
+<script type="text/javascript">                
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35496709-1']);
+    _gaq.push(['_trackPageview']); 
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+<!-- END: Google Analytics -->
         </body>
 </html>

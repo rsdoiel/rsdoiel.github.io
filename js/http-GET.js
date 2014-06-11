@@ -1,9 +1,9 @@
 /*!
- * http.js - a simple http get wrapper for xhr.
+ * http-GET.js - a simple http get wrapper for xhr.
  * @author: R. S. Doiel <rsdoiel@gmail.com>
  * copyright (c) 2014
  * Released under the BSD 2-clause license.
- * Derived from : http://docs.webplatform.org/wiki/apis/xhr/XMLHttpRequest
+ * Based on example from http://docs.webplatform.org/wiki/apis/xhr/XMLHttpRequest
  */
 /*jslint browser: true, indent: 4, maxlen: 120 */
 /*global ActiveXObject, XDomainRequest */
