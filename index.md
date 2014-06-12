@@ -7,7 +7,7 @@ I am a software engineer who develops web based systems for the University of So
 
 + Re-learning Common Lisp via experiments on a Raspberry Pi
 + [Web Components](https://github.com/rsdoiel/r-tags) - my x-tags experiments
-+ [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS)/[Brick](http://mozilla.github.io/brick) and extending the webplatform
++ [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS)/[Brick](http://mozilla.github.io/brick) and extending the web platform
 + [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, regularly use a Samsung Series 5 and really enjoyed it.
 + [MongoDB](http://mongodb.org) and other NoSQL databases
 + [NodeJS](http://nodejs.org) and the integration of JavaScript both server side and client side.
