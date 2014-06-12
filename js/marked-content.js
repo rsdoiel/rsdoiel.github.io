@@ -2,7 +2,7 @@
  * marked-content.js - This is a web component based on x-tags/Brick for rendering Markdown content directly into a page.
  */
 /*jslint browser: true, indent: 4 */
-/*global xtag, console, ActiveXObject, XDomainRequest */
+/*global xtag, console, ActiveXObject, XDomainRequest, marked */
 (function () {
     "use strict";
 
@@ -73,16 +73,16 @@
     }
     
     function resolveURL(doc_url, href) {
-       var protocol_re = new RegExp('://'),
-           last_slash = doc_url.lastIndexOf('/');
-       if (href.indexOf('://') === -1) {
-           // Concatentate the doc_url and the href
-           if (last_slash === -1) {
-              return doc_url + '/' + href;
-           } 
-           return doc_url.substring(0, last_slash) + '/' + href;
-       }
-       return href;
+        var protocol_re = new RegExp('://'),
+            last_slash = doc_url.lastIndexOf('/');
+        if (href.indexOf('://') === -1) {
+            // Concatentate the doc_url and the href
+            if (last_slash === -1) {
+                return doc_url + '/' + href;
+            }
+            return doc_url.substring(0, last_slash) + '/' + href;
+        }
+        return href;
     }
 
     xtag.register('marked-content', {
@@ -90,40 +90,26 @@
             created: function () {
                 var self = this, protocolRe = new RegExp('://');
                 // Check the URL to see if it is relative.
-	        httpGET(resolveURL(document.URL, this.href), function (err, data) {
+                httpGET(resolveURL(document.URL, this.href), function (err, data) {
                     if (err) {
                         console.log("ERROR", err);
                         return;
                     }
-                    marked(data, function (err, content) {
-                    	self.innerHTML = content;
-                    });
-		}, function (status) {
-                   // We'll handle the error when complete hits.
-		});
+                    if (marked === undefined) {
+                        self.innerHTML = '<pre>' + data + '</pre>';
+                    } else {
+                        marked(data, function (err, content) {
+                            self.innerHTML = content;
+                        });
+                    }
+                }, function (status) {
+                           // We'll handle the error when complete hits.
+                });
             }
         },
         accessors: {
             href: {
                 attribute: { url: ""}
-            },
-            markdown: {
-                attribute: { String: "" },
-                set: function (text) {
-                    this.markdown = text;
-                },
-                get: function () {
-                    return this.markdown;
-                }
-            },
-            innerHTML: {
-                attribute: { String: "" },
-                set: function (html) {
-                    this.innerHTML = html;
-                },
-                get: function () {
-                    return this.innerHTML;
-                }
             }
         }
     });
