@@ -63,7 +63,7 @@
 + Project management, web application and database architect for Roger Sherwood's Housing Prototypes (retired, ZOPE)
 + Project management, web application and database architect for USC International Alumni Conference 2001 (retired, ZOPE)
 + Web application and database design for APRU's Distance Learning and the Internet (retired, ZOPE)
-+ Courseware testing, evaluation, training, data conversion and management for USC's blackboard installation (retirend, Perl/LAMP)
++ Courseware testing, evaluation, training, data conversion and management for USC's blackboard installation (retired, Perl/LAMP)
 + Software design and development for Visualizing Ideology with Dr. Steve Ross (site generation tools, interactive course modules (retired, Perl+LAMP
 + Project management, application architecture for Exercise Science  with Dr. Jill McNitt-Gray (retired, JavaApplet for "digitizing" image points)
 + Tool development and design for Oral Pathology website with Dr. Bill Crawford (retired, Perl based site generation tools)
