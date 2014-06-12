@@ -95,13 +95,11 @@
                         console.log("ERROR", err);
                         return;
                     }
-	            console.log("DEBUG httpGET returned data");
                     marked(data, function (err, content) {
                     	self.innerHTML = content;
                     });
 		}, function (status) {
-		    //console.log("DEBUG status:", status);
-		    //FIXME: set the unresolved element property until status is OK or fails.
+                   // We'll handle the error when complete hits.
 		});
             }
         },
