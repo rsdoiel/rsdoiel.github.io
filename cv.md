@@ -17,7 +17,7 @@
 
 ## Technical Skills
 
-+ Bash (sh)
++ Bash (fluent)
 + C (remembering)
 + Go (learning)
 + JavaScript (fluent)
