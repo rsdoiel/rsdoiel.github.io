@@ -31,30 +31,30 @@
 ## Current Projects
 
 + High performance aggregation engine (planning, NodeJS+MongoDB)
-+ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/eo4) system (LAMP)
++ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/eo4) system (active, LAMP)
 + Code audits of our internal and client's production software
-+ Safely-php - a PHP micro-library for create restful services and sites (LAMP/NginX)
++ Safely-php - a PHP micro-library for create restful services and sites (active, PHP)
++ Research and prototype for a post-LAMP based high performance web infrastructure (active, hybrid PHP/MySQL+NodeJS/MongoDB environment)
+
 
 ## Past Projects
 
-
-+ Research, planning for a post-LAMP based high performance web infrastructure (hybrid PHP/MySQL/NodeJS/MongoDB environment)
-+ Developed DOM aware general purpose content migration tools between websites, legacy CMS and new CMS
++ Developed DOM aware general purpose content migration tools between websites, legacy CMS and new CMS (completed, NodeJS+jsDom)
 + High performance JSON API, single blog search engine and news.usc.edu (retired, PHP+NodeJS+MongoDB)
-+ 2nd implementation of our URL cache service (LAMP)
++ 2nd generation of our URL cache service (in production, LAMP)
 + Web content extraction of legacy USC websites for importation into Wordpress (completed, NodeJS+MongoDB+MySQL)
-+ emergency.usc.edu infrastructure improvements (Blogger+NodeJS+UltraDNS)
-+ 3rd Generation USC Event Calendar API (retired, LAMP)
-+ SC Map data API - (retired, LAMP)
++ emergency.usc.edu infrastructure improvements (active, Blogger+NodeJS+UltraDNS)
++ 3rd generation USC Event Calendar API (retired, LAMP)
++ USC Map data API - (retired, LAMP)
 + WSCORE3, 3rd generation common PHP and JavaScript libraries used by Web Services for data access, API construction and data sanitization (retired, PHP) 
 + Feed Management API for USC Reader (retired, LAMP)
 + Design, implement and deploy public webcam API (retired, LAMP)
-+ Evaluating infrastructure options for replacing our legacy content management system and events calendar system
++ Evaluating infrastructure options for replacing our legacy content management system and events calendar system (completed)
 + Architect and implement second generation webcam image and video processing (retired, LAMP)
 + Developing a strategy to support [mobile web devices](http://mobile.usc.edu) (active, LAMP)
 + Migrating our legacy first generation CMS to a VMWare environment (retired, LAMP+Unix utilities)
 + WSCORE2, a light weight general purpose library for PHP and Javascript development. (retired, LAMP+JS)
-+ Varanosaurus &mdash; a light weight monitoring system (retired, LAMP)
++ Varanosaurus &mdash; a light weight monitoring system (retired, NodeJS+MongoDB)
 + Thornton Alumni Directory (inactive, LAMP)
 + [Schedule of Classes](http://web-app.usc.edu/web/soc/api/help) API and caching service (active, LAMP)
 + [JSON and XML](http://web-app.usc.edu/ws/eo2/help) API for the USC Events Calendar System (retired, LAMP)
