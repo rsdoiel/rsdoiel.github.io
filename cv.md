@@ -95,7 +95,7 @@
 + Doiel, R. and Lundsten, A.
     - _Digital Video and Internet 2: Growing Up Together_ for August 2000 issue of Syllabus Magazine.
 + Doiel, R.
-    - _Forming a Good Courseware Environment_ for Handbok i IT-pedagogik f&#246r utbildare (Handbook in IT-pedagogy for educators) by Nyberg, Rainer & Strandvall, Tommy (Eds.) (2000)
+    - _Forming a Good Courseware Environment_ for Handbok i IT-pedagogik f&#246;r utbildare (Handbook in IT-pedagogy for educators) by Nyberg, Rainer & Strandvall, Tommy (Eds.) (2000)
 + Doiel, R. and Lundsten, A.
     - _SMIL, web sites of the future_ for CNET/Builder.com - Thursday April 22, 1999
 + Doiel, R. and Lundsten, A.
