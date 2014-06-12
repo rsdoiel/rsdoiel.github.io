@@ -6,12 +6,12 @@ I am a software engineer who develops web based systems for the University of So
 ## Interests/Projects
 
 + Re-learning Common Lisp via experiments on a Raspberry Pi
-+ [Fargo](http://fargo.io "A web based outliner that can connect to blogs") and related content experiments
-+ [NodeJS](http://nodejs.org) and the integration of JavaScript both server side and client side.
-+ [MongoDB](http://mongodb.org) and other NoSQL databases
++ [Web Components](https://github.com/rsdoiel/r-tags) - my x-tags experiments
 + [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS)/[Brick](http://mozilla.github.io/brick) and extending the webplatform
 + [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, regularly use a Samsung Series 5 and really enjoyed it.
-+ [Web Components](https://github.com/rsdoiel/r-tags) - my x-tags experiments
++ [MongoDB](http://mongodb.org) and other NoSQL databases
++ [NodeJS](http://nodejs.org) and the integration of JavaScript both server side and client side.
++ [Fargo](http://fargo.io "A web based outliner that can connect to blogs") and related content experiments
 + [NodeJS Modules](https://npmjs.org/~rsdoiel)
     - [mweave](https://github.com/rsdoiel/mweave) - An experiment in literate programming concepts, markdown and source code generation and extraction.
     - [Sqlish](https://github.com/rsdoiel/sqlish) - a SQL statement generator in JavaScript
