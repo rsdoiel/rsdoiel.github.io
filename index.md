@@ -11,8 +11,7 @@ I am a software engineer who develops web based systems for the University of So
 + [MongoDB](http://mongodb.org) and other NoSQL databases
 + [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS)/[Brick](http://mozilla.github.io/brick) and extending the webplatform
 + [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, regularly use a Samsung Series 5 and really enjoyed it.
-+ Web Components
-	- [Marked Content](https://github.com/rsdoiel/marked-content)
++ [Web Components](https://github.com/rsdoiel/r-tags) - my x-tags experiments
 + [NodeJS Modules](https://npmjs.org/~rsdoiel)
     - [mweave](https://github.com/rsdoiel/mweave) - An experiment in literate programming concepts, markdown and source code generation and extraction.
     - [Sqlish](https://github.com/rsdoiel/sqlish) - a SQL statement generator in JavaScript

@@ -1,5 +1,5 @@
 /*!
- * http-GET.js - a simple http get wrapper for xhr.
+ * http-GET.js - a simple http get wrapper for xhr as Web Component.
  * @author: R. S. Doiel <rsdoiel@gmail.com>
  * copyright (c) 2014
  * Released under the BSD 2-clause license.
@@ -7,7 +7,7 @@
  */
 /*jslint browser: true, indent: 4, maxlen: 120 */
 /*global ActiveXObject, XDomainRequest */
-(function (global) {
+(function (window, document) {
     "use strict";
     // httpGet - Grab content via xhr.
     // @param url - the URL to get the content from
@@ -74,6 +74,28 @@
         return request;
     }
     
-    // Export httpGET to the global namespace.
-    global.httpGET = httpGET;
-}(this));
+    // Now create my custom element wrapper.
+    xtag.register('http-get', {
+	lifecycle: {
+            created: function () {
+                this.setAttribute('href', '');
+                this.setAttribute('data', '');
+                this.setAttribute('error', '');
+            }
+        },
+        accessors: {
+            href: {
+                attribute: { url: "" }
+            },
+            outerHTML: {
+               attribute: { String: "" },
+               set: function (value) {
+                   this.outerHTML = value;
+               },
+               get: function () {
+                  return this.data
+               }
+            }
+        }
+    });
+}(window, document));

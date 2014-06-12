@@ -81,7 +81,6 @@
 + Fall 1999 Quickstart: 1/2 day seminar
     - Slam Dunk: One Course Website in One Day
     - Introduction to CourseInfo. October 22, 1999
-            </ul></li>
 + September 24, 1999, LACASIS Fall Workshop 1999, SMIL, integrating streamed resources on the Web
 + Spring/Summer 1999 Quickstart : 1 to 3 day immersive seminars for faculty. Workshops given
     - _Putting your site on USC Web_ covering FTP, Telnet and Unix file permissions

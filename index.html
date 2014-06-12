@@ -15,7 +15,7 @@
         </head>
         <body>
                 <header>
-        	        <img class="headshot" src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
+                    <img class="headshot" src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
                         <div class="contact">
                                 Robert Doiel<br />
                                 Senior Software Engineer/Analyst<br />
@@ -37,16 +37,10 @@
 <!-- START: HTML templates --->
 <!-- END: HTML templates --->
 <!-- START: JavaScript -->
-<script type="text/javascript" src="js/marked.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
 <script type="text/javascript" src="js/marked-content.js"></script>
 <script>
-    console.log("DEBUG waiting for DOMComponentsLoaded...");
     document.addEventListener('DOMComponentsLoaded', function(){
-        console.log("DEBUG event fired, create marked-content");
-        var MarkdownContent = document.querySelector('marked-content');
-        console.log("DEBUG", MarkdownContent);
-        //content.appendChild(MarkdownContent);
-        console.log("DEBUG content: ", content);
     });
 </script>
 <!-- END: JavaScript -->
