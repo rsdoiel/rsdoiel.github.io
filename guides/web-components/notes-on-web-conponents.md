@@ -9,27 +9,69 @@ tags that have default appearences (CSS), behavior (JS) and semantics (HTML). Th
 web components are [Brick](http://mozilla.github.io/brick/) from Mozilla, [Polymer Project](http://www.polymer-project.org/)
 from Google.
 
-Web Components replace much of what we'd have hack together with libaries like jQuery+jQuery UI or YUI+YUI Widgets.
-Why switch? Because you only need to load what you actually want to use.  They are becoming native to the browser (so expect
-some clever performance improvements), and they provide a composable unit with minimal abstraction leakage to the page.
-Unlike framework specific widgets they are compatible across libraries supporting web components.  I can use
-a component from Mozilla's Brick or [X-Tags](http://x-tags.org) project with Google Polymer project without carring extra
-over head and a second framework or library.
+Web Components replace much of what we'd have hack together with libaries like Dojo, jQuery+jQuery UI or YUI+YUI Widgets.
+Why switch? Past Widget libraries and frameworks have tended to work against the DOM rather than with it. Web Components
+are designed to work along side and with DOM. Today you use them via polyfils. Those polyfils are giving way to native
+implementations in most of the evergreen browsers (even I.E. 9). Expect some clever performance improvements as time goes
+forward. 
 
-Web Components include four important specifications
+With Web Components we only need to load what we use. Also you only download them once even when you load them multiple
+places in the page.  Unlike legacy frameworks widgets are compatible across libraries supporting web components.  I can use
+a component from Mozilla's Brick or [X-Tags](http://x-tags.org) in a project built on Google's Polymer. I don't
+carring extra over head and a second framework or library in doing that.
 
-+ HTML Imports
+Web Components are built from four important specifications
+
++ Custom Elements
 + HTML Templates
 + Shadow DOM
-+ Custom Elements
++ HTML Imports
+
+If you're starting out focus on Custom Elements.  You can use and create them with a minimum of polyfils. Overtime when
+they become supported natively in browser HTML Imports and Shadow DOM will become invaluable tools in the Web Component 
+tool box. You can experiment with all four parts by using Google's Polymer Project but doing so caries a noticable
+penalty in browser performances (e.g. implementing Shadow DOM is very browser intrusive). You can try out each al la carte.
+The X-Tag project by Mozilla offers HTML Templates and HTML Imports as polyfils. Additionally in the spirit of 
+Open Source both Polymer and X-Tag are now sharing code base.  For the purposes of introduction I am
+going to focus on the Mozilla efforts. 
+
+## Getting started
+
+Today you create a Custom element by invoking a registration function on document in the DOM.  Brick is an example of a collection of currated custom elements you can use today (I've used the x-calendar component in a work project going into production in July 2014). Custom elements can be UI based like a specialized button or branding element or service based (e.g. Polymer Project has a component that manages Ajax transaction and does data binding with other DOM elements).
+
+Below I will step through three of parts of the spec supported by x-tags
+
+1. Custom Elements
+2. HTML Templates
+3. HTML Imports
+
+But before I dive into details let's look at the simple case of using custom elements since some very good ones are
+already available in Mozilla's [Brick](http://mozilla.github.io/brick/).
+
+### Getting setup
+
+We're going to leverage Mozilla's [Brick](http://mozilla.github.io/brick) project for learning about Web Components.
+Before we begin the you need to get a bunle of [Bricks](http://mozilla.github.io/brick/download.html). If you're
+experimenting I recommend selecting all the components they list and downloading the whole collection.
+Once that is available we're ready to starting working with components.
+
+Here's the basic steps we're going to use for each of our examples
+
+1. Load the x-tag's core polyfil via the Brick bundle (e.g. brick.1.0.1.mins.js)
+2. Load any additional custom compent(s) we want to use 
+3. Wait for the event _DOMComponentsLoaded_ before interacting with the component's content
+
+That's it. three steps and you're good to go.
 
 
-Today, focus on Custom Elements becasue we can use them with minimal reliance on Polyfils.  Over time as the other specification
-make their way into implementation in stable browsers we'll beable to leverage them as well.  HTML Imports is available as a polyfil as is HTML Templates if we want to start experimenting with them before they arrive with Browser support.
+### Using Brick's app bar
 
-Today you create a Custom element by invoking a registration function on document in the DOM.  Brick is an example of a collection of currated custom elements you can use today (I've used it in the event calendar rolling out in July). Custom elements can be 
-UI based like a specialized button or branding element or service based (e.g. Polymer Project has one to manage Ajax transaction
-and normalize access to local storage).
+
+### Writing a custom element to pull in remote content
+
+### Writing a markdown processing custom element
+
+### Adding support for HTML Templates
 
 If you have HTML Templates available you can start to encapsulate markup, Javascript and style into a single document which is 
 then render to produce a custom element. Likewise HTML Imports will let us easily bring custom elements into a page via a link element with a rel attribute of import.
@@ -37,7 +79,9 @@ then render to produce a custom element. Likewise HTML Imports will let us easil
 Shadow DOM has gotten allot of buzz. Shadow DOM allows you to create DOM nodes without causing the browser to re-render until you
 are ready to clone them into the actually non-shadow tree.  Shadow DOM is actually what browers have used to describe things like the new time input type of date picker.  Only when it is cloned into the page do the elements overhead have an impact on rendering.
 
-## What's the big deal about HTML Imports?
+### Adding support for HTML Imports
+
+#### What's the big deal about HTML Imports?
 
 HTML imports are an extension to the link element that allow you to easily bring in HTML, CSS and JavaScirpt
 into a webpage as a unit (e.g. as a Web Component). Say you your employer wants to provide consistent branding
@@ -155,6 +199,8 @@ Here's some videos and articles I found helpful and largely still current:
 	- Article: [Shadow DOM 301](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-301/)
 + Mozilla MDN
 	- [X-Tag and the Web Components Family](https://developer.mozilla.org/en-US/Apps/Tools_and_frameworks/x-tags#HTML_Imports)
+        - [Web components and Mozilla Brick](https://developer.mozilla.org/en-US/Apps/Tools_and_frameworks/Web_components)
+        - [Your own bricks: Creating custom elements using X-Tag](https://developer.mozilla.org/en-US/Apps/Tools_and_frameworks/Web_components#Your_own_bricks.3A_Creating_custom_elements_using_X-Tag)
 + Mozilla Hack site
 	- [Web Component Article List](https://hacks.mozilla.org/category/web-components/)
 
