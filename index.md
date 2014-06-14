@@ -5,10 +5,11 @@ I am a software engineer who develops web based systems for the University of So
 
 ## Interests/Projects
 
++ [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for web enabled projects
 + Re-learning Common Lisp via experiments on a Raspberry Pi
 + [Web Components](https://github.com/rsdoiel/r-tags) - my x-tags experiments
 + [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS)/[Brick](http://mozilla.github.io/brick) and extending the web platform
-+ [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, regularly use a Samsung Series 5 and really enjoyed it.
++ [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
 + [MongoDB](http://mongodb.org) and other NoSQL databases
 + [NodeJS](http://nodejs.org) and the integration of JavaScript both server side and client side.
 + [Fargo](http://fargo.io "A web based outliner that can connect to blogs") and related content experiments
