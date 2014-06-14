@@ -9,9 +9,9 @@ I am a software engineer who develops web based systems for the University of So
     + [ws](http://rsdoiel.github.io/ws) a light weight SSL static webserver
 + Re-learning Common Lisp via experiments on a Raspberry Pi
 + [Web Components](http://webcomponents.org/)
+    - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     - [x-tags](htp://x-tags.org) - a light fast library for building web components
     - [Brick](http://mozilla.github.io/brick) - A really nice currated set of components from Mozilla
-    - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
 + [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeable devices
 + [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
 + [MongoDB](http://mongodb.org) and other NoSQL databases
