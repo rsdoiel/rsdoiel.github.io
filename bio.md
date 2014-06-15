@@ -6,7 +6,7 @@ I am a software engineer who develops web based systems for the University of So
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for web enabled projects
-    + [ws](http://rsdoiel.github.io/ws) a light weight SSL static webserver
+    + [ws](http://rsdoiel.github.io/ws) a light weight static content webserver
 + Re-learning Common Lisp via experiments on a Raspberry Pi
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
