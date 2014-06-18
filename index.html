@@ -37,6 +37,11 @@
             <!-- END: HTML templates --->
             <!-- START: JavaScript -->
             <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+	    <script>
+		if (typeof marked === 'undefined') {
+			document.write('<script src="js/marked.min.js">\x3C/script>");
+		}
+            </script>
             <script type="text/javascript" src="js/marked-content.js"></script>
             <script>
                 document.addEventListener('DOMComponentsLoaded', function(){
