@@ -11,7 +11,7 @@ I am a software engineer who develops web based systems for the University of So
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     - [X-Tags](htp://x-tags.org) - Mozilla's light fast library for building web components
-    - [Brick](http://mozilla.github.io/brick) - A really nice currated set of components from Mozilla
+    - [Brick](http://mozbrick.github.io/) - A really nice currated set of components from Mozilla
 + [FirefoxOS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeable devices
 + [ChromeOS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
 + [MongoDB](http://mongodb.org) and other NoSQL databases
