@@ -101,7 +101,7 @@
 + Doiel, R. and Lundsten, A.
     - _Internet 2: better, stronger, faster_ for CNET/Builder.com - Thursday April 22, 1999
 + Doiel, R. Book
-    - review of _Administering Usenet News Servers_ for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998<
+    - review of _Administering Usenet News Servers_ for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
 
 
 ### Technical Reviews for Publishers
