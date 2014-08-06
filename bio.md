@@ -6,11 +6,7 @@ I am a software engineer who develops web based systems for the University of So
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - [ws](http://rsdoiel.github.io/ws) a light weight static content webserver
-    - Golang based Unix utilities
-        + [range](https://github.com/rsdoiel/range) - emit a range of integers
-        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
-        + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
+    - [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
 + Re-learning Lisp via experiments on a Raspberry Pi
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
@@ -29,5 +25,9 @@ I am a software engineer who develops web based systems for the University of So
     - [Extractor JS](https://github.com/rsdoiel/extractor-js) - a small scraper and spider library written for NodeJS
     - [tBone](https://github.com/rsdoiel/tbone) - a small library implemented in JavaScript for generating blocks of HTML5 markup based on a article by [Jason Grosman](http://www.npr.org/blogs/inside/2011/02/02/126312263/behind-the-code-avoiding-spaghetti-html) 
 + [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
+    - Golang based Unix utilities
+        + [range](https://github.com/rsdoiel/range) - emit a range of integers
+        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
+        + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
     - [mongo-modules](https://github.com/rsdoiel/mongo-modules) - a module system for Mongo 2.2 shell
 
