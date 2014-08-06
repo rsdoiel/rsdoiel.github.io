@@ -5,9 +5,12 @@ I am a software engineer who develops web based systems for the University of So
 
 ## Interests/Projects
 
-+ [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for web enabled projects
-    + [ws](http://rsdoiel.github.io/ws) a light weight static content webserver
-+ Re-learning Common Lisp via experiments on a Raspberry Pi
++ [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
+    - [ws](http://rsdoiel.github.io/ws) a light weight static content webserver
+    - [range](https://github.com/rsdoiel/range) - emit a range of integers
+    - [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
+    - [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
++ Re-learning Lisp via experiments on a Raspberry Pi
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     - [X-Tags](htp://x-tags.org) - Mozilla's light fast library for building web components
