@@ -31,7 +31,7 @@
 ## Current Projects
 
 + High performance aggregation engine (planning, NodeJS+MongoDB)
-+ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/eo4) system (active, LAMP)
++ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
 + Code audits of our internal and client's production software
 + Safely-php - a PHP micro-library for create restful services and sites (active, PHP)
 + Research and prototype for a post-LAMP based high performance web infrastructure (active, hybrid PHP/MySQL+NodeJS/MongoDB environment)
@@ -57,7 +57,7 @@
 + Varanosaurus &mdash; a light weight monitoring system (retired, NodeJS+MongoDB)
 + Thornton Alumni Directory (inactive, LAMP)
 + [Schedule of Classes](http://web-app.usc.edu/web/soc/api/help) API and caching service (active, LAMP)
-+ [JSON and XML](http://web-app.usc.edu/ws/eo2/help) API for the USC Events Calendar System (retired, LAMP)
++ JSON and XML API for the USC Events Calendar System (retired, LAMP)
 + USC Events Calendar System - Installer and configuration sub system, feed generation and management, custom calendar theme engine (retired, LAMP)
 + Project management, web application architecture and development, database architecture and development for Trojan Network (retired LAMP)
 + Project management, web application and database architect for Roger Sherwood's Housing Prototypes (retired, ZOPE)
