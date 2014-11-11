@@ -19,7 +19,7 @@
 
 + Bash (fluent)
 + C (remembering)
-+ Go (learning)
++ Go (getting up to speed)
 + JavaScript (fluent)
 + Common Lisp (re-learning)
 + Perl (mostly forgotten)
@@ -30,11 +30,10 @@
 
 ## Current Projects
 
-+ High performance aggregation engine (planning, NodeJS+MongoDB)
++ Infrastructure research and planning
 + 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
 + Code audits of our internal and client's production software
 + Safely-php - a PHP micro-library for create restful services and sites (active, PHP)
-+ Research and prototype for a post-LAMP based high performance web infrastructure (active, hybrid PHP/MySQL+NodeJS/MongoDB environment)
 
 
 ## Past Projects

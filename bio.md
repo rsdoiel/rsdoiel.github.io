@@ -8,6 +8,10 @@ I am a software engineer who develops web based systems for the University of So
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     - [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
 + Re-learning Lisp via experiments on a Raspberry Pi
++ [Golang](http://golang.org) based Unix utilities
+    - [range](https://github.com/rsdoiel/range) - emit a range of integers
+    - [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
+    - [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     - [X-Tags](http://www.x-tags.org) - Mozilla's light fast library for building web components
@@ -20,8 +24,4 @@ I am a software engineer who develops web based systems for the University of So
 + [NodeJS Modules](https://npmjs.org/~rsdoiel)
     - [stn](https://github.com/rsdoiel/stn) - a simple timesheet notation library in JavaScript for merging my work log with time tracking services
 + [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
-    - Golang based Unix utilities
-        + [range](https://github.com/rsdoiel/range) - emit a range of integers
-        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
-        + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
 
