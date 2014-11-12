@@ -30,9 +30,9 @@
 ## Current Projects
 
 + Infrastructure research and planning
-+ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
++ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active development, LAMP)
 + Code audits of our internal and client's production software
-+ Safely-php - a PHP micro-library for create restful services and sites (active, PHP)
++ Safely-php - a PHP micro-library for create restful services and sites (active development, PHP in LAMP and App Engine)
 + Integration of security practices and tools into developer workflow
 
 
