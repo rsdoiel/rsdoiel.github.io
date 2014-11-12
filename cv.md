@@ -24,7 +24,7 @@
 + JavaScript
 + PHP
 + SQL
-+ Web systems, infrastructure and content delivery.
++ Web systems and content delivery
 
 
 ## Current Projects
