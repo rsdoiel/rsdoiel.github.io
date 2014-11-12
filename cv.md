@@ -17,15 +17,13 @@
 
 ## Technical Skills
 
-+ Bash (fluent)
-+ C (remembering)
-+ Go (getting up to speed)
-+ JavaScript (fluent)
-+ Common Lisp (re-learning)
-+ Perl (mostly forgotten)
-+ PHP (fluent)
-+ Python (mostly forgotten)
-+ SQL (fluent)
++ Bash
++ C
++ Go
++ JavaScript
++ Common Lisp
++ PHP
++ SQL
 
 
 ## Current Projects
