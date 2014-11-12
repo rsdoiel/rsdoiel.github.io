@@ -13,6 +13,8 @@
 + Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
 + Technology evaluation
++ Code audits of production software
++ Integration of security practices and tools into developer workflow
 
 
 ## Technical Skills
@@ -31,8 +33,6 @@
 
 + Infrastructure research and planning
 + 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
-+ Code audits of production software
-+ Integration of security practices and tools into developer workflow
 + [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for creating RESTful services and sites (maintenance, PHP)
 
 
