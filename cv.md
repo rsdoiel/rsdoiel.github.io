@@ -13,8 +13,9 @@
 + Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
 + Technology evaluation
-+ Code audits of production software
++ Code audits
 + Integration of security practices and tools into developer workflow
++ Mentoring junior members of our developer team
 
 
 ## Technical Skills
