@@ -17,6 +17,8 @@
 
 ## Technical Skills
 
+### Languages
+
 + Bash
 + C
 + Common Lisp
@@ -24,6 +26,10 @@
 + JavaScript
 + PHP
 + SQL
+
+### Primary Focus
+
+Web systems, infrastructure and content delivery.
 
 
 ## Current Projects
