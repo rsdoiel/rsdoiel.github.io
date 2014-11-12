@@ -33,7 +33,7 @@
 + 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
 + Code audits of production software
 + Integration of security practices and tools into developer workflow
-+ [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for create restful services and sites (maintenance, PHP)
++ [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for creating RESTful services and sites (maintenance, PHP)
 
 
 ## Past Projects
