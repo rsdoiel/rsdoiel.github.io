@@ -6,9 +6,10 @@ I am a software engineer who develops web based systems for the University of So
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
+    + pi clustering
 + Re-learning Lisp via experiments on a Raspberry Pi
 + [Golang](http://golang.org) based Unix utilities
+    - [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
     - [range](https://github.com/rsdoiel/range) - emit a range of integers
     - [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
     - [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
