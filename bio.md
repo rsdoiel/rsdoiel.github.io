@@ -14,14 +14,9 @@ I am a software engineer who develops web based systems for the University of So
     - [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
 + [Web Components](http://webcomponents.org/)
     - [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
-    - [X-Tags](http://www.x-tags.org) - Mozilla's light fast library for building web components
+    - [X-Tags](http://www.x-tags.org) - Mozilla project for evolving web components
     - [Brick](http://mozbrick.github.io/) - A really nice currated set of components from Mozilla
 + [Firefox OS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeable devices
 + [Chrome OS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
-+ [MongoDB](http://mongodb.org) and other NoSQL databases
-+ [NodeJS](http://nodejs.org) and the integration of JavaScript both server side and client side.
-+ [Fargo](http://fargo.io "A web based outliner that can connect to blogs") and related content experiments
-+ [NodeJS Modules](https://npmjs.org/~rsdoiel)
-    - [stn](https://github.com/rsdoiel/stn) - a simple timesheet notation library in JavaScript for merging my work log with time tracking services
 + [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
 
