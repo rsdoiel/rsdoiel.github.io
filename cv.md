@@ -3,9 +3,9 @@
 
 ## Education
 
-+ *Mount Saint Mary's College*  - Masters of Arts, Humanities, May 2010
-+ *University of Southern California* - Bachelor of Science, Computer Science, May 2004
-+ *College of the Canyons* - Associate of Arts, Humanities, May 1989
++ [Mount Saint Mary's University](http://www.msmc.la.edu/)  - Masters of Arts, Humanities, May 2010
++ [University of Southern California](http://www.usc.edu/) - Bachelor of Science, Computer Science, May 2004
++ [College of the Canyons](http://www.canyons.edu/) - Associate of Arts, Humanities, May 1989
 
 ## Current responsibilities
 
