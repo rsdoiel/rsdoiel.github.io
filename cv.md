@@ -33,7 +33,7 @@
 	+ RESTful API
 	+ http based middleware 
 	+ content management systems
-	+ data aquisition, migration and analysis
+	+ automated data aggregation, migration and analysis systems
 
 
 ## Current Projects
