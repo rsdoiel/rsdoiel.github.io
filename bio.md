@@ -6,7 +6,7 @@ I am a software engineer who develops web based systems for the University of So
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Lisp and clustering
+    - Lisp, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     - [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
     - [range](https://github.com/rsdoiel/range) - emit a range of integers
