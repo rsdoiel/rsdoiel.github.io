@@ -30,8 +30,7 @@
 + SQL
 + Standard ML
 + Design and implementation of 
-	+ RESTful API
-	+ http based middleware 
+	+ RESTful API and middleware 
 	+ content management systems
 	+ automated content aggregation, migration and analysis
 
