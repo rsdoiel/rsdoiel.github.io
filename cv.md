@@ -26,8 +26,14 @@
 + Go
 + JavaScript
 + PHP
++ Python
 + SQL
-+ Web systems and content delivery
++ Standard ML
++ Design and implementation of 
+	+ RESTful API
+	+ http based middleware 
+	+ content management systems
+	+ data aquisition, migration and analysis
 
 
 ## Current Projects
