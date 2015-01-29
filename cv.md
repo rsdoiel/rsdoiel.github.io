@@ -16,6 +16,12 @@
 + Code audits
 + Integration of security practices and tools into developer workflow
 + Mentoring junior members of our developer team
++ Specialties
+    + Back end content delivery systems
+    + RESTful API implementations
+    + Data migration and transformation
+    + Automating content analysis
+    + Special Purpose content management systems
 
 
 ## Technical Skills
