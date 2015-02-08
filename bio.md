@@ -1,7 +1,12 @@
 
 ## Who am I?
 
-I am a software engineer who develops web based systems for the University of Southern California. I am looking for interesting opportunities to further my professional interests.
+I am a software engineer who develops web based systems for the University of Southern California. 
+
+I am looking for interesting work bridging both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress.  I've enjoyed working with large data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.
+    
+I am most comfortable in a Unix environment but have worked in others in the past (e.g. Prime Information, Windows). I have used many languages over the course of my  career (e.g. Perl 4.x/5.x, Python 1.x/2.x, PHP 3.x/4.x/5.x, NodeJS/JavaScript, Go 1.x, SQL) and previously as a computer science student (e.g. Pascal, DBbase, C, Lisp, Java). Currently I am broadening my experience in functional programming with refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
+
 
 ## Interests/Projects
 
