@@ -7,7 +7,8 @@ Contact: rsdoiel@gmail.com
 I am looking for interesting work bridging both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I've enjoyed working with large data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.  
 
 I am most comfortable in a Unix environment but have worked in others in the past (e.g. Prime Information, Windows). I have used many languages over the course of my computer science education (e.g. Pascal, DBase/Clipper, C, Lisp, Java) and career (e.g. Perl 4.x/5.x, Python 1.x/2.x, PHP 3.x/4.x/5.x, NodeJS/JavaScript, Go 1.x, SQL). Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
-Technical Skills
+
+## Technical Skills
 
 + Bash
 + Common Lisp
