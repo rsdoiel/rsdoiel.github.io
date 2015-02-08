@@ -25,7 +25,7 @@ Software Engineer, USC, January 1992 - Current
 
 I was hired in a staff position at USC initially working for the Student Affairs Division and later for the Center for Scholarly Technology. Currently I am Senior Software Engineer for Web Services group in the Technology Enhanced Learning Division of Information Technology Services at the University of Southern California.
 
-Prior to 1992 I worked freelance and in student employment positions. As a student employee of the University I maintained and improved custom administrative systems built on Prime Information (a variant of the Pick database environment).
+Prior to 1992 I worked freelance and in student positions. As a student employee of the University I maintained and improved custom administrative systems built on Prime Information (a variant of the Pick database environment).
 
 Early employment did not involve engineering though it did include working for the Social Security Administration as a service representative and claims representative. I entered Federal employment as a GS-4 and left as a GS-9 with career status.
 
