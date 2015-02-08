@@ -1,4 +1,4 @@
-# [Robert Doiel](http://rsdoiel.github.io)
+# [Robert Doiel](http://rsdoiel.github.io/cv.html)
 
 Santa Clarita, CA, United States
 
