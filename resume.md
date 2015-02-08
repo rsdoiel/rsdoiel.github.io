@@ -1,10 +1,7 @@
-# Robert Doiel
+# [Robert Doiel](http://rsdoiel.github.io)
 
 Santa Clarita, CA, United States;
-rsdoiel@gmail.com;
-[Profile](http://rsdoiel.github.io);
-[CV](https://rsdoiel.github.io/cv.html);
-[Github](https://github.com/rsdoiel)
+rsdoiel@gmail.com; [CV](https://rsdoiel.github.io/cv.html);
 
 I am looking for interesting work bridging both my background in Computer Science and the Humanities. I am also looking for a shorter commute.  For the past decade I have been involved in designing, implementing and maintain custom content management systems as well as integrating those systems with off the shelf software like Wordpress.  I've enjoyed working with large data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.  
 
