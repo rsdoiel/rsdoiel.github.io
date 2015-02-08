@@ -111,11 +111,10 @@
     - _SMIL, web sites of the future_ for CNET/Builder.com - Thursday April 22, 1999
 + Doiel, R. and Lundsten, A.
     - _Internet 2: better, stronger, faster_ for CNET/Builder.com - Thursday April 22, 1999
-+ Doiel, R. Book
-    - review of _Administering Usenet News Servers_ for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
-
 
 ### Technical Reviews for Publishers
 
 + Review and blurb for [Learning JavaScript: A Hands-On Guide to the Fundamentals of Modern JavaScript](http://www.amazon.com/dp/0321832744) by Tim Wright; Publisher: Addison-Wesley Professional; 1 edition (August 5, 2012)
++ Review of _Administering Usenet News Servers for Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
+
 
