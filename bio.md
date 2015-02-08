@@ -1,7 +1,7 @@
 
 ## Who am I?
 
-I am a software engineer who develops web based systems for the University of Southern California.
+I am a software engineer who develops web based systems for the University of Southern California. I am looking for interesting opportunities to further my professional interests.
 
 ## Interests/Projects
 
