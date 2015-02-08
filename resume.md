@@ -28,7 +28,8 @@ I was hired in a staff position at USC initially working for the Student Affairs
 Prior to 1992 I work freelance and in student employment positions. As a student employee of the University I was maintaining and improving a custom administrative system built on Prime Information (a dialect of the Pick database environment).
 
 Early employment did not involve engineering though it did include working for the Social Security Administration as a service representative and claims representative. I entered Federal employment as a GS-4 and left as a GS-9 with career status.
-Current Responsibilities
+
+## Current Responsibilities
 
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
 + Technology evaluation
