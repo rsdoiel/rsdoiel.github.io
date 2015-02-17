@@ -4,9 +4,9 @@ Santa Clarita, CA, United States
 
 Contact: rsdoiel@gmail.com
 
-I am looking for interesting work bridging both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I've enjoyed working with large data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.  
+I am looking for interesting work bridging both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I've enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
-I am most comfortable in a Unix environment but have worked in others in the past (e.g. Prime Information, Windows). I have used many languages over the course of my career (e.g.  NodeJS/JavaScript, Go, PHP, Python, SQL, Perl) and as a computer science student (e.g. Java, Lisp, C) . Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
+I am most comfortable in a Unix environment but have worked in others in the past (e.g. Windows and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. NodeJS/JavaScript, Go, PHP, Python, SQL, Perl, Java, Lisp, C) . Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines. I am interested in expanding that experience to include large data sets. I commonly build software to run on both Intel and ARM processors.
 
 ## Technical Skills
 
