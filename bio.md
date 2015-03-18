@@ -21,7 +21,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
     + [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     + [X-Tags](http://www.x-tags.org) - Mozilla project for evolving web components
     + [Brick](http://mozbrick.github.io/) - A really nice currated set of components from Mozilla
-+ [Firefox OS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeable devices
++ [Firefox OS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeddable devices
 + [Chrome OS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
 + Node/[NPM](https://www.npmjs.com/~rsdoiel) modules
 + [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
