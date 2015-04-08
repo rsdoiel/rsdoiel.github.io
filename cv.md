@@ -9,7 +9,7 @@
 
 ## Current responsibilities
 
-+ Software development for CalTech libraries (as of April 20th, 2015)
++ Software development for CalTech Libraries (as of April 20th, 2015)
 
 
 ## Technical Skills
@@ -27,11 +27,13 @@
 + Python
 + SQL
 + Standard ML
-+ Design and implementation of 
-	+ RESTful API and middleware 
-	+ content management systems
-	+ automated content aggregation, migration and analysis
-    + In web browser services
+
+### Design and implementation of 
+
++ RESTful API and middleware 
++ content management systems
++ automated content aggregation, migration and analysis
++ In web browser services
 
 
 ## Current Projects
