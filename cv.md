@@ -3,7 +3,7 @@
 
 ## Education
 
-+ [Mount Saint Mary's University](http://www.msmu.edu/)  - Masters of Arts, Humanities, May 2010
++ [Mount Saint Mary&rsquo;s University](http://www.msmu.edu/)  - Masters of Arts, Humanities, May 2010
 + [University of Southern California](http://www.usc.edu/) - Bachelor of Science, Computer Science, May 2004
 + [College of the Canyons](http://www.canyons.edu/) - Associate of Arts, Humanities, May 1989
 
@@ -80,12 +80,12 @@
 + JSON and XML API for the USC Events Calendar System (retired, LAMP)
 + USC Events Calendar System - Installer and configuration sub system, feed generation and management, custom calendar theme engine (retired, LAMP)
 + Project management, web application architecture and development, database architecture and development for Trojan Network (retired LAMP)
-+ Project management, web application and database architect for Roger Sherwood's Housing Prototypes (retired, ZOPE)
++ Project management, web application and database architect for Roger Sherwood&rsquo;s Housing Prototypes (retired, ZOPE)
 + Project management, web application and database architect for USC International Alumni Conference 2001 (retired, ZOPE)
-+ Web application and database design for APRU's Distance Learning and the Internet (retired, ZOPE)
-+ Courseware testing, evaluation, training, data conversion and management for USC's blackboard installation (retired, Perl/LAMP)
++ Web application and database design for APRU&rsquo;s Distance Learning and the Internet (retired, ZOPE)
++ Courseware testing, evaluation, training, data conversion and management for USC&rsquo;s Blackboard installation (retired, Perl/LAMP)
 + Software design and development for Visualizing Ideology with Dr. Steve Ross (site generation tools, interactive course modules (retired, Perl+LAMP
-+ Project management, application architecture for Exercise Science  with Dr. Jill McNitt-Gray (retired, JavaApplet for "digitizing" image points)
++ Project management, application architecture for Exercise Science  with Dr. Jill McNitt-Gray (retired, Java applet for "digitizing" image points)
 + Tool development and design for Oral Pathology website with Dr. Bill Crawford (retired, Perl based site generation tools)
 
 ## Presentations
@@ -105,8 +105,8 @@
 + Spring/Summer 1999 Quickstart : 1 to 3 day immersive seminars for faculty. Workshops given
     - _Putting your site on USC Web_ covering FTP, Telnet and Unix file permissions
     - _Turn It Up_, Streaming Audio on the Web
-    - _Roll 'Em_, Streaming Video on the Web
-    - _Smile: You're Gonna Love SMIL_ Introduction to SMIL basics.
+    - _Roll &rsquo;Em_, Streaming Video on the Web
+    - _Smile: You&rsquo;re Gonna Love SMIL_ Introduction to SMIL basics.
 
 ## Publications
 
