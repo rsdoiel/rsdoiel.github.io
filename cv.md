@@ -27,7 +27,6 @@
 + Python
 + SQL
 + Standard ML
-
 + Design and implementation of 
 	+ RESTful API and middleware 
 	+ content management systems
