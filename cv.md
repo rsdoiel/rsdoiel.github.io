@@ -27,14 +27,11 @@
 + Python
 + SQL
 + Standard ML
-
-### Design and implementation of 
-
-+ RESTful API and middleware 
-+ content management systems
-+ automated content aggregation, migration and analysis
-+ In web browser services
-
++ Design and implementation of 
+    + RESTful API and middleware 
+    + content management systems
+    + automated content aggregation, migration and analysis
+    + in browser services
 
 ## Current Projects
 
