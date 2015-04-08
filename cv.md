@@ -18,11 +18,16 @@
 + C
 + Common Lisp
 + Go
-+ JavaScript
++ JavaScript (NodeJS/IO.js)
++ Make
++ Mongodb
++ MySQL
++ Perl
 + PHP
 + Python
 + SQL
 + Standard ML
+
 + Design and implementation of 
 	+ RESTful API and middleware 
 	+ content management systems

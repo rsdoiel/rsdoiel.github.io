@@ -13,13 +13,15 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Bash
 + Common Lisp
 + Go
-+ Node/io.js (server side JavaScript)
++ JavaScript (NodeJS/IO.js)
 + Make
 + Mongodb
 + MySQL
 + Perl
-+ Python
 + PHP
++ Python
++ SQL
++ Standard ML
 
 ## Experience
 
