@@ -27,7 +27,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ### Web Developer Associate, CalTech, April 2015
 
-I work for the CalTech libraries developing web based software solutions.
+I work for the CalTech Libraries developing web based software solutions.
 
 
 ### Software Engineer, USC, January 1992 - April 2015

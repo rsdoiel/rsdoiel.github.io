@@ -35,7 +35,7 @@
 
 ## Current Projects
 
-+ Build cool things for CalTech libraries
++ Build cool things for CalTech Libraries
 
 
 ## Past responsibilities (pre-April 10th, 2015)
