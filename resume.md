@@ -4,7 +4,7 @@ Santa Clarita, CA, United States
 
 Contact: rsdoiel@gmail.com
 
-I am looking for interesting work bridging both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I've enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results.
+My interests bridge both my background in Computer Science and the Humanities. For the past decade I have been involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I've enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
 I am most comfortable in a Unix environment but have worked in others in the past (e.g. Windows and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. NodeJS/JavaScript, Go, PHP, Python, SQL, Perl, Java, Lisp, C) . Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines. I am interested in expanding that experience to include large data sets. I commonly build software to run on both Intel and ARM processors.
 
@@ -22,9 +22,12 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ## Experience
 
-Software Engineer, CalTech libraries, Apil 2015 - current
+### Web Developer Associate, CalTech, April 2015
 
-Software Engineer, USC, January 1992 - April 2015
+I work for the CalTech libraries developing web based software solutions.
+
+
+### Software Engineer, USC, January 1992 - April 2015
 
 I was hired in a staff position at USC initially working for the Student Affairs Division and later for the Center for Scholarly Technology. Currently I am Senior Software Engineer for Web Services group in the Technology Enhanced Learning Division of Information Technology Services at the University of Southern California.
 
@@ -33,7 +36,7 @@ Prior to 1992 I worked freelance and in student positions. As a student employee
 Earlier employment did not involve engineering though it did include working for the Social Security Administration as a service representative and claims representative. I entered Federal employment as a GS-4 and left as a GS-9 with career status.
 
 
-## Current Responsibilities
+## Responsibilities
 
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
 + Technology evaluation
@@ -45,6 +48,7 @@ Earlier employment did not involve engineering though it did include working for
     + RESTful API implementations
     + Data migration and transformation
     + Automating content analysis
+
 
 ## Education
 

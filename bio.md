@@ -9,7 +9,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Lisp, Standard ML and clustering
+    - Go, Lisp, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
     + [range](https://github.com/rsdoiel/range) - emit a range of integers

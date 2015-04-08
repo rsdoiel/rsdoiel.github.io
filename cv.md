@@ -9,19 +9,7 @@
 
 ## Current responsibilities
 
-
-+ Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
-+ Software architecture and implementation for applications, APIs and data services for web and mobile devices
-+ Technology evaluation
-+ Code audits
-+ Integration of security practices and tools into developer workflow
-+ Mentoring junior members of our developer team
-+ Specialties
-    + Back end content delivery systems
-    + RESTful API implementations
-    + Data migration and transformation
-    + Automating content analysis
-    + Special Purpose content management systems
++ Software development for CalTech libraries (as of April 20th, 2015)
 
 
 ## Technical Skills
@@ -39,17 +27,35 @@
 	+ RESTful API and middleware 
 	+ content management systems
 	+ automated content aggregation, migration and analysis
+    + In web browser services
 
 
 ## Current Projects
 
-+ Infrastructure research and planning
-+ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
-+ [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for creating RESTful services and sites (maintenance, PHP)
++ Build cool things for CalTech libraries
+
+
+## Past responsibilities (pre-April 10th, 2015)
+
++ Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
++ Software architecture and implementation for applications, APIs and data services for web and mobile devices
++ Technology evaluation
++ Code audits
++ Integration of security practices and tools into developer workflow
++ Mentoring junior members of our developer team
++ Specialties
+    + Back end content delivery systems
+    + RESTful API implementations
+    + Data migration and transformation
+    + Automating content analysis
+    + Special Purpose content management systems
 
 
 ## Past Projects
 
++ Infrastructure research and planning
++ 4th generation [USC Event Calandar](https://web-app.usc.edu/web/ecal) system (active, LAMP)
++ [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for creating RESTful services and sites (maintenance, PHP)
 + Developed DOM aware general purpose content migration tools between websites, legacy CMS and new CMS (completed, NodeJS+jsDom)
 + High performance JSON API, single blog search engine and news.usc.edu (retired, PHP+NodeJS+MongoDB)
 + 2nd generation of our URL cache service (in production, LAMP)
