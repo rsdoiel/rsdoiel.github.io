@@ -25,12 +25,12 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ## Experience
 
-### Web Developer Associate, CalTech, April 2015
+### Web Developer Associate, CalTech, April 2015 - current
 
 I work for the CalTech Libraries developing web based software solutions.
 
 
-### Software Engineer, USC, January 1992 - April 2015
+### Programmer/Analyst, USC, January 1992 - April 2015
 
 I was hired in a staff position at USC initially working for the Student Affairs Division and later for the Center for Scholarly Technology. Currently I am Senior Software Engineer for Web Services group in the Technology Enhanced Learning Division of Information Technology Services at the University of Southern California.
 
@@ -55,7 +55,7 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Education
 
-+ Master of Arts in the Humanities, [Mount Saint Mary's University](http://www.msmu.edu), 2010
++ Master of Arts in the Humanities, [Mount Saint Mary&rsquo;s University](http://www.msmu.edu), 2010
 + Bachelor of Science in Computer Science, [University of Southern California](http://www.usc.edu), 2004
 + Associate of Arts in the Humanities, [College of the Canyons](https://www.canyons.edu), 1989
 
@@ -67,3 +67,4 @@ Earlier employment did not involve engineering though it did include working for
 + [reldate](https://github.com/rsdoiel/reldate), August 2014 (author; go) - A small utility which returns the relative date in YYYY-MM-DD format.
 + [stn](https://github.com/rsdoiel/stn), November 2011 - September 2013 (author; JavaScript):  A NodeJS module supporting a simple ASCII notation for time related data for submission to a time keeping/billing systems.
 + [mongo-modules](https://github.com/rsdoiel/mongo-modules), September 2012 - October 2012 (author; JavaScript): An experimental module systems for automating work in an early version of the MongoDB shell.
+

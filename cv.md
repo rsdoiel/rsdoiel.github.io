@@ -9,7 +9,7 @@
 
 ## Current responsibilities
 
-+ Software development for CalTech Libraries (as of April 20th, 2015)
++ Software development for CalTech Libraries (starting April 20th, 2015)
 
 
 ## Technical Skills
@@ -38,7 +38,7 @@
 + Build cool things for CalTech Libraries
 
 
-## Past responsibilities (pre-April 10th, 2015)
+## Past responsibilities (before April 2015)
 
 + Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
