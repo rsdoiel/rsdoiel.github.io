@@ -25,10 +25,9 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ## Experience
 
-### Web Developer Associate, CalTech, April 2015 - current
+### Application Developer Associate, California Institute of Technology, April 2015 - current
 
-I work for the CalTech Libraries developing web based software solutions.
-
+I work for the CalTech Library developing and maintaining web based software solutions.
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
 
