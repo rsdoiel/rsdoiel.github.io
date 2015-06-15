@@ -18,7 +18,8 @@
 + C
 + Common Lisp
 + Go
-+ JavaScript (NodeJS/IO.js)
++ Java
++ JavaScript (NodeJS)
 + Make
 + Mongodb
 + MySQL

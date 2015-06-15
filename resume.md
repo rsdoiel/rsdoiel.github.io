@@ -13,7 +13,8 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Bash
 + Common Lisp
 + Go
-+ JavaScript (NodeJS/IO.js)
++ Java
++ JavaScript (NodeJS)
 + Make
 + Mongodb
 + MySQL
