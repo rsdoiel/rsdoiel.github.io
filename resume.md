@@ -14,9 +14,12 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Common Lisp
 + Go
 + Java
+    + Ant
+    + Clojure
+    + Groovy
 + JavaScript (NodeJS)
 + Make
-+ Mongodb
++ MongoDB
 + MySQL
 + Perl
 + PHP
@@ -26,9 +29,9 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ## Experience
 
-### Application Developer Associate, California Institute of Technology, April 2015 - current
+### Application Developer, California Institute of Technology, April 2015 - current
 
-I work for the CalTech Library developing and maintaining web based software solutions.
+I work for the CalTech Library developing and maintaining library focused software solutions.
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
 
@@ -41,11 +44,10 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Responsibilities
 
-+ Software architecture and implementation for applications, APIs and data services for web and mobile devices
++ Software architecture and implementation for applications, APIs and data services
 + Technology evaluation
 + Code audits
 + Integration of security practices and tools into developer workflow
-+ Mentoring junior members of our developer team
 + Specialties
     + Back end content delivery systems
     + RESTful API implementations
