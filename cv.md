@@ -18,19 +18,17 @@
 + C
 + Common Lisp
 + Go
-+ Java
-    + Ant
++ JavaScript (NodeJS)
++ JVM based languages
     + Clojure
     + Groovy
-+ JavaScript (NodeJS)
-+ Make
+    + Java
 + MongoDB
 + MySQL
 + Perl
 + PHP
 + Python
 + SQL
-+ Standard ML
 + Design and implementation of 
     + RESTful API and middleware 
     + content management systems

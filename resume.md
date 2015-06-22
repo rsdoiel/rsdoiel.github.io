@@ -11,21 +11,20 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 ## Technical Skills
 
 + Bash
++ C
 + Common Lisp
 + Go
-+ Java
-    + Ant
++ JavaScript (NodeJS)
++ JVM based languages
     + Clojure
     + Groovy
-+ JavaScript (NodeJS)
-+ Make
+    + Java
 + MongoDB
 + MySQL
 + Perl
 + PHP
 + Python
 + SQL
-+ Standard ML
 
 ## Experience
 
