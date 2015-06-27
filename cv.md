@@ -10,6 +10,10 @@
 ## Current responsibilities
 
 + Application development for [CalTech](http://library.caltech.edu) Libraries
+    + EPrints
+    + Islandora
+    + Archive Space
+    + Fedora
 
 
 ## Technical Skills
@@ -17,6 +21,7 @@
 + Bash
 + C
 + Common Lisp
++ Git
 + Go
 + JavaScript (NodeJS)
 + JVM based languages
@@ -29,6 +34,7 @@
 + PHP
 + Python
 + SQL
++ Vagrant
 + Design and implementation of 
     + RESTful API and middleware 
     + content management systems
