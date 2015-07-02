@@ -20,6 +20,7 @@
 + Go
 + JavaScript (NodeJS)
 + JVM based languages
+    + Beanshell
     + Clojure
     + Groovy
     + Java
