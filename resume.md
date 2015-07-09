@@ -22,6 +22,8 @@ I am most comfortable in a Unix environment but have worked in others in the pas
     + Clojure
     + Groovy
     + Java
+    + jRuby
++ Make
 + MongoDB
 + Perl
 + PHP
@@ -35,7 +37,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 ### Application Developer, California Institute of Technology, April 2015 - current
 
 I work for the CalTech Library developing and maintaining library focused software solutions
-including EPrints, Islandora and Fedora Repository software.
+including ArchivesSpace, EPrints, and Fedora Repository software.
 
 
 ### Programmer/Analyst, USC, January 1992 - April 2015

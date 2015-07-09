@@ -10,11 +10,9 @@
 ## Current responsibilities
 
 + Application development for [CalTech](http://library.caltech.edu) Libraries
+    + ArchivesSpace
     + EPrints
-    + Islandora
-    + Archive Space
-    + Fedora
-
+    + Fedora Repository
 
 ## Technical Skills
 
@@ -29,6 +27,8 @@
     + Clojure
     + Groovy
     + Java
+    + jRuby
++ Make
 + MongoDB
 + MySQL
 + Perl

@@ -11,9 +11,10 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     - Go, Lisp, and clustering
 + [Golang](http://golang.org) based Unix utilities
+    + [stngo](https://rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
+        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
     + [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
-    + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts.
 + [Web Components](http://webcomponents.org/)
