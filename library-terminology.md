@@ -43,8 +43,10 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Digital Public Library of America
 + DR
     + Digital Repository
-+ EDS
-    + Electronic discovery service/system/records?
++ [EBSCO](https://www.ebsco.com/)
+    + is a vendor for libraries providing of Journals, e-Journals, e-Journal Packages, Magazines Subscriptions, Subscriptions Management Tools, etc.
++ [EDS](https://www.ebscohost.com/discovery)
+    + EBSCO Discovery Service
 + [ERM](http://en.wikipedia.org/wiki/Electronic_resource_management)
     + Electronic resources management
 + [EAD](http://www2.archivists.org/groups/technical-subcommittee-on-encoded-archival-description-ead/ead-revision) - Encoded Archival Descriptions (up to version 3).
