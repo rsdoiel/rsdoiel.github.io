@@ -4,9 +4,9 @@ Santa Clarita, CA, United States
 
 Contact: rsdoiel@gmail.com
 
-My interests bridge both my background in Computer Science and the Humanities. Between 1992 and 2015 I was involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I have enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results. In Spring 2015 I my focus changed to software systems used by academic libaries.
+My interests bridge both my background in Computer Science and the Humanities. Between 1992 and 2015 I was involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I have enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results. In Spring 2015 my focus changed to software systems used by academic and research libraries.
 
-I am most comfortable in a Unix environment but have worked in others in the past (e.g. CPM, DOS, Windows  1.x - 95 and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. NodeJS/JavaScript, Go, PHP, Python, SQL, Perl, Java, Lisp, C, InfoBasic, Pascal) . Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp. I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
+I am most comfortable in a Unix environment but have worked in others in the past (e.g. CPM, DOS, Windows  1.x - 95 and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. C, Go, Groovy, InfoBasic, Java, Lisp, NodeJS/JavaScript, Pascal, Perl, PHP, Python, SQL). Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp. I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
 
 
 ## Technical Skills
@@ -34,7 +34,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ## Experience
 
-### Application Developer, California Institute of Technology, April 2015 - current
+### Digital Services Programmer, California Institute of Technology, April 2015 - current
 
 I work for the CalTech Library developing and maintaining library focused software solutions
 including ArchivesSpace, EPrints, and Fedora Repository software.
@@ -76,4 +76,3 @@ Earlier employment did not involve engineering though it did include working for
 + [r-tags](https://github.com/rsdoiel/r-tags), June 2014 - November 2014 (author; JavaScript): My experiments with making x-tag based web components.
 + [reldate](https://github.com/rsdoiel/reldate), August 2014 (author; go) - A small utility which returns the relative date in YYYY-MM-DD format.
 + [stn](https://github.com/rsdoiel/stn), November 2011 - September 2013 (author; JavaScript):  A NodeJS module supporting a simple ASCII notation for time related data for submission to a time keeping/billing systems.
-
