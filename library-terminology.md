@@ -138,10 +138,6 @@ predetermined conclusion.
     + Metadata that is used to illustrate the relationships between a series of files and that allows the reconstruction of a whole from its parts.
 + [SUSHI](http://www.niso.org/workrooms/sushi/faq/general)
     + Standardized Usage Statistics Harvesting Initiative. It is a standard protocol (ANSI/NISO Z39.93-2003) that can be used by electronic resource management (ERM) systems (and other systems) to automate the transport of COUNTER formatted usage statistics. It can also be used to retrieve non-COUNTER reports that meet the specified requirements for retrieval by SUSHI.
-+ tar
-    + A file format that groups many files together while retaining their relationships within the file system. use cases Scenarios in which content is exchanged between actors.
-+ ZIP
-    + A file format that allows many files to be grouped together and compressed.
 + Z39*
     + A set of protocol and specifications encompassing client server technology and the interchange of data, metadata, and Metrics
     + Examples:
