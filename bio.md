@@ -1,10 +1,10 @@
 
 ## Who am I?
 
-I am a software engineer who focuses on building web based systems for academic institutions (previously USC, currently California Institute of Technology).  I bring to the table both B.S. in Computer Sciences as well as an M.A. in the Humanities. For the past decade I have been involved in designing, implementing and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress.  I have enjoyed working with large data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.
+I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology's Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now California Institute of Technology).  I bring to the table both B.S. in Computer Sciences as well as an M.A. in the Humanities. For the past decade I have been involved in designing, implementing and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress.  I have enjoyed working with large to small data sets, building RESTful/JSON APIs.  I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
-    
-I am most comfortable in a Unix environment but have worked in others in the past (e.g. Prime Information, Windows). I have used many languages over the course of my career (e.g.  NodeJS/JavaScript, Go, PHP, Python, SQL, Perl) and as a computer science student (e.g. Java, Lisp, C) . Currently I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines and routinely build software to run on both Intel and ARM processors.
+
+I am most comfortable in a Unix environment but have worked in others in the past (e.g. Prime Information, Windows). I have used many languages over the course of my career (e.g. Go, Groovy, NodeJS/JavaScript, Perl, PHP, Python, SQL) and as a computer science student (e.g. C, Java, Lisp). In my personal projects I am broadening my experience in functional programming by refreshing my knowledge of Common Lisp and learning Standard ML. I have experience implementing and running services in cloud based virtual machines and routinely build software to run on both Intel and ARM processors.
 
 ## Interests/Projects
 
@@ -25,4 +25,3 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + [Chrome OS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it.
 + Node/[NPM](https://www.npmjs.com/~rsdoiel) modules
 + [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
-
