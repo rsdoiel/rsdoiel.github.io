@@ -3,16 +3,17 @@
 
 I am a human. I write software. Once upon a time I wrote music and prose. I am interested in the intersection of technology and the humanities.
 
-I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology's Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now California Institute of Technology).  I bring to the table both [B.S. in Computer Sciences](http://www.cs.usc.edu/academics/undergrad/) as well as an [M.A. in the Humanities](http://www.msmu.edu/graduate-programs/humanities/). I enjoy diving deeply into a problem and working through solutions that have measurable results.
+I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now California Institute of Technology).  I bring to the table both [B.S. in Computer Sciences](http://www.cs.usc.edu/academics/undergrad/) as well as an [M.A. in the Humanities](http://www.msmu.edu/graduate-programs/humanities/). I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
 
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Go, Lisp, and clustering
+    - Go, Lisp, Clojure, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [stngo](https://rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
-        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format
+        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, now part of the stngo project
+        + shorthand - a markup pre-processor for simple text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
