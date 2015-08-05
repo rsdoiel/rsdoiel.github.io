@@ -20,6 +20,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + conformance
     + Compliance with the guidelines of this recommended practice.
     + Note: Conformance is defined at different levels.
++ [COAR](https://www.coar-repositories.org/) confederation of open access repositories
 + [CrossRef](http://crossref.org)
     + A service returning JSON metadata records based on title, issn, etc.
 + [CUFTS](http://lib-code.lib.sfu.ca/projects/CUFTS/)
