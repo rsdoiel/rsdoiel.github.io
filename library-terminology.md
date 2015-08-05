@@ -12,6 +12,10 @@ This is my running collection of notes to help me remember various terms, abbrev
 + BagIt
     + A hierarchical file packaging format designed to support disk-based or network-based storage and transfer of arbitrary digital content.
     + Source: BagIt specification at: http://tools.ietf.org/html/draftkunze-bagit-10
++ [BIBFRAME](http://bibframe.org) - the [libraary of congress](http://www.loc.gov/bibframe/) new catelog record format
+    + Hierarchical instead of flat
+    + Evolving with a linked data representation
+    + Replacing MARC 21
 + checksum
     + A short piece of text that is algorithmically derived from a file and allows the determination of whether the file has been corrupted.
 + [CLIR](http://www.clir.org)
@@ -84,6 +88,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [MARC](http://www.loc.gov/marc/uma/pt1-7.html)
     + "MAchine-Readable Cataloging"
     + A record format used by libraries to interchange information about collection items
+    + Being superceded by BibFrame
 + metadata
     + A set of data that describes and gives information about other data; for example, data describing the full text of an article.
 + [NISO](http://www.niso.org/home/)
