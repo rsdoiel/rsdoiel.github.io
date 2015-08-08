@@ -1,3 +1,4 @@
+
 # [Robert Doiel](http://rsdoiel.github.io/cv.html)
 
 Santa Clarita, CA, United States
@@ -71,8 +72,9 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Code samples
 
++ [stngo](https://github.com/rsdoiel/stngo) - June 2015 (author; go) - A parser and set of utilities for processing simple timesheet notation (aka stn)
 + [ws](https://github.com/rsdoiel/ws), June 2014 - January 2015 (author; go):  A nimble web server for  prototyping.
 + [safely-php](https://github.com/rsdoiel/safely-php),July 2012 - April 2015 (author; php): A library for improving input handling in legacy applications maintained by USC Web Services
 + [r-tags](https://github.com/rsdoiel/r-tags), June 2014 - November 2014 (author; JavaScript): My experiments with making x-tag based web components.
 + [reldate](https://github.com/rsdoiel/reldate), August 2014 (author; go) - A small utility which returns the relative date in YYYY-MM-DD format.
-+ [stn](https://github.com/rsdoiel/stn), November 2011 - September 2013 (author; JavaScript):  A NodeJS module supporting a simple ASCII notation for time related data for submission to a time keeping/billing systems.
++ [stn](https://github.com/rsdoiel/stn), November 2011 - September 2013 (author; JavaScript):  A NodeJS module supporting a simple ASCII notation for time related data for submission to a time keeping/billing systems. (my first implementation of stn - Simple Timesheet Notation)

@@ -1,6 +1,17 @@
+## TODO
 
-# Someday Maybe
++ Think about an appropriate information architecture for website
+    + Is it vanity, useful to me only or something else?
++ Convert website from Markdown and x-tag rendering into static file set
+    + figure out how to leverage shorthand
+    + make a slug and unslug tool
 
+## Someday Maybe
+
++ Update the visual design
+    + remain playful
+    + primary colors and high contrast
+    + fully accessible
 + Move from Ajax pulled markdown content to fully statically generated markdown driven website
 + Move alarmclock to guides as demo for Web Components
 + Move USC Demos out of site
