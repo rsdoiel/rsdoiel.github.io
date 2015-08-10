@@ -17,6 +17,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [CLIR](http://www.clir.org)
     + Council on Library and Information Resources
     + [CLIR/DLF](http://www.clir.org/dlf)
++ [COAR](https://www.coar-repositories.org/) - confederation of Open Access Repositories (group posts to E-Prints list sometimes)
 + conformance
     + Compliance with the guidelines of this recommended practice.
     + Note: Conformance is defined at different levels.
@@ -173,3 +174,4 @@ predetermined conclusion.
 + [KBART registry](https://sites.google.com/site/kbartregistry/) lists various sources of KBART data
 + [OCLC collection manager FAQ](https://www.oclc.org/support/services/collection-manager/faq.en.html) provides some helpful context (e.g. explains OCLC numbers for titles)
 + [Z39-7 standard](http://z39-7.niso.org/standard.html)
++ [COAR resource types vocabular](http://vocabularies.coar-repositories.org/documentation/resource_types)
