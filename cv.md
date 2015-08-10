@@ -9,7 +9,7 @@
 
 ## Current responsibilities
 
-+ Application development for [CalTech](http://library.caltech.edu) Libraries
++ Application development for [CalTech](http://library.caltech.edu) Libraries working with
     + ArchivesSpace
     + EPrints
     + Fedora Repository
@@ -23,7 +23,6 @@
 + Go
 + JavaScript (NodeJS)
 + JVM based languages
-    + Beanshell
     + Clojure
     + Groovy
     + Java
@@ -45,6 +44,7 @@
 ## Current Projects
 
 + Build cool things for CalTech Libraries
++ Data migration
 
 
 ## Past responsibilities
@@ -80,7 +80,7 @@
 + Design, implement and deploy public webcam API (retired, LAMP)
 + Evaluating infrastructure options for replacing our legacy content management system and events calendar system (completed)
 + Architect and implement second generation webcam image and video processing (retired, LAMP)
-+ Developed a strategy to support [mobile web devices](http://mobile.usc.edu) (legacy, LAMP)
++ Developed a strategy to support mobile web devices (legacy, LAMP)
 + Migrating our legacy first generation CMS to a VMWare environment (retired, LAMP+Unix utilities)
 + WSCORE2, a light weight general purpose library for PHP and Javascript development. (retired, LAMP+JS)
 + Varanosaurus &mdash; a light weight monitoring system (retired, NodeJS+MongoDB)
