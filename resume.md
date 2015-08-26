@@ -37,7 +37,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ### Digital Services Programmer, California Institute of Technology, April 2015 - current
 
-I work for the CalTech Library developing and maintaining library focused software solutions
+I work for the Caltech Library developing and maintaining library focused software solutions
 including ArchivesSpace, EPrints, and Fedora Repository software.
 
 
