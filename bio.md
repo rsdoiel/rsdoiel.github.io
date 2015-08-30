@@ -13,9 +13,9 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 + [Golang](http://golang.org) based Unix utilities
     + [stngo](https://rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
         + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, now part of the stngo project
-        + [shorthand](https://github.com/rsdoiel/stngo/blob/master/SHORTHAND.md) - a markup pre-processor for simple text substitions (i.e. expand abbreviations, include the contents of another text file)
         + [stnparse, stnfilter and stnreport](https://github.com/rsdoiel/stngo/blob/master/STN.md) - the utility pipeline that parses, filters and creates column oriented reports based on a simple timesheet notation file.
-    + [ws](http://rsdoiel.github.io/ws) a nimble webserver for prototyping
+    + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
+    + [ws](https://github.com/rsdoiel/ws) - [a nimble webserver](http://rsdoiel.github.io/ws) for prototyping
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts.
