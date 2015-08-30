@@ -11,7 +11,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     - Go, Lisp, Clojure, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
-    + [stngo](https://rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
+    + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
         + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, now part of the stngo project
         + [stnparse, stnfilter and stnreport](https://github.com/rsdoiel/stngo/blob/master/STN.md) - the utility pipeline that parses, filters and creates column oriented reports based on a simple timesheet notation file.
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
@@ -23,10 +23,15 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     + [X-Tags](http://www.x-tags.org) - Mozilla project for evolving web components
     + [Brick](http://mozbrick.github.io/) - A really nice curated set of components from Mozilla
++ [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
+
+## Past interests/Projects
+
 + [Firefox OS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeddable devices
 + [Chrome OS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it. Then I spilt coffee on it, couldn't get it repaired and I moved on to focusing on Raspberry Pi computers.
 + Node/[NPM](https://www.npmjs.com/~rsdoiel) modules
-+ [Other Projects](https://github.com/rsdoiel?tab=repositories) and recent experiments
+
+
 
 
 

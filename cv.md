@@ -9,7 +9,7 @@
 
 ## Current responsibilities
 
-+ Application development for [CalTech](http://library.caltech.edu) Libraries working with
++ Application development for [Caltech](http://library.caltech.edu) Libraries working with
     + ArchivesSpace
     + EPrints
     + Fedora Repository
@@ -43,7 +43,7 @@
 
 ## Current Projects
 
-+ Build cool things for CalTech Libraries
++ Build cool things for Caltech Libraries
 + Data migration
 
 
