@@ -12,13 +12,13 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     - Go, Lisp, Clojure, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
-        + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, now part of the stngo project
-        + [stnparse, stnfilter and stnreport](https://github.com/rsdoiel/stngo/blob/master/STN.md) - the utility pipeline that parses, filters and creates column oriented reports based on a simple timesheet notation file.
+        + [stnparse, stnfilter and stnreport](https://github.com/rsdoiel/stngo/blob/master/STN.md) - the utility pipeline that parses, filters and creates column oriented reports based on a simple timesheet notation file
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [ws](https://github.com/rsdoiel/ws) - [a nimble webserver](http://rsdoiel.github.io/ws) for prototyping
+    + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, also can be used as a package
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
-    + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell.
-    + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts.
+    + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
+    + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
 + [Web Components](http://webcomponents.org/)
     + [r-tags](https://rsdoiel.github.com/r-tags) - my [x-tags experiment](https://github.com/rsdoiel/r-tags) with Markdown and website wireframing
     + [X-Tags](http://www.x-tags.org) - Mozilla project for evolving web components
