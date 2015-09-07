@@ -11,8 +11,8 @@
 
 + Application development for [Caltech](http://library.caltech.edu) Libraries working with
     + ArchivesSpace
-    + EPrints
     + Fedora Repository
+    + EPrints
 
 ## Technical Skills
 
@@ -28,15 +28,13 @@
     + Java
     + jRuby
 + Make
-+ MongoDB
-+ MySQL
 + Perl
 + PHP
 + Python
-+ SQL
++ SQL/NoSQL database platforms
 + Vagrant
 + Design and implementation of 
-    + RESTful API and middleware 
+    + Web API and middleware 
     + content management systems
     + automated content aggregation, migration and analysis
     + in browser services
