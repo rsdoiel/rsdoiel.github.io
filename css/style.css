@@ -5,6 +5,8 @@ body {
     margin: 0;
     width: 100%;
     height: auto;
+    color: #bbbbbb;
+    background-color: #111111;
 }
 
 a, a:link, a:visited, a:active, a:hover {
@@ -18,11 +20,11 @@ header {
     margin: 0;
     width: 100%;
     color: white;
-    background-color: blue;
-    border-top: 0.48em solid blue;
-    border-left: 0.48em solid blue;
-    border-right: 0.48em solid blue;
-    border-bottom: 0.48em solid blue;
+    background-color: #777777;
+    border-top: 0.48em solid #777;
+    border-left: 0.48em solid #777;
+    border-right: 0.48em solid #777;
+    border-bottom: 0.48em solid #777;
 }
 
 header img {
@@ -30,9 +32,10 @@ header img {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid blue;
+    border: 1px solid black;
     border-top-left-radius: 2.4em;
     border-top-right-radius: 2.4em;
+    box-shadow: inset 0.24em 0.24em black;
 }
 
 header div {
