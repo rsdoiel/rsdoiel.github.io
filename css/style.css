@@ -1,0 +1,70 @@
+body {
+    font-family: sans;
+    font-size: 16px;
+    padding: 0;
+    margin: 0.24;
+}
+
+a, a:link, a:visited, a:active, a:hover {
+    color: orange;
+    text-decoration: none;
+}
+
+
+header {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    color: white;
+    background-color: blue;
+    border-bottom: 0.24em solid blue;
+}
+
+header img {
+    padding-left: 0.24em;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid blue;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+}
+
+header div {
+    padding-top: 0.24em;
+    padding-right: 0.24em;
+    min-width: 90%;
+    max-width: 100%;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+}
+
+section {
+    position: relative;
+    margin: 1em;
+    display: inline-block;
+    max-width: 75%;
+}
+
+nav {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    max-width: 25%;
+    vertical-align: top;
+}
+
+nav ul {
+    list-style: none;
+}
+
+footer {
+    width: 100%;
+    font-size: 60%;
+    text-transform: lowercase;
+    text-align: center;
+    vertical-align: bottom;
+}
