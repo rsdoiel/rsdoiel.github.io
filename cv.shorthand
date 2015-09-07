@@ -5,24 +5,24 @@
     <title>Robert Doiel, Software Engineer/Analyst - CV</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
     <link rel="stylesheet" type="text/css"  href="css/style.css" media="screen" />
   </head>
   <body>
             <header>
-                <img class="headshot" src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
-                <div class="contact">
+                <img src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
+                <div> 
                         Robert Doiel<br />
                         Digital Services Programmer<br />
                         <a href="http://library.caltech.edu">Caltech Libraries</a><br />
                 </div>
             </header>
-    <section id="content">
+    <section>
         {{pageContent}}
     </section>
+
     <nav>
-      <ul class="no-bullet">
+      <ul>
         <li><a href="index.html">About</a></li>
         <li>CV</li>
         <li><a href="resume.html">Resume</a></li>
@@ -34,15 +34,6 @@
     built with <a href="http://rsdoiel.github.io/shorthand">shorthand</a>
     </footer>
 
-<!-- BEGIN: Javascript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
-<script>
-	if (typeof marked === 'undefined') {
-		document.write('<script src="js/marked.min.js">\x3C/script>');
-	}
-</script>
-<script type="text/javascript" src="js/marked-content.js"></script>
-<!-- END: Javascript -->
 <!-- START: Google Analytics -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
