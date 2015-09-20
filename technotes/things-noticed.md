@@ -24,4 +24,5 @@ produced.
 F18 has a nice article an progressive enhancement summarizing with an [M&M]((https://18f.gsa.gov/2015/08/26/aaron-gustafson-beyond-responsive-design/)
 analogy. Discusses, why, and how to approach progressive enhancement. Good
 highlight on addressing the world most of us experience on the web who see it
-without the lense of iPhones, iPads and nice Macbooks.
+without the lens of iPhones, iPads and nice Macbooks. Includes a nice Q&A with
+Aaron Gustafson.
