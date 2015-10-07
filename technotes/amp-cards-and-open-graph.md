@@ -1,41 +1,61 @@
 
-# Accelerated Mobile Pages application for library websites
+# Accelerated Mobile Pages, Twitter Cards and Open Graph
 
-## What problem is being solved
+This article is an overview of three web content organizations that
+can improve the web experience for our audiences.
 
-Websites are becoming increasing slow to use. They can become unusable
-on mobile devices over cellular networks even when they are "designed for mobile".
-This is a largely a problem of forgetting many of our best practices on the web.
-[Accelerated Mobile Pages]() is a reaction to this problem. Its usefulness is
-that it doesn't add to systems but proscribes an approach to leverage what we have.
-Reminds me a lot of "JavaScript the Good Parts" but for the whole website.
+## Three approaches promising to improve the web experience
 
-Along with AMP (not to be confused with Apache+MySQL+PHP) there are related
-HTML structure that have been evolving that complement this. Two important ones
-are Twitter Cards and another is Open Graph.  These page level metadata markup
-to expose document details in search results and social media.
+### The problem
 
-+ [Accelerated Mobile Pages]() is a set of recommendations from a consortium of publishers to use a efficient subset from HTML, JavaScript and CSS
-+ [Web Components]()'s custom elements with HTML templates
-  + Custom elements add to the HTML markup available to a web page.
-  + They use HTML templates, CSS and JavaScript.
-  + Done well
-    + Reduce the JavaScript you need to write and maintain
-    + Facilitates reuse
-    + Lets you innovate by composing HTML rather than coding complex JavaScript/CSS interactions
-+ [Twitter Cards and Open Graph]() improve content sharing via social media and search engines
+The web has gotten slow. Average page weight in 2015 is multi-megabyte and the
+average number of network requests need to deliver all the content to render a page
+is beging to count in the hundreds. On an expectation collision coarse is
+slow or saturated networks (e.g. cell networks for mobile devices), public assumption
+of responsiveness (studies show that you have less than 3 seconds before people)
+will assume your page is broken an leave. We know how to be fast but we're not
+building things on the web that way. We need to pick the right abstractions to
+simplify content delivery, use and interaction. This tech note is looks at three
+different approaches that resonate together to help address that challenge.
 
++ [Twitter Cards](https://dev.twitter.com/cards/overview) and [Open Graph](http://ogp.me/)
+  + Exposing your content via social media, search results or embedded in pages via an aside element
++ [Accelerated Mobile Pages](https://www.ampproject.org/) (also called AMP)
+  + A simplification in content delivery to improve web reading experience
+  + Its usefulness is it proscribes an approach to leverage what we have
+  + AMP works well with Twitter Cards, Open Graph and can leverage Web Components
 
-AMP is being developed via a Github repository.
+## Who are the players in these technologies?
 
+### Twitter Cards and Open Graph
 
-## Who is involved
+The usual suspects are Twitter for Titter Cards and Facebook for Open Graph. Both
+protocols build off of existing meta HTML elements in the HTML page's document
+head. They are named space to avoid collisions but supporting both will still
+result in some content duplication.
 
-The backers of AMP are largely publishers but include some of the major news
-outlets as well as web media companies. This is an abridged list--
+Adopting either or both is a matter of adjusting how your render your web page's
+header block.  This can be done easily in manually edit pages but easier still
+using some sort of template system that renders the appropriate meta elements
+based on the content type and contents in the page being rendered.
+
+Google search and possibly other search engine crawlers also can leverage this
+rich source of meta data and integrate it into their results. Google's Now
+application can render content cards based on either semantics. It also appears
+that "content cards" are being leverage selectively for aside and related content
+on Google search results pages.
+
+Content Cards offer intriguing opportunity for web crawlers and  search engines.
+This is particularly true when combined with  mature feed formats like RSS,
+Atom and maturing efforts like JSON-LD.
+
+### AMP
+
+The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
+publishers but include some of the major news outlets as well as web media
+companies in the US and Europe. This is an abridged list--
 
 + BBC
-+ Google
 + Atlantic Media
 + Vox Media
 + Conde Nast
@@ -48,16 +68,34 @@ outlets as well as web media companies. This is an abridged list--
 + The Economist
 + The Financial Times
 
+In additional to the publishers there is participation by tech companies
+such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com. In the area
+of news content delivery this effort seems likely to grain a modest level of
+adoption. Like Twitter Cards and Open Graph the recommendations for Accelerated
+Mobile Pages has some strong benefits for web crawlers and search engines as the
+content is surfaced more clearly and less likely to be confused with third
+party content such as advertisements.
 
-## How it works
+## How do these impact building content?
 
-The basic approach is to codify some best practices and limit the amount of JavaScript
-executing in the page. There are some longer term objectives like consolidating
-analytics scripts to use a single common API or to rely on non-JS tracking mechanisms.
+All three require changes in your production of your HTML sent to the browser.
+Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
+pages.  AMP proscribes what you should put in the BODY element of the webpage.
+Both can be implemented via your template system or page generate scripts.
+
+I would expect major CMS like Wordpress and Drupal to have plugins for these
+emerging soon. Like wise they are easy enough to include in manually create pages
+or pages generated using a static site generator like Hugo or Jehkyll.
 
 
 ## When do you start wit this
 
-Since AMP is largely an approach we can start today. There is little new technology
-to adopt that we are not already adopting (e.g. Custom Elements from the web component spec).
-The start is to leverage static content and how we render it.
+Because these approaches ultimately boil down to content assembly adoption
+can be done ad-hoc or whole hog depending on your development and maintenance schedule.
+For many it will be a mater of updating their templates used to generate the website
+or in the case of dynamic CMS like Drupal or Wordpresss adding an appropriate
+plugin when one is available. Long range adopting these
+approaches could also mean improved performance in the web browser itself and not
+only because of the smaller network foot print and limitted JavaScript. Finally
+because all three approaches boil down to presenting your content the risk of
+adoption is low so why not start today?
