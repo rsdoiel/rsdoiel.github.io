@@ -23,7 +23,6 @@
 + Go
 + JavaScript (NodeJS)
 + JVM based languages
-    + Clojure
     + Groovy
     + Java
     + jRuby
@@ -41,7 +40,7 @@
 
 ## Current Projects
 
-+ Build cool things for Caltech Libraries
++ Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
 + Data migration
 
 
