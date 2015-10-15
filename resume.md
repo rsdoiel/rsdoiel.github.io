@@ -19,16 +19,14 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Go
 + JavaScript (NodeJS)
 + JVM based languages
-    + Beanshell
     + Groovy
     + Java
     + jRuby
 + Make
-+ MongoDB
 + Perl
 + PHP
 + Python
-+ SQL (MySQL)
++ SQL/NoSQL database platforms
 + Vagrant
 
 
