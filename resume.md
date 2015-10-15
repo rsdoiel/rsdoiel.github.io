@@ -20,7 +20,6 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + JavaScript (NodeJS)
 + JVM based languages
     + Beanshell
-    + Clojure
     + Groovy
     + Java
     + jRuby
