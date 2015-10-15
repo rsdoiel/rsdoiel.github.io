@@ -7,9 +7,10 @@ This is my running collection of notes to help me remember various terms, abbrev
 
 + actors
     + Sending and receiving parties
-+ [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)i
-    + [Archival Resource Key](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793)
-    + Is a unique identifier used in archives analogus to a DOI used in a digital library repository.
++ [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)
+    + Archival Resource Key
+    + Is a unique identifier used in archives analogus to a DOI used in a digital library repository
+    + IFLA's [best practice](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793) description
 + [arXiv](arXiv.org)
     + open access to e-prints in Physics, Math, Comp. Sci., Quant. Bio., Quant Finance and Stats (hosted by Cornell University Library)
 + BagIt
@@ -21,6 +22,8 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Replacing MARC 21
 + checksum
     + A short piece of text that is algorithmically derived from a file and allows the determination of whether the file has been corrupted.
++ [CDL](http://www.cdlib.org)
+    + California Digital Library
 + [CLIR](http://www.clir.org)
     + Council on Library and Information Resources
     + [CLIR/DLF](http://www.clir.org/dlf)
@@ -37,6 +40,10 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Digital Access Management System
 + descriptive metadata
     + Metadata that describes the intellectual content of a file, as opposed to the physical or structural characteristics of the file.
++ Discovery
+    + First phase in a research project (followed by validation)
+    + A discovery product consists of an interface directed toward the users of a library to find materials in its collections and subsequently to gain access to items of interest through the appropriate mechanisms. Discovery products tend to be independent from the specific applications that libraries implement to manage resources, such as integrated library systems, library services platforms, repository platforms, or electronic resource management systems. In most cases they provide access to multiple types of materials, independently of the management platform involved. Discovery products provide an interface with search and retrieval capabilities, often with features such as relevancy-based ordering of search results, facets presented that can be selected to narrow results according to specific categories, contributors, or date ranges, and tools to identify related materials or to refine search queries. Discovery products will use mechanisms appropriate to location, content type and license arrangement to provide access to materials. These mechanisms might include identifying the current location and status of a physical item with service options to request the item be held or delivered, to provide linking or direct viewing or download of articles, chapters, e-books, or other textual items available electronically, and presentation of digital images or multi-media content. Discovery products may also have social features that enable library patrons to comment, review, rate, or recommend content items or to interact dynamically with other patrons.
+    + Also see [EDS]()
 + [DLF](http://www.diglib.org/)
     + Digital Library Federation
 + [DOI®](http://www.doi.org/)
@@ -44,10 +51,6 @@ This is my running collection of notes to help me remember various terms, abbrev
     + A unique, persistent, and actionable digital identifier for a content object.
     + Note: The DOI syntax is defined in ANSI/NISO Z39.84 and the entire DOI system is defined in ISO 26324.
     + [DOI](http://en.wikipedia.org/wiki/Digital_object_identifier) is a digital object identifier is a unique string identifier for digital resources and resolves to a URL of the document. It includes metadata about the document and how to resolve its location.
-+ Discovery
-    + First phase in a research project (followed by validation)
-    + A discovery product consists of an interface directed toward the users of a library to find materials in its collections and subsequently to gain access to items of interest through the appropriate mechanisms. Discovery products tend to be independent from the specific applications that libraries implement to manage resources, such as integrated library systems, library services platforms, repository platforms, or electronic resource management systems. In most cases they provide access to multiple types of materials, independently of the management platform involved. Discovery products provide an interface with search and retrieval capabilities, often with features such as relevancy-based ordering of search results, facets presented that can be selected to narrow results according to specific categories, contributors, or date ranges, and tools to identify related materials or to refine search queries. Discovery products will use mechanisms appropriate to location, content type and license arrangement to provide access to materials. These mechanisms might include identifying the current location and status of a physical item with service options to request the item be held or delivered, to provide linking or direct viewing or download of articles, chapters, e-books, or other textual items available electronically, and presentation of digital images or multi-media content. Discovery products may also have social features that enable library patrons to comment, review, rate, or recommend content items or to interact dynamically with other patrons.
-    + Also see [EDS]()
 + [DPLA](http://dp.la/)
     + Digital Public Library of America
 + DR
@@ -71,6 +74,8 @@ This is my running collection of notes to help me remember various terms, abbrev
     + GLAM is Galleries, Libraries, Archives, and Museums
 + [GOKB](gobk.kuali.org/gokb/)
     + Global Open Knowledge base
++ [IFLA](http://ifla.org)
+    + International Federation of Library Associations and Institutions
 + ILS
     + Integrated Library System
 + [IOTA](http://www.niso.org/workrooms/openurlquality)
