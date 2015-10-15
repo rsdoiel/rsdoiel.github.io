@@ -1,5 +1,5 @@
 
-# Robert's Library Terminology and Jargon file
+# Robert's Library Terminology and Jargon list
 
 This is my running collection of notes to help me remember various terms, abbreviations and concepts I have run across as a software developer working in a Academic/Research library setting.
 
