@@ -7,6 +7,9 @@ This is my running collection of notes to help me remember various terms, abbrev
 
 + actors
     + Sending and receiving parties
++ [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)i
+    + [Archival Resource Key](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793)
+    + Is a unique identifier used in archives analogus to a DOI used in a digital library repository.
 + [arXiv](arXiv.org)
     + open access to e-prints in Physics, Math, Comp. Sci., Quant. Bio., Quant Finance and Stats (hosted by Cornell University Library)
 + BagIt
