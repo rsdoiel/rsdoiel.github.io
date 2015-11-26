@@ -30,6 +30,7 @@
 + Perl
 + PHP
 + Python
++ R
 + SQL/NoSQL database platforms
 + Vagrant
 + Design and implementation of 
