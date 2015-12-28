@@ -12,7 +12,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Go, Lisp, Clojure, Standard ML and clustering
+    - Go, Lisp, R, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities

@@ -12,3 +12,7 @@ resume.html: resume.md resume.shorthand
 
 library-terminology.html: library-terminology.md library-terminology.shorthand
 	shorthand library-terminology.shorthand > library-terminology.html
+
+publish:
+	git commit -am "save and publish"
+	git push origin master
