@@ -21,7 +21,6 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + JVM based languages
     + Groovy
     + Java
-    + jRuby
 + Make
 + Perl
 + PHP

@@ -25,7 +25,6 @@
 + JVM based languages
     + Groovy
     + Java
-    + jRuby
 + Make
 + Perl
 + PHP
