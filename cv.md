@@ -25,11 +25,11 @@
 + JVM based languages
     + Groovy
     + Java
-    + jRuby
 + Make
 + Perl
 + PHP
 + Python
++ R
 + SQL/NoSQL database platforms
 + Vagrant
 + Design and implementation of 
@@ -41,7 +41,7 @@
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
-+ Data migration
++ Data migration for Caltech Archives
 
 
 ## Past responsibilities
@@ -96,6 +96,7 @@
 
 ## Presentations
 
++ December 15, 2015, [Unified Search Box](http://caltechlibrary.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
 + January 24, 2013, [Safely-php](https://docs.google.com/presentation/d/1Efh9Z_HGBOxxYsupHQDok9-CjL4aBC-lGIAnZu5mm1E/edit?usp=sharing) presentation for the USC Web Council
 + October 6, 2010, [USC Map and Calendar API](usc-api-demos) demonstration presentation for the USC Web Council
 + October 4, 2006, Lecture on software development, practice and lessons learned in ITS Web Services for the USC Center for Software Engineering CS-577 graduate course

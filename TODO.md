@@ -2,9 +2,6 @@
 
 + Think about an appropriate information architecture for website
     + Is it vanity, useful to me only or something else?
-+ Convert website from Markdown and x-tag rendering into static file set
-    + figure out how to leverage shorthand
-    + make a slug and unslug tool
 
 ## Someday Maybe
 

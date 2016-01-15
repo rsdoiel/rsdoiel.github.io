@@ -3,13 +3,16 @@
 
 I am a human. I write software. Once upon a time I wrote music and prose. I am interested in the intersection of technology and the humanities.
 
-I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now California Institute of Technology).  I bring to the table both [B.S. in Computer Science](http://www.cs.usc.edu/academics/undergrad/) as well as an [M.A. in the Humanities](http://www.msmu.edu/graduate-programs/humanities/). I enjoy diving deeply into a problem and working through solutions that have measurable results.
+I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now Caltech).  I bring to the table both [B.S. in Computer Science](http://www.cs.usc.edu/academics/undergrad/) as well as an [M.A. in the Humanities](http://www.msmu.edu/graduate-programs/humanities/). I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
+## Presentations
+
++ December 15, 2015, [Unified Search Box](http://rsdoiel.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
 
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Go, Lisp, Clojure, Standard ML and clustering
+    - Go, Lisp, R, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
