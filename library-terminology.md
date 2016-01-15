@@ -64,6 +64,8 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [EAC](http://eac.staatsbibliothek-berlin.de/) Encoded Archival Context
     + [Wikipedia article](https://en.wikipedia.org/wiki/Encoded_Archival_Context)
     + [Glossary Reference at the Society of American Archivist](http://www2.archivists.org/glossary/terms/e/encoded-archival-context)
++ [EAC-CPF](http://eac.staatsbibliothek-berlin.de/) - Encoded Archival Context + Corporate bodies, Persons and Families
+    + [Wikipedia article](https://en.wikipedia.org/wiki/Encoded_Archival_Context)
 + [EAD](http://www2.archivists.org/groups/technical-subcommittee-on-encoded-archival-description-ead/ead-revision) - Encoded Archival Descriptions (up to version 3).
     + [Wikipedia entry](https://en.wikipedia.org/wiki/Encoded_Archival_Description)
     + [Kerstin Arnold: EAD3 and the consequences of the new version](http://www.apex-project.eu/index.php/en/articles/149-ead3-and-the-consequences-of-the-new-version)
@@ -103,6 +105,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Being superceded by BibFrame
 + metadata
     + A set of data that describes and gives information about other data; for example, data describing the full text of an article.
++ [MODS](http://www.loc.gov/standards/mods/) - Metadata Object Description Schema
 + [NISO](http://www.niso.org/home/)
     + website blurb: "NISO is where content publishers, libraries, and software developers turn for information industry standards that allow them to work together.""
 + [OA](https://oa-library.com)
