@@ -135,6 +135,9 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Note: In the Open Archival Information System (OAIS), this package is often the Submission Information Package (SIP).
 + [PREMIS Data Model](http://www.loc.gov/standards/premis/) and PREMIS Data Dictionary for Preservation Metadata
     + is the international standard for metadata to support the preservation of digital objects and ensure their long-term usability.  
++ [PURR](http://authors.library.caltech.edu/25887) - Persistant URL Resource Resolver
+    + Used by Caltech library for maintaining a persistent connection to web resources
+    + [Detailed documentation](http://authors.library.caltech.edu/25887/1/purr.pdf)
 + [RDA](http://www.rda-jsc.org/rda.html)
     + Resource Description and Access
 + [RDA-JSC](http://www.rda-jsc.org)
