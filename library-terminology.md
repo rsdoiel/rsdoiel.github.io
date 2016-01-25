@@ -70,6 +70,8 @@ This is my running collection of notes to help me remember various terms, abbrev
     + [Wikipedia entry](https://en.wikipedia.org/wiki/Encoded_Archival_Description)
     + [Kerstin Arnold: EAD3 and the consequences of the new version](http://www.apex-project.eu/index.php/en/articles/149-ead3-and-the-consequences-of-the-new-version)
     + [Yale Plugin](https://github.com/hudmol/container_profiles) - and Yale website [http://campuspress.yale.edu/yalearchivesspace/](http://campuspress.yale.edu/yalearchivesspace/)
++ [EZID](http://ezid.cdlib.org/) - long term identifiers made easy
+    + [EZID Developer Docs](http://ezid.cdlib.org/doc/apidoc.html)
 + full-text
     + XML Bibliographic metadata plus the full text of the article is included in an XML file.
 + [GLAM](http://openglam.org/)
