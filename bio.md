@@ -21,6 +21,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, also can be used as a package
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
+    + [findfile](https://github.com/rsdoiel/findfile) - a simplified file finder command, supports search by basename prefix, suffix or fragment
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
 
