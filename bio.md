@@ -7,7 +7,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 
 ## Presentations
 
-+ December 15, 2015, [Unified Search Box](http://rsdoiel.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
++ December 15, 2015, [Unified Search Box](http://caltechlibrary.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
 
 ## Interests/Projects
 
