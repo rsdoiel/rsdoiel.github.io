@@ -11,6 +11,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 
 ## Interests/Projects
 
++ [CAIT](https://github.com/caltechlibrary/cait) -- Caltech Archives Intergration Tools
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     + Go, Lisp, R, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
