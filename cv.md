@@ -26,6 +26,7 @@
     + Groovy
     + Java
 + Make
++ OpenSCAD
 + Perl
 + PHP
 + Python
@@ -41,11 +42,12 @@
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
-+ Data migration for Caltech Archives
++ [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
 
 
 ## Past responsibilities
 
++ Data migration for old Caltech Archives system to ArchivesSpace
 + Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
 + Software architecture and implementation for applications, APIs and data services for web and mobile devices
 + Technology evaluation

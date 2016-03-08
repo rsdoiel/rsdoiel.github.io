@@ -12,7 +12,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 ## Interests/Projects
 
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
-    - Go, Lisp, R, Standard ML and clustering
+    + Go, Lisp, R, Standard ML and clustering
 + [Golang](http://golang.org) based Unix utilities
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
@@ -21,7 +21,10 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, also can be used as a package
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
+    + [findfile](https://github.com/rsdoiel/findfile) - a simplified file finder command, supports search by basename prefix, suffix or fragment
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
++ 3D design experiments
+    + [Paperlaptop](https://github.com/rsdoiel/paperlaptop) - a DYI cardboard and PLA laptop, source files in STL and [OpenScad](http://www.openscad.org/)
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
 
 ## Past interests/projects
