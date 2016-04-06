@@ -70,7 +70,7 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Code samples
 
-+ [ws](https://github.com/rsdoiel/ws), June 2014 - February 2016 (author; go):  A nimble web server for prototyping featuring, static file services and embedded server side JavaScript.
++ [ws](https://github.com/rsdoiel/ws), June 2014 - April 2016 (author; go):  A nimble web server for prototyping featuring, static file services and embedded server side JavaScript.
 + [shorthand](https://github.com/rsdoiel/shorthand) - September 2015 (author; go) - A simple label expander with added oomph.
 + [stngo](https://github.com/rsdoiel/stngo) - June 2015 (author; go) - A parser and set of utilities for processing simple timesheet notation (aka stn)
 + [reldate](https://github.com/rsdoiel/reldate), August 2014 (author; go) - A small utility which returns the relative date in YYYY-MM-DD format.
