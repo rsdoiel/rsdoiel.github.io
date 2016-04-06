@@ -43,6 +43,8 @@
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
 + [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
++ [epgo](https://github.com/caltechlibrary/epgo) - E-Prints REST API Golang package
++ [ostdlib](https://github.com/caltechlibrary/ostdlib) - A standard library and REPL for embedding the [Otto](https://github.com/robertkrimen/otto) JavaScript engine
 
 
 ## Past responsibilities
