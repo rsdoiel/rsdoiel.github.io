@@ -55,11 +55,6 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Digital Public Library of America
 + DR
     + Digital Repository
-+ [EBSCO](https://www.ebsco.com/)
-    + is a vendor for libraries providing of Journals, e-Journals, e-Journal Packages, Magazines Subscriptions, Subscriptions Management Tools, etc.
-+ [EDS](https://www.ebscohost.com/discovery)
-    + EBSCO Discovery Service
-+ [ERM](http://en.wikipedia.org/wiki/Electronic_resource_management)
     + Electronic resources management
 + [EAC](http://eac.staatsbibliothek-berlin.de/) Encoded Archival Context
     + [Wikipedia article](https://en.wikipedia.org/wiki/Encoded_Archival_Context)
@@ -70,6 +65,12 @@ This is my running collection of notes to help me remember various terms, abbrev
     + [Wikipedia entry](https://en.wikipedia.org/wiki/Encoded_Archival_Description)
     + [Kerstin Arnold: EAD3 and the consequences of the new version](http://www.apex-project.eu/index.php/en/articles/149-ead3-and-the-consequences-of-the-new-version)
     + [Yale Plugin](https://github.com/hudmol/container_profiles) - and Yale website [http://campuspress.yale.edu/yalearchivesspace/](http://campuspress.yale.edu/yalearchivesspace/)
++ [EBSCO](https://www.ebsco.com/)
+    + is a vendor for libraries providing of Journals, e-Journals, e-Journal Packages, Magazines Subscriptions, Subscriptions Management Tools, etc.
++ [EDS](https://www.ebscohost.com/discovery)
+    + EBSCO Discovery Service
++ [ERM](http://en.wikipedia.org/wiki/Electronic_resource_management)
++ [ETD](https://en.wikipedia.org/wiki/Institutional_repository) - Electronic Theses and Dissertations, usually part of an Institutional Repository
 + [EZID](http://ezid.cdlib.org/) - long term identifiers made easy
     + [EZID Developer Docs](http://ezid.cdlib.org/doc/apidoc.html)
 + full-text
