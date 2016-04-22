@@ -168,7 +168,7 @@ predetermined conclusion.
 + [SUSHI](http://www.niso.org/workrooms/sushi/faq/general)
     + Standardized Usage Statistics Harvesting Initiative. It is a standard protocol (ANSI/NISO Z39.93-2003) that can be used by electronic resource management (ERM) systems (and other systems) to automate the transport of COUNTER formatted usage statistics. It can also be used to retrieve non-COUNTER reports that meet the specified requirements for retrieval by SUSHI.
 + UL and AUL are University Librarian and Associate/Assistance University Librarian
-+ [UMI](http://www.umi.com/) - University Microfilm International (redirects to [ProQuest](http://www.proquest.com/)) is currently owned by Bell & Howell
++ [UMI](http://id.loc.gov/authorities/names/n79021032.html) - University Microfilm International (www.umi.com redirects to [ProQuest](http://www.proquest.com/)) is currently owned by Bell & Howell
 + Z39*
     + A set of protocol and specifications encompassing client server technology and the interchange of data, metadata, and Metrics
     + Examples:
