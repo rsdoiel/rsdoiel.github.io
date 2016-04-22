@@ -108,6 +108,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + metadata
     + A set of data that describes and gives information about other data; for example, data describing the full text of an article.
 + [MODS](http://www.loc.gov/standards/mods/) - Metadata Object Description Schema
++ [NDLTD](http://www.ndltd.org/) - Networked Digital Library of Theses and Dissertations, an organization that collections these in eletronic form
 + [NISO](http://www.niso.org/home/)
     + website blurb: "NISO is where content publishers, libraries, and software developers turn for information industry standards that allow them to work together.""
 + [OA](https://oa-library.com)
