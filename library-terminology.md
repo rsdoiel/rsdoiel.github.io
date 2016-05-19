@@ -83,6 +83,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + International Federation of Library Associations and Institutions
 + ILS
     + Integrated Library System
++ [IIIF](http://iiif.io) - International Image Interoperability Framework
 + [IOTA](http://www.niso.org/workrooms/openurlquality)
     + Analytics and quality measurements for OpenURLs
 + [ISDB-RG](http://www.ifla.org/isbd-rg) International Standard Bibliographic Description - Review Group
@@ -96,6 +97,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + [PRESSoo](http://www.issn.org/the-centre-and-the-network/our-partners-and-projects/pressoo/) see [A Brief Presentation of PRESSoo](http://www.slideshare.net/patrickleboeuf/20130719-pres-soo)
 + [JISC](http://www.jisc.ac.uk/), [JISC Collections](https://www.jisc-collections.ac.uk/)
     + UK education digital solutions project
++ [JSON-LD](http://json-ld.org/) JSON Linked Data
 + [KOHA](http://www.koha.org/)
     + an open source Integrated Library System
 + [Kuali OLE](http://www.kuali.org/ole/partners)
@@ -135,6 +137,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + package
     + An aggregation of files being sent to another actor.
     + Note: In the Open Archival Information System (OAIS), this package is often the Submission Information Package (SIP).
++ [PCDM](http://pcdm.org/2015/09/28/models) - Portland Data Model, a simplified Dublin Core
 + [PREMIS Data Model](http://www.loc.gov/standards/premis/) and PREMIS Data Dictionary for Preservation Metadata
     + is the international standard for metadata to support the preservation of digital objects and ensure their long-term usability.  
 + [ProQuest](https://en.wikipedia.org/wiki/ProQuest) - ProQuest LLC is an Ann Arbor, Michigan-based global information-content and technology company[1] founded in 1938 as University Microfilms. 
