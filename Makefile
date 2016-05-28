@@ -1,5 +1,5 @@
 
-all: index.html cv.html resume.html library-terminology.html
+all: index.html cv.html resume.html library-terminology.html blog/nav.md
 
 index.html: bio.md index.shorthand
 	shorthand index.shorthand > index.html
