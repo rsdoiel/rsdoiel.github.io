@@ -23,9 +23,11 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
     + [findfile](https://github.com/rsdoiel/findfile) - a simplified file finder command, supports search by basename prefix, suffix or fragment
+    + [pathparts](https://github.com/rsdoiel/pathparts) - a path parsing utility for the command line
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
 + 3D design experiments
     + [Paperlaptop](https://github.com/rsdoiel/paperlaptop) - a DYI cardboard and PLA laptop, source files in STL and [OpenScad](http://www.openscad.org/)
+    + [opml](https://github.com/rsdoiel/opml) - a Go package for working with OPML files
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
 
 ## Past interests/projects
