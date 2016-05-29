@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function fileTitle {
+    FILENAME=$(echo "$1" | sed -e "s/\s$//g")
+    if [ -f "$FILENAME" ]; then
+      echo $(grep "# " "$FILENAME" | head -1 | sed -e "s/# //g")
+    else
+      echo "Can't find $FILENAME"
+      exit 1
+    fi
+}
+
 #
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
@@ -15,7 +25,10 @@ else
     FILENAME="$1"
 fi
 
-cp -v "$FILENAME" "$POST_PATH/$POST_FILENAME"
+echo "Copying markdown file into blog path $POST_PATH"
+cp -v "$FILENAME" "$POST_PATH/"
+echo "Resolving $FILENAME to basename"
+FILENAME=$(pathparts -b $FILENAME)
 
 # Build nav
 echo "" > nav.md
@@ -24,12 +37,12 @@ echo "+ [Blog](/blog/)" >> nav.md
 findfile -s .md ${POST_PATH:0:4} | while read ITEM; do
     echo "Processing ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
-    POST_TITLE=$(grep -E "# " $POST_FILENAME | head -1 | sed -e "s/# //g")
+    POST_TITLE=$(fileTitle "$POST_FILENAME")
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html})" >> nav.md
 done
 
 # Render post
-TITLE=$(grep "# " $FILENAME | head -1 | sed -e "s/# //g")
+TITLE=$(fileTitle "$POST_PATH/$FILENAME")
 shorthand \
     -e "{{year}} :!: echo -n $(date +%Y)" \
     -e "{{title}} :=: $TITLE" \
@@ -45,7 +58,7 @@ echo "" > index.md
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
-    POST_TITLE=$(grep -E "# " $POST_FILENAME | head -1 | sed -e "s/# //g")
+    POST_TITLE=$(fileTitle "$POST_FILENAME")
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html})" >> index.md
 done
 shorthand \
