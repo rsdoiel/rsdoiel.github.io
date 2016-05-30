@@ -1,7 +1,7 @@
 
 # Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph
 
-## 2016-05-30, [R. S. Doiel](http://rsdoiel.github.io)
+#### 2016-05-30, [R. S. Doiel](http://rsdoiel.github.io)
 
 This article is an overview of several web content organizations that
 suggest an improved the web experience for our audiences.
