@@ -44,7 +44,7 @@ will still result in some content duplication. The k-weight
 difference in the resulting HTML pages isn't too bad. 
 
 Adopting either or both is a matter of adjusting how your render your 
-web page's header block.  It is easy enough to do manually but easier 
+web page's head block.  It is easy enough to do manually but easier 
 still using some sort of template system that renders the appropriate 
 meta elements based on the content type and contents in the page 
 being rendered.  
