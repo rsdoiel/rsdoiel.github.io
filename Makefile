@@ -1,5 +1,5 @@
 
-all: index.html cv.html resume.html library-terminology.html blog/nav.md
+all: index.html cv.html resume.html library-terminology.html
 
 index.html: bio.md index.shorthand
 	shorthand index.shorthand > index.html
@@ -14,5 +14,6 @@ library-terminology.html: library-terminology.md library-terminology.shorthand
 	shorthand library-terminology.shorthand > library-terminology.html
 
 publish:
+	./make-sitemap.sh > sitemap.xml
 	git commit -am "save and publish"
 	git push origin master

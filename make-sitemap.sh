@@ -5,7 +5,7 @@
 #
 # Find all the .html files and build a sitemap from them
 #
-FREQ="weekly"
+FREQ="monthly"
 
 cat <<EOT
 <?xml version="1.0" encoding="UTF-8"?>
