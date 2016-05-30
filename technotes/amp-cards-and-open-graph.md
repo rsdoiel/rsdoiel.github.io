@@ -10,9 +10,9 @@ average page weight is in multi-megabytes and the average number of network
 requests needed to deliver the content is counted in 
 the hundreds. In the mix are saturated networks and a continued public 
 expectation of responsiveness (web wisdom suggests you have about 3 seconds 
-before people giving up).  The odd thing is we've known how to build fast 
-websites for over a decade.  Collectively we don't build them 
-[fast](https://www.sitepoint.com/average-page-weight-increased-another-16-2015/). 
+before people give up).  The odd thing is we've known how to build fast 
+websites for a [decade](https://www.stevesouders.com/) or so.  
+Collectively we don't build them [fast](https://www.sitepoint.com/average-page-weight-increased-another-16-2015/). 
 
 
 ## Meet the new abstractions
@@ -111,7 +111,7 @@ Instant Articles across their platform. That's nice.
 Why go through the trouble? If you're a content producer and your audience lives on Facebook
 Istant Articles privides another avenue to reach them.  Facebook commands the attention 
 of a lot of eye balls. For some Facebook effectively controls the public view of the 
-web much as America Online and Prodegy did decades ago. [Dave Winer](http://davewiner.com/) 
+web much as America Online and Prodegy did decades ago. [Dave Winer](https://twitter.com/davewiner) 
 has written extensively on how he implemented Instant Article support along with 
 some very reasoned pros and cons for doing so. The landscape is evolving and 
 [Dave's river of news](http://scripting.com) is worth following.
