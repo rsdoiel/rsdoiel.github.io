@@ -65,7 +65,7 @@ data community around JSON-LD.
 ### AMP - Accelerated Mobile Pages
 
 The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
-publishers including major news outlets as well as web media
+publishers including major news outlets and web media
 companies in the US and Europe. This is an abridged list from 2015--
 
 + BBC
