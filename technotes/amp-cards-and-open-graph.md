@@ -7,7 +7,7 @@
 
 The web has gotten slow. In [2016](http://httparchive.org/trends.php) the 
 average page weight is in multi-megabytes and the average number of network 
-requests needed to deliver all the content to render a page is counted in 
+requests needed to deliver the content is counted in 
 the hundreds. In the mix are saturated networks and a continued public 
 expectation of responsiveness (web wisdom suggests you have about 3 seconds 
 before people giving up).  The odd thing is we've known how to build fast 

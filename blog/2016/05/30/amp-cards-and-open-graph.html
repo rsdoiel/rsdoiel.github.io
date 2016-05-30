@@ -19,27 +19,26 @@
         <article>
         <h1>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
 
-<h4>2016-05-30, <a href="http://rsdoiel.github.io">R. S. Doiel</a></h4>
-
-<p>This article is an overview of several web content organizations that
-suggest an improved the web experience for our audiences.</p>
+<p>2016-05-30, <a href="http://rsdoiel.github.io">R. S. Doiel</a></p>
 
 <h2>The problem</h2>
 
-<p>The web has gotten slow. In 2015 the average page weight was in multi-megabytes and the
-average number of network requests needed to deliver all the content to render a page
-was counted in the hundreds. In the mix was saturated networks
-and a continued public expectation of responsiveness
-(web wisdom suggests people will wait about 3 seconds before giving up on your page).
-The odd thing is we&rsquo;ve known how to build fast websites for over a decade.
-Collectively we don&rsquo;t build them fast.</p>
+<p>The web has gotten slow. In <a href="http://httparchive.org/trends.php">2016</a> the
+average page weight is in multi-megabytes and the average number of network
+requests needed to deliver all the content to render a page is counted in
+the hundreds. In the mix are saturated networks and a continued public
+expectation of responsiveness (web wisdom suggests you have about 3 seconds
+before people giving up).  The odd thing is we&rsquo;ve known how to build fast
+websites for over a decade.  Collectively we don&rsquo;t build them
+<a href="https://www.sitepoint.com/average-page-weight-increased-another-16-2015/">fast</a>.</p>
 
 <h2>Meet the new abstractions</h2>
 
-<p>Corprations believe they have the answer and they are providing us with a new
-set of abstractions. In a few years maybe these will get distilled down to a shared
-common view but in the mean time disc costs remain reasonably priced and generating
-these new types of pages is only a script and template or two away.</p>
+<p>Corprations believe they have the answer and they are providing us
+with another set of abstractions. In a few years maybe these will
+get distilled down to a shared common view but in the mean time disc
+costs remain reasonably priced and generating these new forms of
+pages or feeds is a template or so away.</p>
 
 <ul>
 <li><a href="https://dev.twitter.com/cards/overview">Twitter Cards</a> and <a href="http://ogp.me/">Open Graph</a>
@@ -65,35 +64,35 @@ these new types of pages is only a script and template or two away.</p>
 
 <h3>Twitter Cards and Open Graph</h3>
 
-<p>Our usual suspects are Twitter for Titter Cards and Facebook for Open Graph. Both
-protocols build off of existing meta HTML elements in the HTML page&rsquo;s document
-head. They are named space to avoid collisions but supporting both will still
-result in some content duplication. The k-weight difference in the resulting HTML
-pages isn&rsquo;t too bad. Not particularly hostile to the open web.</p>
+<p>Twitter&rsquo;s Titter Cards and Facebook&rsquo;s Open Graph offer approaches to
+build off of our existing meta elements in an HTML page&rsquo;s document
+head.  They are named space to avoid collisions but supporting both
+will still result in some content duplication. The k-weight
+difference in the resulting HTML pages isn&rsquo;t too bad.</p>
 
-<p>Adopting either or both is a matter of adjusting how your render your web page&rsquo;s
-header block.  This can be done easily in manually edited pages but easier still
-using some sort of template system that renders the appropriate meta elements
-based on the content type and contents in the page being rendered.</p>
+<p>Adopting either or both is a matter of adjusting how your render your
+web page&rsquo;s header block.  It is easy enough to do manually but easier
+still using some sort of template system that renders the appropriate
+meta elements based on the content type and contents in the page
+being rendered.</p>
 
-<p>Google and possibly other search engine crawlers leverage this
-rich source of meta data and integrate it into their results. Google&rsquo;s Now
-application can render content cards based on either semantic. It also appears
-that &ldquo;content cards&rdquo; are being leverage selectively for an aside and related content
-on Google search results pages.</p>
+<p>Google and other search engines can leverage this richer meta
+data and integrate it into their results. Google&rsquo;s Now application can
+render content cards based on either semantic. It also appears that
+content cards are being leverage selectively for an aside and related
+content on Google search results pages. You could even built this into
+your own indexing process for use with the Solr or Elasticsearch.</p>
 
-<p>Content Cards offer intriguing opportunity for web crawlers and search engines.
-This is particularly true when combined with mature feed formats like RSS, OPML,
-Atom and the maturing efforts in the linked data community like JSON-LD.</p>
+<p>Content Cards offer intriguing opportunity for web crawlers and search
+engines.  This is particularly true when combined with mature feed
+formats like RSS, OPML, Atom and the maturing efforts in the linked
+data community around JSON-LD.</p>
 
-<h3>AMP</h3>
-
-<pre><code>Accelerated Mobile Pages
-</code></pre>
+<h3>AMP - Accelerated Mobile Pages</h3>
 
 <p>The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
-publishers but include some of the major news outlets as well as web media
-companies in the US and Europe. This is an abridged list&ndash;</p>
+publishers including major news outlets as well as web media
+companies in the US and Europe. This is an abridged list from 2015&ndash;</p>
 
 <ul>
 <li>BBC</li>
@@ -112,36 +111,37 @@ companies in the US and Europe. This is an abridged list&ndash;</p>
 
 <p>In additional to the publishers there is participation by tech companies
 such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com. In the area
-of news content delivery these efforts seems likely to grain a modest level of
+of news content delivery these efforts are posed to grain a modest level of
 adoption. Like Twitter Cards and Open Graph the recommendations for Accelerated
-Mobile Pages has some strong benefits for web crawlers and search engines as the
-content is surfaced clearly and less likely to be confused with third
-party content such as advertisements.</p>
+Mobile Pages has some strong benefits for web crawlers and search engines allowing
+the content is surfaced clearly and enabling simple distinction from
+advertisements.</p>
 
 <h3>Instant Articles</h3>
 
 <p>In additional to Open Graph Facebook has put forward <a href="https://developers.facebook.com/docs/instant-articles">Instant Articles</a>.
-Like AMP it is targetting delivery for mobile. Unlike AMP Instant Articles is an
-explicit binding into Facebook&rsquo;s walled garden on iOS and Android. You don&rsquo;t see them
-in your Facebook timeline or when on your deskop/laptop.  Additionally unlike the previous
+Like AMP it is targetting content delivery for mobile. Unlike AMP Instant Articles is an
+explicit binding into Facebook&rsquo;s walled garden only exposing the content on supported
+versions of iOS and Android. You don&rsquo;t see Instant Articles in your Facebook timeline or when<br />
+your browser from a deskop webbrowser.  Unlike the previous
 examples you actually need to sign up to participate in the Instant Article publishing
 process.  Sign up cost is having a Facebook account, being approved by Facebook and complience
 with their terms of service. Facebook does provide some publishing tools, publishing controls
-as well as some analytics. They do allow adds to pass through as well as encourage access to
-their ad network.  Once approved the burden on your content manage process is reasonable.</p>
+as well as some analytics. They do allow ads to pass through as well as encourage access to
+their ad network.  Once approved the burden on your content manage process appears reasonable.</p>
 
 <p>You can submit Instant Articles via a modified RSS feed or directly through their API.
 In this sense the overhead is about the same as that for implementing support for Twitter Cards
-Open Graph or AMP. Facebook as done a good job of quickly propogating changes to your
-feeds across their platform. That&rsquo;s nice.</p>
+Open Graph, and AMP. Facebook does a good job of quickly propogating changes to your
+Instant Articles across their platform. That&rsquo;s nice.</p>
 
-<p>Why go through the trouble? If you&rsquo;re a content producer and your audience lives on the Facebook
-you can reach them when they are on their mobile iOS or Android device.
-Facebook has allot of eye balls. In some places they effectively control the public view of
-the web much as America Online and Prodegy did in the days of yore. <a href="http://scripting.com">Dave Winer</a>
-has written extensively on how he implemented Instant Article support along with some
-very reasoned pros and cons for doing so. The landscapes are evolving and his river
-is worth following.</p>
+<p>Why go through the trouble? If you&rsquo;re a content producer and your audience lives on Facebook
+Istant Articles privides another avenue to reach them.  Facebook commands the attention
+of a lot of eye balls. For some Facebook effectively controls the public view of the
+web much as America Online and Prodegy did decades ago. <a href="http://davewiner.com/">Dave Winer</a>
+has written extensively on how he implemented Instant Article support along with
+some very reasoned pros and cons for doing so. The landscape is evolving and
+<a href="http://scripting.com">Dave&rsquo;s river of news</a> is worth following.</p>
 
 <h2>Impact on building content</h2>
 
