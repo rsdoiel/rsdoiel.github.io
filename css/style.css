@@ -50,7 +50,7 @@ header div {
     text-align: right;
 }
 
-section {
+section, article {
     padding: 0;
     margin-top: 0;
     margin-left: 1.24em;
@@ -58,26 +58,20 @@ section {
     margin-bottom: 1.24em;
     position: relative; 
     display: inline-block;
-    max-width: 70%;
-}
-
-article {
-    padding: 0;
-    margin-top: 0;
-    margin-left: 1.24em;
-    margin-right: 0;
-    margin-bottom: 1.24em;
-    position: relative; 
-    display: inline-block;
-    max-width: 70%;
+    min-width: 65%;
+    max-width: 75%;
 }
 
 nav {
     position: relative;
     display: inline-block;
     min-width: 25%;
+    max-width: 30%;
     text-align: right;
     vertical-align: top;
+    line-break: loose;
+    word-wrap: normal;
+    overflow-wrap: normal;
 }
 
 nav ul {

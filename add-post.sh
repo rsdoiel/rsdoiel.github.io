@@ -32,9 +32,6 @@ echo "Copying markdown file into blog path $POST_PATH"
 cp -v "$FILENAME" "$BLOG/$POST_PATH/"
 echo "Resolving $FILENAME to basename"
 FILENAME=$(pathparts -b $FILENAME)
-echo "Adding to git $BLOG/$POST_PATH/$FILENAME"
-git add $BLOG/$POST_PATH/$FILENAME
-git commit -am "Added blog post"
 
 echo "Changing work directory to $BLOG"
 cd $BLOG
@@ -50,16 +47,22 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html})" >> nav.md
 done
 
-# Render post
-TITLE=$(fileTitle "$POST_PATH/$FILENAME")
-shorthand \
+# Render all posts
+findfile -s .md ${POST_PATH:0:4} | while read ITEM; do
+    echo "Rendering ${POST_PATH:0:4}/$ITEM"
+    TITLE=$(fileTitle "${POST_PATH:0:4}/$ITEM")
+    shorthand \
     -e "{{year}} :!: echo -n $(date +%Y)" \
     -e "{{title}} :=: $TITLE" \
-    -e "{{contentBlock}} :[<: $POST_PATH/$FILENAME" \
+    -e "{{contentBlock}} :[<: ${POST_PATH:0:4}/$ITEM" \
     -e "{{nav}} :[<: nav.md" \
     -e "html :{<: post.shorthand" \
-    -e "html :>: $POST_PATH/${FILENAME/.md/.html}" \
+    -e "html :>: ${POST_PATH:0:4}/${ITEM/.md/.html}" \
     -e ":exit:"
+done 
+echo "Adding to git $POST_PATH/$FILENAME"
+git add $POST_PATH/$FILENAME
+git commit -am "Added blog post"
 
 # Build index
 TITLE="Robert's ramblings"
