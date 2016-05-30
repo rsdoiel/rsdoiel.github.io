@@ -43,7 +43,7 @@ echo "Work directory now $(pwd)"
 echo "" > nav.md
 echo "+ [Home](/)" >> nav.md
 echo "+ [Blog](/blog/)" >> nav.md
-findfile -s .md ${POST_PATH:0:4} | while read ITEM; do
+findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
     POST_TITLE=$(fileTitle "$POST_FILENAME")
