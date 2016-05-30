@@ -71,7 +71,7 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
     POST_TITLE=$(fileTitle "$POST_FILENAME")
-    POST_DATE=${echo $POST_PATH | sed -e "s/\//-/g"}
+    POST_DATE=${POST_PATH//\//-}
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
 shorthand \
