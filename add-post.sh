@@ -1,5 +1,8 @@
 #!/bin/bash
 
+START_PATH=$(pwd)
+BLOG_PATH="blog"
+
 function fileTitle {
     FILENAME=$(echo "$1" | sed -e "s/\s$//g")
     if [ -f "$FILENAME" ]; then
@@ -14,6 +17,7 @@ function fileTitle {
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
 #
+cd $BLOG_PATH
 POST_PATH=$(reldate 0 day| tr - /)
 echo "Generating directory $POST_PATH"
 mkdir -p $POST_PATH
@@ -70,3 +74,4 @@ shorthand \
     -e "html :>: index.html" \
     -e ":exit:"
 
+cd $START_PATH
