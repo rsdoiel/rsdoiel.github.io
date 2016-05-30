@@ -13,15 +13,18 @@ cat <<EOT
 <urlset>
 EOT
 
-findfile -m -s .html | sort -r | while read ITEM; do
+findfile -m -s .md | sort -r | while read ITEM; do
     FILENAME=$(echo "$ITEM" | cut -d\  -f 4-1000)
     LAST_MODIFIED=$(echo "$ITEM" | cut -d\  -f 1)
-    cat <<EOT
+    HTML_FILENAME=${FILENAME/.md/.html}
+    if [ -f "$HTML_FILENAME" ]; then
+        cat <<EOT
   <url>
-    <loc>/$FILENAME</loc>
+    <loc>/$HTML_FILENAME</loc>
     <changefreq>$FREQ</changefreq>
     <lastModified>$LAST_MODIFIED</lastModified>
   </url>"
 EOT
+   fi
 done
 echo "</urlset>"
