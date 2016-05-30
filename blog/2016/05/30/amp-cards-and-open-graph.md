@@ -82,12 +82,10 @@ companies in the US and Europe. This is an abridged list from 2015--
 + The Financial Times
 
 In additional to the publishers there is participation by tech companies
-such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com. In the area
-of news content delivery these efforts are posed to grain a modest level of
-adoption. Like Twitter Cards and Open Graph the recommendations for Accelerated
-Mobile Pages has some strong benefits for web crawlers and search engines allowing
-the content is surfaced clearly and enabling simple distinction from 
-advertisements.
+such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com.  Accelerated
+Mobile Pages offer benefits for web crawlers and search engines supporting
+surfacing content is clearly and enabling easier distinction from 
+advertisements. 
 
 
 ### Instant Articles
@@ -98,10 +96,11 @@ explicit binding into Facebook's walled garden only exposing the content on supp
 versions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when  
 your browser from a deskop webbrowser.  Unlike the previous
 examples you actually need to sign up to participate in the Instant Article publishing
-process.  Sign up cost is having a Facebook account, being approved by Facebook and complience
+process.  Sign up cost is having a Facebook account, being approved by Facebook and compliance
 with their terms of service. Facebook does provide some publishing tools, publishing controls
-as well as some analytics. They do allow ads to pass through as well as encourage access to
-their ad network.  Once approved the burden on your content manage process appears reasonable.  
+as well as some analytics. They do allow 3rd party ads as well as encourage access to
+their advertising network.  Once approved the burden on your content manage process 
+appears managable.  
 
 You can submit Instant Articles via a modified RSS feed or directly through their API. 
 In this sense the overhead is about the same as that for implementing support for Twitter Cards
@@ -109,8 +108,8 @@ Open Graph, and AMP. Facebook does a good job of quickly propogating changes to 
 Instant Articles across their platform. That's nice.
 
 Why go through the trouble? If you're a content producer and your audience lives on Facebook
-Istant Articles privides another avenue to reach them.  Facebook commands the attention 
-of a lot of eye balls. For some Facebook effectively controls the public view of the 
+Facebook commands the attention of a lot of eye balls.  Instant Articles privides 
+another avenue to reach them.  For some Facebook effectively controls the public view of the 
 web much as America Online and Prodegy did decades ago. [Dave Winer](https://twitter.com/davewiner) 
 has written extensively on how he implemented Instant Article support along with 
 some very reasoned pros and cons for doing so. The landscape is evolving and 
@@ -122,15 +121,12 @@ some very reasoned pros and cons for doing so. The landscape is evolving and
 These approaches require changes in your production of your HTML and RSS sent to the browser.
 Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
 pages.  AMP proscribes what you should put in the BODY element of the webpage.
-Instant Articles tweaks your RSS output. All can be implemented via your template 
-system or page generatation scripts.
-
-Not surprisingly the major content management systems Wordpress and Drupal have plugins for this.
-Like wise it is easy enough to include in manually create pages or pages generated using a 
-static site generator like Hugo or Jehkyll.
+Instant Articles tweaks your RSS output.  Not surprisingly the major content management 
+systems Wordpress and Drupal have plugins for this.  All can be implemented via your template 
+system or page generatation process.
 
 
-## When to adopt?
+## Whither adopt?
 
 Because these approaches boil down to content assembly the adoption risk 
 is low.  If your audience views Twitter, Facebook or Google search results 
