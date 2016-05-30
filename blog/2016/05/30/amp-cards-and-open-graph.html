@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</title>
+
+        <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
+        <link href="/css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <img src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
+            <div>
+               Robert Doiel<br />
+               Digital Services Programmer<br />
+               <a href="http://library.caltech.edu">Caltech Libraries</a><br />
+            </div>
+        </header>
+        <article>
+        <h1>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
+
+<pre><code>2016-05-30, [R. S. Doiel](http://rsdoiel.github.io)
+</code></pre>
+
+<p>This article is an overview of several web content organizations that
+suggest an improved the web experience for our audiences.</p>
+
+<h2>The problem</h2>
+
+<p>The web has gotten slow. In 2015 the average page weight was in multi-megabytes and the
+average number of network requests needed to deliver all the content to render a page
+was counted in the hundreds. In the mix was saturated networks
+and a continued public expectation of responsiveness
+(web wisdom suggests people will wait about 3 seconds before giving up on your page).
+The odd thing is we&rsquo;ve known how to build fast websites for over a decade.
+Collectively we don&rsquo;t build them fast.</p>
+
+<h2>Meet the new abstractions</h2>
+
+<p>Corprations believe they have the answer and they are providing us with a new
+set of abstractions. In a few years maybe these will get distilled down to a shared
+common view but in the mean time disc costs remain reasonably priced and generating
+these new types of pages is only a script and template or two away.</p>
+
+<ul>
+<li><a href="https://dev.twitter.com/cards/overview">Twitter Cards</a> and <a href="http://ogp.me/">Open Graph</a>
+
+<ul>
+<li>Exposing your content via social media, search results or embedded in pages via an aside element</li>
+</ul></li>
+<li><a href="https://www.ampproject.org/">Accelerated Mobile Pages</a> (also called AMP)
+
+<ul>
+<li>A simplification in content delivery to improve web reading experience</li>
+<li>Its usefulness is it proscribes an approach to leverage what we have</li>
+<li>AMP works well with Twitter Cards, Open Graph and can leverage Web Components</li>
+</ul></li>
+<li><a href="https://instantarticles.fb.com/">Instant Articles</a>
+
+<ul>
+<li>a format play to feed the walled garden of Facebook for iOS and Android devices</li>
+</ul></li>
+</ul>
+
+<h2>The players</h2>
+
+<h3>Twitter Cards and Open Graph</h3>
+
+<p>Our usual suspects are Twitter for Titter Cards and Facebook for Open Graph. Both
+protocols build off of existing meta HTML elements in the HTML page&rsquo;s document
+head. They are named space to avoid collisions but supporting both will still
+result in some content duplication. The k-weight difference in the resulting HTML
+pages isn&rsquo;t too bad. Not particularly hostile to the open web.</p>
+
+<p>Adopting either or both is a matter of adjusting how your render your web page&rsquo;s
+header block.  This can be done easily in manually edited pages but easier still
+using some sort of template system that renders the appropriate meta elements
+based on the content type and contents in the page being rendered.</p>
+
+<p>Google and possibly other search engine crawlers leverage this
+rich source of meta data and integrate it into their results. Google&rsquo;s Now
+application can render content cards based on either semantic. It also appears
+that &ldquo;content cards&rdquo; are being leverage selectively for an aside and related content
+on Google search results pages.</p>
+
+<p>Content Cards offer intriguing opportunity for web crawlers and search engines.
+This is particularly true when combined with mature feed formats like RSS, OPML,
+Atom and the maturing efforts in the linked data community like JSON-LD.</p>
+
+<h3>AMP</h3>
+
+<pre><code>Accelerated Mobile Pages
+</code></pre>
+
+<p>The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
+publishers but include some of the major news outlets as well as web media
+companies in the US and Europe. This is an abridged list&ndash;</p>
+
+<ul>
+<li>BBC</li>
+<li>Atlantic Media</li>
+<li>Vox Media</li>
+<li>Conde Nast</li>
+<li>New York Times</li>
+<li>Wall Street Journal</li>
+<li>The Daily Mail</li>
+<li>Huffington Post</li>
+<li>Gannet</li>
+<li>The Guardian</li>
+<li>The Economist</li>
+<li>The Financial Times</li>
+</ul>
+
+<p>In additional to the publishers there is participation by tech companies
+such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com. In the area
+of news content delivery these efforts seems likely to grain a modest level of
+adoption. Like Twitter Cards and Open Graph the recommendations for Accelerated
+Mobile Pages has some strong benefits for web crawlers and search engines as the
+content is surfaced clearly and less likely to be confused with third
+party content such as advertisements.</p>
+
+<h3>Instant Articles</h3>
+
+<p>In additional to Open Graph Facebook has put forward <a href="https://developers.facebook.com/docs/instant-articles">Instant Articles</a>.
+Like AMP it is targetting delivery for mobile. Unlike AMP Instant Articles is an
+explicit binding into Facebook&rsquo;s walled garden on iOS and Android. You don&rsquo;t see them
+in your Facebook timeline or when on your deskop/laptop.  Additionally unlike the previous
+examples you actually need to sign up to participate in the Instant Article publishing
+process.  Sign up cost is having a Facebook account, being approved by Facebook and complience
+with their terms of service. Facebook does provide some publishing tools, publishing controls
+as well as some analytics. They do allow adds to pass through as well as encourage access to
+their ad network.  Once approved the burden on your content manage process is reasonable.</p>
+
+<p>You can submit Instant Articles via a modified RSS feed or directly through their API.
+In this sense the overhead is about the same as that for implementing support for Twitter Cards
+Open Graph or AMP. Facebook as done a good job of quickly propogating changes to your
+feeds across their platform. That&rsquo;s nice.</p>
+
+<p>Why go through the trouble? If you&rsquo;re a content producer and your audience lives on the Facebook
+you can reach them when they are on their mobile iOS or Android device.
+Facebook has allot of eye balls. In some places they effectively control the public view of
+the web much as America Online and Prodegy did in the days of yore. <a href="http://scripting.com">Dave Winer</a>
+has written extensively on how he implemented Instant Article support along with some
+very reasoned pros and cons for doing so. The landscapes are evolving and his river
+is worth following.</p>
+
+<h2>Impact on building content</h2>
+
+<p>These approaches require changes in your production of your HTML and RSS sent to the browser.
+Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
+pages.  AMP proscribes what you should put in the BODY element of the webpage.
+Instant Articles tweaks your RSS output. All can be implemented via your template
+system or page generatation scripts.</p>
+
+<p>Not surprisingly the major content management systems Wordpress and Drupal have plugins for this.
+Like wise it is easy enough to include in manually create pages or pages generated using a
+static site generator like Hugo or Jehkyll.</p>
+
+<h2>When to adopt?</h2>
+
+<p>Because these approaches boil down to content assembly the adoption risk
+is low.  If your audience views Twitter, Facebook or Google search results
+then it is probably worth doing.  All allow you to continue to publish your
+own content and own your URLs as opposed to being a tenent on one or another
+platform. That benefits the open web.</p>
+
+        </article>
+        <nav>
+        <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/blog/2016/05/28/OPML-to-Markdown-and-back.html">OPML to Markdown and back</a></li>
+<li><a href="/blog/2016/05/30/amp-cards-and-open-graph.html">Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</a></li>
+</ul>
+
+        </nav>
+        <footer>
+        copyright &copy; 2016
+        </footer>
+    </body>
+</html>

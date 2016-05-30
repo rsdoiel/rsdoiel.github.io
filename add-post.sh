@@ -1,7 +1,7 @@
 #!/bin/bash
 
 START_PATH=$(pwd)
-BLOG_PATH="blog"
+BLOG=blog
 
 function fileTitle {
     FILENAME=$(echo "$1" | sed -e "s/\s$//g")
@@ -17,7 +17,6 @@ function fileTitle {
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
 #
-cd $BLOG_PATH
 POST_PATH=$(reldate 0 day| tr - /)
 echo "Generating directory $POST_PATH"
 mkdir -p $POST_PATH
@@ -30,10 +29,16 @@ else
 fi
 
 echo "Copying markdown file into blog path $POST_PATH"
-cp -v "$FILENAME" "$POST_PATH/"
+cp -v "$FILENAME" "$BLOG/$POST_PATH/"
 echo "Resolving $FILENAME to basename"
 FILENAME=$(pathparts -b $FILENAME)
+echo "Adding to git $BLOG/$POST_PATH/$FILENAME"
+git add $BLOG/$POST_PATH/$FILENAME
+git commit -am "Added blog post"
 
+echo "Changing work directory to $BLOG"
+cd $BLOG
+echo "Work directory now $(pwd)"
 # Build nav
 echo "" > nav.md
 echo "+ [Home](/)" >> nav.md
@@ -58,7 +63,7 @@ shorthand \
 
 # Build index
 TITLE="Robert's ramblings"
-echo "" > index.md
+echo "" > $index.md
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
