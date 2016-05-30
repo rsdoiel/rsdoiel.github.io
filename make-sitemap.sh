@@ -13,6 +13,8 @@ cat <<EOT
 <urlset>
 EOT
 
+# I am taking the mod date from the markdown file
+# because the HTML file is regenerating by make
 findfile -m -s .md | sort -r | while read ITEM; do
     FILENAME=$(echo "$ITEM" | cut -d\  -f 4-1000)
     LAST_MODIFIED=$(echo "$ITEM" | cut -d\  -f 1)
