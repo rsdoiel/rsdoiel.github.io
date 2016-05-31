@@ -21,17 +21,17 @@ POST_PATH=$(reldate 0 day| tr - /)
 echo "Generating directory $POST_PATH"
 mkdir -p $POST_PATH
 
-if [ "$1" = "" ]; then
-    echo -n "What is markdown filename? "
-    read -e FILENAME
-else
+if [ "$1" != "" ]; then
     FILENAME="$1"
-fi
 
-echo "Copying markdown file into blog path $POST_PATH"
-cp -v "$FILENAME" "$BLOG/$POST_PATH/"
-echo "Resolving $FILENAME to basename"
-FILENAME=$(pathparts -b $FILENAME)
+    echo "Copying markdown file into blog path $POST_PATH"
+    cp -v "$FILENAME" "$BLOG/$POST_PATH/"
+    echo "Resolving $FILENAME to basename"
+    FILENAME=$(pathparts -b $FILENAME)
+    echo "Adding to git $POST_PATH/$FILENAME"
+    git add $BLOG/$POST_PATH/$FILENAME
+    git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
+fi
 
 echo "Changing work directory to $BLOG"
 cd $BLOG
@@ -40,12 +40,6 @@ echo "Work directory now $(pwd)"
 echo "" > nav.md
 echo "+ [Home](/)" >> nav.md
 echo "+ [Blog](/blog/)" >> nav.md
-#findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
-#    echo "Processing ${POST_PATH:0:4}/$ITEM"
-#    POST_FILENAME=${POST_PATH:0:4}/$ITEM
-#    POST_TITLE=$(fileTitle "$POST_FILENAME")
-#    echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html})" >> nav.md
-#done
 
 # Render all posts
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
@@ -60,9 +54,8 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     -e "html :>: ${POST_PATH:0:4}/${ITEM/.md/.html}" \
     -e ":exit:"
 done 
-echo "Adding to git $POST_PATH/$FILENAME"
-git add $POST_PATH/$FILENAME
-git commit -am "Added blog post"
+echo "Commit changes"
+git commit -am "refreshed blog"
 
 # Build index
 TITLE="Robert's ramblings"
@@ -71,7 +64,9 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
     POST_TITLE=$(fileTitle "$POST_FILENAME")
-    POST_DATE=${POST_PATH//\//-}
+    REL_PATH=${PATH_POST:0:4}/$ITEM
+    POST_DATE=$(pathparts -d $REL_PATH}
+    POST_DATE=${POST_DATE//\//-}
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
 shorthand \
