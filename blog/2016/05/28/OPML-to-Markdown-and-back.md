@@ -1,6 +1,8 @@
 
 # OPML to Markdown and back
 
+2016-05-28, [R. S. Doiel](http://rsdoiel.github.io)
+
 ## Overview
 
 I wrote a Go language package to sort [OPML](http://dev.opml.org/spec2.html) outlines. 
