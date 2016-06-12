@@ -44,9 +44,11 @@ ORCID [0000-0003-0900-6903](http://orcid.org/0000-0003-0900-6903)
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
-+ [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
++ [ot](https://github.com/caltechlibrary/ot) - ORCID Tools, a set of scripts and Golang packages for working with the ORCID public API.
 + [epgo](https://github.com/caltechlibrary/epgo) - E-Prints REST API Golang package
 + [ostdlib](https://github.com/caltechlibrary/ostdlib) - A standard library and REPL for embedding the [Otto](https://github.com/robertkrimen/otto) JavaScript engine
++ [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
+
 
 
 ## Past responsibilities
