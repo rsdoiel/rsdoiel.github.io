@@ -104,6 +104,7 @@ ORCID [0000-0003-0900-6903](http://orcid.org/0000-0003-0900-6903)
 
 ## Presentations
 
++ June 20, 2016, [Bash, curl and jq: Accessing ORCID public API](https://rsdoiel.github.io/bash-curl-and-jq-presentation/), presentation for Code4Lib SoCal Summer 2016 meetup
 + December 15, 2015, [Unified Search Box](http://caltechlibrary.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
 + January 24, 2013, [Safely-php](https://docs.google.com/presentation/d/1Efh9Z_HGBOxxYsupHQDok9-CjL4aBC-lGIAnZu5mm1E/edit?usp=sharing) presentation for the USC Web Council
 + October 6, 2010, [USC Map and Calendar API](usc-api-demos) demonstration presentation for the USC Web Council
