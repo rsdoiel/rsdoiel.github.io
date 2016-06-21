@@ -22,6 +22,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [ws](https://github.com/rsdoiel/ws) - [a nimble webserver](http://rsdoiel.github.io/ws) for prototyping
     + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, also can be used as a package
     + [range](https://github.com/rsdoiel/range) - emit a range of integers
+    + [md2slides](https://github.com/rsdoiel/md2slides) - A simple presentation generator based on Blackfriday package
     + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
     + [findfile](https://github.com/rsdoiel/findfile) - a simplified file finder command, supports search by basename prefix, suffix or fragment
     + [pathparts](https://github.com/rsdoiel/pathparts) - a path parsing utility for the command line
