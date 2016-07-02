@@ -12,7 +12,7 @@ fi
 TODAY=$(timefmt -output RFC1123)
 cat <<EOT
 <?xml version="1.0"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R. S. Doiel</title>
     <link>https://rsdoiel.github.io/</link>
@@ -21,6 +21,7 @@ cat <<EOT
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <generator>A Bash script</generator>
     <pubDate>$TODAY</pubDate>
+    <atom:link href="http://rsdoiel.github.io/rss.xml" rel="self" type="application/rss+xml" />
 EOT
 
 findfile -s .html $BLOG_DIR | grep -E "20[0-9][0-9]/" | sort -r | while read FNAME; do
