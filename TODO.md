@@ -1,7 +1,8 @@
 ## TODO
 
++ Update make-rss.sh to include presentations as well as blog
 + Think about an appropriate information architecture for website
-    + Is it vanity, useful to me only or something else?
+    + Is it vanity site or something else?
 
 ## Someday Maybe
 
