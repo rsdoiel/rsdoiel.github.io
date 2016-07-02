@@ -9,7 +9,7 @@ fi
 #
 # Make a simple RSS feed
 #
-TODAY=$(timefmt -output RFC822)
+TODAY=$(timefmt -output RFC1123)
 cat <<EOT
 <?xml version="1.0"?>
 <rss version="2.0">
