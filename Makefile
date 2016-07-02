@@ -15,5 +15,6 @@ library-terminology.html: library-terminology.md library-terminology.shorthand
 
 publish:
 	./make-sitemap.sh > sitemap.xml
+	./make-rss.sh blog > rss.xml
 	git commit -am "save and publish"
 	git push origin master
