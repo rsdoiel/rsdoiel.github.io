@@ -29,6 +29,8 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
     + [opml](https://github.com/rsdoiel/opml) - a Go package for working with OPML files
     + [prettyxml](https://github.com/rsdoiel/prettyxml) - A minimal XML pretty printer
+    + [tok](https://github.com/rsdoiel/tok) - An easy to use Go tokenizer package
+    + [bibtex](https://github.com/rsdoiel/bibtex) - A BibTeX go package and bibfilter tool
 + 3D design experiments
     + [Paperlaptop](https://github.com/rsdoiel/paperlaptop) - a DYI cardboard and PLA laptop, source files in STL and [OpenScad](http://www.openscad.org/)
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
