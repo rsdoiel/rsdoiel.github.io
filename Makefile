@@ -1,5 +1,5 @@
 
-all: index.html cv.html resume.html library-terminology.html
+all: index.html cv.html resume.html library-terminology.html blog
 
 index.html: bio.md index.shorthand
 	shorthand index.shorthand > index.html
@@ -12,6 +12,9 @@ resume.html: resume.md resume.shorthand
 
 library-terminology.html: library-terminology.md library-terminology.shorthand
 	shorthand library-terminology.shorthand > library-terminology.html
+
+blog:
+	./blog.sh
 
 publish:
 	./make-sitemap.sh > sitemap.xml
