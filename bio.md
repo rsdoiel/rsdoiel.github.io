@@ -31,6 +31,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [prettyxml](https://github.com/rsdoiel/prettyxml) - A minimal XML pretty printer
     + [tok](https://github.com/rsdoiel/tok) - An easy to use Go tokenizer package
     + [bibtex](https://github.com/rsdoiel/bibtex) - A BibTeX go package and bibfilter tool
+    + [timefmt](https://github.com/rsdoiel/timefmt) - A timestamp, date formatting tool using Golang's Time.Format layouts.
 + 3D design experiments
     + [Paperlaptop](https://github.com/rsdoiel/paperlaptop) - a DYI cardboard and PLA laptop, source files in STL and [OpenScad](http://www.openscad.org/)
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
