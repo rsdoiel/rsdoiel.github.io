@@ -16,7 +16,7 @@ function fileTitle {
 # Build nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
-echo "+ [up](../)" >> $BLOG/nav.md
+echo "+ [up](/blog)" >> nav.md
 
 echo "Building blog footer"
 cat footer.md > $BLOG/footer.md
@@ -80,7 +80,7 @@ shorthand \
     -e "{{year}} :!: echo -n $(date +%Y)" \
     -e "{{title}} :=: $TITLE" \
     -e "{{pageContent}} :[<: index.md" \
-    -e "{{nav}} :[<: nav.md" \
+    -e "{{nav}} :[<: ../nav.md" \
     -e "{{footer}} :[<: footer.md" \
     -e "html :{<: index.shorthand" \
     -e "html :>: index.html" \
