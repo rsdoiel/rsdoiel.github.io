@@ -19,7 +19,7 @@ function fileTitle {
 #
 POST_PATH=$(reldate 0 day| tr - /)
 echo "Generating directory $POST_PATH"
-mkdir -p $POST_PATH
+mkdir -p $BLOG/$POST_PATH
 
 if [ "$1" != "" ]; then
     FILENAME="$1"
