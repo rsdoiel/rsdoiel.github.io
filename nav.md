@@ -4,6 +4,3 @@
 + [About](/about.html)
 + [CV](/cv.html)
 + [Resume](/resume.html)
-+ [up](/blog)
-+ [up](/blog)
-+ [up](/blog)

@@ -16,7 +16,7 @@ function fileTitle {
 # Build nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
-echo "+ [up](/blog)" >> nav.md
+echo "+ [up](/blog)" >> $BLOG/nav.md
 
 echo "Building blog footer"
 cat footer.md > $BLOG/footer.md
