@@ -1,5 +1,5 @@
 {{blogPosts}} :[<: blog/index.md
-{{pageContent}} :[<: bio.md
+{{aboutAuthor}} :[<: author.md
 <!DOCTYPE html>
 <html lang="en">
         <head>
@@ -20,19 +20,20 @@
                 </div>
             </header>
 	    <section class="blog">
+            	<section class="bio">
+                {{aboutAuthor}}
+            	</section>
 	    	<h2>Recent posts</h2>
 	    	{{blogPosts}}
             </section>
-            <section class="bio">
-                {{pageContent}}
-            </section>
             <nav>
                 <ul>
-                    <li>About</li>
+                    <li>Home</li>
+                    <li><a href="/blog/">Blog</a> </li>
+                    <li><a href="/library-terminology.html">Library Jargon</a></li>
+                    <li><a href="/about.html">About</a></li>
                     <li><a href="/cv.html">CV</a></li>
                     <li><a href="/resume.html">Resume</a></li>
-                    <li><a href="/library-terminology.html">Library Jargon</a></li>
-                    <li><a href="/blog/">Blog</a> </li>
                 </ul>
             </nav>
 
