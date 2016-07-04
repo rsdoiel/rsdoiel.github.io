@@ -1,5 +1,5 @@
 
-# How to make a Pi-top more Raspbian
+# How to make a Pi-Top more Raspbian
 
 2016-07-04, [R. S. Doiel](http://rsdoiel.github.io)
 
