@@ -19,7 +19,7 @@
         </header>
         <section>
             <article>
-{{contentBlock}}
+	    {{contentBlock}}
             </article>
         </section>
         <nav>
@@ -27,9 +27,7 @@
         </nav>
 
     <footer>
-        copyright &copy; {{year}}<br />
-    built with <a href="http://rsdoiel.github.io/shorthand">shorthand</a>, <a href="https://github.com/rsdoiel/reldate">reldate</a>, <a href="http://github.com/rsdoiel/pathparts">pathparts</a>, <a href="https:github.com/rsdoiel/findfile">findfile</a>, <a href="http://github.com/rsdoiel/timefmt">timefmt</a>, Make and Bash<br />
-    <a href="http://validator.w3.org/feed/check.cgi?url=http%3A//rsdoiel.github.io/rss.xml"><img class="rss-valid" src="/media/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a>
+    {{footer}}
     </footer>
 
     </body>

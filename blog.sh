@@ -13,6 +13,12 @@ function fileTitle {
     fi
 }
 
+# Build nav
+echo "Building blog nav"
+cat nav.md > $BLOG/nav.md
+echo "Building blog footer"
+cat footer.md > $BLOG/footer.md
+
 #
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
@@ -35,9 +41,6 @@ if [ "$1" != "" ]; then
 fi
 
 
-# Build nav
-echo "Building site nav"
-cat nav.md > $BLOG/nav.md
 echo "Changing work directory to $BLOG"
 cd $BLOG
 echo "Work directory now $(pwd)"
@@ -51,6 +54,7 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     -e "{{title}} :=: $TITLE" \
     -e "{{contentBlock}} :[<: ${POST_PATH:0:4}/$ITEM" \
     -e "{{nav}} :[<: nav.md" \
+    -e "{{footer}} :[<: footer.md" \
     -e "html :{<: post.shorthand" \
     -e "html :>: ${POST_PATH:0:4}/${ITEM/.md/.html}" \
     -e ":exit:"
