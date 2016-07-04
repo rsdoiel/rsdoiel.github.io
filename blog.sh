@@ -34,9 +34,10 @@ if [ "$1" != "" ]; then
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 fi
 
-# Build nav
-cat nav.md $BLOG/nav.md
 
+# Build nav
+echo "Building site nav"
+cat nav.md > $BLOG/nav.md
 echo "Changing work directory to $BLOG"
 cd $BLOG
 echo "Work directory now $(pwd)"
