@@ -6,3 +6,4 @@
 + [Resume](/resume.html)
 + [up](/blog)
 + [up](/blog)
++ [up](/blog)

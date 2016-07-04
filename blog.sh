@@ -80,7 +80,7 @@ shorthand \
     -e "{{year}} :!: echo -n $(date +%Y)" \
     -e "{{title}} :=: $TITLE" \
     -e "{{pageContent}} :[<: index.md" \
-    -e "{{nav}} :[<: ../nav.md" \
+    -e "{{nav}} :[<: nav.md" \
     -e "{{footer}} :[<: footer.md" \
     -e "html :{<: index.shorthand" \
     -e "html :>: index.html" \
