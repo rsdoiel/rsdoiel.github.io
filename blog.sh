@@ -34,13 +34,12 @@ if [ "$1" != "" ]; then
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 fi
 
+# Build nav
+cat nav.md $BLOG/nav.md
+
 echo "Changing work directory to $BLOG"
 cd $BLOG
 echo "Work directory now $(pwd)"
-# Build nav
-echo "" > nav.md
-echo "+ [Home](/)" >> nav.md
-echo "+ [Blog](/blog/)" >> nav.md
 
 # Render all posts
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do

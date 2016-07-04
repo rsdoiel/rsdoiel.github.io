@@ -16,7 +16,10 @@ resume.html: resume.md resume.shorthand
 library-terminology.html: library-terminology.md library-terminology.shorthand
 	shorthand library-terminology.shorthand > library-terminology.html
 
-blog/index.html: blog/index.md blog/nav.md blog/index.shorthand blog/post.shorthand
+blog:
+	./blog.sh
+
+blog/index.html: nav.md blog/index.md blog/nav.md blog/index.shorthand blog/post.shorthand
 	./blog.sh
 
 publish:
