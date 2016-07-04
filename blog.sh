@@ -79,6 +79,7 @@ shorthand \
     -e "{{title}} :=: $TITLE" \
     -e "{{pageContent}} :[<: index.md" \
     -e "{{nav}} :[<: nav.md" \
+    -e "{{footer}} :[<: footer.md" \
     -e "html :{<: index.shorthand" \
     -e "html :>: index.html" \
     -e ":exit:"
