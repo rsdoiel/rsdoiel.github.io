@@ -21,12 +21,10 @@
                         <a href="http://library.caltech.edu">Caltech Libraries</a><br />
                 </div>
             </header>
-	    <section class="blog">
-            	<section class="bio">
-                {{aboutAuthor}}
-            	</section>
+	    <section>
 	    	<h2>Recent posts</h2>
 	    	{{blogPosts}}
+                {{aboutAuthor}}
             </section>
             <nav>
 	    {{nav}}
