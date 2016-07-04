@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>How to make a Pi-top more Raspbian</title>
+
+        <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
+        <link href="/css/style.css" rel="stylesheet" />
+        <link rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    </head>
+    <body>
+        <header>
+            <img src="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
+            <div>
+               Robert Doiel<br />
+               Digital Services Programmer<br />
+               <a href="http://library.caltech.edu">Caltech Libraries</a><br />
+            </div>
+        </header>
+        <section>
+            <article>
+<h1>How to make a Pi-top more Raspbian</h1>
+
+<p>2016-07-04, <a href="http://rsdoiel.github.io">R. S. Doiel</a></p>
+
+<p>I have a first generation Pi-Top.  I like the idea but found I didn&rsquo;t use it much due to a preferrence for
+basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively
+straight forward.</p>
+
+<h2>The recipe</h2>
+
+<ol>
+<li>Make sure you&rsquo;re running the latest Pi-TopOS based on Jessie</li>
+<li>Login into your Pi-Top normally</li>
+<li>From the Pi-Top dashboard select the &ldquo;Desktop&rdquo; icon</li>
+<li>When you see the familiar Raspbian desktop click on the following things
+
+<ul>
+<li>Click on the Raspberry Menu (upper left corner)</li>
+<li>Click on Preferences</li>
+<li>Click on Raspberry Pi Configuration</li>
+</ul></li>
+<li>I made the following changes to my System configuration
+
+<ul>
+<li>Under <em>Boot</em> I selected &ldquo;To CLI&rdquo;</li>
+<li>I unchecked <em>login as user &ldquo;pi&rdquo;</em></li>
+</ul></li>
+<li>Restart your Pi Top
+
+<ul>
+<li>Click on Raspberry Menu in the upper left of the desktop</li>
+<li>Click on shutdown</li>
+<li>Select <em>reboot</em></li>
+</ul></li>
+<li>When you restart you&rsquo;ll see an old school console login, login as the pi user using your Pi-Top password</li>
+<li>Remove the following program use the <em>apt</em> command
+
+<ul>
+<li>ceed-universe</li>
+<li>pt-dashboard</li>
+<li>pt-splashscreen</li>
+</ul></li>
+</ol>
+
+<pre><code>    sudo apt purge ceed-universe pt-dashboard pt-splashscreen
+</code></pre>
+
+<p>Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably
+want to keep them.</p>
+
+            </article>
+        </section>
+        <nav>
+        <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/blog/">Blog</a></li>
+</ul>
+
+        </nav>
+
+    <footer>
+        copyright &copy; 2016<br />
+    built with <a href="http://rsdoiel.github.io/shorthand">shorthand</a>, <a href="https://github.com/rsdoiel/reldate">reldate</a>, <a href="http://github.com/rsdoiel/pathparts">pathparts</a>, <a href="https:github.com/rsdoiel/findfile">findfile</a>, <a href="http://github.com/rsdoiel/timefmt">timefmt</a>, Make and Bash<br />
+    <a href="http://validator.w3.org/feed/check.cgi?url=http%3A//rsdoiel.github.io/rss.xml"><img class="rss-valid" src="/media/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a>
+    </footer>
+
+    </body>
+</html>

@@ -30,6 +30,7 @@ if [ "$1" != "" ]; then
     FILENAME=$(pathparts -b $FILENAME)
     echo "Adding to git $POST_PATH/$FILENAME"
     git add $BLOG/$POST_PATH/$FILENAME
+    git add $BLOG/$POST_PATH/${FILENAME/.md/.html}
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 fi
 
