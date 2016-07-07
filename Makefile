@@ -1,7 +1,7 @@
 
 all: index.html about.html cv.html resume.html library-terminology.html blog/index.html
 
-index.html: nav.md footer.md author.md blog/index.md index.shorthand
+index.html: nav.md footer.md author.md blog/index.md presentations.md index.shorthand
 	shorthand index.shorthand > index.html
 
 about.html: nav.md footer.md author.md bio.md about.shorthand
