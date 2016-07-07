@@ -1,6 +1,6 @@
 + [Home](/)
 + [Blog](/blog/)
-+ [presentations](/presentations.html)
++ [Presentations](/presentations.html)
 + [Library Jargon](/library-terminology.html)
 + [About](/about.html)
 + [CV](/cv.html)

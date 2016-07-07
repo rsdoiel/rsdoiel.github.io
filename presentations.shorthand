@@ -1,8 +1,11 @@
+{{presentations}} :[<: presentation.md
+{{nav}} :[<: nav.md
+{{footer}} :[<: footer.md
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Robert's ramblings</title>
+    <title>{{title}}</title>
 
     <link rel="shortcut icon" href="http://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
     <link href="/css/style.css" rel="stylesheet" />
@@ -20,40 +23,15 @@
 
     <section>
       <p>Robert's ramblings</p>
-      <article>
-      <ul>
-<li><a href="/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html">How to make a Pi-Top more Raspbian</a>, 2016-07-04</li>
-<li><a href="/blog/2016/05/30/amp-cards-and-open-graph.html">Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</a>, 2016-05-30</li>
-<li><a href="/blog/2016/05/28/OPML-to-Markdown-and-back.html">OPML to Markdown and back</a>, 2016-05-28</li>
-</ul>
-
-      </article>
+      {{presentations}}
     </section>
 
     <nav>
-    <ul>
-<li><a href="/">Home</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">presentations</a></li>
-<li><a href="/library-terminology.html">Library Jargon</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/cv.html">CV</a></li>
-<li><a href="/resume.html">Resume</a></li>
-</ul>
-
+    {{nav}}
     </nav>
 
     <footer>
-	<p>copyright &copy; 2016<br />
-built with
-<a href="https://github.com/rsdoiel/shorthand">shorthand</a>,
-<a href="https://github.com/rsdoiel/reldate">reldate</a>,
-<a href="https://github.com/rsdoiel/pathparts">pathparts</a>,
-<a href="https://github.com/rsdoiel/findfile">findfile</a>,
-<a href="https://github.com/rsdoiel/timefmt">timefmt</a>,
-Make and Bash<br />
-<a href="http://validator.w3.org/feed/check.cgi?url=http%3A//rsdoiel.github.io/rss.xml"><img class="rss-valid" src="/media/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a></p>
-
+	{{footer}}
     </footer>
 
 <!-- START: Google Analytics -->
