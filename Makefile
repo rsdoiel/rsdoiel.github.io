@@ -1,8 +1,11 @@
 
-all: index.html about.html cv.html resume.html library-terminology.html blog/index.html
+all: index.html about.html cv.html resume.html library-terminology.html blog/index.html presentations.html
 
 index.html: nav.md footer.md author.md blog/index.md presentations.md index.shorthand
 	shorthand index.shorthand > index.html
+
+presentations.html: presentations.md footer.md nav.md presentations.shorthand
+	shorthand presentations.shorthand > presentations.html
 
 about.html: nav.md footer.md author.md bio.md about.shorthand
 	shorthand about.shorthand > about.html
