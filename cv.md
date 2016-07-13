@@ -128,9 +128,9 @@
 ## Publications
 
 + Doiel, R. and Lundsten, A.
-    - _Getting Ready for Internet2_, April 2001 issue of Syllabus Magazine.
+    - [Getting Ready for Internet2](https://campustechnology.com/articles/2001/04/getting-ready-for-internet2.aspx), April 2001 issue of Syllabus Magazine.
 + Doiel, R. and Lundsten, A.
-    - _Digital Video and Internet 2: Growing Up Together_ for August 2000 issue of Syllabus Magazine.
+    - [Digital Video and Internet 2: Growing Up Together](https://campustechnology.com/articles/2001/07/digital-video-and-internet2-growing-up-together.aspx) for Aug 2000 issue of Syllabus Magazine.
 + Doiel, R.
     - _Forming a Good Courseware Environment_ for Handbok i IT-pedagogik f&#246;r utbildare (Handbook in IT-pedagogy for educators) by Nyberg, Rainer & Strandvall, Tommy (Eds.) (2000)
 + Doiel, R. and Lundsten, A.
@@ -140,7 +140,8 @@
 
 ### Technical Reviews for Publishers
 
-+ Review and blurb for [Learning JavaScript: A Hands-On Guide to the Fundamentals of Modern JavaScript](http://www.amazon.com/dp/0321832744) by Tim Wright; Publisher: Addison-Wesley Professional; 1 edition (August 5, 2012)
-+ Review of _Administering Usenet News Servers for Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
++ Review and blurb for _[Learning JavaScript: A Hands-On Guide to the Fundamentals of Modern JavaScript](http://www.amazon.com/dp/0321832744)_ by Tim Wright; Publisher: Addison-Wesley Professional; 1 edition (August 5, 2012)
++ Review of _The Java Developer's Toolkit: Techniques and Technologies for Web Programmers_ by Joshua Marketos for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
++ Review of _Administering Usenet News Servers_ by James McDermott and John Phillips John for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
 
-
+@Comment{jabref-meta: databaseType:bibtex;}
