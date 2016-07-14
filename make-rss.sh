@@ -32,7 +32,7 @@ findfile -s .html $BLOG_DIR | grep -E "20[0-9][0-9]/" | sort -r | while read FNA
     GUID="http://rsdoiel.github.io/blog/$FNAME"
 
     #Lameness, Mac OS X comes with Bash < 4 so no nagative string sliding.
-    TITLE=$(echo "$TITLE" | sed -E "s/^\ //g" sed -E "s/<h1>//g" | sed -E "s/<\/h1>//g")
+    TITLE=$(echo "$TITLE" | sed -E "s/^\ //g" | sed -E "s/<h1>//g" | sed -E "s/<\/h1>//g")
     #FIXME: I need to pull an extract from the article
     # may need something to strip tags 
     # DESCRIPTION="blah, blah, blah"
