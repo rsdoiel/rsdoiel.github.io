@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function checkVersion() {
+    CHECK=${BASH_VERSION:0:1}
+    if [ "$CHECK" != "4" ]; then
+        echo "Requires Bash version 4"
+        exit 1
+    fi
+}
+checkVersion
+
+
 BLOG_DIR="blog"
 
 if [ "$1" != "" ]; then
@@ -31,15 +41,13 @@ findfile -s .html $BLOG_DIR | grep -E "20[0-9][0-9]/" | sort -r | while read FNA
     PUBDATE=$(timefmt -input "2006/01/02 15:04:05 -0700" -output RFC1123 "$TM 08:00:00 -0700")
     GUID="http://rsdoiel.github.io/blog/$FNAME"
 
-    #Lameness, Mac OS X comes with Bash < 4 so no nagative string sliding.
-    TITLE=$(echo "$TITLE" | sed -E "s/^\ //g" | sed -E "s/<h1>//g" | sed -E "s/<\/h1>//g")
     #FIXME: I need to pull an extract from the article
     # may need something to strip tags 
     # DESCRIPTION="blah, blah, blah"
     #echo "Description: $DESCRIPTION"
     cat <<ITEM
     <item>
-        <title>$TITLE</title>
+        <title>${TITLE:4:-5}</title>
         <link>$LINK</link>
         <pubDate>$PUBDATE</pubDate>   
         <guid>$GUID</guid>
@@ -52,3 +60,4 @@ cat <<EOT
   </channel>
 </rss>
 EOT
+
