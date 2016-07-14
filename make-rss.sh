@@ -37,7 +37,8 @@ findfile -s .html $BLOG_DIR | grep -E "20[0-9][0-9]/" | sort -r | while read FNA
     if [ "$MAJOR_VERSION_NO" = "3" ]; then
         # Handle Mac OS X stale version of Bash
         L=${#TITLE}
-        TITLE=${TITLE:7:$L-5}
+        TITLE=${TITLE:0:$L-5}
+        TITLE=${TITLE:7}
     else
         # Assume a more suitable version of Bash
         TITLE=${TITLE:7:-5}
