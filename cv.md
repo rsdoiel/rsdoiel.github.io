@@ -144,4 +144,3 @@
 + Review of _The Java Developer's Toolkit: Techniques and Technologies for Web Programmers_ by Joshua Marketos for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
 + Review of _Administering Usenet News Servers_ by James McDermott and John Phillips John for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
 
-@Comment{jabref-meta: databaseType:bibtex;}
