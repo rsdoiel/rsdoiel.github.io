@@ -37,7 +37,7 @@ findfile -s .html $BLOG_DIR | grep -E "20[0-9][0-9]/" | sort -r | while read FNA
     #echo "Description: $DESCRIPTION"
     cat <<ITEM
     <item>
-        <title>${TITLE:4:-5}</title>
+        <title>${TITLE:7:-5}</title>
         <link>$LINK</link>
         <pubDate>$PUBDATE</pubDate>   
         <guid>$GUID</guid>
