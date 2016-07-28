@@ -1,5 +1,6 @@
 {{blogPosts}} :[<: blog/index.md
 {{presentations}} :[<: presentations.md
+{{cliTools}} :[<: cli-tools.md
 {{aboutAuthor}} :[<: author.md
 {{nav}} :[<: nav.md
 {{footer}} :[<: footer.md
@@ -22,15 +23,17 @@
         <a href="http://library.caltech.edu">Caltech Libraries</a><br />
       </div>
     </header>
-	<section>
+    <section>
       {{aboutAuthor}}
-	  <h2>Recent posts</h2>
-	  {{blogPosts}}
+      <h2>Recent posts</h2>
+      {{blogPosts}}
       <h2>Presentations</h2>
       {{presentations}}
+      <h2>Command line tools</h2>
+      {{cliTools}}
     </section>
     <nav>
-	{{nav}}
+    {{nav}}
     </nav>
 
     <footer>

@@ -1,7 +1,7 @@
 
 all: index.html about.html cv.html resume.html library-terminology.html blog/index.html presentations.html
 
-index.html: nav.md footer.md author.md blog/index.md presentations.md index.shorthand
+index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.shorthand
 	shorthand index.shorthand > index.html
 
 presentations.html: presentations.md footer.md nav.md presentations.shorthand
@@ -21,6 +21,10 @@ library-terminology.html: nav.md footer.md library-terminology.md library-termin
 
 blog/index.html: nav.md blog/index.md blog/nav.md blog/index.shorthand blog/post.shorthand
 	./blog.sh
+
+save:
+	git commit -am "Quick Save"
+	git push origin master
 
 publish:
 	./blog.sh
