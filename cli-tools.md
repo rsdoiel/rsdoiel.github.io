@@ -9,13 +9,16 @@
 + [timefmt](https://github.com/rsdoiel/timefmt) - wraps the Golang time formatting package so you can use those expressions in your Bash script
 + [urlparse](https://github.com/rsdoiel/urlparse) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
 
-### General purpose
+### Content formatting tools
 
 + [md2slides](https://github.com/rsdoiel/md2slides) - turns a single markdown file into a series of HTML webpages for presentations
++ [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
 + [opml](https://rsdoiel/github.io/opml) - A nieve OPML parse package that features a OPML sort utility
 + [prettyxml](https://github.com/rsdoiel/prettyxml) - a XML pretty printer
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
-    + [mkpage](https://rsdoiel.github.io/mkpage) - a light weight template and markdown processor simplifying ideas from shorthand
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
+
+### network services
+
 + [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. serves your current work directory out as localhost:8000)
 
