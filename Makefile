@@ -1,25 +1,26 @@
 
 all: index.html about.html cv.html resume.html library-terminology.html blog/index.html presentations.html
 
-index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.shorthand
-	shorthand index.shorthand > index.html
+index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.tmpl
+	mkpage -m "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "aboutAuthor=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 
-presentations.html: presentations.md footer.md nav.md presentations.shorthand
-	shorthand presentations.shorthand > presentations.html
 
-about.html: nav.md footer.md author.md bio.md about.shorthand
-	shorthand about.shorthand > about.html
+presentations.html: presentations.md footer.md nav.md presentations.tmpl
+	mkpage -m "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
 
-cv.html: nav.md footer.md cv.md cv.shorthand
-	shorthand cv.shorthand > cv.html
+about.html: nav.md footer.md author.md bio.md about.tmpl
+	mkpage -m "aboutAuthor=author.md" "pageContent=bio.md" "nav=nav.md" "footer=footer.md" about.tmpl > about.html
 
-resume.html: nav.md footer.md resume.md resume.shorthand
-	shorthand resume.shorthand > resume.html
+cv.html: nav.md footer.md cv.md cv.tmpl
+	mkpage -m "pageContent=cv.md" "nav=nav.md" "footer=footer.md" cv.tmpl > cv.html
 
-library-terminology.html: nav.md footer.md library-terminology.md library-terminology.shorthand
-	shorthand library-terminology.shorthand > library-terminology.html
+resume.html: nav.md footer.md resume.md resume.tmpl
+	mkpage -m "pageContent=resume.md" "nav=nav.md" "footer=footer.md" resume.tmpl > resume.html
 
-blog/index.html: nav.md blog/index.md blog/nav.md blog/index.shorthand blog/post.shorthand
+library-terminology.html: nav.md footer.md library-terminology.md library-terminology.tmpl
+	mkpage -m "pageContent=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
+
+blog/index.html: nav.md blog/index.md blog/nav.md blog/index.tmpl blog/post.tmpl
 	./blog.sh
 
 save:

@@ -1,6 +1,6 @@
 copyright &copy; 2016<br />
 built with
-[shorthand](https://github.com/rsdoiel/shorthand), 
+[mkpage](https://github.com/rsdoiel/mkpage), 
 [reldate](https://github.com/rsdoiel/reldate), 
 [pathparts](https://github.com/rsdoiel/pathparts), 
 [findfile](https://github.com/rsdoiel/findfile),
