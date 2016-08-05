@@ -21,15 +21,15 @@ library-terminology.html: nav.md footer.md library-terminology.md library-termin
 	mkpage -m "pageContent=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
 
 blog/index.html: nav.md blog/index.md blog/nav.md blog/index.tmpl blog/post.tmpl
-	./blog.sh
+	./blog.bash
 
 save:
 	git commit -am "Quick Save"
 	git push origin master
 
 publish:
-	./blog.sh
-	./make-sitemap.sh > sitemap.xml
-	./make-rss.sh blog > rss.xml
+	./blog.bash
+	./make-sitemap.bash > sitemap.xml
+	./make-rss.bash blog > rss.xml
 	git commit -am "save and publish"
 	git push origin master
