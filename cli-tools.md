@@ -18,7 +18,7 @@
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
 
-### network services
+### web services
 
 + [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. serves your current work directory out as localhost:8000)
 
