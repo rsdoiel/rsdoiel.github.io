@@ -51,10 +51,10 @@ echo "Work directory now $(pwd)"
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Rendering ${POST_PATH:0:4}/$ITEM"
     TITLE=$(fileTitle "${POST_PATH:0:4}/$ITEM")
-    mkpage -m \
-        "year=string:$(date +%Y)" \
-        "title=string:$TITLE" \
-        "contentBlock=string:${POST_PATH:0:4}/$ITEM" \
+    mkpage \
+        "year=text:$(date +%Y)" \
+        "title=text:$TITLE" \
+        "contentBlock=text:${POST_PATH:0:4}/$ITEM" \
         "nav=nav.md" \
         "footer=footer.md" \
         post.tmpl > "${POST_PATH:0:4}/${ITEM/.md/.html}"
@@ -74,9 +74,9 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     POST_DATE=${POST_DATE//\//-}
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
-mkpage -m \
-    "year=string:$(date +%Y)" \
-    "title=string:$TITLE" \
+mkpage \
+    "year=text:$(date +%Y)" \
+    "title=text:$TITLE" \
     "pageContent=index.md" \
     "nav=../nav.md" \
     "footer=footer.md" \
