@@ -14,7 +14,7 @@
 + [md2slides](https://rsdoiel.github.io/md2slides) - turns a single markdown file into a series of HTML webpages for presentations
 + [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
 + [opml](https://rsdoiel.github.io/opml) - A nieve OPML parse package that features a OPML sort utility
-+ [prettyxml](https://github.com/rsdoiel/prettyxml) - a XML pretty printer
++ [prettyxml](https://rsdoiel.github.io/prettyxml) - a XML pretty printer
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
 
