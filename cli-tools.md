@@ -1,7 +1,7 @@
 
 ### Useful for Bash scripting
 
-+ [findfile](https://rsdoiel.github.io/findfile) - two command line utilities *findfile* and *finddir* offer simplier options for the standard Unix *find*
++ [fsutils](https://rsdoiel.github.io/fsutils) - command line utilities (e.g. *findfile*, *finddir*) offering simpler options for command line shells suh as Bash or Powershell
 + [mergepath](https://github.com/rsdoiel/mergepath) - output a path based on new path elements without injecting repeats
 + [pathparts](https://github.com/rsdoiel/pathparts) - Exposes path elements in Bash based on the Golang path package
 + [range](https://github.com/rsdoiel/range) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
