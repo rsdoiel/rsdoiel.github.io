@@ -1,9 +1,10 @@
 
 ### Useful for Bash scripting
 
-+ [fsutils](https://rsdoiel.github.io/fsutils) - command line utilities (e.g. *findfile*, *finddir*) offering simpler options for command line shells suh as Bash or Powershell
-+ [mergepath](https://github.com/rsdoiel/mergepath) - output a path based on new path elements without injecting repeats
-+ [pathparts](https://github.com/rsdoiel/pathparts) - Exposes path elements in Bash based on the Golang path package
++ [fsutils](https://rsdoiel.github.io/fsutils) - command line utilities (e.g. *findfile*, *finddir*) offering simple utilities for command line shells
+    + findfile, finddir
+    + mergepath
+    + pathparts
 + [range](https://github.com/rsdoiel/range) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
 + [reldate](https://github.com/rsdoiel/reldate) - renders a relative date in YYYY-MM-DD format
 + [timefmt](https://github.com/rsdoiel/timefmt) - wraps the Golang time formatting package so you can use those expressions in your Bash script
