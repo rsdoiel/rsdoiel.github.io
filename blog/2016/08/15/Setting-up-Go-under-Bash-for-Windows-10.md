@@ -16,7 +16,7 @@ I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The V
 + When prompted setup developer account with username/password
     + Documentation can be found at https://aka.ms/wsldocs
 + Exit root install shell
-+ Search for "Bash" local
++ Search for "Bash" locally
 + Luanched "Bash on Ubuntu on Windows"
 
 ## Setting up Go under Bash for Windows 10
