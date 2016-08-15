@@ -26,16 +26,20 @@ With Bash installed these are the steps I took to compile Go
 under Bash on Ubuntu on Windows.
 
 ```shell
+    sudo apt-get update && sudo apt-get upgrade -y
+    sudo apt-get autoremove
     export CGO_ENABLED=0
     sudo apt-get install build-essential git-core unzip zip -y
     git clone https://github.com/golang/go go1.4
     git clone https://github.com/golang/go go
-    cd go1.4/src
+    cd go1.4
     git checkout go1.4.3
+    cd src
     ./all.bash
     cd
-    cd go/src
+    cd go
     git checkout go1.6.3
+    cd src
     ./all.bash
     export PATH=$PATH:$HOME/go/bin:$HOME/bin
     export GOPATH=$HOME
