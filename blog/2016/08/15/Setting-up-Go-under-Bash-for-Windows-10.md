@@ -71,7 +71,7 @@ I like the vim-go packages for editing Go code in vim. They are easy to setup.
 
 Example $HOME/.vimrc
 
-```
+```vimrc
     execute pathogen#infect()
     syntax on
     filetype plugin on
@@ -81,7 +81,7 @@ Example $HOME/.vimrc
     set tabstop=4
     set shiftwidth=4
     set expandtab
-    "let &background = ( &background == "dark"? "light" : "dark" )
+    let &background = ( &background == "dark"? "light" : "dark" )
     let g:vim_markdown_folding_disabled=1
 ```
 
