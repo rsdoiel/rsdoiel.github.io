@@ -18,6 +18,8 @@ I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The V
 + Exit root install shell
 + Search for "Bash" locally
 + Luanched "Bash on Ubuntu on Windows"
++ Authenticate with your username/password
+
 
 ## Setting up Go under Bash for Windows 10
 
