@@ -43,6 +43,7 @@ under Bash on Ubuntu on Windows.
     git checkout go1.6.3
     cd src
     ./all.bash
+    cd
     export PATH=$HOME/go/bin:$HOME/bin:$PATH
     export GOPATH=$HOME
 ```
