@@ -20,6 +20,9 @@ resume.html: nav.md footer.md resume.md resume.tmpl
 library-terminology.html: nav.md footer.md library-terminology.md library-terminology.tmpl
 	mkpage "pageContent=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
 
+blog:
+	./blog.bash
+
 blog/index.html: nav.md blog/index.md blog/nav.md blog/index.tmpl blog/post.tmpl
 	./blog.bash
 
