@@ -36,16 +36,24 @@ under Bash on Ubuntu on Windows.
     cd src
     ./all.bash
     cd
+    export PATH=$PATH:$HOME/go1.4/bin
     cd go
     git checkout go1.6.3
     cd src
     ./all.bash
-    export PATH=$PATH:$HOME/go/bin:$HOME/bin
+    export PATH=$HOME/go/bin:$HOME/bin:$PATH
     export GOPATH=$HOME
 ```
 
 If successful you should be able to install additional Go based software
 with the usual `go get ...` syntax.
+
+In your `.bashrc` or `.profile` add the following
+
+```shell
+    export PATH=$HOME/go/bin:$HOME/bin:$PATH
+    export GOPATH=$HOME
+```
 
 
 ## Improved vim setup
