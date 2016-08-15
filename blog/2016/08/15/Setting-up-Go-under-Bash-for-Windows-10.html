@@ -75,6 +75,42 @@ under Bash on Ubuntu on Windows.</p>
 <p>If successful you should be able to install additional Go based software
 with the usual <code>go get ...</code> syntax.</p>
 
+<h2>Improved vim setup</h2>
+
+<p>I like the vim-go packages for editing Go code in vim. They are easy to setup.</p>
+
+<p>&rdquo;&lsquo;shell
+     mkdir -p ~/.vim/autoload ~/.vim/bundle &amp;&amp; curl -LSso ~/.vim/autoload/pathogen.vim <a href="https://tpo.pe/pathogen.vim">https://tpo.pe/pathogen.vim</a>
+     git clone <a href="https://github.com/fatih/vim-go.git">https://github.com/fatih/vim-go.git</a> ~/.vim/bundle/vim-go
+ &ldquo;&rsquo;</p>
+
+<p>Example $HOME/.vimrc</p>
+
+<pre><code>    execute pathogen#infect()
+    syntax on
+    filetype plugin on
+    set ai
+    set nu
+    set smartindent
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    &quot;let &amp;background = ( &amp;background == &quot;dark&quot;? &quot;light&quot; : &quot;dark&quot; )
+    let g:vim_markdown_folding_disabled=1
+</code></pre>
+
+<p>Color schemes are browsable at <a href="http://vimcolors.com">vimcolors.com</a>. They can be installed in
+$HOME/.vim/colors.</p>
+
+<ol>
+<li>git clone and place the colorscheme</li>
+<li>place the *.vim file holding the color scheme into $HOME/.vim/colors</li>
+<li>start vim and at the : do colorscheme NAME where NAME is the scheme you want to try</li>
+</ol>
+
+<p>You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number
+e.g. /usr/share/vim/vim74/colors.</p>
+
       </article>
     </section>
 

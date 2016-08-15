@@ -48,4 +48,39 @@ If successful you should be able to install additional Go based software
 with the usual `go get ...` syntax.
 
 
+## Improved vim setup
+
+I like the vim-go packages for editing Go code in vim. They are easy to setup.
+
+ '''shell
+     mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+     git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
+ '''
+
+Example $HOME/.vimrc
+
+```
+    execute pathogen#infect()
+    syntax on
+    filetype plugin on
+    set ai
+    set nu
+    set smartindent
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    "let &background = ( &background == "dark"? "light" : "dark" )
+    let g:vim_markdown_folding_disabled=1
+```
+
+Color schemes are browsable at [vimcolors.com](http://vimcolors.com). They can be installed in
+$HOME/.vim/colors.
+
+1. git clone and place the colorscheme
+2. place the *.vim file holding the color scheme into $HOME/.vim/colors
+3. start vim and at the : do colorscheme NAME where NAME is the scheme you want to try
+
+You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number
+e.g. /usr/share/vim/vim74/colors.
+
 
