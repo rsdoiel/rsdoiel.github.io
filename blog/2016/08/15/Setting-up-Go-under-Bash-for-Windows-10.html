@@ -37,19 +37,15 @@
 <li>Reboot</li>
 <li>Search for &ldquo;Bash&rdquo; and clicked on &ldquo;Run Bash command&rdquo;</li>
 <li>Answered &ldquo;y&rdquo;</li>
-<li>Waited as it downloaded and extracted the file system for the subsystem</li>
+<li>Waited for download and extracted file system</li>
 <li>When prompted setup developer account with username/password
 
 <ul>
-<li>Documentation can be found at <a href="https://aka.ms/wsldocs">https://aka.ms/wsldocs</a> when install completed</li>
+<li>Documentation can be found at <a href="https://aka.ms/wsldocs">https://aka.ms/wsldocs</a></li>
 </ul></li>
 <li>Exit root install shell</li>
 <li>Search for &ldquo;Bash&rdquo; local</li>
-<li>Luanched &ldquo;Bash on Ubuntu on Windows&rdquo;
-
-<ul>
-<li>Bash up and running, <code>echo $USER</code> returns my username</li>
-</ul></li>
+<li>Luanched &ldquo;Bash on Ubuntu on Windows&rdquo;</li>
 </ul>
 
 <h2>Setting up Go under Bash for Windows 10</h2>
@@ -59,8 +55,8 @@ under Bash on Ubuntu on Windows.</p>
 
 <pre><code class="language-shell">    sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
     sudo apt-get autoremove
-    export CGO_ENABLED=0
     sudo apt-get install build-essential git-core unzip zip -y
+    export CGO_ENABLED=0
     git clone https://github.com/golang/go go1.4
     git clone https://github.com/golang/go go
     cd go1.4

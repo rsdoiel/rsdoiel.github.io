@@ -12,13 +12,12 @@ I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The V
 + Reboot
 + Search for "Bash" and clicked on "Run Bash command"
 + Answered "y"
-+ Waited as it downloaded and extracted the file system for the subsystem
++ Waited for download and extracted file system
 + When prompted setup developer account with username/password
-    + Documentation can be found at https://aka.ms/wsldocs when install completed
+    + Documentation can be found at https://aka.ms/wsldocs
 + Exit root install shell
 + Search for "Bash" local
 + Luanched "Bash on Ubuntu on Windows"
-    + Bash up and running, `echo $USER` returns my username
 
 ## Setting up Go under Bash for Windows 10
 
@@ -28,8 +27,8 @@ under Bash on Ubuntu on Windows.
 ```shell
     sudo apt-get update && sudo apt-get upgrade -y
     sudo apt-get autoremove
-    export CGO_ENABLED=0
     sudo apt-get install build-essential git-core unzip zip -y
+    export CGO_ENABLED=0
     git clone https://github.com/golang/go go1.4
     git clone https://github.com/golang/go go
     cd go1.4
