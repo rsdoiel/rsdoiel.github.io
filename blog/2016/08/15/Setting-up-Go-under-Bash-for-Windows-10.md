@@ -52,10 +52,11 @@ with the usual `go get ...` syntax.
 
 I like the vim-go packages for editing Go code in vim. They are easy to setup.
 
- '''shell
-     mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+```shell
+     mkdir -p ~/.vim/autoload ~/.vim/bundle 
+     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
      git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
- '''
+```
 
 Example $HOME/.vimrc
 
