@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Exploring Bash for Windows 10 Pro</title>
+
+    <link rel="shortcut icon" href="https://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
+    <link href="/css/site.css" rel="stylesheet" />
+    <link rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+  </head>
+  <body>
+    <header>
+      <img src="https://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
+      <div>
+        Robert Doiel<br />
+        Digital Services Programmer<br />
+        <a href="http://library.caltech.edu">Caltech Libraries</a><br />
+      </div>
+    </header>
+
+    <section>
+      <article>
+	  <h1>Exploring Bash for Windows 10 Pro</h1>
+
+<h2>Initital Setup and configuration</h2>
+
+<p>I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). After the upgrade I took the following steps</p>
+
+<ul>
+<li>Search with Bing for &ldquo;Bash for Windows&rdquo;
+
+<ul>
+<li>Bing returns <a href="http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/</a></li>
+</ul></li>
+<li>Switch on developer mode for Windows</li>
+<li>Turned on Linux Subsystem Beta (searched for &ldquo;Turning on Features&rdquo;)</li>
+<li>Reboot</li>
+<li>Search for &ldquo;Bash&rdquo; and clicked on &ldquo;Run Bash command&rdquo;</li>
+<li>Answered &ldquo;y&rdquo;</li>
+<li>Waited as it downloaded and extracted the file system for the subsystem</li>
+<li>When prompted setup developer account with username/password
+
+<ul>
+<li>Documentation can be found at <a href="https://aka.ms/wsldocs">https://aka.ms/wsldocs</a> when install completed</li>
+</ul></li>
+<li>Exit root install shell</li>
+<li>Search for &ldquo;Bash&rdquo; local</li>
+<li>Luanched &ldquo;Bash on Ubuntu on Windows&rdquo;
+
+<ul>
+<li>Bash up and running, <code>echo $USER</code> returns my username</li>
+</ul></li>
+</ul>
+
+<h2>Setting up Go under Bash for Windows 10</h2>
+
+<p>With Bash installed these are the steps I took to compile Go
+under Bash on Ubuntu on Windows.</p>
+
+<pre><code class="language-shell">    sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
+    sudo apt-get autoremove
+    export CGO_ENABLED=0
+    sudo apt-get install build-essential git-core unzip zip -y
+    git clone https://github.com/golang/go go1.4
+    git clone https://github.com/golang/go go
+    cd go1.4
+    git checkout go1.4.3
+    cd src
+    ./all.bash
+    cd
+    cd go
+    git checkout go1.6.3
+    cd src
+    ./all.bash
+    export PATH=$PATH:$HOME/go/bin:$HOME/bin
+    export GOPATH=$HOME
+</code></pre>
+
+<p>If successful you should be able to install additional Go based software
+with the usual <code>go get ...</code> syntax.</p>
+
+      </article>
+    </section>
+
+    <nav>
+    <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/blog">up</a></li>
+</ul>
+
+    </nav>
+
+    <footer>
+    <p>copyright &copy; 2016<br />
+built with
+<a href="https://github.com/rsdoiel/mkpage">mkpage</a>,
+<a href="https://github.com/rsdoiel/reldate">reldate</a>,
+<a href="https://github.com/rsdoiel/pathparts">pathparts</a>,
+<a href="https://github.com/rsdoiel/findfile">findfile</a>,
+<a href="https://github.com/rsdoiel/timefmt">timefmt</a>,
+Make and Bash<br />
+<a href="http://validator.w3.org/feed/check.cgi?url=http%3A//rsdoiel.github.io/rss.xml"><img class="rss-valid" src="/media/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a></p>
+
+    </footer>
+
+<!-- START: Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-35496709-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!--   END: Google Analytics -->
+    </body>
+</html>
