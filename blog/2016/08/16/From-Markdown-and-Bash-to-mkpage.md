@@ -158,6 +158,15 @@ sprinkled in.
         <section>
         {{ .content }}
         </section>
+        <aside>
+        Weather Demo<br />
+        <ul>
+        {{range .weather.data.text}}
+            <li>{{ . }}</li>
+        {{end}}
+        </ul>
+        </aside>
+
     </body>
     </html>
 ```

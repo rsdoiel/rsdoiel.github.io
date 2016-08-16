@@ -180,6 +180,15 @@ sprinkled in.</p>
         &lt;section&gt;
         {{ .content }}
         &lt;/section&gt;
+        &lt;aside&gt;
+        Weather Demo&lt;br /&gt;
+        &lt;ul&gt;
+        {{range .weather.data.text}}
+            &lt;li&gt;{{ . }}&lt;/li&gt;
+        {{end}}
+        &lt;/ul&gt;
+        &lt;/aside&gt;
+
     &lt;/body&gt;
     &lt;/html&gt;
 </code></pre>
