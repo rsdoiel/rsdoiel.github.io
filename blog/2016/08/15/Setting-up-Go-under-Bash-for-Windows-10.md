@@ -48,7 +48,7 @@ under Bash on Ubuntu on Windows.
     export GOPATH=$HOME
 ```
 
-Note some tests failing during compilation in both 1.4.2 and 1.7. They mostly failed
+Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed
 around network sockets.  This is probably a result of the limitations in the Linux subsystem
 under Windows.
 
