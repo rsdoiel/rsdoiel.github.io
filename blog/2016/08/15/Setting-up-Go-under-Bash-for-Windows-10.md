@@ -40,7 +40,7 @@ under Bash on Ubuntu on Windows.
     cd
     export PATH=$PATH:$HOME/go1.4/bin
     cd go
-    git checkout go1.6.3
+    git checkout go1.7
     cd src
     ./all.bash
     cd
