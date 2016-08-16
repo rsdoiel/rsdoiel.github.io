@@ -48,7 +48,11 @@ under Bash on Ubuntu on Windows.
     export GOPATH=$HOME
 ```
 
-If successful you should be able to install additional Go based software
+Note some tests failing during compilation in both 1.4.2 and 1.7. They mostly failed
+around network sockets.  This is probably a result of the limitations in the Linux subsystem
+under Windows.
+
+If successful you should be able to run `go version` as well as install additional Go based software
 with the usual `go get ...` syntax.
 
 In your `.bashrc` or `.profile` add the following
