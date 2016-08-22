@@ -30,6 +30,7 @@ under Bash on Ubuntu on Windows.
     sudo apt-get update && sudo apt-get upgrade -y
     sudo apt-get autoremove
     sudo apt-get install build-essential clang git-core unzip zip -y
+    export CGO_ENABLE=0
     git clone https://github.com/golang/go go1.4
     git clone https://github.com/golang/go go
     cd go1.4
