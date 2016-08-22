@@ -29,8 +29,7 @@ under Bash on Ubuntu on Windows.
 ```shell
     sudo apt-get update && sudo apt-get upgrade -y
     sudo apt-get autoremove
-    sudo apt-get install build-essential git-core unzip zip -y
-    export CGO_ENABLED=0
+    sudo apt-get install build-essential clang git-core unzip zip -y
     git clone https://github.com/golang/go go1.4
     git clone https://github.com/golang/go go
     cd go1.4
