@@ -28,6 +28,7 @@ a:active, a:focus, a:hover {
 
 header {
     font-family: 'Concert One', cursive;
+    font-size: 80%;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -78,14 +79,14 @@ header div {
 }
 
 header div > a, header div > a:link, header div > a:visited {
+    font-weight: lighter;
     /* caltech orange */
     color: #FF6E1E; 
-    text-decoration: none;
 }
 
 header div > a:active, header div > a:focus, header div > a:hover {
-    color: blue;
-    text-decoration: underline;
+    font-weight: lighter;
+    color: lightgreen;
 }
 
 
