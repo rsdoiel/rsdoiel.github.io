@@ -1,6 +1,8 @@
 
 # Exploring Bash for Windows 10 Pro
 
+2016-08-15, [R. S. Doiel](http://rsdoiel.github.io)
+
 ## Initital Setup and configuration
 
 I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps
