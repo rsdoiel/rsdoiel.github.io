@@ -139,7 +139,7 @@ output to &ldquo;mypage.html&rdquo;.</p>
 <p>Likewise integrating some JSON data from weather.gov is relatively straight
 forward. The hardest part is discovering the <a href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a>
 that returns JSON!  Notice I have added a weather field and the URL. When data
-is recieved back from weather.gov it JSON decoded and in turn passed to the
+is recieved back from weather.gov it is JSON decoded and then passed to the
 template for rendering using the &ldquo;range&rdquo; template function.</p>
 
 <pre><code class="language-shell">    mkpage &quot;title=My Page&quot; \

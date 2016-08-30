@@ -117,7 +117,7 @@ Adding a custom page title is easy too.
 Likewise integrating some JSON data from weather.gov is relatively straight
 forward. The hardest part is discovering the [URL](http://forecast.weather.gov/MapClick.php?lat=34.0522&lon=118.2437&DFcstType=json) 
 that returns JSON!  Notice I have added a weather field and the URL. When data
-is recieved back from weather.gov it JSON decoded and in turn passed to the
+is recieved back from weather.gov it is JSON decoded and then passed to the
 template for rendering using the "range" template function.
 
 ```shell
