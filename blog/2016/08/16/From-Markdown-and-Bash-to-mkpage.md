@@ -26,7 +26,7 @@ be deconstruct into something simpler.
 
 Some of the core elements of modern content management systems are
 
-+ creation and curation of data sources
++ creation and curation of data sources (including metadata)
 + transforming data sources if needed
 + mapping a data source to appropriate template set
 + rendering template sets to produce a final website
