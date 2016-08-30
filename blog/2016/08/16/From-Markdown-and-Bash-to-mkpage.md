@@ -1,4 +1,5 @@
 
+
 # From Markdown and Bash to mkpage
 
 2016-08-16, [R. S. Doiel](http://rsdoiel.github.io)
@@ -139,7 +140,7 @@ What is *mkpage* doing?
 Building a website then is only a matter of maintaining navigation in
 *nav.md* and identifing the pages needing to be created. I can easily 
 automated that using the Unix find, grep, cut and sort. Also with find 
-I can iteratively process each intereting markdown file applying a 
+I can iteratively process each markdown file applying a 
 template and rendering the related HTML file.  This can be done for a site 
 of a few pages (e.g. about, resume and cv) to more complex websites like 
 blogs and repository activities.
