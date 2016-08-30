@@ -76,9 +76,11 @@ the last year or two I realized I had three common types of data.
 
 I also realized I only needed to handle three data sources.
 
-1. strings formatted in plain text, markdown and JSON
-2. files that were plain text, markdown or JSON
-3. web resources that were plain text, markdown or JSON
+1. strings
+2. files
+3. web resources
+
+Each of these sources might provide plain text, markdown or JSON data formats.
 
 That poses the question of how to express the data format and the data 
 source when mapping the content into a template. The web resources are
