@@ -21,7 +21,7 @@ implementation language and template engine. Even though I wasn't
 required to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt 
 like the static site generators were racing to fill a complexity 
 vacuum. In the end they were interesting to explore but far more
-than I was willing to run. Modern content management systems should
+than I was willing to run. I believe modern content management systems can
 be deconstruct into something simpler.
 
 Some of the core elements of modern content management systems are
