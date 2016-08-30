@@ -24,7 +24,7 @@ vacuum. In the end they were interesting to explore but far more
 than I was willing to run. Modern content management systems should
 be deconstruct into something simpler.
 
-The core elements of a modern content management system are
+Some of the core elements of modern content management systems are
 
 + creation and curation of data sources
 + transforming data sources if needed
