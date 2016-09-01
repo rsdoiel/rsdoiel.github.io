@@ -33,9 +33,7 @@ Some of the core elements of modern content management systems are
 + rendering template sets to produce a final website
 
 Modern static site generators leave creation and curration to your 
-text editor and revision control system (e.g. vi and git). In systems
-like Drupal or Wordpress a web UI is used to provide a means of
-creation and curration with the result stored in a relational database.
+text editor and revision control system (e.g. vi and git). 
 
 Most static site generators use a simplified markup. A populate one is
 called [Markdown](https://en.wikipedia.org/wiki/Markdown). This "markup"
@@ -48,9 +46,7 @@ template and theme.
 Mapping the data sources to templates, combining the templates and rendering 
 the final website is where most systems introduce a large amount of complexity.
 This is true of static site generators like [Jekill](https://jekyllrb.com) and 
-[Hugo](https://gohugo.io) as well as older systems like [Drupal](https://drupal.org) 
-and [Wordpress](http://wordpress.org). In the case of Drupal and Wordpress
-you also have the overhead of managing user permissions and versioning.
+[Hugo](https://gohugo.io).
 
 
 ## An experimental deconstruction
@@ -183,6 +179,8 @@ To learn more about Go's text templates see
 [golang.org/pkg/text/template](https://golang.org/pkg/text/template/). 
 
 If your site generator needs are more than *mkpage* I suggest [Hugo](https://gohugo.io). 
+It's what I would probably reach for if I was building a large complex organizational
+site or news site.
 
 If you're looking for an innovative and rich author centric content system
 I suggest Dave Winer's [Fargo](http://fargo.io) outliner and [1999.io](https://1999.io).
