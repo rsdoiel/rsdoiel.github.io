@@ -1,14 +1,16 @@
 
 ### Useful for Bash scripting
 
-+ [shelltools](https://rsdoiel.github.io/shelltools) - simple utilities for command line and shell scripting
-    + findfile, finddir
-    + mergepath
-    + pathparts
-    + reldate
-+ [range](https://rsdoiel.github.io/range) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
-+ [timefmt](https://rsdoiel.github.io/timefmt) - wraps the Golang time formatting package so you can use those expressions in your Bash script
-+ [urlparse](https://rsdoiel.github.io/urlparse) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
+[shelltools](/shelltools/) - simple utilities for command line and shell scripting
+
++ [findfile](/shelltools/findfile.html)
++ [finddir](/shelltools/finddir.html)
++ [mergepath](/shelltools/mergepath.html)
++ [pathparts](/shelltools/pathparts.html)
++ [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
++ [range](/shelltools/range.html) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
++ [timefmt](/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
++ [urlparse](/shelltools/urlparse) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
 
 ### Content formatting tools
 
