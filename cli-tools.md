@@ -3,10 +3,10 @@
 
 [shelltools](/shelltools/) - simple utilities for command line and shell scripting
 
-+ [findfile](/shelltools/findfile.html)
-+ [finddir](/shelltools/finddir.html)
-+ [mergepath](/shelltools/mergepath.html)
-+ [pathparts](/shelltools/pathparts.html)
++ [findfile](/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
++ [finddir](/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
++ [mergepath](/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
++ [pathparts](/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
 + [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
 + [range](/shelltools/range.html) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
 + [timefmt](/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
