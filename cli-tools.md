@@ -1,7 +1,7 @@
 
 ### Useful for Bash scripting
 
-+ [shelltools](https://rsdoiel.github.io/shelltools) - command line utilities (e.g. *findfile*, *finddir*) offering simple utilities for command line shells
++ [shelltools](https://rsdoiel.github.io/shelltools) - simple utilities for command line and shell scripting
     + findfile, finddir
     + mergepath
     + pathparts
