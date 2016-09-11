@@ -1,12 +1,12 @@
 
 ### Useful for Bash scripting
 
-+ [fsutils](https://rsdoiel.github.io/fsutils) - command line utilities (e.g. *findfile*, *finddir*) offering simple utilities for command line shells
++ [shelltools](https://rsdoiel.github.io/shelltools) - command line utilities (e.g. *findfile*, *finddir*) offering simple utilities for command line shells
     + findfile, finddir
     + mergepath
     + pathparts
+    + reldate
 + [range](https://rsdoiel.github.io/range) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
-+ [reldate](https://rsdoiel.github.io/reldate) - renders a relative date in YYYY-MM-DD format
 + [timefmt](https://rsdoiel.github.io/timefmt) - wraps the Golang time formatting package so you can use those expressions in your Bash script
 + [urlparse](https://rsdoiel.github.io/urlparse) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
 
