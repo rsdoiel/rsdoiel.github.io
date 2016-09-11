@@ -10,7 +10,7 @@
 + [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
 + [range](/shelltools/range.html) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
 + [timefmt](/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
-+ [urlparse](/shelltools/urlparse) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
++ [urlparse](/shelltools/urlparse.html) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
 
 ### Content formatting tools
 
