@@ -23,5 +23,5 @@
 
 ### web services
 
-+ [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. serves your current work directory out as localhost:8000)
++ [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. `ws` serves your current work directory as http://localhost:8000)
 
