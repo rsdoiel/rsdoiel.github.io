@@ -1,7 +1,7 @@
 
 # Android, Termux and Dev Environment
 
-R. S. Doiel, 2016-0-19
+R. S. Doiel, 2016-09-20
 
 Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.
 
