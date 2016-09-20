@@ -5,6 +5,8 @@ R. S. Doiel, 2016-09-20
 
 Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.
 
+## Challenges
+
 1. Find a way to run Bash without rooting my device
 2. See if I could use my normal web toolkit
 	+ curl
@@ -53,7 +55,6 @@ my typical custom written tools
 '''
 
 Finally pulled down some content to test.
-
 
 '''shell
     cd
