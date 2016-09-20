@@ -31,7 +31,7 @@ custom static site tools I confirmed I could build and test static websites from
 
 Here's the list of packages I installed under *Termux* to provide a suitable shell environment for writing and website constructions.
 
-'''shell
+```shell
     apt install autoconf automake bash-completion bc binutils-dev bison \
         bzip2 clang cmake coreutils ctags curl dialog diffutils dos2unix \
         expect ffmpeg findutils gawk git gnutls golang grep gzip \
@@ -39,12 +39,12 @@ Here's the list of packages I installed under *Termux* to provide a suitable she
         openssh patch php-dev python readline-dev rlwrap rsync ruby-dev \
         sed sensible-utils sharutils sqlite tar texinfo tree unzip vim \
         w3m wget zip
-'''
+```
 
 This then allowed me to setup my *golang* envuronment variables and install
 my typical custom written tools
 
-'''shell
+```shell
     export PATH=$HOME/bin:$PATH
     export GOPATH=$HOME
     export GOBIN=$HOME/bin
@@ -52,17 +52,17 @@ my typical custom written tools
     go get github.com/caltechlibrary/mkpage/...
     go get github.com/caltechlibrary/md2slides/...
     go get github.com/caltechlibrary/ws/...
-'''
+```
 
 Finally pulled down some content to test.
 
-'''shell
+```shell
     cd
     mkdir Sites
     git clone https://github.com/rsdoiel/rsdoiel.github.io.git Sites/rsdoiel.github.io
     cd  Sites/rsdoiel.github.io
     ws
-'''
+```
 
 This started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000 and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.
 

@@ -57,38 +57,35 @@ custom static site tools I confirmed I could build and test static websites from
 
 <p>Here&rsquo;s the list of packages I installed under <em>Termux</em> to provide a suitable shell environment for writing and website constructions.</p>
 
-<p>&rdquo;&lsquo;shell
-    apt install autoconf automake bash-completion bc binutils-dev bison <br />
-        bzip2 clang cmake coreutils ctags curl dialog diffutils dos2unix <br />
-        expect ffmpeg findutils gawk git gnutls golang grep gzip <br />
-    imagemagick jq less lynx m4 make-dev man-dev nano nodejs <br />
-        openssh patch php-dev python readline-dev rlwrap rsync ruby-dev <br />
-        sed sensible-utils sharutils sqlite tar texinfo tree unzip vim <br />
+<pre><code class="language-shell">    apt install autoconf automake bash-completion bc binutils-dev bison \
+        bzip2 clang cmake coreutils ctags curl dialog diffutils dos2unix \
+        expect ffmpeg findutils gawk git gnutls golang grep gzip \
+	imagemagick jq less lynx m4 make-dev man-dev nano nodejs \
+        openssh patch php-dev python readline-dev rlwrap rsync ruby-dev \
+        sed sensible-utils sharutils sqlite tar texinfo tree unzip vim \
         w3m wget zip
-&ldquo;&rsquo;</p>
+</code></pre>
 
 <p>This then allowed me to setup my <em>golang</em> envuronment variables and install
 my typical custom written tools</p>
 
-<p>&rdquo;&lsquo;shell
-    export PATH=$HOME/bin:$PATH
+<pre><code class="language-shell">    export PATH=$HOME/bin:$PATH
     export GOPATH=$HOME
     export GOBIN=$HOME/bin
-    go get github.com/rsdoiel/shelltools/&hellip;
-    go get github.com/caltechlibrary/mkpage/&hellip;
-    go get github.com/caltechlibrary/md2slides/&hellip;
-    go get github.com/caltechlibrary/ws/&hellip;
-&ldquo;&rsquo;</p>
+    go get github.com/rsdoiel/shelltools/...
+    go get github.com/caltechlibrary/mkpage/...
+    go get github.com/caltechlibrary/md2slides/...
+    go get github.com/caltechlibrary/ws/...
+</code></pre>
 
 <p>Finally pulled down some content to test.</p>
 
-<p>&rdquo;&lsquo;shell
-    cd
+<pre><code class="language-shell">    cd
     mkdir Sites
-    git clone <a href="https://github.com/rsdoiel/rsdoiel.github.io.git">https://github.com/rsdoiel/rsdoiel.github.io.git</a> Sites/rsdoiel.github.io
+    git clone https://github.com/rsdoiel/rsdoiel.github.io.git Sites/rsdoiel.github.io
     cd  Sites/rsdoiel.github.io
     ws
-&ldquo;&rsquo;</p>
+</code></pre>
 
 <p>This started the local static site webserver and I pointed by Firefox for Android at <a href="http://localhost:8000">http://localhost:8000</a> and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.</p>
 
