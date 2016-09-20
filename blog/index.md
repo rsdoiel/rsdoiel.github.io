@@ -1,4 +1,5 @@
 
++ [Android, Termux and Golang Dev Environment](/blog/2016/09/20/Android-Termux-Dev-environment.html), 2016-09-20 
 + [From Markdown and Bash to mkpage](/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html), 2016-08-16 
 + [Exploring Bash for Windows 10 Pro](/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html), 2016-08-15 
 + [How to make a Pi-Top more Raspbian](/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html), 2016-07-04 

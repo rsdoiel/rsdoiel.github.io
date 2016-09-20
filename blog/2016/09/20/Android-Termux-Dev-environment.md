@@ -1,5 +1,5 @@
 
-# Android, Termux and Golang Dev Environment
+# Android, Termux and Dev Environment
 
 R. S. Doiel, 2016-0-19
 
@@ -22,7 +22,7 @@ most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Uni
 
 This quickly brought me through step 3.  Installing _go_, _git_, and _openssh_ completed what I needed to test static site development with some of the tools in our incubator at [Caltech Library](https://caltechlibrary.github.io).
 
-## Testing static site development
+## Setting up for static site development
 
 After configuring _git_, adding my public key to Github and running _go get_ on my
 custom static site tools I confirmed I could build and test static websites from my Android tablet using *Termux*.
