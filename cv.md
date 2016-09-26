@@ -49,6 +49,7 @@
 + [epgo](https://github.com/caltechlibrary/epgo) - E-Prints REST API Golang package
 + [ostdlib](https://github.com/caltechlibrary/ostdlib) - A standard library and REPL for embedding the [Otto](https://github.com/robertkrimen/otto) JavaScript engine
 + [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
++ [mkpage](https://github.com/caltechlibrary/mkpage), July 2016 - present (author; go): An experimental light weight template/markdown processor for webcontent and more
 
 
 
