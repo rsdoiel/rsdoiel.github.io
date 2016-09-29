@@ -44,6 +44,7 @@
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
++ [mkpage](https://github.com/caltechlibrary/mkpage) - An experimental light weight template/markdown processor for webcontent and more
 + [ot](https://github.com/caltechlibrary/ot) - ORCID Tools, a set of Bash scripts and Golang packages for working with the ORCID public API.
 	+ [bibtex](https://github.com/caltechlibrary/bibtex) - A Go package for working with BibTeX files and a bibfilter tool
 + [epgo](https://github.com/caltechlibrary/epgo) - E-Prints REST API Golang package
