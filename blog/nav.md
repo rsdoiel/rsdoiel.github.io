@@ -1,4 +1,4 @@
-+ [Home](/)
++ [R. S. Doiel](/)
 + [Blog](/blog/)
 + [Presentations](/presentations.html)
 + [Library Jargon](/library-terminology.html)
