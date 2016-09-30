@@ -2,7 +2,7 @@
 + [Blog](/blog/)
 + [Presentations](/presentations.html)
 + [Library Jargon](/library-terminology.html)
-+ [About](/about.html)
+<!-- + [About](/about.html) -->
 + [CV](/cv.html)
 + [Resume](/resume.html)
 + [up](/blog)
