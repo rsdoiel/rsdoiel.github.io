@@ -72,11 +72,23 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Code samples
 
-+ [mkpage](https://github.com/rsdoiel/mkpage), July 2016 - present (author; go): A markdown and template render or nano-CMS for rendering webcontent and more
-+ [ws](https://github.com/rsdoiel/ws), June 2014 - present (author; go):  A nimble web server for prototyping featuring, static file services.
-+ [shorthand](https://github.com/rsdoiel/shorthand) - September 2015 (author; go) - A simple label expander with added oomph.
-+ [stngo](https://github.com/rsdoiel/stngo) - June 2015 (author; go) - A parser and set of utilities for processing simple timesheet notation (aka stn)
-+ [reldate](https://github.com/rsdoiel/reldate), August 2014 (author; go) - A small utility which returns the relative date in YYYY-MM-DD format.
-+ [safely-php](https://github.com/rsdoiel/safely-php),July 2012 - April 2015 (author; php): A library for improving input handling in legacy applications maintained by USC Web Services
-+ [r-tags](https://github.com/rsdoiel/r-tags), June 2014 - November 2014 (author; JavaScript): My experiments with making x-tag based web components.
-+ [stn](https://github.com/rsdoiel/stn), November 2011 - September 2013 (author; JavaScript):  A NodeJS module supporting a simple ASCII notation for time related data for submission to a time keeping/billing systems. (my first implementation of stn - Simple Timesheet Notation)
+[shelltools](/shelltools/) - simple utilities for command line and shell scripting
+
++ [findfile](/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
++ [finddir](/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
++ [mergepath](/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
++ [pathparts](/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
++ [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
++ [range](/shelltools/range.html) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
++ [timefmt](/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
++ [urlparse](/shelltools/urlparse.html) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
+
+Content formatting tools
+
++ [md2slides](https://rsdoiel.github.io/md2slides) - turns a single markdown file into a series of HTML webpages for presentations
++ [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
++ [opml](https://rsdoiel.github.io/opml) - A naive OPML parse package that features a OPML sort utility
++ [prettyxml](https://rsdoiel.github.io/prettyxml) - a naive XML pretty printer
++ [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
++ [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
+
