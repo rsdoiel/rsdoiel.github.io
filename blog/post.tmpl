@@ -9,14 +9,9 @@
     <link rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
   </head>
   <body>
-    <header>
-      <img src="https://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png" title="When I press keys letters and punctuation sometimes appear on the surface." alt="Androidified Robert in a beret and black t-shirt.">
-      <div>
-        R. S. Doiel<br />
-        Digital Services Programmer<br />
-        <a href="http://library.caltech.edu">Caltech Libraries</a><br />
-      </div>
-    </header>
+    <nav>
+    {{.nav}}
+    </nav>
 
     <section>
       <article>
@@ -24,14 +19,9 @@
       </article>
     </section>
 
-    <nav>
-    {{.nav}}
-    </nav>
-
     <footer>
     {{.footer}}
     </footer>
-
 <!-- START: Google Analytics -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
