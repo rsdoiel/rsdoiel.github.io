@@ -26,5 +26,5 @@
 + [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. you can serve your current work directory out on localhost:8000)
     + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
     + fast startup
-    + logs to console so you can witch requests and responses
+    + logs to console so you can watch requests and responses
 
