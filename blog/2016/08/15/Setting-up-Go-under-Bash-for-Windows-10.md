@@ -3,6 +3,11 @@
 
 2016-08-15, [R. S. Doiel](http://rsdoiel.github.io)
 
+    UPDATE (2016-10-27): Today trying to compile Go 1.7.3 under 
+    Windows 10 Pro I've am getting compile errors when the 
+    assembler is being built.  I can still compile go1.4.3 successful 
+    but go see errors in some of the tests. - RSD
+
 ## Initital Setup and configuration
 
 I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps
