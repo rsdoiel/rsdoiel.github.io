@@ -3,10 +3,10 @@
 
 2016-08-15, [R. S. Doiel](http://rsdoiel.github.io)
 
-    UPDATE (2016-10-27): Today trying to compile Go 1.7.3 under 
+    UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
     Windows 10 Pro I've am getting compile errors when the 
     assembler is being built.  I can still compile go1.4.3 successful 
-    but go see errors in some of the tests. - RSD
+    but see errors in some of the tests results.
 
 ## Initital Setup and configuration
 
