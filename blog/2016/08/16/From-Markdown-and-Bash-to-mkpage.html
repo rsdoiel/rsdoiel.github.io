@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>From Markdown and Bash to mkpage</title>
+
+    <link rel="shortcut icon" href="https://www.gravatar.com/avatar/60c7b20527f236c7156a85772a97430f.png">
+    <link href="/css/site.css" rel="stylesheet" />
+    <link rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/x-markdown" href="08/16/From-Markdown-and-Bash-to-mkpage.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a>
+<!-- + [About](/about.html) --></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/blog">up</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1>From Markdown and Bash to mkpage</h1>
+
+<p>2016-08-16, <a href="http://rsdoiel.github.io">R. S. Doiel</a></p>
+
+<p>When I started maintaining a website on Github a few years ago my needs
+were so simple I hand coded the HTML.  Eventually I adopted
+a markdown processor for maintaining the prose. My &ldquo;theme&rdquo; was a
+CSS file and some HTML fragments to wrap the markdown output. If I needed
+interactivity I used JavaScript to access content via a web API.
+Life was simple, all I had to learn to get started was Git and how to
+populate a branch called &ldquo;gh-pages&rdquo;.</p>
+
+<h2>Deconstructing Content Management Systems</h2>
+
+<p>Recently my website needs have grown. I started experimenting with static
+site generators thinking an existing system would be the right fit.
+What I found were feature rich systems that varied primarily in
+implementation language and template engine. Even though I wasn&rsquo;t
+required to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt
+like the static site generators were racing to fill a complexity
+vacuum. In the end they were interesting to explore but far more
+than I was willing to run. I believe modern content management systems can
+be deconstruct into something simpler.</p>
+
+<p>Some of the core elements of modern content management systems are</p>
+
+<ul>
+<li>creation and curation of data sources (including metadata)</li>
+<li>transforming data sources if needed</li>
+<li>mapping a data source to appropriate template set</li>
+<li>rendering template sets to produce a final website</li>
+</ul>
+
+<p>Modern static site generators leave creation and curration to your
+text editor and revision control system (e.g. vi and git).</p>
+
+<p>Most static site generators use a simplified markup. A populate one is
+called <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>. This &ldquo;markup&rdquo;
+is predictable enough that you can easily convert the results to HTML and
+other useful formats with tools like <a href="http://pandoc.org/">pandoc</a>. In most
+static site generators your content is currated in Markdown and when the
+pages are built it is rendered to HTML for injection into your website&rsquo;s
+template and theme.</p>
+
+<p>Mapping the data sources to templates, combining the templates and rendering
+the final website is where most systems introduce a large amount of complexity.
+This is true of static site generators like <a href="https://jekyllrb.com">Jekill</a> and
+<a href="https://gohugo.io">Hugo</a>.</p>
+
+<h2>An experimental deconstruction</h2>
+
+<p>I wanted a simple command line tool that would make a single web page.
+It would take a few data sources and formats and run them through a
+template system. The template system needed to be simple but support
+the case where data might not be available. It would be nice if it handled
+the case of repititious data like that used in tables or lists. Ideally
+I could render many pages from a single template assuming a simple website
+and layout.</p>
+
+<h3>A single page generator</h3>
+
+<p><a href="https://github.com/rsdoiel/mkpage">mkpage</a> started as an experiment in
+building a simple single page generator. It&rsquo;s responsibilities
+include mapping data sources to the template, transforming data if needed
+and rendering the results. After reviewing the websites I&rsquo;ve setup in
+the last year or two I realized I had three common types of data.</p>
+
+<ol>
+<li>Plain text or content that did not need further processing</li>
+<li>Markdown content (e.g. page content, navigation lists)</li>
+<li>Occassionally I include content from JSON feeds</li>
+</ol>
+
+<p>I also realized I only needed to handle three data sources.</p>
+
+<ol>
+<li>strings</li>
+<li>files</li>
+<li>web resources</li>
+</ol>
+
+<p>Each of these sources might provide plain text, markdown or JSON data formats.</p>
+
+<p>That poses the question of how to express the data format and the data
+source when mapping the content into a template. The web resources are
+easy in the sense that the web responses include content type information.
+Files can be simple too as the file extension indicates their
+format (e.g. &ldquo;.md&rdquo; for Markdown, &ldquo;.json&rdquo; for JSON documents). What remained
+was how to identify a text string&rsquo;s format.  I opted for a prefix ending in
+a colon (e.g. &ldquo;text:&rdquo; for plain text, &ldquo;markdown:&rdquo; for markdown
+and &ldquo;json:&rdquo; for JSON). This mapping allows for a simple key/value
+relationship to be expressed easily on the command line.</p>
+
+<h3>mkpage in action</h3>
+
+<p>Describing how to build &ldquo;mypage.html&rdquo; from &ldquo;mypage.md&rdquo; and &ldquo;nav.md&rdquo;
+(containing links for navigating the website) is as easy as typing</p>
+
+<pre><code class="language-shell">    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html
+</code></pre>
+
+<p>In this example the template is called &ldquo;page.tmpl&rdquo; and we redirect the
+output to &ldquo;mypage.html&rdquo;.</p>
+
+<p>Adding a custom page title is easy too.</p>
+
+<pre><code class="language-shell">    mkpage &quot;title=text:My Page&quot; \
+        &quot;content=mypage.md' &quot;navigation=nav.md&quot; 
+        page.tmpl \
+        &gt; mypage.html
+</code></pre>
+
+<p>Likewise integrating some JSON data from weather.gov is relatively straight
+forward. The hardest part is discovering the <a href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a>
+that returns JSON!  Notice I have added a weather field and the URL. When data
+is recieved back from weather.gov it is JSON decoded and then passed to the
+template for rendering using the &ldquo;range&rdquo; template function.</p>
+
+<pre><code class="language-shell">    mkpage &quot;title=My Page&quot; \
+        &quot;content=mypage.md&quot; \
+        &quot;navigation=nav.md&quot; \
+        &quot;weather=http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json&quot; \
+        page.tmpl \
+        &gt; mypage.html
+</code></pre>
+
+<p>What is <em>mkpage</em> doing?</p>
+
+<ol>
+<li>Reading the data sources and formats from the command line</li>
+<li>Transforming the Markdown and JSON content appropriately</li>
+<li>Applying them to the template (e.g. page.tmpl)</li>
+<li>Render the results to stdout</li>
+</ol>
+
+<p>Building a website then is only a matter of maintaining navigation in
+<em>nav.md</em> and identifing the pages needing to be created. I can easily
+automated that using the Unix find, grep, cut and sort. Also with find
+I can iteratively process each markdown file applying a
+template and rendering the related HTML file.  This can be done for a site
+of a few pages (e.g. about, resume and cv) to more complex websites like
+blogs and repository activities.</p>
+
+<p>Here&rsquo;s an example template that would be suitable for the previous
+command line example. It&rsquo;s mostly just HTML and some curly bracket notation
+sprinkled in.</p>
+
+<pre><code class="language-html">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        {{with .title}}&lt;title&gt;{{- . -}}&lt;/title&gt;{{end}}
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;css/site.css&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;nav&gt;
+        {{ .navigation }}
+        &lt;/nav&gt;
+        &lt;section&gt;
+        {{ .content }}
+        &lt;/section&gt;
+        &lt;aside&gt;
+        Weather Demo&lt;br /&gt;
+        &lt;ul&gt;
+        {{range .weather.data.text}}
+            &lt;li&gt;{{ . }}&lt;/li&gt;
+        {{end}}
+        &lt;/ul&gt;
+        &lt;/aside&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre>
+
+<p>You can find out more about <a href="https://github.com/rsdoiel/mkpage">mkpage</a>
+<a href="https://rsdoiel.github.io/mkpage">rsdoiel.github.io/mkpage</a>.</p>
+
+<p>To learn more about Go&rsquo;s text templates see
+<a href="https://golang.org/pkg/text/template/">golang.org/pkg/text/template</a>.</p>
+
+<p>If your site generator needs are more than <em>mkpage</em> I suggest <a href="https://gohugo.io">Hugo</a>.
+It&rsquo;s what I would probably reach for if I was building a large complex organizational
+site or news site.</p>
+
+<p>If you&rsquo;re looking for an innovative and rich author centric content system
+I suggest Dave Winer&rsquo;s <a href="http://fargo.io">Fargo</a> outliner and <a href="https://1999.io">1999.io</a>.</p>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright &copy; 2016 R. S. Doiel<br />
+<a href="/rss.xml">RSS</a> feed and website built with <a href="https://rsdoiel.github.io/mkpage">mkpage</a>, <a href="https://rsdoiel.github.io/shelltools">shelltools</a>, Bash and Make.</p>
+
+    </footer>
+<!-- START: Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-35496709-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!--   END: Google Analytics -->
+    </body>
+</html>

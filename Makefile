@@ -6,20 +6,20 @@ index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.
 
 
 presentations.html: presentations.md footer.md nav.md presentations.tmpl
-	mkpage "mdfile=presentations.md" "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
+	mkpage "mdfile=text:presentations.md" "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
 
 about.html: nav.md footer.md author.md bio.md about.tmpl
-	mkpage "mdfile=bio.md" "aboutAuthor=author.md" "pageContent=bio.md" "nav=nav.md" "footer=footer.md" about.tmpl > about.html
+	mkpage "mdfile=text:bio.md" "aboutAuthor=author.md" "pageContent=bio.md" "nav=nav.md" "footer=footer.md" about.tmpl > about.html
 
 cv.html: nav.md footer.md cv.md cv.tmpl
-	mkpage "mdfile=cv.md" "pageContent=cv.md" "nav=nav.md" "footer=footer.md" cv.tmpl > cv.html
+	mkpage "mdfile=text:cv.md" "pageContent=cv.md" "nav=nav.md" "footer=footer.md" cv.tmpl > cv.html
 
 resume.html: nav.md footer.md resume.md resume.tmpl
-	mkpage "mdfile=resume.md" "pageContent=resume.md" "nav=nav.md" "footer=footer.md" resume.tmpl > resume.html
+	mkpage "mdfile=text:resume.md" "pageContent=resume.md" "nav=nav.md" "footer=footer.md" resume.tmpl > resume.html
 
 
 library-terminology.html: nav.md footer.md library-terminology.md library-terminology.tmpl
-	mkpage "mdfile=library-terminology.md" "pageContent=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
+	mkpage "mdfile=text:library-terminology.md" "pageContent=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
 
 blog:
 	./blog.bash

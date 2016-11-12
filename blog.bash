@@ -57,7 +57,7 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
         "contentBlock=${POST_PATH:0:4}/$ITEM" \
         "nav=nav.md" \
         "footer=footer.md" \
-        "mdfile=$ITEM" \
+        "mdfile=text:$ITEM" \
         post.tmpl > "${POST_PATH:0:4}/${ITEM/.md/.html}"
 done 
 echo "Commit changes"
