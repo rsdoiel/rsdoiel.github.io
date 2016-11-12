@@ -37,3 +37,6 @@ publish:
 	./make-rss.bash blog > rss.xml
 	git commit -am "save and publish"
 	git push origin master
+
+clean:
+	./clean.bash
