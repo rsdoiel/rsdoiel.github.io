@@ -14,8 +14,8 @@
 
 ### Content formatting tools
 
-+ [md2slides](https://rsdoiel.github.io/md2slides) - turns a single markdown file into a series of HTML webpages for presentations
 + [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
++ [mkslides](https://rsdoiel.github.io/mkslides) - turns a single markdown file into a series of HTML webpages for presentations
 + [opml](https://rsdoiel.github.io/opml) - A naive OPML parse package that features a OPML sort utility
 + [prettyxml](https://rsdoiel.github.io/prettyxml) - a naive XML pretty printer
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
