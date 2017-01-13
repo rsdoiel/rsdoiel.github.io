@@ -22,18 +22,21 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
         + [stnparse, stnfilter and stnreport](https://github.com/rsdoiel/stngo/blob/master/STN.md) - the utility pipeline that parses, filters and creates column oriented reports based on a simple timesheet notation file
     + [ws](https://github.com/rsdoiel/ws) - [a nimble webserver](http://rsdoiel.github.io/ws) for prototyping
-    + [reldate](https://github.com/rsdoiel/reldate) - relative dates in YYYY-MM-DD format, also can be used as a package
-    + [range](https://github.com/rsdoiel/range) - emit a range of integers
+    + [shelltools](https://rsdoiel.github.io/shelltools) - a set of command line programs for use with Bash
+        + csvcols - translates the command line parameters into a CSV formatted row
+        + findfile, finddir - a simplified version of the Unix find command
+        + jsonquery - a tool for extracting values from a JSON blob (or exploring the blob interactively)
+        + mergepath - merge path lists like the $PATH variable in your login shell
+        + pathparts - a path parsing utility for the command line
+        + range - emits a range of integers
+        + reldate - relative dates in YYYY-MM-DD format, also can be used as a package
+        + timefmt - A timestamp, date formatting tool using Golang's Time.Format layouts.
+        + urlparse - utility to parse URLs for use in Bash scripts
     + [md2slides](https://github.com/rsdoiel/md2slides) - A simple presentation generator based on Blackfriday package
-    + [mergepath](https://github.com/rsdoiel/mergepath) - merge path lists like the $PATH variable in your login shell
-    + [findfile](https://github.com/rsdoiel/findfile) - a simplified file finder command, supports search by basename prefix, suffix or fragment
-    + [pathparts](https://github.com/rsdoiel/pathparts) - a path parsing utility for the command line
-    + [urlparse](https://github.com/rsdoiel/urlparse) - utility to parse URLs for use in Bash scripts
     + [opml](https://github.com/rsdoiel/opml) - a Go package for working with OPML files
     + [prettyxml](https://github.com/rsdoiel/prettyxml) - A minimal XML pretty printer
     + [tok](https://github.com/rsdoiel/tok) - An easy to use Go tokenizer package
     + [bibtex](https://github.com/rsdoiel/bibtex) - [A BibTeX go package](https://rsdoiel.github.io/bibtex) and bibfilter tool
-    + [timefmt](https://github.com/rsdoiel/timefmt) - A timestamp, date formatting tool using Golang's Time.Format layouts.
 + 3D design experiments
     + [Paperlaptop](https://github.com/rsdoiel/paperlaptop) - a DYI cardboard and PLA laptop, source files in STL and [OpenScad](http://www.openscad.org/)
 + [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
