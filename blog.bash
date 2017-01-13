@@ -55,7 +55,7 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
         "year=text:$(date +%Y)" \
         "title=text:$TITLE" \
         "contentBlock=${POST_PATH:0:4}/$ITEM" \
-        "nav=nav.md" \
+        "nav=../nav.md" \
         "footer=footer.md" \
         "mdfile=text:$(basename $ITEM)" \
         post.tmpl > "${POST_PATH:0:4}/${ITEM/.md/.html}"
