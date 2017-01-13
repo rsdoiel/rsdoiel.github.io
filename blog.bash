@@ -16,7 +16,7 @@ function fileTitle {
 # Build nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
-echo "+ [up](/blog)" >> $BLOG/nav.md
+echo "+ [up](/blog/)" >> $BLOG/nav.md
 
 echo "Building blog footer"
 cat footer.md > $BLOG/footer.md
@@ -79,7 +79,7 @@ mkpage \
     "year=text:$(date +%Y)" \
     "title=text:$TITLE" \
     "pageContent=index.md" \
-    "nav=../nav.md" \
+    "nav=nav.md" \
     "footer=footer.md" \
     index.tmpl > index.html
 
