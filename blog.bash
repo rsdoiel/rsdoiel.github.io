@@ -65,12 +65,7 @@ git commit -am "refreshed blog"
 
 # Build index
 TITLE="Robert's ramblings"
-echo "+ 2016" > index.md
-findfile -s .html 2016 | while read FNAME; do
-    ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
-    echo "    + [$ARTICLE](/blog/2016/$FNAME)" >> index.md
-done
-echo "" >> index.md
+echo "" > index.md
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
@@ -79,6 +74,12 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     POST_DATE=$(pathparts -d $REL_PATH)
     POST_DATE=${POST_DATE//\//-}
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
+done
+echo "" >> index.md
+echo "+ 2016" >> index.md
+findfile -s .html 2016 | while read FNAME; do
+    ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
+    echo "    + [$ARTICLE](/blog/2016/$FNAME)" >> index.md
 done
 mkpage \
     "year=text:$(date +%Y)" \
