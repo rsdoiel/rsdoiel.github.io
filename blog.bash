@@ -78,6 +78,7 @@ done
 echo "" >> index.md
 echo "## [2016](/blog/)" >> index.md
 echo "" >> index.md
+echo "DEBUG cwd: $(pwd)"
 findfile -s .html 2016 | while read FNAME; do
     ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
     echo "DEBUG: $ARTICLE $FNAME"
