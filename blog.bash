@@ -66,7 +66,7 @@ git commit -am "refreshed blog"
 
 # Build index
 TITLE="Robert's ramblings"
-echo "+ [2016](/blog/2016/)"" > index.md
+echo "+ [2016](/blog/2016/)" > index.md
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
