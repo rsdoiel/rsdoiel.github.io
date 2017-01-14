@@ -25,11 +25,11 @@ cat footer.md > $BLOG/footer.md
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
 #
-POST_PATH=$(reldate 0 day| tr - /)
-echo "Generating directory $POST_PATH"
-mkdir -p $BLOG/$POST_PATH
-
 if [ "$1" != "" ]; then
+    POST_PATH=$(reldate 0 day| tr - /)
+    echo "Generating directory $POST_PATH"
+    mkdir -p $BLOG/$POST_PATH
+
     FILENAME="$1"
 
     echo "Copying markdown file into blog path $POST_PATH"
@@ -40,49 +40,60 @@ if [ "$1" != "" ]; then
     git add $BLOG/$POST_PATH/$FILENAME
     git add $BLOG/$POST_PATH/${FILENAME/.md/.html}
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
+else
+    echo "No post to add"
 fi
 
 
 echo "Changing work directory to $BLOG"
 cd $BLOG
 echo "Work directory now $(pwd)"
-
+THIS_YEAR=$(reldate 0 day | cut -d\- -f 1)
+LAST_YEAR=$(reldate -- -1 year | cut -d\- -f 1)
+START_YEAR=2016
 # Render all posts
-findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
-    echo "Rendering ${POST_PATH:0:4}/$ITEM"
-    TITLE=$(fileTitle "${POST_PATH:0:4}/$ITEM")
-    mkpage \
-        "year=text:$(date +%Y)" \
-        "title=text:$TITLE" \
-        "contentBlock=${POST_PATH:0:4}/$ITEM" \
-        "nav=../nav.md" \
-        "footer=footer.md" \
-        "mdfile=text:$(basename $ITEM)" \
-        post.tmpl > "${POST_PATH:0:4}/${ITEM/.md/.html}"
+for CUR_YEAR in $(range $THIS_YEAR $START_YEAR); do
+    echo "Rendering posts for $CUR_YEAR"
+    findfile -s .md $CUR_YEAR | sort -r | while read ITEM; do
+        echo "Rendering $CUR_YEAR/$ITEM"
+        TITLE=$(fileTitle "$CUR_YEAR/$ITEM")
+        mkpage \
+            "year=text:$(date +%Y)" \
+            "title=text:$TITLE" \
+            "contentBlock=$CUR_YEAR/$ITEM" \
+            "nav=../nav.md" \
+            "footer=footer.md" \
+            "mdfile=text:$(basename $ITEM)" \
+            post.tmpl > "$CUR_YEAR/${ITEM/.md/.html}"
 done 
-echo "Commit changes"
-git commit -am "refreshed blog"
+done
 
 # Build index
+echo "Building $BLOG/index.md"
 TITLE="Robert's ramblings"
 echo "" > index.md
-findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
-    echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
-    POST_FILENAME=${POST_PATH:0:4}/$ITEM
+echo "Building links to $THIS_YEAR posts"
+findfile -s .md $THIS_YEAR | sort -r | while read ITEM; do
+    echo "Processing index.md <-- $THIS_YEAR/$ITEM"
+    POST_FILENAME=$THIS_YEAR/$ITEM
     POST_TITLE=$(fileTitle "$POST_FILENAME")
-    REL_PATH="${POST_PATH:0:4}/$ITEM"
+    REL_PATH="$THIS_YEAR/$ITEM"
     POST_DATE=$(pathparts -d $REL_PATH)
     POST_DATE=${POST_DATE//\//-}
-    echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
+    echo "+ [$POST_TITLE](/blog/$THIS_YEAR/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
 echo "" >> index.md
-echo "## [2016](/blog/)" >> index.md
-echo "" >> index.md
-echo "DEBUG cwd: $(pwd)"
-findfile -s .html 2016 | while read FNAME; do
-    ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
-    echo "DEBUG: $ARTICLE $FNAME"
-    echo " + [$ARTICLE](/blog/2016/$FNAME)" >> index.md
+echo "Building Prior Years $LAST_YEAR to $START_YEAR"
+for Y in $(range $LAST_YEAR $START_YEAR); do
+    echo "Building index for year $Y"
+    echo "## $Y" >> index.md
+    echo "" >> index.md
+    echo "DEBUG cwd: $(pwd)"
+    findfile -s .html $Y | while read FNAME; do
+        ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
+        echo "DEBUG: $ARTICLE $FNAME"
+        echo " + [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
+    done
 done
 mkpage \
     "year=text:$(date +%Y)" \
