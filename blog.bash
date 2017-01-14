@@ -76,7 +76,7 @@ findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "+ [$POST_TITLE](/blog/${POST_PATH:0:4}/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
 echo "" >> index.md
-echo "## 2016" >> index.md
+echo "## [2016](/blog/)" >> index.md
 echo "" >> index.md
 findfile -s .html 2016 | while read FNAME; do
     ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
