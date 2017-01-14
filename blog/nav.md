@@ -5,5 +5,4 @@
 <!-- + [About](/about.html) -->
 + [CV](/cv.html)
 + [Resume](/resume.html)
-+ [2016](/blog/2016/)
 + [up](/blog/)
