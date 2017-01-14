@@ -38,7 +38,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 ### Digital Services Programmer, California Institute of Technology, April 2015 - current
 
 I work for the Caltech Library developing and maintaining library focused software solutions
-including ArchivesSpace, EPrints, and Fedora Repository software.
+including ArchivesSpace, EPrints, and custom aggregation and search software.
 
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
@@ -74,8 +74,10 @@ Earlier employment did not involve engineering though it did include working for
 
 [shelltools](/shelltools/) - simple utilities for command line and shell scripting
 
++ [csvcols](/shelltools/csvcols.html) - turns a list of command line parameters into a CSV formatted row of text
 + [findfile](/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
 + [finddir](/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
++ [jsonquery](/shelltools/jsonquery.html) - A tool based on the Go [jid](https://github.com/simeji/jid) package for extracting JSON values and displaying them in sequence
 + [mergepath](/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
 + [pathparts](/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
 + [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format

@@ -15,6 +15,7 @@
     + ArchivesSpace
     + Fedora Repository
     + EPrints
+    + Aggregation and search related projects
 
 ## Technical Skills
 
