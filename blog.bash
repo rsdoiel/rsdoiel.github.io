@@ -13,7 +13,7 @@ function fileTitle {
     fi
 }
 
-# Build nav
+# Build blog nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
 echo "+ [up](/blog/)" >> $BLOG/nav.md
