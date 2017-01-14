@@ -3,8 +3,10 @@
 
 [shelltools](/shelltools/) - simple utilities for command line and shell scripting
 
++ [csvcols](/shelltools/csvcols.html) - turn command line parameters into a CSV formatted row
 + [findfile](/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
 + [finddir](/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
++ [jsoncols](/shelltools/jsoncols.html) - pull values from a json blob and list them as columns
 + [mergepath](/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
 + [pathparts](/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
 + [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
