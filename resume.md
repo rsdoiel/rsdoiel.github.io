@@ -77,7 +77,7 @@ Earlier employment did not involve engineering though it did include working for
 + [csvcols](/shelltools/csvcols.html) - turns a list of command line parameters into a CSV formatted row of text
 + [findfile](/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
 + [finddir](/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
-+ [jsonquery](/shelltools/jsonquery.html) - A tool based on the Go [jid](https://github.com/simeji/jid) package for extracting JSON values and displaying them in sequence
++ [jsoncols](/shelltools/jsoncols.html) - A tool based on the Go [jid](https://github.com/simeji/jid) package for extracting JSON values and displaying them in sequence
 + [mergepath](/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
 + [pathparts](/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
 + [reldate](/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format

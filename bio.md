@@ -25,7 +25,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
     + [shelltools](https://rsdoiel.github.io/shelltools) - a set of command line programs for use with Bash
         + csvcols - translates the command line parameters into a CSV formatted row
         + findfile, finddir - a simplified version of the Unix find command
-        + jsonquery - a tool for extracting values from a JSON blob (or exploring the blob interactively)
+        + jsoncols - a tool for extracting values from a JSON blob (or exploring the blob interactively)
         + mergepath - merge path lists like the $PATH variable in your login shell
         + pathparts - a path parsing utility for the command line
         + range - emits a range of integers
