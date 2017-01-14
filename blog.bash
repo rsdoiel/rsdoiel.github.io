@@ -16,8 +16,8 @@ function fileTitle {
 # Build nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
-echo "+ [up](/blog/)" >> $BLOG/nav.md
 echo "+ [2016](/blog/2016/)" >> $BLOG/nav.md
+echo "+ [up](/blog/)" >> $BLOG/nav.md
 
 echo "Building blog footer"
 cat footer.md > $BLOG/footer.md
@@ -66,7 +66,11 @@ git commit -am "refreshed blog"
 
 # Build index
 TITLE="Robert's ramblings"
-echo "+ [2016](/blog/2016/)" > index.md
+echo "" > index.md
+for ARTICLE in $(findfile -s .html blog/2016); do
+    FNAME=$(basename $ARTICLE | sed -e 's/.html//g')
+    echo "+ [$FNAME](/blog/2016/$ARTICLE)"
+done
 findfile -s .md ${POST_PATH:0:4} | sort -r | while read ITEM; do
     echo "Processing index.md <-- ${POST_PATH:0:4}/$ITEM"
     POST_FILENAME=${POST_PATH:0:4}/$ITEM
