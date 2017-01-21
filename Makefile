@@ -27,6 +27,9 @@ blog: blog/index.html
 blog/index.html:
 	./blog.bash
 
+status:
+	git status
+
 save:
 	git commit -am "Quick Save"
 	git push origin master
