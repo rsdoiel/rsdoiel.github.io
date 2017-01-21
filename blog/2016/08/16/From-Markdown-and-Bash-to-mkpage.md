@@ -2,7 +2,7 @@
 
 # From Markdown and Bash to mkpage
 
-2016-08-16, [R. S. Doiel](http://rsdoiel.github.io)
+2016-08-16, [R. S. Doiel](/)
 
 When I started maintaining a website on Github a few years ago my needs
 were so simple I hand coded the HTML.  Eventually I adopted 

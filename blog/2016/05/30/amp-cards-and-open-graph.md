@@ -1,7 +1,7 @@
 
 # Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph
 
-2016-05-30, [R. S. Doiel](http://rsdoiel.github.io)
+2016-05-30, [R. S. Doiel](/)
 
 ## The problem
 

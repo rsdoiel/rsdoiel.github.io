@@ -1,7 +1,7 @@
 
 # OPML to Markdown and back
 
-2016-05-28, [R. S. Doiel](http://rsdoiel.github.io)
+2016-05-28, [R. S. Doiel](/)
 
 ## Overview
 
