@@ -38,6 +38,9 @@ if [ "$1" != "" ]; then
     FILENAME=$(pathparts -b $FILENAME)
     echo "Adding to git $POST_PATH/$FILENAME"
     git add $BLOG/$POST_PATH/$FILENAME
+    # Make sure we have a place holder stub to keep in the repo
+    # After running clean
+    touch $BLOG/$POST_PATH/${FILENAME/.md/.html}
     git add $BLOG/$POST_PATH/${FILENAME/.md/.html}
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 else
@@ -90,7 +93,8 @@ for Y in $(range $LAST_YEAR $START_YEAR); do
     echo "" >> index.md
     findfile -s .html $Y | sort -r | while read FNAME; do
         ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
-        echo " + [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
+        POST_DATE=$(dirname $FNAME | sed -e 's/blog\///g')
+        echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
     done
 done
 mkpage \
