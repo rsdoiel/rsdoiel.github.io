@@ -31,7 +31,7 @@ save:
 	git commit -am "Quick Save"
 	git push origin master
 
-publish:
+publish: all
 	./blog.bash
 	./make-sitemap.bash > sitemap.xml
 	./make-rss.bash blog > rss.xml
