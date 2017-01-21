@@ -35,7 +35,7 @@ if [ "$1" != "" ]; then
     echo "Copying markdown file into blog path $POST_PATH"
     cp -v "$FILENAME" "$BLOG/$POST_PATH/"
     echo "Resolving $FILENAME to basename"
-    FILENAME=$(pathparts -b $FILENAME)
+    FILENAME=$(basename $FILENAME)
     echo "Adding to git $POST_PATH/$FILENAME"
     git add $BLOG/$POST_PATH/$FILENAME
     # Make sure we have a place holder stub to keep in the repo
@@ -81,7 +81,7 @@ findfile -s .md $THIS_YEAR | sort -r | while read ITEM; do
     POST_FILENAME=$THIS_YEAR/$ITEM
     POST_TITLE=$(fileTitle "$POST_FILENAME")
     REL_PATH="$THIS_YEAR/$ITEM"
-    POST_DATE=$(pathparts -d $REL_PATH)
+    POST_DATE=$(dirname $REL_PATH)
     POST_DATE=${POST_DATE//\//-}
     echo "+ [$POST_TITLE](/blog/$THIS_YEAR/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
