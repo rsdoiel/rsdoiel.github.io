@@ -88,7 +88,7 @@ for Y in $(range $LAST_YEAR $START_YEAR); do
     echo "Building index for year $Y"
     echo "## $Y" >> index.md
     echo "" >> index.md
-    findfile -s .html $Y | while read FNAME; do
+    findfile -s .html $Y | sort -r | while read FNAME; do
         ARTICLE=$(basename $FNAME | sed -e 's/.html//g;s/-/ /g')
         echo " + [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
     done
