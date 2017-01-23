@@ -14,6 +14,11 @@
 + [timefmt](https://rsdoiel.github.io/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
 + [urlparse](https://rsdoiel.github.io/shelltools/urlparse.html) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
 
+[jsontools](https://rsdoiel.github.io/jsontools/) - a small set of tools to facilitate working with JSON data in Bash scripts
+
++ [jsoncols](https://rsdoiel.github.io/jsontools/jsoncols.html) - extract JSON content via dot paths into columns
++ [jsonrange](https://rsdoiel.github.io/jsontools/jsonrange.html) - iterate over JSON maps and arrays in Bash
+
 ### Content formatting tools
 
 + [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
