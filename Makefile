@@ -41,10 +41,15 @@ save:
 	git commit -am "Quick Save"
 	git push origin master
 
+website: all
+	./blog.bash
+	./make-rss.bash blog > rss.xml
+	sitemapper . sitemap.xml https://rsdoiel.github.io
+
 publish: all
 	./blog.bash
-	./make-sitemap.bash > sitemap.xml
 	./make-rss.bash blog > rss.xml
+	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin master
 
