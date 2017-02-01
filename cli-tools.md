@@ -18,6 +18,9 @@
 
 + [jsoncols](https://rsdoiel.github.io/jsontools/jsoncols.html) - extract JSON content via dot paths into columns
 + [jsonrange](https://rsdoiel.github.io/jsontools/jsonrange.html) - iterate over JSON maps and arrays in Bash
++ [xlsx2json](https://rsdoiel.github.io/jsontools/xlsx2json.html) - a tool to extract Excel Workbook worksheets to JSON files
++ [xlsx2csv](https://rsdoiel.github.io/jsontools/xlsx2csv.html) - a tool to extract Excel Workbook worksheets to CSV files
+
 
 ### Content formatting tools
 
