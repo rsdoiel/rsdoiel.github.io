@@ -13,4 +13,4 @@ if [ ! -f $HOME/bin/mergepath ]; then
     echo "Missing shell tools, installing"
     go get github.com/rsdoiel/shelltools/...
 fi
-installWebTools mkpage mkslides
+installWebTools mkpage

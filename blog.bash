@@ -3,16 +3,6 @@
 START_PATH=$(pwd)
 BLOG=blog
 
-function fileTitle {
-    FILENAME=$(echo "$1" | sed -e "s/\s$//g")
-    if [ -f "$FILENAME" ]; then
-      echo $(grep "# " "$FILENAME" | head -1 | sed -e "s/# //g")
-    else
-      echo "Can't find $FILENAME"
-      exit 1
-    fi
-}
-
 # Build blog nav
 echo "Building blog nav"
 cat nav.md > $BLOG/nav.md
@@ -57,17 +47,17 @@ START_YEAR=2016
 # Render all posts
 for CUR_YEAR in $(range $THIS_YEAR $START_YEAR); do
     echo "Rendering posts for $CUR_YEAR"
-    findfile -s .md $CUR_YEAR | sort -r | while read ITEM; do
-        echo "Rendering $CUR_YEAR/$ITEM"
-        TITLE=$(fileTitle "$CUR_YEAR/$ITEM")
+    findfile -s .md $CUR_YEAR | sort -r | while read FNAME; do
+        echo "Rendering $CUR_YEAR/$FNAME"
+        TITLE=$(titleline "$CUR_YEAR/$FNAME")
         mkpage \
             "year=text:$(date +%Y)" \
             "title=text:$TITLE" \
-            "contentBlock=$CUR_YEAR/$ITEM" \
+            "contentBlock=$CUR_YEAR/$FNAME" \
             "nav=../nav.md" \
             "footer=footer.md" \
-            "mdfile=text:$(basename $ITEM)" \
-            post.tmpl > "$CUR_YEAR/${ITEM/.md/.html}"
+            "mdfile=text:$(basename $FNAME)" \
+            post.tmpl > "$CUR_YEAR/${FNAME/.md/.html}"
 done 
 done
 
@@ -79,7 +69,7 @@ echo "Building links to $THIS_YEAR posts"
 findfile -s .md $THIS_YEAR | sort -r | while read ITEM; do
     echo "Processing index.md <-- $THIS_YEAR/$ITEM"
     POST_FILENAME=$THIS_YEAR/$ITEM
-    POST_TITLE=$(fileTitle "$POST_FILENAME")
+    POST_TITLE=$(titleline "$POST_FILENAME")
     REL_PATH="$THIS_YEAR/$ITEM"
     POST_DATE=$(dirname $REL_PATH)
     POST_DATE=${POST_DATE//\//-}

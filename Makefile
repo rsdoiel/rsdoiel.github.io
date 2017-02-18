@@ -43,7 +43,9 @@ save:
 
 website: all
 	./blog.bash
-	./make-rss.bash blog > rss.xml
+	mkrss -channel-title="R. S. Doiel" \
+	   	  -channel-description="Robert's ramblings and wonderigs" \
+		  -channel-link="http://rsdoiel.github.io" blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
 publish: all

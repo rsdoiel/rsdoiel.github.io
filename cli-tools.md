@@ -25,24 +25,21 @@
 
 ### Content formatting tools
 
-+ [mkpage](https://rsdoiel.github.io/mkpage) - a deconstructed web content system for static content publishing
++ [mkpage](https://rsdoiel.github.io/mkpage) - a deconstructed content system for static content publishing
     + [mkpage](mkpage.html) - a light weight markdown and template processor for multiple data sources and types
     + [mkslides](mkslides.html) - a markdown to HTML page presentation renderer
-    + [sitemapper](sitemapper.html) - a sitemap.xml generator
     + [mkrss](mkrss.html) - a RSS generator for Markdown content
+    + [sitemapper](sitemapper.html) - a sitemap.xml generator
     + [reldocpath](reldocpath.html) - calculate relative file paths
     + [titleline](titleline.html) - extract the first title from a Markdown file
     + [byline](byline.html) - extract a byline from an article written in Markdown
     + [slugify](slugify.html) - transform a title into a path/url friendly string
+    + [ws](https://rsdoiel.github.io/ws) - A nimble static content webserver
+        + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
+        + fast startup
+        + logs to console so you can watch requests and responses
 + [opml](https://rsdoiel.github.io/opml) - A naive OPML parse package that features a OPML sort utility
 + [prettyxml](https://rsdoiel.github.io/prettyxml) - a naive XML pretty printer
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
-
-### web services
-
-+ [ws](https://rsdoiel.github.io/ws) - A simple webserver for development use (e.g. you can serve your current work directory out on localhost:8000)
-    + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
-    + fast startup
-    + logs to console so you can watch requests and responses
 
