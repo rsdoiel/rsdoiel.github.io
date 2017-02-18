@@ -2,7 +2,7 @@
 
 # From Markdown and Bash to mkpage
 
-2016-08-16, [R. S. Doiel](/)
+By R. S. Doiel 2016-08-16
 
 When I started maintaining a website on Github a few years ago my needs
 were so simple I hand coded the HTML.  Eventually I adopted 

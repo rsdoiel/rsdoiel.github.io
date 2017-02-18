@@ -3,29 +3,37 @@
 
 [shelltools](https://rsdoiel.github.io/shelltools/) - simple utilities for command line and shell scripting
 
-+ [csvcols](https://rsdoiel.github.io/shelltools/csvcols.html) - turn command line parameters into a CSV formatted row
-+ [findfile](https://rsdoiel.github.io/shelltools/findfile.html) - find files by prefix, suffix or containing a character string
-+ [finddir](https://rsdoiel.github.io/shelltools/finddir.html) - find directories by prefix, suffix or containing a characer string
-+ [jsoncols](https://rsdoiel.github.io/shelltools/jsoncols.html) - pull values from a json blob and list them as columns
-+ [mergepath](https://rsdoiel.github.io/shelltools/mergepath.html) - prefix, append, clip path lists (e.g. $PATH)
-+ [pathparts](https://rsdoiel.github.io/shelltools/pathparts.html) - split a path into parts (e.g. directory, basename, extension)
-+ [reldate](https://rsdoiel.github.io/shelltools/reldate.html) - display relative dates in YYYY-MM-DD format
-+ [range](https://rsdoiel.github.io/shelltools/range.html) - renders a list of numbers in a range separated by spaces (useful to use in for loops in Bash)
-+ [timefmt](https://rsdoiel.github.io/shelltools/timefmt.html) - wraps the Golang time formatting package so you can use those expressions in your Bash script
-+ [urlparse](https://rsdoiel.github.io/shelltools/urlparse.html) - utlity to make it easy to parse and work with URLs in Bash (or your favorite shell)
++ [findfile](https://rsdoiel.github.io/shelltools/findfile.html) - find files based on prefix, suffix on name contents
++ [finddir](http://rsdoiel.github.io/shelltools/finddir.html) - find directories based on prefix, suffix or name content
++ [mergepath](http://rsdoiel.github.io/shelltools/mergepath.html) - merge a path, without duplicates into a PATH list
++ [range](http://rsdoiel.github.io/shelltools/range.html) - emit a range of integers
++ [reldate](http://rsdoiel.github.io/shelltools/reldate.html) - calculate a relative date in YYYY-MM-DD format
++ [timefmt](http://rsdoiel.github.io/shelltools/timefmt.html) - format time output per Go's time package time notation
++ [urlparse](http://rsdoiel.github.io/shelltools/urlparse.html) - extract URL parts (e.g. protocol, hostname, path)
 
-[jsontools](https://rsdoiel.github.io/jsontools/) - a small set of tools to facilitate working with JSON data in Bash scripts
 
-+ [jsoncols](https://rsdoiel.github.io/jsontools/jsoncols.html) - extract JSON content via dot paths into columns
-+ [jsonrange](https://rsdoiel.github.io/jsontools/jsonrange.html) - iterate over JSON maps and arrays in Bash
-+ [xlsx2json](https://rsdoiel.github.io/jsontools/xlsx2json.html) - a tool to extract Excel Workbook worksheets to JSON files
-+ [xlsx2csv](https://rsdoiel.github.io/jsontools/xlsx2csv.html) - a tool to extract Excel Workbook worksheets to CSV files
+[datatools](https://caltechlibrary.github.io/datatools/) - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts
+
++ [csvcols](csvcols.html) - filter or render CSV data rows 
++ [csvjoin](csvjoin.html) - join two CSV tables on a designated column value
++ [csv2mdtable](csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
++ [jsoncols](jsoncols.html) - using dot path notation extract JSON object elements into columns
++ [jsonrange](jsonrange.html) - iterate of a JSON object or array
++ [xlsx2json](xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
++ [xlsx2csv](xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
 
 
 ### Content formatting tools
 
-+ [mkpage](https://rsdoiel.github.io/mkpage) - a light weight go template and markdown processor
-+ [mkslides](https://rsdoiel.github.io/mkslides) - turns a single markdown file into a series of HTML webpages for presentations
++ [mkpage](https://rsdoiel.github.io/mkpage) - a deconstructed web content system for static content publishing
+    + [mkpage](mkpage.html) - a light weight markdown and template processor for multiple data sources and types
+    + [mkslides](mkslides.html) - a markdown to HTML page presentation renderer
+    + [sitemapper](sitemapper.html) - a sitemap.xml generator
+    + [mkrss](mkrss.html) - a RSS generator for Markdown content
+    + [reldocpath](reldocpath.html) - calculate relative file paths
+    + [titleline](titleline.html) - extract the first title from a Markdown file
+    + [byline](byline.html) - extract a byline from an article written in Markdown
+    + [slugify](slugify.html) - transform a title into a path/url friendly string
 + [opml](https://rsdoiel.github.io/opml) - A naive OPML parse package that features a OPML sort utility
 + [prettyxml](https://rsdoiel.github.io/prettyxml) - a naive XML pretty printer
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support

@@ -1,7 +1,7 @@
 
 # How to make a Pi-Top more Raspbian
 
-2016-07-04, [R. S. Doiel](/)
+By R. S. Doiel 2016-07-04
 
 I have a first generation Pi-Top.  I like the idea but found I didn't use it much due to a preferrence for
 basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively

@@ -1,7 +1,7 @@
 
 # Exploring Bash for Windows 10 Pro
 
-2016-08-15, [R. S. Doiel](/)
+By R. S. Doiel 2016-08-15
 
     UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
     Windows 10 Pro I've am getting compile errors when the 
