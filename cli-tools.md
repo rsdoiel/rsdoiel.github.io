@@ -14,13 +14,13 @@
 
 [datatools](http://caltechlibrary.github.io/datatools/) - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts
 
-+ [csvcols](http://caltechlibrary.github.io/csvcols.html) - filter or render CSV data rows 
-+ [csvjoin](http://caltechlibrary.github.io/csvjoin.html) - join two CSV tables on a designated column value
-+ [csv2mdtable](http://caltechlibrary.github.io/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
-+ [jsoncols](http://caltechlibrary.github.io/jsoncols.html) - using dot path notation extract JSON object elements into columns
-+ [jsonrange](http://caltechlibrary.github.io/jsonrange.html) - iterate of a JSON object or array
-+ [xlsx2json](http://caltechlibrary.github.io/xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
-+ [xlsx2csv](http://caltechlibrary.github.io/xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
++ [csvcols](http://caltechlibrary.github.io/datatools/csvcols.html) - filter or render CSV data rows 
++ [csvjoin](http://caltechlibrary.github.io/datatools/csvjoin.html) - join two CSV tables on a designated column value
++ [csv2mdtable](http://caltechlibrary.github.io/datatools/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
++ [jsoncols](http://caltechlibrary.github.io/datatools/jsoncols.html) - using dot path notation extract JSON object elements into columns
++ [jsonrange](http://caltechlibrary.github.io/datatools/jsonrange.html) - iterate of a JSON object or array
++ [xlsx2json](http://caltechlibrary.github.io/datatools/xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
++ [xlsx2csv](http://caltechlibrary.github.io/datatools/xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
 
 
 ### Content formatting tools
