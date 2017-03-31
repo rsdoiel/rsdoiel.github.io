@@ -16,6 +16,7 @@
 
 + [csvcols](http://caltechlibrary.github.io/datatools/csvcols.html) - filter or render CSV data rows 
 + [csvjoin](http://caltechlibrary.github.io/datatools/csvjoin.html) - join two CSV tables on a designated column value
++ [csv2xlsx](http://caltechlibrary.github.io/datatools/csv2xlsx.html) - a tool to take a CSV file and add it as a sheet to a Excel Workbook file.
 + [csv2mdtable](http://caltechlibrary.github.io/datatools/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
 + [jsoncols](http://caltechlibrary.github.io/datatools/jsoncols.html) - using dot path notation extract JSON object elements into columns
 + [jsonrange](http://caltechlibrary.github.io/datatools/jsonrange.html) - iterate of a JSON object or array
@@ -33,7 +34,6 @@
     + [reldocpath](/mkpage/reldocpath.html) - calculate relative file paths
     + [titleline](/mkpage/titleline.html) - extract the first title from a Markdown file
     + [byline](/mkpage/byline.html) - extract a byline from an article written in Markdown
-    + [slugify](/mkpage/slugify.html) - transform a title into a path/url friendly string
     + [urlencode](/mkpage/urlencode.html) and [urldecode](/mkpage/urldecode.html) - url encode/decode from the command line
     + [ws](/mkpage/ws) - A nimble static content webserver
         + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
