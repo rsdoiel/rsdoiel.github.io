@@ -40,7 +40,6 @@
         + fast startup
         + logs to console so you can watch requests and responses
 + [opml](/opml/) - A naive OPML parse package that features a OPML sort utility
-+ [prettyxml](/prettyxml/) - a naive XML pretty printer
 + [shorthand](/shorthand/) - a text label expander with markdown processor support
 + [stngo](/stngo/) - Standard Timesheet Notation processor for my personal project time logs
 
