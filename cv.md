@@ -12,10 +12,10 @@
 ## Current responsibilities
 
 + Application development for [Caltech](http://library.caltech.edu) Libraries working with
-    + ArchivesSpace
-    + Fedora Repository
-    + EPrints
     + Aggregation and search related projects
+    + Content integration witb ArchivesSpace
+    + Content integration with EPrints
+    + Content integration with Invinio
 
 ## Technical Skills
 
@@ -25,17 +25,12 @@
 + Git
 + Go
 + JavaScript (NodeJS)
-+ JVM based languages
-    + Groovy
-    + Java
 + Make
 + OpenSCAD
 + Perl
 + PHP
 + Python
-+ R
-+ SQL/NoSQL database platforms
-+ Vagrant
++ Various SQL/NoSQL database platforms
 + Design and implementation of 
     + Web API and middleware 
     + content management systems
@@ -45,13 +40,9 @@
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
-+ [mkpage](https://github.com/caltechlibrary/mkpage) - An experimental light weight template/markdown processor for webcontent and more
-+ [ot](https://github.com/caltechlibrary/ot) - ORCID Tools, a set of Bash scripts and Golang packages for working with the ORCID public API.
-	+ [bibtex](https://github.com/caltechlibrary/bibtex) - A Go package for working with BibTeX files and a bibfilter tool
-+ [epgo](https://github.com/caltechlibrary/epgo) - E-Prints REST API Golang package
-+ [ostdlib](https://github.com/caltechlibrary/ostdlib) - A standard library and REPL for embedding the [Otto](https://github.com/robertkrimen/otto) JavaScript engine
-+ [cait](https://github.com/caltechlibrary/cait) - Caltech Archives Integration Tools
-
+    + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or S3, includes a search interface based on [Blevesearch](http://blevesearch.com)
+    + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
+    + [mkpage](https://caltechlibrary.github.com/mkpage) - An experimental light weight template/markdown processor for webcontent and more
 
 
 ## Past responsibilities
