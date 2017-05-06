@@ -26,11 +26,12 @@
 + Go
 + JavaScript (NodeJS)
 + Make
-+ OpenSCAD
 + Perl
 + PHP
 + Python
 + Various SQL/NoSQL database platforms
+    + MySQL/MariaDB
+    + MongoDB/Redis
 + Design and implementation of 
     + Web API and middleware 
     + content management systems
@@ -42,7 +43,9 @@
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
     + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or S3, includes a search interface based on [Blevesearch](http://blevesearch.com)
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
-    + [mkpage](https://caltechlibrary.github.com/mkpage) - An experimental light weight template/markdown processor for webcontent and more
+    + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
+    + [cait](https://caltechlibrary.github.io/cait) - a tool for harvesting metadata from ArchivesSpace
+    + [epgo](https://caltechlibrary.github.io/epgo) - a tool for harvesting metadata from EPrints 
 
 
 ## Past responsibilities

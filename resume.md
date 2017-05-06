@@ -21,11 +21,12 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Go
 + JavaScript (NodeJS)
 + Make
-+ OpenSCAD
 + Perl
 + PHP
 + Python
-+ SQL/NoSQL database platforms
++ Various SQL/NoSQL database platforms
+    + MySQL/MariaDB
+    + MongoDB/Redis
 
 
 ## Experience
