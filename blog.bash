@@ -45,20 +45,21 @@ THIS_YEAR=$(reldate 0 day | cut -d\- -f 1)
 LAST_YEAR=$(reldate -- -1 year | cut -d\- -f 1)
 START_YEAR=2016
 # Render all posts
-for CUR_YEAR in $(range $THIS_YEAR $START_YEAR); do
+for Y in $(range $THIS_YEAR $START_YEAR); do
     echo "Rendering posts for $CUR_YEAR"
-    findfile -s .md $CUR_YEAR | sort -r | while read FNAME; do
-        echo "Rendering $CUR_YEAR/$FNAME"
-        TITLE=$(titleline "$CUR_YEAR/$FNAME")
+    findfile -s ".md" "${Y}" | sort -r | while read FNAME; do
+        TITLE=$(titleline -i "${Y}/${FNAME}")
+        POST_DATE="${Y}-"$(dirname ${FNAME} | sed -e 's/blog\///g;s/\//-/g')
+        echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
         mkpage \
-            "year=text:$(date +%Y)" \
-            "title=text:$TITLE" \
-            "contentBlock=$CUR_YEAR/$FNAME" \
+            "year=text:${POST_DATE:0:4}" \
+            "title=text:${TITLE}" \
+            "contentBlock=${Y}/${FNAME}" \
             "nav=../nav.md" \
             "footer=footer.md" \
-            "mdfile=text:$(basename $FNAME)" \
-            post.tmpl > "$CUR_YEAR/${FNAME/.md/.html}"
-done 
+            "mdfile=text:$(basename ${FNAME})" \
+            post.tmpl > "${Y}/$(dirname ${FNAME})/$(basename ${FNAME} '.md').html"
+    done 
 done
 
 # Build index
