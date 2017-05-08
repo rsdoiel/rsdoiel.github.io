@@ -1,7 +1,7 @@
 #
 # Make file for building website
 #
-all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html
+all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html
 
 index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.tmpl
 	mkpage "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "aboutAuthor=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
@@ -33,6 +33,10 @@ blog: blog/index.html
 
 blog/index.html:
 	./blog.bash
+
+rssfeed.html: rssfeed.md
+	mkpage "mdfile=text:rssfeed.md" "pageContent=rssfeed.md" "nav=nav.md" "footer=footer.md" about.tmpl > rssfeed.html
+	git add rssfeed.html
 
 status:
 	git status
