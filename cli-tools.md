@@ -26,16 +26,16 @@
 
 ### Content formatting tools
 
-+ [mkpage](/mkpage/) - a deconstructed content system for static content publishing
-    + [mkpage](/mkpage/docs/mkpage.html) - a light weight markdown and template processor for multiple data sources and types
-    + [mkslides](/mkpage/docs/mkslides.html) - a markdown to HTML page presentation renderer
-    + [mkrss](/mkpage/docs/mkrss.html) - a RSS generator for Markdown content
-    + [sitemapper](/mkpage/docs/sitemapper.html) - a sitemap.xml generator
-    + [reldocpath](/mkpage/docs/reldocpath.html) - calculate relative file paths
-    + [titleline](/mkpage/docs/titleline.html) - extract the first title from a Markdown file
-    + [byline](/mkpage/docs/byline.html) - extract a byline from an article written in Markdown
-    + [urlencode](/mkpage/docs/urlencode.html) and [urldecode](/mkpage/docs/urldecode.html) - url encode/decode from the command line
-    + [ws](/mkpage/docs/ws) - A nimble static content webserver
++ [mkpage](https://caltechlibrary.github.io/mkpage/) - a deconstructed content system for static content publishing
+    + [mkpage](https://caltechlibrary.github.io/mkpage/docs/mkpage.html) - a light weight markdown and template processor for multiple data sources and types
+    + [mkslides](https://caltechlibrary.github.io/mkpage/docs/mkslides.html) - a markdown to HTML page presentation renderer
+    + [mkrss](https://caltechlibrary.github.io/mkpage/docs/mkrss.html) - a RSS generator for Markdown content
+    + [sitemapper](https://caltechlibrary.github.io/mkpage/docs/sitemapper.html) - a sitemap.xml generator
+    + [reldocpath](https://caltechlibrary.github.io/mkpage/docs/reldocpath.html) - calculate relative file paths
+    + [titleline](https://caltechlibrary.github.io/mkpage/docs/titleline.html) - extract the first title from a Markdown file
+    + [byline](https://caltechlibrary.github.io/mkpage/docs/byline.html) - extract a byline from an article written in Markdown
+    + [urlencode](https://caltechlibrary.github.io/mkpage/docs/urlencode.html) and [urldecode](https://caltechlibrary.github.io/mkpage/docs/urldecode.html) - url encode/decode from the command line
+    + [ws](https://caltechlibrary.github.io/mkpage/docs/ws) - A nimble static content webserver
         + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
         + fast startup
         + logs to console so you can watch requests and responses
