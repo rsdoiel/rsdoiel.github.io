@@ -14,14 +14,14 @@
 
 [datatools](http://caltechlibrary.github.io/datatools/) - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts
 
-+ [csvcols](http://caltechlibrary.github.io/datatools/csvcols.html) - filter or render CSV data rows 
-+ [csvjoin](http://caltechlibrary.github.io/datatools/csvjoin.html) - join two CSV tables on a designated column value
-+ [csv2xlsx](http://caltechlibrary.github.io/datatools/csv2xlsx.html) - a tool to take a CSV file and add it as a sheet to a Excel Workbook file.
-+ [csv2mdtable](http://caltechlibrary.github.io/datatools/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
-+ [jsoncols](http://caltechlibrary.github.io/datatools/jsoncols.html) - using dot path notation extract JSON object elements into columns
-+ [jsonrange](http://caltechlibrary.github.io/datatools/jsonrange.html) - iterate of a JSON object or array
-+ [xlsx2json](http://caltechlibrary.github.io/datatools/xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
-+ [xlsx2csv](http://caltechlibrary.github.io/datatools/xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
++ [csvcols](http://caltechlibrary.github.io/datatools/docs/csvcols.html) - filter or render CSV data rows 
++ [csvjoin](http://caltechlibrary.github.io/datatools/docs/csvjoin.html) - join two CSV tables on a designated column value
++ [csv2xlsx](http://caltechlibrary.github.io/datatools/docs/csv2xlsx.html) - a tool to take a CSV file and add it as a sheet to a Excel Workbook file.
++ [csv2mdtable](http://caltechlibrary.github.io/datatools/docs/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
++ [jsoncols](http://caltechlibrary.github.io/datatools/docs/jsoncols.html) - using dot path notation extract JSON object elements into columns
++ [jsonrange](http://caltechlibrary.github.io/datatools/docs/jsonrange.html) - iterate of a JSON object or array
++ [xlsx2json](http://caltechlibrary.github.io/datatools/docs/xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
++ [xlsx2csv](http://caltechlibrary.github.io/datatools/docs/xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
 
 
 ### Content formatting tools
