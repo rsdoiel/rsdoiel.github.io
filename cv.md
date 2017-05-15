@@ -11,7 +11,7 @@
 
 ## Current responsibilities
 
-+ Application development for [Caltech](http://library.caltech.edu) Libraries working with
++ Application development for [Caltech](http://library.caltech.edu) Library working with
     + Aggregation and search related projects
     + Content integration witb ArchivesSpace
     + Content integration with EPrints
@@ -40,7 +40,7 @@
 
 ## Current Projects
 
-+ Build [cool things](http://caltechlibrary.github.io) for Caltech Libraries
++ Build [cool things](http://caltechlibrary.github.io) for Caltech Library
     + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or S3, includes a search interface based on [Blevesearch](http://blevesearch.com)
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
     + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
