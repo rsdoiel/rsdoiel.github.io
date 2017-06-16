@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Cross compiling go1.8.3 for Pinebook (Pine64)</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="cross-compiling-go.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1>Cross compiling go1.8.3 for Pinebook (Pine64)</h1>
+
+<p>By R. S. Doiel 2017-06-16</p>
+
+<p>Pin64&rsquo;s Pinebook runs on ARM 7 under an 64bit Ubuntu Mate.
+Go is available as a Debian/Ubuntu package but the version is 1.6 and
+is not setup to work well for compiling other versions of Go. Fortunetly
+cross compiling Go is very straight forward. I started with a couple of
+Gists I found on Github and felt my way through the process easily.</p>
+
+<ul>
+<li><a href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro&rsquo;s gist</a></li>
+<li><a href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101&rsquo;s gist</a></li>
+</ul>
+
+<p>To cross compile I used a spare Raspberry Pi 3 that already had Go 1.8.3.
+available.  Inspired by the gists I wound up with this workflow to bring
+a recent Go to my Pinebook.</p>
+
+<p>On my host Raspberry Pi 3 (called raspberrypi.local for this example)</p>
+
+<pre><code class="language-shell">    cd
+    mkdir -p gobuild
+    cd gobuild
+    git clone https://github.com/golang/go.git go1.8.3
+    cd go1.8.3
+    git checkout go1.8.3
+    export GOHOSTARCH=arm
+    export GOARCH=arm64
+    export GOOS=linux
+    cd src
+    ./bootstrap.bash
+</code></pre>
+
+<p>Then I switching over to my Pinebook and recompiled Go
+using the Cross compiled version of go1.8.3.</p>
+
+<pre><code class="language-shell">    cd
+    scp -r raspberrypi.local:gobuild/*.tbz ./
+    tar jxvf go-linux-arm64-bootstrap.tbz
+    export GOROOT=go-linux-arm64-bootstrap
+    go-linux-arm64-bootstrap/bin/go version
+    unset GOROOT
+    git clone https://github.com/golang/go
+    cd go
+    git checkout go1.8.3
+    export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap
+    ./all.bash
+</code></pre>
+
+<p>At that point I had a working go1.8.3 on my Pinebook ready for
+compiling code.</p>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright &copy; 2016 - 2017 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://rsdoiel.github.io/mkpage">mkpage</a>, <a href="https://rsdoiel.github.io/shelltools">shelltools</a>, Bash and Make.</p>
+
+    </footer>
+    </body>
+</html>

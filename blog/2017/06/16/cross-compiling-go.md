@@ -1,7 +1,7 @@
 
 # Cross compiling go1.8.3 for Pinebook (Pine64)
 
-By R. S. Doiel, 2017-06-16
+By R. S. Doiel 2017-06-16
 
 Pin64's Pinebook runs on ARM 7 under an 64bit Ubuntu Mate.
 Go is available as a Debian/Ubuntu package but the version is 1.6 and

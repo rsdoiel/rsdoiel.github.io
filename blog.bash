@@ -70,7 +70,7 @@ echo "Building links to $THIS_YEAR posts"
 findfile -s .md $THIS_YEAR | sort -r | while read ITEM; do
     echo "Processing index.md <-- $THIS_YEAR/$ITEM"
     POST_FILENAME=$THIS_YEAR/$ITEM
-    POST_TITLE=$(titleline "$POST_FILENAME")
+    POST_TITLE=$(titleline -i "$POST_FILENAME")
     REL_PATH="$THIS_YEAR/$ITEM"
     POST_DATE=$(dirname $REL_PATH)
     POST_DATE=${POST_DATE//\//-}
