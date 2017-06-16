@@ -3,7 +3,7 @@
 
 By R. S. Doiel 2017-06-16
 
-Pin64's Pinebook runs on ARM 7 under an 64bit Ubuntu Mate.
+Pine64's Pinebook runs on ARM 7 under an 64bit Ubuntu Mate.
 Go is available as a Debian/Ubuntu package but the version is 1.6 and
 is not setup to work well for compiling other versions of Go. Fortunetly
 cross compiling Go is very straight forward. I started with a couple of
