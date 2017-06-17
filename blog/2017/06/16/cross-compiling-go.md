@@ -3,17 +3,18 @@
 
 By R. S. Doiel 2017-06-16
 
-Pine64's Pinebook runs on ARM 7 under an 64bit Ubuntu Mate.
-Go is available as a Debian/Ubuntu package but the version is 1.6. 
-Fortunetly cross compiling Go is very straight forward. I started with a 
-couple of Gists I found on Github and felt my way through the process easily.
+Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is 
+not the same ARM processor found on a Raspberry Pi 3. As a 
+result it needs it own compiled version of Go.  Fortunetly cross 
+compiling Go is very straight forward. There are two helpful Gists
+on Github discussing compiling Go for a 64-Bit ARM. 
 
 + [conoro's gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)
 + [truedat101's gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802)
 
 To cross compile I used a spare Raspberry Pi 3 that already had Go 1.8.3. 
 available.  Inspired by the gists I wound up with this workflow to bring
-a recent Go to my Pinebook.
+a Go 1.8.3 to my Pinebook.
 
 On my host Raspberry Pi 3 (called raspberrypi.local for this example)
 
