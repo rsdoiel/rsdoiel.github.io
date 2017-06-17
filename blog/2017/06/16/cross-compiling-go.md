@@ -1,5 +1,5 @@
 
-# Cross compiling Go 1.8.3 for Pinebook (Pine64)
+# Cross compiling Go 1.8.3 for Pine64 Pinebook
 
 By R. S. Doiel 2017-06-16
 
