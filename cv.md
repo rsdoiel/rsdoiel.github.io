@@ -14,7 +14,7 @@
 + Application development for [Caltech](http://library.caltech.edu) Library working with
     + Aggregation and search related projects
     + Content integration witb [ArchivesSpace](http://archivesspace.org/)
-    + Content integration with [EPrints](eprints.org)
+    + Content integration with [EPrints](http://eprints.org)
     + Content integration with [Invenio](http://invenio-software.org/)
 
 ## Technical Skills
