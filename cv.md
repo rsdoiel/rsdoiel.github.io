@@ -11,8 +11,8 @@
 
 ## Current responsibilities
 
-+ Application development for [Caltech](http://library.caltech.edu) Library working with
-    + Aggregation and search related projects
++ Application development for [Caltech Library](http://library.caltech.edu) working with
+    + Aggregation and search related [projects](https://caltechlibrary.github.io)
     + Content integration witb [ArchivesSpace](http://archivesspace.org/)
     + Content integration with [EPrints](http://eprints.org)
     + Content integration with [Invenio](http://invenio-software.org/)
