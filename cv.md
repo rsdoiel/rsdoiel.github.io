@@ -45,7 +45,7 @@
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
     + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
     + [cait](https://caltechlibrary.github.io/cait) - a tool for harvesting metadata from ArchivesSpace
-    + [epgo](https://caltechlibrary.github.io/epgo) - a tool for harvesting metadata from EPrints 
+    + [ep](https://caltechlibrary.github.io/ep) - a tool for harvesting metadata from EPrints 
 
 
 ## Past responsibilities
