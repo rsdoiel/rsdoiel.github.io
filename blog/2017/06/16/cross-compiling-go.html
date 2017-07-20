@@ -57,7 +57,7 @@ gists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.</p>
 
 <p>After the bootstrap compile is finished I switch to my Pinebook,
 copy the bootstrap compiler to my Pinebook and use it to compile
-a new go1.8.3 for Pine4.</p>
+a new go1.8.3 for Pine64.</p>
 
 <pre><code class="language-shell">    cd
     scp -r raspberrypi.local:gobuild/*.tbz ./
@@ -69,12 +69,14 @@ a new go1.8.3 for Pine4.</p>
     cd go
     git checkout go1.8.3
     export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap
+    cd src
     ./all.bash
 </code></pre>
 
 <p><em>all.bash</em> will successfully compile <em>go</em> and <em>gofmt</em> but fail on
 the tests. It&rsquo;s not perfect but appears to work as I explore
-building Go applications on my Pinebook.</p>
+building Go applications on my Pinebook. Upcoming Go releases should
+provide better support for 64 bit ARM.</p>
 
       </article>
     </section>

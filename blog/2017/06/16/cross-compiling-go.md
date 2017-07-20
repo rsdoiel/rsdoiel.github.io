@@ -32,7 +32,7 @@ gists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.
 
 After the bootstrap compile is finished I switch to my Pinebook,
 copy the bootstrap compiler to my Pinebook and use it to compile
-a new go1.8.3 for Pine4.
+a new go1.8.3 for Pine64.
 
 ```shell
     cd
@@ -45,9 +45,11 @@ a new go1.8.3 for Pine4.
     cd go
     git checkout go1.8.3
     export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap
+    cd src
     ./all.bash
 ```
 
 _all.bash_ will successfully compile _go_ and _gofmt_ but fail on 
 the tests. It's not perfect but appears to work as I explore
-building Go applications on my Pinebook.
+building Go applications on my Pinebook. Upcoming Go releases should
+provide better support for 64 bit ARM.
