@@ -33,7 +33,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 ### Digital Services Programmer, California Institute of Technology, April 2015 - current
 
-I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, as well as custom aggregation and search software.
+I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, Invenio as well as custom aggregation and search software.
 
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
