@@ -56,7 +56,26 @@
       <h2>Command line tools</h2>
       <h3>Useful for Bash scripting</h3>
 
-<p><a href="https://caltechlibrary.github.io/shelltools/">shelltools</a> - simple utilities for command line and shell scripting</p>
+<p><a href="https://caltechlibrary.github.io/datatools/">datatools</a> - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts</p>
+
+<ul>
+<li>Data oriented
+
+<ul>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csv2json.html">csv2json</a> - converts rows CSV into JSON structures</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csv2mdtable.html">csv2mdtable</a> - render a CSV table as a Github Flavored Markdown table</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csv2xlsx.html">csv2xlsx</a> - a tool to take a CSV file and add it as a sheet to a Excel Workbook file.</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csvcols.html">csvcols</a> - filter or render CSV data rows</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csvfind.html">csvfind</a> - search CSV rows</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/csvjoin.html">csvjoin</a> - join two CSV tables on a designated column value</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/jsoncols.html">jsoncols</a> - using dot path notation extract JSON object elements into columns</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/jsonjoin.html">jsonjoin</a> - combine JSON objects by branching as well as attribute copying</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/jsonmunge.html">jsonmunge</a> - process JSON objects through filters and templates</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/jsonrange.html">jsonrange</a> - iterate of a JSON object or array</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/xlsx2json.html">xlsx2json</a> - convert an Excel Workbook sheet into a JSON document</li>
+<li><a href="https://caltechlibrary.github.io/datatools/docs/xlsx2csv.html">xlsx2csv</a> - convert an Excel Workbook sheet into into a JSON document</li>
+</ul></li>
+<li>Shell scripting oriented
 
 <ul>
 <li><a href="https://caltechlibrary.github.io/shelltools/findfile.html">findfile</a> - find files based on prefix, suffix on name contents</li>
@@ -66,19 +85,20 @@
 <li><a href="https://caltechlibrary.github.io/shelltools/reldate.html">reldate</a> - calculate a relative date in YYYY-MM-DD format</li>
 <li><a href="https://caltechlibrary.github.io/shelltools/timefmt.html">timefmt</a> - format time output per Go&rsquo;s time package time notation</li>
 <li><a href="https://caltechlibrary.github.io/shelltools/urlparse.html">urlparse</a> - extract URL parts (e.g. protocol, hostname, path)</li>
+</ul></li>
 </ul>
 
-<p><a href="https://caltechlibrary.github.io/datatools/">datatools</a> - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts</p>
+<h3>Useful for managing JSON documents</h3>
 
 <ul>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/csvcols.html">csvcols</a> - filter or render CSV data rows</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/csvjoin.html">csvjoin</a> - join two CSV tables on a designated column value</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/csv2xlsx.html">csv2xlsx</a> - a tool to take a CSV file and add it as a sheet to a Excel Workbook file.</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/csv2mdtable.html">csv2mdtable</a> - render a CSV table as a Github Flavored Markdown table</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/jsoncols.html">jsoncols</a> - using dot path notation extract JSON object elements into columns</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/jsonrange.html">jsonrange</a> - iterate of a JSON object or array</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/xlsx2json.html">xlsx2json</a> - convert an Excel Workbook sheet into a JSON document</li>
-<li><a href="https://caltechlibrary.github.io/datatools/docs/xlsx2csv.html">xlsx2csv</a> - convert an Excel Workbook sheet into into a JSON document</li>
+<li><a href="https://caltechlibrary.github.io/dataset/">dataset</a> - four tools for manage JSON documents, their attachments and publishing on the web
+
+<ul>
+<li>dataset - the primary JSON management tool</li>
+<li>dsindexer - create Bleve based indexes used by <em>dsfind</em> and <em>dsws</em></li>
+<li>dsfind - a command line search interface into your content managed with <em>dataset</em></li>
+<li>dsws - a web UI for your <em>dataset</em> collections</li>
+</ul></li>
 </ul>
 
 <h3>Content formatting tools</h3>
