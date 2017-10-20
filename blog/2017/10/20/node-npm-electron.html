@@ -75,17 +75,17 @@ my NodeJS install recipe above I now do the following.</p>
     cd node
     ./configure --prefix=$HOME
     make uninstall
-    make
+    make -j 5
     make install
 </code></pre>
 
 <p>If I am on a device with a multi-core CPU (most of the time) you can spead
-up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option.</p>
+up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option (e.g. <code>-j 5</code> for my 4 core x86 laptop).</p>
 
 <p>Once <em>node</em> and <em>npm</em> were working normaly the instructions in the <em>electron-quick-start</em> worked flawlessly.</p>
 
-<p>I have tested this on my Pine64 Pinebook, on several Raspberry Pi 3s as
-well as my x86 Ubuntu Linux laptop.</p>
+<p>I have tested the node install recipe change on my Pine64 Pinebook, on several Raspberry Pi 3s as
+well as my x86 Ubuntu Linux laptop.  I have not test Electon on ARM7 yet. It works fine on x86.</p>
 
       </article>
     </section>
