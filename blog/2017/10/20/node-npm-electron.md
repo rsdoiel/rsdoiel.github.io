@@ -1,6 +1,8 @@
 
 # NodeJS, NPM, Electron
 
+By R. S. Doiel 2017-10-20
+
 Electron is an app platform leveraging web technoligies. 
 Conceptually it is a mashup of NodeJS and Chrome browser. 
 [Electron](https://electron.atom.io/) site has a nice starter 

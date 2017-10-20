@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>NodeJS, NPM, Electron</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="node-npm-electron.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1>NodeJS, NPM, Electron</h1>
+
+<p>Electron is an app platform leveraging web technoligies.
+Conceptually it is a mashup of NodeJS and Chrome browser.
+<a href="https://electron.atom.io/">Electron</a> site has a nice starter
+app. It displays a window with Electron version info and
+&lsquo;hello world&rsquo;.</p>
+
+<p>Before you can get going with <em>Electron</em> you need to have a
+working NodeJS and NPM. I usually compile from source and this
+was my recipe.</p>
+
+<pre><code class="language-shell">    cd
+    git clone https://github.com/nodejs/node.git
+    cd node
+    git checkout v8.7.0
+    ./configure --prefix=$HOME
+    make &amp;&amp; make install
+</code></pre>
+
+<p>To install an <em>Electron Quick Start</em> I added the additional steps.</p>
+
+<pre><code class="language-shell">    cd
+    git clone https://github.com/electron/electron-quick-start
+    cd electron-quick-start
+    npm install
+    npm start
+</code></pre>
+
+<p>Notice <em>Electron</em> dependings on a working <em>node</em> and <em>npm</em>.  When I
+tried this recipe it failed on <code>npm install</code> with errors regarding
+internal missing node modules.</p>
+
+<p>After some fiddling I confirmed my node/npm install failed because
+I had install the new version of over a partially installed previous
+version. This causes the node_modules to be populated with various
+conflicting versions of internal modules.</p>
+
+<p>After storing that out was able to run the current version of
+<em>electron-quick-start</em> cloned on 2017-10-20 under NodeJS v8.7.0.</p>
+
+<h2>Avoiding Setup Issues in the future</h2>
+
+<p>The <em>Makefile</em> for <em>NodeJS</em> includes an &ldquo;uninstall&rdquo; option. Revising
+my NodeJS install recipe above I now do the following.</p>
+
+<pre><code class="language-shell">    git clone git@github.com:nodejs/node.git
+    cd node
+    ./configure --prefix=$HOME
+    make uninstall
+    make
+    make install
+</code></pre>
+
+<p>If I am on a device with a multi-core CPU (most of the time) you can spead
+up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option.</p>
+
+<p>Once <em>node</em> and <em>npm</em> were working normaly the instructions in the <em>electron-quick-start</em> worked flawlessly.</p>
+
+<p>I have tested this on my Pine64 Pinebook, on several Raspberry Pi 3s as
+well as my x86 Ubuntu Linux laptop.</p>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright &copy; 2016 - 2017 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/shelltools">shelltools</a>, Bash and Make.</p>
+
+    </footer>
+    </body>
+</html>
