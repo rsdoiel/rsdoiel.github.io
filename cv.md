@@ -32,8 +32,8 @@
 + Various SQL/NoSQL database platforms
     + MySQL/MariaDB
     + MongoDB/Redis
-+ Design and implementation of 
-    + Web API and middleware 
++ Design and implementation of
+    + Web API and middleware
     + content management systems
     + automated content aggregation, migration and analysis
     + in browser services
@@ -41,11 +41,11 @@
 ## Current Projects
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Library
-    + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or S3, includes a search interface based on [Blevesearch](http://blevesearch.com)
+    + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc, AWS S3 and Google Cloud Storage. It includes a search interface based on [Blevesearch](http://blevesearch.com)
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
     + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
     + [cait](https://caltechlibrary.github.io/cait) - a tool for harvesting metadata from ArchivesSpace
-    + [ep](https://caltechlibrary.github.io/ep) - a tool for harvesting metadata from EPrints 
+    + [ep](https://caltechlibrary.github.io/ep) - a tool for harvesting metadata from EPrints
 
 
 ## Past responsibilities
@@ -77,7 +77,7 @@
 + emergency.usc.edu infrastructure improvements (legacy, Blogger+NodeJS+UltraDNS)
 + 3rd generation USC Event Calendar API (retired, LAMP)
 + USC Map data API - (retired, LAMP)
-+ WSCORE3, 3rd generation common PHP and JavaScript libraries used by Web Services for data access, API construction and data sanitization (retired, PHP) 
++ WSCORE3, 3rd generation common PHP and JavaScript libraries used by Web Services for data access, API construction and data sanitization (retired, PHP)
 + Feed Management API for USC Reader (retired, LAMP)
 + Design, implement and deploy public webcam API (retired, LAMP)
 + Evaluating infrastructure options for replacing our legacy content management system and events calendar system (completed)
@@ -141,4 +141,3 @@
 + Review and blurb for _[Learning JavaScript: A Hands-On Guide to the Fundamentals of Modern JavaScript](http://www.amazon.com/dp/0321832744)_ by Tim Wright; Publisher: Addison-Wesley Professional; 1 edition (August 5, 2012)
 + Review of _The Java Developer's Toolkit: Techniques and Technologies for Web Programmers_ by Joshua Marketos for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
 + Review of _Administering Usenet News Servers_ by James McDermott and John Phillips John for _Internet Research: Electronic Networking Applications and Policy_ Volume 8, Number 1, 1998
-
