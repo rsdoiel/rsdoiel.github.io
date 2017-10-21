@@ -75,6 +75,7 @@ to work with <em>NodeJS</em> or <em>Electron</em>.</p>
     cd node
     ./configure --prefix=$HOME
     make uninstall
+    make clean
     make -j 5
     make install
 </code></pre>
@@ -86,9 +87,11 @@ for my 4 core x86 laptop).</p>
 <p>Once <em>node</em> and <em>npm</em> were working normaly the instructions in the
 <em>electron-quick-start</em> worked flawlessly on my x86.</p>
 
-<p>I have tested the node install recipe change on my Pine64 Pinebook, on several
-Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.  I have not gotten
-Electron up on ARM7 yet as the <em>NPM</em> install script expects x86 architecture.</p>
+<p>I have tested the node install recipe change on my Pine64 Pinebook, on
+several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.</p>
+
+<p>I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi&rsquo;s yet.
+It get errors from NPM log suggesting that it is expecting an x86 architecture.</p>
 
       </article>
     </section>
