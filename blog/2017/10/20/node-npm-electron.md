@@ -70,4 +70,5 @@ I have tested the node install recipe change on my Pine64 Pinebook, on
 several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.
 
 I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi's yet. 
-It get errors from NPM log suggesting that it is expecting an x86 architecture.
+`npm install` outputs errors suggesting that it is expecting an x86 architecture.
+
