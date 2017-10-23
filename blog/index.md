@@ -1,4 +1,5 @@
 
++ [NodeJS, NPM, Electron](/blog/2017/10/20/node-npm-electron.html), 2017-10-20
 + [Cross compiling Go 1.8.3 for Pine64 Pinebook](/blog/2017/06/16/cross-compiling-go.html), 2017-06-16
 
 ## 2016
