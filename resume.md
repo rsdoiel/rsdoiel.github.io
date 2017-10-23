@@ -5,7 +5,7 @@ Santa Clarita, CA, United States
 
 Contact: rsdoiel@gmail.com
 
-[ORCID/0000-0003-0900-6903](http://orcid.org/0000-0003-0900-6903)
+<a href="https://orcid.org/0000-0003-0900-6903" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-0900-6903</a>
 
 My interests bridge both my background in Computer Science and the Humanities. Between 1992 and 2015 I was involved in designing, implementing, and maintaining custom content management systems as well as integrating those systems with off the shelf software like Wordpress. I have enjoyed building RESTful/JSON APIs for new and legacy systems against data stores such as MySQL, MongoDB and Redis. I enjoy diving deeply into a problem and working through solutions that have measurable results. In Spring 2015 my focus changed to software systems used by academic and research libraries.
 
