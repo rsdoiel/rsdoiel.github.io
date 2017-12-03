@@ -75,6 +75,5 @@ Projects at Caltech Library
 
 Personal projects
 
-+ [shelltools](/shelltools/) - simple utilities for command line and shell scripting
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
