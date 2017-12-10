@@ -53,7 +53,7 @@ website: all
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
 publish: all
-	./blog.bash
+	bash blog.bash
 	mkrss -channel-title="R. S. Doiel" \
 	   	  -channel-description="Robert's ramblings and wonderigs" \
 		  -channel-link="http://rsdoiel.github.io/blog" blog rss.xml 
@@ -62,5 +62,5 @@ publish: all
 	git push origin master
 
 clean:
-	/bin/rm $(shell findfile -s .html)
+	rm $(shell findfile -s .html)
 
