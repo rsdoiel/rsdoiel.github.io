@@ -32,7 +32,7 @@ blog: blog/index.html
 	git add blog/index.html
 
 blog/index.html:
-	./blog.bash
+	bash blog.bash
 
 rssfeed.html: rssfeed.md
 	mkpage "mdfile=text:rssfeed.md" "pageContent=rssfeed.md" "nav=nav.md" "footer=footer.md" about.tmpl > rssfeed.html
@@ -46,7 +46,7 @@ save:
 	git push origin master
 
 website: all
-	./blog.bash
+	bash blog.bash
 	mkrss -channel-title="R. S. Doiel" \
 	   	  -channel-description="Robert's ramblings and wonderigs" \
 		  -channel-link="http://rsdoiel.github.io/blog" blog rss.xml 
