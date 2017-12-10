@@ -1,8 +1,10 @@
 
-### Useful for Bash scripting
+### Useful for Posix/Bash scripting
 
 [datatools](https://caltechlibrary.github.io/datatools/) - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts
 
++ String oriented
+    + [string](https://caltechlibrary.github.io/datatools/docs/string.html) - basic string operations, length, pos, change cases, join, slice and split, etc.
 + Data oriented
     + [csv2json](https://caltechlibrary.github.io/datatools/docs/csv2json.html) - converts rows CSV into JSON structures
     + [csv2mdtable](https://caltechlibrary.github.io/datatools/docs/csv2mdtable.html) - render a CSV table as a Github Flavored Markdown table
@@ -17,13 +19,13 @@
     + [xlsx2json](https://caltechlibrary.github.io/datatools/docs/xlsx2json.html) - convert an Excel Workbook sheet into a JSON document
     + [xlsx2csv](https://caltechlibrary.github.io/datatools/docs/xlsx2csv.html) - convert an Excel Workbook sheet into into a JSON document
 + Shell scripting oriented
-    + [findfile](https://caltechlibrary.github.io/shelltools/findfile.html) - find files based on prefix, suffix on name contents
-    + [finddir](https://caltechlibrary.github.io/shelltools/finddir.html) - find directories based on prefix, suffix or name content
-    + [mergepath](https://caltechlibrary.github.io/shelltools/mergepath.html) - merge a path, without duplicates into a PATH list
-    + [range](https://caltechlibrary.github.io/shelltools/range.html) - emit a range of integers
-    + [reldate](https://caltechlibrary.github.io/shelltools/reldate.html) - calculate a relative date in YYYY-MM-DD format
-    + [timefmt](https://caltechlibrary.github.io/shelltools/timefmt.html) - format time output per Go's time package time notation
-    + [urlparse](https://caltechlibrary.github.io/shelltools/urlparse.html) - extract URL parts (e.g. protocol, hostname, path)
+    + [findfile](https://caltechlibrary.github.io/datatools/findfile.html) - find files based on prefix, suffix on name contents
+    + [finddir](https://caltechlibrary.github.io/datatools/finddir.html) - find directories based on prefix, suffix or name content
+    + [mergepath](https://caltechlibrary.github.io/datatools/mergepath.html) - merge a path, without duplicates into a PATH list
+    + [range](https://caltechlibrary.github.io/datatools/range.html) - emit a range of integers
+    + [reldate](https://caltechlibrary.github.io/datatools/reldate.html) - calculate a relative date in YYYY-MM-DD format
+    + [timefmt](https://caltechlibrary.github.io/datatools/timefmt.html) - format time output per Go's time package time notation
+    + [urlparse](https://caltechlibrary.github.io/datatools/urlparse.html) - extract URL parts (e.g. protocol, hostname, path)
 
 ### Useful for managing JSON documents
 
