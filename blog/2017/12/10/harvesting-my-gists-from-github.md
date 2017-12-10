@@ -55,11 +55,11 @@ Expanding this we can now curl each individual gist metadata to find URL to the 
 
 
 ```shell
-	jsonrange -i gists.json | while read I; do 
-		jq ".[$I].files" gists.json | jsonrange -i - | while read FNAME; do
-			jq ".[$I].files[\"$FNAME\"].raw_url" gists.json | sed -E 's/"//g'; 
-		done;
-	done
+    jsonrange -i gists.json | while read I; do 
+        jq ".[$I].files" gists.json | jsonrange -i - | while read FNAME; do
+            jq ".[$I].files[\"$FNAME\"].raw_url" gists.json | sed -E 's/"//g'; 
+        done;
+    done
 ```
 
 Now that we have URLs to the raw gist files we can use curl again to featch each.
@@ -69,38 +69,38 @@ about the Gist (e.g. when it was created), the Gist ID. Putting it all together
 we have the following script.
 
 ```shell
-	#!/bin/bash
-	if [[ "$1" = "" ]]; then
-		echo "USAGE: $(basename "$0") GITHUB_USERNAME"
-		exit 1
-	fi
+    #!/bin/bash
+    if [[ "$1" = "" ]]; then
+        echo "USAGE: $(basename "$0") GITHUB_USERNAME"
+        exit 1
+    fi
 
-	USER="$1"
-	curl -o "$USER.json" "https://api.github.com/users/$USER"
-	if [[ ! -s "$USER.json" ]]; then
-		echo "Someting went wrong getting https://api.github.cm/users/${USER}"
-		exit 1
-	fi
+    USER="$1"
+    curl -o "$USER.json" "https://api.github.com/users/$USER"
+    if [[ ! -s "$USER.json" ]]; then
+        echo "Someting went wrong getting https://api.github.cm/users/${USER}"
+        exit 1
+    fi
 
-	GISTS_URL=$(jq ".gists_url" "$USER.json" | sed -E 's/"//g' | cut -d '{' -f 1)
-	curl -o gists.json "${GISTS_URL}"
-	if [[ ! -s gists.json ]]; then
-		echo "Someting went wrong getting ${GISTS_URL}"
-		exit 1
-	fi
+    GISTS_URL=$(jq ".gists_url" "$USER.json" | sed -E 's/"//g' | cut -d '{' -f 1)
+    curl -o gists.json "${GISTS_URL}"
+    if [[ ! -s gists.json ]]; then
+        echo "Someting went wrong getting ${GISTS_URL}"
+        exit 1
+    fi
 
-	# For each gist harvest our file
-	jsonrange -i gists.json | while read I; do
-		GIST_ID=$(jq ".[$I].id" gists.json | sed -E 's/"//g')
-		mkdir -p "gists/$GIST_ID"
-		echo "Saving gists/$GIST_ID/metadata.json"
-		jq ".[$I]" gists.json > "gists/$GIST_ID/metadata.json"
-		jq ".[$I].files" gists.json | jsonrange -i - | while read FNAME; do
-			URL=$(jq ".[$I].files[\"$FNAME\"].raw_url" gists.json | sed -E 's/"//g')
-			echo "Saving gist/$GIST_ID/$FNAME"
-			curl -o "gists/$GIST_ID/$FNAME" "$URL"
-		done;
-	done
+    # For each gist harvest our file
+    jsonrange -i gists.json | while read I; do
+        GIST_ID=$(jq ".[$I].id" gists.json | sed -E 's/"//g')
+        mkdir -p "gists/$GIST_ID"
+        echo "Saving gists/$GIST_ID/metadata.json"
+        jq ".[$I]" gists.json > "gists/$GIST_ID/metadata.json"
+        jq ".[$I].files" gists.json | jsonrange -i - | while read FNAME; do
+            URL=$(jq ".[$I].files[\"$FNAME\"].raw_url" gists.json | sed -E 's/"//g')
+            echo "Saving gist/$GIST_ID/$FNAME"
+            curl -o "gists/$GIST_ID/$FNAME" "$URL"
+        done;
+    done
 ```
 
 
