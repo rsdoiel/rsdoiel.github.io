@@ -74,11 +74,11 @@ of indivdual Gists URLS.</p>
 
 <p>Expanding this we can now curl each individual gist metadata to find URL to the raw file.</p>
 
-<pre><code class="language-shell">	jsonrange -i gists.json | while read I; do 
-		jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
-			jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g'; 
-		done;
-	done
+<pre><code class="language-shell">    jsonrange -i gists.json | while read I; do 
+        jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
+            jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g'; 
+        done;
+    done
 </code></pre>
 
 <p>Now that we have URLs to the raw gist files we can use curl again to featch each.</p>
@@ -87,38 +87,38 @@ of indivdual Gists URLS.</p>
 about the Gist (e.g. when it was created), the Gist ID. Putting it all together
 we have the following script.</p>
 
-<pre><code class="language-shell">	#!/bin/bash
-	if [[ &quot;$1&quot; = &quot;&quot; ]]; then
-		echo &quot;USAGE: $(basename &quot;$0&quot;) GITHUB_USERNAME&quot;
-		exit 1
-	fi
+<pre><code class="language-shell">    #!/bin/bash
+    if [[ &quot;$1&quot; = &quot;&quot; ]]; then
+        echo &quot;USAGE: $(basename &quot;$0&quot;) GITHUB_USERNAME&quot;
+        exit 1
+    fi
 
-	USER=&quot;$1&quot;
-	curl -o &quot;$USER.json&quot; &quot;https://api.github.com/users/$USER&quot;
-	if [[ ! -s &quot;$USER.json&quot; ]]; then
-		echo &quot;Someting went wrong getting https://api.github.cm/users/${USER}&quot;
-		exit 1
-	fi
+    USER=&quot;$1&quot;
+    curl -o &quot;$USER.json&quot; &quot;https://api.github.com/users/$USER&quot;
+    if [[ ! -s &quot;$USER.json&quot; ]]; then
+        echo &quot;Someting went wrong getting https://api.github.cm/users/${USER}&quot;
+        exit 1
+    fi
 
-	GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E 's/&quot;//g' | cut -d '{' -f 1)
-	curl -o gists.json &quot;${GISTS_URL}&quot;
-	if [[ ! -s gists.json ]]; then
-		echo &quot;Someting went wrong getting ${GISTS_URL}&quot;
-		exit 1
-	fi
+    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E 's/&quot;//g' | cut -d '{' -f 1)
+    curl -o gists.json &quot;${GISTS_URL}&quot;
+    if [[ ! -s gists.json ]]; then
+        echo &quot;Someting went wrong getting ${GISTS_URL}&quot;
+        exit 1
+    fi
 
-	# For each gist harvest our file
-	jsonrange -i gists.json | while read I; do
-		GIST_ID=$(jq &quot;.[$I].id&quot; gists.json | sed -E 's/&quot;//g')
-		mkdir -p &quot;gists/$GIST_ID&quot;
-		echo &quot;Saving gists/$GIST_ID/metadata.json&quot;
-		jq &quot;.[$I]&quot; gists.json &gt; &quot;gists/$GIST_ID/metadata.json&quot;
-		jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
-			URL=$(jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g')
-			echo &quot;Saving gist/$GIST_ID/$FNAME&quot;
-			curl -o &quot;gists/$GIST_ID/$FNAME&quot; &quot;$URL&quot;
-		done;
-	done
+    # For each gist harvest our file
+    jsonrange -i gists.json | while read I; do
+        GIST_ID=$(jq &quot;.[$I].id&quot; gists.json | sed -E 's/&quot;//g')
+        mkdir -p &quot;gists/$GIST_ID&quot;
+        echo &quot;Saving gists/$GIST_ID/metadata.json&quot;
+        jq &quot;.[$I]&quot; gists.json &gt; &quot;gists/$GIST_ID/metadata.json&quot;
+        jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
+            URL=$(jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g')
+            echo &quot;Saving gist/$GIST_ID/$FNAME&quot;
+            curl -o &quot;gists/$GIST_ID/$FNAME&quot; &quot;$URL&quot;
+        done;
+    done
 </code></pre>
 
       </article>
