@@ -3,9 +3,9 @@
 function install_tools() {
 	START=$(pwd)
 	for GO_PKG in "$@"; do
-		if [ ! -d $HOME/src/$GO_PKG ]; then
+		if [ ! -d "$HOME/src/$GO_PKG" ]; then
 			echo "Installing $GO_PKG"
-			go get -u $GO_PKG/...
+			go get -u "$GO_PKG/..."
 		else
 			cd "$HOME/src/$GO_PKG"
 			if [ -f Makefile ]; then
