@@ -83,9 +83,10 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "" >> index.md
     findfile -s .html "$Y" | sort -r | while read FNAME; do
         ARTICLE=$(basename "$FNAME" | sed -e 's/.html//g;s/-/ /g')
-        POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g')
+        POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
         echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
     done
+    echo "" >> index.md
 done
 mkpage \
     "year=text:$(date +%Y)" \
