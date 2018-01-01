@@ -82,7 +82,8 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "## $Y" >> index.md
     echo "" >> index.md
     findfile -s .html "$Y" | sort -r | while read FNAME; do
-        ARTICLE=$(basename "$FNAME" | sed -e 's/.html//g;s/-/ /g')
+        POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html")"
+        ARTICLE=$(titleline -i "${Y}/${POST_FILENAME}.md")
         POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
         echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
     done
