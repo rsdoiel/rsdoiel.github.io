@@ -50,8 +50,7 @@
         + doesn't serve dot files (e.g. .htaccess) or dot directories (e.g. .git)
         + fast startup
         + logs to console so you can watch requests and responses
-+ [opml](/opml/) - A naive OPML parse package that features a OPML sort utility
-+ [shorthand](/shorthand/) - a text label expander with markdown processor support
-+ [mweave](/mweave) - a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool for generating Markdown and Source files 
++ [opml](/opml/) - An OPML package that features a OPML sort, cat and to json utility
++ [shorthand](/shorthand/) - a text label expander with markdown support
 + [stngo](/stngo/) - Standard Timesheet Notation processor for my personal project time logs
 
