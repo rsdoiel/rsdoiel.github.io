@@ -1,5 +1,5 @@
 
-+ [Go, Bleve and library oriented software](/blog/2018/02/19/go-bleve-and-libraries.html), 2018-02-19
++ [Go, Bleve and Library oriented software](/blog/2018/02/19/go-bleve-and-libraries.html), 2018-02-19
 
 ## 2017
 
