@@ -124,19 +124,13 @@ Highly visible Go based projects include
 
 ### Who is using Blevesearch?
 
-Here's some larger projects using Bleve (notice the overlap).
+Here's some larger projects using Bleve.
 
 + [Couchbase](http://www.couchbase.com), a NoSQL database platform are replacing Lucene with Bleve, currently the creator of Bleve works for them.
 generating complex static websites. The Hugo project also powers' their website search with Bleve in addition to integrating with it.
 + [Hugo](http://hugo.io) can integrate with Bleve for search and index generation
 + [Caddy](https://caddyserver.com/) integrates with Bleve to provide an embedded search capability
 
-There isn't a central registry of projects using Bleve and since
-Blevesearch really got off the ground in 2013/2014 it is too early to
-see a large number conference presentations though you'll find
-smattering of them along with introductory articles with the search
-string "Blevesearch". That said our initial pilot usage in the
-archives website has proved effective.
 
 ## Managing risks
 
@@ -174,7 +168,7 @@ supporting Solr and Elastic Search.
 
 The greatest risk in adopting Go for library and archive projects was 
 knowledge transfer. We addressed this 
-by knowledge sharing and insuring the Go codebased can 
+by knowledge sharing and insuring the Go codebase can 
 be used via command line programs.  Additional 
 we are adding support for Go based Python modules.
 Training also is available in the form of books, websites and
