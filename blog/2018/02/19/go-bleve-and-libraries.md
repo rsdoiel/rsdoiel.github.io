@@ -2,7 +2,7 @@
 # Go, Bleve and Library oriented software
 
 By R. S. Doiel, 2018-02-19
-(updated: 2018-02-20)
+(updated: 2018-02-22)
 
 In 2016, Stephen Davison, asked me, "Why use Go and Blevesearch for
 our library projects?" After our conversation I wrote up some notes so
@@ -137,7 +137,7 @@ was behind its adoption and it stopped being an exotic conference
 item. In 2014 Bleve was definitely bleeding edge. By late 2015 and early
 2016 the program level API stabilized. People were piloting projects
 with it. This included our small group at Caltech Library. In 2015
-non-English language support appeard followed by a growing list
+non-English language support appeared followed by a growing list
 of non-European languages in 2016. By mid 2016 we started to see 
 missing features like alternative sorting added. While Bleve isn't
 yet 1.0 (Feb. 2018) it is reliable. The primary challenge for the Bleve
@@ -167,7 +167,7 @@ supporting Solr and Elastic Search.
 The greatest risk in adopting Go for library and archive projects was 
 knowledge transfer. We addressed this 
 by knowledge sharing and insuring the Go codebase can 
-be used via command line programs.  Additionaly 
+be used via command line programs.  Additionally 
 we are adding support for Go based Python modules.
 Training also is available in the form of books, websites and
 online courses ([lynda.com](https://www.lynda.com/Go-tutorials/Up-Running-Go/412378-2.html) offers a "Up Running Go" course).
