@@ -7,33 +7,33 @@ By R. S. Doiel, 2018-02-19
 In 2016, Stephen Davison, asked me, "Why use Go and Blevesearch for
 our library projects?" After our conversation I wrote up some notes so
 I would remember. It is now 2018 and I am revising these notes. I
-think our choice payed off.  What follows is the current state of my
+think our choice paid off.  What follows is the current state of my
 reflection on the background, rational, concerns, and risk mitigation
-strategies so far at Caltech Library for [Go](https://golang.org) and
-[Blevesearch](https://blevesearch.com) based projects.
+strategies so far for using [Go](https://golang.org) and
+[Blevesearch](https://blevesearch.com) for Caltech Library projects.
 
 ## Background
 
 I first came across Go a few years back when it was announced as an
 Open Source project by Google at an Google I/O event (2012). The
 original Go authors were Robert Griesemer, Rob Pike, and Ken
-Thompson. What I remember from that presentation was Go is a rather
+Thompson. What I remember from that presentation was Go was a rather
 consistent language with the features you need but little else.  Go
 developed at Google as a response to high development costs for C/C++
 and Java in addition to challenges with performance and slow
 compilation times.  As a language I would put Go between C/C++ and
 Java. It comes the ease of writing and reading you find in languages
 like Python. Syntax is firmly in the C/C++ family but heavily
-simplified. Like Java it provides many modern features - rich basic
-data structures, garbage collection. It has a very complete standard
-library.  It also provides very good tooling making it easy to
-generate code level documentation, formatting code, testing as well as
-efficient profiling, and debugging.
+simplified. Like Java it provides many modern features including rich basic
+data structures and garbage collection. It has a very complete standard
+library and provides very good tooling.  This makes it easy to
+generate code level documentation, format code, test, efficiently profile, 
+and debug.
 
 Often programming languages develop around a specific set of needs.
 This is true for Go. Given the Google origin it should not be
-surprising to find that working with structured data , I/O and
-concurrency are some of Go's primary strengths. The rich standard
+surprising to find that Go's primary strengths are working with 
+structured data, I/O and concurrency. The rich standard
 library is organized around a package concept. These include packages
 supporting network protocols, file and socket I/O as well as various
 encoding and compression scheme. It has particularly strong support
@@ -63,18 +63,17 @@ on both Intel and ARM (e.g. Raspberry Pi, Pine64). It has experimental
 support for Android and iOS.  I've used a tool called
 [GopherJS](http://gopherjs.org) to write web browser applications that
 transform my command line tools into web tools with a friendlier user
-interface (see the [BibTeX](https://caltechlibrary.github.io/bibtex).
+interface (see our [BibTeX Tools](https://caltechlibrary.github.io/bibtex/webapp/)).
 
 Go supports cross compiling out of the box. This means a production
 system running on AWS, Google's compute engine or Microsoft's Azure
 can be compiled from Windows, Mac OS or even a Raspberry Pi!
-Deployment is a matter of copying the compiled binary (it is self
-contained) onto the production system. This contrasts with other
+Deployment is a matter of copying the (self contained) compiled binary
+onto the production system. This contrasts with other
 platforms like Perl, PHP, Python, NodeJS and Ruby where you need to
 install not only your application code but all dependencies. While
-interpretive languages retain an advantage of having a REPL the fast
-compile times and easy of deployment gives Go based programs
-advantages too.
+interpretive languages retain an advantage of having a REPL, Go
+based programs have advantages of fast compile times and easy deployment.
 
 In many of the projects I've written in Go I've only required a few
 (if any) 3rd party libraries (packages in Go's nomenclature). This is
@@ -87,8 +86,8 @@ few of them. The one I've used the most is
 [Bleve](http://blevesearch.com).
 
 Bleve is a Go package for building search engines. When I originally
-came across Bleve, it was described as "Lucene lite". I think that was
-in about 2014. "Lucene lite" was an apt description. I find it easier
+came across Bleve (around 2014), it was described as "Lucene lite". 
+"Lucene lite" was an apt description, but I find it easier
 to use than Lucene. When I first used Bleve I embedded its
 functionality into the tools I used to process data and present web
 services. It did not have much in the way of stand alone command line
@@ -108,7 +107,7 @@ Google, Amazon, Netflix, Dropbox, Box, eBay, Pearsons and even
 Walmart and Microsoft. This came to my attention at developer conferences
 back in 2014.  People from many of these companies started
 presenting at conferences on pilot projects that had been successful
-and had moved to production. Part of what drove adoption was the ease
+and moved to production. Part of what drove adoption was the ease
 of development in Go along with good system performance. I also think
 there was a growing disenchantment with alternatives like C++, C sharp
 and Java as well as the weight of the LAMP, Tomcat, and OpenStack.
@@ -126,8 +125,7 @@ Highly visible Go based projects include
 
 Here's some larger projects using Bleve.
 
-+ [Couchbase](http://www.couchbase.com), a NoSQL database platform are replacing Lucene with Bleve, currently the creator of Bleve works for them.
-generating complex static websites. The Hugo project also powers' their website search with Bleve in addition to integrating with it.
++ [Couchbase](http://www.couchbase.com), a NoSQL database platform are replacing Lucene with Bleve.  Currently the creator of Bleve works for them.
 + [Hugo](http://hugo.io) can integrate with Bleve for search and index generation
 + [Caddy](https://caddyserver.com/) integrates with Bleve to provide an embedded search capability
 
@@ -136,11 +134,11 @@ generating complex static websites. The Hugo project also powers' their website 
 
 In 2014 Go was moving from bleeding to leading edge. Serious capital
 was behind its adoption and it stopped being an exotic conference
-item. 2014 Bleve was definitely bleeding edge. By late 2015 and early
+item. In 2014 Bleve was definitely bleeding edge. By late 2015 and early
 2016 the program level API stabilized. People were piloting projects
 with it. This included our small group at Caltech Library. In 2015
-non-English language support appears followed with a growing list
-of non-European languages in 2016. By mid 2016 we start to see 
+non-English language support appeard followed by a growing list
+of non-European languages in 2016. By mid 2016 we started to see 
 missing features like alternative sorting added. While Bleve isn't
 yet 1.0 (Feb. 2018) it is reliable. The primary challenge for the Bleve
 project is documentation targeting the novice and non-Programmer users.
@@ -157,8 +155,8 @@ library. This allows us to share working Go packages with languages
 like Python, R, and PHP. We have included shared Go/Python modules
 on our current road map for projects.
 
-For Blevesearch the two alternatives are - Solr and Elastic
-Search. Both are well known, documented and solid.  The costs would be
+For Blevesearch the two alternatives are Solr and Elastic
+Search. Both are well known, documented, and solid.  The costs would be
 recommitting to a Java stack and its resource requirements. We have
 already identified what we want to index and that could be converted
 to either platform if needed.  If we stick with Go but dropped 
@@ -169,7 +167,7 @@ supporting Solr and Elastic Search.
 The greatest risk in adopting Go for library and archive projects was 
 knowledge transfer. We addressed this 
 by knowledge sharing and insuring the Go codebase can 
-be used via command line programs.  Additional 
+be used via command line programs.  Additionaly 
 we are adding support for Go based Python modules.
 Training also is available in the form of books, websites and
 online courses ([lynda.com](https://www.lynda.com/Go-tutorials/Up-Running-Go/412378-2.html) offers a "Up Running Go" course).
@@ -177,7 +175,7 @@ online courses ([lynda.com](https://www.lynda.com/Go-tutorials/Up-Running-Go/412
 
 ## What are the benefits?
 
-For libraries and archives software we have found Go's benefits include
+For library and archives software we have found Go's benefits include
 improved back end systems performance at a lower cost, ease of development, 
 ease of deployment, a rich standard library focused on the types of things 
 needed in library and archival software.  Go plays nice with
@@ -185,5 +183,5 @@ other systems (e.g. I create an API based service in Go that can easily
 be consumed by a web browser running JavaScript or Perl/PHP/Python
 code running under LAMP). In the library and archives setting Go 
 can become a high performance duck tape. We get the performance and 
-reliability of C/Java type systems with the code cognitive weight of 
+reliability of C/Java type systems with code simplicity 
 similar to Python.
