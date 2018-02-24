@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Go based Python modules</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="go-based-python-modules.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1>Go based Python modules</h1>
+
+<p>By R. S. Doiel, 2018-02-24</p>
+
+<p>The problem: I have written a number of Go packages at work.
+My colleagues know Python and I&rsquo;d like them to be able to use the
+packages without resorting to system calls from Python to the
+command line implementations. The solution is create a C-Shared
+library from my Go packages, using Go&rsquo;s <em>C</em> package and combine it
+with Python&rsquo;s <em>ctypes</em> package.  What follows is a series of
+simple recipes I used to understand the details of how that worked.</p>
+
+<h2>Example 1, libtwice.go and twice.py</h2>
+
+<p>Many of the the examples I&rsquo;ve come across on the web start by
+showing how to run a simple math operation on the Go side with
+numeric values traveling round trip via the C shared library layer.
+It is a good place to start as you only need to consider type
+conversion between both Python&rsquo;s runtime and Go&rsquo;s runtime.  It
+provides a simple illustration of how the Go <em>C</em> package, Python&rsquo;s
+<em>ctypes</em> module and the toolchain work together.</p>
+
+<p>In this example we have a function in Go called &ldquo;twice&rdquo; it takes
+a single integer, doubles it and returns the new value.  On
+the Go side we create a <em>libtwice.go</em> file with an empty <code>main()</code>
+function.  Notice that we also import the <em>C</em> package and use
+a comment decoration to indicate the function we are exporting
+(see <a href="https://github.com/golang/go/wiki/cgo">https://github.com/golang/go/wiki/cgo</a> and
+<a href="https://golang.org/cmd/cgo/">https://golang.org/cmd/cgo/</a>
+for full story about Go&rsquo;s <em>C</em> package and <em>cgo</em>).
+Part of the what <em>cgo</em> and the <em>C</em> package does is use the
+comment decoration to build the signatures for the function calls
+in the shared C library.  The Go toolchain does all the heavy
+lifting in making a <em>C</em> shared library based on comment
+directives like &ldquo;//export&rdquo;. We don&rsquo;t need much for our twice
+function.</p>
+
+<pre><code class="language-Go">    package main
+    
+    import (
+    	&quot;C&quot;
+    )
+    
+    //export twice
+    func twice(i int) int {
+    	return i * 2
+    }
+    
+    func main() {}
+</code></pre>
+
+<p>On the python side we need to wrap our calls to our shared library
+bringing them into the Python runtime in a useful and idiomatically
+Python way. Python provides a few ways of doing this. In my examples
+I am using the <em>ctypes</em> package.  <em>twice.py</em> looks like this&ndash;</p>
+
+<pre><code class="language-python">    import ctypes
+    import os
+    
+    # Set our shared library's name
+    lib_name='libtwice'
+    
+    # Figure out shared library extension
+    uname = os.uname().sysname
+    ext = '.so'
+    if uname == 'Darwin':
+        ext = '.dylib'
+    if uname == 'Windows':
+        ext = '.dll'
+    
+    # Find our shared library and load it
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))
+    
+    # Setup our Go functions to be nicely wrapped
+    go_twice = lib.twice
+    go_twice.argtypes = [ctypes.c_int]
+    go_twice.restype = ctypes.c_int
+    
+    # Now write our Python idiomatic function
+    def twice(i):
+        return go_twice(ctypes.c_int(i))
+    
+    # We run this test code if with: python3 twice.py
+    if __name__ == '__main__':
+        print(&quot;Twice of 2 is&quot;, twice(2))
+</code></pre>
+
+<p>Notice the amount of lifting Python&rsquo;s <em>ctypes</em> does for us. It provides
+for converting C based types to their Python counter parts. Indeed the
+additional Python source here is focused around using that functionality
+to create a simple Python function called twice. This pattern of
+bringing in a low level version of our desired function and then
+presenting in a Pythonic one is common in more complex C based Python
+modules.  In general we need <em>ctypes</em> to access and wrapping our
+shared library. The <em>os</em> module is used so we can find our C
+shared library based on the naming conventions of our host OS.
+For simplicity I&rsquo;ve kept the shared library (e.g. <em>libtwice.so</em>
+under Linux) in the same directory as the python module
+code <em>twice.py</em>.</p>
+
+<p>The build command for Linux looks like&mdash;</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libtwice.so libtwice.go
+</code></pre>
+
+<p>Under Windows it would look like&mdash;</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libtwice.dll libtwice.go
+</code></pre>
+
+<p>and Mac OS X&mdash;</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go
+</code></pre>
+
+<p>You can test the Python module with&mdash;</p>
+
+<pre><code class="language-shell">    python3 twice.py
+</code></pre>
+
+<p>Notice the filename choices. I could have called the Go shared
+library anything as long as it wasn&rsquo;t called <code>twice.so</code>, <code>twice.dll</code>
+or <code>twice.dylib</code>. This constraint is to avoid a module name collision
+in Python.  If we had a Python script named <code>twice_test.py</code> and
+import <code>twice.py</code> then Python needs to make a distinction between
+<code>twice.py</code> and our shared library. If you use a Python package
+approach to wrapping the shared library you would have other options
+for voiding name collision.</p>
+
+<p>Here is an example of <code>twice_test.py</code> to make sure out import is
+working.</p>
+
+<pre><code class="language-python">    import twice
+    print(&quot;Twice 3&quot;, twice.twice(3))
+</code></pre>
+
+<p>Example 1 is our base recipe. The next examples focus on handling
+other data types but follow the same pattern.</p>
+
+<h2>Example 2, libsayhi.go and sayhi.py</h2>
+
+<p>I found working with strings a little more nuanced. Go&rsquo;s concept of
+strings are oriented to utf-8. Python has its own concept of strings
+and encoding.  Both need to pass through the C layer which assumes
+strings are a char pointer pointing at contiguous memory ending
+in a null. The <em>sayhi</em> recipe is focused on moving a string from
+Python, to C, to Go (a one way trip this time). The example uses
+Go&rsquo;s <em>fmt</em> package to display the string.</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;fmt&quot;
+    )
+    
+    //export say_hi
+    func say_hi(msg *C.char) {
+    	fmt.Println(C.GoString(msg))
+    }
+    
+    func main() { }
+</code></pre>
+
+<p>The Go source is similar to our first recipe but our Python modules
+needs to use <em>ctypes</em> to get you Python string into shape to be
+unpacked by Go.</p>
+
+<pre><code class="language-python">   import ctypes
+   import os
+   
+   # Set the name of our shared library
+   lib_name = 'libsayhi'
+
+   # Figure out shared library extension
+   uname = os.uname().sysname
+   ext = '.so'
+   if uname == 'Darwin':
+       ext = '.dylib'
+   if uname == 'Windows':
+       ext = '.dll'
+   
+   # Find our shared library and load it
+   dir_path = os.path.dirname(os.path.realpath(__file__))
+   lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))
+   
+   # Setup our Go functions to be nicely wrapped
+   go_say_hi = lib.say_hi
+   go_say_hi.argtypes = [ctypes.c_char_p]
+   # NOTE: we don't have a return type defined here, the message is 
+   # displayed from Go
+   
+   # Now write our Python idiomatic function
+   def say_hi(txt):
+       return go_say_hi(ctypes.c_char_p(txt.encode('utf8')))
+   
+   if __name__ == '__main__':
+       say_hi('Hello!')
+</code></pre>
+
+<p>Putting things together (if you are using Windows or Mac OS X
+you&rsquo;ll adjust name output name, <code>libsayhi.so</code>, to match the
+filename extension suitable for your operating system).</p>
+
+<pre><code class="language-bash">    go build -buildmode=c-shared -o libsayhi.so libsayhi.go
+</code></pre>
+
+<p>and testing.</p>
+
+<pre><code class="language-bash">    python3 sayhi.py
+</code></pre>
+
+<h2>Example 3, libhelloworld.go and helloworld.py</h2>
+
+<p>In this example we send a Python string to Go (which expects utf-8)
+build our &ldquo;hello world&rdquo; message and then send it back to Python
+(which needs to do additional conversion and decoding).</p>
+
+<p>Like in previous examples the Go side remains very simple. The heavy
+lifting is done by the <em>C</em> package and the comment <code>//export</code>. We
+are using <code>C.GoString()</code> and <code>C.CString()</code> to flip between our native
+Go and C datatypes.</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;fmt&quot;
+    )
+    
+    //export helloworld
+    func helloworld(name *C.char) *C.char {
+    	txt := fmt.Sprintf(&quot;Hello %s&quot;, C.GoString(name))
+    	return C.CString(txt)
+    }
+    
+    func main() { }
+</code></pre>
+
+<p>In the python code below the conversion process is much more detailed.
+Python isn&rsquo;t explicitly utf-8 like Go. Plus we&rsquo;re sending our Python
+string via C&rsquo;s char arrays (or pointer to chars). Finally when we
+comeback from Go via C we have to put things back in order for Python.
+Of particular note is checking how the byte arrays work then
+encoding/decoding everything as needed. We also explicitly set the result
+type from our Go version of the helloworld function.</p>
+
+<pre><code class="language-python">    import ctypes
+    import os
+    
+    # Set the name of our shared library
+    lib_name = 'libhelloworld'
+
+    # Figure out shared library extension
+    uname = os.uname().sysname
+    ext = '.so'
+    if uname == 'Darwin':
+        ext = '.dylib'
+    if uname == 'Windows':
+        ext = '.dll'
+    
+    # Find our shared library and load it
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))
+    
+    # Setup our Go functions to be nicely wrapped
+    go_helloworld = lib.helloworld
+    go_helloworld.argtypes = [ctypes.c_char_p]
+    go_helloworld.restype = ctypes.c_char_p
+    
+    # Now write our Python idiomatic function
+    def helloworld(txt):
+        value = go_helloworld(ctypes.c_char_p(txt.encode('utf8')))
+        if not isinstance(value, bytes):
+            value = value.encode('utf-8')
+        return value.decode()
+    
+    
+    if __name__ == '__main__':
+        import sys
+        if len(sys.argv) &gt; 1:
+            print(helloworld(sys.argv[1]))
+        else:
+            print(helloworld('World'))
+</code></pre>
+
+<p>The build recipe remains the same as the two previous examples.</p>
+
+<pre><code class="language-bash">    go build -buildmode=c-shared -o libhelloworld.so libhelloworld.go
+</code></pre>
+
+<p>Here are two variations to test.</p>
+
+<pre><code class="language-bash">     python3 helloworld.py
+     python3 helloworld.py Jane
+</code></pre>
+
+<h2>Example 4, libjsonpretty.go and jsonpretty.py</h2>
+
+<p>In this example we send JSON encode text to the Go package,
+unpack it in Go&rsquo;s runtime and repack it using the <code>MarshalIndent()</code>
+function in Go&rsquo;s JSON package before sending it back as Python
+in string form.  You&rsquo;ll see the same encode/decode patterns as
+in our <em>helloworld</em> example.</p>
+
+<p>Go code</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;encoding/json&quot;
+    	&quot;fmt&quot;
+    	&quot;log&quot;
+    )
+    
+    //export jsonpretty
+    func jsonpretty(rawSrc *C.char) *C.char {
+    	data := new(map[string]interface{})
+    	err := json.Unmarshal([]byte(C.GoString(rawSrc)), &amp;data)
+    	if err != nil {
+    		log.Printf(&quot;%s&quot;, err)
+    		return C.CString(&quot;&quot;)
+    	}
+    	src, err := json.MarshalIndent(data, &quot;&quot;, &quot;    &quot;)
+    	if err != nil {
+    		log.Printf(&quot;%s&quot;, err)
+    		return C.CString(&quot;&quot;)
+    	}
+    	txt := fmt.Sprintf(&quot;%s&quot;, src)
+    	return C.CString(txt)
+    }
+    
+    func main() {}
+</code></pre>
+
+<p>Python code</p>
+
+<pre><code class="language-python">    import ctypes
+    import os
+    import json
+    
+    # Set the name of our shared library
+    lib_name = 'libjsonpretty'
+
+    # Figure out shared library extension
+    uname = os.uname().sysname
+    ext = '.so'
+    if uname == 'Darwin':
+        ext = '.dylib'
+    if uname == 'Windows':
+        ext = '.dll'
+
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))
+    
+    go_jsonpretty = lib.jsonpretty
+    go_jsonpretty.argtypes = [ctypes.c_char_p]
+    go_jsonpretty.restype = ctypes.c_char_p
+    
+    def jsonpretty(txt):
+        value = go_jsonpretty(ctypes.c_char_p(txt.encode('utf8')))
+        if not isinstance(value, bytes):
+            value = value.encode('utf-8')
+        return value.decode()
+    
+    if __name__ == '__main__':
+        src = '''
+    {&quot;name&quot;:&quot;fred&quot;,&quot;age&quot;:25,&quot;height&quot;:75,&quot;units&quot;:&quot;inch&quot;,&quot;weight&quot;:&quot;239&quot;}
+    '''
+        value = jsonpretty(src)
+        print(&quot;Pretty print&quot;)
+        print(value)
+        print(&quot;Decode into dict&quot;)
+        o = json.loads(value)
+        print(o)
+</code></pre>
+
+<p>Build command</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go
+</code></pre>
+
+<p>As before you can run your tests with <code>python3 jsonpretty.py</code>.</p>
+
+<p>In closing I would like to note that to use these examples you Python3
+will need to be able to find the module and shared library. For
+simplicity I&rsquo;ve put all the code in the same directory. If your Python
+code is spread across multiple directories you&rsquo;ll need to make some
+adjustments.</p>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright &copy; 2016 - 2018 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+
+    </footer>
+    </body>
+</html>

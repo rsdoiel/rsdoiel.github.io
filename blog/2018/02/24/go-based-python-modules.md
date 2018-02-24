@@ -16,15 +16,15 @@ simple recipes I used to understand the details of how that worked.
 
 Many of the the examples I've come across on the web start by 
 showing how to run a simple math operation on the Go side with
-numeric values traveling round trip the C ABI. It is a good place
-to start as you only need to consider type conversion between both
-Python's runtime and Go's runtime.  It provides a 
-simple illustration of how the Go *C* package, Python's
+numeric values traveling round trip via the C shared library layer. 
+It is a good place to start as you only need to consider type 
+conversion between both Python's runtime and Go's runtime.  It 
+provides a simple illustration of how the Go *C* package, Python's
 *ctypes* module and the toolchain work together.
 
 In this example we have a function in Go called "twice" it takes
 a single integer, doubles it and returns the new value.  On
-the go side we create a _libtwice.go_ file with an empty `main()` 
+the Go side we create a _libtwice.go_ file with an empty `main()` 
 function.  Notice that we also import the *C* package and use 
 a comment decoration to indicate the function we are exporting
 (see https://github.com/golang/go/wiki/cgo and 
@@ -54,15 +54,14 @@ function.
 
 On the python side we need to wrap our calls to our shared library
 bringing them into the Python runtime in a useful and idiomatically
-Python way. Python provides couple ways of doing this but 
-I am using the *ctypes* package to accomplish this. 
-_twice.py_ looks like this--
+Python way. Python provides a few ways of doing this. In my examples
+I am using the *ctypes* package.  _twice.py_ looks like this--
 
 ```python
     import ctypes
     import os
     
-    # Our Go C shared library's name
+    # Set our shared library's name
     lib_name='libtwice'
     
     # Figure out shared library extension
@@ -128,15 +127,22 @@ You can test the Python module with---
     python3 twice.py
 ```
 
-A note about choices of names. I could have called the Go shared
-library anything as long as it wasn't called _twice.so_, _twice.dll_
-or _twice.dylib_. This is because of how Python handles module
-name resolution. If both the Python wrapper and the shared library
-have the same base name, i.e. twice, calling the module from another
-Python script will create confusion and you'll get an import error
-talking about a missing `PyInit_twice`. Have different names avoids
-this as well as having to set things up in as a more complicated Python
-package.
+Notice the filename choices. I could have called the Go shared
+library anything as long as it wasn't called `twice.so`, `twice.dll`
+or `twice.dylib`. This constraint is to avoid a module name collision
+in Python.  If we had a Python script named `twice_test.py` and 
+import `twice.py` then Python needs to make a distinction between
+`twice.py` and our shared library. If you use a Python package
+approach to wrapping the shared library you would have other options
+for voiding name collision.
+
+Here is an example of `twice_test.py` to make sure out import is
+working.
+
+```python
+    import twice
+    print("Twice 3", twice.twice(3))
+```
 
 Example 1 is our base recipe. The next examples focus on handling
 other data types but follow the same pattern.
@@ -145,12 +151,12 @@ other data types but follow the same pattern.
 ## Example 2, libsayhi.go and sayhi.py
 
 I found working with strings a little more nuanced. Go's concept of
-strings are oriented to UTF-8. Python has its own concept of strings and encoding.
-Both need to pass through the C ABI which assumes strings are a point char to
-contiguous memory ending in a null. The *sayhi* recipe is focused on moving
-a string from Python, to C, to Go which displays the string using Go's
-*fmt* package. It is one half of the eventual round trip needed to pass
-JSON or other text formats between Python and Go.
+strings are oriented to utf-8. Python has its own concept of strings 
+and encoding.  Both need to pass through the C layer which assumes 
+strings are a char pointer pointing at contiguous memory ending 
+in a null. The *sayhi* recipe is focused on moving a string from 
+Python, to C, to Go (a one way trip this time). The example uses 
+Go's *fmt* package to display the string. 
 
 ```go
     package main
@@ -205,14 +211,13 @@ unpacked by Go.
        say_hi('Hello!')
 ```
 
-Putting things together,
+Putting things together (if you are using Windows or Mac OS X
+you'll adjust name output name, `libsayhi.so`, to match the
+filename extension suitable for your operating system).
 
 ```bash
     go build -buildmode=c-shared -o libsayhi.so libsayhi.go
 ```
-
-Note: If you are compiling on a Windows machine or on a Mac change the
-".so" to the appropriate filename extension as in our first example.
 
 and testing.
 
@@ -223,12 +228,12 @@ and testing.
 
 ## Example 3, libhelloworld.go and helloworld.py
 
-In this example we send a Python string to Go (which expects UTF-8)
+In this example we send a Python string to Go (which expects utf-8)
 build our "hello world" message and then send it back to Python
 (which needs to do additional conversion and decoding).
 
 Like in previous examples the Go side remains very simple. The heavy
-lifting is done by the *C* package and the comment with "export". We
+lifting is done by the *C* package and the comment `//export`. We
 are using `C.GoString()` and `C.CString()` to flip between our native
 Go and C datatypes.
 
@@ -249,13 +254,13 @@ Go and C datatypes.
     func main() { }
 ```
 
-In the python code below the conversation process is much more detailed.
-Python isn't explicitly UTF-8 like Go. Plus we're sending our Python string
-via C's char arrays (or pointer to chars). Finally when we comeback from
-Go via C we have to put things back in order for Python. Of particular
-note is checking how the byte arrays work then encoding/decoding everything
-as needed. We also explicit set the result type from our Go version of the
-helloworld function.
+In the python code below the conversion process is much more detailed.
+Python isn't explicitly utf-8 like Go. Plus we're sending our Python 
+string via C's char arrays (or pointer to chars). Finally when we 
+comeback from Go via C we have to put things back in order for Python. 
+Of particular note is checking how the byte arrays work then 
+encoding/decoding everything as needed. We also explicitly set the result 
+type from our Go version of the helloworld function.
 
 ```python
     import ctypes
@@ -303,7 +308,7 @@ The build recipe remains the same as the two previous examples.
     go build -buildmode=c-shared -o libhelloworld.so libhelloworld.go
 ```
 
-There are two variations to test.
+Here are two variations to test.
 
 ```bash
      python3 helloworld.py
@@ -316,8 +321,8 @@ There are two variations to test.
 In this example we send JSON encode text to the Go package,
 unpack it in Go's runtime and repack it using the `MarshalIndent()`
 function in Go's JSON package before sending it back as Python
-in string form.  Aside from the purpose you'll see the same
-encode/decode patterns as in our *helloworld* example.
+in string form.  You'll see the same encode/decode patterns as 
+in our *helloworld* example.
 
 Go code
 
@@ -403,7 +408,8 @@ Build command
 As before you can run your tests with `python3 jsonpretty.py`.
 
 In closing I would like to note that to use these examples you Python3
-will need to be able to find the modules. That if you are spreading
-your C-shared library and wrapping Python module accross your file system
-you will also need to adjust your Python environment to find them.
+will need to be able to find the module and shared library. For 
+simplicity I've put all the code in the same directory. If your Python
+code is spread across multiple directories you'll need to make some 
+adjustments.
 
