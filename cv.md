@@ -25,6 +25,7 @@
 + Git
 + Go
 + JavaScript (NodeJS)
++ Julia
 + Make
 + Perl
 + PHP
