@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Accessing Go from Julia</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="accessing-go-from-julia.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1>Accessing Go from Julia</h1>
+
+<p>By R. S. Doiel, 2018-03-11</p>
+
+<p>The problem: I&rsquo;ve started exploring Julia and I would like to leverage existing
+code I&rsquo;ve written in Go. Essentially this is a revisit to the problem in my
+last post <a href="https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html">Go based Python Modules</a>
+but with the language pairing of Go and Julia.</p>
+
+<h2>Example 1, libtwice.go, libtwice.jl and libtwice_test.jl</h2>
+
+<p>In out first example we send an integer value from
+Julia to Go and back via a C shared library (written in Go). While Julia doesn&rsquo;t
+require type declarations I will be using those for clarity. Like in my previous post
+I think this implementation this is a good starting point to see how Julia interacts with
+C shared libraries. Like before I will present our Go code, an explanation
+followed by the Julia code and comentary.</p>
+
+<p>On the Go side we create a <em>libtwice.go</em> file with an empty <code>main()</code>
+function.  Notice that we also import the <em>C</em> package and use
+a comment decoration to indicate the function we are exporting
+(see <a href="https://github.com/golang/go/wiki/cgo">https://github.com/golang/go/wiki/cgo</a> and
+<a href="https://golang.org/cmd/cgo/">https://golang.org/cmd/cgo/</a>
+for full story about Go&rsquo;s <em>C</em> package and <em>cgo</em>).
+Part of the what <em>cgo</em> and the <em>C</em> package does is use the
+comment decoration to build the signatures for the function calls
+in the shared C library.  The Go toolchain does all the heavy
+lifting in making a <em>C</em> shared library based on comment
+directives like &ldquo;//export&rdquo;. We don&rsquo;t need much for our twice
+function.</p>
+
+<pre><code class="language-Go">    package main
+    
+    import (
+    	&quot;C&quot;
+    )
+    
+    //export twice
+    func twice(i int) int {
+    	return i * 2
+    }
+    
+    func main() {}
+</code></pre>
+
+<p>Like in our previous Python implementation we need to build the C shared
+library before using it from Julia. Here are some example Go build commands
+for Linux, Windows and Mac OS X. You only need to run the one that applies
+to your operating system.</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libtwice.so libtwice.go
+    go build -buildmode=c-shared -o libtwice.dll libtwice.go
+    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go
+</code></pre>
+
+<p>Unlike the Python implementation our Julia code will be split into two files. <em>libtwice.jl</em> will
+hold our module definition and _libtwice<em>test.jl</em> will hold our test code. In the
+case of <em>libtwice.jl</em> we will access the C exported function via a function named <em>ccall</em>.
+Julia doesn&rsquo;t require a separate module to be imported in order to access a C shared library.
+That makes our module much simpler. We still need to be mindful of type conversion.  Both
+Go and Julia provide for rich data types and structs.  But between Go and Julia we have C
+and C&rsquo;s basic type system.  On the Julia side <em>ccall</em> and Julia&rsquo;s type system help us
+managing C&rsquo;s limitations.</p>
+
+<p>Here&rsquo;s the Julia module we&rsquo;ll call <em>libtwice.jl</em>.</p>
+
+<pre><code class="language-Julia">    module libtwice
+            
+    # We write our Julia idiomatic function
+    function twice(i::Integer)
+        ccall((:twice, &quot;./libtwice&quot;), Int32, (Int32,), i)
+    end
+
+    end
+</code></pre>
+
+<p>We&rsquo;re will put the test code in a file named <em>libtwice_test.jl</em>. Since this isn&rsquo;t
+an establish &ldquo;Package&rdquo; in Julia we will use Julia&rsquo;s <em>include</em> statement to get bring the
+code in then use an <em>import</em> statement to bring the module into our current name space.</p>
+
+<pre><code class="language-Julia">    include(&quot;libtwice.jl&quot;)
+    import libtwice
+    # We run this test code for libtwice.jl
+    println(&quot;Twice of 2 is &quot;, libtwice.twice(2))
+</code></pre>
+
+<p>Our test code can be run with</p>
+
+<pre><code class="language-shell">    julia libtwice_test.jl
+</code></pre>
+
+<p>Notice the amount of lifting that Julia&rsquo;s <em>ccall</em> does. The Julia code is much more compact
+as a result of not having to map values in a variable declaration. We still have the challenges
+that Julia and Go both support richer types than C. In a practical case we should consider
+the over head of running to two runtimes (Go&rsquo;s and Julia&rsquo;s) as well as whether or not
+implementing as a shared library even makes sense. But if you want to leverage existing
+Go based code this approach can be useful.</p>
+
+<p>Example 1 is our base recipe. The next examples focus on handling
+other data types but follow the same pattern.</p>
+
+<h2>Example 2, libsayhi.go, libsayhi.jl and libsayhi_test.jl</h2>
+
+<p>Like Python, passing strings passing to or from Julia and Go is nuanced. Go is expecting
+UTF-8 strings. Julia also supports UTF-8 but C still looks at strings as a pointer to an
+address space that ends in a null value. Fortunately in Julia the <em>ccall</em> function combined with
+Julia&rsquo;s rich type system gives us straight forward ways to map those value.
+Go code remains unchanged from our Python example in the previous post.
+In thie example we use Go&rsquo;s <em>fmt</em> package to display the string. In the next example
+we will round trip our string message.</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;fmt&quot;
+    )
+    
+    //export say_hi
+    func say_hi(msg *C.char) {
+    	fmt.Println(C.GoString(msg))
+    }
+    
+    func main() { }
+</code></pre>
+
+<p>The Go source is the similar to our first recipe. No change from our
+previous posts&rsquo; Python example. It will need to be compiled to create our
+C shared library just as before. Run the go build line that applies to
+your operating system (i.e., Linux, Windows and Mac OS X).</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libsayhi.so libsayhi.go
+    go build -buildmode=c-shared -o libsayhi.dll libsayhi.go
+    go build -buildmode=c-shared -o libsayhi.dylib libsayhi.go
+</code></pre>
+
+<p>Our Julia module looks like this.</p>
+
+<pre><code class="language-julia">    module libsayhi
+
+    # Now write our Julia idiomatic function using *ccall* to access the shared library
+    function say_hi(txt::AbstractString)
+        ccall((:say_hi, &quot;./libsayhi&quot;), Int32, (Cstring,), txt)
+    end
+
+    end
+</code></pre>
+
+<p>This code is much more compact than our Python implementation.</p>
+
+<p>Our test code looks like</p>
+
+<pre><code class="language-julia">    include(&quot;./libsayhi.jl&quot;)
+    import libsayhi
+    libsayhi.say_hi(&quot;Hello again!&quot;)
+</code></pre>
+
+<p>We run our tests with</p>
+
+<pre><code class="language-shell">    julia libsayhi_test.jl
+</code></pre>
+
+<h2>Example 3, libhelloworld.go and librhelloworld.cl and libhelloworld_test.jl</h2>
+
+<p>In this example we send a string round trip between Julia and Go.
+Most of the boiler plate we say in Python is gone due to Julia&rsquo;s type system. In
+addition to using Julia&rsquo;s <em>ccall</em> we&rsquo;ll add a <em>convert</em> and <em>bytestring</em> function calls
+to bring our <strong>Cstring</strong> back to a <strong>UTF8String</strong> in Julia.</p>
+
+<p>The Go implementation remains unchanged from our previous Go/Python implementation.
+The heavy lifting is done by the <em>C</em> package and the comment
+<code>//export</code>. We are using <code>C.GoString()</code> and <code>C.CString()</code> to flip between
+our native
+Go and C datatypes.</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;fmt&quot;
+    )
+    
+    //export helloworld
+    func helloworld(name *C.char) *C.char {
+    	txt := fmt.Sprintf(&quot;Hello %s&quot;, C.GoString(name))
+    	return C.CString(txt)
+    }
+    
+    func main() { }
+</code></pre>
+
+<p>As always we must build our C shared library from the Go code. Below is
+the go build commands for Linux, Windows and Mac OS X. Pick the line that
+applies to your operating system to build the C shared library.</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libhelloworld.so libhelloworld.go
+    go build -buildmode=c-shared -o libhelloworld.dll libhelloworld.go
+    go build -buildmode=c-shared -o libhelloworld.dylib libhelloworld.go
+</code></pre>
+
+<p>In our Julia, <em>libhelloworld.jl</em>, the heavy lifting of type conversion
+happens in Julia&rsquo;s type system and in the <em>ccall</em> function call. Additionally we need
+to handle the conversion from <strong>Cstring</strong> Julian type to <strong>UTF8String</strong> explicitly
+in our return value via a functions named <em>convert</em> and <em>bytestring</em>.</p>
+
+<pre><code class="language-julia">    module libhelloworld
+
+    # Now write our Julia idiomatic function
+    function helloworld(txt::AbstractString)
+        value = ccall((:helloworld, &quot;./libhelloworld&quot;), Cstring, (Cstring,), txt)
+        convert(UTF8String, bytestring(value))
+    end
+
+    end
+</code></pre>
+
+<p>Our test code looks similar to our Python test implementation.</p>
+
+<pre><code class="language-julia">    include(&quot;libhelloworld.jl&quot;)
+    import libhelloworld
+ 
+    if length(ARGS) &gt; 0
+        println(libhelloworld.helloworld(join(ARGS, &quot; &quot;)))
+    else
+        println(libhelloworld.helloworld(&quot;World&quot;))
+    end
+</code></pre>
+
+<p>As before we see the Julia code is much more compact than Python&rsquo;s.</p>
+
+<h2>Example 4, libjsonpretty.go, libjsonpretty.jl and libjsonpretty_test.jl</h2>
+
+<p>In this example we send JSON encode text to the Go package,
+unpack it in Go&rsquo;s runtime and repack it using the <code>MarshalIndent()</code>
+function in Go&rsquo;s JSON package before sending it back to Julia
+in C string form.  You&rsquo;ll see the same encode/decode patterns as
+in our <em>libhelloworld</em> example.</p>
+
+<p>Go code</p>
+
+<pre><code class="language-go">    package main
+    
+    import (
+    	&quot;C&quot;
+    	&quot;encoding/json&quot;
+    	&quot;fmt&quot;
+    	&quot;log&quot;
+    )
+    
+    //export jsonpretty
+    func jsonpretty(rawSrc *C.char) *C.char {
+    	data := new(map[string]interface{})
+    	err := json.Unmarshal([]byte(C.GoString(rawSrc)), &amp;data)
+    	if err != nil {
+    		log.Printf(&quot;%s&quot;, err)
+    		return C.CString(&quot;&quot;)
+    	}
+    	src, err := json.MarshalIndent(data, &quot;&quot;, &quot;    &quot;)
+    	if err != nil {
+    		log.Printf(&quot;%s&quot;, err)
+    		return C.CString(&quot;&quot;)
+    	}
+    	txt := fmt.Sprintf(&quot;%s&quot;, src)
+    	return C.CString(txt)
+    }
+    
+    func main() {}
+</code></pre>
+
+<p>Build commands for Linux, Windows and Mac OS X are as before, pick the one that matches
+your operating system.</p>
+
+<pre><code class="language-shell">    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go
+    go build -buildmode=c-shared -o libjsonpretty.dll libjsonpretty.go
+    go build -buildmode=c-shared -o libjsonpretty.dylib libjsonpretty.go
+</code></pre>
+
+<p>Our Julia module code</p>
+
+<pre><code class="language-Julia">    module libjsonpretty
+
+    # Now write our Julia idiomatic function
+    function jsonpretty(txt::AbstractString)
+        value = ccall((:jsonpretty, &quot;./libjsonpretty&quot;), Cstring, (Cstring,), txt)
+        convert(UTF8String, bytestring(value))
+    end
+    
+    end
+</code></pre>
+
+<p>Our Julia test code</p>
+
+<pre><code class="language-Julia">    include(&quot;./libjsonpretty.jl&quot;)
+    import libjsonpretty
+
+    src = &quot;&quot;&quot;{&quot;name&quot;:&quot;fred&quot;,&quot;age&quot;:25,&quot;height&quot;:75,&quot;units&quot;:&quot;inch&quot;,&quot;weight&quot;:&quot;239&quot;}&quot;&quot;&quot;
+    println(&quot;Our origin JSON src&quot;, src)
+    value = libjsonpretty.jsonpretty(src)
+    println(&quot;And out pretty version\n&quot;, value)
+</code></pre>
+
+<p>As before you can run your tests with <code>julia libjsonpretty_test.jl</code>.</p>
+
+<p>In closing I would like to note that to use these examples I am assuming your
+Julia code is in the same directory as your shared C library. Julia, like Python3,
+has a feature rich module and Package system. If you are creating a serious Julia
+project then you need to be familiar with how Julia&rsquo;s package and module system works
+and place your code and shared libraries appropriately.</p>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright &copy; 2016 - 2018 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+
+    </footer>
+    </body>
+</html>
