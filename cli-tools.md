@@ -29,11 +29,7 @@
 
 ### Useful for managing JSON documents
 
-+ [dataset](https://caltechlibrary.github.io/dataset/) - four tools for manage JSON documents, their attachments and publishing on the web
-    + dataset - the primary JSON management tool
-    + dsindexer - create Bleve based indexes used by _dsfind_ and _dsws_
-    + dsfind - a command line search interface into your content managed with _dataset_
-    + dsws - a web UI for your _dataset_ collections
++ [dataset](https://caltechlibrary.github.io/dataset/) - a tool for manage JSON objects, their attachments as well as data [grids](https://caltechlibrary.github.io/dataset/docs/grid.html) and [frames](https://caltechlibrary.github.io/dataset/docs/frames.html)
 
 ### Content formatting tools
 
