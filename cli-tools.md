@@ -1,4 +1,9 @@
 
+### Useful for managing JSON documents
+
++ [dataset](https://caltechlibrary.github.io/dataset/) - a tool for manage JSON objects, their attachments as well as data [grids](https://caltechlibrary.github.io/dataset/docs/grid.html) and [frames](https://caltechlibrary.github.io/dataset/docs/frames.html)
+
+
 ### Useful for Posix/Bash scripting
 
 [datatools](https://caltechlibrary.github.io/datatools/) - a small set of tools to facilitate working with CSV, JSON and Excel Workbook data in Bash scripts
@@ -26,10 +31,6 @@
     + [reldate](https://caltechlibrary.github.io/datatools/reldate.html) - calculate a relative date in YYYY-MM-DD format
     + [timefmt](https://caltechlibrary.github.io/datatools/timefmt.html) - format time output per Go's time package time notation
     + [urlparse](https://caltechlibrary.github.io/datatools/urlparse.html) - extract URL parts (e.g. protocol, hostname, path)
-
-### Useful for managing JSON documents
-
-+ [dataset](https://caltechlibrary.github.io/dataset/) - a tool for manage JSON objects, their attachments as well as data [grids](https://caltechlibrary.github.io/dataset/docs/grid.html) and [frames](https://caltechlibrary.github.io/dataset/docs/frames.html)
 
 ### Content formatting tools
 
