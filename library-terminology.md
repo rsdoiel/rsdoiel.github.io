@@ -7,6 +7,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 
 + actors
     + Sending and receiving parties
++ [AIP](https://www.iasa-web.org/tc04/archival-information-package-aip) Archival Information Package
 + [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)
     + Archival Resource Key
     + Is a unique identifier used in archives analogus to a DOI used in a digital library repository
@@ -119,6 +120,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Open Access Library
 + [OAI](http://www.openarchives.org/)
     + Open Archives Initiatives
++ [OAIS](https://en.wikipedia.org/wiki/Open_Archival_Information_System) Open Archival Information System
 + [OAI-PMH](http://www.openarchives.org/OAI/openarchivesprotocol.html)
     + Open Airchives Initial - Protocol for Metadata Harvesting
 + [OAI-DC](http://www.openarchives.org/OAI/openarchivesprotocol.html#dublincore)
