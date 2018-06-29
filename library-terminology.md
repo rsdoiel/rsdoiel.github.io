@@ -9,7 +9,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + Sending and receiving parties
 + [AIP](https://www.iasa-web.org/tc04/archival-information-package-aip) Archival Information Package
 + [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)
-    + Archival Resource Key
+    + [Archival Resource Key](http://n2t.net/e/ark_ids.html)
     + Is a unique identifier used in archives analogus to a DOI used in a digital library repository
     + IFLA's [best practice](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793) description
 + [arXiv](arXiv.org)
