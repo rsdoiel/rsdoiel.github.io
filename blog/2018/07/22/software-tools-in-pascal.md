@@ -2,7 +2,7 @@
 # Review: Software Tools in Pascal
 
 By R. S. Doiel, 2018-07-22
-(updated: 2018-07-22)
+(updated: 2018-07-22, 1:39 pm, PDT)
 
 
 This book is by Brian W. Kernighan and P. J. Plauger. It is an
@@ -26,7 +26,11 @@ The book is organized around specific programs and their implementations.
 The implementations provided are simple and straight forward. Each
 section is followed by a set of "exercises" that extend the ideas
 shown in the section. In this way you could derive the modern equivalent
-of these tools. 
+of these tools.
+
+The topics you build tools for in the text are
+filters, files, sorting, text patterns, editing, formatting, 
+and macro processing.
 
 If you want to follow the book along in Pascal then I think Free Pascal
 available in many Debian distributions including Raspbian on the Raspberry
