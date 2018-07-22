@@ -15,9 +15,9 @@ the [Open Library](https://openlibrary.org) this weekend.  While
 Pascal was a popular in the 1980's it has faded for most people in the 
 early 21st century.  This review maybe a small bit of nostalgia. 
 On the other hand I suspect 
-"[Software Tools in Pascal](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)"
+["Software Tools in Pascal"](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)
 is one of the short list of computer books that will remain useful
-over a long run.
+over the long run.
 
 
 ## What's covered
