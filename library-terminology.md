@@ -35,6 +35,8 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [COAR](https://www.coar-repositories.org/) confederation of open access repositories
 + [CrossRef](http://crossref.org)
     + A service returning JSON metadata records based on title, issn, etc.
++ Crosswalk 
+    + A translational relationship between two metadata schema or ontologies
 + [CUFTS](http://lib-code.lib.sfu.ca/projects/CUFTS/)
     + a free, open source (GPL) OpenURL link resolver and electronic resource management system designed for use by library consortia. It supports multiple sites from one server, online management tools, usage statistics, and an advanced journal list system.
 + DAMS
