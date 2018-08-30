@@ -14,5 +14,5 @@
 + [opml](/opml/) - An OPML package that features a OPML sort, cat and to json utility
 + [shorthand](/shorthand/) - a text label expander with markdown support
 + [stngo](/stngo/) - Standard Timesheet Notation processor for my personal project time logs
-+ [scripttools](https://github.com/rsdoiel/scripttools/) - tools for working with `.fdx`, `.osf`, `.fadein` and `.fountain` screenplays
++ [scripttool](https://rsdoiel.github.io/scripttool/) - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. `.fdx`, `.osf`, `.fadein` and `.fountain`)
 
