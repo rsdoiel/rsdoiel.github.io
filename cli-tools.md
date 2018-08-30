@@ -1,7 +1,7 @@
 
 ### Useful for managing JSON documents
 
-+ [dataset](https://caltechlibrary.github.io/dataset/) - a tool for manage JSON objects, their attachments as well as data [grids](https://caltechlibrary.github.io/dataset/docs/grid.html) and [frames](https://caltechlibrary.github.io/dataset/docs/frames.html)
+[dataset](https://caltechlibrary.github.io/dataset/) - a tool for manage JSON objects, their attachments as well as data [grids](https://caltechlibrary.github.io/dataset/docs/grid.html) and [frames](https://caltechlibrary.github.io/dataset/docs/frames.html)
 
 
 ### Useful for Posix/Bash scripting
