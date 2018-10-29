@@ -1,4 +1,4 @@
-+ [Building software at the edges of heterogeneous repositories](https://github.com/caltechlibrary/or2018-building-at-the-edges), at [Open Repositories, 2018-06-06 in Bozeman, Montana](http://www.or2018.net/)
++ [Building software at the edges of heterogeneous repositories](https://github.com/caltechlibrary/or2018-building-at-the-edges), at Montana State University Bozeman for [Open Repositories 2018](http://www.or2018.net/)
 + [Command Line for Librarians](https://caltechlibrary.github.io/command-line-for-librarians), co-presentation with Heather Wilson for [MMWCon 2016](https://mmwcon.org/sessions/21a) at UCLA, 2016-09-15
 + [Introducing the ArchivesSpace REST API using Python 3](https://rsdoiel.github.io/archivesspace-api-workshop), presentation for the [ArchivesSpace Member Forum 2016](https://archivesspace.atlassian.net/wiki/display/ADC/ArchivesSpace+Member+Forum+2016), 2016-08-02
 + [Bash, curl and jq: Accessing ORCID public API](https://rsdoiel.github.io/bash-curl-and-jq-presentation/), presentation for Code4Lib SoCal Summer 2016 meetup, 2016-06-20
