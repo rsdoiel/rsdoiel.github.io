@@ -58,17 +58,19 @@ straight forward.</p>
 <li>Select <em>reboot</em></li>
 </ul></li>
 <li>When you restart you&rsquo;ll see an old school console login, login as the pi user using your Pi-Top password</li>
-<li>Remove the following program use the <em>apt</em> command
+
+<li><p>Remove the following program use the <em>apt</em> command</p>
 
 <ul>
 <li>ceed-universe</li>
 <li>pt-dashboard</li>
-<li>pt-splashscreen</li>
+
+<li><p>pt-splashscreen</p>
+
+<pre><code>sudo apt purge ceed-universe pt-dashboard pt-splashscreen
+</code></pre></li>
 </ul></li>
 </ol>
-
-<pre><code>    sudo apt purge ceed-universe pt-dashboard pt-splashscreen
-</code></pre>
 
 <p>Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably
 want to keep them.</p>

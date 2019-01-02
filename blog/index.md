@@ -1,8 +1,11 @@
 
-+ [Review: Software Tools in Pascal](/blog/2018/07/22/software-tools-in-pascal.html), 2018-07-22
-+ [Accessing Go from Julia](/blog/2018/03/11/accessing-go-from-julia.html), 2018-03-11
-+ [Go based Python modules](/blog/2018/02/24/go-based-python-modules.html), 2018-02-24
-+ [Go, Bleve and Library oriented software](/blog/2018/02/19/go-bleve-and-libraries.html), 2018-02-19
+
+## 2018
+
+ + 07-22, [Review: Software Tools in Pascal](/blog/2018/07/22/software-tools-in-pascal.html)
+ + 03-11, [Accessing Go from Julia](/blog/2018/03/11/accessing-go-from-julia.html)
+ + 02-24, [Go based Python modules](/blog/2018/02/24/go-based-python-modules.html)
+ + 02-19, [Go, Bleve and Library oriented software](/blog/2018/02/19/go-bleve-and-libraries.html)
 
 ## 2017
 
