@@ -16,7 +16,6 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 
 + Bash
 + C
-+ Common Lisp
 + Git
 + Go
 + JavaScript (NodeJS)

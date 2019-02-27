@@ -21,7 +21,6 @@
 
 + Bash
 + C
-+ Common Lisp
 + Git
 + Go
 + JavaScript (NodeJS)
