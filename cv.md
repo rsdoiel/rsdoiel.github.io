@@ -30,9 +30,10 @@
 + Perl
 + PHP
 + Python
++ SQL/PSM
 + Various SQL/NoSQL database platforms
     + MySQL/MariaDB
-    + MongoDB/Redis
+    + MongoDB/CouchDB
 + Design and implementation of
     + Web API and middleware
     + content management systems

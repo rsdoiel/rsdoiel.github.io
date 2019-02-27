@@ -25,9 +25,10 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Perl
 + PHP
 + Python
++ SQL/PSM
 + Various SQL/NoSQL database platforms
     + MySQL/MariaDB
-    + MongoDB/CouchDB/BoltDB/Redis
+    + MongoDB/CouchDB/BoltDB
 
 
 ## Experience
