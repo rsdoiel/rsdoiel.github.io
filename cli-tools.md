@@ -2,8 +2,8 @@
 ### Screen Play and writing tools
 
 + [scripttool](https://rsdoiel.github.io/scripttool/) - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. `.fdx`, `.osf`, `.fadein` and `.fountain`)
++ [fountain](https://rsdoiel.github.io/foutnain/) - A Go package for working with Fountain markup. Includes three example programs **fountainfmt** which is a pretty printer for fountain documents, **fountain2json** which converts fountain files to JSON  and **fountain2html** an experimental HTML renderer for fountain documents
 + [fdx](https://rsdoiel.github.io/fdx/) - A Go package for working with Final Draft XML files (.fdx)
-+ [fountain](https://rsdoiel.github.io/foutnain/) - A Go package for working with Fountain markup. Includes two example programs **fountainfmt** which is a pretty printer for fountain documents and **fountain2html** an experimental HTML renderer for fountain documents
 + [osf](https://rsdoiel.github.io/osf/) - A Go package for working with Open Screen Play formatted files
 
 ### Addition text rendering/formatting tools
