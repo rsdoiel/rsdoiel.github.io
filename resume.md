@@ -61,7 +61,7 @@ Earlier employment did not involve engineering though it did include working for
 
 ## Education
 
-+ Master of Arts in the Humanities, [Mount Saint Mary&rsquo;s University](http://www.msmu.edu), 2010
++ Master of Arts in the Humanities, [Mount Saint Mary's University](http://www.msmu.edu), 2010
 + Bachelor of Science in Computer Science, [University of Southern California](http://www.usc.edu), 2004
 + Associate of Arts in the Humanities, [College of the Canyons](https://www.canyons.edu), 1989
 
