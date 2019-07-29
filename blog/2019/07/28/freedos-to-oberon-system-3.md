@@ -90,7 +90,7 @@ already installed[^5].
     cd
     mkdir -p Desktop/NativeOberon-Standalone
     cd Desktop/NativeOberon-Standalone
-    wget ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/
+    wget ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/*.*
 ```
 
 Clone your FreeDOS Box first. You'll want to do a "Full Clone". You'll
