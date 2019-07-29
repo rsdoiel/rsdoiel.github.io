@@ -15,7 +15,7 @@ What follows are notes on getting a FreeDOS 1.2[^1] and
 then Native Oberon[^2] running under VirtualBox 6.0. You might 
 wonder why these two are together. While it was
 easy to run the Native Oberon installation process that process
-assumes you have a properly partitioned hard disk and VirtualBox
+assumes you have a properly partitioned hard disc and VirtualBox
 seems to skip that process. I found taking advantage of FreeDOS
 simplified things for me.
 
@@ -53,9 +53,9 @@ settings for my virtual machine.
 2. From the menu, pick Machine then pick new
 3. Name your machine (e.g. "FreeDOS 1.2"), select the type: "Other" and Operating system of "DOS"
 4. Set memory size as you like, I just accepted the default 32MB
-5. Hard disk, pick "Create a virtual hard disc now"
-6. Hard disk file type, pick "VHD (Virtual Hard Disk)"
-7. Storage on physical hard disk, I picked Dynamically allocated both either is fine
+5. Hard disc, pick "Create a virtual hard disc now"
+6. Hard disc file type, pick "VHD (Virtual Hard Disk)"
+7. Storage on physical hard disc, I picked Dynamically allocated both either is fine
 8. File location and size, I accepted the default location and size
 9. Before starting my FreeDOS box I made a couple of changes using "settings" menu icon
     a. Display, I picked bumped memory up to 128M and picked VBoxSVGA with 33D acceleration (for games)
@@ -72,7 +72,7 @@ settings for my virtual machine.
 18. Pick "Yes - continue with the installation"
 19. Pick "Yes - Please erase and format drive C:"
 20. At this point its a normal FreeDOS install
-21. When the install is done and reboots choose the "boot from system disk",you now should have a working FreeDOS on VirtualBox
+21. When the install is done and reboots choose the "boot from system disc",you now should have a working FreeDOS on VirtualBox
 
 ## Native Oberon System 3 on Virtual Box
 
@@ -94,36 +94,39 @@ already installed[^5].
 ```
 
 Clone your FreeDOS Box first. You'll want to do a "Full Clone". You'll
-also want to "remove" any optical disks or floppies. You do that from
+also want to "remove" any optical discs or floppies. You do that from
 the virtual boxes' detail page and clicking on the drive and picking the
-"Remove disk from virtual drive" in the popup menu.
+"Remove disc from virtual drive" in the popup menu.
 
 At this point we have a a virtual machine that is very similar to an 
 1999 era PC installed with MS DOS.  [Native Oberon](http://www.ethoberon.ethz.ch/native/) Normally you'd install Native Oberon
-via 1.44MB floppy disks. We can simulate that with our Virtual machine.
+via 1.44MB floppy discs. We can simulate that with our Virtual machine.
 In the folder of you downloaded there is disc called "oberon0.dsk". That
 can go in our first floppy drive. But how to we get the rest of the 
 files onto a virtual floppies? This wasn't obvious to me at first.
 
-The Oberon install disks were organized as follows
+The Oberon install discs were organized as follows
 
-| PACKAGE    | FILENAME     | SIZE  | DSK   |
-| ---------- | ------------ | ----- | ----- |
-| Oberon-0      | oberon0.dsk  |          | 0 | 
-| Gadgets       | gadgets.arc  | 1.4  2.9 | 1 | 
-| Documentation | docu.arc     | 1.3  2.5 | 2 | 
-| Applications  | apps.arc     | 1.3  2.8 | 3 | 
-| Tutorials     | tutorial.arc | 0.3  0.8 | 4 | 
-| Pr3Fonts      | pr3fonts.arc | 0.3  0.6 | 4 | 
-| Pr6Fonts      | pr6fonts.arc | 0.5  1.8 | 4 | 
-| Source1       | source1.arc  | 0.9  2.5 | 5 | 
-| Source2       | source2.arc  | 1.2  3.5 | 6 | 
-| Source3       | source3.arc  | 0.6  1.7 | 7 | 
+
+| PACKAGE      | FILENAME     | SIZE (MB)  | DISC No. |
+| :------------ | :----------- | :--------- | :-----: |
+| Oberon-0      | oberon0.dsk  | 1.4        | 0 | 
+| Gadgets       | gadgets.arc  | 1.4  (2.9) | 1 | 
+| Documentation | docu.arc     | 1.3  (2.5) | 2 | 
+| Applications  | apps.arc     | 1.3  (2.8) | 3 | 
+| Tutorials     | tutorial.arc | 0.3  (0.8) | 4 | 
+| Pr3Fonts      | pr3fonts.arc | 0.3  (0.6) | 4 | 
+| Pr6Fonts      | pr6fonts.arc | 0.5  (1.8) | 4 | 
+| Source1       | source1.arc  | 0.9  (2.5) | 5 | 
+| Source2       | source2.arc  | 1.2  (3.5) | 6 | 
+| Source3       | source3.arc  | 0.6  (1.7) | 7 | 
+Table: sizes are in MB, compressed, then uncompressed
+
 
 It turns out you can create 1.44MB Fat16 disc images from the
 Virtual Box 6.0 floppy drive link.  When you click on the floppy
-drive in the details page you have a choice that includes "create a new floppy disc". Select this, five the disc a filename like "disk1". Remove
-the disc then create disk2, disk3, etc. In each the empty disc image
+drive in the details page you have a choice that includes "create a new floppy disc". Select this, five the disc a filename like "disc1". Remove
+the disc then create disc2, disc3, etc. In each the empty disc image
 files places the files from the table above. It's a tedious process
 but this gives you something the Oberon Sytem can read and install
 from. Originally I just put all the files into an ISO CD ROM image
