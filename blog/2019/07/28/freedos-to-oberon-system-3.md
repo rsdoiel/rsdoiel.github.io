@@ -1,11 +1,15 @@
 +++
 title = "FreeDOS 1.2 to Oberon System 3"
 byline = "By R. S. Doiel, 2019-07-28"
+pubdate = "2019-07-29, 5:45pm, PST"
 markup = "mmark"
 +++
 
 
 # FreeDOS to Oberon System 3
+
+By R. S. Doiel, 2019-07-28
+
 
 What follows are notes on getting a FreeDOS 1.2[^1] and 
 then Native Oberon[^2] running under VirtualBox 6.0. You might 
