@@ -19,8 +19,8 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + Git
 + Go
 + JavaScript (NodeJS)
-+ Julia
 + Make
++ Oberon
 + Perl
 + PHP
 + Python
