@@ -27,7 +27,8 @@
       <article>
 	  <h1 id="freedos-to-oberon-system-3">FreeDOS to Oberon System 3</h1>
 
-<p>By R. S. Doiel, 2019-07-28</p>
+<p>By R. S. Doiel, 2019-07-28
+(updated: 2019-08-19)</p>
 
 <p>What follows are notes on getting a FreeDOS 1.2<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> and
 then Native Oberon<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup> running under VirtualBox 6.0. You might
@@ -119,12 +120,49 @@ the virtual boxes' detail page and clicking on the drive and picking the
 
 <p>At this point we have a a virtual machine that is very similar to an
 1999 era PC installed with MS DOS.  <a href="http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you'd install Native Oberon
-via 1.44MB floppy discs. We can simulate that with our Virtual machine.
-In the folder of you downloaded there is disc called &quot;oberon0.dsk&quot;. That
-can go in our first floppy drive. But how to we get the rest of the
-files onto a virtual floppies? This wasn't obvious to me at first.</p>
+via 1.44MB floppy discs.  In the folder of you downloaded there is
+disc image called &quot;oberon0.dsk&quot;.  That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn't obvious to me at first.</p>
 
-<p>The Oberon install discs were organized as follows</p>
+<h2 id="make-the-floppy-disc-images-on-macos">Make the floppy disc images on macOS</h2>
+
+<p>Use can use &quot;Disk Utility&quot; to create floppy disc images on a Mac.
+Unlike creating CD images you want to first use the blank image.
+From the menu click on File -&gt; New Image -&gt; Blank Image (or use
+the shortcut command key and &quot;N&quot;).  You should then see a model
+dialog box. This dialog lets you set the name of the image file. You
+need to set the size to &quot;1474560 B&quot;. Set format &quot;MS-DOS (FAT)&quot;.
+Set encryption of none. Set partition type of
+&quot;Single partition - Master Boot Record&quot; and image format set to
+&quot;read/write&quot;. Once the disc image is created you can then mount
+the empty disc image by clicking on it in finder. Next drag the
+appropriate file(s) into the image. Unmount (eject) the image.
+At the point you should have a floppy image suitable to mount
+from the Virtual Box VM's &quot;floppy drive&quot;.</p>
+
+<h2 id="make-the-floppy-disc-images-on-linux">Make the floppy disc images on Linux</h2>
+
+<p>On Linux I used the mkfs.mkdos with the &quot;-o&quot; option to set the
+image name and just created the images from the folders with each
+folder holding the appropriate file.</p>
+
+<h2 id="make-the-floppy-disc-images-from-freedos">Make the floppy disc images from FreeDOS</h2>
+
+<p>A third approach I tried that also worked easily was just to use
+FreeDOS.  I create an iso image of the Oberon installation
+directory and mounted that as a CD under FreeDOS, used Virtual Box
+to create the empty floppy and then formatted the floppy old school
+style (e.g. &quot;format a:&quot;) and copied the files across.</p>
+
+<p>In either case make sure the formatted images are FAT12 or FAT16.</p>
+
+<p>The Oberon install discs were organized as follows. The
+&quot;oberon0.dsk&quot; is initial disc to install a minimal Oberon System.
+Once it's installation is complete (described in install.txt
+in the Oberon System 3 Stdalone directory) you can then follow
+the steps to install the rest of the system, source code
+and documentation. The gadgets1.arc contains the install for
+Gadgets desktop environment and is an interesting look at how
+Oberon took a different path for (similar to RISC OS) for a GUI.</p>
 <figure>
 <table>
 <thead>
@@ -211,17 +249,6 @@ files onto a virtual floppies? This wasn't obvious to me at first.</p>
 <figcaption>sizes are in MB, compressed, then uncompressed
 </figcaption>
 </figure>
-
-<p>It turns out you can create 1.44MB Fat16 disc images from the
-Virtual Box 6.0 floppy drive link.  When you click on the floppy
-drive in the details page you have a choice that includes &quot;create a new floppy disc&quot;. Select this, five the disc a filename like &quot;disc1&quot;. Remove
-the disc then create disc2, disc3, etc. In each the empty disc image
-files places the files from the table above. It's a tedious process
-but this gives you something the Oberon Sytem can read and install
-from. Originally I just put all the files into an ISO CD ROM image
-but I could not figure out how to mount that from this version
-of Oberon. Now when you start up your Oberon V3 virtual machine
-you can install the rest of the software like Gadgets.</p>
 <h1 id="footnote-section">Footnotes</h1>
 
 <div class="footnotes">

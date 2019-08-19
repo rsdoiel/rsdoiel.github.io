@@ -9,6 +9,7 @@ markup = "mmark"
 # FreeDOS to Oberon System 3
 
 By R. S. Doiel, 2019-07-28
+(updated: 2019-08-19)
 
 
 What follows are notes on getting a FreeDOS 1.2[^1] and 
@@ -100,12 +101,49 @@ the virtual boxes' detail page and clicking on the drive and picking the
 
 At this point we have a a virtual machine that is very similar to an 
 1999 era PC installed with MS DOS.  [Native Oberon](http://www.ethoberon.ethz.ch/native/) Normally you'd install Native Oberon
-via 1.44MB floppy discs. We can simulate that with our Virtual machine.
-In the folder of you downloaded there is disc called "oberon0.dsk". That
-can go in our first floppy drive. But how to we get the rest of the 
-files onto a virtual floppies? This wasn't obvious to me at first.
+via 1.44MB floppy discs.  In the folder of you downloaded there is 
+disc image called "oberon0.dsk".  That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn't obvious to me at first.
 
-The Oberon install discs were organized as follows
+## Make the floppy disc images on macOS
+
+Use can use "Disk Utility" to create floppy disc images on a Mac. 
+Unlike creating CD images you want to first use the blank image. 
+From the menu click on File -> New Image -> Blank Image (or use 
+the shortcut command key and "N").  You should then see a model
+dialog box. This dialog lets you set the name of the image file. You
+need to set the size to "1474560 B". Set format "MS-DOS (FAT)".
+Set encryption of none. Set partition type of 
+"Single partition - Master Boot Record" and image format set to 
+"read/write". Once the disc image is created you can then mount 
+the empty disc image by clicking on it in finder. Next drag the 
+appropriate file(s) into the image. Unmount (eject) the image.
+At the point you should have a floppy image suitable to mount
+from the Virtual Box VM's "floppy drive". 
+
+## Make the floppy disc images on Linux
+
+On Linux I used the mkfs.mkdos with the "-o" option to set the 
+image name and just created the images from the folders with each 
+folder holding the appropriate file.
+
+## Make the floppy disc images from FreeDOS
+
+A third approach I tried that also worked easily was just to use 
+FreeDOS.  I create an iso image of the Oberon installation 
+directory and mounted that as a CD under FreeDOS, used Virtual Box 
+to create the empty floppy and then formatted the floppy old school 
+style (e.g. "format a:") and copied the files across.
+
+In either case make sure the formatted images are FAT12 or FAT16.
+
+The Oberon install discs were organized as follows. The 
+"oberon0.dsk" is initial disc to install a minimal Oberon System.
+Once it's installation is complete (described in install.txt
+in the Oberon System 3 Stdalone directory) you can then follow
+the steps to install the rest of the system, source code
+and documentation. The gadgets1.arc contains the install for 
+Gadgets desktop environment and is an interesting look at how
+Oberon took a different path for (similar to RISC OS) for a GUI.
 
 
 | PACKAGE      | FILENAME     | SIZE (MB)  | DISC No. |
@@ -121,18 +159,6 @@ The Oberon install discs were organized as follows
 | Source2       | source2.arc  | 1.2  (3.5) | 6 | 
 | Source3       | source3.arc  | 0.6  (1.7) | 7 | 
 Table: sizes are in MB, compressed, then uncompressed
-
-
-It turns out you can create 1.44MB Fat16 disc images from the
-Virtual Box 6.0 floppy drive link.  When you click on the floppy
-drive in the details page you have a choice that includes "create a new floppy disc". Select this, five the disc a filename like "disc1". Remove
-the disc then create disc2, disc3, etc. In each the empty disc image
-files places the files from the table above. It's a tedious process
-but this gives you something the Oberon Sytem can read and install
-from. Originally I just put all the files into an ISO CD ROM image
-but I could not figure out how to mount that from this version
-of Oberon. Now when you start up your Oberon V3 virtual machine
-you can install the rest of the software like Gadgets.
 
 
 [^1]: FreeDOS is an Open Source implementation of PC/MS DOC
