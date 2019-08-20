@@ -43,7 +43,7 @@ which is what I proceeded to do.
 
 The [FreeDOS](https://freedos.org) website includes a CD ROM image
 that you can use to install it. There are couple small hitches though
-to get it working under VirtualBox. First go to the [download](https://freedos.org/download) page and download the [CDROM "standard" installer"](http://www.freedos.org/download/download/FD12CD.iso).
+to get it working under VirtualBox. First go to the [download](https://freedos.org/download) page and download the [CDROM "standard" installer](http://www.freedos.org/download/download/FD12CD.iso).
 
 While that is downloading you can setup your VirtualBox machine.
 First to remember is DOS compared to today's operating systems is
@@ -95,16 +95,21 @@ already installed[^5].
 ```
 
 Clone your FreeDOS Box first. You'll want to do a "Full Clone". You'll
-also want to "remove" any optical discs or floppies. You do that from
-the virtual boxes' detail page and clicking on the drive and picking the
-"Remove disc from virtual drive" in the popup menu.
+also want to "remove disk from virtual drive" for any optical discs 
+or floppies. You do that from the virtual boxes' detail page and 
+clicking on the drive and picking the "Remove disc from virtual 
+drive" in the popup menu.
 
-At this point we have a a virtual machine that is very similar to an 
-1999 era PC installed with MS DOS.  [Native Oberon](http://www.ethoberon.ethz.ch/native/) Normally you'd install Native Oberon
+At this point we have a virtual machine that is very similar to an 
+1999 era PC installed with MS DOS.  Normally you'd install 
+[Native Oberon](http://www.ethoberon.ethz.ch/native/) 
 via 1.44MB floppy discs.  In the folder of you downloaded there is 
-disc image called "oberon0.dsk".  That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn't obvious to me at first.
+disc image called "oberon0.dsk".  This is used to install a minimal
+Oberon System.  What about the rest of the Oberon System?  How do 
+we get the rest of the files onto a virtual floppies? This wasn't 
+obvious to me at first.
 
-## Make the floppy disc images on macOS
+## Making the floppy disc images on macOS
 
 Use can use "Disk Utility" to create floppy disc images on a Mac. 
 Unlike creating CD images you want to first use the blank image. 
@@ -120,28 +125,34 @@ appropriate file(s) into the image. Unmount (eject) the image.
 At the point you should have a floppy image suitable to mount
 from the Virtual Box VM's "floppy drive". 
 
-## Make the floppy disc images on Linux
+## Making the floppy disc images on Linux
 
 On Linux I used the mkfs.mkdos with the "-o" option to set the 
 image name and just created the images from the folders with each 
 folder holding the appropriate file.
 
-## Make the floppy disc images from FreeDOS
+## Making the floppy disc images from FreeDOS
 
-A third approach I tried that also worked easily was just to use 
-FreeDOS.  I create an iso image of the Oberon installation 
-directory and mounted that as a CD under FreeDOS, used Virtual Box 
-to create the empty floppy and then formatted the floppy old school 
-style (e.g. "format a:") and copied the files across.
+Another approach would is to use FreeDOS.  I create an 
+iso image of the Oberon installation directory and mounted that 
+as a CD under FreeDOS. Next I used Virtual Box's 
+"create a new floppy disc" to create an empty unformatted 1.44 MB
+disc which I think formated using the DOS command "format a:".
+Once completed I copied the files to the "a:" drive also using the
+DOS copy command.
 
-In either case make sure the formatted images are FAT12 or FAT16.
+In either case make sure the formatted floppy disc images are 
+FAT12 or FAT16. FAT32 came about after this version of Oberon was
+developed so it may not be readable for installation.
+
+## Organizing the install discs
 
 The Oberon install discs were organized as follows. The 
 "oberon0.dsk" is initial disc to install a minimal Oberon System.
 Once it's installation is complete (described in install.txt
 in the Oberon System 3 Stdalone directory) you can then follow
 the steps to install the rest of the system, source code
-and documentation. The gadgets1.arc contains the install for 
+and documentation. E.g. gadgets1.arc contains the install for 
 Gadgets desktop environment and is an interesting look at how
 Oberon took a different path for (similar to RISC OS) for a GUI.
 

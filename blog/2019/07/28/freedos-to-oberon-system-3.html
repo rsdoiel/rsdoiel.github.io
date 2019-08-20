@@ -61,7 +61,7 @@ which is what I proceeded to do.</p>
 
 <p>The <a href="https://freedos.org">FreeDOS</a> website includes a CD ROM image
 that you can use to install it. There are couple small hitches though
-to get it working under VirtualBox. First go to the <a href="https://freedos.org/download">download</a> page and download the <a href="http://www.freedos.org/download/download/FD12CD.iso">CDROM &quot;standard&quot; installer&quot;</a>.</p>
+to get it working under VirtualBox. First go to the <a href="https://freedos.org/download">download</a> page and download the <a href="http://www.freedos.org/download/download/FD12CD.iso">CDROM &quot;standard&quot; installer</a>.</p>
 
 <p>While that is downloading you can setup your VirtualBox machine.
 First to remember is DOS compared to today's operating systems is
@@ -114,16 +114,21 @@ already installed<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></s
 </code></pre>
 
 <p>Clone your FreeDOS Box first. You'll want to do a &quot;Full Clone&quot;. You'll
-also want to &quot;remove&quot; any optical discs or floppies. You do that from
-the virtual boxes' detail page and clicking on the drive and picking the
-&quot;Remove disc from virtual drive&quot; in the popup menu.</p>
+also want to &quot;remove disk from virtual drive&quot; for any optical discs
+or floppies. You do that from the virtual boxes' detail page and
+clicking on the drive and picking the &quot;Remove disc from virtual
+drive&quot; in the popup menu.</p>
 
-<p>At this point we have a a virtual machine that is very similar to an
-1999 era PC installed with MS DOS.  <a href="http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you'd install Native Oberon
+<p>At this point we have a virtual machine that is very similar to an
+1999 era PC installed with MS DOS.  Normally you'd install
+<a href="http://www.ethoberon.ethz.ch/native/">Native Oberon</a>
 via 1.44MB floppy discs.  In the folder of you downloaded there is
-disc image called &quot;oberon0.dsk&quot;.  That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn't obvious to me at first.</p>
+disc image called &quot;oberon0.dsk&quot;.  This is used to install a minimal
+Oberon System.  What about the rest of the Oberon System?  How do
+we get the rest of the files onto a virtual floppies? This wasn't
+obvious to me at first.</p>
 
-<h2 id="make-the-floppy-disc-images-on-macos">Make the floppy disc images on macOS</h2>
+<h2 id="making-the-floppy-disc-images-on-macos">Making the floppy disc images on macOS</h2>
 
 <p>Use can use &quot;Disk Utility&quot; to create floppy disc images on a Mac.
 Unlike creating CD images you want to first use the blank image.
@@ -139,28 +144,34 @@ appropriate file(s) into the image. Unmount (eject) the image.
 At the point you should have a floppy image suitable to mount
 from the Virtual Box VM's &quot;floppy drive&quot;.</p>
 
-<h2 id="make-the-floppy-disc-images-on-linux">Make the floppy disc images on Linux</h2>
+<h2 id="making-the-floppy-disc-images-on-linux">Making the floppy disc images on Linux</h2>
 
 <p>On Linux I used the mkfs.mkdos with the &quot;-o&quot; option to set the
 image name and just created the images from the folders with each
 folder holding the appropriate file.</p>
 
-<h2 id="make-the-floppy-disc-images-from-freedos">Make the floppy disc images from FreeDOS</h2>
+<h2 id="making-the-floppy-disc-images-from-freedos">Making the floppy disc images from FreeDOS</h2>
 
-<p>A third approach I tried that also worked easily was just to use
-FreeDOS.  I create an iso image of the Oberon installation
-directory and mounted that as a CD under FreeDOS, used Virtual Box
-to create the empty floppy and then formatted the floppy old school
-style (e.g. &quot;format a:&quot;) and copied the files across.</p>
+<p>Another approach would is to use FreeDOS.  I create an
+iso image of the Oberon installation directory and mounted that
+as a CD under FreeDOS. Next I used Virtual Box's
+&quot;create a new floppy disc&quot; to create an empty unformatted 1.44 MB
+disc which I think formated using the DOS command &quot;format a:&quot;.
+Once completed I copied the files to the &quot;a:&quot; drive also using the
+DOS copy command.</p>
 
-<p>In either case make sure the formatted images are FAT12 or FAT16.</p>
+<p>In either case make sure the formatted floppy disc images are
+FAT12 or FAT16. FAT32 came about after this version of Oberon was
+developed so it may not be readable for installation.</p>
+
+<h2 id="organizing-the-install-discs">Organizing the install discs</h2>
 
 <p>The Oberon install discs were organized as follows. The
 &quot;oberon0.dsk&quot; is initial disc to install a minimal Oberon System.
 Once it's installation is complete (described in install.txt
 in the Oberon System 3 Stdalone directory) you can then follow
 the steps to install the rest of the system, source code
-and documentation. The gadgets1.arc contains the install for
+and documentation. E.g. gadgets1.arc contains the install for
 Gadgets desktop environment and is an interesting look at how
 Oberon took a different path for (similar to RISC OS) for a GUI.</p>
 <figure>
