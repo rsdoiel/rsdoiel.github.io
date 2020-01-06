@@ -1,5 +1,8 @@
 
-+ [FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html), 2019-07-28
+
+## 2019
+
+ + 07-28, [FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html)
 
 ## 2018
 

@@ -97,12 +97,12 @@ mkpage \
     "footer=footer.md" \
     index.tmpl > index.html
 
-mkpage \
-    "year=text:$(date +%Y)" \
-    "title=text:$TITLE" \
-    "pageContent=mars-2020.md" \
-    "nav=nav.md" \
-    "footer=footer.md" \
-    index.tmpl > mars-2020.html
+#mkpage \
+#    "year=text:$(date +%Y)" \
+#    "title=text:$TITLE" \
+#    "pageContent=mars-2020.md" \
+#    "nav=nav.md" \
+#    "footer=footer.md" \
+#    index.tmpl > mars-2020.html
 
 cd "$START_PATH"
