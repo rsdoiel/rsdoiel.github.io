@@ -6,7 +6,7 @@
 + [fdx](https://rsdoiel.github.io/fdx/) - A Go package for working with Final Draft XML files (.fdx)
 + [osf](https://rsdoiel.github.io/osf/) - A Go package for working with Open Screen Play formatted files
 
-### Addition text rendering/formatting tools
+### Additional text rendering/formatting tools
 
 + [mkpage](https://caltechlibrary.github.io/mkpage/) - a deconstructed content system for static content publishing
 + [shorthand](/shorthand/) - a text label expander with markdown support
