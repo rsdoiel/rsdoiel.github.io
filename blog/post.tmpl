@@ -2,27 +2,29 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{{.title}}</title>
+    {% if (title) %}<title>{{title}}</title>{% endif %}
 
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
     <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
     <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
-    {{with .mdfile -}}<link rel="alternative" type="application/markdown" href="{{- . -}}">{{- end}}
+    {% if (mdfile) %}<link rel="alternative" type="application/markdown" href="{{ mdfile }}">{% endif %}
   </head>
   <body>
+    {% autoescape off %}
     <nav>
-    {{.nav}}
+    {{ nav }}
     </nav>
 
     <section>
       <article>
-	  {{.contentBlock}}
+	  {{ contentBlock }}
       </article>
     </section>
 
     <footer>
-    {{.footer}}
+    {{ footer }}
     </footer>
+    {% endautoescape %}
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
 /* We want to add the class "prettyprint" to all the pre elements */

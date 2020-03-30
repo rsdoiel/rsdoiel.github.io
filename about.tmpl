@@ -6,20 +6,22 @@
 
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
     <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
-    {{with .mdfile -}}<link title="markdown source for page" rel="alternative" type="application/markdown" href="{{- . -}}">{{- end}}
+    {% if (mdfile) %}<link title="markdown source for page" rel="alternative" type="application/markdown" href="{{ mdfile }}">{% endif %}
   </head>
   <body>
+    {% autoescape off %}
     <nav>
-    {{.nav}}
+    {{ nav }}
     </nav>
 
 	<section>
-	{{.aboutAuthor}}
-	{{.pageContent}}
+	{{ aboutAuthor }}
+	{{ pageContent }}
     </section>
 
     <footer>
-    {{.footer}}
+    {{ footer }}
     </footer>
+    {% endautoescape %}
     </body>
 </html>
