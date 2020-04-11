@@ -1,7 +1,7 @@
 {
     "markup": "mmark",
     "title": "Mostly Oberon",
-    "byline: "R. S. Doiel",
+    "byline": "R. S. Doiel",
     "date": "2020-04-11",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
