@@ -71,7 +71,7 @@ OBNC provides a Oberon 7 compiler with some optional modules for working in a PO
     obnc HelloWorld.Mod
 ```
 
-If all goes well this should produce a executable file named `HelloWorld` (or `HelloWorld.exe` on Windows). You can now run this program with a command like `./HelloWorld` (or `HelloWorld` on Windows).
+If all goes well this should produce an executable file named `HelloWorld` (or `HelloWorld.exe` on Windows). You can now run this program with a command like `./HelloWorld` (or `HelloWorld` on Windows).
 
 ### Learning more about Oberon
 
