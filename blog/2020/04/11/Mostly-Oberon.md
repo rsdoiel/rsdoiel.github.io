@@ -12,7 +12,7 @@
 
 By R. S. Doiel, 2020-04-11
 
-Mostly Oberon is a series of blog posts documenting some of my experience exploring the Oberon Language, Oberon System and the various rabbit wholes I will inevitably fall into.
+Mostly Oberon is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I will inevitably fall into.
 
 ## Overview
 
