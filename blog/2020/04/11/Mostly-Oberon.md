@@ -1,6 +1,7 @@
 {
     "markup": "mmark",
     "title": "Mostly Oberon",
+    "number": 1,
     "byline": "R. S. Doiel",
     "date": "2020-04-11",
     "copyright": "copyright (c) 2020, R. S. Doiel",
