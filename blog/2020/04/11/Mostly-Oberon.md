@@ -1,12 +1,7 @@
----
-markup = "mmark"
-number = 1
-title = "Mostly Oberon"
-date = "2020-04-11"
-byline = "By R. S. Doiel"
-copyright = "2020-04-11 All Rights Reserved."
-license = "https://creativecommons.org/licenses/by-sa/4.0/"
----
+{
+    "markup": "mmark"
+}
+
 
 # Mostly Oberon
 
