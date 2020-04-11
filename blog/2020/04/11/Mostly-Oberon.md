@@ -16,7 +16,7 @@ Mostly Oberon is a series of blog posts documenting my exploration of the Oberon
 
 ## Overview
 
-Oberon[^1] is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center]("https://en.wikipedia.org/wiki/PARC_(company)").  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).
+Oberon[^1] is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).
 
 
 ### My Voyage
