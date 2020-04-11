@@ -25,7 +25,7 @@ I am new to both Oberon and the Oberon System.  Oberon language is in the tradit
 
 Oberon 7 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like [Go](https://golang.org).
 
-While Wirth conceived of Oberon in the context of a whole system it's use in research and instruction means it is also well suited [POSIX](https://en.wikipedia.org/wiki/POSIX) based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
+While Wirth conceived of Oberon in the context of a whole system[^4] it's use in research and instruction means it is also well suited [POSIX](https://en.wikipedia.org/wiki/POSIX) based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
 
 The latest Oberon is Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's [emulator](https://github.com/pdewacht/oberon-risc-emu). Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.
 
@@ -92,3 +92,4 @@ The online community for Oberon and Oberon System seems mostly centered around a
 
 [^3]: Prof. Wirth's personal website at ETH was available as of 2020-04-11. 
 
+[^4]: Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations.
