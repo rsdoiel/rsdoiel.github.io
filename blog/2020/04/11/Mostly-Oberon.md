@@ -81,9 +81,9 @@ The online community for Oberon and Oberon System seems mostly centered around a
 
 
 
-[1]: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol.
+[^1]: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol.
 
-[2]: In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux, [BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) and [macOS](https://en.wikipedia.org/wiki/MacOS).
+[^2]: In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux, [BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) and [macOS](https://en.wikipedia.org/wiki/MacOS).
 
-[3]: Prof. Wirth's personal website at ETH was available as of 2020-04-11. 
+[^3]: Prof. Wirth's personal website at ETH was available as of 2020-04-11. 
 
