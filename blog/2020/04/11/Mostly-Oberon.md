@@ -11,7 +11,7 @@ Mostly Oberon is a series of blog posts documenting some of my experience explor
 
 ## Overview
 
-Oberon is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_(company).  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).
+Oberon[^1] is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_(company).  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).
 
 
 ## My Voyage
@@ -29,7 +29,7 @@ The latest Oberon is Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you w
 
 I am starting my exploration with Karl Landström's [OBNC](https://miasap.se/obnc/) compiler. I am focusing on getting comfortable using and writing in the Oberon language.
 
-Here's an example of a simple "Hello World"[2] program in Oberon written for a POSIX system. I've named the [source code](HelloWorld.Mod) `HelloWorld.Mod`.
+Here's an example of a simple "Hello World"[^2] program in Oberon written for a POSIX system. I've named the [source code](HelloWorld.Mod) `HelloWorld.Mod`.
 
 ```Oberon
     MODULE HelloWorld;
@@ -72,7 +72,7 @@ If all goes well this should produce a executable file named `HelloWorld` (or `H
 
 I have faced two challenges in my exploration of Oberon, finding a compiler I was happy with (thank you Karl for OBNC) and sorting out the literature around Oberon language implementations and system versions.
 
-Oberon has a rich history though it was not well known in Southern California. Oberon's history is primarily academic and European. It was commonly used in college level instruction in Europe from it's inception at ETH in the late 80's through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era.  They covered the Oberon language and system of their time.  From a historical computing point of view they are still very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Prof. Paul Reed brought things up to date in 2013. I recommend Reed's [www.projectoberon.com](https://www.projectoberon.com) as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth's [website](https://inf.ethz.ch/personal/wirth/) is still maintained[3] and he features links to most of his major publications. His is the canonical source of information on Oberon.
+Oberon has a rich history though it was not well known in Southern California. Oberon's history is primarily academic and European. It was commonly used in college level instruction in Europe from it's inception at ETH in the late 80's through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era.  They covered the Oberon language and system of their time.  From a historical computing point of view they are still very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Prof. Paul Reed brought things up to date in 2013. I recommend Reed's [www.projectoberon.com](https://www.projectoberon.com) as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth's [website](https://inf.ethz.ch/personal/wirth/) is still maintained[^3] and he features links to most of his major publications. His is the canonical source of information on Oberon.
 
 I have found the ACM [Digital Library](https://dl.acm.org/) and the ETH [Research Collection](https://www.research-collection.ethz.ch/?locale-attribute=en) very helpful.  While much of the material is now historic it remains useful for both techniques and inspiration.  Today's hardware, even a Raspberry Pi Zero, is more resource rich than the original systems Oberon ran on.
 
