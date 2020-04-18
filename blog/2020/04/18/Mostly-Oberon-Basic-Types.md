@@ -431,13 +431,13 @@ all called from inside the module's initialization block.
 ## Reading through the code
 
 There are some nuances in Oberon syntax that can creep up on you.
-First while most statements end in a semi-colon there are noticable
+First while most statements end in a semi-colon there are noticeable
 exceptions. Look at the record statements in particular.  The last
-element of your record before the `END` does not have a simi-colon.
+element of your record before the `END` does not have a semicolon.
 In that way it is a little like a `RETURN` value in a function
 like procedure.
 
-In creating our `String` datastructure the Oberon idiom is to first
+In creating our `String` data structure the Oberon idiom is to first
 create a description record, `StringDesc` then create a pointer to
 the descriptive type, i.e. `String`. This is a very common
 idiom in building out complex data structures. A good place to learn
