@@ -103,6 +103,8 @@ Notice the procedures end statement includes the procedure name and
 is terminated by semicolon rather than a period.  Like `HelloWorld.Mod`
 we import the `Out` module to display our greeting.
 
+## Putting it all together
+
 Let's create a new "Hello World" module called `HelloWorld2.Mod` and
 use our `SayingHi` module instead of directly importing `Out`.
 
