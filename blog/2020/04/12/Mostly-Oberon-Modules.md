@@ -13,7 +13,7 @@
 
 By R. S. Doiel, 2020-04-12
 
-This is the second post in the "Mostly Oberon" series of blog posts. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
 ## Modules
 
@@ -419,3 +419,8 @@ other programs.
 [^public]: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are "read only" in other modules.
 
 [^basictypes]: Oberon has a number of basic types, BYTE holds a byte as a series of bit, CHAR holds a single ASCII character, INTEGER holds a signed integer value, REAL holds a floating point number and BOOLEAN holds a True/False value.
+
+### Next
+
+The next post in the series is [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
+

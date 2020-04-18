@@ -1,5 +1,6 @@
 
-+ [Mostly Oberon, Modules](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
++ [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
++ [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
 + [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html), 2020-04-11
 
 ## 2019

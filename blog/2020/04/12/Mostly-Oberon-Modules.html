@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Mostly Oberon, Modules</title>
+    <title>Oberon Modules and Procedures</title>
 
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
     <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
@@ -26,15 +26,15 @@
 
     <section>
       <article>
-	  <h1 id="mostly-oberon-modules">Mostly Oberon, Modules</h1>
+	  <h1 id="oberon-modules-and-procedures">Oberon Modules and Procedures</h1>
 
 <p>By R. S. Doiel, 2020-04-12</p>
 
-<p>This is the second post in the &quot;Mostly Oberon&quot; series of blog posts. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.</p>
+<p>This is the second post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.</p>
 
 <h2 id="modules">Modules</h2>
 
-<p>The module is the primary code unit of Oberon language. Modules allow you to focus on functional units of code and compose them into larger solutions.
+<p>The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.
 A module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon
 the statement separator in Oberon. Our simple &quot;Hello World&quot; example
 shows the basic code shape.</p>
@@ -69,7 +69,7 @@ that the compiler will ignore it.</p>
 <p>For a module to be really useful you want to have the capability
 of including both private and public code. Public code
 allows us to reuse our code in other modules while the private code
-keep things safe inside the module and from collidating with other
+keeps interal things inside the module safe from collidating with other
 modules private code. This technique is classically known as
 &quot;information hiding&quot; and in computer sciences texts as &quot;scope&quot;. Lets
 create a a more composable module called <code>SayingHi.Mod</code>.  In
@@ -77,6 +77,8 @@ addition to display &quot;Hello World!&quot; we want a public method
 (procedure in Oberon terminology) that can ask for a name and print
 out a salutation. We will use the <code>SayingHi.Mod</code> module along with
 a newer version of <code>HelloWorld.Mod</code> named <code>HelloWorld2.Mod</code>.</p>
+
+<h2 id="procedures">Procedures</h2>
 
 <p>How do we write methods in Oberon?  Methods are declared
 using the keyword <code>PROCEDURE</code> followed by their name, a
@@ -112,6 +114,8 @@ statements we declare a procedure with its own begin and end statements.
 Notice the procedures end statement includes the procedure name and
 is terminated by semicolon rather than a period.  Like <code>HelloWorld.Mod</code>
 we import the <code>Out</code> module to display our greeting.</p>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
 
 <p>Let's create a new &quot;Hello World&quot; module called <code>HelloWorld2.Mod</code> and
 use our <code>SayingHi</code> module instead of directly importing <code>Out</code>.</p>
@@ -413,6 +417,10 @@ other programs.</p>
 <li>Using a module's ability to have public and private procedures</li>
 <li>Touched on how memory is used in a simple interactive program</li>
 </ol>
+
+<h3 id="next">Next</h3>
+
+<p>The next post in the series is <a href="../18/Mostly-Oberon-Basic-Types.html">Basic Types</a></p>
 <h1 id="footnote-section">Footnotes</h1>
 
 <div class="footnotes">

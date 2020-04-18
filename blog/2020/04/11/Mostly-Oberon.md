@@ -13,7 +13,7 @@
 
 By R. S. Doiel, 2020-04-11
 
-Mostly Oberon is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I will inevitably fall into.
+Mostly Oberon is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
 ## Overview
 
@@ -94,3 +94,8 @@ The online community for Oberon and Oberon System seems mostly centered around a
 [^3]: Prof. Wirth's personal website at ETH was available as of 2020-04-11. 
 
 [^4]: Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations.
+
+### Next
+
+The next post in the series is [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
+
