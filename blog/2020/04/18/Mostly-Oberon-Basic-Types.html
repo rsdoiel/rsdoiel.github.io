@@ -36,8 +36,8 @@
 
 <p>Oberon is a small systems language. It provides a useful but
 limited umber of basic types<sup class="footnote-ref" id="fnref:basic-types"><a href="#fn:basic-types">1</a></sup>. These can be be
-thought of as simple types mapping directly to memory locations
-and more complex composed of more than a single memory location.</p>
+thought of as simple types mapping to specific memory locations
+and more complex types composed of multiple memory locations.</p>
 
 <h3 id="integer">INTEGER</h3>
 
@@ -119,11 +119,11 @@ a BYTE can only represent a value in the range of zero to 255.</p>
 <pre><code class="language-Oberon">    b := 0A;
 </code></pre>
 
-<h2 id="structuring-data-in-memory">Structuring data in memory</h2>
+<h3 id="more-complex-types">More complex types</h3>
 
 <p>The simplest types would prove problematic when addressing
-more complex data representation if Oberon lacked two other built-in
-types - ARRAY and RECORD.</p>
+more complex data representations if Oberon lacked two three built-in
+types - ARRAY, RECORD and POINTER TO.</p>
 
 <h3 id="array">ARRAY</h3>
 
@@ -212,21 +212,22 @@ our next type &quot;POINTER TO&quot;.</p>
 <h3 id="pointer-to">POINTER TO</h3>
 
 <p>Oberon is a type safe language. To keep things safe in a type
-safe language of you need to place constraints around random
+safe language you need to place constraints around random
 memory access. Memory can be thought of a list of locations and
 we can go to those locations if we know their address. A pointer
 in most languages holds an address. Oberon has pointers but they
-most point at specific data types. So like array you have to indicate
-that type in a declaration. E.g. <code>VAR a : POINTER TO CHAR;</code> would
-declare a variable 'a' that points to a memory location that holds
-a CHAR. The more common case is we use &quot;POINTER TO&quot; in records
-to create dynamic data structures such as linked lists.</p>
+must point at specific data types. So like array you have to indicate
+the type of the thing you are pointing at in a declaration.
+E.g. <code>VAR a : POINTER TO CHAR;</code> would declare a variable 'a'
+that points to a memory location that holds a CHAR. The more common
+case is we use &quot;POINTER TO&quot; in records to create dynamic data
+structures such as linked lists.</p>
 
 <p>Here's a simple data structure representing a dynamic list
-of characters, dynamic string, using a single link list.</p>
-
-<p>First we need to create a simple data structure to hold our character
-and point at a next character.  If there is no next character
+of characters. Let's call it a dynamic string and we will implement
+it using a single link list. The list can be implemented by
+defining a RECORD type that holds a single character and a pointer
+to the next character.  If there is no next character
 we assume we're at the end of the string.</p>
 
 <pre><code class="language-Oberon">    TYPE
@@ -236,7 +237,9 @@ we assume we're at the end of the string.</p>
       END;
 </code></pre>
 
-<p>Declaring a string type is as easy as declaring our scoreboard.</p>
+<p>RECORD types are permitted to use recursive definition so our
+&quot;next&quot; value is itself a type &quot;DynamicString&quot;.  Declaring a
+dynamic string type is as easy as declaring our scoreboard.</p>
 
 <pre><code class="language-Oberon">  VAR
     VAR s : DynamicString;
@@ -245,7 +248,11 @@ we assume we're at the end of the string.</p>
 <p>Setting our dynamic string is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable &quot;s&quot;
 to a procedure to build out our dynamic string from an simple
-array of characters.</p>
+array of characters. Note &quot;s&quot; is declared as a &quot;VAR&quot; parameter
+in our procedure heading. Our <code>SetString</code> will also need to handle
+creating new elements in our dynamic string. That is what Oberon's
+built-in <code>NEW()</code> procedure does. It allocates new memory of our
+record.</p>
 
 <pre><code class="language-Oberon">    PROCEDURE SetString(VAR s : DynamicString; src : ARRAY OF CHAR);
       VAR i : INTEGER; c : CHAR; cur, tmp : DynamicString;
