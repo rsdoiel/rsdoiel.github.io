@@ -22,7 +22,7 @@ limited umber of basic types[^basic-types]. These can be be
 thought of as simple types mapping to specific memory locations
 and more complex types composed of multiple memory locations.
 
-[^basic-types]: INTEGER, REAL, CHAR, BYTE, ARRAY, RECORD and POINTER TO
+[^basic-types]: INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO
 
 ### INTEGER
 
@@ -76,7 +76,7 @@ encoding, decoding and other operations.
 Declaring a CHAR variable `c` would look like
 
 ```Oberon
-    VAR c: INTEGER;
+    VAR c: CHAR;
 ```
 
 Setting the value of `c` to capital Z would look like
@@ -87,35 +87,6 @@ Setting the value of `c` to capital Z would look like
 
 Note: Oberon expects double quotes to notate a character.
 
-### BYTE
-
-A BYTE in Oberon is a subset of integers with a range of 
-zero to 255. It can hold the value of a single location in 
-memory. It is used in two common cases. First
-extending Oberon to the machine level[^machine-code]. 
-A BYTE as holding a binary view of a memory location. Second is 
-providing presentation of values that are not naturally expressed 
-as an INTEGER, REAL or CHAR. This would included binary 
-representation of character encoding such as UTF-8 and EBCDIC. 
-It could also be binary presentations of other data like 
-graphical encoding of images. The main thing to consider is 
-a BYTE can only represent a value in the range of zero to 255.
-
-Declaring a byte variable `b` would look like
-
-```Oberon
-    VAR b : BYTE;
-```
-
-Setting the value of `b` to ten using Hex notation of "0A".
-
-```Oberon
-    b := 0A;
-```
-
-[^machine-code]:Processors usually work on a byte representation of supported instructions where part of the byte identifies an operation (e.g. add) the other rest of the byte indicates either registers or relative locations of operands.
-
-[^now]: As of 2020-04-18
 
 ### More complex types
 
@@ -184,16 +155,16 @@ and a list of three scores. We'll call this record type
       TopThreeScoreboard = RECORD
         gameName : ARRAY 24 OF CHAR;
         playerNames : ARRAY 3, 24 OF CHAR;
-        scores : ARRAY 3 OF INTEGER;
-      END
+        scores : ARRAY 3 OF INTEGER
+      END;
 ```
 
-Now that we have describe a record of type "TopTenScoreboard" we can
+Now that we have describe a record of type "TopThreeScoreboard" we can
 declare it with our "VAR" statement.
 
 ```Oberon
     VAR
-      scoreboard : TopTenScoreboard;
+      scoreboard : TopThreeScoreboard;
 ```
 
 Setting the element values in a record uses a dot notation
@@ -238,19 +209,19 @@ we assume we're at the end of the string.
 
 ```Oberon
     TYPE
-      DynamicString = RECORD
+      String = RECORD
         value : CHAR;
-        next : POINTER TO DynamicString;
+        next : POINTER TO String
       END;
 ```
 
 RECORD types are permitted to use recursive definition so our 
-"next" value is itself a type "DynamicString".  Declaring a 
+"next" value is itself a type "String".  Declaring a 
 dynamic string type is as easy as declaring our scoreboard.
 
 ```Oberon
   VAR
-    VAR s : DynamicString;
+    VAR s : String;
 ```
 
 Setting our dynamic string is a little trickier. This is where
@@ -263,8 +234,8 @@ built-in `NEW()` procedure does. It allocates new memory of our
 record.
 
 ```Oberon
-    PROCEDURE SetString(VAR s : DynamicString; src : ARRAY OF CHAR);
-      VAR i : INTEGER; c : CHAR; cur, tmp : DynamicString;
+    PROCEDURE SetString(VAR s : String; src : ARRAY OF CHAR);
+      VAR i : INTEGER; c : CHAR; cur, tmp : String;
     BEGIN
       cur := s;
       i := 0;
@@ -285,8 +256,8 @@ We can move our string back into a fixed length array of char
 with a similar procedure.
 
 ```Oberon
-  PROCEDURE StringToCharArray(s : DynamicString; VAR src : ARRAY OF CHAR);
-    VAR cur := DynamicString; i, l : INTEGER;
+  PROCEDURE StringToCharArray(s : String; VAR src : ARRAY OF CHAR);
+    VAR cur := String; i, l : INTEGER;
   BEGIN
     l := LEN(src);
     i := 0;
@@ -310,5 +281,13 @@ Procedures allow us to define consistent ways of interacting with
 out data, and types singularly and collectively allow us to structure
 data in a way that is useful to solving problems.
 
+## Putting it all together
+
+Here is a [module demoing our basic type](BasicTypeDemo.Mod). In it
+we can define procedures to demo our assignments and then show their
+values in the module's initialization block.
+
+```Oberon
+```
 
 [^ad]: Prof. Wirth wrote an excellent text on [Algorithms and Data structures](https://inf.ethz.ch/personal/wirth/AD.pdf) available in PDF format.
