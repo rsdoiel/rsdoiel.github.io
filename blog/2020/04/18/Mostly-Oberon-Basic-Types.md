@@ -201,37 +201,40 @@ case is we use "POINTER TO" in records to create dynamic data
 structures such as linked lists.
 
 Here's a simple data structure representing a dynamic list
-of characters. Let's call it a dynamic string and we will implement
+of characters. Let's call it a String and we will implement
 it using a single link list. The list can be implemented by
 defining a RECORD type that holds a single character and a pointer
-to the next character.  If there is no next character
+to the next record. We can then also define a pointer to this type
+of record.  If there is no next character record
 we assume we're at the end of the string.
 
 ```Oberon
     TYPE
-      String = RECORD
+      StringDesc = RECORD
         value : CHAR;
-        next : POINTER TO String
+        next : POINTER TO StringDesc
       END;
+
+      String : POINTER TO StringDesc;
 ```
 
 RECORD types are permitted to use recursive definition so our 
-"next" value is itself a type "String".  Declaring a 
-dynamic string type is as easy as declaring our scoreboard.
+"next" value is itself a type "StringDesc".  Declaring a 
+String variable is as easy as declaring our scoreboard type variable.
 
 ```Oberon
   VAR
     VAR s : String;
 ```
 
-Setting our dynamic string is a little trickier. This is where
+Setting our String is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable "s"
-to a procedure to build out our dynamic string from an simple
+of type String to a procedure to build out our String from an simple
 array of characters. Note "s" is declared as a "VAR" parameter
 in our procedure heading. Our `SetString` will also need to handle
 creating new elements in our dynamic string. That is what Oberon's
-built-in `NEW()` procedure does. It allocates new memory of our
-record.
+built-in `NEW()` procedure does. It allocates new memory for our
+list of records.
 
 ```Oberon
     PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
@@ -254,6 +257,7 @@ record.
           tmp.next := NIL;
           cur.next := tmp;
         END;
+        (* Advance our current pointer to the next element *)
         cur := cur.next;
         i := i + 1;
       END;
