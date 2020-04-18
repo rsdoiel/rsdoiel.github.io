@@ -77,7 +77,7 @@ look like</p>
 languages like Go or Julia, predates the wide adoption of UTF-8.
 The character is represented in memory as one 8 bit byte.
 If you need to work with an extended character set then you need
-to either re-encode the values into ASCII. At this time<sup class="footnote-ref" id="fnref:now"><a href="#fn:now">2</a></sup> there
+to either re-encode the values into ASCII. At this time[^now] there
 is no standard way of handling None ASCII character systems natively.
 If you need to work directly with an encoding such as UTF-8 you'll
 need to develop your own modules and procedures for handily their
@@ -85,7 +85,7 @@ encoding, decoding and other operations.</p>
 
 <p>Declaring a CHAR variable <code>c</code> would look like</p>
 
-<pre><code class="language-Oberon">    VAR c: INTEGER;
+<pre><code class="language-Oberon">    VAR c: CHAR;
 </code></pre>
 
 <p>Setting the value of <code>c</code> to capital Z would look like</p>
@@ -94,30 +94,6 @@ encoding, decoding and other operations.</p>
 </code></pre>
 
 <p>Note: Oberon expects double quotes to notate a character.</p>
-
-<h3 id="byte">BYTE</h3>
-
-<p>A BYTE in Oberon is a subset of integers with a range of
-zero to 255. It can hold the value of a single location in
-memory. It is used in two common cases. First
-extending Oberon to the machine level<sup class="footnote-ref" id="fnref:machine-code"><a href="#fn:machine-code">3</a></sup>.
-A BYTE as holding a binary view of a memory location. Second is
-providing presentation of values that are not naturally expressed
-as an INTEGER, REAL or CHAR. This would included binary
-representation of character encoding such as UTF-8 and EBCDIC.
-It could also be binary presentations of other data like
-graphical encoding of images. The main thing to consider is
-a BYTE can only represent a value in the range of zero to 255.</p>
-
-<p>Declaring a byte variable <code>b</code> would look like</p>
-
-<pre><code class="language-Oberon">    VAR b : BYTE;
-</code></pre>
-
-<p>Setting the value of <code>b</code> to ten using Hex notation of &quot;0A&quot;.</p>
-
-<pre><code class="language-Oberon">    b := 0A;
-</code></pre>
 
 <h3 id="more-complex-types">More complex types</h3>
 
@@ -134,7 +110,7 @@ memory when the program starts to hold the array.  While this
 seems restrictive our next data type, RECORD, lets us move
 into more dynamic memory structures.  Pre-allocating the array
 size also has the advantage that we can re-use those locations
-easily in a type safe manner<sup class="footnote-ref" id="fnref:type-safety"><a href="#fn:type-safety">4</a></sup>.</p>
+easily in a type safe manner<sup class="footnote-ref" id="fnref:type-safety"><a href="#fn:type-safety">2</a></sup>.</p>
 
 <p>Declaring a variable &quot;name&quot; as an array of twelve characters would
 look like and declaring a variable &quot;scores&quot; as an array of ten
@@ -180,15 +156,15 @@ and a list of three scores. We'll call this record type
       TopThreeScoreboard = RECORD
         gameName : ARRAY 24 OF CHAR;
         playerNames : ARRAY 3, 24 OF CHAR;
-        scores : ARRAY 3 OF INTEGER;
-      END
+        scores : ARRAY 3 OF INTEGER
+      END;
 </code></pre>
 
-<p>Now that we have describe a record of type &quot;TopTenScoreboard&quot; we can
+<p>Now that we have describe a record of type &quot;TopThreeScoreboard&quot; we can
 declare it with our &quot;VAR&quot; statement.</p>
 
 <pre><code class="language-Oberon">    VAR
-      scoreboard : TopTenScoreboard;
+      scoreboard : TopThreeScoreboard;
 </code></pre>
 
 <p>Setting the element values in a record uses a dot notation
@@ -206,7 +182,7 @@ the scores 102, 101, 100.</p>
    scoreboard.scores[0] := 100;
 </code></pre>
 
-<p>Records are also used to create dynamic memory structures such as lists, trees and maps<sup class="footnote-ref" id="fnref:ad"><a href="#fn:ad">5</a></sup>.  The dynamic nature of records is achieved with
+<p>Records are also used to create dynamic memory structures such as lists, trees and maps<sup class="footnote-ref" id="fnref:ad"><a href="#fn:ad">3</a></sup>.  The dynamic nature of records is achieved with
 our next type &quot;POINTER TO&quot;.</p>
 
 <h3 id="pointer-to">POINTER TO</h3>
@@ -231,18 +207,18 @@ to the next character.  If there is no next character
 we assume we're at the end of the string.</p>
 
 <pre><code class="language-Oberon">    TYPE
-      DynamicString = RECORD
+      String = RECORD
         value : CHAR;
-        next : POINTER TO DynamicString;
+        next : POINTER TO String
       END;
 </code></pre>
 
 <p>RECORD types are permitted to use recursive definition so our
-&quot;next&quot; value is itself a type &quot;DynamicString&quot;.  Declaring a
+&quot;next&quot; value is itself a type &quot;String&quot;.  Declaring a
 dynamic string type is as easy as declaring our scoreboard.</p>
 
 <pre><code class="language-Oberon">  VAR
-    VAR s : DynamicString;
+    VAR s : String;
 </code></pre>
 
 <p>Setting our dynamic string is a little trickier. This is where
@@ -254,8 +230,8 @@ creating new elements in our dynamic string. That is what Oberon's
 built-in <code>NEW()</code> procedure does. It allocates new memory of our
 record.</p>
 
-<pre><code class="language-Oberon">    PROCEDURE SetString(VAR s : DynamicString; src : ARRAY OF CHAR);
-      VAR i : INTEGER; c : CHAR; cur, tmp : DynamicString;
+<pre><code class="language-Oberon">    PROCEDURE SetString(VAR s : String; src : ARRAY OF CHAR);
+      VAR i : INTEGER; c : CHAR; cur, tmp : String;
     BEGIN
       cur := s;
       i := 0;
@@ -275,8 +251,8 @@ record.</p>
 <p>We can move our string back into a fixed length array of char
 with a similar procedure.</p>
 
-<pre><code class="language-Oberon">  PROCEDURE StringToCharArray(s : DynamicString; VAR src : ARRAY OF CHAR);
-    VAR cur := DynamicString; i, l : INTEGER;
+<pre><code class="language-Oberon">  PROCEDURE StringToCharArray(s : String; VAR src : ARRAY OF CHAR);
+    VAR cur := String; i, l : INTEGER;
   BEGIN
     l := LEN(src);
     i := 0;
@@ -299,6 +275,14 @@ allow us to group operations and data into cohesive focused units.
 Procedures allow us to define consistent ways of interacting with
 out data, and types singularly and collectively allow us to structure
 data in a way that is useful to solving problems.</p>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
+
+<p>Here is a <a href="BasicTypeDemo.Mod">module demoing our basic type</a>. In it
+we can define procedures to demo our assignments and then show their
+values in the module's initialization block.</p>
+
+<pre><code class="language-Oberon"></code></pre>
 <h1 id="footnote-section">Footnotes</h1>
 
 <div class="footnotes">
@@ -306,11 +290,7 @@ data in a way that is useful to solving problems.</p>
 <hr>
 
 <ol>
-<li id="fn:basic-types">INTEGER, REAL, CHAR, BYTE, ARRAY, RECORD and POINTER TO</li>
-
-<li id="fn:now">As of 2020-04-18</li>
-
-<li id="fn:machine-code">Processors usually work on a byte representation of supported instructions where part of the byte identifies an operation (e.g. add) the other rest of the byte indicates either registers or relative locations of operands.</li>
+<li id="fn:basic-types">INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO</li>
 
 <li id="fn:type-safety">Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.</li>
 
