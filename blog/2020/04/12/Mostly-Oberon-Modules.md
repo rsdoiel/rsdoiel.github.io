@@ -63,6 +63,9 @@ addition to display "Hello World!" we want a public method
 out a salutation. We will use the `SayingHi.Mod` module along with 
 a newer version of `HelloWorld.Mod` named `HelloWorld2.Mod`.
 
+
+## Procedures
+
 How do we write methods in Oberon?  Methods are declared
 using the keyword `PROCEDURE` followed by their name, a 
 declaration of any parameters and if the procedure returns a
