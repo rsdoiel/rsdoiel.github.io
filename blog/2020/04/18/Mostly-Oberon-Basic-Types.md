@@ -201,7 +201,7 @@ case is we use "POINTER TO" in records to create dynamic data
 structures such as linked lists.
 
 Here's a simple data structure representing a dynamic list
-of characters. Let's call it a String and we will implement
+of characters. Let's call it a DString and we will implement
 it using a single link list. The list can be implemented by
 defining a RECORD type that holds a single character and a pointer
 to the next record. We can then also define a pointer to this type
@@ -210,35 +210,35 @@ we assume we're at the end of the string.
 
 ```Oberon
     TYPE
-      StringDesc = RECORD
+      DStringDesc = RECORD
         value : CHAR;
-        next : POINTER TO StringDesc
+        next : POINTER TO DStringDesc
       END;
 
-      String : POINTER TO StringDesc;
+      DString : POINTER TO DStringDesc;
 ```
 
 RECORD types are permitted to use recursive definition so our 
-"next" value is itself a type "StringDesc".  Declaring a 
-String variable is as easy as declaring our scoreboard type variable.
+"next" value is itself a type "DStringDesc".  Declaring a 
+DString variable is as easy as declaring our scoreboard type variable.
 
 ```Oberon
   VAR
-    VAR s : String;
+    VAR s : DString;
 ```
 
-Setting our String is a little trickier. This is where
+Setting our DString is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable "s"
-of type String to a procedure to build out our String from an simple
+of type DString to a procedure to build out our DString from an simple
 array of characters. Note "s" is declared as a "VAR" parameter
-in our procedure heading. Our `SetString` will also need to handle
+in our procedure heading. Our `SetDString` will also need to handle
 creating new elements in our dynamic string. That is what Oberon's
 built-in `NEW()` procedure does. It allocates new memory for our
 list of records.
 
 ```Oberon
-    PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
-        VAR i : INTEGER; cur, tmp : String;
+    PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
+        VAR i : INTEGER; cur, tmp : DString;
     BEGIN
       (* Handle the case where s is NIL *)
       IF s = NIL THEN
@@ -261,15 +261,15 @@ list of records.
         cur := cur.next;
         i := i + 1;
       END;
-    END SetString;
+    END SetDString;
 ```
 
 We can move our string back into a fixed length array of char
 with a similar procedure.
 
 ```Oberon
-    PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
-      VAR cur : String; i, l : INTEGER;
+    PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
+      VAR cur : DString; i, l : INTEGER;
     BEGIN
       l := LEN(buf);
       i := 0;
@@ -284,7 +284,7 @@ with a similar procedure.
         buf[i] := 0X;
         i := i + 1;
       END;
-    END StringToCharArray;
+    END DStringToCharArray;
 ```
 
 At this stage we have the basics of data organization. Modules
@@ -311,12 +311,12 @@ all called from inside the module's initialization block.
             scores : ARRAY 3 OF INTEGER
           END;
     
-          StringDesc = RECORD
+          DStringDesc = RECORD
             value : CHAR;
-            next : POINTER TO StringDesc
+            next : POINTER TO DStringDesc
           END;
     
-          String = POINTER TO StringDesc;
+          DString = POINTER TO DStringDesc;
     
       (* Here are our private variables. *)
       VAR 
@@ -326,7 +326,7 @@ all called from inside the module's initialization block.
         name : ARRAY 24 OF CHAR;
         scores : ARRAY 10 OF INTEGER;
         scoreboard : TopThreeScoreboard;
-        s : String;
+        s : DString;
     
     
       PROCEDURE SimpleTypes;
@@ -371,8 +371,8 @@ all called from inside the module's initialization block.
         END;
       END DisplayMoreComplexTypes;
     
-      PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
-          VAR i : INTEGER; cur, tmp : String;
+      PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
+          VAR i : INTEGER; cur, tmp : DString;
       BEGIN
         (* Handle the case where s is NIL *)
         IF s = NIL THEN
@@ -394,10 +394,10 @@ all called from inside the module's initialization block.
           cur := cur.next;
           i := i + 1;
         END;
-      END SetString;
+      END SetDString;
     
-      PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
-        VAR cur : String; i, l : INTEGER;
+      PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
+        VAR cur : DString; i, l : INTEGER;
       BEGIN
         l := LEN(buf);
         i := 0;
@@ -412,7 +412,7 @@ all called from inside the module's initialization block.
           buf[i] := 0X;
           i := i + 1;
         END;
-      END StringToCharArray;
+      END DStringToCharArray;
     
     BEGIN
       SimpleTypes;
@@ -421,9 +421,9 @@ all called from inside the module's initialization block.
       DisplayMoreComplexTypes;
       (* Demo our dynamic string *)
       Out.String("Copy the phrase 'Hello World!' into our dynamic string");Out.Ln;
-      SetString(s, "Hello World!");
+      SetDString(s, "Hello World!");
       Out.String("Copy the value of String s into 'name' our array of char");Out.Ln;
-      StringToCharArray(s, name);
+      DStringToCharArray(s, name);
       Out.String("Display 'name' our array of char: ");Out.String(name);Out.Ln;
     END BasicTypeDemo.
 ```
@@ -437,9 +437,9 @@ element of your record before the `END` does not have a semicolon.
 In that way it is a little like a `RETURN` value in a function
 like procedure.
 
-In creating our `String` data structure the Oberon idiom is to first
-create a description record, `StringDesc` then create a pointer to
-the descriptive type, i.e. `String`. This is a very common
+In creating our `DString` data structure the Oberon idiom is to first
+create a description record, `DStringDesc` then create a pointer to
+the descriptive type, i.e. `DString`. This is a very common
 idiom in building out complex data structures. A good place to learn
 about implementing algorithms and data structures in Oberon-7 is 
 Prof. Wirth's 2004 edition of "Algorithms and Data Structures" which

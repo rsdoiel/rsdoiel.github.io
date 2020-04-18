@@ -9,12 +9,12 @@ MODULE BasicTypeDemo;
         scores : ARRAY 3 OF INTEGER
       END;
 
-      StringDesc = RECORD
+      DStringDesc = RECORD
         value : CHAR;
-        next : POINTER TO StringDesc
+        next : POINTER TO DStringDesc
       END;
 
-      String = POINTER TO StringDesc;
+      DString = POINTER TO DStringDesc;
 
   (* Here are our private variables *)
   VAR 
@@ -24,7 +24,7 @@ MODULE BasicTypeDemo;
     name : ARRAY 24 OF CHAR;
     scores : ARRAY 10 OF INTEGER;
     scoreboard : TopThreeScoreboard;
-    s : String;
+    s : DString;
 
 
   PROCEDURE SimpleTypes;
@@ -69,8 +69,8 @@ MODULE BasicTypeDemo;
     END;
   END DisplayMoreComplexTypes;
 
-  PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
-      VAR i : INTEGER; cur, tmp : String;
+  PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
+      VAR i : INTEGER; cur, tmp : DString;
   BEGIN
     (* Handle the case where s is NIL *)
     IF s = NIL THEN
@@ -92,10 +92,10 @@ MODULE BasicTypeDemo;
       cur := cur.next;
       i := i + 1;
     END;
-  END SetString;
+  END SetDString;
 
-  PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
-    VAR cur : String; i, l : INTEGER;
+  PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
+    VAR cur : DString; i, l : INTEGER;
   BEGIN
     l := LEN(buf);
     i := 0;
@@ -110,7 +110,7 @@ MODULE BasicTypeDemo;
       buf[i] := 0X;
       i := i + 1;
     END;
-  END StringToCharArray;
+  END DStringToCharArray;
 
 BEGIN
   SimpleTypes;
@@ -119,9 +119,9 @@ BEGIN
   DisplayMoreComplexTypes;
   (* Demo our dynamic string *)
   Out.String("Copy the phrase 'Hello World!' into our dynamic string");Out.Ln;
-  SetString(s, "Hello World!");
+  SetDString(s, "Hello World!");
   Out.String("Copy the value of String s into 'name' our array of char");Out.Ln;
-  StringToCharArray(s, name);
+  DStringToCharArray(s, name);
   Out.String("Display 'name' our array of char: ");Out.String(name);Out.Ln;
 END BasicTypeDemo.
 
