@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Oberon Basic Types</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="Mostly-Oberon-Basic-Types.md">
+  </head>
+  <body>
+    
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1 id="oberon-basic-types">Oberon Basic Types</h1>
+
+<p>By R. S. Doiel, 2020-04-18</p>
+
+<p>This is the third post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.</p>
+
+<h2 id="simple-types">Simple Types</h2>
+
+<p>Oberon is a small systems language. It provides a useful but
+limited umber of basic types<sup class="footnote-ref" id="fnref:basic-types"><a href="#fn:basic-types">1</a></sup>. These can be be
+thought of as simple types mapping directly to memory locations
+and more complex composed of more than a single memory location.</p>
+
+<h3 id="integer">INTEGER</h3>
+
+<p>Integers are easiest to be thought of as whole numbers. They may be
+positive numbers or negative numbers. Declaring an integer
+variable <code>i</code> it would look something like</p>
+
+<pre><code class="language-Oberon">    VAR i : INTEGER;
+</code></pre>
+
+<p>Setting <code>i</code>'s value to seven would look like</p>
+
+<pre><code class="language-Oberon">    i := 7;
+</code></pre>
+
+<h3 id="real">REAL</h3>
+
+<p>Real holds real numbers. Real numbers contain a fractional
+component. We normally notate them with
+a decimal value e.g. &quot;0.01&quot;. Like integers they can also be
+positive or negative.</p>
+
+<p>Declaring a real number variable <code>a</code> would look like</p>
+
+<pre><code class="language-Oberon">    VAR a : REAL;
+</code></pre>
+
+<p>Setting the value of <code>a</code> to seven and one tenth (7.1) would
+look like</p>
+
+<pre><code class="language-Oberon">    a := 7.1;
+</code></pre>
+
+<h3 id="char">CHAR</h3>
+
+<p>A CHAR is a single ASCII character. Oberon, unlike more recent
+languages like Go or Julia, predates the wide adoption of UTF-8.
+The character is represented in memory as one 8 bit byte.
+If you need to work with an extended character set then you need
+to either re-encode the values into ASCII. At this time<sup class="footnote-ref" id="fnref:now"><a href="#fn:now">2</a></sup> there
+is no standard way of handling None ASCII character systems natively.
+If you need to work directly with an encoding such as UTF-8 you'll
+need to develop your own modules and procedures for handily their
+encoding, decoding and other operations.</p>
+
+<p>Declaring a CHAR variable <code>c</code> would look like</p>
+
+<pre><code class="language-Oberon">    VAR c: INTEGER;
+</code></pre>
+
+<p>Setting the value of <code>c</code> to capital Z would look like</p>
+
+<pre><code class="language-Oberon">    c := &quot;Z&quot;;
+</code></pre>
+
+<p>Note: Oberon expects double quotes to notate a character.</p>
+
+<h3 id="byte">BYTE</h3>
+
+<p>A BYTE in Oberon is a subset of integers with a range of
+zero to 255. It can hold the value of a single location in
+memory. It is used in two common cases. First
+extending Oberon to the machine level<sup class="footnote-ref" id="fnref:machine-code"><a href="#fn:machine-code">3</a></sup>.
+A BYTE as holding a binary view of a memory location. Second is
+providing presentation of values that are not naturally expressed
+as an INTEGER, REAL or CHAR. This would included binary
+representation of character encoding such as UTF-8 and EBCDIC.
+It could also be binary presentations of other data like
+graphical encoding of images. The main thing to consider is
+a BYTE can only represent a value in the range of zero to 255.</p>
+
+<p>Declaring a byte variable <code>b</code> would look like</p>
+
+<pre><code class="language-Oberon">    VAR b : BYTE;
+</code></pre>
+
+<p>Setting the value of <code>b</code> to ten using Hex notation of &quot;0A&quot;.</p>
+
+<pre><code class="language-Oberon">    b := 0A;
+</code></pre>
+
+<h2 id="structuring-data-in-memory">Structuring data in memory</h2>
+
+<p>The simplest types would prove problematic when addressing
+more complex data representation if Oberon lacked two other built-in
+types - ARRAY and RECORD.</p>
+
+<h3 id="array">ARRAY</h3>
+
+<p>An array is a sequence of memory locations which contain a common
+type.  In Oberon 7 all arrays have to have a known link. This is
+because the Oberon compiler is responsible for pre-allocating
+memory when the program starts to hold the array.  While this
+seems restrictive our next data type, RECORD, lets us move
+into more dynamic memory structures.  Pre-allocating the array
+size also has the advantage that we can re-use those locations
+easily in a type safe manner<sup class="footnote-ref" id="fnref:type-safety"><a href="#fn:type-safety">4</a></sup>.</p>
+
+<p>Declaring a variable &quot;name&quot; as an array of twelve characters would
+look like and declaring a variable &quot;scores&quot; as an array of ten
+integers would look like</p>
+
+<pre><code class="language-Oberon">    VAR 
+      name : ARRAY 12 OF CHAR;
+      scores : ARRAY 10 OF INTEGER;
+</code></pre>
+
+<p>The length of the array immediately follows the keyword &quot;ARRAY&quot; and
+the &quot;OF CHAR&quot; or &quot;OF INTEGER&quot; phrases describes the types that can be
+contained in the array. In the &quot;OF CHAR&quot; the type is &quot;CHAR&quot; the
+&quot;OF INTEGER&quot; is the type &quot;INTEGER&quot;.</p>
+
+<p>Setting an array value can be done using an index. In this example
+the zero-th element (first element of the array) is set to the value
+102.</p>
+
+<pre><code class="language-Oberon">    scores[0] := 102;
+</code></pre>
+
+<p>In the case of CHAR arrays the whole array can be set in a simple
+single assignment.</p>
+
+<pre><code class="language-Oberon">    name := &quot;Ada Lovelace&quot;;
+</code></pre>
+
+<p>Two key points of arrays in Oberon are a known length and a single
+type of data associated with them. Arrays can have more than
+one dimension but the cells of the array most contain the same type.</p>
+
+<h3 id="record">RECORD</h3>
+
+<p>The RECORD is Oberon's secret sauce. The record is used to
+create new types if data representations. It extend Oberon's basic
+types creating structured data representation. In this example we'll
+create a record that holds an game's name, a list of three player names
+and a list of three scores. We'll call this record type
+&quot;TopThreeScoreboard&quot;.</p>
+
+<pre><code class="language-Oberon">    TYPE
+      TopThreeScoreboard = RECORD
+        gameName : ARRAY 24 OF CHAR;
+        playerNames : ARRAY 3, 24 OF CHAR;
+        scores : ARRAY 3 OF INTEGER;
+      END
+</code></pre>
+
+<p>Now that we have describe a record of type &quot;TopTenScoreboard&quot; we can
+declare it with our &quot;VAR&quot; statement.</p>
+
+<pre><code class="language-Oberon">    VAR
+      scoreboard : TopTenScoreboard;
+</code></pre>
+
+<p>Setting the element values in a record uses a dot notation
+and if those elements are themselves. In this case we'll set
+the game name to &quot;Basketball&quot;, the three players are
+&quot;Ada Lovelace&quot;, &quot;Blaise Pascal&quot;, and &quot;John McCarthy&quot;, with
+the scores 102, 101, 100.</p>
+
+<pre><code class="language-Oberon">   scoreboard.gameName := &quot;Basketball&quot;;
+   scoreboard.playerNames[0] := &quot;Ada Lovelace&quot;;
+   scoreboard.scores[0] := 102;
+   scoreboard.playerNames[1] := &quot;Blaise Pascal&quot;;
+   scoreboard.scores[0] := 101;
+   scoreboard.playerNames[2] := &quot;John McCarthy&quot;;
+   scoreboard.scores[0] := 100;
+</code></pre>
+
+<p>Records are also used to create dynamic memory structures such as lists, trees and maps<sup class="footnote-ref" id="fnref:ad"><a href="#fn:ad">5</a></sup>.  The dynamic nature of records is achieved with
+our next type &quot;POINTER TO&quot;.</p>
+
+<h3 id="pointer-to">POINTER TO</h3>
+
+<p>Oberon is a type safe language. To keep things safe in a type
+safe language of you need to place constraints around random
+memory access. Memory can be thought of a list of locations and
+we can go to those locations if we know their address. A pointer
+in most languages holds an address. Oberon has pointers but they
+most point at specific data types. So like array you have to indicate
+that type in a declaration. E.g. <code>VAR a : POINTER TO CHAR;</code> would
+declare a variable 'a' that points to a memory location that holds
+a CHAR. The more common case is we use &quot;POINTER TO&quot; in records
+to create dynamic data structures such as linked lists.</p>
+
+<p>Here's a simple data structure representing a dynamic list
+of characters, dynamic string, using a single link list.</p>
+
+<p>First we need to create a simple data structure to hold our character
+and point at a next character.  If there is no next character
+we assume we're at the end of the string.</p>
+
+<pre><code class="language-Oberon">    TYPE
+      DynamicString = RECORD
+        value : CHAR;
+        next : POINTER TO DynamicString;
+      END;
+</code></pre>
+
+<p>Declaring a string type is as easy as declaring our scoreboard.</p>
+
+<pre><code class="language-Oberon">  VAR
+    VAR s : DynamicString;
+</code></pre>
+
+<p>Setting our dynamic string is a little trickier. This is where
+Oberon's procedures come into play. We can pass our variable &quot;s&quot;
+to a procedure to build out our dynamic string from an simple
+array of characters.</p>
+
+<pre><code class="language-Oberon">    PROCEDURE SetString(VAR s : DynamicString; src : ARRAY OF CHAR);
+      VAR i : INTEGER; c : CHAR; cur, tmp : DynamicString;
+    BEGIN
+      cur := s;
+      i := 0;
+      WHILE (c[i] # 0X) DO
+        cur.value := c[i];
+        IF cur.next = NIL THEN
+          NEW(tmp);
+          cur.value := 0X;
+          cur.next := tmp;
+        END;
+        cur := cur.next;
+        i := i + 1;
+      END;
+    END SetString;
+</code></pre>
+
+<p>We can move our string back into a fixed length array of char
+with a similar procedure.</p>
+
+<pre><code class="language-Oberon">  PROCEDURE StringToCharArray(s : DynamicString; VAR src : ARRAY OF CHAR);
+    VAR cur := DynamicString; i, l : INTEGER;
+  BEGIN
+    l := LEN(src);
+    i := 0;
+    cur := s;
+    WHILE (i &lt; l) &amp; (cur # NIL) DO
+      src[i] := cur.C; 
+      cur := cur.next;
+      i := i + 1;
+    END;
+    (* Zero out the rest of the string. *)
+    WHILE (i &lt; l) DO
+      src[i] := 0X;
+      i := i + 1;
+    END;
+  END;
+</code></pre>
+
+<p>At this stage we have the basics of data organization. Modules
+allow us to group operations and data into cohesive focused units.
+Procedures allow us to define consistent ways of interacting with
+out data, and types singularly and collectively allow us to structure
+data in a way that is useful to solving problems.</p>
+<h1 id="footnote-section">Footnotes</h1>
+
+<div class="footnotes">
+
+<hr>
+
+<ol>
+<li id="fn:basic-types">INTEGER, REAL, CHAR, BYTE, ARRAY, RECORD and POINTER TO</li>
+
+<li id="fn:now">As of 2020-04-18</li>
+
+<li id="fn:machine-code">Processors usually work on a byte representation of supported instructions where part of the byte identifies an operation (e.g. add) the other rest of the byte indicates either registers or relative locations of operands.</li>
+
+<li id="fn:type-safety">Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.</li>
+
+<li id="fn:ad">Prof. Wirth wrote an excellent text on <a href="https://inf.ethz.ch/personal/wirth/AD.pdf">Algorithms and Data structures</a> available in PDF format.</li>
+</ol>
+
+</div>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+
+    </footer>
+    
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+    </body>
+</html>

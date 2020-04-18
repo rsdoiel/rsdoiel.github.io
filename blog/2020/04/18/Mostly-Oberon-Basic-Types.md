@@ -19,8 +19,8 @@ This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. 
 
 Oberon is a small systems language. It provides a useful but 
 limited umber of basic types[^basic-types]. These can be be
-thought of as simple types mapping directly to memory locations
-and more complex composed of more than a single memory location.
+thought of as simple types mapping to specific memory locations
+and more complex types composed of multiple memory locations.
 
 [^basic-types]: INTEGER, REAL, CHAR, BYTE, ARRAY, RECORD and POINTER TO
 
@@ -117,11 +117,11 @@ Setting the value of `b` to ten using Hex notation of "0A".
 
 [^now]: As of 2020-04-18
 
-## Structuring data in memory
+### More complex types
 
 The simplest types would prove problematic when addressing
-more complex data representation if Oberon lacked two other built-in
-types - ARRAY and RECORD. 
+more complex data representations if Oberon lacked two three built-in
+types - ARRAY, RECORD and POINTER TO. 
 
 ### ARRAY
 
@@ -218,21 +218,22 @@ our next type "POINTER TO".
 ### POINTER TO
 
 Oberon is a type safe language. To keep things safe in a type
-safe language of you need to place constraints around random
+safe language you need to place constraints around random
 memory access. Memory can be thought of a list of locations and
 we can go to those locations if we know their address. A pointer
 in most languages holds an address. Oberon has pointers but they
-most point at specific data types. So like array you have to indicate
-that type in a declaration. E.g. `VAR a : POINTER TO CHAR;` would
-declare a variable 'a' that points to a memory location that holds
-a CHAR. The more common case is we use "POINTER TO" in records
-to create dynamic data structures such as linked lists.
+must point at specific data types. So like array you have to indicate
+the type of the thing you are pointing at in a declaration. 
+E.g. `VAR a : POINTER TO CHAR;` would declare a variable 'a' 
+that points to a memory location that holds a CHAR. The more common 
+case is we use "POINTER TO" in records to create dynamic data 
+structures such as linked lists.
 
 Here's a simple data structure representing a dynamic list
-of characters, dynamic string, using a single link list.
-
-First we need to create a simple data structure to hold our character
-and point at a next character.  If there is no next character
+of characters. Let's call it a dynamic string and we will implement
+it using a single link list. The list can be implemented by
+defining a RECORD type that holds a single character and a pointer
+to the next character.  If there is no next character
 we assume we're at the end of the string.
 
 ```Oberon
@@ -243,7 +244,9 @@ we assume we're at the end of the string.
       END;
 ```
 
-Declaring a string type is as easy as declaring our scoreboard.
+RECORD types are permitted to use recursive definition so our 
+"next" value is itself a type "DynamicString".  Declaring a 
+dynamic string type is as easy as declaring our scoreboard.
 
 ```Oberon
   VAR
@@ -253,7 +256,11 @@ Declaring a string type is as easy as declaring our scoreboard.
 Setting our dynamic string is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable "s"
 to a procedure to build out our dynamic string from an simple
-array of characters.
+array of characters. Note "s" is declared as a "VAR" parameter
+in our procedure heading. Our `SetString` will also need to handle
+creating new elements in our dynamic string. That is what Oberon's
+built-in `NEW()` procedure does. It allocates new memory of our
+record.
 
 ```Oberon
     PROCEDURE SetString(VAR s : DynamicString; src : ARRAY OF CHAR);
