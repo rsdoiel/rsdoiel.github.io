@@ -9,7 +9,7 @@
 }
 
 
-# The Oberon Module
+# The Oberon Modules and Procedures
 
 By R. S. Doiel, 2020-04-12
 
