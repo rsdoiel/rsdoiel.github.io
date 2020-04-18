@@ -1,6 +1,6 @@
 {
     "markup": "mmark",
-    "title": "Mostly Oberon Modules",
+    "title": "Oberon Modules and Procedures",
     "number": 2,
     "byline": "R. S. Doiel",
     "date": "2020-04-12",
@@ -9,7 +9,7 @@
 }
 
 
-# The Oberon Modules and Procedures
+# Oberon Modules and Procedures
 
 By R. S. Doiel, 2020-04-12
 
