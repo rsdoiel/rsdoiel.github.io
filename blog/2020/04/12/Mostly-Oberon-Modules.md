@@ -17,7 +17,7 @@ This is the second post in the "Mostly Oberon" series of blog posts. Mostly Ober
 
 ## Modules
 
-The module is the primary code unit of Oberon language. Modules allow you to focus on functional units of code and compose them into larger solutions.
+The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.
 A module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon
 the statement separator in Oberon. Our simple "Hello World" example 
 shows the basic code shape.
@@ -54,7 +54,7 @@ Here's an example
 For a module to be really useful you want to have the capability
 of including both private and public code. Public code
 allows us to reuse our code in other modules while the private code 
-keep things safe inside the module and from collidating with other
+keeps interal things inside the module safe from collidating with other
 modules private code. This technique is classically known as 
 "information hiding" and in computer sciences texts as "scope". Lets 
 create a a more composable module called `SayingHi.Mod`.  In 
