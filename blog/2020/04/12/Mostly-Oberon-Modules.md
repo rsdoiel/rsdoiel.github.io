@@ -9,7 +9,7 @@
 }
 
 
-# Mostly Oberon, Modules
+# The Oberon Module
 
 By R. S. Doiel, 2020-04-12
 
