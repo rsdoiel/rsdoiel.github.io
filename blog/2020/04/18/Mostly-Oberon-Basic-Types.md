@@ -43,9 +43,9 @@ Setting `i`'s value to seven would look like
 
 ### REAL
 
-Real holds real numbers. These encoding of theseare numbers 
-contain a fractional component. We normally notate them with
-a decimal value. E.g. 0.01. Like integers they can also be 
+Real holds real numbers. Real numbers contain a fractional 
+component. We normally notate them with
+a decimal value e.g. "0.01". Like integers they can also be 
 positive or negative.
 
 Declaring a real number variable `a` would look like
@@ -69,8 +69,8 @@ The character is represented in memory as one 8 bit byte.
 If you need to work with an extended character set then you need
 to either re-encode the values into ASCII. At this time[^now] there
 is no standard way of handling None ASCII character systems natively.
-If you need to work directly with encodings such as UTF-8 you'll
-need to develop your own modules and procedures for handly their
+If you need to work directly with an encoding such as UTF-8 you'll
+need to develop your own modules and procedures for handily their
 encoding, decoding and other operations.
 
 Declaring a CHAR variable `c` would look like
@@ -79,7 +79,7 @@ Declaring a CHAR variable `c` would look like
     VAR c: INTEGER;
 ```
 
-Setting the value of `c` to captial Z would look like
+Setting the value of `c` to capital Z would look like
 
 ```Oberon
     c := "Z";
@@ -89,16 +89,17 @@ Note: Oberon expects double quotes to notate a character.
 
 ### BYTE
 
-A BYTE in Oberon is an 8 bit memory location. It is a sub-range
-of integers 0 to 255.  It is used in two common cases. First
-extending Oberon to the machine level[^machine-code].  I think of
-a BYTE as holding a binary view of data. Second is providing 
-presentation of values that or not naturally expressed as an
-INTEGER, REAL or CHAR. This would included "binary representation"
-of written text such as UTF-8 and EBCIDIC. It could also be
-binary presentations of other data like graphical encoding of
-images. The main thing to consider is a BYTE can only represent
-a value in the range of zero to 255.
+A BYTE in Oberon is a subset of integers with a range of 
+zero to 255. It can hold the value of a single location in 
+memory. It is used in two common cases. First
+extending Oberon to the machine level[^machine-code]. 
+A BYTE as holding a binary view of a memory location. Second is 
+providing presentation of values that are not naturally expressed 
+as an INTEGER, REAL or CHAR. This would included binary 
+representation of character encoding such as UTF-8 and EBCDIC. 
+It could also be binary presentations of other data like 
+graphical encoding of images. The main thing to consider is 
+a BYTE can only represent a value in the range of zero to 255.
 
 Declaring a byte variable `b` would look like
 
@@ -112,11 +113,11 @@ Setting the value of `b` to ten using Hex notation of "0A".
     b := 0A;
 ```
 
-[^machine-code]:Processors usually work on a byte representation of supported instructions where part of the byte indentifies an operation (e.g. add) the other rest of the byte indicates either registers or relative locations of operands.
+[^machine-code]:Processors usually work on a byte representation of supported instructions where part of the byte identifies an operation (e.g. add) the other rest of the byte indicates either registers or relative locations of operands.
 
 [^now]: As of 2020-04-18
 
-## Organzing data in memory
+## Structuring data in memory
 
 The simplest types would prove problematic when addressing
 more complex data representation if Oberon lacked two other built-in
@@ -164,10 +165,10 @@ single assignment.
 ```
 
 Two key points of arrays in Oberon are a known length and a single 
-type of dataset associated with them. Arrays can have more than
-one demision but the cells of the array most contain the same type.
+type of data associated with them. Arrays can have more than
+one dimension but the cells of the array most contain the same type.
 
-[^type-safety]: Type safe means the compiler or run time varify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.
+[^type-safety]: Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.
 
 ### RECORD
 
@@ -202,7 +203,7 @@ the game name to "Basketball", the three players are
 the scores 102, 101, 100.
 
 ```Oberon
-   scoreboard.gameName := "Baskettball";
+   scoreboard.gameName := "Basketball";
    scoreboard.playerNames[0] := "Ada Lovelace";
    scoreboard.scores[0] := 102;
    scoreboard.playerNames[1] := "Blaise Pascal";
@@ -217,7 +218,7 @@ our next type "POINTER TO".
 ### POINTER TO
 
 Oberon is a type safe language. To keep things safe in a type
-safe language of you need to place contraints around random
+safe language of you need to place constraints around random
 memory access. Memory can be thought of a list of locations and
 we can go to those locations if we know their address. A pointer
 in most languages holds an address. Oberon has pointers but they
@@ -298,7 +299,7 @@ with a similar procedure.
 
 At this stage we have the basics of data organization. Modules
 allow us to group operations and data into cohesive focused units.
-Procedures allow us to define constitant ways of interacting with
+Procedures allow us to define consistent ways of interacting with
 out data, and types singularly and collectively allow us to structure
 data in a way that is useful to solving problems.
 
