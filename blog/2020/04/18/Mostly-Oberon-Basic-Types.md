@@ -318,8 +318,7 @@ all called from inside the module's initialization block.
     
           String = POINTER TO StringDesc;
     
-      (* Here are examples of some basic type. We've declared them
-         private to our module BasicTypeDemo. *)
+      (* Here are our private variables. *)
       VAR 
         i : INTEGER;
         a : REAL;

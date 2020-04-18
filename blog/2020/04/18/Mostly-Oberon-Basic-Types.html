@@ -200,35 +200,38 @@ case is we use &quot;POINTER TO&quot; in records to create dynamic data
 structures such as linked lists.</p>
 
 <p>Here's a simple data structure representing a dynamic list
-of characters. Let's call it a dynamic string and we will implement
+of characters. Let's call it a String and we will implement
 it using a single link list. The list can be implemented by
 defining a RECORD type that holds a single character and a pointer
-to the next character.  If there is no next character
+to the next record. We can then also define a pointer to this type
+of record.  If there is no next character record
 we assume we're at the end of the string.</p>
 
 <pre><code class="language-Oberon">    TYPE
-      String = RECORD
+      StringDesc = RECORD
         value : CHAR;
-        next : POINTER TO String
+        next : POINTER TO StringDesc
       END;
+
+      String : POINTER TO StringDesc;
 </code></pre>
 
 <p>RECORD types are permitted to use recursive definition so our
-&quot;next&quot; value is itself a type &quot;String&quot;.  Declaring a
-dynamic string type is as easy as declaring our scoreboard.</p>
+&quot;next&quot; value is itself a type &quot;StringDesc&quot;.  Declaring a
+String variable is as easy as declaring our scoreboard type variable.</p>
 
 <pre><code class="language-Oberon">  VAR
     VAR s : String;
 </code></pre>
 
-<p>Setting our dynamic string is a little trickier. This is where
+<p>Setting our String is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable &quot;s&quot;
-to a procedure to build out our dynamic string from an simple
+of type String to a procedure to build out our String from an simple
 array of characters. Note &quot;s&quot; is declared as a &quot;VAR&quot; parameter
 in our procedure heading. Our <code>SetString</code> will also need to handle
 creating new elements in our dynamic string. That is what Oberon's
-built-in <code>NEW()</code> procedure does. It allocates new memory of our
-record.</p>
+built-in <code>NEW()</code> procedure does. It allocates new memory for our
+list of records.</p>
 
 <pre><code class="language-Oberon">    PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
         VAR i : INTEGER; cur, tmp : String;
@@ -250,6 +253,7 @@ record.</p>
           tmp.next := NIL;
           cur.next := tmp;
         END;
+        (* Advance our current pointer to the next element *)
         cur := cur.next;
         i := i + 1;
       END;
