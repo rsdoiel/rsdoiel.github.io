@@ -9,10 +9,12 @@ MODULE BasicTypeDemo;
         scores : ARRAY 3 OF INTEGER
       END;
 
-      String = RECORD
+      StringDesc = RECORD
         value : CHAR;
-        next : POINTER TO String
+        next : POINTER TO StringDesc
       END;
+
+      String = POINTER TO StringDesc;
 
   (* Here are examples of some basic type. We've declared them
      private to our module BasicTypeDemo. *)
@@ -20,8 +22,7 @@ MODULE BasicTypeDemo;
     i : INTEGER;
     a : REAL;
     c: CHAR;
-    b : BYTE;
-    name : ARRAY 12 OF CHAR;
+    name : ARRAY 24 OF CHAR;
     scores : ARRAY 10 OF INTEGER;
     scoreboard : TopThreeScoreboard;
     s : String;
@@ -60,24 +61,33 @@ MODULE BasicTypeDemo;
   BEGIN
     i := 0;
     Out.String(" Game: ");Out.String(scoreboard.gameName);Out.Ln;
-    WHILE i < LEN(scoreboard.placeNames) DO
+    WHILE i < LEN(scoreboard.playerNames) DO
       Out.String("    player, score: ");
       Out.String(scoreboard.playerNames[i]);Out.String(", ");
-      Out.Int(scoreboard.scores[i]);
+      Out.Int(scoreboard.scores[i], 1);
       Out.Ln;
+      i := i + 1;
     END;
   END DisplayMoreComplexTypes;
 
-  PROCEDURE SetString(VAR s : String; src : ARRAY OF CHAR);
-      VAR i : INTEGER; c : CHAR; cur, tmp : String;
+  PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
+      VAR i : INTEGER; cur, tmp : String;
   BEGIN
+    (* Handle the case where s is NIL *)
+    IF s = NIL THEN
+      NEW(s);
+      s.value := 0X;
+      s.next := NIL;
+    END;
     cur := s;
     i := 0;
-    WHILE (c[i] # 0X) DO
-      cur.value := c[i];
+    (* check to see if we are at end of string or array *)
+    WHILE (buf[i] # 0X) & (i < LEN(buf)) DO
+      cur.value := buf[i];
       IF cur.next = NIL THEN
         NEW(tmp);
-        cur.value := 0X;
+        tmp.value := 0X;
+        tmp.next := NIL;
         cur.next := tmp;
       END;
       cur := cur.next;
@@ -85,23 +95,23 @@ MODULE BasicTypeDemo;
     END;
   END SetString;
 
-  PROCEDURE StringToCharArray(s : String; VAR src : ARRAY OF CHAR);
-    VAR cur := String; i, l : INTEGER;
+  PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
+    VAR cur : String; i, l : INTEGER;
   BEGIN
-    l := LEN(src);
+    l := LEN(buf);
     i := 0;
     cur := s;
     WHILE (i < l) & (cur # NIL) DO
-      src[i] := cur.C; 
+      buf[i] := cur.value; 
       cur := cur.next;
       i := i + 1;
     END;
     (* Zero out the rest of the string. *)
     WHILE (i < l) DO
-      src[i] := 0X;
+      buf[i] := 0X;
       i := i + 1;
     END;
-  END;
+  END StringToCharArray;
 
 BEGIN
   SimpleTypes;
@@ -111,8 +121,8 @@ BEGIN
   (* Demo our dynamic string *)
   Out.String("Copy the phrase 'Hello World!' into our dynamic string");Out.Ln;
   SetString(s, "Hello World!");
-  Out.String("Copy the value of String s into C our array of char");Out.Ln;
-  StringToCharArray(s, c);
-  Out.String("Display 'c' our array of char: );Out.String(c);Out.Ln;
+  Out.String("Copy the value of String s into 'name' our array of char");Out.Ln;
+  StringToCharArray(s, name);
+  Out.String("Display 'name' our array of char: ");Out.String(name);Out.Ln;
 END BasicTypeDemo.
 

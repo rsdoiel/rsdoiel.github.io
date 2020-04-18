@@ -111,7 +111,7 @@ integers would look like
 
 ```Oberon
     VAR 
-      name : ARRAY 12 OF CHAR;
+      name : ARRAY 24 OF CHAR;
       scores : ARRAY 10 OF INTEGER;
 ```
 
@@ -234,16 +234,24 @@ built-in `NEW()` procedure does. It allocates new memory of our
 record.
 
 ```Oberon
-    PROCEDURE SetString(VAR s : String; src : ARRAY OF CHAR);
-      VAR i : INTEGER; c : CHAR; cur, tmp : String;
+    PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
+        VAR i : INTEGER; cur, tmp : String;
     BEGIN
+      (* Handle the case where s is NIL *)
+      IF s = NIL THEN
+        NEW(s);
+        s.value := 0X;
+        s.next := NIL;
+      END;
       cur := s;
       i := 0;
-      WHILE (c[i] # 0X) DO
-        cur.value := c[i];
+      (* check to see if we are at end of string or array *)
+      WHILE (buf[i] # 0X) & (i < LEN(buf)) DO
+        cur.value := buf[i];
         IF cur.next = NIL THEN
           NEW(tmp);
-          cur.value := 0X;
+          tmp.value := 0X;
+          tmp.next := NIL;
           cur.next := tmp;
         END;
         cur := cur.next;
@@ -256,23 +264,23 @@ We can move our string back into a fixed length array of char
 with a similar procedure.
 
 ```Oberon
-  PROCEDURE StringToCharArray(s : String; VAR src : ARRAY OF CHAR);
-    VAR cur := String; i, l : INTEGER;
-  BEGIN
-    l := LEN(src);
-    i := 0;
-    cur := s;
-    WHILE (i < l) & (cur # NIL) DO
-      src[i] := cur.C; 
-      cur := cur.next;
-      i := i + 1;
-    END;
-    (* Zero out the rest of the string. *)
-    WHILE (i < l) DO
-      src[i] := 0X;
-      i := i + 1;
-    END;
-  END;
+    PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
+      VAR cur : String; i, l : INTEGER;
+    BEGIN
+      l := LEN(buf);
+      i := 0;
+      cur := s;
+      WHILE (i < l) & (cur # NIL) DO
+        buf[i] := cur.value; 
+        cur := cur.next;
+        i := i + 1;
+      END;
+      (* Zero out the rest of the string. *)
+      WHILE (i < l) DO
+        buf[i] := 0X;
+        i := i + 1;
+      END;
+    END StringToCharArray;
 ```
 
 At this stage we have the basics of data organization. Modules
@@ -284,10 +292,154 @@ data in a way that is useful to solving problems.
 ## Putting it all together
 
 Here is a [module demoing our basic type](BasicTypeDemo.Mod). In it
-we can define procedures to demo our assignments and then show their
-values in the module's initialization block.
+we can define procedures to demo our assignments, display their results
+all called from inside the module's initialization block.
 
 ```Oberon
+    MODULE BasicTypeDemo;
+      IMPORT Out;
+    
+      (* These are our custom data types definitions. *)
+      TYPE
+          TopThreeScoreboard = RECORD
+            gameName : ARRAY 24 OF CHAR;
+            playerNames : ARRAY 3, 24 OF CHAR;
+            scores : ARRAY 3 OF INTEGER
+          END;
+    
+          StringDesc = RECORD
+            value : CHAR;
+            next : POINTER TO StringDesc
+          END;
+    
+          String = POINTER TO StringDesc;
+    
+      (* Here are examples of some basic type. We've declared them
+         private to our module BasicTypeDemo. *)
+      VAR 
+        i : INTEGER;
+        a : REAL;
+        c: CHAR;
+        name : ARRAY 24 OF CHAR;
+        scores : ARRAY 10 OF INTEGER;
+        scoreboard : TopThreeScoreboard;
+        s : String;
+    
+    
+      PROCEDURE SimpleTypes;
+      BEGIN
+        i := 7;
+        a := 7.1;
+        c := "Z";
+      END SimpleTypes;
+    
+      PROCEDURE DisplaySimpleTypes;
+      BEGIN
+        Out.String(" i: ");Out.Int(i, 1);Out.Ln;
+        Out.String(" a: ");Out.Real(a, 1);Out.Ln;
+        Out.String(" c: ");Out.Char(c);Out.Ln;
+      END DisplaySimpleTypes;
+    
+    
+      PROCEDURE MoreComplexTypes;
+      BEGIN
+        scores[0] := 102;
+        name := "Ada Lovelace";
+        scoreboard.gameName := "Basketball";
+        scoreboard.playerNames[0] := "Ada Lovelace";
+        scoreboard.scores[0] := 102;
+        scoreboard.playerNames[1] := "Blaise Pascal";
+        scoreboard.scores[0] := 101;
+        scoreboard.playerNames[2] := "John McCarthy";
+        scoreboard.scores[0] := 100;
+      END MoreComplexTypes;
+    
+      PROCEDURE DisplayMoreComplexTypes;
+        VAR i : INTEGER;
+      BEGIN
+        i := 0;
+        Out.String(" Game: ");Out.String(scoreboard.gameName);Out.Ln;
+        WHILE i < LEN(scoreboard.playerNames) DO
+          Out.String("    player, score: ");
+          Out.String(scoreboard.playerNames[i]);Out.String(", ");
+          Out.Int(scoreboard.scores[i], 1);
+          Out.Ln;
+          i := i + 1;
+        END;
+      END DisplayMoreComplexTypes;
+    
+      PROCEDURE SetString(VAR s : String; buf : ARRAY OF CHAR);
+          VAR i : INTEGER; cur, tmp : String;
+      BEGIN
+        (* Handle the case where s is NIL *)
+        IF s = NIL THEN
+          NEW(s);
+          s.value := 0X;
+          s.next := NIL;
+        END;
+        cur := s;
+        i := 0;
+        (* check to see if we are at end of string or array *)
+        WHILE (buf[i] # 0X) & (i < LEN(buf)) DO
+          cur.value := buf[i];
+          IF cur.next = NIL THEN
+            NEW(tmp);
+            tmp.value := 0X;
+            tmp.next := NIL;
+            cur.next := tmp;
+          END;
+          cur := cur.next;
+          i := i + 1;
+        END;
+      END SetString;
+    
+      PROCEDURE StringToCharArray(s : String; VAR buf : ARRAY OF CHAR);
+        VAR cur : String; i, l : INTEGER;
+      BEGIN
+        l := LEN(buf);
+        i := 0;
+        cur := s;
+        WHILE (i < l) & (cur # NIL) DO
+          buf[i] := cur.value; 
+          cur := cur.next;
+          i := i + 1;
+        END;
+        (* Zero out the rest of the string. *)
+        WHILE (i < l) DO
+          buf[i] := 0X;
+          i := i + 1;
+        END;
+      END StringToCharArray;
+    
+    BEGIN
+      SimpleTypes;
+      DisplaySimpleTypes;
+      MoreComplexTypes;
+      DisplayMoreComplexTypes;
+      (* Demo our dynamic string *)
+      Out.String("Copy the phrase 'Hello World!' into our dynamic string");Out.Ln;
+      SetString(s, "Hello World!");
+      Out.String("Copy the value of String s into 'name' our array of char");Out.Ln;
+      StringToCharArray(s, name);
+      Out.String("Display 'name' our array of char: ");Out.String(name);Out.Ln;
+    END BasicTypeDemo.
 ```
+
+## Reading through the code
+
+There are some nuances in Oberon syntax that can creep up on you.
+First while most statements end in a semi-colon there are noticable
+exceptions. Look at the record statements in particular.  The last
+element of your record before the `END` does not have a simi-colon.
+In that way it is a little like a `RETURN` value in a function
+like procedure.
+
+In creating our `String` datastructure the Oberon idiom is to first
+create a description record, `StringDesc` then create a pointer to
+the descriptive type, i.e. `String`. This is a very common
+idiom in building out complex data structures. A good place to learn
+about implementing algorithms and data structures in Oberon-7 is 
+Prof. Wirth's 2004 edition of "Algorithms and Data Structures" which
+is available from his personal website[^ad] in PDF[^ad].
 
 [^ad]: Prof. Wirth wrote an excellent text on [Algorithms and Data structures](https://inf.ethz.ch/personal/wirth/AD.pdf) available in PDF format.
