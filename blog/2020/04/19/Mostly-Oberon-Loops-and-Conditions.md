@@ -28,7 +28,7 @@ IF, ELSIF, ELSE
 : Basic condition test and execution
 
 ASSERT
-: A mechism to trigger a program halt
+: A mechanism to trigger a program halt
 
 WHILE DO, ELSIF DO
 : The Loop structure in the language (aside from recursive procedures)
@@ -71,8 +71,8 @@ This is like combining an "if EXPR is false then system exit".
 
 ## WHILE DO, ELSIF DO
 
-Oberon 7 also privides two loop structures. These are very 
-similar to other languages as well. The only expection is that
+Oberon 7 also provides two loop structures. These are very 
+similar to other languages as well. The only expectation is that
 a while loop may contain an ELSIF which continues the loop
 execution until both clauses return FALSE.
 
@@ -104,7 +104,7 @@ A while, elsif loop, counting 1 to 10, then 10 to 100 by 10.
 
 The FOR loop in Oberon is very similar to modern FOR loops.
 The FOR loop increments an integer value with in a range.
-You the default incrmenets the start value by 1 but if a 
+You the default increments the start value by 1 but if a 
 BY clause is included you can control how the increment value
 works.
 
