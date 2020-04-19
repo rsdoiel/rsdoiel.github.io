@@ -446,3 +446,9 @@ Prof. Wirth's 2004 edition of "Algorithms and Data Structures" which
 is available from his personal website[^ad] in PDF[^ad].
 
 [^ad]: Prof. Wirth wrote an excellent text on [Algorithms and Data structures](https://inf.ethz.ch/personal/wirth/AD.pdf) available in PDF format.
+
+### Next and Previous
+
++ Next [Loops and Conditions](../19/Mostly-Oberon-Loops-and-Conditions.html)
++ Previous [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
+
