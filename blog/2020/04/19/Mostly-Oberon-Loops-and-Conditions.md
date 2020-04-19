@@ -127,8 +127,8 @@ Using a BY clause incrementing `i` by 2.
 
 ## Putting it all together
 
-The following module demos the conditional execution
-and the loops.
+The following [module](LoopsAndConditions.Mod) demonstrates
+the conditional and loop syntax.
 
 ```Oberon
     MODULE LoopsAndConditions;
