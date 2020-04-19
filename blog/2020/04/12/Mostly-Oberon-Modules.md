@@ -54,7 +54,7 @@ Here's an example
 For a module to be really useful you want to have the capability
 of including both private and public code. Public code
 allows us to reuse our code in other modules while the private code 
-keeps interal things inside the module safe from collidating with other
+keeps internal things inside the module safe from colliding with other
 modules private code. This technique is classically known as 
 "information hiding" and in computer sciences texts as "scope". Lets 
 create a a more composable module called `SayingHi.Mod`.  In 
@@ -136,7 +136,7 @@ have the computer ask our name and then respond with a greeting.
 We'll modify our SayingHi to include a new procedure called "Greetings"
 and that procedure needs to ask us our name and then display
 an appropriate greeting. "Greetings" will be a public procedure
-marked by an asterick like "HelloWorld". 
+marked by an asterisk like "HelloWorld". 
 
 "Greetings" has three tasks
 
@@ -362,7 +362,7 @@ The memory for `ourName` will be populated when we pass
 the variable to `GetName` based on what we type at the
 keyboard. If we type more than 256 ASCII characters they
 will be ignored. After `GetName` records the typed character
-we use the memory associated with the `ourName` varaible
+we use the memory associated with the `ourName` variable
 we read that memory to display what we typed in 
 the procedure named `AssembleGreeting`.
 
@@ -420,7 +420,8 @@ other programs.
 
 [^basictypes]: Oberon has a number of basic types, BYTE holds a byte as a series of bit, CHAR holds a single ASCII character, INTEGER holds a signed integer value, REAL holds a floating point number and BOOLEAN holds a True/False value.
 
-### Next
+### Next and Previous
 
-The next post in the series is [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
++ Next [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
++ Previous [Mostly Oberon](../11/Mostly-Oberon.html)
 
