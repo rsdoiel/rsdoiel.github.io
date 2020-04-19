@@ -14,7 +14,24 @@ cat footer.md > "$BLOG/footer.md"
 # Add post - create a date directory if needed and then
 # render markdown file in direct directory
 #
-if [ "$1" != "" ]; then
+if [[ "$#" != "2" ]]; then
+    POST_PATH=$(echo "${2}" |tr - /)
+    FILENAME="${1}"
+    echo "Generating directory $POST_PATH"
+    mkdir -p "$BLOG/$POST_PATH"
+
+    echo "Copying markdown file into blog path $POST_PATH"
+    cp -v "$FILENAME" "$BLOG/$POST_PATH/"
+    echo "Resolving $FILENAME to basename"
+    FILENAME=$(basename "$FILENAME")
+    echo "Adding to git $POST_PATH/$FILENAME"
+    git add "$BLOG/$POST_PATH/$FILENAME"
+    # Make sure we have a place holder stub to keep in the repo
+    # After running clean
+    touch "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
+    git add "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
+    git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
+elif [[ "$1" != "" ]]; then
     POST_PATH=$(reldate 0 day| tr - /)
     echo "Generating directory $POST_PATH"
     mkdir -p "$BLOG/$POST_PATH"
