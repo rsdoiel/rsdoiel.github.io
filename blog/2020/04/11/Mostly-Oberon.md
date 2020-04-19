@@ -97,5 +97,5 @@ The online community for Oberon and Oberon System seems mostly centered around a
 
 ### Next
 
-The next post in the series is [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
++ Next [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
 
