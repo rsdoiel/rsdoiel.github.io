@@ -31,7 +31,6 @@ if [[ "$#" = "2" ]]; then
     touch "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
     git add "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
-    exit 0;
 elif [[ "$1" != "" ]]; then
     POST_PATH=$(reldate 0 day| tr - /)
     echo "Generating directory $POST_PATH"

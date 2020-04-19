@@ -1,5 +1,5 @@
 
-+ [Oberon Loops and Conditions](/blog/2020/04/18/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-18
++ [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-19
 + [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
 + [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
 + [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html), 2020-04-11

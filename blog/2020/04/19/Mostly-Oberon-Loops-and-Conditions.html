@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Oberon Loops and Conditions</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="Mostly-Oberon-Loops-and-Conditions.md">
+  </head>
+  <body>
+    
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1 id="oberon-loops-and-conditions">Oberon Loops and Conditions</h1>
+
+<p>By R. S. Doiel, 2020-04-19</p>
+
+<p>This is the four post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.</p>
+
+<h2 id="data-flow">Data Flow</h2>
+
+<p>Oberon is a small systems language and while it is minimalist.
+It provides you with the necessary primitives to get things done.
+I've touched on code organization, basic types and basic type
+extensions in the previous articles.  I have shown the basic
+control statements but have not talked about them yet.</p>
+
+<p>Oberon offers four basic control statements.</p>
+
+<dl>
+<dt>IF, ELSIF, ELSE</dt>
+<dd>Basic condition test and execution</dd>
+<dt>ASSERT</dt>
+<dd>A mechism to trigger a program halt</dd>
+<dt>WHILE DO, ELSIF DO</dt>
+<dd>The Loop structure in the language (aside from recursive procedures)</dd>
+<dt>FOR TO, FOR TO BY</dt>
+<dd>A counting Loop where incrementing a counter by an integer value (e.g. 1 or by a specified constant).</dd>
+</dl>
+
+<h2 id="if-elsif-else">IF, ELSIF, ELSE</h2>
+
+<p>The first two provide for conditional statements of the form
+if a condition is true do something. Almost ever computer language
+has some form of a conditional express and the Oberon IF, ELSIF,
+ELSE typical of what you find is more computer languages today.
+Both ELSIF and ELSE are optional.</p>
+
+<pre><code class="language-Oberon">    IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
+      Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
+    ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
+      Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
+    ELSE
+      Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
+    END;
+</code></pre>
+
+<h2 id="assert">ASSERT</h2>
+
+<p>The second expression, ASSERT, is a little different. If ASSERT
+evaluates an expression that is FALSE then your program is halted.
+This is like combining an &quot;if EXPR is false then system exit&quot;.</p>
+
+<pre><code class="language-Oberon">    Out.String(&quot;Should I continue? Y/n &quot;);
+    In.Line(s);
+    Out.Ln;
+    ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
+    (* If you didn't enter Y or y the program will halt *)
+</code></pre>
+
+<h2 id="while-do-elsif-do">WHILE DO, ELSIF DO</h2>
+
+<p>Oberon 7 also privides two loop structures. These are very
+similar to other languages as well. The only expection is that
+a while loop may contain an ELSIF which continues the loop
+execution until both clauses return FALSE.</p>
+
+<p>The basic while loop, counting 1 to 10.</p>
+
+<pre><code class="language-Oberon">    i := 0;
+    WHILE i &lt; 10 DO
+       i := i + 1;
+       Out.Int(i, 1);Out.String(&quot; &quot;);
+    END;
+</code></pre>
+
+<p>A while, elsif loop, counting 1 to 10, then 10 to 100 by 10.</p>
+
+<pre><code class="language-Oberon">    i := 0;
+    WHILE i &lt; 10 DO
+       i := i + 1;
+       Out.Int(i, 1); Out.String(&quot; &quot;);
+    ELSIF i &lt; 100 DO
+       i := i + 10;
+       Out.Int(i, 1);Out.String(&quot; &quot;);
+    END;
+</code></pre>
+
+<h2 id="for-loops">FOR Loops</h2>
+
+<p>The FOR loop in Oberon is very similar to modern FOR loops.
+The FOR loop increments an integer value with in a range.
+You the default incrmenets the start value by 1 but if a
+BY clause is included you can control how the increment value
+works.</p>
+
+<p>Regular for loop, <code>i</code> is incremented by 1.</p>
+
+<pre><code class="language-Oberon">    FOR i := 1 TO 10 DO
+       Out.Int(i, 1);Out.String(&quot; &quot;);
+    END;
+</code></pre>
+
+<p>Using a BY clause incrementing <code>i</code> by 2.</p>
+
+<pre><code class="language-Oberon">    FOR i := 0 TO 20 BY 2  DO
+       Out.Int(i, 1);Out.String(&quot; &quot;);
+    END;
+</code></pre>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
+
+<p>The following module demos the conditional execution
+and the loops.</p>
+
+<pre><code class="language-Oberon">    MODULE LoopsAndConditions;
+      IMPORT In, Out;
+    
+    PROCEDURE IfElsifElseDemo;
+      VAR s : ARRAY 128 OF CHAR;
+    BEGIN
+      Out.String(&quot;Enter your name: &quot;);
+      In.Line(s);
+      Out.Ln;
+      IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
+        Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
+      ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
+        Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
+      ELSE
+        Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
+      END;
+    END IfElsifElseDemo;
+    
+    PROCEDURE AssertDemo;
+      VAR s : ARRAY 128 OF CHAR;
+    BEGIN
+      Out.String(&quot;Should I continue? Y/n &quot;);
+      In.Line(s);
+      Out.Ln;
+      ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
+    END AssertDemo;
+    
+    PROCEDURE WhileDemo;
+      VAR i : INTEGER;
+    BEGIN
+      Out.String(&quot;Basic WHILE counting from 1 to 10&quot;);Out.Ln;
+      i := 0;
+      WHILE i &lt; 10 DO
+         i := i + 1;
+         Out.Int(i, 1);Out.String(&quot; &quot;);
+      END;
+      Out.Ln;
+      Out.String(&quot;WHILE ELSIF, count 1 to 10 THEN 10 to 100&quot;);Out.Ln;
+      i := 0;
+      WHILE i &lt; 10 DO
+         i := i + 1;
+         Out.Int(i, 1); Out.String(&quot; &quot;);
+      ELSIF i &lt; 100 DO
+         i := i + 10;
+         Out.Int(i, 1);Out.String(&quot; &quot;);
+      END;
+      Out.Ln;
+      Out.String(&quot;Demo of while loop counting one to ten, then by tenths.&quot;);
+    END WhileDemo;
+    
+    PROCEDURE ForDemo;
+      VAR i : INTEGER;
+    BEGIN
+      Out.String(&quot;Basic FOR LOOP counting from 1 to 10&quot;);Out.Ln;
+      FOR i := 1 TO 10 DO
+         Out.Int(i, 1);Out.String(&quot; &quot;);
+      END;
+      Out.Ln;
+      Out.String(&quot;FOR loop counting by twos 1 to 20&quot;);Out.Ln;
+      FOR i := 0 TO 20 BY 2  DO
+         Out.Int(i, 1);Out.String(&quot; &quot;);
+      END;
+      Out.Ln;
+    END ForDemo;
+    
+    BEGIN
+      IfElsifElseDemo;
+      AssertDemo;
+      WhileDemo;
+      ForDemo;
+    END LoopsAndConditions.
+</code></pre>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+
+    </footer>
+    
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+    </body>
+</html>
