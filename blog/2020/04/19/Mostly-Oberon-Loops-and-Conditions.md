@@ -205,7 +205,7 @@ and the loops.
 ```
 
 
-### Next and Previous
+### Previously
 
 + Previous [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
 
