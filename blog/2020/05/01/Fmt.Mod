@@ -35,10 +35,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *)
 MODULE Fmt;
-  CONST
-    Version* = "v0.0.0";
-
-(**Procedure for getting the epoch time value *)
 
 (*implemented in C*)
 
@@ -48,7 +44,7 @@ using the C sprintf function. *)
 	END Int;
 
 	PROCEDURE Real*(value : REAL; fmt: ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
-(**Int*() takes a value (REAL), a format string (ARRAY OF CHAR) and updates dest (ARRAY OF CHAR)
+(**Real*() takes a value (REAL), a format string (ARRAY OF CHAR) and updates dest (ARRAY OF CHAR)
 using the C sprintf function. *)
 	END Real;
 
