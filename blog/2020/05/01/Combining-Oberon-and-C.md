@@ -31,7 +31,7 @@ straight forward.
 2. Create a Oberon test module that uses your module
 3. Compile your test module with OBNC
 4. Copy the generated module `.c` file to the same directory as your Oberon module source 
-5. Fill in the skeleton `.c` and re-compile and test
+5. Edit the skeleton `.c`,  re-compile and test
 
 Five steps may sound complicated but in practice is 
 straight forward.  
