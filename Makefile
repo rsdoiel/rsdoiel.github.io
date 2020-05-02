@@ -1,3 +1,5 @@
+
+TODAY = $(shell date "+%Y-%m-%d")
 #
 # Make file for building website
 #
@@ -49,6 +51,7 @@ website: all
 	bash blog.bash
 	mkrss -channel-title="R. S. Doiel" \
 	   	  -channel-description="Robert's ramblings and wonderigs" \
+		  -channel-pubdate="$(TODAY)" \
 		  -channel-link="http://rsdoiel.github.io/blog" blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 

@@ -1,5 +1,10 @@
+{
+    "markup": "mmark"
+}
 
 # Combining Oberon-7 and C with OBNC
+
+By R. S. Doiel, 2020-05-01
 
 In my day job I write allot of code in Go and 
 orchestration code in Python.  It's nice having 
