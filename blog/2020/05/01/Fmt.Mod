@@ -44,12 +44,12 @@ MODULE Fmt;
 
 	PROCEDURE Int*(value : INTEGER; fmt: ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
 (**Int*() takes a value (INTEGER), a format string (ARRAY OF CHAR) and updates dest (ARRAY OF CHAR)
-using C's sprintf function. *)
+using the C sprintf function. *)
 	END Int;
 
 	PROCEDURE Real*(value : REAL; fmt: ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
 (**Int*() takes a value (REAL), a format string (ARRAY OF CHAR) and updates dest (ARRAY OF CHAR)
-using C's sprintf function. *)
+using the C sprintf function. *)
 	END Real;
 
 BEGIN
