@@ -3,7 +3,7 @@
 
 In my day job I write allot of code in Go and 
 orchestration code in Python.  It's nice having 
-the convienence of combining code written one 
+the convenience of combining code written one 
 language with an another.  You can do the same 
 with [OBNC](https://miasap.se/obnc/).  The OBNC 
 compiler supports inclusion of C code in a 
@@ -33,7 +33,7 @@ straight forward.
 
 ## Fmt, an example
 
-In my demostration of Karl's instructions I will be
+In my demonstration of Karl's instructions I will be
 creating a module named `Fmt` that includes two
 procedures `Int()` and `Real()` that let you use
 a C-style format string to format an INTEGER
@@ -188,7 +188,7 @@ for the functions use the `_` character to identify mapped values
 as well as the char arrays being provided with a length parameter.
 If you are doing more extensive string work you'll want to take
 advantage of these additional parameters so insure that the
-astrings are terminated properly for Oberon's reuse.
+as strings are terminated properly for Oberon's reuse.
 
 
 ### Step 5
