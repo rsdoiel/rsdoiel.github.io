@@ -19,7 +19,7 @@ This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series.
 
 The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.
 A module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon
-the statement separator in Oberon. Our simple "Hello World" example 
+the statement separator in Oberon. Our simple "Hello World" example
 shows the basic code shape.
 
 ```Oberon
@@ -33,8 +33,8 @@ shows the basic code shape.
 Modules end with a `END` followed by the module's name and a period.
 Any text following the `END` statement is ignored by the compiler. This
 turns out to be very useful as a place to write up ideas about the code
-you're working on. You can also write any additional special instructions 
-there (e.g. document usage). You can even use it as a scratch pad knowing 
+you're working on. You can also write any additional special instructions
+there (e.g. document usage). You can even use it as a scratch pad knowing
 that the compiler will ignore it.
 
 Here's an example
@@ -53,42 +53,42 @@ Here's an example
 
 For a module to be really useful you want to have the capability
 of including both private and public code. Public code
-allows us to reuse our code in other modules while the private code 
+allows us to reuse our code in other modules while the private code
 keeps internal things inside the module safe from colliding with other
-modules private code. This technique is classically known as 
-"information hiding" and in computer sciences texts as "scope". Lets 
-create a a more composable module called `SayingHi.Mod`.  In 
-addition to display "Hello World!" we want a public method 
-(procedure in Oberon terminology) that can ask for a name and print 
-out a salutation. We will use the `SayingHi.Mod` module along with 
+modules private code. This technique is classically known as
+"information hiding" and in computer sciences texts as "scope". Lets
+create a a more composable module called `SayingHi.Mod`.  In
+addition to display "Hello World!" we want a public method
+(procedure in Oberon terminology) that can ask for a name and print
+out a salutation. We will use the `SayingHi.Mod` module along with
 a newer version of `HelloWorld.Mod` named `HelloWorld2.Mod`.
 
 
 ## Procedures
 
 How do we write methods in Oberon?  Methods are declared
-using the keyword `PROCEDURE` followed by their name, a 
+using the keyword `PROCEDURE` followed by their name, a
 declaration of any parameters and if the procedure returns a
-value (i.e. is a function) it also includes that declaration. 
+value (i.e. is a function) it is also included in the declaration.
 Next we declare any internal variables needed by the procedure.
-This is followed by the procedure's body.  The body of the 
-procedure is defined by a `BEGIN` and `END` statement structure. 
+This is followed by the procedure's body.  The body of the
+procedure is defined by a `BEGIN` and `END` statement structure.
 The body contains the steps the procedure needs to execute.
 
 We'll create a procedure called "HelloWorld" in our new module.
-Since we will use this procedure from our new `HelloWorld2.Mod` 
-our new "HelloWorld" procedure needs to be public.  A public 
-procedure in `SayingHi.Mod` is available for use in our new 
-`HelloWorld2.Mod` (or by another module).  Marking a procedure 
-public[^public] in Oberon is a little different than in other languages. 
-A Module's procedure is public if its name ends with an asterisk. 
+Since we will use this procedure from our new `HelloWorld2.Mod`
+our new "HelloWorld" procedure needs to be public.  A public
+procedure in `SayingHi.Mod` is available for use in our new
+`HelloWorld2.Mod` (or by another module).  Marking a procedure
+public[^public] in Oberon is a little different than in other languages.
+A Module's procedure is public if its name ends with an asterisk.
 Below is a sketch of our module `SayingHi.Mod` so far.
 
 
 ```Oberon
     MODULE SayingHi;
       IMPORT Out;
-    
+   
       PROCEDURE HelloWorld*;
       BEGIN
         Out.String("Hello World!"); Out.Ln;
@@ -97,9 +97,9 @@ Below is a sketch of our module `SayingHi.Mod` so far.
 ```
 
 This modules looks allot like `HelloWorld.Mod` with a couple key
-differences. Rather than relying on the module's begin and end 
-statements we declare a procedure with its own begin and end statements.
-Notice the procedures end statement includes the procedure name and
+differences. Rather than relying on the module's begin and end
+statement we declare a procedure with its own begin and end statement.
+Notice the procedure's end statement includes the procedure name and
 is terminated by semicolon rather than a period.  Like `HelloWorld.Mod`
 we import the `Out` module to display our greeting.
 
@@ -136,7 +136,7 @@ have the computer ask our name and then respond with a greeting.
 We'll modify our SayingHi to include a new procedure called "Greetings"
 and that procedure needs to ask us our name and then display
 an appropriate greeting. "Greetings" will be a public procedure
-marked by an asterisk like "HelloWorld". 
+marked by an asterisk like "HelloWorld".
 
 "Greetings" has three tasks
 
@@ -151,28 +151,28 @@ outside `SayingHi.Mod`. Here's a sketch of our improved module.
 ```
     MODULE SayingHi;
       IMPORT In, Out;
-    
+   
       PROCEDURE HelloWorld*;
       BEGIN
         Out.String("Hello World!"); Out.Ln;
       END HelloWorld;
-    
+   
       PROCEDURE AskOurName;
       BEGIN
         Out.String("Excuse me, may I ask your name? ");
       END AskOurName;
-    
+   
       PROCEDURE GetName(VAR ourName : ARRAY OF CHAR);
       BEGIN
         In.Line(ourName);
       END GetName;
-    
+   
       PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);
       BEGIN
         Out.String("Hello ");Out.String(ourName);
         Out.String (", very nice to meeting you."); Out.Ln;
       END AssembleGreeting;
-    
+   
       PROCEDURE Greetings*;
         VAR ourName : ARRAY 256 OF CHAR;
       BEGIN
@@ -214,11 +214,11 @@ When you run `HelloWorld2` you should now see something like
 ## Reading our code
 
 While our revised modules are still short they actually exercise
-a number of language features. Let's walk through the code 
+a number of language features. Let's walk through the code
 block by block and see what is going.
 
 `HelloWorld2.Mod` is responsible for the general management of
-our program namely say "Hello World!" and also for initiating
+our program namely saying "Hello World!" and also for initiating
 and responding with a more personal greeting.  It does this by
 first importing our `SayingHi.Mod` module.
 
@@ -226,12 +226,12 @@ first importing our `SayingHi.Mod` module.
     IMPORT SayingHi;
 ```
 
-[HelloWorld2.Mod](HelloWorld2.Mod) doesn't have any of its own 
-procedures and like our original [HelloWorld.Mod](HelloWorld.Mod)
-relies on the module's initialization block to run our two public 
-procedures from `SayingHi`. It calls first `SayingHi.HelloWorld;` 
-then `SayingHi.Greetings'` before existing. Other than using the 
-`SayingHi` module it is similar in spirit to our first 
+[HelloWorld2.Mod](HelloWorld2.Mod) doesn't have any of its own
+procedures. Like our original [HelloWorld.Mod](HelloWorld.Mod)
+relies on the module's initialization block to run our two public
+procedures from `SayingHi`. It calls first `SayingHi.HelloWorld;`
+then `SayingHi.Greetings'` before exiting. Other than using the
+`SayingHi` module it is similar in spirit to our first
 [HelloWorld.Mod](HelloWorld.Mod).
 
 Our second module [SayingHi.Mod](SayingHi.Mod) does the heavy lifting.
@@ -239,7 +239,7 @@ It contains both public and private procedures.  If you tried to
 use `GetName` from `SayingHi` in `HelloWorld2.Mod` you would get a
 compiler error. As far as `HelloWorld2.Mod` is concerned `GetName`
 does not exist. This is called information hiding and is an important
-capability provided by Oberon's Modules system. 
+capability provided by Oberon's Modules system.
 
 ### explore `SayingHi` more deeply
 
@@ -259,7 +259,7 @@ text to standard output.
 `In` and `Out` are to modules you will commonly use to either
 receive input (`In`) from the keyboard or display output (`Out`)
 to the terminal or shell. They provide simple methods for working
-with variables and constants and built-in Oberon data types[^basictypes]. 
+with variables and constants and built-in Oberon data types[^basictypes].
 This is a very useful as it lets us focus our procedures
 on operating on data rather than the low level steps needed to
 interact with the operating system and hardware.
@@ -283,14 +283,14 @@ a public procedure and should be made available to other modules.
 Procedures, variables, constants, records (data structures) can be
 made public with this simple annotation.  If we left off the `*`
 then we would not be able to use `HelloWorld` procedure from other
-module.
+modules.
 
 Our second procedure is `AskOurName`. It's private because it lacks
 the `*`. It is invisible to `HelloWorld2.Mod`. It is visible within
 `SayingHi` module and we'll use it later in `Greetings*`. Before
 a procedure, variable, constant or record can be used it must be
-declared. That is why we most define `AskOurName` before we define
-`Greetings*`. `AskOurName` is in other respects very similar to 
+declared. That is why we must define `AskOurName` before we define
+`Greetings*`. `AskOurName` is in other respects very similar to
 `HelloWorld*`.
 
 ```Oberon
@@ -312,13 +312,13 @@ parameter list.
 There is allot packed in this single statement in addition
 to putting a name to our procedure. Specifically it uses
 a `VAR` in the parameter.  Oberon provides two kinds of parameters
-in declaring procedures. The two are `VAR` and static.  A `VAR` 
-parameter means that the procedure is allowed to up date the value 
-in the memory location indicated by the name. A static variable 
-(a parameter without the `VAR` prefix passes in a read only value. 
+in declaring procedures. The two are `VAR` and static.  A `VAR`
+parameter means that the procedure is allowed to up date the value
+in the memory location indicated by the name. A static variable
+(a parameter without the `VAR` prefix passes in a read only value.
 This allows us to distinguish between those procedures and variables
 where that can be modified by the procedure and those which
-will be left the same. Inside of `GetName` we call the 
+will be left the same. Inside of `GetName` we call the
 `In` module using the `Line`. This retrieves a line of text
 (a sequence of keyboard strokes ended with the return key).
 
@@ -349,10 +349,10 @@ we use trailing spaces to make the output more readable.
 
 Our final procedure is public, `Greetings*`. It does not
 have any parameters.  Importantly it does include a
-variable for use inside the procedure called `ourName`. 
-The `VAR` line declares `ourName` as an `ARRAY 256 OF CHAR`. 
-This declaration tells the compiler to allocate memory 
-for storing `ourName` while `Greetings*` is being executed. 
+variable for use inside the procedure called `ourName`.
+The `VAR` line declares `ourName` as an `ARRAY 256 OF CHAR`.
+This declaration tells the compiler to allocate memory
+for storing `ourName` while `Greetings*` is being executed.
 The declaration tells us three things. First the storage
 is continuous block of memory, that is what `ARRAY` means.
 The second is the size of this memory block is 256 `CHAR`
@@ -363,27 +363,30 @@ the variable to `GetName` based on what we type at the
 keyboard. If we type more than 256 ASCII characters they
 will be ignored. After `GetName` records the typed character
 we use the memory associated with the `ourName` variable
-we read that memory to display what we typed in 
+we read that memory to display what we typed in
 the procedure named `AssembleGreeting`.
 
 
 ### Going a little deeper
 
-Oberon is a typed language meaning that 
+Oberon is a typed language meaning that
 variables are declared, allocated and checked during compile time
 for specific characteristics. The one variable we created `ourName`
-in the `Greetings` procedure reserves the space for 256 
-[ASCII](https://en.wikipedia.org/wiki/ASCII) characters. 
+in the `Greetings` procedure reserves the space for 256
+[ASCII](https://en.wikipedia.org/wiki/ASCII) characters.
 In Oberon we call a single ASCII character a `CHAR`.  Since it
 would be useful to work with more than one `CHAR` in relationship
-to others Oberon also supports a variable type called `ARRAY`. 
-An `ARRAY` is represented as a block of memory that is allocated
-by the Oberon run time. Because it is allocated ahead of time we
-need to know its size (i.e. how many `CHAR` are we storing). In
-our case we have declared `ARRAY 256 OF CHAR`. That means we can
-hold names up to 256 ASCII characters. 
+to others Oberon also supports a variable type called `ARRAY`.
+An `ARRAY` is a block of memory that is allocated with space
+for each element layed out next to each other. It is accessed
+by an index value and the Oberon compiler and run time manages 
+the indexes mapping to memory location in the ARRAY. Because it 
+is allocated ahead of time we need to know its size (i.e. how many 
+`CHAR` are we storing). In our case we have declared 
+`ARRAY 256 OF CHAR`. That means we can hold names up to 256 ASCII 
+characters.
 
-`Greetings*` does three things and the second thing, `GetName` 
+`Greetings*` does three things and the second thing, `GetName`
 receives the characters typed at the keyboard.  `GetName` has
 a parameter list. In this case the only one parameter is declared
 `VAR ourName : ARRAY OF CHAR`. Notice the similarity and
@@ -395,25 +398,25 @@ compiler will stop with an error message.
 
 Why is this important?
 
-We've minimized the memory we've used in our program.  Memory is 
-typically allocated on the stack (a block of memory made available 
-by the operating system to the program). We've told the operating 
-system we need 256 `CHAR` worth of consecutive memory locations 
-when we allocated room the variable `ourName` in `Greetings`. When 
-we invoke `GetName` Oberon knows to use that same memory location 
+We've minimized the memory we've used in our program.  Memory is
+typically allocated on the stack (a block of memory made available
+by the operating system to the program). We've told the operating
+system we need 256 `CHAR` worth of consecutive memory locations
+when we allocated room the variable `ourName` in `Greetings`. When
+we invoke `GetName` Oberon knows to use that same memory location
 for the value of `ourName` defined in the parameter.  In turn
 when `In.String(ourName);` is called the module `In` knows
 to store the name typed on the keyboard in that location of memory.
 When `Out.String(outName);` is called the compiler knows to use
 the same location of memory to send the contents to the display.
-When we finally finish the `Greetings*` procedure the memory is 
+When we finally finish the `Greetings*` procedure the memory is
 released back to the operating system for re-use by this or
 other programs.
 
 ### What we've explored
 
 1. Using a module to break down a simple problem
-2. Using a module's ability to have public and private procedures 
+2. Using a module's ability to have public and private procedures
 3. Touched on how memory is used in a simple interactive program
 
 [^public]: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are "read only" in other modules.

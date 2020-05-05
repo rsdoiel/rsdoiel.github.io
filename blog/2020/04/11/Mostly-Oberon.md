@@ -57,7 +57,7 @@ similar to C or Go's "main" function for our POSIX environment.
 
 ### OBNC
 
-If you want to run my "Hello World" you need to compile it.  I have found that [OBNC](https://miasap.se/obnc/) compiler runs well on Linux, macOS and [Raspberry Pi](https://www.raspberrypi.org). Karl has also made a precompiled version that runs on Windows available too. It is the Oberon compiler I plan to use in this series of posts.
+If you want to run my "Hello World" you need to compile it.  I have found that [OBNC](https://miasap.se/obnc/) compiler runs well on Linux, macOS and [Raspberry Pi](https://www.raspberrypi.org). Karl has also made a precompiled version for Windows. It is the Oberon compiler I plan to use in this series of posts.
 
 OBNC compiles Oberon source into C then into machine code for the computer system you are running on. Because it is compiling to C it can function as a [cross compiler](https://en.wikipedia.org/wiki/Cross_compiler). This opens the door to [bare metal programming](https://en.wikipedia.org/wiki/Bare_machine).
 

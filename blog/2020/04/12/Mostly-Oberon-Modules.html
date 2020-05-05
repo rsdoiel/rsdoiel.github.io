@@ -83,7 +83,7 @@ a newer version of <code>HelloWorld.Mod</code> named <code>HelloWorld2.Mod</code
 <p>How do we write methods in Oberon?  Methods are declared
 using the keyword <code>PROCEDURE</code> followed by their name, a
 declaration of any parameters and if the procedure returns a
-value (i.e. is a function) it also includes that declaration.
+value (i.e. is a function) it is also included in the declaration.
 Next we declare any internal variables needed by the procedure.
 This is followed by the procedure's body.  The body of the
 procedure is defined by a <code>BEGIN</code> and <code>END</code> statement structure.
@@ -100,7 +100,7 @@ Below is a sketch of our module <code>SayingHi.Mod</code> so far.</p>
 
 <pre><code class="language-Oberon">    MODULE SayingHi;
       IMPORT Out;
-    
+   
       PROCEDURE HelloWorld*;
       BEGIN
         Out.String(&quot;Hello World!&quot;); Out.Ln;
@@ -110,8 +110,8 @@ Below is a sketch of our module <code>SayingHi.Mod</code> so far.</p>
 
 <p>This modules looks allot like <code>HelloWorld.Mod</code> with a couple key
 differences. Rather than relying on the module's begin and end
-statements we declare a procedure with its own begin and end statements.
-Notice the procedures end statement includes the procedure name and
+statement we declare a procedure with its own begin and end statement.
+Notice the procedure's end statement includes the procedure name and
 is terminated by semicolon rather than a period.  Like <code>HelloWorld.Mod</code>
 we import the <code>Out</code> module to display our greeting.</p>
 
@@ -161,28 +161,28 @@ outside <code>SayingHi.Mod</code>. Here's a sketch of our improved module.</p>
 
 <pre><code>    MODULE SayingHi;
       IMPORT In, Out;
-    
+   
       PROCEDURE HelloWorld*;
       BEGIN
         Out.String(&quot;Hello World!&quot;); Out.Ln;
       END HelloWorld;
-    
+   
       PROCEDURE AskOurName;
       BEGIN
         Out.String(&quot;Excuse me, may I ask your name? &quot;);
       END AskOurName;
-    
+   
       PROCEDURE GetName(VAR ourName : ARRAY OF CHAR);
       BEGIN
         In.Line(ourName);
       END GetName;
-    
+   
       PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);
       BEGIN
         Out.String(&quot;Hello &quot;);Out.String(ourName);
         Out.String (&quot;, very nice to meeting you.&quot;); Out.Ln;
       END AssembleGreeting;
-    
+   
       PROCEDURE Greetings*;
         VAR ourName : ARRAY 256 OF CHAR;
       BEGIN
@@ -224,7 +224,7 @@ a number of language features. Let's walk through the code
 block by block and see what is going.</p>
 
 <p><code>HelloWorld2.Mod</code> is responsible for the general management of
-our program namely say &quot;Hello World!&quot; and also for initiating
+our program namely saying &quot;Hello World!&quot; and also for initiating
 and responding with a more personal greeting.  It does this by
 first importing our <code>SayingHi.Mod</code> module.</p>
 
@@ -232,10 +232,10 @@ first importing our <code>SayingHi.Mod</code> module.</p>
 </code></pre>
 
 <p><a href="HelloWorld2.Mod">HelloWorld2.Mod</a> doesn't have any of its own
-procedures and like our original <a href="HelloWorld.Mod">HelloWorld.Mod</a>
+procedures. Like our original <a href="HelloWorld.Mod">HelloWorld.Mod</a>
 relies on the module's initialization block to run our two public
 procedures from <code>SayingHi</code>. It calls first <code>SayingHi.HelloWorld;</code>
-then <code>SayingHi.Greetings'</code> before existing. Other than using the
+then <code>SayingHi.Greetings'</code> before exiting. Other than using the
 <code>SayingHi</code> module it is similar in spirit to our first
 <a href="HelloWorld.Mod">HelloWorld.Mod</a>.</p>
 
@@ -288,13 +288,13 @@ a public procedure and should be made available to other modules.
 Procedures, variables, constants, records (data structures) can be
 made public with this simple annotation.  If we left off the <code>*</code>
 then we would not be able to use <code>HelloWorld</code> procedure from other
-module.</p>
+modules.</p>
 
 <p>Our second procedure is <code>AskOurName</code>. It's private because it lacks
 the <code>*</code>. It is invisible to <code>HelloWorld2.Mod</code>. It is visible within
 <code>SayingHi</code> module and we'll use it later in <code>Greetings*</code>. Before
 a procedure, variable, constant or record can be used it must be
-declared. That is why we most define <code>AskOurName</code> before we define
+declared. That is why we must define <code>AskOurName</code> before we define
 <code>Greetings*</code>. <code>AskOurName</code> is in other respects very similar to
 <code>HelloWorld*</code>.</p>
 
@@ -377,11 +377,14 @@ in the <code>Greetings</code> procedure reserves the space for 256
 In Oberon we call a single ASCII character a <code>CHAR</code>.  Since it
 would be useful to work with more than one <code>CHAR</code> in relationship
 to others Oberon also supports a variable type called <code>ARRAY</code>.
-An <code>ARRAY</code> is represented as a block of memory that is allocated
-by the Oberon run time. Because it is allocated ahead of time we
-need to know its size (i.e. how many <code>CHAR</code> are we storing). In
-our case we have declared <code>ARRAY 256 OF CHAR</code>. That means we can
-hold names up to 256 ASCII characters.</p>
+An <code>ARRAY</code> is a block of memory that is allocated with space
+for each element layed out next to each other. It is accessed
+by an index value and the Oberon compiler and run time manages
+the indexes mapping to memory location in the ARRAY. Because it
+is allocated ahead of time we need to know its size (i.e. how many
+<code>CHAR</code> are we storing). In our case we have declared
+<code>ARRAY 256 OF CHAR</code>. That means we can hold names up to 256 ASCII
+characters.</p>
 
 <p><code>Greetings*</code> does three things and the second thing, <code>GetName</code>
 receives the characters typed at the keyboard.  <code>GetName</code> has
