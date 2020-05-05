@@ -44,11 +44,11 @@
 
 <p>While Wirth conceived of Oberon in the context of a whole system<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">2</a></sup> it's use in research and instruction means it is also well suited <a href="https://en.wikipedia.org/wiki/POSIX">POSIX</a> based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.</p>
 
-<p>The latest Oberon is Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's <a href="https://github.com/pdewacht/oberon-risc-emu">emulator</a>. Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.</p>
+<p>The latest Oberon is from Niklaus Wirth's and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's <a href="https://github.com/pdewacht/oberon-risc-emu">emulator</a>. Project Oberon 2013 <a href="https://www.projectoberon.com">website</a> also has links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.</p>
 
 <h2 id="a-starting-point">A starting point</h2>
 
-<p>I am starting my exploration with Karl Landström's <a href="https://miasap.se/obnc/">OBNC</a> compiler. I am focusing on getting comfortable using and writing in the Oberon language.</p>
+<p>I am starting my exploration with Karl Landström's <a href="https://miasap.se/obnc/">OBNC</a> compiler. I am focusing on getting comfortable using and writing in the Oberon-7 language.</p>
 
 <p>Here's an example of a simple &quot;Hello World&quot;<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">3</a></sup> program in Oberon written for a POSIX system. I've named the <a href="HelloWorld.Mod">source code</a> <code>HelloWorld.Mod</code>.</p>
 
@@ -59,14 +59,14 @@
     END HelloWorld.
 </code></pre>
 
-<p>While this is longer than a Python &quot;hello world&quot; program it is much shorter than I remember writing in Java and about the same number of lines as in C. <code>BEGIN</code> and <code>END</code> are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. <code>IMPORT</code> includes the module <code>Out</code> (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.</p>
+<p>While this is longer than a Python &quot;hello world&quot; program it is much shorter than I remember writing in Java and about the same number of lines as in C. <code>BEGIN</code> and <code>END</code> are similar to C's opening and closing curly braces. The module is the basic unit of source code in Oberon. <code>IMPORT</code> includes the module <code>Out</code> (modules let you re-use code, in C the closest thing would be to include a library) for sending values to the console (stdout in POSIX). Another thing to note is Oberon is case sensitive and all built in language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.</p>
 
 <p>The <code>Out</code> module includes methods for displaying various data types native
 to Oberon. There is a corresponding <code>In</code> for receiving input as well as
 some additional modules provided with our chosen compiler implementation.</p>
 
 <p>Modules in Oberon can include a module wide initialization block. The
-<code>BEGIN</code> through <code>END HelloWorld.</code> are an initialization block. This is
+<code>BEGIN</code> through <code>END HelloWorld.</code> is an initialization block. This is
 similar to C or Go's &quot;main&quot; function for our POSIX environment.</p>
 
 <h3 id="obnc">OBNC</h3>

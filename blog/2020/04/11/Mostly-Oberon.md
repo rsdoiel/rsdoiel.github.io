@@ -28,12 +28,12 @@ Oberon 7 is Wirth's most recent refinement of the Oberon language.  It is a ters
 
 While Wirth conceived of Oberon in the context of a whole system[^4] it's use in research and instruction means it is also well suited [POSIX](https://en.wikipedia.org/wiki/POSIX) based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
 
-The latest Oberon is Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's [emulator](https://github.com/pdewacht/oberon-risc-emu). Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.
+The latest Oberon is from Niklaus Wirth's and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's [emulator](https://github.com/pdewacht/oberon-risc-emu). Project Oberon 2013 [website](https://www.projectoberon.com) also has links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.
 
 
 ## A starting point
 
-I am starting my exploration with Karl Landström's [OBNC](https://miasap.se/obnc/) compiler. I am focusing on getting comfortable using and writing in the Oberon language.
+I am starting my exploration with Karl Landström's [OBNC](https://miasap.se/obnc/) compiler. I am focusing on getting comfortable using and writing in the Oberon-7 language.
 
 Here's an example of a simple "Hello World"[^2] program in Oberon written for a POSIX system. I've named the [source code](HelloWorld.Mod) `HelloWorld.Mod`.
 
@@ -45,14 +45,14 @@ Here's an example of a simple "Hello World"[^2] program in Oberon written for a 
     END HelloWorld.
 ```
 
-While this is longer than a Python "hello world" program it is much shorter than I remember writing in Java and about the same number of lines as in C. `BEGIN` and `END` are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. `IMPORT` includes the module `Out` (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.
+While this is longer than a Python "hello world" program it is much shorter than I remember writing in Java and about the same number of lines as in C. `BEGIN` and `END` are similar to C's opening and closing curly braces. The module is the basic unit of source code in Oberon. `IMPORT` includes the module `Out` (modules let you re-use code, in C the closest thing would be to include a library) for sending values to the console (stdout in POSIX). Another thing to note is Oberon is case sensitive and all built in language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.
 
 The `Out` module includes methods for displaying various data types native
 to Oberon. There is a corresponding `In` for receiving input as well as
 some additional modules provided with our chosen compiler implementation.
 
 Modules in Oberon can include a module wide initialization block. The
-`BEGIN` through `END HelloWorld.` are an initialization block. This is
+`BEGIN` through `END HelloWorld.` is an initialization block. This is
 similar to C or Go's "main" function for our POSIX environment.
 
 ### OBNC
