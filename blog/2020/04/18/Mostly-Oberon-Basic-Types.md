@@ -18,7 +18,7 @@ This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. 
 ## Simple Types
 
 Oberon is a small systems language. It provides a useful but 
-limited umber of basic types[^basic-types]. These can be be
+limited number of basic types[^basic-types]. These can be be
 thought of as simple types mapping to specific memory locations
 and more complex types composed of multiple memory locations.
 
@@ -26,7 +26,7 @@ and more complex types composed of multiple memory locations.
 
 ### INTEGER
 
-Integers are easiest to be thought of as whole numbers. They may be
+Integers can be thought of as whole numbers. They may be
 positive numbers or negative numbers. Declaring an integer
 variable `i` it would look something like
 
