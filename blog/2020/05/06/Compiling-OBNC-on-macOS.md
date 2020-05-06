@@ -45,7 +45,7 @@ you want is "beohmgc".
 More info on the GC.
 
 + [The Boehm-Demers-Weiser GC](https://www.hboehm.info/gc/)
-    + [MacPorts page](https://ports.macports.org/port/boehmgc/summary)
++ [MacPorts page](https://ports.macports.org/port/boehmgc/summary)
 
 ### C compiler and linker
 
