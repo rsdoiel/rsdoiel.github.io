@@ -1,7 +1,7 @@
 {
-    "markup": "mmark"
+    "markup": "mmark",
     "title": "Compiling OBNC on macOS",
-    "byline": "R. S. Doiel, 2020-04-06"
+    "byline": "R. S. Doiel, 2020-05-06"
 }
 
 # Compiling OBNC on macOS 
