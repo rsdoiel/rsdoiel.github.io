@@ -13,7 +13,7 @@
 
 By R. S. Doiel, 2020-04-12
 
-This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 ## Modules
 

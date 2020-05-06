@@ -1,9 +1,9 @@
 {
     "markup": "mmark",
     "title": "Oberon Loops and Conditions",
-    "number": 3,
+    "number": 4,
     "byline": "R. S. Doiel",
-    "date": "2020-04-18",
+    "date": "2020-04-19",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
@@ -12,7 +12,7 @@
 
 By R. S. Doiel, 2020-04-19
 
-This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 ## Data Flow
 

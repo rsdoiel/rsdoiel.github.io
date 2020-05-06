@@ -1,12 +1,17 @@
 {
-    "markup": "mmark"
+    "markup": "mmark",
+    "number": 5,
+    "byline": "R. S. Doiel",
+    "date": "2020-05-01",
+    "copyright": "copyright (c) 2020, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
 
 # Combining Oberon-7 and C with OBNC
 
 By R. S. Doiel, 2020-05-01
 
-This is the fifth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the fifth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 In my day job I write allot of code in Go and 
 orchestration code in Python.  It's nice having 
@@ -199,7 +204,7 @@ Recompile and test.
 
 ### Next and Previous
 
-+ Next [Compiling OBNC on macOS](../05/Compiling-OBNC-on-macOS.html)
++ Next [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.html)
 + Previously [Oberon Loops and Conditions](../../04/19/Mostly-Oberon-Loops-and-Conditions.html)
 
 
