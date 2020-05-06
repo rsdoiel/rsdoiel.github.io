@@ -1,9 +1,12 @@
 {
   "markup": "mmark"
-  "title": "Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)"
+  "title": "Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)",
+  "byline": "R. S. Doiel, 2020-04-06"
 }
 
 # Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)
+
+By R. S. Doiel, 2020-04-06
 
 Compiling OBNC v0.16.1 on macOS using MacPorts is straight forward
 if you have the required dependencies and environment setup up. Below are

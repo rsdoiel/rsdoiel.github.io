@@ -1,4 +1,5 @@
 
++ [Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06
 + [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
 + [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-19
 + [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
