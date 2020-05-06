@@ -1,16 +1,18 @@
 {
-  "markup": "mmark"
-  "title": "Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)",
-  "byline": "R. S. Doiel, 2020-04-06"
+    "markup": "mmark"
+    "title": "Compiling OBNC on macOS",
+    "byline": "R. S. Doiel, 2020-04-06"
 }
 
-# Compiling OBNC on macOS (10.13.6) using MacPorts (2.6.2)
+# Compiling OBNC on macOS 
 
-By R. S. Doiel, 2020-04-06
+By R. S. Doiel, 2020-05-06
 
-Compiling OBNC v0.16.1 on macOS using MacPorts is straight forward
-if you have the required dependencies and environment setup up. Below are
-my notes to get everything working.
+This is the sixth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+
+Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) 
+is straight forward if you have the required dependencies and 
+environment setup up. Below are my notes to get everything working.
 
 ## Prerequisites
 
@@ -75,4 +77,7 @@ install location and local home directory location.
     export OBNC_IMPORT_PATH="/usr/local/lib/obnc:$HOME/lib/obnc"
 ```
 
+### Previous
+
++ Previous [Combining Oberon-7 and C](../01/Combining-Oberon-and-C.html)
 

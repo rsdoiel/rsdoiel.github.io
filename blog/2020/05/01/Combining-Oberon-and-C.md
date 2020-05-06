@@ -197,8 +197,9 @@ Recompile and test.
     ./FmtTest
 ```
 
-### Previous
+### Next and Previous
 
++ Next [Compiling OBNC on macOS](../05/Compiling-OBNC-on-macOS.html)
 + Previously [Oberon Loops and Conditions](../../04/19/Mostly-Oberon-Loops-and-Conditions.html)
 
 
