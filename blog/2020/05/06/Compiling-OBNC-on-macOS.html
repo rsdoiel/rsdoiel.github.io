@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Compiling OBNC on macOS </title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="Compiling-OBNC-on-macOS.md">
+  </head>
+  <body>
+    
+    <nav>
+    <ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+</ul>
+
+    </nav>
+
+    <section>
+      <article>
+	  <h1 id="compiling-obnc-on-macos">Compiling OBNC on macOS</h1>
+
+<p>By R. S. Doiel, 2020-05-06</p>
+
+<p>This is the sixth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.</p>
+
+<p>Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2)
+is straight forward if you have the required dependencies and
+environment setup up. Below are my notes to get everything working.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>OBNC v0.16.1</li>
+<li>SDL v1.2</li>
+<li>Boehm-Demers-Weiser GC</li>
+<li>A C compiler and linker (OBNC uses this to generate machine specific code)</li>
+</ul>
+
+<h3 id="sdl-1-2">SDL 1.2</h3>
+
+<p>MacPorts has libsdl 1.2 available as a package called &quot;libsdl&quot;
+(not surprisingly). There are other versions of the SDL available
+in ports but this is the one we're using.</p>
+
+<pre><code class="language-bash ">   sudo port install libsdl
+</code></pre>
+
+<h3 id="the-boehm-demers-weiser-gc">The Boehm-Demers-Weiser GC</h3>
+
+<p>You need to install the Boehm-Demers-Weiser GC installed. Using
+MacPorts it is almost as easy as installing under Debian. The
+package is less obviously named than under Debian. The package
+you want is &quot;beohmgc&quot;.</p>
+
+<pre><code class="language-bash">    sudo port install boehmgc
+</code></pre>
+
+<p>More info on the GC.
++ <a href="https://www.hboehm.info/gc/">The Boehm-Demers-Weiser GC</a>
+    + <a href="https://ports.macports.org/port/boehmgc/summary">MacPorts page</a></p>
+
+<h3 id="c-compiler-and-linker">C compiler and linker</h3>
+
+<p>XCode is provides a C compiler and linker. That is what is installed on my
+machine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can
+install other C compilers (e.g. Clang) but I haven't tried them yet.</p>
+
+<h2 id="setting-up-my-environment">Setting up my environment</h2>
+
+<p>You need to update your CC variables to find the header and
+shared library files for compilation of obnc with <code>build</code>. (I added
+these to my <code>.bash_profile</code>). New Macs ships with zsh and
+your settings might be in a different location. MacPorts puts
+its libraries under the <code>/opt/local</code> directory.</p>
+
+<pre><code class="language-bash">    export C_INCLUDE_PATH=&quot;/usr/include:/usr/local/include:/opt/local/include&quot;
+    export LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
+    export LD_LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
+</code></pre>
+
+<h2 id="obnc-environment-variables">OBNC environment variables</h2>
+
+<p>This follows' Karl's docs.  Additionally if you install OBNC extlib so
+you can do POSIX shell programs you'll need to set your
+<code>OBNC_IMPORT_PATH</code> environment.  An example of including a default
+install location and local home directory location.</p>
+
+<pre><code class="language-bash">    export OBNC_IMPORT_PATH=&quot;/usr/local/lib/obnc:$HOME/lib/obnc&quot;
+</code></pre>
+
+<h3 id="previous">Previous</h3>
+
+<ul>
+<li>Previous <a href="../01/Combining-Oberon-and-C.html">Combining Oberon-7 and C</a></li>
+</ul>
+
+      </article>
+    </section>
+
+    <footer>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br />
+<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+
+    </footer>
+    
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+    </body>
+</html>
