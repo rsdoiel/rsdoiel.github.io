@@ -40,7 +40,7 @@ the Oberon System to need to have file representations
 that can persist across procedure calls. It provides
 a set of abstractions that are a little bit like views
 and cursors found in database systems. In taking
-this approach Oberon language esquews modality at the
+this approach Oberon language eschews modality at the
 procedure level. 
 
 [^unloading]: Modules can be explicitly unload otherwise they persist until the computer is turned off
@@ -77,7 +77,7 @@ Purge
 : Sets a file's length to zero.
 
 Delete
-: Unregisters the filename with the file system.
+: Unregister the filename with the file system.
 
 In the Oberon Systems a file can be "opened" many
 times with only one copy maintained in memory. This allows
@@ -85,7 +85,7 @@ efficient operations across a module's procedures.
 Likewise a file can have one or more Riders associated with
 it. Each rider can move through the file independently operating on
 the common in memory file. If a file is created with `New` but
-not registered it can be treaded like an in-memory temp file.
+not registered it can be treated like an in-memory temp file.
 Closing a file writes its buffers but the file remains accessible
 through it handle and riders. If a file is not modified it
 doesn't need to be closed.
@@ -173,7 +173,7 @@ a procedure named `Old`. We don't need to register the
 file because it already exists.  We still need to set
 our rider and we want to read back the string we previously wrote.
 We don't need to close it because we haven't
-modified it. To demostrate a new procedure is added to
+modified it. To demonstrate a new procedure is added to
 our module called `ReadHelloWorld`.
 
 ```
@@ -216,7 +216,7 @@ procedure to check if the file was successfully removed.
   BEGIN
     (* Delete our file *)
     Files.Delete("HelloWorld.txt", result);
-    (* Check our result, if not zero then hald program with error *)
+    (* Check our result, if not zero then halt program with error *)
     ASSERT(result = 0);
   END DeleteHelloWorld;
 ```
@@ -279,7 +279,7 @@ Here is the full listing of our module.
       BEGIN
         (* Delete our file *)
         Files.Delete("HelloWorld.txt", result);
-        (* Check our result, if not zero then hald program with error *)
+        (* Check our result, if not zero then halt program with error *)
         ASSERT(result = 0);
       END DeleteHelloWorld;
     
