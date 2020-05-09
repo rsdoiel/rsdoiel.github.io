@@ -82,7 +82,8 @@ install location and local home directory location.
     export OBNC_IMPORT_PATH="/usr/local/lib/obnc:$HOME/lib/obnc"
 ```
 
-### Previous
+### Next and Previous
 
++ Next [Oberon-7 and the file system](../09/Oberon-7-and-the-filesystem.html)
 + Previous [Combining Oberon-7 and C](../01/Combining-Oberon-and-C.html)
 
