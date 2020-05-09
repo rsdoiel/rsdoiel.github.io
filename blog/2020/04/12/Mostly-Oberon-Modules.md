@@ -58,7 +58,7 @@ keeps internal things inside the module safe from colliding with other
 modules private code. This technique is classically known as
 "information hiding" and in computer sciences texts as "scope". Lets
 create a a more composable module called `SayingHi.Mod`.  In
-addition to display "Hello World!" we want a public method
+addition to displaying "Hello World!" we want a public method
 (procedure in Oberon terminology) that can ask for a name and print
 out a salutation. We will use the `SayingHi.Mod` module along with
 a newer version of `HelloWorld.Mod` named `HelloWorld2.Mod`.
