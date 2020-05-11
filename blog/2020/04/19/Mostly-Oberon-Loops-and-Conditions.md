@@ -1,8 +1,9 @@
 {
     "markup": "mmark",
     "title": "Oberon Loops and Conditions",
+    "series": "Mostly Oberon",
     "number": 4,
-    "byline": "R. S. Doiel",
+    "author": "R. S. Doiel",
     "date": "2020-04-19",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"

@@ -26,19 +26,19 @@
 
     <section>
       <article>
-	  <h1>Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
+	  <h1 id="cross-compiling-go-1-8-3-for-pine64-pinebook">Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
 
 <p>By R. S. Doiel 2017-06-16</p>
 
-<p>Pine64&rsquo;s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is
+<p>Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is
 not the same ARM processor found on a Raspberry Pi 3. As a
 result it needs its own compiled version of Go. Fortunately cross
 compiling Go is very straight forward. I found two helpful Gists
 on Github discussing compiling Go for a 64-Bit ARM processor.</p>
 
 <ul>
-<li><a href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro&rsquo;s gist</a></li>
-<li><a href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101&rsquo;s gist</a></li>
+<li><a href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro's gist</a></li>
+<li><a href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101's gist</a></li>
 </ul>
 
 <p>I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile
@@ -77,7 +77,7 @@ a new go1.8.3 for Pine64.</p>
 </code></pre>
 
 <p><em>all.bash</em> will successfully compile <em>go</em> and <em>gofmt</em> but fail on
-the tests. It&rsquo;s not perfect but appears to work as I explore
+the tests. It's not perfect but appears to work as I explore
 building Go applications on my Pinebook. Upcoming Go releases should
 provide better support for 64 bit ARM.</p>
 

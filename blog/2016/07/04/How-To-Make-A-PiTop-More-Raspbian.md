@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "How to make a Pi-Top more Raspbian",
+    "author": "R. S. Doiel",
+    "date": "2016-07-04",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # How to make a Pi-Top more Raspbian
 

@@ -26,22 +26,22 @@
 
     <section>
       <article>
-	  <h1>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
+	  <h1 id="instant-articles-accelerated-mobile-pages-twitter-cards-and-open-graph">Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
 
 <p>By R. S. Doiel 2016-05-30</p>
 
-<h2>The problem</h2>
+<h2 id="the-problem">The problem</h2>
 
 <p>The web has gotten slow. In <a href="http://httparchive.org/trends.php">2016</a> the
 average page weight is in multi-megabytes and the average number of network
 requests needed to deliver the content is counted in
 the hundreds. In the mix are saturated networks and a continued public
 expectation of responsiveness (web wisdom suggests you have about 3 seconds
-before people give up).  The odd thing is we&rsquo;ve known how to build fast
+before people give up).  The odd thing is we've known how to build fast
 websites for a <a href="https://www.stevesouders.com/">decade</a> or so.<br>
-Collectively we don&rsquo;t build them <a href="https://www.sitepoint.com/average-page-weight-increased-another-16-2015/">fast</a>.</p>
+Collectively we don't build them <a href="https://www.sitepoint.com/average-page-weight-increased-another-16-2015/">fast</a>.</p>
 
-<h2>Meet the new abstractions</h2>
+<h2 id="meet-the-new-abstractions">Meet the new abstractions</h2>
 
 <p>Corprations believe they have the answer and they are providing us
 with another set of abstractions. In a few years maybe these will
@@ -69,24 +69,24 @@ pages or feeds is a template or so away.</p>
 </ul></li>
 </ul>
 
-<h2>The players</h2>
+<h2 id="the-players">The players</h2>
 
-<h3>Twitter Cards and Open Graph</h3>
+<h3 id="twitter-cards-and-open-graph">Twitter Cards and Open Graph</h3>
 
-<p>Twitter&rsquo;s Titter Cards and Facebook&rsquo;s Open Graph offer approaches to
-build off of our existing meta elements in an HTML page&rsquo;s document
+<p>Twitter's Titter Cards and Facebook's Open Graph offer approaches to
+build off of our existing meta elements in an HTML page's document
 head.  They are named space to avoid collisions but supporting both
 will still result in some content duplication. The k-weight
-difference in the resulting HTML pages isn&rsquo;t too bad.</p>
+difference in the resulting HTML pages isn't too bad.</p>
 
 <p>Adopting either or both is a matter of adjusting how your render your
-web page&rsquo;s head block.  It is easy enough to do manually but easier
+web page's head block.  It is easy enough to do manually but easier
 still using some sort of template system that renders the appropriate
 meta elements based on the content type and contents in the page
 being rendered.</p>
 
 <p>Google and other search engines can leverage this richer meta
-data and integrate it into their results. Google&rsquo;s Now application can
+data and integrate it into their results. Google's Now application can
 render content cards based on either semantic. It also appears that
 content cards are being leverage selectively for an aside and related
 content on Google search results pages. You could even built this into
@@ -97,11 +97,11 @@ engines.  This is particularly true when combined with mature feed
 formats like RSS, OPML, Atom and the maturing efforts in the linked
 data community around JSON-LD.</p>
 
-<h3>AMP - Accelerated Mobile Pages</h3>
+<h3 id="amp-accelerated-mobile-pages">AMP - Accelerated Mobile Pages</h3>
 
 <p>The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
 publishers including major news outlets and web media
-companies in the US and Europe. This is an abridged list from 2015&ndash;</p>
+companies in the US and Europe. This is an abridged list from 2015--</p>
 
 <ul>
 <li>BBC</li>
@@ -124,12 +124,12 @@ Mobile Pages offer benefits for web crawlers and search engines supporting
 surfacing content is clearly and enabling easier distinction from
 advertisements.</p>
 
-<h3>Instant Articles</h3>
+<h3 id="instant-articles">Instant Articles</h3>
 
 <p>In additional to Open Graph Facebook has put forward <a href="https://developers.facebook.com/docs/instant-articles">Instant Articles</a>.
 Like AMP it is targetting content delivery for mobile. Unlike AMP Instant Articles is an
-explicit binding into Facebook&rsquo;s walled garden only exposing the content on supported
-versions of iOS and Android. You don&rsquo;t see Instant Articles in your Facebook timeline or when<br>
+explicit binding into Facebook's walled garden only exposing the content on supported
+versions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when<br>
 your browser from a deskop webbrowser.  Unlike the previous
 examples you actually need to sign up to participate in the Instant Article publishing
 process.  Sign up cost is having a Facebook account, being approved by Facebook and compliance
@@ -141,17 +141,17 @@ appears managable.</p>
 <p>You can submit Instant Articles via a modified RSS feed or directly through their API.
 In this sense the overhead is about the same as that for implementing support for Twitter Cards
 Open Graph, and AMP. Facebook does a good job of quickly propogating changes to your
-Instant Articles across their platform. That&rsquo;s nice.</p>
+Instant Articles across their platform. That's nice.</p>
 
-<p>Why go through the trouble? If you&rsquo;re a content producer and your audience lives on Facebook
+<p>Why go through the trouble? If you're a content producer and your audience lives on Facebook
 Facebook commands the attention of a lot of eye balls.  Instant Articles privides
 another avenue to reach them.  For some Facebook effectively controls the public view of the
 web much as America Online and Prodegy did decades ago. <a href="https://twitter.com/davewiner">Dave Winer</a>
 has written extensively on how he implemented Instant Article support along with
 some very reasoned pros and cons for doing so. The landscape is evolving and
-<a href="http://scripting.com">Dave&rsquo;s river of news</a> is worth following.</p>
+<a href="http://scripting.com">Dave's river of news</a> is worth following.</p>
 
-<h2>Impact on building content</h2>
+<h2 id="impact-on-building-content">Impact on building content</h2>
 
 <p>These approaches require changes in your production of your HTML and RSS sent to the browser.
 Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
@@ -160,7 +160,7 @@ Instant Articles tweaks your RSS output.  Not surprisingly the major content man
 systems Wordpress and Drupal have plugins for this.  All can be implemented via your template
 system or page generatation process.</p>
 
-<h2>Whither adopt?</h2>
+<h2 id="whither-adopt">Whither adopt?</h2>
 
 <p>Because these approaches boil down to content assembly the adoption risk
 is low.  If your audience views Twitter, Facebook or Google search results

@@ -26,28 +26,28 @@
 
     <section>
       <article>
-	  <h1>Raspbian Stretch on DELL E4310 Laptop</h1>
+	  <h1 id="raspbian-stretch-on-dell-e4310-laptop">Raspbian Stretch on DELL E4310 Laptop</h1>
 
 <p>by R. S. Doiel 2017-12-18</p>
 
-<p>Today I bought a used Dell E4310 laptop. The E4310 is an &ldquo;old model&rdquo; now
+<p>Today I bought a used Dell E4310 laptop. The E4310 is an &quot;old model&quot; now
 but certainly not vintage yet.  It has a nice keyboard and reasonable
 screen size and resolution. I bought it as a writing machine. I mostly
 write in Markdown or Fountain depending on what I am writing these days.</p>
 
-<h2>Getting the laptop setup</h2>
+<h2 id="getting-the-laptop-setup">Getting the laptop setup</h2>
 
 <p>The machine came with a minimal bootable Windows 7 CD and an blank
 internal drive. Windows 7 installed fine but was missing the network
 drivers for WiFi.  I had previously copied the new <a href="https://www.raspberrypi.org/blog/raspbian-stretch/">Raspbian Stretch</a> iso to a USB drive. While
-the E4310 didn&rsquo;t support booting from the USB drive Windows 7 does make
+the E4310 didn't support booting from the USB drive Windows 7 does make
 it easy to write to a DVRW. After digging around and finding a blank disc
 I could write to it was a couple of mouse clicks and a bit of waiting
 and I had new bootable Raspbian Stretch CD.</p>
 
 <p>Booting from the Raspbian Stretch CD worked like a charm. I selected
 the graphical install which worked well though initially the trackpad
-wasn&rsquo;t visible so I just used keyboard navigation to setup the install.
+wasn't visible so I just used keyboard navigation to setup the install.
 After the installation was complete and I rebooted without the install
 disc everything worked except the internal WiFi adapter.</p>
 
@@ -58,7 +58,7 @@ borrowed one and with that was able to run the usual <code>sudo apt update
 <p>While waiting for the updates I did a little web searching and found
 what I needed to know on the Debian Wiki (see
 <a href="https://wiki.debian.org/iwlwifi?action=show&amp;redirect=iwlagn)">https://wiki.debian.org/iwlwifi?action=show&amp;redirect=iwlagn)</a>.  Following
-the instructions for <em>Debian 9 &ldquo;Stretch&rdquo;</em> &mdash;</p>
+the instructions for <em>Debian 9 &quot;Stretch&quot;</em> ---</p>
 
 <pre><code class="language-shell">    sudo vi /etc/apt/sources.list.d/non-free.list 
     # adding the deb source line from the web page
@@ -69,17 +69,17 @@ the instructions for <em>Debian 9 &ldquo;Stretch&rdquo;</em> &mdash;</p>
 
 <p>After that everything came up fine.</p>
 
-<h2>First Impressions</h2>
+<h2 id="first-impressions">First Impressions</h2>
 
 <p>First, I like Raspbian Pixel. It was fun on my Pi but on an Intel box
 with 4Gig RAM it is wicked fast.  Pixel is currently my favorite flavor
 of Debian GNU/Linux. It is simple, minimal with a consistant UI for
 an X based system. Quite lovely.</p>
 
-<p>If you&rsquo;ve got an old laptop you&rsquo;d like to breath some life into
+<p>If you've got an old laptop you'd like to breath some life into
 Raspbian Stretch is the way to go.</p>
 
-<h3>steps for my install process</h3>
+<h3 id="steps-for-my-install-process">steps for my install process</h3>
 
 <ul>
 <li>Booted from a minimal Windows 7 CD to get a basic OS minus networking</li>

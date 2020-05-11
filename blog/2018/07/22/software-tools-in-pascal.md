@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "Review: Software Tools in Pascal",
+    "author": "R. S. Doiel",
+    "date": "2018-07-22",
+    "copyright": "copyright (c) 2018, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # Review: Software Tools in Pascal
 

@@ -20,7 +20,7 @@
 ## 2017
 
  + 12-18, [Raspbian Stretch on DELL E4310 Laptop](/blog/2017/12/18/raspbian-stretch-on-amd64.html)
- + 12-10, [Harvesting my Gists from Github](/blog/2017/12/10/harvesting-my-gists-from-github.html)
+ + 12-10, [Harvesting my Gists from GitHub](/blog/2017/12/10/harvesting-my-gists-from-github.html)
  + 10-20, [NodeJS, NPM, Electron](/blog/2017/10/20/node-npm-electron.html)
  + 06-16, [Cross compiling Go 1.8.3 for Pine64 Pinebook](/blog/2017/06/16/cross-compiling-go.html)
 

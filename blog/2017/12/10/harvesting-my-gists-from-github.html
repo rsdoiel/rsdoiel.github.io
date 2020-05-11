@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Harvesting my Gists from Github</title>
+    <title>Harvesting my Gists from GitHub</title>
 
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
     <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
@@ -26,34 +26,34 @@
 
     <section>
       <article>
-	  <h1>Harvesting my Gists from Github</h1>
+	  <h1 id="harvesting-my-gists-from-github">Harvesting my Gists from GitHub</h1>
 
 <p>By R. S. Doiel 2017-12-10</p>
 
 <p>This is a just quick set of notes on harvesting my Gists on Github so I
 have an independent copy for my own website.</p>
 
-<h2>Assumptions</h2>
+<h2 id="assumptions">Assumptions</h2>
 
 <p>In this gist I assume you are using Bash on a Posix system (e.g. Raspbian
 on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,
-sed, curl). I also use Stephen Dolan&rsquo;s <a href="https://github.com/stedolan/jq">jq</a>
-as well as Caltech Library&rsquo;s <a href="https://github.com/caltechlibrary/datatools">datatools</a>.
+sed, curl). I also use Stephen Dolan's <a href="https://github.com/stedolan/jq">jq</a>
+as well as Caltech Library's <a href="https://github.com/caltechlibrary/datatools">datatools</a>.
 See the respective Github repositories for installation instructions.
-The gist harvest process was developed against Github&rsquo;s v3 API
+The gist harvest process was developed against Github's v3 API
 (see developer.github.com).</p>
 
 <p>In the following examples <code>$USER</code> is assumed to hold your Github user id
 (e.g. rsdoiel for <a href="https://github.com/rsdoiel">https://github.com/rsdoiel</a>).</p>
 
-<h2>Getting my basic profile</h2>
+<h2 id="getting-my-basic-profile">Getting my basic profile</h2>
 
 <p>This retrieves the public view of your profile.</p>
 
 <pre><code class="language-shell">    curl -o &quot;$USER.json&quot; &quot;https://api.github.com/users/$USER&quot;
 </code></pre>
 
-<h2>Find the urL for your gists</h2>
+<h2 id="find-the-url-for-your-gists">Find the urL for your gists</h2>
 
 <p>Get the gists url from <code>$USER.json</code>.</p>
 
@@ -63,11 +63,11 @@ The gist harvest process was developed against Github&rsquo;s v3 API
 
 <p>Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.</p>
 
-<h2>Harvesting the individual Gists.</h2>
+<h2 id="harvesting-the-individual-gists">Harvesting the individual Gists.</h2>
 
-<p>When you look at <em>gists.json</em> you&rsquo;ll see a multi-level JSON structure.  It has been
+<p>When you look at <em>gists.json</em> you'll see a multi-level JSON structure.  It has been
 formatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library
-has some nice utilities for working with JSON I&rsquo;ll use <em>jsonrange</em> and <em>jq</em> to pull out a list
+has some nice utilities for working with JSON I'll use <em>jsonrange</em> and <em>jq</em> to pull out a list
 of indivdual Gists URLS.</p>
 
 <pre><code class="language-shell">    jsonrange -i gists.json | while read I; do 

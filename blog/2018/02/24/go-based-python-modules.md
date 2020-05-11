@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "Go based Python modules",
+    "author": "R. S. Doiel",
+    "date": "2018-02-24",
+    "copyright": "copyright (c) 2018, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # Go based Python modules
 

@@ -26,17 +26,17 @@
 
     <section>
       <article>
-	  <h1>OPML to Markdown and back</h1>
+	  <h1 id="opml-to-markdown-and-back">OPML to Markdown and back</h1>
 
 <p>By R. S. Doiel 2016-05-28</p>
 
-<h2>Overview</h2>
+<h2 id="overview">Overview</h2>
 
 <p>I wrote a Go language package to sort <a href="http://dev.opml.org/spec2.html">OPML</a> outlines.
 I wrote this because my preferred <a href="http://goread.io">feed reader </a> supports manual
-sorting but not automatic alpha sorting by the <em>outline</em> element&rsquo;s <em>text</em> attribute.</p>
+sorting but not automatic alpha sorting by the <em>outline</em> element's <em>text</em> attribute.</p>
 
-<h2>Observations</h2>
+<h2 id="observations">Observations</h2>
 
 <p>Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,
 scripts, basic metadata (create, modified, authorship), and even directory structures.</p>
@@ -60,12 +60,12 @@ The trouble with OPML is that it is not quick to edit by hand.</p>
 <pre><code>Is there a round trip semantic mapping between OPML and Markdown?
 </code></pre>
 
-<h2>Germination of an idea</h2>
+<h2 id="germination-of-an-idea">Germination of an idea</h2>
 
 <p>Entering a web link in Fargo the link is URL encoded and saved in the <em>text</em> attribute of the
 <em>outline</em> element.</p>
 
-<p>The source view of a web links in Fargo&rsquo;s <em>outline</em> element looks like</p>
+<p>The source view of a web links in Fargo's <em>outline</em> element looks like</p>
 
 <pre><code class="language-OPML">    &lt;outline text=&quot;&amp;gt; href=&amp;quot;http://example.org&amp;quot;&amp;lt;My example.org&amp;gt;/a&amp;lt;&quot; /&gt;
 </code></pre>
@@ -84,14 +84,14 @@ The trouble with OPML is that it is not quick to edit by hand.</p>
 
 <p>Making a round trip could be done by</p>
 
-<ol>
+<ol start="3">
 <li>Convert Markdown into HTML</li>
 <li>For each <em>li</em> element covert to an <em>outline</em> element URL encoding the inner HTML of the <em>li</em></li>
 </ol>
 
 <p>So far so good. What about something more complex?</p>
 
-<p>Here&rsquo;s an <em>outline</em> element example from <a href="http://hosting.opml.org/dave/spec/directory.opml">http://hosting.opml.org/dave/spec/directory.opml</a></p>
+<p>Here's an <em>outline</em> element example from <a href="http://hosting.opml.org/dave/spec/directory.opml">http://hosting.opml.org/dave/spec/directory.opml</a></p>
 
 <pre><code class="language-OPML">    &lt;outline text=&quot;Scripting News sites&quot; created=&quot;Sun, 16 Oct 2005 05:56:10 GMT&quot; type=&quot;link&quot; url=&quot;http://hosting.opml.org/dave/mySites.opml&quot;/&gt;
 </code></pre>
@@ -135,7 +135,7 @@ The trouble with OPML is that it is not quick to edit by hand.</p>
         &lt;a href=&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;&gt;created&lt;/a&gt;&lt;/li&gt;
 </code></pre>
 
-<h3>Markdown to OPML</h3>
+<h3 id="markdown-to-opml">Markdown to OPML</h3>
 
 <p>Coming back to OPML from Markdown then becomes</p>
 

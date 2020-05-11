@@ -1,3 +1,11 @@
+{
+    "markup": "mmark",
+    "title": "OPML to Markdown and back",
+    "author": "R. S. Doiel",
+    "date": "2016-05-28",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
 
 # OPML to Markdown and back
 

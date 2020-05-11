@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "From Markdown and Bash to mkpage",
+    "author": "R. S. Doiel",
+    "date": "2016-08-16",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 
 # From Markdown and Bash to mkpage

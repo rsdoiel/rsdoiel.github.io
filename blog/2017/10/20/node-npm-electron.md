@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "NodeJS, NPM, Electron",
+    "author": "R. S. Doiel",
+    "date": "2017-10-20",
+    "copyright": "copyright (c) 2017, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # NodeJS, NPM, Electron
 

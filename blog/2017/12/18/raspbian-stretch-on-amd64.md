@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "Raspbian Stretch on DELL E4310 Laptop",
+    "author": "R. S. Doiel",
+    "date": "2017-12-18",
+    "copyright": "copyright (c) 2017, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # Raspbian Stretch on DELL E4310 Laptop
 

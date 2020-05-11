@@ -1,11 +1,14 @@
 {
     "markup": "mmark",
+    "title": "Combining Oberon-7 and C with OBNC",
+    "series": "Mostly Oberon",
     "number": 5,
-    "byline": "R. S. Doiel",
+    "author": "R. S. Doiel",
     "date": "2020-05-01",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
+
 
 # Combining Oberon-7 and C with OBNC
 

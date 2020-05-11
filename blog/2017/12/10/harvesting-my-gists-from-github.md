@@ -1,5 +1,14 @@
+{
+    "markup": "mmark",
+    "title": "Harvesting my Gists from GitHub",
+    "author": "R. S. Doiel",
+    "date": "2017-12-10",
+    "copyright": "copyright (c) 2017, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
 
-# Harvesting my Gists from Github
+
+# Harvesting my Gists from GitHub
 
 By R. S. Doiel 2017-12-10
 

@@ -1,3 +1,12 @@
+{
+    "markup": "mmark",
+    "title": "Exploring Bash for Windows 10 Pro",
+    "author": "R. S. Doiel",
+    "date": "2016-08-15",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+
 
 # Exploring Bash for Windows 10 Pro
 
