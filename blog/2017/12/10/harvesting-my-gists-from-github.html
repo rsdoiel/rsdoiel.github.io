@@ -27,70 +27,33 @@
     <section>
       <article>
 	  <h1 id="harvesting-my-gists-from-github">Harvesting my Gists from GitHub</h1>
-
 <p>By R. S. Doiel 2017-12-10</p>
-
-<p>This is a just quick set of notes on harvesting my Gists on Github so I
-have an independent copy for my own website.</p>
-
+<p>This is a just quick set of notes on harvesting my Gists on Github so I have an independent copy for my own website.</p>
 <h2 id="assumptions">Assumptions</h2>
-
-<p>In this gist I assume you are using Bash on a Posix system (e.g. Raspbian
-on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,
-sed, curl). I also use Stephen Dolan's <a href="https://github.com/stedolan/jq">jq</a>
-as well as Caltech Library's <a href="https://github.com/caltechlibrary/datatools">datatools</a>.
-See the respective Github repositories for installation instructions.
-The gist harvest process was developed against Github's v3 API
-(see developer.github.com).</p>
-
-<p>In the following examples <code>$USER</code> is assumed to hold your Github user id
-(e.g. rsdoiel for <a href="https://github.com/rsdoiel">https://github.com/rsdoiel</a>).</p>
-
+<p>In this gist I assume you are using Bash on a Posix system (e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, sed, curl). I also use Stephen Dolan’s <a href="https://github.com/stedolan/jq">jq</a> as well as Caltech Library’s <a href="https://github.com/caltechlibrary/datatools">datatools</a>. See the respective Github repositories for installation instructions. The gist harvest process was developed against Github’s v3 API (see developer.github.com).</p>
+<p>In the following examples <code>$USER</code> is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).</p>
 <h2 id="getting-my-basic-profile">Getting my basic profile</h2>
-
 <p>This retrieves the public view of your profile.</p>
-
-<pre><code class="language-shell">    curl -o &quot;$USER.json&quot; &quot;https://api.github.com/users/$USER&quot;
-</code></pre>
-
+<pre class="shell"><code>    curl -o &quot;$USER.json&quot; &quot;https://api.github.com/users/$USER&quot;</code></pre>
 <h2 id="find-the-url-for-your-gists">Find the urL for your gists</h2>
-
 <p>Get the gists url from <code>$USER.json</code>.</p>
-
-<pre><code class="language-shell">    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E 's/&quot;//g' | cut -d '{' -f 1)
-    curl -o gists.json &quot;${GISTS_URL}&quot;
-</code></pre>
-
+<pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
+    curl -o gists.json &quot;${GISTS_URL}&quot;</code></pre>
 <p>Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.</p>
-
-<h2 id="harvesting-the-individual-gists">Harvesting the individual Gists.</h2>
-
-<p>When you look at <em>gists.json</em> you'll see a multi-level JSON structure.  It has been
-formatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library
-has some nice utilities for working with JSON I'll use <em>jsonrange</em> and <em>jq</em> to pull out a list
-of indivdual Gists URLS.</p>
-
-<pre><code class="language-shell">    jsonrange -i gists.json | while read I; do 
-        jq &quot;.[$I].files&quot; gists.json | sed -E 's/&quot;//g'
-    done
-</code></pre>
-
+<h2 id="harvesting-the-individual-gists.">Harvesting the individual Gists.</h2>
+<p>When you look at <em>gists.json</em> you’ll see a multi-level JSON structure. It has been formatted by the API so be easy to scrape. But since this data is JSON and Caltech Library has some nice utilities for working with JSON I’ll use <em>jsonrange</em> and <em>jq</em> to pull out a list of indivdual Gists URLS.</p>
+<pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
+        jq &quot;.[$I].files&quot; gists.json | sed -E &#39;s/&quot;//g&#39;
+    done</code></pre>
 <p>Expanding this we can now curl each individual gist metadata to find URL to the raw file.</p>
-
-<pre><code class="language-shell">    jsonrange -i gists.json | while read I; do 
+<pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
         jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
-            jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g'; 
+            jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E &#39;s/&quot;//g&#39;; 
         done;
-    done
-</code></pre>
-
+    done</code></pre>
 <p>Now that we have URLs to the raw gist files we can use curl again to featch each.</p>
-
-<p>What do we want to store with our harvested gists?  The raw files, metadata
-about the Gist (e.g. when it was created), the Gist ID. Putting it all together
-we have the following script.</p>
-
-<pre><code class="language-shell">    #!/bin/bash
+<p>What do we want to store with our harvested gists? The raw files, metadata about the Gist (e.g. when it was created), the Gist ID. Putting it all together we have the following script.</p>
+<pre class="shell"><code>    #!/bin/bash
     if [[ &quot;$1&quot; = &quot;&quot; ]]; then
         echo &quot;USAGE: $(basename &quot;$0&quot;) GITHUB_USERNAME&quot;
         exit 1
@@ -103,7 +66,7 @@ we have the following script.</p>
         exit 1
     fi
 
-    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E 's/&quot;//g' | cut -d '{' -f 1)
+    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
     curl -o gists.json &quot;${GISTS_URL}&quot;
     if [[ ! -s gists.json ]]; then
         echo &quot;Someting went wrong getting ${GISTS_URL}&quot;
@@ -112,24 +75,22 @@ we have the following script.</p>
 
     # For each gist harvest our file
     jsonrange -i gists.json | while read I; do
-        GIST_ID=$(jq &quot;.[$I].id&quot; gists.json | sed -E 's/&quot;//g')
+        GIST_ID=$(jq &quot;.[$I].id&quot; gists.json | sed -E &#39;s/&quot;//g&#39;)
         mkdir -p &quot;gists/$GIST_ID&quot;
         echo &quot;Saving gists/$GIST_ID/metadata.json&quot;
         jq &quot;.[$I]&quot; gists.json &gt; &quot;gists/$GIST_ID/metadata.json&quot;
         jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
-            URL=$(jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E 's/&quot;//g')
+            URL=$(jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E &#39;s/&quot;//g&#39;)
             echo &quot;Saving gist/$GIST_ID/$FNAME&quot;
             curl -o &quot;gists/$GIST_ID/$FNAME&quot; &quot;$URL&quot;
         done;
-    done
-</code></pre>
+    done</code></pre>
 
       </article>
     </section>
 
     <footer>
-    <p>copyright © 2016 - 2020 R. S. Doiel<br />
-<a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
 
     </footer>
     
