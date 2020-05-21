@@ -2,16 +2,15 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    {% if (title) %}<title>{{title}}</title>{% endif %}
+    ${if(title)}<title>${title}</title>${endif}
 
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
     <link rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
-    {% if (mdfile) %}<link rel="alternative" type="application/markdown" href="{{ mdfile }}">{% endif %}
+    ${if(mdfile)}<link rel="alternative" type="application/markdown" href="${mdfile}">${endif}
   </head>
   <body>
-    {% autoescape off %}
     <nav>
-    {{ nav }}
+    ${nav}
     </nav>
 
     <section>
@@ -19,12 +18,11 @@
 <a href="/" text="When I press keys letters and punctuation sometimes appear on the surface."><img src="/media/Wee-Free-Doiels-Summer-Reading.jpg" alt="When I press keys letters and punctuation sometimes appear on the surface."></a>
 
       <h2>Robert's ramblings</h2>
-      {{ pageContent }}
+      ${pageContent}
     </section>
 
     <footer>
-	{{ footer }}
+	${footer}
     </footer>
-    {% endautoescape %}
     </body>
 </html>
