@@ -15,7 +15,7 @@
 
 By R. S. Doiel, 2020-05-25
 
-This is the eighth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 ## Dynamic Types in Oberon
 

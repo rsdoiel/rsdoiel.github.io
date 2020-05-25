@@ -13,7 +13,7 @@
 
 By R. S. Doiel, 2020-05-06
 
-This is the sixth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) 
 is straight forward if you have the required dependencies and 
