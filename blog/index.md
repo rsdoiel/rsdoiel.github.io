@@ -1,4 +1,5 @@
 
++ [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
 + [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
 + [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06
 + [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
