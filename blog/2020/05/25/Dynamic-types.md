@@ -15,6 +15,10 @@
 
 By R. S. Doiel, 2020-05-18
 
+This is the eighth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+
+## Dynamic Types in Oberon
+
 Oberon-7 is a succinct systems language. It provides a minimal
 but useful set of basic static types. Relying on them addresses 
 many common programming needs. The Oberon compiler ensures 
@@ -477,5 +481,5 @@ with a test module in the links that follow.
 
 ### Previous 
 
-+ Previous [Oberon-7 and the file system](../09/Oberon-and-the-file-system.html) 
++ Previous [Oberon-7 and the file system](../09/Oberon-7-and-the-filesystem.html) 
 

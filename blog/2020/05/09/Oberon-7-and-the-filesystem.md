@@ -13,6 +13,8 @@
 
 By R. S. Doiel, 2020-05-08
 
+This is the seventh post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+
 ## Working with files in Oberon-7
 
 In a POSIX system we often talk of opening files,
@@ -291,7 +293,8 @@ Here is the full listing of our module.
 ```
 
 
-### Previous
+### Next and Previous
 
++ Next [Dynamic Types](../25/Dynamic-types.html)
 + Previous [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.html)
 
