@@ -13,7 +13,7 @@
 
 # Dynamic types
 
-By R. S. Doiel, 2020-05-18
+By R. S. Doiel, 2020-05-25
 
 This is the eighth post in the Mostly Oberon series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
