@@ -52,14 +52,16 @@ website: all
 	mkrss -channel-title="R. S. Doiel" \
 	   	  -channel-description="Robert's ramblings and wonderigs" \
 		  -channel-pubdate="$(TODAY)" \
-		  -channel-link="http://rsdoiel.github.io/blog" blog rss.xml 
+		  -channel-link="https://rsdoiel.github.io/blog" \
+		  blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
 publish: all
 	bash blog.bash
 	mkrss -channel-title="R. S. Doiel" \
 	   	  -channel-description="Robert's ramblings and wonderigs" \
-		  -channel-link="http://rsdoiel.github.io/blog" blog rss.xml 
+		  -channel-link="https://rsdoiel.github.io/blog" \
+		  blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin master

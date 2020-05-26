@@ -17,11 +17,10 @@ cat footer.md > "$BLOG/footer.md"
 if [[ "$#" = "2" ]]; then
     POST_PATH=$(echo "${2}" |tr - /)
     FILENAME="${1}"
+    echo "Posting markdown file into blog path $POST_PATH"
     echo "Generating directory $POST_PATH"
-    mkdir -p "$BLOG/$POST_PATH"
+    blogit -verbose -prefix=blog "$FILENAME" "${2}"
 
-    echo "Copying markdown file into blog path $POST_PATH"
-    cp -v "$FILENAME" "$BLOG/$POST_PATH/"
     echo "Resolving $FILENAME to basename"
     FILENAME=$(basename "$FILENAME")
     echo "Adding to git $POST_PATH/$FILENAME"
@@ -33,13 +32,11 @@ if [[ "$#" = "2" ]]; then
     git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 elif [[ "$1" != "" ]]; then
     POST_PATH=$(reldate 0 day| tr - /)
+    echo "Posting markdown file into blog path $POST_PATH"
     echo "Generating directory $POST_PATH"
-    mkdir -p "$BLOG/$POST_PATH"
+    blogit -verbose -prefix=blog "$FILENAME" "${2}"
 
-    FILENAME="$1"
-
-    echo "Copying markdown file into blog path $POST_PATH"
-    cp -v "$FILENAME" "$BLOG/$POST_PATH/"
+    FILENAME=$(basename "$FILENAME")
     echo "Resolving $FILENAME to basename"
     FILENAME=$(basename "$FILENAME")
     echo "Adding to git $POST_PATH/$FILENAME"
