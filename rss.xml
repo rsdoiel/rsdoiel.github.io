@@ -4,146 +4,192 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 26 May 2020 09:42:18 PDT</pubDate>
-        <lastBuildDate>Tue, 26 May 2020 09:42:18 PDT</lastBuildDate>
-        <generator>mkrss v0.0.33d</generator>
+        <pubDate>Tue, 26 May 2020 11:10:35 PDT</pubDate>
+        <lastBuildDate>Tue, 26 May 2020 11:10:35 PDT</lastBuildDate>
+        <generator>mkrss v0.0.33e</generator>
         <item>
             <title>OPML to Markdown and back</title>
             <link>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.html</link>
+            <description>By R. S. Doiel 2016-05-28&#xA;&#xA;I wrote a Go language package to sort [OPML](http://dev.opml.org/spec2.html) outlines. &#xA;I wrote this because my preferred [feed reader ](http://goread.io) supports manual &#xA;sorting but not automatic alpha sorting by the _outline_ element&#39;s _text_ attribute.&#xA;&#xA;Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,&#xA;scripts, basic metadata (create, modified, authorship), and even directory structures.&#xA;&#xA;[Fargo](http://fargo.io) allows userdefined attributes to be applied to the _outline_ &#xA;element in OPML. This could be used in support some of the &#xA;[Scrivener](https://www.literatureandlatte.com/scrivener.php)&#xA;features I miss such as describing how to render a project to various formats such as&#xA;rtf, pdf, ePub, web pages or even [Final Draft fdx](https://www.finaldraft.com/) files.&#xA;&#xA;I write allot of Markdown formatted text.  Markdown is simple to index, &#xA;search and convert into useful formats. Markdown is not good at expressing more&#xA;complex structures such as metadata. Website generators that use markdown often&#xA;require a preable or _front matter_ in the markdown to provide any metadata. This&#xA;leaves your document head cluttered and less human readable. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sat, 28 May 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.html</guid>
         </item>
         <item>
             <title>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</title>
             <link>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2016-05-30&#xA;&#xA;The web has gotten slow. In [2016](http://httparchive.org/trends.php) the &#xA;average page weight is in multi-megabytes and the average number of network &#xA;requests needed to deliver the content is counted in &#xA;the hundreds. In the mix are saturated networks and a continued public &#xA;expectation of responsiveness (web wisdom suggests you have about 3 seconds &#xA;before people give up).  The odd thing is we&#39;ve known how to build fast &#xA;websites for a [decade](https://www.stevesouders.com/) or so.  &#xA;Collectively we don&#39;t build them [fast](https://www.sitepoint.com/average-page-weight-increased-another-16-2015/).&#xA;&#xA;Corprations believe they have the answer and they are providing us &#xA;with another set of abstractions. In a few years maybe these will &#xA;get distilled down to a shared common view but in the mean time disc &#xA;costs remain reasonably priced and generating these new forms of &#xA;pages or feeds is a template or so away.&#xA;&#xA;+ [Twitter Cards](https://dev.twitter.com/cards/overview) and [Open Graph](http://ogp.me/)&#xA;  + Exposing your content via social media, search results or embedded in pages via an aside element&#xA;+ [Accelerated Mobile Pages](https://www.ampproject.org/) (also called AMP)&#xA;  + A simplification in content delivery to improve web reading experience&#xA;  + Its usefulness is it proscribes an approach to leverage what we have&#xA;  + AMP works well with Twitter Cards, Open Graph and can leverage Web Components&#xA;+ [Instant Articles](https://instantarticles.fb.com/)&#xA;  + a format play to feed the walled garden of Facebook for iOS and Android devices ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 30 May 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.html</guid>
         </item>
         <item>
             <title>How to make a Pi-Top more Raspbian</title>
             <link>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2016-07-04&#xA;&#xA;I have a first generation Pi-Top.  I like the idea but found I didn&#39;t use it much due to a preferrence for&#xA;basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively&#xA;straight forward.&#xA;&#xA;1. Make sure you&#39;re running the latest Pi-TopOS based on Jessie&#xA;2. Login into your Pi-Top normally&#xA;3. From the Pi-Top dashboard select the &#34;Desktop&#34; icon&#xA;4. When you see the familiar Raspbian desktop click on the following things&#xA;&#x9;+ Click on the Raspberry Menu (upper left corner)&#xA;&#x9;+ Click on Preferences&#xA;&#x9;+ Click on Raspberry Pi Configuration&#xA;5. I made the following changes to my System configuration&#xA;&#x9;+ Under *Boot* I selected &#34;To CLI&#34;&#xA;&#x9;+ I unchecked *login as user &#34;pi&#34;*&#xA;6. Restart your Pi Top&#xA;&#x9;+ Click on Raspberry Menu in the upper left of the desktop&#xA;&#x9;+ Click on shutdown&#xA;&#x9;+ Select *reboot*&#xA;7. When you restart you&#39;ll see an old school console login, login as the pi user using your Pi-Top password&#xA;8. Remove the following program use the *apt* command&#xA;&#x9;+ ceed-universe&#xA;&#x9;+ pt-dashboard&#xA;&#x9;+ pt-splashscreen&#xA;&#xA;```&#xA;    sudo apt purge ceed-universe pt-dashboard pt-splashscreen&#xA;``` ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 04 Jul 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html</guid>
         </item>
         <item>
             <title>Exploring Bash for Windows 10 Pro</title>
             <link>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2016-08-15&#xA;&#xA;UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under &#xA;    Windows 10 Pro I&#39;ve am getting compile errors when the &#xA;    assembler is being built.  I can compile go1.4.3 but see errors &#xA;    in some of the tests results.&#xA;&#xA;I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps&#xA;&#xA;+ Search with Bing for &#34;Bash for Windows&#34; &#xA;    + Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/&#xA;+ Switch on developer mode for Windows&#xA;+ Turned on Linux Subsystem Beta (searched for &#34;Turning on Features&#34;)&#xA;+ Reboot&#xA;+ Search for &#34;Bash&#34; and clicked on &#34;Run Bash command&#34;&#xA;+ Answered &#34;y&#34;&#xA;+ Waited for download and extracted file system&#xA;+ When prompted setup developer account with username/password&#xA;    + Documentation can be found at https://aka.ms/wsldocs&#xA;+ Exit root install shell&#xA;+ Search for &#34;Bash&#34; locally&#xA;+ Luanched &#34;Bash on Ubuntu on Windows&#34;&#xA;+ Authenticate with your username/password ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 15 Aug 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html</guid>
         </item>
         <item>
             <title>From Markdown and Bash to mkpage</title>
             <link>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2016-08-16&#xA;&#xA;When I started maintaining a website on Github a few years ago my needs&#xA;were so simple I hand coded the HTML.  Eventually I adopted &#xA;a markdown processor for maintaining the prose. My &#34;theme&#34; was a&#xA;CSS file and some HTML fragments to wrap the markdown output. If I needed &#xA;interactivity I used JavaScript to access content via a web API. &#xA;Life was simple, all I had to learn to get started was Git and how to&#xA;populate a branch called &#34;gh-pages&#34;.&#xA;&#xA;Recently my website needs have grown. I started experimenting with static&#xA;site generators thinking an existing system would be the right fit. &#xA;What I found were feature rich systems that varied primarily in &#xA;implementation language and template engine. Even though I wasn&#39;t&#xA;required to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt &#xA;like the static site generators were racing to fill a complexity &#xA;vacuum. In the end they were interesting to explore but far more&#xA;than I was willing to run. I believe modern content management systems can&#xA;be deconstruct into something simpler.&#xA;&#xA;Some of the core elements of modern content management systems are ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Tue, 16 Aug 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html</guid>
         </item>
         <item>
             <title>Android, Termux and Dev Environment</title>
             <link>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2016-09-20&#xA;&#xA;Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.&#xA;&#xA;1. Find a way to run Bash without rooting my device&#xA;2. See if I could use my normal web toolkit&#xA;&#x9;+ curl&#xA;&#x9;+ jq&#xA;&#x9;+ sed&#xA;&#x9;+ grep&#xA;3. See if I could compile or add my own custom Golang programs&#xA;4. Test setup by running a local static file server, mkpage and update my website&#xA;&#xA;After searching with Duck Duck Go and Google I came across the [termux](https://termux.com). Termux provides a minimal Bash shell environment with support for adding&#xA;packages with _apt_ and _dpkg_.  The repositories visible to *termux* include&#xA;most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites _curl_, _grep_, _sed_, _gawk_ and a new addition to my toolkit _jq_.  Additionally you&#39;ll find recent versionns (as of Sept. 2016) versions of _Golang_, _PHP_, _python_, and _Ruby_. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Tue, 20 Sep 2016 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.html</guid>
         </item>
         <item>
             <title>Cross compiling Go 1.8.3 for Pine64 Pinebook</title>
             <link>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2017-06-16&#xA;&#xA;Pine64&#39;s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is &#xA;not the same ARM processor found on a Raspberry Pi 3. As a &#xA;result it needs its own compiled version of Go. Fortunately cross &#xA;compiling Go is very straight forward. I found two helpful Gists&#xA;on Github discussing compiling Go for a 64-Bit ARM processor.&#xA;&#xA;+ [conoro&#39;s gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)&#xA;+ [truedat101&#39;s gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802)&#xA;&#xA;I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile &#xA;host. Go 1.8.3 is already compiled and available.  Inspired by the &#xA;gists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Fri, 16 Jun 2017 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html</guid>
         </item>
         <item>
             <title>NodeJS, NPM, Electron</title>
             <link>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2017-10-20&#xA;&#xA;Electron is an app platform leveraging web technoligies. Conceptually it is a&#xA;mashup of NodeJS and Chrome browser. [Electron](https://electron.atom.io/) site&#xA;has a nice starter app. It displays a window with Electron version info and&#xA;&#39;hello world&#39;.&#xA;&#xA;Before you can get going with _Electron_ you need to have a&#xA;working _NodeJS_ and _NPM_. I usually compile from source and this&#xA;was my old recipe (adjusted for v8.7.0).&#xA;&#xA;```shell&#xA;    cd&#xA;    git clone https://github.com/nodejs/node.git&#xA;    cd node&#xA;    git checkout v8.7.0&#xA;    ./configure --prefix=$HOME&#xA;    make &amp;&amp; make install&#xA;``` ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Fri, 20 Oct 2017 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.html</guid>
         </item>
         <item>
             <title>Harvesting my Gists from GitHub</title>
             <link>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel 2017-12-10&#xA;&#xA;This is a just quick set of notes on harvesting my Gists on Github so I&#xA;have an independent copy for my own website.&#xA;&#xA;In this gist I assume you are using Bash on a Posix system (e.g. Raspbian &#xA;on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, &#xA;sed, curl). I also use Stephen Dolan&#39;s [jq](https://github.com/stedolan/jq)&#xA;as well as Caltech Library&#39;s [datatools](https://github.com/caltechlibrary/datatools).&#xA;See the respective Github repositories for installation instructions.&#xA;The gist harvest process was developed against Github&#39;s v3 API&#xA;(see developer.github.com).&#xA;&#xA;In the following examples `$USER` is assumed to hold your Github user id&#xA;(e.g. rsdoiel for https://github.com/rsdoiel). ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 10 Dec 2017 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.html</guid>
         </item>
         <item>
             <title>Raspbian Stretch on DELL E4310 Laptop</title>
             <link>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.html</link>
+            <description>&#xA;&#xA;by R. S. Doiel 2017-12-18&#xA;&#xA;Today I bought a used Dell E4310 laptop. The E4310 is an &#34;old model&#34; now&#xA;but certainly not vintage yet.  It has a nice keyboard and reasonable &#xA;screen size and resolution. I bought it as a writing machine. I mostly&#xA;write in Markdown or Fountain depending on what I am writing these days.&#xA;&#xA;The machine came with a minimal bootable Windows 7 CD and an blank &#xA;internal drive. Windows 7 installed fine but was missing the network &#xA;drivers for WiFi.  I had previously copied the new [Raspbian Stretch](https://www.raspberrypi.org/blog/raspbian-stretch/) iso to a USB drive. While&#xA;the E4310 didn&#39;t support booting from the USB drive Windows 7 does make&#xA;it easy to write to a DVRW. After digging around and finding a blank disc&#xA;I could write to it was a couple of mouse clicks and a bit of waiting &#xA;and I had new bootable Raspbian Stretch CD.&#xA;&#xA;Booting from the Raspbian Stretch CD worked like a charm. I selected &#xA;the graphical install which worked well though initially the trackpad &#xA;wasn&#39;t visible so I just used keyboard navigation to setup the install.&#xA;After the installation was complete and I rebooted without the install&#xA;disc everything worked except the internal WiFi adapter. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 18 Dec 2017 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.html</guid>
         </item>
         <item>
             <title>Go, Bleve and Library oriented software</title>
             <link>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2018-02-19&#xA;(updated: 2018-02-22)&#xA;&#xA;In 2016, Stephen Davison, asked me, &#34;Why use Go and Blevesearch for&#xA;our library projects?&#34; After our conversation I wrote up some notes so&#xA;I would remember. It is now 2018 and I am revising these notes. I&#xA;think our choice paid off.  What follows is the current state of my&#xA;reflection on the background, rational, concerns, and risk mitigation&#xA;strategies so far for using [Go](https://golang.org) and&#xA;[Blevesearch](https://blevesearch.com) for Caltech Library projects.&#xA;&#xA;I first came across Go a few years back when it was announced as an&#xA;Open Source project by Google at an Google I/O event (2012). The&#xA;original Go authors were Robert Griesemer, Rob Pike, and Ken&#xA;Thompson. What I remember from that presentation was Go was a rather&#xA;consistent language with the features you need but little else.  Go&#xA;developed at Google as a response to high development costs for C/C++&#xA;and Java in addition to challenges with performance and slow&#xA;compilation times.  As a language I would put Go between C/C++ and&#xA;Java. It comes the ease of writing and reading you find in languages&#xA;like Python. Syntax is firmly in the C/C++ family but heavily&#xA;simplified. Like Java it provides many modern features including rich basic&#xA;data structures and garbage collection. It has a very complete standard&#xA;library and provides very good tooling.  This makes it easy to&#xA;generate code level documentation, format code, test, efficiently profile, &#xA;and debug.&#xA;&#xA;Often programming languages develop around a specific set of needs.&#xA;This is true for Go. Given the Google origin it should not be&#xA;surprising to find that Go&#39;s primary strengths are working with &#xA;structured data, I/O and concurrency. The rich standard&#xA;library is organized around a package concept. These include packages&#xA;supporting network protocols, file and socket I/O as well as various&#xA;encoding and compression scheme. It has particularly strong support&#xA;for XML, JSON, CSV formatted data out of the box. It has a template&#xA;library for working with plain text formats as well as generating safe&#xA;HTML. You can browse Go&#39;s standard library https://golang.org/pkg/. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 19 Feb 2018 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.html</guid>
         </item>
         <item>
             <title>Go based Python modules</title>
             <link>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2018-02-24&#xA;&#xA;The problem: I have written a number of Go packages at work.&#xA;My colleagues know Python and I&#39;d like them to be able to use the&#xA;packages without resorting to system calls from Python to the&#xA;command line implementations. The solution is create a C-Shared&#xA;library from my Go packages, using Go&#39;s _C_ package and combine it&#xA;with Python&#39;s _ctypes_ package.  What follows is a series of &#xA;simple recipes I used to understand the details of how that worked.&#xA;&#xA;Many of the the examples I&#39;ve come across on the web start by &#xA;showing how to run a simple math operation on the Go side with&#xA;numeric values traveling round trip via the C shared library layer. &#xA;It is a good place to start as you only need to consider type &#xA;conversion between both Python&#39;s runtime and Go&#39;s runtime.  It &#xA;provides a simple illustration of how the Go *C* package, Python&#39;s&#xA;*ctypes* module and the toolchain work together.&#xA;&#xA;In this example we have a function in Go called &#34;twice&#34; it takes&#xA;a single integer, doubles it and returns the new value.  On&#xA;the Go side we create a _libtwice.go_ file with an empty `main()` &#xA;function.  Notice that we also import the *C* package and use &#xA;a comment decoration to indicate the function we are exporting&#xA;(see https://github.com/golang/go/wiki/cgo and &#xA;https://golang.org/cmd/cgo/&#xA;for full story about Go&#39;s _C_ package and _cgo_).&#xA;Part of the what _cgo_ and the *C* package does is use the &#xA;comment decoration to build the signatures for the function calls&#xA;in the shared C library.  The Go toolchain does all the heavy &#xA;lifting in making a *C* shared library based on comment &#xA;directives like &#34;//export&#34;. We don&#39;t need much for our twice&#xA;function. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sat, 24 Feb 2018 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html</guid>
         </item>
         <item>
             <title>Accessing Go from Julia</title>
             <link>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2018-03-11&#xA;&#xA;The problem: I&#39;ve started exploring Julia and I would like to leverage existing&#xA;code I&#39;ve written in Go. Essentially this is a revisit to the problem in my&#xA;last post [Go based Python Modules](https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html) &#xA;but with the language pairing of Go and Julia.&#xA;&#xA;In out first example we send an integer value from&#xA;Julia to Go and back via a C shared library (written in Go). While Julia doesn&#39;t&#xA;require type declarations I will be using those for clarity. Like in my previous post&#xA;I think this implementation this is a good starting point to see how Julia interacts with&#xA;C shared libraries. Like before I will present our Go code, an explanation &#xA;followed by the Julia code and comentary.&#xA;&#xA;On the Go side we create a _libtwice.go_ file with an empty `main()` &#xA;function.  Notice that we also import the *C* package and use &#xA;a comment decoration to indicate the function we are exporting&#xA;(see https://github.com/golang/go/wiki/cgo and &#xA;https://golang.org/cmd/cgo/&#xA;for full story about Go&#39;s _C_ package and _cgo_).&#xA;Part of the what _cgo_ and the *C* package does is use the &#xA;comment decoration to build the signatures for the function calls&#xA;in the shared C library.  The Go toolchain does all the heavy &#xA;lifting in making a *C* shared library based on comment &#xA;directives like &#34;//export&#34;. We don&#39;t need much for our twice&#xA;function. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 11 Mar 2018 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.html</guid>
         </item>
         <item>
             <title>Review: Software Tools in Pascal</title>
             <link>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2018-07-22&#xA;(updated: 2018-07-22, 1:39 pm, PDT)&#xA;&#xA;This book is by Brian W. Kernighan and P. J. Plauger. It is an&#xA;example of the type of books I find I re-read and want in my&#xA;personal library. The book covers software construction through &#xA;a series of programs written in pascal. It is about how these &#xA;programs work, how to approach problems and write sound software.&#xA;I was surprised I did not know about this book when I was browsing &#xA;the [Open Library](https://openlibrary.org) this weekend.  While &#xA;Pascal was a popular in the 1980&#39;s it has faded for most people in the &#xA;early 21st century.  This review maybe a small bit of nostalgia. &#xA;On the other hand I suspect &#xA;[&#34;Software Tools in Pascal&#34;](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)&#xA;is one of the short list of computer books that will remain useful&#xA;over the long run.&#xA;&#xA;The book is organized around specific programs and their implementations.&#xA;The implementations provided are simple and straight forward. Each&#xA;section is followed by a set of &#34;exercises&#34; that extend the ideas&#xA;shown in the section. In this way you could derive the modern equivalent&#xA;of these tools.&#xA;&#xA;The topics you build tools for in the text are&#xA;filters, files, sorting, text patterns, editing, formatting, &#xA;and macro processing. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 22 Jul 2018 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.html</guid>
         </item>
         <item>
             <title>FreeDOS 1.2 to Oberon System 3</title>
             <link>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2019-07-28&#xA;(updated: 2019-08-19)&#xA;&#xA;What follows are notes on getting a FreeDOS 1.2[^1] and &#xA;then Native Oberon[^2] running under VirtualBox 6.0. You might &#xA;wonder why these two are together. While it was&#xA;easy to run the Native Oberon installation process that process&#xA;assumes you have a properly partitioned hard disc and VirtualBox&#xA;seems to skip that process. I found taking advantage of FreeDOS&#xA;simplified things for me.&#xA;&#xA;My goal was running Oberon System 3, but setting up a Virtual Box&#xA;with FreeDOS 1.2 gave me a virtual machine that functions like a &#xA;1999 era PC. From there all the steps in the Oberon instructions&#xA;just worked.&#xA;&#xA;I&#39;ve been doing a bit if computer history reading and decided to&#xA;bring up some older systems as a means to understand where&#xA;things were.  The first computers I had access to were 8080, 8086&#xA;machines running MS DOS based. My first computer programming language&#xA;was Turbo Pascal. Feeling a bit nostalgic I thought it would be&#xA;interesting to use it again and see what I remembered from the days&#xA;of old. While PC and MS DOS no longer exist as commercial productions&#xA;an wonderful group of Open Source hackers have brought new life into&#xA;DOS with FreeDOS 1.2[^3]. You&#39;ll find many of your old familiar commands&#xA;but also some nice improvements. You can even run it under VirtualBox&#xA;which is what I proceeded to do. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 28 Jul 2019 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.html</guid>
         </item>
         <item>
             <title>Mostly Oberon</title>
             <link>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2020-04-11&#xA;&#xA;**Mostly Oberon** is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;Oberon[^1] is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).&#xA;&#xA;I am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal).  Oberon&#39;s language shape is more Pascal than C. For that reason I think it has largely been overlooked. ...</description>
             <author>S. Doiel</author>
-            <pubDate>Tue, 26 May 2020 09:42:18 PDT</pubDate>
+            <pubDate>Tue, 26 May 2020 11:10:35 PDT</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</guid>
         </item>
         <item>
             <title>Oberon Modules and Procedures</title>
             <link>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2020-04-12&#xA;&#xA;This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.&#xA;A module&#39;s name should match the filename you are saving it under. A module starts with declaring it&#39;s name and ends the declaration with a semicolon&#xA;the statement separator in Oberon. Our simple &#34;Hello World&#34; example&#xA;shows the basic code shape.&#xA;&#xA;```Oberon&#xA;    MODULE HelloWorld;&#xA;      IMPORT Out;&#xA;    BEGIN&#xA;      Out.String(&#34;Hello World!&#34;); Out.Ln;&#xA;    END HelloWorld.&#xA;``` ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 12 Apr 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.html</guid>
         </item>
         <item>
             <title>Oberon Basic Types</title>
             <link>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.html</link>
+            <description>By R. S. Doiel, 2020-04-18&#xA;&#xA;This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon is a small systems language. It provides a useful but &#xA;limited number of basic types[^basic-types]. These can be be&#xA;thought of as simple types mapping to specific memory locations&#xA;and more complex types composed of multiple memory locations.&#xA;&#xA;[^basic-types]: INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO&#xA;&#xA;Integers can be thought of as whole numbers. They may be&#xA;positive numbers or negative numbers. Declaring an integer&#xA;variable `i` it would look something like ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sat, 18 Apr 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.html</guid>
         </item>
         <item>
             <title>Oberon Loops and Conditions</title>
             <link>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html</link>
+            <description>By R. S. Doiel, 2020-04-19&#xA;&#xA;This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon is a small systems language and while it is minimalist.&#xA;It provides you with the necessary primitives to get things done.&#xA;I&#39;ve touched on code organization, basic types and basic type&#xA;extensions in the previous articles.  I have shown the basic&#xA;control statements but have not talked about them yet.&#xA;&#xA;Oberon offers four basic control statements.&#xA;&#xA;IF, ELSIF, ELSE&#xA;: Basic condition test and execution ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sun, 19 Apr 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html</guid>
         </item>
         <item>
             <title>Combining Oberon-7 and C with OBNC</title>
             <link>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2020-05-01&#xA;&#xA;This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;In my day job I write allot of code in Go and &#xA;orchestration code in Python.  It&#39;s nice having &#xA;the convenience of combining code written one &#xA;language with an another.  You can do the same &#xA;with [OBNC](https://miasap.se/obnc/).  The OBNC &#xA;compiler supports inclusion of C code in a &#xA;straight forward manner. In fact Karl&#39;s compiler&#xA;will generate the C file for you!&#xA;&#xA;In learning how to combine C code and Oberon-7&#xA;I started by reviewing Karl&#39;s [manual page](https://miasap.se/obnc/man/obnc.txt).&#xA;The bottom part of that manual page describes&#xA;the steps I will repeat below. The description&#xA;sounds more complicated but when you walk through&#xA;the steps it turns out to be pretty easy. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Fri, 01 May 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.html</guid>
         </item>
         <item>
             <title>Compiling OBNC on macOS</title>
             <link>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.html</link>
+            <description>By R. S. Doiel, 2020-05-06&#xA;&#xA;This is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) &#xA;is straight forward if you have the required dependencies and &#xA;environment setup up. Below are my notes to get everything working.&#xA;&#xA;+ OBNC v0.16.1&#xA;+ SDL v1.2&#xA;+ Boehm-Demers-Weiser GC&#xA;+ A C compiler and linker (OBNC uses this to generate machine specific code)&#xA;&#xA;MacPorts has libsdl 1.2 available as a package called &#34;libsdl&#34;&#xA;(not surprisingly). There are other versions of the SDL available&#xA;in ports but this is the one we&#39;re using. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Wed, 06 May 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.html</guid>
         </item>
         <item>
             <title>Oberon-7 and the file system</title>
             <link>https://rsdoiel.github.io/blog/2020/05/09/Oberon-7-and-the-filesystem.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2020-05-09&#xA;&#xA;This is the seventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;In a POSIX system we often talk of opening files,&#xA;writing and reading files and close files. The Oberon&#xA;language reflects a more Oberon System point of view.&#xA;&#xA;The Oberon System generally avoids modality in favor&#xA;of action. Modality is where a context must be set&#xA;before a set of actions are possible. The `vi` &#xA;text editor is a &#34;modal&#34; editor. You are in either&#xA;edit (typing) mode or command mode. At the function&#xA;level POSIX&#39;s `open()`, is also modal. You can &#xA;open a file for reading, open a file for writing,&#xA;you can open a file for appending, etc. The Oberon&#xA;language and base modules avoids modality. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Sat, 09 May 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/09/Oberon-7-and-the-filesystem.html</guid>
         </item>
         <item>
             <title>Dynamic types</title>
             <link>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.html</link>
+            <description>&#xA;&#xA;By R. S. Doiel, 2020-05-25&#xA;&#xA;This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon-7 is a succinct systems language. It provides a minimal&#xA;but useful set of basic static types. Relying on them addresses &#xA;many common programming needs. The Oberon compiler ensures &#xA;static types are efficiently allocated in memory. One of the &#xA;strengths of Oberon is this ability to extend the type system. &#xA;This means when the basic types fall short you can take &#xA;advantage of Oberon&#39;s type  extension features. This includes &#xA;creating dynamically allocated data structures. In Oberon-7 &#xA;combining Oberon&#39;s `POINTER TO` and `RECORD` types allows us to&#xA;create complex and dynamic data structures.&#xA;&#xA;Strings in Oberon-7 are typical declared as an `ARRAY OF CHAR` &#xA;with a specific length. If the length of a string is not &#xA;known a head of time this presents a challenge. One approach is &#xA;to declare a long array but that would allocate allot of memory &#xA;which may not get used. Another approach is to create a dynamic&#xA;data structure. An example is using a linked list of shorter &#xA;`ARRAY OF CHAR`.  The small fixed strings can combine to &#xA;represent much larger strings. When one fills up we add &#xA;another. ...</description>
             <author>R. S. Doiel</author>
             <pubDate>Mon, 25 May 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.html</guid>
         </item>
     </channel>
 </rss>
