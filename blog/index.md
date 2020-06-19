@@ -1,4 +1,5 @@
 
++ [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
 + [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
 + [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
 + [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06

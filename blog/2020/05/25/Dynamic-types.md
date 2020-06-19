@@ -479,7 +479,7 @@ with a test module in the links that follow.
 + [DynamicStringsTest.Mod](DynamicStringsTest.Mod)
 
 
-### Previous 
+### Next and Previous 
 
++ Next [Procedures as parameters](../../06/20/Procedures-as-parameters.html)
 + Previous [Oberon-7 and the file system](../09/Oberon-7-and-the-filesystem.html) 
-

@@ -54,9 +54,22 @@
    In this gist I assume you are using Bash on a Posix system (e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, sed, curl). I also use Stephen Dolan’s <a href="https://github.com/stedolan/jq">jq</a> as well as Caltech Library’s <a href="https://github.com/caltechlibrary/datatools">datatools</a>. See the respective Github repositories for installation instructions. The gist harvest process was developed against Github’s v3 API (see developer.github.com).
    </p>
    <p>
-   In the following examples <code><span class="math inline">$USER&lt;/code&gt; is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).&lt;/p&gt; &lt;h2 id="getting-my-basic-profile"&gt;Getting my basic profile&lt;/h2&gt; &lt;p&gt;This retrieves the public view of your profile.&lt;/p&gt; &lt;pre class="shell"&gt;&lt;code&gt; curl -o &amp;quot;$</span>USER.json" "https://api.github.com/users/<span class="math inline">$USER&amp;quot;&lt;/code&gt;&lt;/pre&gt; &lt;h2 id="find-the-url-for-your-gists"&gt;Find the urL for your gists&lt;/h2&gt; &lt;p&gt;Get the gists url from &lt;code&gt;$</span>USER.json</code>.
+   In the following examples “USER” is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).
    </p>
-   <pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;$USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
+   <h2 id="getting-my-basic-profile">
+   Getting my basic profile
+   </h2>
+   <p>
+   This retrieves the public view of your profile.
+   </p>
+   <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;</code></pre>
+   <h2 id="find-the-url-for-your-gists">
+   Find the urL for your gists
+   </h2>
+   <p>
+   Get the gists url from `USER.json.
+   </p>
+   <pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
        curl -o gists.json &quot;${GISTS_URL}&quot;</code></pre>
    <p>
    Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.

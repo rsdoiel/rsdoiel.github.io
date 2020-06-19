@@ -1,5 +1,4 @@
 {
-    "markup": "mmark",
     "title": "Harvesting my Gists from GitHub",
     "author": "R. S. Doiel",
     "date": "2017-12-10",
@@ -25,7 +24,7 @@ See the respective Github repositories for installation instructions.
 The gist harvest process was developed against Github's v3 API
 (see developer.github.com). 
 
-In the following examples `$USER` is assumed to hold your Github user id
+In the following examples "USER" is assumed to hold your Github user id 
 (e.g. rsdoiel for https://github.com/rsdoiel).
 
 ## Getting my basic profile
@@ -33,15 +32,15 @@ In the following examples `$USER` is assumed to hold your Github user id
 This retrieves the public view of your profile.
 
 ```shell
-    curl -o "$USER.json" "https://api.github.com/users/$USER"
+    curl -o USER "https://api.github.com/users/USER"
 ```
 
 ## Find the urL for your gists
 
-Get the gists url from `$USER.json`.
+Get the gists url from `USER.json.
 
 ```shell
-    GISTS_URL=$(jq ".gists_url" "$USER.json" | sed -E 's/"//g' | cut -d '{' -f 1)
+    GISTS_URL=$(jq ".gists_url" "USER.json" | sed -E 's/"//g' | cut -d '{' -f 1)
     curl -o gists.json "${GISTS_URL}"
 ```
 
