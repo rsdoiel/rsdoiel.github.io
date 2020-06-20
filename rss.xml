@@ -5,9 +5,23 @@
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigsRobert&#39;s ramblings and wonderings</description>
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
-        <pubDate>Fri, 19 Jun 2020 00:00:00 UTC</pubDate>
-        <lastBuildDate>Fri, 19 Jun 2020 00:00:00 UTC</lastBuildDate>
+        <pubDate>Sat, 20 Jun 2020 00:00:00 UTC</pubDate>
+        <lastBuildDate>Sat, 20 Jun 2020 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.1.1</generator>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/06/20/Noises.Mod</link>
+            <description>&lt;p&gt;MODULE Noises; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ChirpChirp(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Chirp, chirp”);Out.Ln(); END ChirpChirp;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise); BEGIN (* Call noise with the animal name *) noise(name); END MakeNoise; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Sat, 20 Jun 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/06/20/Noises.Mod</guid>
+        </item>
+        <item>
+            <title>Procedures as parameters</title>
+            <link>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.md</link>
+            <description>&lt;h1 id=&#34;procedures-as-parameters&#34;&gt;Procedures as parameters&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-06-20&lt;/p&gt;&#xA;&lt;p&gt;This is the ninth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;p&gt;Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name &lt;a href=&#34;Noises.Mod&#34;&gt;Noises.Mod&lt;/a&gt; to explore this. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Sat, 20 Jun 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.md</guid>
+        </item>
         <item>
             <title>Dynamic types</title>
             <link>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.md</link>
