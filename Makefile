@@ -45,7 +45,7 @@ status:
 
 save:
 	git commit -am "Quick Save"
-	git push origin master
+	git push origin main
 
 website: all
 	bash blog.bash
@@ -64,7 +64,7 @@ publish: all
 		  blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
-	git push origin master
+	git push origin main
 
 clean:
 	rm $(shell findfile -s .html)
