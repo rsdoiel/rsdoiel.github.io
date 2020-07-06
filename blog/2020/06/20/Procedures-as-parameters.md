@@ -105,7 +105,7 @@ only parameter will be treated as a "Noise" type procedures.
 
 ### Next and Previous 
 
-+ Next [Procedures as Parameters](../../07/07/Procedures-in-records.html)
++ Next [Procedures in Records](../../07/07/Procedures-in-records.html)
 + Previous [Dynamic types](../../05/25/Dynamic-types.html) 
 
 

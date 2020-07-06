@@ -7,7 +7,21 @@
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
         <pubDate>Mon, 06 Jul 2020 00:00:00 UTC</pubDate>
         <lastBuildDate>Mon, 06 Jul 2020 00:00:00 UTC</lastBuildDate>
-        <generator>mkrss v0.1.0d</generator>
+        <generator>mkrss v0.1.1</generator>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/07/07/Noises.Mod</link>
+            <description>&lt;p&gt;MODULE Noises; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ChirpChirp(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Chirp, chirp”);Out.Ln(); END ChirpChirp;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise); BEGIN (* Call noise with the animal name *) noise(name); END MakeNoise; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 07 Jul 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/07/07/Noises.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/07/07/Creatures.Mod</link>
+            <description>&lt;p&gt;MODULE Creatures; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;Creature = POINTER TO CreatureDesc; CreatureDesc = RECORD name : ARRAY 32 OF CHAR; noise : Noise END;&lt;/p&gt;&#xA;&lt;p&gt;VAR dog, bird : Creature;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 07 Jul 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/07/07/Creatures.Mod</guid>
+        </item>
         <item>
             <title>Procedures in records</title>
             <link>https://rsdoiel.github.io/blog/2020/07/07/Procedures-in-records.md</link>
