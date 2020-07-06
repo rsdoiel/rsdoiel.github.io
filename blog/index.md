@@ -1,4 +1,5 @@
 
++ [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07
 + [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
 + [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
 + [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09

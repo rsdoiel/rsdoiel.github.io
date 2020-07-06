@@ -103,8 +103,9 @@ Our type definition tells the compiler that the procedure can be a parameter,
 any procedure with the same signature, e.g. `who : ARRAY OF CHAR` as the
 only parameter will be treated as a "Noise" type procedures. 
 
-### Previous 
+### Next and Previous 
 
++ Next [Procedures as Parameters](../../07/07/Procedures-in-records.html)
 + Previous [Dynamic types](../../05/25/Dynamic-types.html) 
 
 
