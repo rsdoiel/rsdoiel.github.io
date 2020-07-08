@@ -1,4 +1,5 @@
 
++ [Words Matter](/blog/2020/07/08/words-matter.html), 2020-07-08
 + [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07
 + [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
 + [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
