@@ -133,8 +133,9 @@ behaviors. Another idea would be to add a "MutateCreature" procedure
 that would let you change the noise procedure to something new.
 
 
-### Previous 
+### Next and Previous 
 
++ Next [Portable Oberon 7](../../08/15/Portable-Oberon-7.html)
 + Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.html) 
 
 
