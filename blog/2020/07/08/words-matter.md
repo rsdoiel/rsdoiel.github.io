@@ -3,6 +3,10 @@
 
 By R. S. Doiel, 2020-07-08
 
+UPDATE (2020-08-15, RSD): When I added a post today I was VERY pleased to 
+to see that GitHub now allows me to publish my blog via the "main" branch.
+It's nice to see the change in the words we use.
+
 **Why does software development use the vocabulary of slavery and
 Jim Crow to describe our creations?** What we call things matters.
 This is especially true of the words we use day to day without thinking.
