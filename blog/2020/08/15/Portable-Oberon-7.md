@@ -91,12 +91,12 @@ An unsuccessful line read, meaning we're at the end of the file, sets
 
 ### Input0
 
-There are other input modules provided by Karl that are listed in
+There are other input modules provided by Karl than are listed in
 the Oakwood guides. Basically these consist of lower level abstractions
 necessary to mask the vagaries of the host system.
-Generally I don't use them directly for basic text processing
+I don't often use `Input0` directly for basic text processing
 programs but in "SlowCat" I do need to use `Input0`. `Input0`
- provides one unexpected helpful procedure called "Time" which 
+provides an unexpectedly helpful procedure called "Time" which 
 let's you read the epoch value provided by Unix. We are going to 
 use this for creating a busy wait delay between displaying our 
 lines of text.

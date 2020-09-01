@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="mostly-oberon">
+	  <h1>
    Mostly Oberon
    </h1>
    <p>
@@ -47,13 +47,13 @@
    <p>
    <strong>Mostly Oberon</strong> is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
    </p>
-   <h2 id="overview">
+   <h2>
    Overview
    </h2>
    <p>
-   Oberon<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at <a href="https://en.wikipedia.org/wiki/ETH_Zurich">ETH</a> circa 1987. It was inspired by their experiences in California at the <a href="https://en.wikipedia.org/wiki/PARC_(company)">Xerox Palo Alto Research Center</a>. This series of blog posts are my meandering exploration of Oberon 7 language based on <a href="http://www.projectoberon.com/">Project Oberon 2013</a>.
+   Oberon[^1] is a classical computer language and operating system originated by Niklaus Wirth and Jürg Gutknecht at <a href="https://en.wikipedia.org/wiki/ETH_Zurich">ETH</a> circa 1987. It was inspired by their experiences in California at the <a href="https://en.wikipedia.org/wiki/PARC_(company)">Xerox Palo Alto Research Center</a>. This series of blog posts are my meandering exploration of Oberon 7 language based on <a href="http://www.projectoberon.com/">Project Oberon 2013</a>.
    </p>
-   <h3 id="my-voyage">
+   <h3>
    My Voyage
    </h3>
    <p>
@@ -63,25 +63,26 @@
    Oberon 7 is Wirth’s most recent refinement of the Oberon language. It is a terse and powerful systems language. It strikes a different computing path then many popular programming languages used in 2020. You find its influence along with Simula in more recent popular languages like <a href="https://golang.org">Go</a>.
    </p>
    <p>
-   While Wirth conceived of Oberon in the context of a whole system<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> it’s use in research and instruction means it is also well suited <a href="https://en.wikipedia.org/wiki/POSIX">POSIX</a> based systems (e.g. BSD, Linux, macOS). The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
+   While Wirth conceived of Oberon in the context of a whole system[^4] it’s use in research and instruction means it is also well suited <a href="https://en.wikipedia.org/wiki/POSIX">POSIX</a> based systems (e.g. BSD, Linux, macOS). The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
    </p>
    <p>
    The latest Oberon is Niklaus Wirth and Paul Reeds’ Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter’s <a href="https://github.com/pdewacht/oberon-risc-emu">emulator</a>. Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.
    </p>
-   <h2 id="a-starting-point">
+   <h2>
    A starting point
    </h2>
    <p>
    I am starting my exploration with Karl Landström’s <a href="https://miasap.se/obnc/">OBNC</a> compiler. I am focusing on getting comfortable using and writing in the Oberon language.
    </p>
    <p>
-   Here’s an example of a simple “Hello World”<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> program in Oberon written for a POSIX system. I’ve named the <a href="HelloWorld.Mod">source code</a> <code>HelloWorld.Mod</code>.
+   Here’s an example of a simple “Hello World”[^2] program in Oberon written for a POSIX system. I’ve named the <a href="HelloWorld.Mod">source code</a> <code>HelloWorld.Mod</code>.
    </p>
-   <pre class="oberon"><code>    MODULE HelloWorld;
+   <pre class="Oberon"><code>    MODULE HelloWorld;
          IMPORT Out;
        BEGIN
          Out.String(&quot;Hello World!&quot;); Out.Ln;
-       END HelloWorld.</code></pre>
+       END HelloWorld.
+   </code></pre>
    <p>
    While this is longer than a Python “hello world” program it is much shorter than I remember writing in Java and about the same number of lines as in C. <code>BEGIN</code> and <code>END</code> are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. <code>IMPORT</code> includes the module <code>Out</code> (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.
    </p>
@@ -91,7 +92,7 @@
    <p>
    Modules in Oberon can include a module wide initialization block. The <code>BEGIN</code> through <code>END HelloWorld.</code> are an initialization block. This is similar to C or Go’s “main” function for our POSIX environment.
    </p>
-   <h3 id="obnc">
+   <h3>
    OBNC
    </h3>
    <p>
@@ -103,24 +104,25 @@
    <p>
    If you’re following along please install OBNC on your computer. Instructions are found at https://maisap.se/obnc. Karl also has excellent documentation and is responsive to questions about his implementation. His contact methods are included on his website.
    </p>
-   <h3 id="running-obnc">
+   <h3>
    Running OBNC
    </h3>
    <p>
    OBNC provides a Oberon 7 compiler with some optional modules for working in a POSIX environment. Compiling our “Hello World” is easy from your shell or terminal.
    </p>
-   <pre><code>    obnc HelloWorld.Mod</code></pre>
+   <pre><code>    obnc HelloWorld.Mod
+   </code></pre>
    <p>
    If all goes well this should produce an executable file named <code>HelloWorld</code> (or <code>HelloWorld.exe</code> on Windows). You can now run this program with a command like <code>./HelloWorld</code> (or <code>HelloWorld</code> on Windows).
    </p>
-   <h3 id="learning-more-about-oberon">
+   <h3>
    Learning more about Oberon
    </h3>
    <p>
    I have faced two challenges in my exploration of Oberon, finding a compiler I was happy with (thank you Karl for OBNC) and sorting out the literature around Oberon language implementations and system versions.
    </p>
    <p>
-   Oberon has a rich history though it was not well known in Southern California in 2020. Oberon’s history is primarily academic and European. It was commonly used in college level instruction in Europe from it’s inception at ETH in the late 80’s through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era. They covered the Oberon language and system of their time. From a historical computing perspective they remain very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Paul Reed brought things up to date in 2013. I recommend Reed’s <a href="http://www.projectoberon.com">www.projectoberon.com</a> as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth’s <a href="https://inf.ethz.ch/personal/wirth/">website</a> is still maintained<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> and he features links to most of his major publications. His is the canonical source of information on Oberon.
+   Oberon has a rich history though it was not well known in Southern California in 2020. Oberon’s history is primarily academic and European. It was commonly used in college level instruction in Europe from it’s inception at ETH in the late 80’s through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era. They covered the Oberon language and system of their time. From a historical computing perspective they remain very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Paul Reed brought things up to date in 2013. I recommend Reed’s <a href="http://www.projectoberon.com">www.projectoberon.com</a> as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth’s <a href="https://inf.ethz.ch/personal/wirth/">website</a> is still maintained[^3] and he features links to most of his major publications. His is the canonical source of information on Oberon.
    </p>
    <p>
    I have found the ACM <a href="https://dl.acm.org/">Digital Library</a> and the ETH <a href="https://www.research-collection.ethz.ch/?locale-attribute=en">Research Collection</a> very helpful. While much of the material is now historic it remains useful for both techniques and inspiration. Today’s hardware, even a Raspberry Pi Zero, is more resource rich than the original systems Oberon ran on.
@@ -128,39 +130,7 @@
    <p>
    The online community for Oberon and Oberon System seems mostly centered around a <a href="https://lists.inf.ethz.ch/mailman/listinfo/oberon">mail list</a> at ETH and net news group <a href="https://groups.google.com/forum/#!forum/comp.lang.oberon">comp.lang.oberon</a>
    </p>
-   <h3 id="next">
-   Next
-   </h3>
-   <ul>
-   <li>
-   Next <a href="../12/Mostly-Oberon-Modules.html">Modules and Procedures</a>
-   </li>
-   </ul>
-   <section class="footnotes" role="doc-endnotes">
-   <hr />
-   <ol>
-   <li id="fn1" role="doc-endnote">
    <p>
-   Oberon grew from Wirth’s Modula, which grew from Pascal, which grew from his experiences with Algol.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a>
-   </p>
-   </li>
-   <li id="fn2" role="doc-endnote">
-   <p>
-   Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a>
-   </p>
-   </li>
-   <li id="fn3" role="doc-endnote">
-   <p>
-   In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux, <a href="https://en.wikipedia.org/wiki/Berkeley_Software_Distribution">BSD</a> and <a href="https://en.wikipedia.org/wiki/MacOS">macOS</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a>
-   </p>
-   </li>
-   <li id="fn4" role="doc-endnote">
-   <p>
-   Prof. Wirth’s personal website at ETH was available as of 2020-04-11.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a>
-   </p>
-   </li>
-   </ol>
-   </section>
       </article>
     </section>
 

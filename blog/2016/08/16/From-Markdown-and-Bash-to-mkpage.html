@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="from-markdown-and-bash-to-mkpage">
+	  <h1>
    From Markdown and Bash to mkpage
    </h1>
    <p>
@@ -47,7 +47,7 @@
    <p>
    When I started maintaining a website on Github a few years ago my needs were so simple I hand coded the HTML. Eventually I adopted a markdown processor for maintaining the prose. My “theme” was a CSS file and some HTML fragments to wrap the markdown output. If I needed interactivity I used JavaScript to access content via a web API. Life was simple, all I had to learn to get started was Git and how to populate a branch called “gh-pages”.
    </p>
-   <h2 id="deconstructing-content-management-systems">
+   <h2>
    Deconstructing Content Management Systems
    </h2>
    <p>
@@ -79,19 +79,19 @@
    <p>
    Mapping the data sources to templates, combining the templates and rendering the final website is where most systems introduce a large amount of complexity. This is true of static site generators like <a href="https://jekyllrb.com">Jekill</a> and <a href="https://gohugo.io">Hugo</a>.
    </p>
-   <h2 id="an-experimental-deconstruction">
+   <h2>
    An experimental deconstruction
    </h2>
    <p>
    I wanted a simple command line tool that would make a single web page. It would take a few data sources and formats and run them through a template system. The template system needed to be simple but support the case where data might not be available. It would be nice if it handled the case of repititious data like that used in tables or lists. Ideally I could render many pages from a single template assuming a simple website and layout.
    </p>
-   <h3 id="a-single-page-generator">
+   <h3>
    A single page generator
    </h3>
    <p>
    <a href="https://github.com/rsdoiel/mkpage">mkpage</a> started as an experiment in building a simple single page generator. It’s responsibilities include mapping data sources to the template, transforming data if needed and rendering the results. After reviewing the websites I’ve setup in the last year or two I realized I had three common types of data.
    </p>
-   <ol type="1">
+   <ol>
    <li>
    Plain text or content that did not need further processing
    </li>
@@ -105,7 +105,7 @@
    <p>
    I also realized I only needed to handle three data sources.
    </p>
-   <ol type="1">
+   <ol>
    <li>
    strings
    </li>
@@ -122,13 +122,14 @@
    <p>
    That poses the question of how to express the data format and the data source when mapping the content into a template. The web resources are easy in the sense that the web responses include content type information. Files can be simple too as the file extension indicates their format (e.g. “.md” for Markdown, “.json” for JSON documents). What remained was how to identify a text string’s format. I opted for a prefix ending in a colon (e.g. “text:” for plain text, “markdown:” for markdown and “json:” for JSON). This mapping allows for a simple key/value relationship to be expressed easily on the command line.
    </p>
-   <h3 id="mkpage-in-action">
+   <h3>
    mkpage in action
    </h3>
    <p>
    Describing how to build “mypage.html” from “mypage.md” and “nav.md” (containing links for navigating the website) is as easy as typing
    </p>
-   <pre class="shell"><code>    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html</code></pre>
+   <pre class="shell"><code>    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html
+   </code></pre>
    <p>
    In this example the template is called “page.tmpl” and we redirect the output to “mypage.html”.
    </p>
@@ -138,7 +139,8 @@
    <pre class="shell"><code>    mkpage &quot;title=text:My Page&quot; \
            &quot;content=mypage.md&#39; &quot;navigation=nav.md&quot; 
            page.tmpl \
-           &gt; mypage.html</code></pre>
+           &gt; mypage.html
+   </code></pre>
    <p>
    Likewise integrating some JSON data from weather.gov is relatively straight forward. The hardest part is discovering the <a href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a> that returns JSON! Notice I have added a weather field and the URL. When data is recieved back from weather.gov it is JSON decoded and then passed to the template for rendering using the “range” template function.
    </p>
@@ -147,11 +149,12 @@
            &quot;navigation=nav.md&quot; \
            &quot;weather=http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json&quot; \
            page.tmpl \
-           &gt; mypage.html</code></pre>
+           &gt; mypage.html
+   </code></pre>
    <p>
    What is <em>mkpage</em> doing?
    </p>
-   <ol type="1">
+   <ol>
    <li>
    Reading the data sources and formats from the command line
    </li>

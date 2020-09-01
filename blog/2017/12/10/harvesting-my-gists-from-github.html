@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="harvesting-my-gists-from-github">
+	  <h1>
    Harvesting my Gists from GitHub
    </h1>
    <p>
@@ -47,7 +47,7 @@
    <p>
    This is a just quick set of notes on harvesting my Gists on Github so I have an independent copy for my own website.
    </p>
-   <h2 id="assumptions">
+   <h2>
    Assumptions
    </h2>
    <p>
@@ -56,25 +56,27 @@
    <p>
    In the following examples “USER” is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).
    </p>
-   <h2 id="getting-my-basic-profile">
+   <h2>
    Getting my basic profile
    </h2>
    <p>
    This retrieves the public view of your profile.
    </p>
-   <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;</code></pre>
-   <h2 id="find-the-url-for-your-gists">
+   <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;
+   </code></pre>
+   <h2>
    Find the urL for your gists
    </h2>
    <p>
    Get the gists url from `USER.json.
    </p>
    <pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
-       curl -o gists.json &quot;${GISTS_URL}&quot;</code></pre>
+       curl -o gists.json &quot;${GISTS_URL}&quot;
+   </code></pre>
    <p>
    Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.
    </p>
-   <h2 id="harvesting-the-individual-gists.">
+   <h2>
    Harvesting the individual Gists.
    </h2>
    <p>
@@ -82,7 +84,8 @@
    </p>
    <pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
            jq &quot;.[$I].files&quot; gists.json | sed -E &#39;s/&quot;//g&#39;
-       done</code></pre>
+       done
+   </code></pre>
    <p>
    Expanding this we can now curl each individual gist metadata to find URL to the raw file.
    </p>
@@ -90,7 +93,8 @@
            jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
                jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E &#39;s/&quot;//g&#39;; 
            done;
-       done</code></pre>
+       done
+   </code></pre>
    <p>
    Now that we have URLs to the raw gist files we can use curl again to featch each.
    </p>
@@ -128,7 +132,8 @@
                echo &quot;Saving gist/$GIST_ID/$FNAME&quot;
                curl -o &quot;gists/$GIST_ID/$FNAME&quot; &quot;$URL&quot;
            done;
-       done</code></pre>
+       done
+   </code></pre>
       </article>
     </section>
 

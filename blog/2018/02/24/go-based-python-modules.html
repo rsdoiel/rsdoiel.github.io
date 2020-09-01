@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="go-based-python-modules">
+	  <h1>
    Go based Python modules
    </h1>
    <p>
@@ -47,7 +47,7 @@
    <p>
    The problem: I have written a number of Go packages at work. My colleagues know Python and I’d like them to be able to use the packages without resorting to system calls from Python to the command line implementations. The solution is create a C-Shared library from my Go packages, using Go’s <em>C</em> package and combine it with Python’s <em>ctypes</em> package. What follows is a series of simple recipes I used to understand the details of how that worked.
    </p>
-   <h2 id="example-1-libtwice.go-and-twice.py">
+   <h2>
    Example 1, libtwice.go and twice.py
    </h2>
    <p>
@@ -57,7 +57,7 @@
    In this example we have a function in Go called “twice” it takes a single integer, doubles it and returns the new value. On the Go side we create a <em>libtwice.go</em> file with an empty <code>main()</code> function. Notice that we also import the <em>C</em> package and use a comment decoration to indicate the function we are exporting (see https://github.com/golang/go/wiki/cgo and https://golang.org/cmd/cgo/ for full story about Go’s <em>C</em> package and <em>cgo</em>). Part of the what <em>cgo</em> and the <em>C</em> package does is use the comment decoration to build the signatures for the function calls in the shared C library. The Go toolchain does all the heavy lifting in making a <em>C</em> shared library based on comment directives like “//export”. We don’t need much for our twice function.
    </p>
    <div id="cb1" class="sourceCode">
-   <pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1"></a>    <span class="kw">package</span> main</span>
+   <pre class="sourceCode Go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1"></a>    <span class="kw">package</span> main</span>
    <span id="cb1-2"><a href="#cb1-2"></a>    </span>
    <span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">import</span> (</span>
    <span id="cb1-4"><a href="#cb1-4"></a>        <span class="st">&quot;C&quot;</span></span>
@@ -111,19 +111,23 @@
    <p>
    The build command for Linux looks like—
    </p>
-   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.so libtwice.go</code></pre>
+   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.so libtwice.go
+   </code></pre>
    <p>
    Under Windows it would look like—
    </p>
-   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dll libtwice.go</code></pre>
+   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dll libtwice.go
+   </code></pre>
    <p>
    and Mac OS X—
    </p>
-   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go</code></pre>
+   <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go
+   </code></pre>
    <p>
    You can test the Python module with—
    </p>
-   <pre class="shell"><code>    python3 twice.py</code></pre>
+   <pre class="shell"><code>    python3 twice.py
+   </code></pre>
    <p>
    Notice the filename choices. I could have called the Go shared library anything as long as it wasn’t called <code>twice.so</code>, <code>twice.dll</code> or <code>twice.dylib</code>. This constraint is to avoid a module name collision in Python. If we had a Python script named <code>twice_test.py</code> and import <code>twice.py</code> then Python needs to make a distinction between <code>twice.py</code> and our shared library. If you use a Python package approach to wrapping the shared library you would have other options for voiding name collision.
    </p>
@@ -137,7 +141,7 @@
    <p>
    Example 1 is our base recipe. The next examples focus on handling other data types but follow the same pattern.
    </p>
-   <h2 id="example-2-libsayhi.go-and-sayhi.py">
+   <h2>
    Example 2, libsayhi.go and sayhi.py
    </h2>
    <p>
@@ -205,7 +209,7 @@
    <div id="cb11" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a>    <span class="ex">python3</span> sayhi.py</span></code></pre>
    </div>
-   <h2 id="example-3-libhelloworld.go-and-helloworld.py">
+   <h2>
    Example 3, libhelloworld.go and helloworld.py
    </h2>
    <p>
@@ -285,7 +289,7 @@
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a>     <span class="ex">python3</span> helloworld.py</span>
    <span id="cb15-2"><a href="#cb15-2"></a>     <span class="ex">python3</span> helloworld.py Jane</span></code></pre>
    </div>
-   <h2 id="example-4-libjsonpretty.go-and-jsonpretty.py">
+   <h2>
    Example 4, libjsonpretty.go and jsonpretty.py
    </h2>
    <p>
@@ -369,7 +373,8 @@
    <p>
    Build command
    </p>
-   <pre class="shell"><code>    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go</code></pre>
+   <pre class="shell"><code>    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go
+   </code></pre>
    <p>
    As before you can run your tests with <code>python3 jsonpretty.py</code>.
    </p>

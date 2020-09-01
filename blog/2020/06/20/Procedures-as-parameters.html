@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="procedures-as-parameters">
+	  <h1>
    Procedures as parameters
    </h1>
    <p>
@@ -53,12 +53,13 @@
    <p>
    The key to supporting this is Oberon’s type system. We need to decide what our generic procedure will look like first. In our case our procedures that will display an animal noise will include the name of the animal speaking. We’ll call this type of procedure “Noise”. It’ll accept an ARRAY OF CHAR for the name as a parameter then use the standard Out module to display the animal name and noise they make.
    </p>
-   <pre class="oberon"><code>    TYPE
-         Noise : PROCEDURE (who : ARRAY OF CHAR);</code></pre>
+   <pre class="Oberon"><code>    TYPE
+         Noise : PROCEDURE (who : ARRAY OF CHAR);
+   </code></pre>
    <p>
    The two “Noise” procedures will be “BarkBark” and “ChirpChirp”. They will implement the same parameter signature as describe in the “Noise” type.
    </p>
-   <pre class="oberon"><code>    PROCEDURE BarkBark(who : ARRAY OF CHAR);
+   <pre class="Oberon"><code>    PROCEDURE BarkBark(who : ARRAY OF CHAR);
        BEGIN
          Out.String(who);
          Out.String(&quot;: Bark, bark&quot;);Out.Ln();
@@ -68,19 +69,21 @@
        BEGIN
          Out.String(who);
          Out.String(&quot;: Chirp, chirp&quot;);Out.Ln();
-       END ChirpChirp;</code></pre>
+       END ChirpChirp;
+   </code></pre>
    <p>
    We’ll also create a procedure, MakeNoise, that accepts the animal name and our “Noise” procedure name and it’ll call the “Noise” type procedure passing in the animal name.
    </p>
-   <pre class="oberon"><code>    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
+   <pre class="Oberon"><code>    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
        BEGIN
          (* Call noise with the animal name *)
          noise(name);
-       END MakeNoise;</code></pre>
+       END MakeNoise;
+   </code></pre>
    <p>
    If we invoke MakeNoise with our animal name and pass the name of the procedure we want to do the MakeNoise procedure will generate our noise output. Here’ is what is looks like all together.
    </p>
-   <pre class="oberon"><code>    MODULE Noises;
+   <pre class="Oberon"><code>    MODULE Noises;
          IMPORT Out;
        
        TYPE 
@@ -109,11 +112,12 @@
          MakeNoise(&quot;Tweety&quot;, ChirpChirp);
          MakeNoise(&quot;Fido&quot;, ChirpChirp);
          MakeNoise(&quot;Tweety&quot;, BarkBark);
-       END Noises.</code></pre>
+       END Noises.
+   </code></pre>
    <p>
    Note when we pass the procedures we include their name <strong>without</strong> parenthesis. Our type definition tells the compiler that the procedure can be a parameter, any procedure with the same signature, e.g. <code>who : ARRAY OF CHAR</code> as the only parameter will be treated as a “Noise” type procedures.
    </p>
-   <h3 id="next-and-previous">
+   <h3>
    Next and Previous
    </h3>
    <ul>

@@ -38,16 +38,16 @@
 
     <section>
       <article>
-	  <h1 id="portable-oberon-7">
+	  <h1>
    Portable Oberon 7
    </h1>
-   <h2 id="using-obnc-modules">
+   <h2>
    using OBNC modules
    </h2>
    <p>
    This is the eleventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
    </p>
-   <h2 id="working-with-standard-input">
+   <h2>
    Working with standard input
    </h2>
    <p>
@@ -56,19 +56,19 @@
    <p>
    Karl’s <a href="https://miasap.se/obnc/">OBNC</a> Oberon-7 compiler provides the Oberon-2 set of portable Oberon modules as well as several very useful additions making Oberon-7 suitable for writing programs in a POSIX environment. We’re going to explore several of those modules in this post as we create a program called <a href="SlowCat.Mod">SlowCat</a>.
    </p>
-   <h3 id="slowcat">
+   <h3>
    SlowCat
    </h3>
    <p>
    Recently while I was reviewing logs at work using <a href="https://en.wikipedia.org/wiki/Cat_(Unix)">cat</a>, <a href="https://en.wikipedia.org/wiki/Grep">grep</a> and <a href="https://en.wikipedia.org/wiki/More_(command)">more</a> it struck me that it would have been nice if <strong>cat</strong> or <strong>more</strong> came with a time delay so you could use them like a teleprompter. This would let you casually watch the file scroll by while still being able to read the lines. The program we’ll build in this post is “SlowCat” which accepts a command line parameter indicating the delay in seconds between display each line read from standard input.
    </p>
-   <h2 id="working-with-standard-input-out">
+   <h2>
    Working with Standard Input, Out
    </h2>
    <p>
    The Oakwood guides for Oberon-2 describe two modules particularly useful for working with standard input and output. They are appropriately called <code>In</code> and <code>Out</code>. On may Oberon Systems these have been implemented such that your code could run under Unix or Oberon System with a simple re-compile. We’ve used <code>Out</code> in our first program of this series, “Hello World”. It provides a means to write Oberon system base types to standard out. We’ve used <code>In</code> a few times too. But <code>In</code> is worth diving into a bit more.
    </p>
-   <h3 id="in">
+   <h3>
    In
    </h3>
    <p>
@@ -88,34 +88,35 @@
    <p>
    There is one nuance with <code>In.Done</code> that is easy to get tripped up on.<br /> <code>In.Done</code> indicates if the last operation was successful. So if you’re using <code>In.Line()</code> then <code>In.Done</code> should be true if reading the line was successful. If you hit the end of the file then <code>In.Done</code> should be false. When you write your loop this can be counter intuitive. Here is a example of testing <code>In.Done</code> with a repeat until loop.
    </p>
-   <pre class="oberon7"><code>    REPEAT
+   <pre class="Oberon7"><code>    REPEAT
          In.Line(text);
          IF In.Done THEN
            Out.String(text);Out.Ln();
          END;
-       END In.Done = FALSE;</code></pre>
+       END In.Done = FALSE;
+   </code></pre>
    <p>
    So when you read this it is easy to think of <code>In.Done</code> as you’re done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we’re at the end of the file, sets <code>In.Done</code> to false!
    </p>
-   <h3 id="input0">
+   <h3>
    Input0
    </h3>
    <p>
-   There are other input modules provided by Karl that are listed in the Oakwood guides. Basically these consist of lower level abstractions necessary to mask the vagaries of the host system. Generally I don’t use them directly for basic text processing programs but in “SlowCat” I do need to use <code>Input0</code>. <code>Input0</code> provides one unexpected helpful procedure called “Time” which let’s you read the epoch value provided by Unix. We are going to use this for creating a busy wait delay between displaying our lines of text.
+   There are other input modules provided by Karl than are listed in the Oakwood guides. Basically these consist of lower level abstractions necessary to mask the vagaries of the host system. I don’t often use <code>Input0</code> directly for basic text processing programs but in “SlowCat” I do need to use <code>Input0</code>. <code>Input0</code> provides an unexpectedly helpful procedure called “Time” which let’s you read the epoch value provided by Unix. We are going to use this for creating a busy wait delay between displaying our lines of text.
    </p>
-   <h3 id="out">
+   <h3>
    Out
    </h3>
    <p>
    As mention <code>Out</code> provides our output functions. We’ll be using two procedure from <code>Out</code>, namely <code>Out.String()</code> and <code>Out.Ln()</code>. We’ve seen both before.
    </p>
-   <h2 id="working-with-karls-extensions">
+   <h2>
    Working with Karl’s extensions
    </h2>
    <p>
    Karl provides a number of extension module wrapping various POSIX calls. We are going to use two, <a href="http://miasap.se/obnc/obncdoc/ext/extArgs.def.html">extArgs</a> which provides access to command line args and <a href="http://miasap.se/obnc/obncdoc/ext/extConvert.def.html">extConvert</a> which provides a means of converting strings to integers.
    </p>
-   <h2 id="our-algorithm">
+   <h2>
    Our Algorithm
    </h2>
    <p>
@@ -138,31 +139,31 @@
    <code>count</code> is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()
    </li>
    </ul>
-   <h3 id="usage">
+   <h3>
    Usage
    </h3>
    <p>
    Usage just wraps helpful text and display it to standard out.
    </p>
-   <h2 id="processargs">
+   <h2>
    ProcessArgs()
    </h2>
    <p>
    This procedure uses two of Karl’s extension modules to retrieve the since command line parameter and convert the string value retrieved into an integer. <code>ProcessArgs()</code> return TRUE if we can successful convert the command line parameter and set the value of count otherwise return FALSE.
    </p>
-   <h2 id="delayvar-count-integer">
+   <h2>
    Delay(VAR count : INTEGER)
    </h2>
    <p>
    This procedure uses <code>Input0</code> to fetch the current epoch time and counts the number of seconds until we’ve reached our delay value. It’s a busy loop which isn’t ideal but does keep the program simple.
    </p>
-   <h2 id="slowcatvar-count-integer">
+   <h2>
    SlowCat(VAR count: INTEGER);
    </h2>
    <p>
    This is the heart of our command line program. It reads a line of text from standard input, if successful writes it to standard out and then waits using delay before repeating this process. The delay is only invoked when a reading a line was successful.
    </p>
-   <h2 id="putting-it-all-together">
+   <h2>
    Putting it all together
    </h2>
    <p>
@@ -240,8 +241,9 @@
          ELSE
            Usage();
          END;
-       END SlowCat.</code></pre>
-   <h2 id="compiling-and-trying-it-out">
+       END SlowCat.
+   </code></pre>
+   <h2>
    Compiling and trying it out
    </h2>
    <p>
@@ -249,8 +251,9 @@
    </p>
    <pre><code>    obnc SlowCat.Mod
        # If successful
-       ./SlowCat 2 &lt; SlowCat.Mod</code></pre>
-   <h3 id="previous">
+       ./SlowCat 2 &lt; SlowCat.Mod
+   </code></pre>
+   <h3>
    Previous
    </h3>
    <ul>

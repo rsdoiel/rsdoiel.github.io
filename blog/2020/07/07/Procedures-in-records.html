@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1 id="procedures-in-records">
+	  <h1>
    Procedures in records
    </h1>
    <p>
@@ -53,11 +53,12 @@
    <p>
    Let’s modify our module name <a href="Noises.Mod">Noises.Mod</a> to explore this. Copy “Noises.Mod” to “Creatures.Mod”. Replace the “MODULE Noises;” line with “MODULE Creatures;” and the final “END Noises.” statement with “END Creatures.”.
    </p>
-   <pre class="oberon"><code>    MODULE Creatures;
+   <pre class="Oberon"><code>    MODULE Creatures;
        
        (* rest of code here *)
 
-       END Creatures.</code></pre>
+       END Creatures.
+   </code></pre>
    <p>
    The key to supporting records with procedures as record attributes is once again Oberon’s type system. The type <code>Noise</code> we created in the previous post can also be used to declare a record attribute similar to how we use this new type to pass the procedure. In this exploration will create a linked list of “Creature” types which include a “MakeNoise” attribute.
    </p>
@@ -68,7 +69,8 @@
        CreatureDesc = RECORD
                         name : ARRAY 32 OF CHAR;
                         noises : Noises;
-                      END;</code></pre>
+                      END;
+   </code></pre>
    <p>
    Let’s create a new <code>MakeCreature</code> procedure that will create a populate a single <code>Creature</code> type record.
    </p>
@@ -77,21 +79,23 @@
          NEW(creature);
          creature.name := name;
          creature.noise := noise;
-       END MakeCreature;</code></pre>
+       END MakeCreature;
+   </code></pre>
    <p>
    Now lets modify <code>MakeNoise</code> to accept the <code>Creature</code> type RECORD rather than a name and a noise procedure parameter.
    </p>
    <pre><code>    PROCEDURE MakeNoise(creature : Creator);
        BEGIN
          creature.noise(creature.name);
-       END MakeNoise;</code></pre>
+       END MakeNoise;
+   </code></pre>
    <p>
    How does this all work? The two “Noise” procedures “BarkBark” and “ChirpChirp” remain as in our original “Noises” module. But our new <code>MakeNoise</code> procedure looks takes a <code>Creature</code> record rather than accepting a name and procedure as parameters. This makes the code a little more concise as well as lets you evolve the creature record type using an object oriented approach.
    </p>
    <p>
    Our revised module should look like this.
    </p>
-   <pre class="oberon"><code>    MODULE Noises;
+   <pre class="Oberon"><code>    MODULE Noises;
          IMPORT Out;
        
        TYPE 
@@ -135,11 +139,12 @@
          MakeCreature(&quot;Tweety&quot;, ChirpChirp, bird);
          MakeNoise(dog);
          MakeNoise(bird);
-       END Noises.</code></pre>
+       END Noises.
+   </code></pre>
    <p>
    Where to go from here? Think about evolving <a href="Creatures.Mod">Creatures</a> so that you can create a dynamic set of creatures that mix and match their behaviors. Another idea would be to add a “MutateCreature” procedure that would let you change the noise procedure to something new.
    </p>
-   <h3 id="next-and-previous">
+   <h3>
    Next and Previous
    </h3>
    <ul>

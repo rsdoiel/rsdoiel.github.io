@@ -47,7 +47,7 @@ save:
 	git commit -am "Quick Save"
 	git push origin main
 
-website: all
+website: all .FORCE
 	bash blog.bash
 	mkrss -channel-title="R. S. Doiel" \
 	    -channel-description="Robert's ramblings and wonderigs" \
@@ -69,3 +69,4 @@ publish: all
 clean:
 	rm $(shell findfile -s .html)
 
+.FORCE:
