@@ -1,5 +1,4 @@
 {
-	"markup": "mmark", 
 	"title": "Portable Oberon 7",
 	"series": "Mostly Oberon",
 	"number": 11,
@@ -28,7 +27,15 @@ provides the Oberon-2 set of portable Oberon modules as well as
 several very useful additions making Oberon-7 suitable for 
 writing programs in a POSIX environment.  We're going to 
 explore several of those modules in this post as we create a 
-program called [SlowCat](SlowCat.Mod).
+program called [SlowCat](SlowCat.Mod). I am using the term "Portable"
+to mean the code can be compiled using OBNC on macOS, Linux, and
+Raspberry Pi OS. It may even work on Windows 10 (might need
+the Linux sub-system enabled). There is an older concept
+of "Portable Oberon" which is related to the Oakwood Guide 
+Lines for Oberon-2 compilers. I'll leave that discussion 
+along with [POW!](http://www.fim.uni-linz.ac.at/pow/pow.htm) to 
+the end of this post.
+
 
 ### SlowCat
 
@@ -89,23 +96,25 @@ The value of `In.Done` was indicating the success of reading our line.
 An unsuccessful line read, meaning we're at the end of the file, sets
 `In.Done` to false!
 
-### Input0
-
-There are other input modules provided by Karl than are listed in
-the Oakwood guides. Basically these consist of lower level abstractions
-necessary to mask the vagaries of the host system.
-I don't often use `Input0` directly for basic text processing
-programs but in "SlowCat" I do need to use `Input0`. `Input0`
-provides an unexpectedly helpful procedure called "Time" which 
-let's you read the epoch value provided by Unix. We are going to 
-use this for creating a busy wait delay between displaying our 
-lines of text.
-
 ### Out
 
 As mention `Out` provides our output functions. We'll be using
 two procedure from `Out`, namely `Out.String()` and `Out.Ln()`.
 We've seen both before.
+
+### Input0
+
+There are other input modules provided by Karl that are not 
+listed in the Oakwood guide lines.Basically these consist 
+of lower level abstractions necessary to mask the vagaries of 
+the POSIX systems.  You probably will not find the same modules
+available when using other Oberon compilers.  I don't often use 
+`Input0` directly but in "SlowCat" I do need to use `Input0.Time`
+procedure. `Input0` provides "Time" which let's you read the epoch
+value provided by Unix. I am using this to create a
+a busy wait delay between displaying lines of text.
+
+
 
 ## Working with Karl's extensions
 
@@ -245,6 +254,32 @@ our source code do the following.
     ./SlowCat 2 < SlowCat.Mod
 ```
 
+
+## Oakwood Guidelines and POW!
+
+Oberon and Oberon-2 were both used in creating and enhancing the
+Oberon System(s) as well as for writing programs on POSIX and Windows
+systems. Implementing Oberon on non Oberon Systems meant creating
+new compilers. The Oakwood Guidelines were an agreement between 
+some of the important Oberon-2 compiler implementer that fill 
+in the gaps between specification, implementation and host operating
+systems. They were intended to allow programs (and students) to compile
+and run their Oberon programs with minimal modification in any
+environment where a compliant compiler was available. 
+
+POW! was a different approach. It was a compiler and IDE targeting
+other than Oberon Systems (e.g. Windows and later Java). It was
+intended to be used in a hybrid development environment. It too
+proposed a common set of modules but went beyond those suggested
+in the Oakwood Guidelines.
+
+These are interest to Oberon-7 users in that it remains desirable
+to easily run our code on POSIX systems (the topic of this series
+of articles) but also possibly on Project Oberon System 2013. 
+
+Finding documentation about Oakwood is sketchy and will likely
+fade from the internet. I was able to find a PDF of the 1995 version
+of the guidelines at http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf
 
 ### Previous 
 

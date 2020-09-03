@@ -54,7 +54,7 @@
    By R. S. Doiel, 2020-08-15
    </p>
    <p>
-   Karl’s <a href="https://miasap.se/obnc/">OBNC</a> Oberon-7 compiler provides the Oberon-2 set of portable Oberon modules as well as several very useful additions making Oberon-7 suitable for writing programs in a POSIX environment. We’re going to explore several of those modules in this post as we create a program called <a href="SlowCat.Mod">SlowCat</a>.
+   Karl’s <a href="https://miasap.se/obnc/">OBNC</a> Oberon-7 compiler provides the Oberon-2 set of portable Oberon modules as well as several very useful additions making Oberon-7 suitable for writing programs in a POSIX environment. We’re going to explore several of those modules in this post as we create a program called <a href="SlowCat.Mod">SlowCat</a>. I am using the term “Portable” to mean the code can be compiled using OBNC on macOS, Linux, and Raspberry Pi OS. It may even work on Windows 10 (might need the Linux sub-system enabled). There is an older concept of “Portable Oberon” which is related to the Oakwood Guide Lines for Oberon-2 compilers. I’ll leave that discussion along with <a href="http://www.fim.uni-linz.ac.at/pow/pow.htm">POW!</a> to the end of this post.
    </p>
    <h3>
    SlowCat
@@ -99,16 +99,16 @@
    So when you read this it is easy to think of <code>In.Done</code> as you’re done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we’re at the end of the file, sets <code>In.Done</code> to false!
    </p>
    <h3>
-   Input0
-   </h3>
-   <p>
-   There are other input modules provided by Karl than are listed in the Oakwood guides. Basically these consist of lower level abstractions necessary to mask the vagaries of the host system. I don’t often use <code>Input0</code> directly for basic text processing programs but in “SlowCat” I do need to use <code>Input0</code>. <code>Input0</code> provides an unexpectedly helpful procedure called “Time” which let’s you read the epoch value provided by Unix. We are going to use this for creating a busy wait delay between displaying our lines of text.
-   </p>
-   <h3>
    Out
    </h3>
    <p>
    As mention <code>Out</code> provides our output functions. We’ll be using two procedure from <code>Out</code>, namely <code>Out.String()</code> and <code>Out.Ln()</code>. We’ve seen both before.
+   </p>
+   <h3>
+   Input0
+   </h3>
+   <p>
+   There are other input modules provided by Karl that are not listed in the Oakwood guide lines.Basically these consist of lower level abstractions necessary to mask the vagaries of the POSIX systems. You probably will not find the same modules available when using other Oberon compilers. I don’t often use <code>Input0</code> directly but in “SlowCat” I do need to use <code>Input0.Time</code> procedure. <code>Input0</code> provides “Time” which let’s you read the epoch value provided by Unix. I am using this to create a a busy wait delay between displaying lines of text.
    </p>
    <h2>
    Working with Karl’s extensions
@@ -253,6 +253,21 @@
        # If successful
        ./SlowCat 2 &lt; SlowCat.Mod
    </code></pre>
+   <h2>
+   Oakwood Guidelines and POW!
+   </h2>
+   <p>
+   Oberon and Oberon-2 were both used in creating and enhancing the Oberon System(s) as well as for writing programs on POSIX and Windows systems. Implementing Oberon on non Oberon Systems meant creating new compilers. The Oakwood Guidelines were an agreement between some of the important Oberon-2 compiler implementer that fill in the gaps between specification, implementation and host operating systems. They were intended to allow programs (and students) to compile and run their Oberon programs with minimal modification in any environment where a compliant compiler was available.
+   </p>
+   <p>
+   POW! was a different approach. It was a compiler and IDE targeting other than Oberon Systems (e.g. Windows and later Java). It was intended to be used in a hybrid development environment. It too proposed a common set of modules but went beyond those suggested in the Oakwood Guidelines.
+   </p>
+   <p>
+   These are interest to Oberon-7 users in that it remains desirable to easily run our code on POSIX systems (the topic of this series of articles) but also possibly on Project Oberon System 2013.
+   </p>
+   <p>
+   Finding documentation about Oakwood is sketchy and will likely fade from the internet. I was able to find a PDF of the 1995 version of the guidelines at http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf
+   </p>
    <h3>
    Previous
    </h3>
