@@ -53,7 +53,7 @@ standard input.
 
 The Oakwood guides for Oberon-2 describe two modules
 particularly useful for working with standard input and output.
-They are appropriately called `In` and `Out`. On may Oberon Systems
+They are appropriately called `In` and `Out`. On many Oberon Systems
 these have been implemented such that your code could run under Unix
 or Oberon System with a simple re-compile.  We've used `Out` in our
 first program of this series, "Hello World". It provides a means to
