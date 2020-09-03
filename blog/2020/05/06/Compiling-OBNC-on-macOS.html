@@ -74,7 +74,7 @@
    MacPorts has libsdl 1.2 available as a package called “libsdl” (not surprisingly). There are other versions of the SDL available in ports but this is the one we’re using.
    </p>
    <div id="cb1" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>   <span class="fu">sudo</span> port install libsdl</span></code></pre>
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>   <span class="fu">sudo</span> port install libsdl</span></code></pre>
    </div>
    <h3>
    The Boehm-Demers-Weiser GC
@@ -83,7 +83,7 @@
    You need to install the Boehm-Demers-Weiser GC installed. Using MacPorts it is almost as easy as installing under Debian. The package is less obviously named than under Debian. The package you want is “beohmgc”.
    </p>
    <div id="cb2" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>    <span class="fu">sudo</span> port install boehmgc</span></code></pre>
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>    <span class="fu">sudo</span> port install boehmgc</span></code></pre>
    </div>
    <p>
    More info on the GC.
@@ -109,9 +109,9 @@
    You need to update your CC variables to find the header and shared library files for compilation of obnc with <code>build</code>. (I added these to my <code>.bash_profile</code>). New Macs ships with zsh and your settings might be in a different location. MacPorts puts its libraries under the <code>/opt/local</code> directory.
    </p>
    <div id="cb3" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>    <span class="bu">export</span> <span class="va">C_INCLUDE_PATH=</span><span class="st">&quot;/usr/include:/usr/local/include:/opt/local/include&quot;</span></span>
-   <span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">export</span> <span class="va">LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span>
-   <span id="cb3-3"><a href="#cb3-3"></a>    <span class="bu">export</span> <span class="va">LD_LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span></code></pre>
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">C_INCLUDE_PATH=</span><span class="st">&quot;/usr/include:/usr/local/include:/opt/local/include&quot;</span></span>
+   <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span>
+   <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">LD_LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span></code></pre>
    </div>
    <h2>
    OBNC environment variables
@@ -120,7 +120,7 @@
    This follows’ Karl’s docs.  Additionally if you install OBNC extlib so you can do POSIX shell programs you’ll need to set your <code>OBNC_IMPORT_PATH</code> environment. An example of including a default install location and local home directory location.
    </p>
    <div id="cb4" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>    <span class="bu">export</span> <span class="va">OBNC_IMPORT_PATH=</span><span class="st">&quot;/usr/local/lib/obnc:</span><span class="va">$HOME</span><span class="st">/lib/obnc&quot;</span></span></code></pre>
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">OBNC_IMPORT_PATH=</span><span class="st">&quot;/usr/local/lib/obnc:</span><span class="va">$HOME</span><span class="st">/lib/obnc&quot;</span></span></code></pre>
    </div>
    <h3>
    Next and Previous

@@ -47,8 +47,7 @@
    <pre><code>UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
    Windows 10 Pro I&#39;ve am getting compile errors when the 
    assembler is being built.  I can compile go1.4.3 but see errors 
-   in some of the tests results.
-   </code></pre>
+   in some of the tests results.</code></pre>
    <h2>
    Initital Setup and configuration
    </h2>
@@ -57,7 +56,9 @@
    </p>
    <ul>
    <li>
+   <p>
    Search with Bing for “Bash for Windows”
+   </p>
    <ul>
    <li>
    Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
@@ -65,25 +66,39 @@
    </ul>
    </li>
    <li>
+   <p>
    Switch on developer mode for Windows
+   </p>
    </li>
    <li>
+   <p>
    Turned on Linux Subsystem Beta (searched for “Turning on Features”)
+   </p>
    </li>
    <li>
+   <p>
    Reboot
+   </p>
    </li>
    <li>
+   <p>
    Search for “Bash” and clicked on “Run Bash command”
+   </p>
    </li>
    <li>
+   <p>
    Answered “y”
+   </p>
    </li>
    <li>
+   <p>
    Waited for download and extracted file system
+   </p>
    </li>
    <li>
+   <p>
    When prompted setup developer account with username/password
+   </p>
    <ul>
    <li>
    Documentation can be found at https://aka.ms/wsldocs
@@ -91,16 +106,24 @@
    </ul>
    </li>
    <li>
+   <p>
    Exit root install shell
+   </p>
    </li>
    <li>
+   <p>
    Search for “Bash” locally
+   </p>
    </li>
    <li>
+   <p>
    Luanched “Bash on Ubuntu on Windows”
+   </p>
    </li>
    <li>
+   <p>
    Authenticate with your username/password
+   </p>
    </li>
    </ul>
    <h2>
@@ -127,8 +150,7 @@
        ./all.bash
        cd
        export PATH=$HOME/go/bin:$HOME/bin:$PATH
-       export GOPATH=$HOME
-   </code></pre>
+       export GOPATH=$HOME</code></pre>
    <p>
    Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed around network sockets. This is probably a result of the limitations in the Linux subsystem under Windows.
    </p>
@@ -139,8 +161,7 @@
    In your <code>.bashrc</code> or <code>.profile</code> add the following
    </p>
    <pre class="shell"><code>    export PATH=$HOME/go/bin:$HOME/bin:$PATH
-       export GOPATH=$HOME
-   </code></pre>
+       export GOPATH=$HOME</code></pre>
    <h2>
    Improved vim setup
    </h2>
@@ -149,8 +170,7 @@
    </p>
    <pre class="shell"><code>     mkdir -p ~/.vim/autoload ~/.vim/bundle 
         curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-        git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
-   </code></pre>
+        git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go</code></pre>
    <p>
    Example $HOME/.vimrc
    </p>
@@ -164,12 +184,11 @@
        set shiftwidth=4
        set expandtab
        let &amp;background = ( &amp;background == &quot;dark&quot;? &quot;light&quot; : &quot;dark&quot; )
-       let g:vim_markdown_folding_disabled=1
-   </code></pre>
+       let g:vim_markdown_folding_disabled=1</code></pre>
    <p>
    Color schemes are browsable at <a href="http://vimcolors.com">vimcolors.com</a>. They can be installed in $HOME/.vim/colors.
    </p>
-   <ol>
+   <ol type="1">
    <li>
    git clone and place the colorscheme
    </li>

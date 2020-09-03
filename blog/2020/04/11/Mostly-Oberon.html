@@ -81,8 +81,7 @@
          IMPORT Out;
        BEGIN
          Out.String(&quot;Hello World!&quot;); Out.Ln;
-       END HelloWorld.
-   </code></pre>
+       END HelloWorld.</code></pre>
    <p>
    While this is longer than a Python “hello world” program it is much shorter than I remember writing in Java and about the same number of lines as in C. <code>BEGIN</code> and <code>END</code> are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. <code>IMPORT</code> includes the module <code>Out</code> (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.
    </p>
@@ -110,8 +109,7 @@
    <p>
    OBNC provides a Oberon 7 compiler with some optional modules for working in a POSIX environment. Compiling our “Hello World” is easy from your shell or terminal.
    </p>
-   <pre><code>    obnc HelloWorld.Mod
-   </code></pre>
+   <pre><code>    obnc HelloWorld.Mod</code></pre>
    <p>
    If all goes well this should produce an executable file named <code>HelloWorld</code> (or <code>HelloWorld.exe</code> on Windows). You can now run this program with a command like <code>./HelloWorld</code> (or <code>HelloWorld</code> on Windows).
    </p>

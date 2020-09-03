@@ -79,8 +79,7 @@
          DynamicStringDesc* = RECORD 
            value : ARRAY vSize OF CHAR; 
            next : DymamicString; 
-         END;
-   </code></pre>
+         END;</code></pre>
    <p>
    NOTE: Both <code>DynamicString</code> and <code>DynamicStringDesc</code> are defined using an <code>*</code>. These are public[^asterisk] and will be available to other modules. Inside our record <code>DynamicStringDesc</code> we have two private to our module attributes, <code>.value</code> and <code>.next</code>. They are private so that we can change our implementation in the future without requiring changes in modules that use our dynamic strings. Likewise our constant <code>vSize</code> is private as that is an internal implementation detail. This practice is called information hiding[^information-hiding]
    </p>

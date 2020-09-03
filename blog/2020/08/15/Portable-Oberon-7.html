@@ -66,7 +66,7 @@
    Working with Standard Input, Out
    </h2>
    <p>
-   The Oakwood guides for Oberon-2 describe two modules particularly useful for working with standard input and output. They are appropriately called <code>In</code> and <code>Out</code>. On may Oberon Systems these have been implemented such that your code could run under Unix or Oberon System with a simple re-compile. We’ve used <code>Out</code> in our first program of this series, “Hello World”. It provides a means to write Oberon system base types to standard out. We’ve used <code>In</code> a few times too. But <code>In</code> is worth diving into a bit more.
+   The Oakwood guides for Oberon-2 describe two modules particularly useful for working with standard input and output. They are appropriately called <code>In</code> and <code>Out</code>. On many Oberon Systems these have been implemented such that your code could run under Unix or Oberon System with a simple re-compile. We’ve used <code>Out</code> in our first program of this series, “Hello World”. It provides a means to write Oberon system base types to standard out. We’ve used <code>In</code> a few times too. But <code>In</code> is worth diving into a bit more.
    </p>
    <h3>
    In
@@ -93,8 +93,7 @@
          IF In.Done THEN
            Out.String(text);Out.Ln();
          END;
-       END In.Done = FALSE;
-   </code></pre>
+       END In.Done = FALSE;</code></pre>
    <p>
    So when you read this it is easy to think of <code>In.Done</code> as you’re done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we’re at the end of the file, sets <code>In.Done</code> to false!
    </p>
@@ -241,8 +240,7 @@
          ELSE
            Usage();
          END;
-       END SlowCat.
-   </code></pre>
+       END SlowCat.</code></pre>
    <h2>
    Compiling and trying it out
    </h2>
@@ -251,8 +249,7 @@
    </p>
    <pre><code>    obnc SlowCat.Mod
        # If successful
-       ./SlowCat 2 &lt; SlowCat.Mod
-   </code></pre>
+       ./SlowCat 2 &lt; SlowCat.Mod</code></pre>
    <h2>
    Oakwood Guidelines and POW!
    </h2>
@@ -273,7 +270,9 @@
    </h3>
    <ul>
    <li>
+   <p>
    Previous <a href="../..//07/07/Procedures-in-records.html">Procedures in records</a>
+   </p>
    </li>
    </ul>
       </article>
