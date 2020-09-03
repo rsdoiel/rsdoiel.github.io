@@ -12,91 +12,45 @@
   <body>
     <nav>
     <ul>
-    <li>
-    <a href="/">R. S. Doiel</a>
-    </li>
-    <li>
-    <a href="/blog/">Blog</a>
-    </li>
-    <li>
-    <a href="/presentations.html">Presentations</a>
-    </li>
-    <li>
-    <a href="/library-terminology.html">Library Jargon</a>
-    </li>
-    <li>
-    <a href="/cv.html">CV</a>
-    </li>
-    <li>
-    <a href="/resume.html">Resume</a>
-    </li>
-    <li>
-    <a href="https://github.com/rsdoiel">GitHub</a>
-    </li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/library-terminology.html">Library Jargon</a></li>
+    <li><a href="/cv.html">CV</a></li>
+    <li><a href="/resume.html">Resume</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
     </ul>
     </nav>
 
     <section>
       <article>
-	  <h1>
-   Harvesting my Gists from GitHub
-   </h1>
-   <p>
-   By R. S. Doiel 2017-12-10
-   </p>
-   <p>
-   This is a just quick set of notes on harvesting my Gists on Github so I have an independent copy for my own website.
-   </p>
-   <h2>
-   Assumptions
-   </h2>
-   <p>
-   In this gist I assume you are using Bash on a Posix system (e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, sed, curl). I also use Stephen Dolan’s <a href="https://github.com/stedolan/jq">jq</a> as well as Caltech Library’s <a href="https://github.com/caltechlibrary/datatools">datatools</a>. See the respective Github repositories for installation instructions. The gist harvest process was developed against Github’s v3 API (see developer.github.com).
-   </p>
-   <p>
-   In the following examples “USER” is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).
-   </p>
-   <h2>
-   Getting my basic profile
-   </h2>
-   <p>
-   This retrieves the public view of your profile.
-   </p>
+	  <h1>Harvesting my Gists from GitHub</h1>
+   <p>By R. S. Doiel 2017-12-10</p>
+   <p>This is a just quick set of notes on harvesting my Gists on Github so I have an independent copy for my own website.</p>
+   <h2>Assumptions</h2>
+   <p>In this gist I assume you are using Bash on a Posix system (e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, sed, curl). I also use Stephen Dolan's <a href="https://github.com/stedolan/jq">jq</a> as well as Caltech Library's <a href="https://github.com/caltechlibrary/datatools">datatools</a>. See the respective Github repositories for installation instructions. The gist harvest process was developed against Github's v3 API (see developer.github.com).</p>
+   <p>In the following examples "USER" is assumed to hold your Github user id (e.g. rsdoiel for https://github.com/rsdoiel).</p>
+   <h2>Getting my basic profile</h2>
+   <p>This retrieves the public view of your profile.</p>
    <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;</code></pre>
-   <h2>
-   Find the urL for your gists
-   </h2>
-   <p>
-   Get the gists url from `USER.json.
-   </p>
+   <h2>Find the urL for your gists</h2>
+   <p>Get the gists url from `USER.json.</p>
    <pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
        curl -o gists.json &quot;${GISTS_URL}&quot;</code></pre>
-   <p>
-   Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.
-   </p>
-   <h2>
-   Harvesting the individual Gists.
-   </h2>
-   <p>
-   When you look at <em>gists.json</em> you’ll see a multi-level JSON structure. It has been formatted by the API so be easy to scrape. But since this data is JSON and Caltech Library has some nice utilities for working with JSON I’ll use <em>jsonrange</em> and <em>jq</em> to pull out a list of indivdual Gists URLS.
-   </p>
+   <p>Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.</p>
+   <h2>Harvesting the individual Gists.</h2>
+   <p>When you look at <em>gists.json</em> you'll see a multi-level JSON structure. It has been formatted by the API so be easy to scrape. But since this data is JSON and Caltech Library has some nice utilities for working with JSON I'll use <em>jsonrange</em> and <em>jq</em> to pull out a list of indivdual Gists URLS.</p>
    <pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
            jq &quot;.[$I].files&quot; gists.json | sed -E &#39;s/&quot;//g&#39;
        done</code></pre>
-   <p>
-   Expanding this we can now curl each individual gist metadata to find URL to the raw file.
-   </p>
+   <p>Expanding this we can now curl each individual gist metadata to find URL to the raw file.</p>
    <pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
            jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
                jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E &#39;s/&quot;//g&#39;; 
            done;
        done</code></pre>
-   <p>
-   Now that we have URLs to the raw gist files we can use curl again to featch each.
-   </p>
-   <p>
-   What do we want to store with our harvested gists? The raw files, metadata about the Gist (e.g. when it was created), the Gist ID. Putting it all together we have the following script.
-   </p>
+   <p>Now that we have URLs to the raw gist files we can use curl again to featch each.</p>
+   <p>What do we want to store with our harvested gists? The raw files, metadata about the Gist (e.g. when it was created), the Gist ID. Putting it all together we have the following script.</p>
    <pre class="shell"><code>    #!/bin/bash
        if [[ &quot;$1&quot; = &quot;&quot; ]]; then
            echo &quot;USAGE: $(basename &quot;$0&quot;) GITHUB_USERNAME&quot;
@@ -133,9 +87,7 @@
     </section>
 
     <footer>
-    <p>
-    copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.
-    </p>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
     </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

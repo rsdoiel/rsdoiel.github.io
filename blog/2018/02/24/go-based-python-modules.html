@@ -12,50 +12,24 @@
   <body>
     <nav>
     <ul>
-    <li>
-    <a href="/">R. S. Doiel</a>
-    </li>
-    <li>
-    <a href="/blog/">Blog</a>
-    </li>
-    <li>
-    <a href="/presentations.html">Presentations</a>
-    </li>
-    <li>
-    <a href="/library-terminology.html">Library Jargon</a>
-    </li>
-    <li>
-    <a href="/cv.html">CV</a>
-    </li>
-    <li>
-    <a href="/resume.html">Resume</a>
-    </li>
-    <li>
-    <a href="https://github.com/rsdoiel">GitHub</a>
-    </li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/library-terminology.html">Library Jargon</a></li>
+    <li><a href="/cv.html">CV</a></li>
+    <li><a href="/resume.html">Resume</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
     </ul>
     </nav>
 
     <section>
       <article>
-	  <h1>
-   Go based Python modules
-   </h1>
-   <p>
-   By R. S. Doiel, 2018-02-24
-   </p>
-   <p>
-   The problem: I have written a number of Go packages at work. My colleagues know Python and I’d like them to be able to use the packages without resorting to system calls from Python to the command line implementations. The solution is create a C-Shared library from my Go packages, using Go’s <em>C</em> package and combine it with Python’s <em>ctypes</em> package. What follows is a series of simple recipes I used to understand the details of how that worked.
-   </p>
-   <h2>
-   Example 1, libtwice.go and twice.py
-   </h2>
-   <p>
-   Many of the the examples I’ve come across on the web start by showing how to run a simple math operation on the Go side with numeric values traveling round trip via the C shared library layer. It is a good place to start as you only need to consider type conversion between both Python’s runtime and Go’s runtime. It provides a simple illustration of how the Go <em>C</em> package, Python’s <em>ctypes</em> module and the toolchain work together.
-   </p>
-   <p>
-   In this example we have a function in Go called “twice” it takes a single integer, doubles it and returns the new value. On the Go side we create a <em>libtwice.go</em> file with an empty <code>main()</code> function. Notice that we also import the <em>C</em> package and use a comment decoration to indicate the function we are exporting (see https://github.com/golang/go/wiki/cgo and https://golang.org/cmd/cgo/ for full story about Go’s <em>C</em> package and <em>cgo</em>). Part of the what <em>cgo</em> and the <em>C</em> package does is use the comment decoration to build the signatures for the function calls in the shared C library. The Go toolchain does all the heavy lifting in making a <em>C</em> shared library based on comment directives like “//export”. We don’t need much for our twice function.
-   </p>
+	  <h1>Go based Python modules</h1>
+   <p>By R. S. Doiel, 2018-02-24</p>
+   <p>The problem: I have written a number of Go packages at work. My colleagues know Python and I'd like them to be able to use the packages without resorting to system calls from Python to the command line implementations. The solution is create a C-Shared library from my Go packages, using Go's <em>C</em> package and combine it with Python's <em>ctypes</em> package. What follows is a series of simple recipes I used to understand the details of how that worked.</p>
+   <h2>Example 1, libtwice.go and twice.py</h2>
+   <p>Many of the the examples I've come across on the web start by showing how to run a simple math operation on the Go side with numeric values traveling round trip via the C shared library layer. It is a good place to start as you only need to consider type conversion between both Python's runtime and Go's runtime. It provides a simple illustration of how the Go <em>C</em> package, Python's <em>ctypes</em> module and the toolchain work together.</p>
+   <p>In this example we have a function in Go called "twice" it takes a single integer, doubles it and returns the new value. On the Go side we create a <em>libtwice.go</em> file with an empty <code>main()</code> function. Notice that we also import the <em>C</em> package and use a comment decoration to indicate the function we are exporting (see https://github.com/golang/go/wiki/cgo and https://golang.org/cmd/cgo/ for full story about Go's <em>C</em> package and <em>cgo</em>). Part of the what <em>cgo</em> and the <em>C</em> package does is use the comment decoration to build the signatures for the function calls in the shared C library. The Go toolchain does all the heavy lifting in making a <em>C</em> shared library based on comment directives like "//export". We don't need much for our twice function.</p>
    <div id="cb1" class="sourceCode">
    <pre class="sourceCode Go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="kw">package</span> main</span>
    <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    </span>
@@ -70,9 +44,7 @@
    <span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    </span>
    <span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="kw">func</span> main() {}</span></code></pre>
    </div>
-   <p>
-   On the python side we need to wrap our calls to our shared library bringing them into the Python runtime in a useful and idiomatically Python way. Python provides a few ways of doing this. In my examples I am using the <em>ctypes</em> package. <em>twice.py</em> looks like this–
-   </p>
+   <p>On the python side we need to wrap our calls to our shared library bringing them into the Python runtime in a useful and idiomatically Python way. Python provides a few ways of doing this. In my examples I am using the <em>ctypes</em> package. <em>twice.py</em> looks like this--</p>
    <div id="cb2" class="sourceCode">
    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>    <span class="im">import</span> ctypes</span>
    <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="im">import</span> os</span>
@@ -105,44 +77,24 @@
    <span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>    <span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
    <span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&quot;Twice of 2 is&quot;</span>, twice(<span class="dv">2</span>))</span></code></pre>
    </div>
-   <p>
-   Notice the amount of lifting Python’s <em>ctypes</em> does for us. It provides for converting C based types to their Python counter parts. Indeed the additional Python source here is focused around using that functionality to create a simple Python function called twice. This pattern of bringing in a low level version of our desired function and then presenting in a Pythonic one is common in more complex C based Python modules. In general we need <em>ctypes</em> to access and wrapping our shared library. The <em>os</em> module is used so we can find our C shared library based on the naming conventions of our host OS. For simplicity I’ve kept the shared library (e.g. <em>libtwice.so</em> under Linux) in the same directory as the python module code <em>twice.py</em>.
-   </p>
-   <p>
-   The build command for Linux looks like—
-   </p>
+   <p>Notice the amount of lifting Python's <em>ctypes</em> does for us. It provides for converting C based types to their Python counter parts. Indeed the additional Python source here is focused around using that functionality to create a simple Python function called twice. This pattern of bringing in a low level version of our desired function and then presenting in a Pythonic one is common in more complex C based Python modules. In general we need <em>ctypes</em> to access and wrapping our shared library. The <em>os</em> module is used so we can find our C shared library based on the naming conventions of our host OS. For simplicity I've kept the shared library (e.g. <em>libtwice.so</em> under Linux) in the same directory as the python module code <em>twice.py</em>.</p>
+   <p>The build command for Linux looks like---</p>
    <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.so libtwice.go</code></pre>
-   <p>
-   Under Windows it would look like—
-   </p>
+   <p>Under Windows it would look like---</p>
    <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dll libtwice.go</code></pre>
-   <p>
-   and Mac OS X—
-   </p>
+   <p>and Mac OS X---</p>
    <pre class="shell"><code>    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go</code></pre>
-   <p>
-   You can test the Python module with—
-   </p>
+   <p>You can test the Python module with---</p>
    <pre class="shell"><code>    python3 twice.py</code></pre>
-   <p>
-   Notice the filename choices. I could have called the Go shared library anything as long as it wasn’t called <code>twice.so</code>, <code>twice.dll</code> or <code>twice.dylib</code>. This constraint is to avoid a module name collision in Python. If we had a Python script named <code>twice_test.py</code> and import <code>twice.py</code> then Python needs to make a distinction between <code>twice.py</code> and our shared library. If you use a Python package approach to wrapping the shared library you would have other options for voiding name collision.
-   </p>
-   <p>
-   Here is an example of <code>twice_test.py</code> to make sure out import is working.
-   </p>
+   <p>Notice the filename choices. I could have called the Go shared library anything as long as it wasn't called <code>twice.so</code>, <code>twice.dll</code> or <code>twice.dylib</code>. This constraint is to avoid a module name collision in Python. If we had a Python script named <code>twice_test.py</code> and import <code>twice.py</code> then Python needs to make a distinction between <code>twice.py</code> and our shared library. If you use a Python package approach to wrapping the shared library you would have other options for voiding name collision.</p>
+   <p>Here is an example of <code>twice_test.py</code> to make sure out import is working.</p>
    <div id="cb7" class="sourceCode">
    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>    <span class="im">import</span> twice</span>
    <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;Twice 3&quot;</span>, twice.twice(<span class="dv">3</span>))</span></code></pre>
    </div>
-   <p>
-   Example 1 is our base recipe. The next examples focus on handling other data types but follow the same pattern.
-   </p>
-   <h2>
-   Example 2, libsayhi.go and sayhi.py
-   </h2>
-   <p>
-   I found working with strings a little more nuanced. Go’s concept of strings are oriented to utf-8. Python has its own concept of strings and encoding. Both need to pass through the C layer which assumes strings are a char pointer pointing at contiguous memory ending in a null. The <em>sayhi</em> recipe is focused on moving a string from Python, to C, to Go (a one way trip this time). The example uses Go’s <em>fmt</em> package to display the string.
-   </p>
+   <p>Example 1 is our base recipe. The next examples focus on handling other data types but follow the same pattern.</p>
+   <h2>Example 2, libsayhi.go and sayhi.py</h2>
+   <p>I found working with strings a little more nuanced. Go's concept of strings are oriented to utf-8. Python has its own concept of strings and encoding. Both need to pass through the C layer which assumes strings are a char pointer pointing at contiguous memory ending in a null. The <em>sayhi</em> recipe is focused on moving a string from Python, to C, to Go (a one way trip this time). The example uses Go's <em>fmt</em> package to display the string.</p>
    <div id="cb8" class="sourceCode">
    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>    <span class="kw">package</span> main</span>
    <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    </span>
@@ -158,9 +110,7 @@
    <span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    </span>
    <span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>    <span class="kw">func</span> main() { }</span></code></pre>
    </div>
-   <p>
-   The Go source is similar to our first recipe but our Python modules needs to use <em>ctypes</em> to get you Python string into shape to be unpacked by Go.
-   </p>
+   <p>The Go source is similar to our first recipe but our Python modules needs to use <em>ctypes</em> to get you Python string into shape to be unpacked by Go.</p>
    <div id="cb9" class="sourceCode">
    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>   <span class="im">import</span> ctypes</span>
    <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>   <span class="im">import</span> os</span>
@@ -193,27 +143,17 @@
    <span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a>   <span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
    <span id="cb9-30"><a href="#cb9-30" aria-hidden="true"></a>       say_hi(<span class="st">&#39;Hello!&#39;</span>)</span></code></pre>
    </div>
-   <p>
-   Putting things together (if you are using Windows or Mac OS X you’ll adjust name output name, <code>libsayhi.so</code>, to match the filename extension suitable for your operating system).
-   </p>
+   <p>Putting things together (if you are using Windows or Mac OS X you'll adjust name output name, <code>libsayhi.so</code>, to match the filename extension suitable for your operating system).</p>
    <div id="cb10" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>    <span class="ex">go</span> build -buildmode=c-shared -o libsayhi.so libsayhi.go</span></code></pre>
    </div>
-   <p>
-   and testing.
-   </p>
+   <p>and testing.</p>
    <div id="cb11" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>    <span class="ex">python3</span> sayhi.py</span></code></pre>
    </div>
-   <h2>
-   Example 3, libhelloworld.go and helloworld.py
-   </h2>
-   <p>
-   In this example we send a Python string to Go (which expects utf-8) build our “hello world” message and then send it back to Python (which needs to do additional conversion and decoding).
-   </p>
-   <p>
-   Like in previous examples the Go side remains very simple. The heavy lifting is done by the <em>C</em> package and the comment <code>//export</code>. We are using <code>C.GoString()</code> and <code>C.CString()</code> to flip between our native Go and C datatypes.
-   </p>
+   <h2>Example 3, libhelloworld.go and helloworld.py</h2>
+   <p>In this example we send a Python string to Go (which expects utf-8) build our "hello world" message and then send it back to Python (which needs to do additional conversion and decoding).</p>
+   <p>Like in previous examples the Go side remains very simple. The heavy lifting is done by the <em>C</em> package and the comment <code>//export</code>. We are using <code>C.GoString()</code> and <code>C.CString()</code> to flip between our native Go and C datatypes.</p>
    <div id="cb12" class="sourceCode">
    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>    <span class="kw">package</span> main</span>
    <span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    </span>
@@ -230,9 +170,7 @@
    <span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>    </span>
    <span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>    <span class="kw">func</span> main() { }</span></code></pre>
    </div>
-   <p>
-   In the python code below the conversion process is much more detailed. Python isn’t explicitly utf-8 like Go. Plus we’re sending our Python string via C’s char arrays (or pointer to chars). Finally when we comeback from Go via C we have to put things back in order for Python. Of particular note is checking how the byte arrays work then encoding/decoding everything as needed. We also explicitly set the result type from our Go version of the helloworld function.
-   </p>
+   <p>In the python code below the conversion process is much more detailed. Python isn't explicitly utf-8 like Go. Plus we're sending our Python string via C's char arrays (or pointer to chars). Finally when we comeback from Go via C we have to put things back in order for Python. Of particular note is checking how the byte arrays work then encoding/decoding everything as needed. We also explicitly set the result type from our Go version of the helloworld function.</p>
    <div id="cb13" class="sourceCode">
    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>    <span class="im">import</span> ctypes</span>
    <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="im">import</span> os</span>
@@ -272,28 +210,18 @@
    <span id="cb13-36"><a href="#cb13-36" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
    <span id="cb13-37"><a href="#cb13-37" aria-hidden="true"></a>            <span class="bu">print</span>(helloworld(<span class="st">&#39;World&#39;</span>))</span></code></pre>
    </div>
-   <p>
-   The build recipe remains the same as the two previous examples.
-   </p>
+   <p>The build recipe remains the same as the two previous examples.</p>
    <div id="cb14" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>    <span class="ex">go</span> build -buildmode=c-shared -o libhelloworld.so libhelloworld.go</span></code></pre>
    </div>
-   <p>
-   Here are two variations to test.
-   </p>
+   <p>Here are two variations to test.</p>
    <div id="cb15" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>     <span class="ex">python3</span> helloworld.py</span>
    <span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>     <span class="ex">python3</span> helloworld.py Jane</span></code></pre>
    </div>
-   <h2>
-   Example 4, libjsonpretty.go and jsonpretty.py
-   </h2>
-   <p>
-   In this example we send JSON encode text to the Go package, unpack it in Go’s runtime and repack it using the <code>MarshalIndent()</code> function in Go’s JSON package before sending it back as Python in string form. You’ll see the same encode/decode patterns as in our <em>helloworld</em> example.
-   </p>
-   <p>
-   Go code
-   </p>
+   <h2>Example 4, libjsonpretty.go and jsonpretty.py</h2>
+   <p>In this example we send JSON encode text to the Go package, unpack it in Go's runtime and repack it using the <code>MarshalIndent()</code> function in Go's JSON package before sending it back as Python in string form. You'll see the same encode/decode patterns as in our <em>helloworld</em> example.</p>
+   <p>Go code</p>
    <div id="cb16" class="sourceCode">
    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>    <span class="kw">package</span> main</span>
    <span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>    </span>
@@ -323,9 +251,7 @@
    <span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a>    </span>
    <span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>    <span class="kw">func</span> main() {}</span></code></pre>
    </div>
-   <p>
-   Python code
-   </p>
+   <p>Python code</p>
    <div id="cb17" class="sourceCode">
    <pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>    <span class="im">import</span> ctypes</span>
    <span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>    <span class="im">import</span> os</span>
@@ -366,23 +292,15 @@
    <span id="cb17-37"><a href="#cb17-37" aria-hidden="true"></a>        o <span class="op">=</span> json.loads(value)</span>
    <span id="cb17-38"><a href="#cb17-38" aria-hidden="true"></a>        <span class="bu">print</span>(o)</span></code></pre>
    </div>
-   <p>
-   Build command
-   </p>
+   <p>Build command</p>
    <pre class="shell"><code>    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go</code></pre>
-   <p>
-   As before you can run your tests with <code>python3 jsonpretty.py</code>.
-   </p>
-   <p>
-   In closing I would like to note that to use these examples you Python3 will need to be able to find the module and shared library. For simplicity I’ve put all the code in the same directory. If your Python code is spread across multiple directories you’ll need to make some adjustments.
-   </p>
+   <p>As before you can run your tests with <code>python3 jsonpretty.py</code>.</p>
+   <p>In closing I would like to note that to use these examples you Python3 will need to be able to find the module and shared library. For simplicity I've put all the code in the same directory. If your Python code is spread across multiple directories you'll need to make some adjustments.</p>
       </article>
     </section>
 
     <footer>
-    <p>
-    copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.
-    </p>
+    <p>copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
     </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

@@ -1,5 +1,5 @@
 {
-	"markup": "mmark", 
+	"markup": "commonmark_x", 
 	"title": "Dynamic types",
 	"series": "Mostly Oberon",
 	"number": 8,

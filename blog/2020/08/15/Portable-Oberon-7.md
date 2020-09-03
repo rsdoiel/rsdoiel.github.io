@@ -5,42 +5,43 @@
 	"author": "R. S. Doiel",
 	"date": "2020-08-15",
 	"keywords": [ "Oberon-7", "portable", "stdin" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel", 
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
+	"copyright": "copyright (c) 2020, R. S. Doiel",
+	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
 
 
-# Portable Oberon 7 
+# Portable Oberon 7
 
 ## using OBNC modules
 
 This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.
-Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the 
+Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the
 various rabbit holes I will inevitably fall into.
 
 ## Working with standard input
 
 By R. S. Doiel, 2020-08-15
 
-Karl's [OBNC](https://miasap.se/obnc/) Oberon-7 compiler 
-provides the Oberon-2 set of portable Oberon modules as well as 
-several very useful additions making Oberon-7 suitable for 
-writing programs in a POSIX environment.  We're going to 
-explore several of those modules in this post as we create a 
-program called [SlowCat](SlowCat.Mod). I am using the term "Portable"
-to mean the code can be compiled using OBNC on macOS, Linux, and
-Raspberry Pi OS. It may even work on Windows 10 (might need
-the Linux sub-system enabled). There is an older concept
-of "Portable Oberon" which is related to the Oakwood Guide 
-Lines for Oberon-2 compilers. I'll leave that discussion 
-along with [POW!](http://www.fim.uni-linz.ac.at/pow/pow.htm) to 
-the end of this post.
+Karl Landström's [OBNC](https://miasap.se/obnc/), Oberon-7 compiler,
+comes with an Oberon-2 inspired set of modules
+described in the Oakwood Guidelines as well as
+several very useful additions making Oberon-7 suitable for
+writing programs in a POSIX environment.  We're going to
+explore two of the Oakwood modules and three of Karl's own additions
+in this post as we create a program called [SlowCat](SlowCat.Mod).
+I am using the term "portable" to mean the code can be compiled
+using OBNC on macOS, Linux, and Raspberry Pi OS and Windows 10
+(i.e. wherever OBNC is available). The Oakwood Guideline modules
+focus on portability between an Oberon System and other systems.
+I'll leave that discussion along with
+[POW!](http://www.fim.uni-linz.ac.at/pow/pow.htm)
+to the end of this post.
 
 
 ### SlowCat
 
 Recently while I was reviewing logs at work using [cat](https://en.wikipedia.org/wiki/Cat_(Unix)), [grep](https://en.wikipedia.org/wiki/Grep)
-and [more](https://en.wikipedia.org/wiki/More_(command)) it 
+and [more](https://en.wikipedia.org/wiki/More_(command)) it
 struck me that it would have been nice if **cat**
 or **more** came with a time delay so you could use them like a
 teleprompter. This would let you casually watch the file scroll
@@ -62,23 +63,23 @@ a few times too. But `In` is worth diving into a bit more.
 
 ### In
 
-The [In](http://miasap.se/obnc/obncdoc/basic/In.def.html) module provides 
-a mirror of inputs to those of [Out](http://miasap.se/obnc/obncdoc/basic/Out.def.html). In Karl's implementation we are interested in one procedure 
+The [In](http://miasap.se/obnc/obncdoc/basic/In.def.html) module provides
+a mirror of inputs to those of [Out](http://miasap.se/obnc/obncdoc/basic/Out.def.html). In Karl's implementation we are interested in one procedure
 and module status variable.
 
 + `In.Line(VAR line: ARRAY OF CHAR)` : Read a sequence of characters from standard input from the current position in the file to the end of line.
-+ `In.Done` : Is a status Boolean variable, if the last call to an procedure in `In` was successful then it is set TRUE, otherwise FALSE (e.g. we're out the end of a file)
++ `In.Done` : Is a status Boolean variable, if the last call to an procedure in `In` was successful then it is set TRUE, otherwise FALSE (e.g. we're at the end of a file)
 
 We use Karl's `In.Line()` extension to the standard `In` implementation
-before and will do so again as it simplifies our code and keeps things 
+before and will do so again as it simplifies our code and keeps things
 easily readable.
 
-There is one nuance with `In.Done` that is easy to get tripped up on.  
-`In.Done` indicates if the last operation was successful. 
+There is one nuance with `In.Done` that is easy to get tripped up on.
+`In.Done` indicates if the last operation was successful.
 So if you're using `In.Line()` then `In.Done`
-should be true if reading the line was successful. If you hit the end of 
+should be true if reading the line was successful. If you hit the end of
 the file then `In.Done` should be false.  When you write your loop
-this can be counter intuitive.  Here is a example of testing `In.Done` 
+this can be counter intuitive.  Here is a example of testing `In.Done`
 with a repeat until loop.
 
 ```Oberon7
@@ -87,7 +88,7 @@ with a repeat until loop.
       IF In.Done THEN
         Out.String(text);Out.Ln();
       END;
-    END In.Done = FALSE;
+    UNTIL In.Done = FALSE;
 ```
 
 So when you read this it is easy to think of `In.Done` as you're
@@ -104,25 +105,25 @@ We've seen both before.
 
 ### Input0
 
-There are other input modules provided by Karl that are not 
-listed in the Oakwood guide lines.Basically these consist 
-of lower level abstractions necessary to mask the vagaries of 
+There are other input modules provided by Karl that are not
+listed in the Oakwood guide lines.Basically these consist
+of lower level abstractions necessary to mask the vagaries of
 the POSIX systems.  You probably will not find the same modules
-available when using other Oberon compilers.  I don't often use 
-`Input0` directly but in "SlowCat" I do need to use `Input0.Time`
-procedure. `Input0` provides "Time" which let's you read the epoch
-value provided by Unix. I am using this to create a
-a busy wait delay between displaying lines of text.
+available when using other Oberon compilers.  I don't often use
+`Input0` directly but in "SlowCat" I need access to the system
+clock. `Input0` provides "Time" which let's you read the epoch
+value provided by Unix. I am using this to create a busy wait
+delay between displaying lines of text.
 
 
 
 ## Working with Karl's extensions
 
 Karl provides a number of extension module wrapping various
-POSIX calls.  We are going to use two, 
-[extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html) 
-which provides access to command line args and 
-[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html) 
+POSIX calls.  We are going to use two,
+[extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html)
+which provides access to command line arguments and
+[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html)
 which provides a means of converting strings to integers.
 
 ## Our Algorithm
@@ -132,7 +133,7 @@ global variable.
 
 + `Usage()` display a help text if parameters don't make sense
 + `ProcessArgs()` to get our delay time from the command line
-+ `Delay(count : INTEGER)
++ `Delay(count : INTEGER)` a busy wait procedure
 + `SlowCat(count : INTEGER)` take standard input and display like a teleprompter
 + `count` is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()
 
@@ -142,17 +143,18 @@ Usage just wraps helpful text and display it to standard out.
 
 ## ProcessArgs()
 
-This procedure uses two of Karl's extension modules to retrieve
-the since command line parameter and convert the string value
-retrieved into an integer.  `ProcessArgs()` return TRUE if 
-we can successful convert the command line parameter and set
-the value of count otherwise return FALSE.
+This a functional procedure. It uses two of Karl's extension
+modules. It uses `extArgs` to retrieve the command line parameters
+and `extConvert` the string value retrieved into an integer.
+`ProcessArgs()` returns TRUE if we can successful convert the
+command line parameter and set the value of count otherwise return
+FALSE.
 
 ## Delay(VAR count : INTEGER)
 
 This procedure uses `Input0` to fetch the current epoch time
 and counts the number of seconds until we've reached our delay
-value. It's a busy loop which isn't ideal but does keep the 
+value. It's a busy loop which isn't ideal but does keep the
 program simple.
 
 ## SlowCat(VAR count: INTEGER);
@@ -170,13 +172,13 @@ Here's a "SlowCat" program.
 ```
     MODULE SlowCat;
       IMPORT In, Out, Input0, Args := extArgs, Convert := extConvert;
-    
+
     CONST
       MAXLINE = 1024;
-    
+
     VAR
       count: INTEGER;
-    
+
     PROCEDURE Usage();
     BEGIN
       Out.String("USAGE:");Out.Ln();
@@ -190,9 +192,9 @@ Here's a "SlowCat" program.
       Out.String("EXAMPLE:");
       Out.Ln();
       Out.String("    SlowCat 15 < README.md");Out.Ln();
-      Out.Ln();  
+      Out.Ln();
     END Usage;
-    
+
     PROCEDURE ProcessArgs() : BOOLEAN;
       VAR i : INTEGER; ok : BOOLEAN; arg : ARRAY MAXLINE OF CHAR;
           res : BOOLEAN;
@@ -209,7 +211,7 @@ Here's a "SlowCat" program.
       END;
       RETURN res
     END ProcessArgs;
-    
+
     PROCEDURE Delay*(count : INTEGER);
       VAR start, current, delay : INTEGER;
     BEGIN
@@ -219,7 +221,7 @@ Here's a "SlowCat" program.
          delay := (current - start);
        UNTIL delay >= count;
     END Delay;
-    
+
     PROCEDURE SlowCat(count : INTEGER);
       VAR text : ARRAY MAXLINE OF CHAR;
     BEGIN
@@ -232,7 +234,7 @@ Here's a "SlowCat" program.
         END;
       UNTIL In.Done = FALSE;
     END SlowCat;
-    
+
     BEGIN
       count := 0;
       IF ProcessArgs() THEN
@@ -258,31 +260,72 @@ our source code do the following.
 ## Oakwood Guidelines and POW!
 
 Oberon and Oberon-2 were both used in creating and enhancing the
-Oberon System(s) as well as for writing programs on POSIX and Windows
-systems. Implementing Oberon on non Oberon Systems meant creating
-new compilers. The Oakwood Guidelines were an agreement between 
-some of the important Oberon-2 compiler implementer that fill 
-in the gaps between specification, implementation and host operating
-systems. They were intended to allow programs (and students) to compile
+Oberon System(s) as well as for writing programs on other operating
+systems (e.g. Apple's Mac and Microsoft Windows).
+Implementing Oberon compilers on non Oberon Systems required clarification
+beyond the specification. The Oakwood Guidelines were an agreement
+between some of the important Oberon-2 compiler implementers which
+attempted to fill in that gap while encouraging portability in
+source code between operating systems. Portability was desirable
+because it allowed programmers (e.g. students) to compile
 and run their Oberon programs with minimal modification in any
-environment where a compliant compiler was available. 
+environment where an Oakwood compliant compiler was available.
 
-POW! was a different approach. It was a compiler and IDE targeting
+Citation for Oakwood can be found in [Oberon-2 Programming with Windows](https://archive.org/details/oberonprogrammin00mhlb/page/n363/mode/2up?q=Oakwood+Guidlines).
+
+> Kirk B.(ed): The Oakwood Guidelines for Oberon-2 Compiler Developers. Available via FTP from ftp.fim.uni-linz.ac.at, /pub/soft/pow-oberon/oakwood
+
+The FTP machine doesn't exist any more and does not appear to have been included in JKU's preservation plans. Fortunately the POW! website has been preserved.
+
+[POW!](http://www.fim.uni-linz.ac.at/pow/pow.htm) was a
+different approach. It was a compiler and IDE targeting
 other than Oberon Systems (e.g. Windows and later Java). It was
-intended to be used in a hybrid development environment. It too
-proposed a common set of modules but went beyond those suggested
-in the Oakwood Guidelines.
+intended to be used in a hybrid development environment and to
+facilitate leveraging non-Oberon resources (e.g. Java classes,
+native Windows API).  POW project proposed "Opal" which was a
+super set of modules that went beyond Oakwood. Having skimmed
+"Oberon-2 Programming with Windows" some may seem reasonable to
+port to Oberon-7, others less so.
 
-These are interest to Oberon-7 users in that it remains desirable
-to easily run our code on POSIX systems (the topic of this series
-of articles) but also possibly on Project Oberon System 2013. 
+Why Oakwood and POW? These efforts are of interest to Oberon-7
+developers as a well worn path to write code that is easy to
+compile on POSIX systems and on systems that are based on the
+more recent [Project Oberon 2013](http://www.projectoberon.com/).
+It enhances the opportunity to bring forward well written modules
+from prior systems like [A2](https://en.wikibooks.org/wiki/Oberon/A2)
+but implemented for the next generation of Oberon Systems
+like [Integrated Oberon](https://github.com/io-core/io).
 
-Finding documentation about Oakwood is sketchy and will likely
-fade from the internet. I was able to find a PDF of the 1995 version
-of the guidelines at http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf
+### Oakwood PDF
 
-### Previous 
+Finding a PDF of the original Oakwood guidelines is going to become
+tricky in the future. It was created by Robinson Associates and the
+copy I've read from 1995 includes a page saying not for distribution.
+Which sorta makes sense in the era of closed source software
+development. It is problematic for those of us who want to explore
+how systems evolved.  The term "Oakwood Guidelines" is bandied about
+after 1993 and several of the modules have had influence on the language
+use via book publications.  I was able to find a PDF of the 1995
+version of the guidelines at
+[http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf](http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf).
 
-+ Previous [Procedures in records](../..//07/07/Procedures-in-records.html) 
+Here's a typical explanation of Oakwood from 
+[http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines](http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines)
+for a description of Oakwood.
 
+> __The Oakwood Guidelines for the Oberon-2 Compiler Developers /These guidelines have been produced by a group of Oberon-2 compiler developers, including ETH developers, after a meeting at the Oakwood Hotel in Croydon, UK in June 1993__
+
+[http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines](http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines)  
+(an OS/2 developer website) was helpful for providing details about Oakwood.
+
+It would have been nice if the Oakwood document had made its way
+into either ETH's or JKU's research libraries.
+
+Leveraging prior art opens doors to the past and future. Karl has
+done with this with the modules he provides with his OBNC compiler
+project.
+
+### Previous
+
++ Previous [Procedures in records](../..//07/07/Procedures-in-records.html)
 

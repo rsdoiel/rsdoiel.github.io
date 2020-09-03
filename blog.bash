@@ -63,7 +63,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
         TITLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE="${Y}-"$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
-        mkpage \
+        mkpage -from=gfm \
             "year=text:${POST_DATE:0:4}" \
             "title=text:${TITLE}" \
             "contentBlock=${Y}/${FNAME}" \
@@ -102,7 +102,7 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     done
     echo "" >> index.md
 done
-mkpage \
+mkpage -from=gfm \
     "year=text:$(date +%Y)" \
     "title=text:$TITLE" \
     "pageContent=index.md" \
