@@ -1,5 +1,5 @@
 MODULE SlowCat;
-  IMPORT In, Out, Input0, Args := extArgs, Convert := extConvert;
+  IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;
 
 CONST
   MAXLINE = 1024;
@@ -43,9 +43,9 @@ END ProcessArgs;
 PROCEDURE Delay*(count : INTEGER);
   VAR start, current, delay : INTEGER;
 BEGIN
-   start := Input0.Time();
+   start := Input.Time();
    REPEAT
-     current := Input0.Time();
+     current := Input.Time();
      delay := (current - start);
    UNTIL delay >= count;
 END Delay;

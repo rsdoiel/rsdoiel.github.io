@@ -20,14 +20,14 @@ various rabbit holes I will inevitably fall into.
 
 ## Working with standard input
 
-By R. S. Doiel, 2020-08-15
+By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)
 
 Karl Landström's [OBNC](https://miasap.se/obnc/), Oberon-7 compiler,
 comes with an Oberon-2 inspired set of modules
 described in the Oakwood Guidelines as well as
 several very useful additions making Oberon-7 suitable for
 writing programs in a POSIX environment.  We're going to
-explore two of the Oakwood modules and three of Karl's own additions
+explore three of the Oakwood modules and two of Karl's own additions
 in this post as we create a program called [SlowCat](SlowCat.Mod).
 I am using the term "portable" to mean the code can be compiled
 using OBNC on macOS, Linux, and Raspberry Pi OS and Windows 10
@@ -50,7 +50,7 @@ in this post is "SlowCat" which accepts a command line parameter
 indicating the delay in seconds between display each line read from
 standard input.
 
-## Working with Standard Input, Out
+## Working with Standard Input and Output
 
 The Oakwood guides for Oberon-2 describe two modules
 particularly useful for working with standard input and output.
@@ -103,39 +103,64 @@ As mention `Out` provides our output functions. We'll be using
 two procedure from `Out`, namely `Out.String()` and `Out.Ln()`.
 We've seen both before.
 
-### Input0
+### Input
 
-There are other input modules provided by Karl that are not
-listed in the Oakwood guide lines.Basically these consist
-of lower level abstractions necessary to mask the vagaries of
-the POSIX systems.  You probably will not find the same modules
-available when using other Oberon compilers.  I don't often use
-`Input0` directly but in "SlowCat" I need access to the system
-clock. `Input0` provides "Time" which let's you read the epoch
-value provided by Unix. I am using this to create a busy wait
-delay between displaying lines of text.
+"SlowCat" needs to calculate how often to write a line of
+text to standard output with the `Out` module.  To do that
+I need access to the system's current time.  There isn't an
+Oakwood module for time. There is a module called 
+`Input` which provides a "Time" procedure. As a result
+I need to import `Input` as well as `In` even though
+I am using `In` to manage reading the file I am processing
+with "SlowCat".
 
-
+A note about Karl's implementation.  `Input` is an Oakwood
+module that provides access to three system resources -- 
+mouse, keyboard and system time.  Karl 
+provides two versions `Input` and `Input0`, the first is
+intended to be used with the `XYPlane` module for graphical
+applications the second for POSIX shell based application.
+In the case of "SlowCat" I've stuck with `Input` as I am 
+only accessing time I've stuck with `Input` to make my source
+code more portable if you're using another Oberon compiler.
 
 ## Working with Karl's extensions
 
+This is the part of my code which is not portable
+between compiler implementations and with Oberon Systems.
 Karl provides a number of extension module wrapping various
 POSIX calls.  We are going to use two,
 [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html)
 which provides access to command line arguments and
 [extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html)
 which provides a means of converting strings to integers.
+If you are using another Oberon compiler you'll need to 
+find their equivalents and change my code example. I
+use `extArgs` to access the command line parameters
+included in my POSIX shell invocation and I've used
+`extConvert` to convert the string presentation of the
+delay to an integer value for my delay.
 
-## Our Algorithm
+
+## Our Approach
 
 To create "SlowCat" we need four procedures and one
 global variable.
 
-+ `Usage()` display a help text if parameters don't make sense
-+ `ProcessArgs()` to get our delay time from the command line
-+ `Delay(count : INTEGER)` a busy wait procedure
-+ `SlowCat(count : INTEGER)` take standard input and display like a teleprompter
-+ `count` is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()
+`Usage()`
+: display a help text if parameters don't make sense
+
+`ProcessArgs()`
+: to get our delay time from the command line
+
+`Delay(count : INTEGER)`
+: a busy wait procedure
+
+`SlowCat(count : INTEGER)`
+: take standard input and display like a teleprompter
+
+`count`
+: is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()
 
 ### Usage
 
@@ -171,7 +196,7 @@ Here's a "SlowCat" program.
 
 ```
     MODULE SlowCat;
-      IMPORT In, Out, Input0, Args := extArgs, Convert := extConvert;
+      IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;
 
     CONST
       MAXLINE = 1024;
@@ -215,9 +240,9 @@ Here's a "SlowCat" program.
     PROCEDURE Delay*(count : INTEGER);
       VAR start, current, delay : INTEGER;
     BEGIN
-       start := Input0.Time();
+       start := Input.Time();
        REPEAT
-         current := Input0.Time();
+         current := Input.Time();
          delay := (current - start);
        UNTIL delay >= count;
     END Delay;
