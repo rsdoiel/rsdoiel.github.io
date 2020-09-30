@@ -64,7 +64,7 @@ settings for my virtual machine.
     a. Display, I picked bumped memory up to 128M and picked VBoxSVGA with 33D acceleration (for games)
     b. Storage, I added a second floppy drive (empty)
     c. Network, I picked attached to NAT
-10. When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click "choose disc image" and pointed at the downloaded isntalled CD
+10. When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click "choose disc image" and pointed at the downloaded installed CD
 11. Click Start.
 12. At "Welcome to FreeDOS 1.2" blue screen, hit TAB key
 13. Add type a space than add "raw" (without quotes) press enter
