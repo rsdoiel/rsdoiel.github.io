@@ -5,6 +5,7 @@ table {
   color: white;
   background-color: darkblue;
   /* border: 3px solid #5f0202; */
+  caption-side: bottom;
 }
 
 th, td {
@@ -25,3 +26,12 @@ tbody tr:nth-child(even) {
   color: white;
   background-color: blue;
 }
+
+caption {
+    color: black;
+    background-color: white;
+    text-align: left;
+    text-transform: lowercase;
+    font-size: smaller;
+}
+

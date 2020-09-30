@@ -25,13 +25,17 @@ Let's modify our module name [Noises.Mod](Noises.Mod) to explore this.
 Copy "Noises.Mod" to "Creatures.Mod". Replace the "MODULE Noises;" line with
 "MODULE Creatures;" and the final "END Noises." statement with "END Creatures.".
 
-```Oberon
+
+~~~
+
     MODULE Creatures;
     
     (* rest of code here *)
 
     END Creatures.
-```
+
+~~~
+
 
 The key to supporting records with procedures as record attributes is once again Oberon's type system.  The type `Noise` we created in the previous post can also be used to declare a record attribute similar to how we use this new type to pass the procedure. In this exploration will create a linked list of "Creature" types which include a "MakeNoise" attribute.
 
@@ -39,35 +43,47 @@ First let's define our "Creature" as a type as well as a
 `CreatureList`. Add the following under our `TYPE` 
 definition in [Creatures.Mod](Creatures.Mod).
 
-```
+
+~~~
+
     Creature = POINTER TO CreatureDesc;
     CreatureDesc = RECORD
                      name : ARRAY 32 OF CHAR;
                      noises : Noises;
                    END;
-```
+
+~~~
+
 
 Let's create a new `MakeCreature` procedure that will create
 a populate a single `Creature` type record.
 
-```
+
+~~~
+
     PROCEDURE MakeCreature(name : ARRAY OF CHAR; noise : Noise; VAR creature : Creature);
     BEGIN
       NEW(creature);
       creature.name := name;
       creature.noise := noise;
     END MakeCreature;
-```
+
+~~~
+
 
 Now lets modify `MakeNoise` to accept the `Creature` type RECORD
 rather than a name and a noise procedure parameter.
 
-```
+
+~~~
+
     PROCEDURE MakeNoise(creature : Creator);
     BEGIN
       creature.noise(creature.name);
     END MakeNoise;
-```
+
+~~~
+
 
 How does this all work?  The two "Noise" procedures 
 "BarkBark" and "ChirpChirp" remain as in our original 
@@ -79,7 +95,9 @@ creature record type using an object oriented approach.
 
 Our revised module should look like this.
 
-```Oberon
+
+~~~
+
     MODULE Noises;
       IMPORT Out;
     
@@ -125,7 +143,9 @@ Our revised module should look like this.
       MakeNoise(dog);
       MakeNoise(bird);
     END Noises.
-```
+
+~~~
+
 
 Where to go from here? Think about evolving [Creatures](Creatures.Mod) so
 that you can create a dynamic set of creatures that mix and match their

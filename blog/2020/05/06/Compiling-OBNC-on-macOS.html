@@ -38,7 +38,7 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="compiling-obnc-on-macos">
    Compiling OBNC on macOS
    </h1>
    <p>
@@ -50,7 +50,7 @@
    <p>
    Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is straight forward if you have the required dependencies and environment setup up. Below are my notes to get everything working.
    </p>
-   <h2>
+   <h2 id="prerequisites">
    Prerequisites
    </h2>
    <ul>
@@ -67,24 +67,24 @@
    A C compiler and linker (OBNC uses this to generate machine specific code)
    </li>
    </ul>
-   <h3>
+   <h3 id="sdl-1.2">
    SDL 1.2
    </h3>
    <p>
    MacPorts has libsdl 1.2 available as a package called “libsdl” (not surprisingly). There are other versions of the SDL available in ports but this is the one we’re using.
    </p>
-   <div id="cb1" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>   <span class="fu">sudo</span> port install libsdl</span></code></pre>
-   </div>
-   <h3>
+   <pre><code>
+      sudo port install libsdl
+   </code></pre>
+   <h3 id="the-boehm-demers-weiser-gc">
    The Boehm-Demers-Weiser GC
    </h3>
    <p>
    You need to install the Boehm-Demers-Weiser GC installed. Using MacPorts it is almost as easy as installing under Debian. The package is less obviously named than under Debian. The package you want is “beohmgc”.
    </p>
-   <div id="cb2" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>    <span class="fu">sudo</span> port install boehmgc</span></code></pre>
-   </div>
+   <pre><code>
+       sudo port install boehmgc
+   </code></pre>
    <p>
    More info on the GC.
    </p>
@@ -96,33 +96,33 @@
    <a href="https://ports.macports.org/port/boehmgc/summary">MacPorts page</a>
    </li>
    </ul>
-   <h3>
+   <h3 id="c-compiler-and-linker">
    C compiler and linker
    </h3>
    <p>
    XCode is provides a C compiler and linker. That is what is installed on my machine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can install other C compilers (e.g. Clang) but I haven’t tried them yet.
    </p>
-   <h2>
+   <h2 id="setting-up-my-environment">
    Setting up my environment
    </h2>
    <p>
    You need to update your CC variables to find the header and shared library files for compilation of obnc with <code>build</code>. (I added these to my <code>.bash_profile</code>). New Macs ships with zsh and your settings might be in a different location. MacPorts puts its libraries under the <code>/opt/local</code> directory.
    </p>
-   <div id="cb3" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">C_INCLUDE_PATH=</span><span class="st">&quot;/usr/include:/usr/local/include:/opt/local/include&quot;</span></span>
-   <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span>
-   <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">LD_LIBRARY_PATH=</span><span class="st">&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;</span></span></code></pre>
-   </div>
-   <h2>
+   <pre><code>
+       export C_INCLUDE_PATH=&quot;/usr/include:/usr/local/include:/opt/local/include&quot;
+       export LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
+       export LD_LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
+   </code></pre>
+   <h2 id="obnc-environment-variables">
    OBNC environment variables
    </h2>
    <p>
    This follows’ Karl’s docs.  Additionally if you install OBNC extlib so you can do POSIX shell programs you’ll need to set your <code>OBNC_IMPORT_PATH</code> environment. An example of including a default install location and local home directory location.
    </p>
-   <div id="cb4" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="bu">export</span> <span class="va">OBNC_IMPORT_PATH=</span><span class="st">&quot;/usr/local/lib/obnc:</span><span class="va">$HOME</span><span class="st">/lib/obnc&quot;</span></span></code></pre>
-   </div>
-   <h3>
+   <pre><code>
+       export OBNC_IMPORT_PATH=&quot;/usr/local/lib/obnc:$HOME/lib/obnc&quot;
+   </code></pre>
+   <h3 id="next-and-previous">
    Next and Previous
    </h3>
    <ul>

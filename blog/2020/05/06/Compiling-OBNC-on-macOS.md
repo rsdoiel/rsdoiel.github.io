@@ -32,9 +32,13 @@ MacPorts has libsdl 1.2 available as a package called "libsdl"
 (not surprisingly). There are other versions of the SDL available
 in ports but this is the one we're using.
 
-```bash 
+
+~~~
+
    sudo port install libsdl
-```
+
+~~~
+
 
 ### The Boehm-Demers-Weiser GC
 
@@ -43,9 +47,13 @@ MacPorts it is almost as easy as installing under Debian. The
 package is less obviously named than under Debian. The package
 you want is "beohmgc".
 
-```bash
+
+~~~
+
     sudo port install boehmgc
-```
+
+~~~
+
 
 More info on the GC.
 
@@ -66,11 +74,15 @@ these to my `.bash_profile`). New Macs ships with zsh and
 your settings might be in a different location. MacPorts puts 
 its libraries under the `/opt/local` directory.
 
-```bash
+
+~~~
+
     export C_INCLUDE_PATH="/usr/include:/usr/local/include:/opt/local/include"
     export LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/local/lib"
     export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/local/lib"
-```
+
+~~~
+
 
 ## OBNC environment variables
 
@@ -79,9 +91,13 @@ you can do POSIX shell programs you'll need to set your
 `OBNC_IMPORT_PATH` environment.  An example of including a default
 install location and local home directory location.
 
-```bash
+
+~~~
+
     export OBNC_IMPORT_PATH="/usr/local/lib/obnc:$HOME/lib/obnc"
-```
+
+~~~
+
 
 ### Next and Previous
 

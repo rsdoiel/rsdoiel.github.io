@@ -82,14 +82,18 @@ the file then `In.Done` should be false.  When you write your loop
 this can be counter intuitive.  Here is a example of testing `In.Done`
 with a repeat until loop.
 
-```Oberon7
+
+~~~
+
     REPEAT
       In.Line(text);
       IF In.Done THEN
         Out.String(text);Out.Ln();
       END;
     UNTIL In.Done = FALSE;
-```
+
+~~~
+
 
 So when you read this it is easy to think of `In.Done` as you're
 done reading from standard input but actually we need to check for `FALSE`.
@@ -194,7 +198,9 @@ line was successful.
 
 Here's a "SlowCat" program.
 
-```
+
+~~~
+
     MODULE SlowCat;
       IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;
 
@@ -268,18 +274,24 @@ Here's a "SlowCat" program.
         Usage();
       END;
     END SlowCat.
-```
+
+~~~
+
 
 ## Compiling and trying it out
 
 To compile our program and try it out reading
 our source code do the following.
 
-```
+
+~~~
+
     obnc SlowCat.Mod
     # If successful
     ./SlowCat 2 < SlowCat.Mod
-```
+
+~~~
+
 
 
 ## Oakwood Guidelines and POW!

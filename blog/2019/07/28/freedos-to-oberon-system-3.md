@@ -14,13 +14,17 @@ By R. S. Doiel, 2019-07-28
 (updated: 2019-08-19)
 
 
-What follows are notes on getting a FreeDOS 1.2[^1] and 
-then Native Oberon[^2] running under VirtualBox 6.0. You might 
+What follows are notes on getting a FreeDOS 1.2 and 
+then Native Oberon running under VirtualBox 6.0. You might 
 wonder why these two are together. While it was
 easy to run the Native Oberon installation process that process
 assumes you have a properly partitioned hard disc and VirtualBox
 seems to skip that process. I found taking advantage of FreeDOS
 simplified things for me.
+
+NOTE: FreeDOS is an Open Source implementation of PC/MS DOC
+
+NOTE: Native Oberon is a 1990's version of Oberon System running on i386
 
 My goal was running Oberon System 3, but setting up a Virtual Box
 with FreeDOS 1.2 gave me a virtual machine that functions like a 
@@ -37,9 +41,11 @@ was Turbo Pascal. Feeling a bit nostalgic I thought it would be
 interesting to use it again and see what I remembered from the days
 of old. While PC and MS DOS no longer exist as commercial productions
 an wonderful group of Open Source hackers have brought new life into
-DOS with FreeDOS 1.2[^3]. You'll find many of your old familiar commands
+DOS with FreeDOS 1.2. You'll find many of your old familiar commands
 but also some nice improvements. You can even run it under VirtualBox
 which is what I proceeded to do.
+
+NOTE: Download FreeDOS from http://freedos.org/download
 
 ### VirtualBox 6.0 setup
 
@@ -80,14 +86,18 @@ settings for my virtual machine.
 ## Native Oberon System 3 on Virtual Box
 
 Native Oberon can be found at http://www.ethoberon.ethz.ch/native/.
-There is a related ftp site[^4] where you can download the necessary
+There is a related ftp site where you can download the necessary
 files for the stand alone version. 
+
+NOTE: Download Native Oberon Stand Alone from ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone
 
 Here's the steps I used in my Mac to download Native Oberon and
 into a file on my desktop called "NativeOberon-Standalone". Open
 the macOS Terminal application. I assume you've got a Unix
 command called [wget](https://en.wikipedia.org/wiki/Wget)
-already installed[^5].
+already installed.
+
+NOTE: wget is easily installed with [HomeBrew](https://brew.sh/) or [Mac Ports](https://www.macports.org/)
 
 ```bash
     cd
@@ -159,27 +169,23 @@ Gadgets desktop environment and is an interesting look at how
 Oberon took a different path for (similar to RISC OS) for a GUI.
 
 
-| PACKAGE      | FILENAME     | SIZE (MB)  | DISC No. |
-| :------------ | :----------- | :--------- | :-----: |
-| Oberon-0      | oberon0.dsk  | 1.4        | 0 | 
-| Gadgets       | gadgets.arc  | 1.4  (2.9) | 1 | 
-| Documentation | docu.arc     | 1.3  (2.5) | 2 | 
-| Applications  | apps.arc     | 1.3  (2.8) | 3 | 
-| Tutorials     | tutorial.arc | 0.3  (0.8) | 4 | 
-| Pr3Fonts      | pr3fonts.arc | 0.3  (0.6) | 4 | 
-| Pr6Fonts      | pr6fonts.arc | 0.5  (1.8) | 4 | 
-| Source1       | source1.arc  | 0.9  (2.5) | 5 | 
-| Source2       | source2.arc  | 1.2  (3.5) | 6 | 
-| Source3       | source3.arc  | 0.6  (1.7) | 7 | 
+     PACKAGE    FILENAME       SIZE (MB)    DISC No.
+------------    -----------    ---------    ---------
+Oberon-0        oberon0.dsk    1.4          0
+Gadgets         gadgets.arc    1.4  (2.9)   1
+Documentation   docu.arc       1.3  (2.5)   2
+Applications    apps.arc       1.3  (2.8)   3
+Tutorials       tutorial.arc   0.3  (0.8)   4
+Pr3Fonts        pr3fonts.arc   0.3  (0.6)   4
+Pr6Fonts        pr6fonts.arc   0.5  (1.8)   4
+Source1         source1.arc    0.9  (2.5)   5
+Source2         source2.arc    1.2  (3.5)   6
+Source3         source3.arc    0.6  (1.7)   7
+------------    -----------    ---------    ---------
+
 Table: sizes are in MB, compressed, then uncompressed
 
 
-[^1]: FreeDOS is an Open Source implementation of PC/MS DOC
 
-[^2]: Native Oberon is a 1990's version of Oberon System running on i386
 
-[^3]: Download FreeDOS from http://freedos.org/download
 
-[^4]: Download Native Oberon Stand Alone from ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone
-
-[^5]: wget is easily installed with [HomeBrew](https://brew.sh/) or [Mac Ports](https://www.macports.org/)

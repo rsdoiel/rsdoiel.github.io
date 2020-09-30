@@ -37,7 +37,7 @@ resources. In POSIX the basic unit of code is a program
 and the basic unit of execution is a program. In Oberon
 the basic unit of code is the module and the basic unit
 of execution is the procedure.  Modules are brought into 
-memory and persist[^unloading]. As a result it is common in 
+memory and persist. As a result it is common in 
 the Oberon System to need to have file representations 
 that can persist across procedure calls. It provides
 a set of abstractions that are a little bit like views
@@ -45,7 +45,7 @@ and cursors found in database systems. In taking
 this approach Oberon language eschews modality at the
 procedure level. 
 
-[^unloading]: Modules can be explicitly unload otherwise they persist until the computer is turned off
+NOTE: Modules can be explicitly unload otherwise they persist until the computer is turned off
 
 ## Key Oberon Concepts
 
@@ -113,9 +113,7 @@ map to what we've seen in the modules `In` and `Out`.
 There are a few additional commands for file system house 
 keeping such as `Length`, `GetDate`, `Base`.
 See the OBNC documentation for the `Files` module for
-details[^FilesModule]
-
-[^FilesModule]: https://miasap.se/obnc/obncdoc/basic/Files.def.html
+details <https://miasap.se/obnc/obncdoc/basic/Files.def.html>.
 
 In the following examples we'll be using the `Files`
 module to create, update and delete a file called 
@@ -136,7 +134,9 @@ a procedure called `WriteHelloWorld`. It shows how
 to create, write and close the new file called
 "HelloWorld.txt".
 
-```
+
+~~~
+
   PROCEDURE WriteHelloWorld;
     VAR
       (* Define a file handle *)
@@ -157,7 +157,9 @@ to create, write and close the new file called
     (* Close our modified file *)
     Files.Close(f);
   END WriteHelloWorld;
-```
+
+~~~
+
 
 #### Receipt in review
 
@@ -178,12 +180,14 @@ We don't need to close it because we haven't
 modified it. To demonstrate a new procedure is added to
 our module called `ReadHelloWorld`.
 
-```
+
+~~~
+
   PROCEDURE ReadHelloWorld;
     VAR
       f : Files.File;
       r : Files.Rider;
-      (* We need a string to store what we've read *)
+      (* We need a string to store what we have read *)
       src : ARRAY 256 OF CHAR;
   BEGIN
     (* Create our file, New returns a file handle *)
@@ -196,7 +200,9 @@ our module called `ReadHelloWorld`.
        halt the program with an error *)
     ASSERT(src = "Hello World!");
   END ReadHelloWorld;
-```
+
+~~~
+
 
 #### Receipt in review
 
@@ -211,7 +217,9 @@ Deleting the file only requires knowing the name of the file.
 Like in `ReadHelloWorld` we'll use the built-in ASSERT
 procedure to check if the file was successfully removed.
 
-```
+
+~~~
+
   PROCEDURE DeleteHelloWorld;
     VAR
       result : INTEGER;
@@ -221,7 +229,9 @@ procedure to check if the file was successfully removed.
     (* Check our result, if not zero then halt program with error *)
     ASSERT(result = 0);
   END DeleteHelloWorld;
-```
+
+~~~
+
 
 #### Receipt in review
 
@@ -232,7 +242,9 @@ procedure to check if the file was successfully removed.
 
 Here is the full listing of our module.
 
-```
+
+~~~
+
     MODULE TypingHi;
       IMPORT Files;
     
@@ -261,7 +273,7 @@ Here is the full listing of our module.
         VAR
           f : Files.File;
           r : Files.Rider;
-          (* We need a string to store what we've read *)
+          (* We need a string to store what we have read *)
           src : ARRAY 256 OF CHAR;
       BEGIN
         (* Create our file, New returns a file handle *)
@@ -290,7 +302,9 @@ Here is the full listing of our module.
         ReadHelloWorld();
         DeleteHelloWorld();
     END TypingHi.
-```
+
+~~~
+
 
 
 ### Next and Previous

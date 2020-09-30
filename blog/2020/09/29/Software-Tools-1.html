@@ -38,10 +38,10 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="software-tools-chapter-1">
    Software Tools, Chapter 1
    </h1>
-   <h2>
+   <h2 id="overview">
    Overview
    </h2>
    <p>
@@ -54,9 +54,9 @@
    NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.
    </p>
    <p>
-   NOTE: POSIX defines a standard of compatibility inspired by <a href="https://en.wikipedia.org/wiki/Unix">UNIX</a>, see <a href="https://en.wikipedia.org/wiki/POSIX">https://en.wikipedia.org/wiki/POSIX</a>
+   NOTE: POSIX defines a standard of compatibility inspired by <a href="https://en.wikipedia.org/wiki/Unix">UNIX</a>, see <a href="https://en.wikipedia.org/wiki/POSIX" class="uri">https://en.wikipedia.org/wiki/POSIX</a>
    </p>
-   <h2>
+   <h2 id="getting-started.">
    Getting Started.
    </h2>
    <p>
@@ -88,7 +88,7 @@
    <p>
    All programs in this chapter rely solely on standard input and output. Today’s reader will notice an absence to common concepts in today’s command line programs. First is the lack of interaction with command line parameters, the second is no example take advantage of environment variables. These operating system features were not always available across operating systems of the early 1980s. Finally I’d like to point out a really nice feature included in the book. It is often left out as a topic in programming books. K &amp; P provide example documentation. It’s structure like an early UNIX man page. It very clear and short. This is something I wish all programming texts at least mentioned. Documentation is important to the program author because it clarifies scope of the problem being tackled and to the program user so they understand what they are using.
    </p>
-   <h3>
+   <h3 id="file-copying">
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up">1.1. File Copying</a>
    </h3>
    <p>
@@ -150,13 +150,13 @@
      copy();
    END CopyProg.
    </code></pre>
-   <h4>
+   <h4 id="limitations">
    Limitations
    </h4>
    <p>
    This program only works with standard input and output. A more generalized version would work with named files.
    </p>
-   <h3>
+   <h3 id="counting-characters">
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">1.2 Counting Characters</a>
    </h3>
    <pre><code>
@@ -210,13 +210,13 @@
      CharCount();
    END CharCount.
    </code></pre>
-   <h4>
+   <h4 id="limitations-1">
    Limitations
    </h4>
    <p>
    The primary limitation in counting characters is most readers are interested in visible character count. In our implementation even non-printed characters are counted. Like our first program this only works on standard input and output. Ideally this should be written so it works on any file including standard input and output. If the reader implements that it could become part of a package on statistical analysis of plain text files.
    </p>
-   <h3>
+   <h3 id="counting-lines">
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.3 Counting Lines</a>
    </h3>
    <pre><code>
@@ -270,13 +270,13 @@
      LineCount();
    END LineCount.
    </code></pre>
-   <h4>
+   <h4 id="limitations-2">
    Limitations
    </h4>
    <p>
    This program assumes that NEWLINE is ASCII value 10. Line delimiters vary between operating systems. If your OS used carriage returns without a NEWLINE then this program would not count lines correctly. The reader could extend the checking to support carriage returns, new lines, and carriage return with new lines and cover most versions of line endings.
    </p>
-   <h3>
+   <h3 id="counting-words">
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.4 Counting Words</a>
    </h3>
    <pre><code>
@@ -350,7 +350,7 @@
      WordCount();
    END WordCount.
    </code></pre>
-   <h2>
+   <h2 id="removing-tabs">
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up">1.5 Removing Tabs</a>
    </h2>
    <pre><code>
@@ -482,7 +482,7 @@
    <p>
    NOTE: This module is used by “Detab.Mod” and “Entab.Mod” and provides for common type definitions and code reuse. We exported <code>TabType</code>, <code>TabPos</code> and <code>SetTabs</code>. Everything else is private to this module.
    </p>
-   <h2>
+   <h2 id="in-closing">
    In closing
    </h2>
    <p>

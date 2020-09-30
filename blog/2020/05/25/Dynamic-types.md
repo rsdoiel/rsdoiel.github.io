@@ -73,7 +73,8 @@ information will continue to work correctly.
 
 Let's take a look at actual code (NOTE: vSize is our constant value). 
 
-```Oberon
+~~~
+
     CONST
       vSize = 128; 
     
@@ -83,25 +84,27 @@ Let's take a look at actual code (NOTE: vSize is our constant value).
         value : ARRAY vSize OF CHAR; 
         next : DymamicString; 
       END;
-```
+
+~~~
 
 NOTE: Both `DynamicString` and `DynamicStringDesc` are defined 
-using an `*`. These are public[^asterisk] and will be available 
+using an `*`. These are public and will be available 
 to other modules.  Inside our record `DynamicStringDesc` we 
 have two private to our module attributes, `.value` and 
 `.next`. They are private so that we can change our 
 implementation in the future without requiring changes in 
 modules that use our dynamic strings. Likewise our constant `vSize`
 is private as that is an internal implementation detail. This
-practice is called information hiding[^information-hiding]
+practice is called information hiding.
 
-[^information-hiding]: Hiding some details of implementation allow us 
+NOTE: The asterisk in Oberon decorates procedures, types, variables and constants that are "public" to other modules. NOTE: Variables are always exported read only.
+
+NOTE: With information hiding some details of implementation allow us 
 to keep a clean division between implementation inside the module and how
 that implementation might be used. With out information hiding we often
 have "leaky" abstractions that become brittle and hard to maintain and
 rely on.
 
-[^asterisk]: the asterisk in Oberon decorates procedures, types, variables and constants that are "public" to other modules. NOTE: Variables are always exported read only.
 
 
 ## Working with DynamicString
@@ -120,13 +123,15 @@ useful.
 an empty string. 
 
 
-```Oberon
+~~~
+
   PROCEDURE New*(VAR str : DynamicString);
   BEGIN NEW(str);
     str.value := ""; 
     str.next := NIL;
   END New;
-```
+
+~~~
 
 
 ### `Set*(VAR str : DynamicString; source : ARRAY OF CHAR)` 
@@ -138,7 +143,8 @@ bridge procedure between an existing datatype, `ARRAY OF CHAR`
 and our new data type, `DynamicString`.
 
 
-```Oberon
+~~~
+
   PROCEDURE Set*(VAR str : DynamicString; source : ARRAY OF CHAR); 
     VAR cur, next : DynamicString; tmp : ARRAY vSize OF CHAR; 
         i, l : INTEGER;
@@ -157,7 +163,8 @@ and our new data type, `DynamicString`.
       END; 
     END;
   END Set;
-```
+
+~~~
 
 ### `ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)`
 
@@ -167,7 +174,8 @@ Like `Set*` it is a bridge procedure to let us move data output
 our new dynamic string type.
 
 
-```Oberon
+~~~
+
   PROCEDURE ToCharArray*(str : DynamicString; 
                          VAR dest : ARRAY OF CHAR; 
                          VAR ok : BOOLEAN);
@@ -182,7 +190,8 @@ our new dynamic string type.
     END;
     ok := (i = Strings.Length(dest));
   END ToCharArray;
-```
+
+~~~
 
 Two additional procedures will likely be needed-- `Append` and 
 `AppendCharArray`. This first one is trivial, if we want to add 
@@ -194,10 +203,10 @@ last record of the first and point it to a copy of the second string we're appen
 
 `Append` adds the `extra` dynamic string to `dest` dynamic string. Our 
 "input" is `extra` and our output is a modified dynamic string 
-named `dest`. This parameter order[^param-order] mimics the standard 
+named `dest`. This parameter order mimics the standard 
 `Strings` module's `Append`.
 
-[^param-order]: Oberon idiom is often input values, modified value and 
+NOTE: Oberon idiom is often input values, modified value and 
 result values. Modified and result values are declared in the parameter
 definition using `VAR`.
 
@@ -210,7 +219,8 @@ Algorithm:
 
 Implemented procedure.
 
-```Oberon
+~~~
+
   PROCEDURE Append*(extra: DynamicString; VAR dest : DynamicString);
     VAR cur : DynamicString;  
   BEGIN
@@ -231,7 +241,8 @@ Implemented procedure.
       cur := cur.next;
     END;
   END Append;
-```
+
+~~~
 
 A second procedure for appending an `ARRAY OF CHAR` also 
 becomes trivial. First convert the `ARRAY OF CHAR` to a dynamic 
@@ -241,7 +252,8 @@ string then append it with the previous procedure.
 
 This procedure appends an ARRAY OF CHAR to an existing dynamic string.
 
-```Oberon
+~~~
+
   PROCEDURE AppendCharArray*(extra: ARRAY OF CHAR; VAR dest : DynamicString);
     VAR extraStr : DynamicString;    
   BEGIN
@@ -250,7 +262,8 @@ This procedure appends an ARRAY OF CHAR to an existing dynamic string.
     (* Now we can append. *)
     Append(extraStr, dest);
   END AppendCharArray;
-```
+
+~~~
 
 At some point we will want to know the length of our dynamic string.
 
@@ -261,8 +274,8 @@ the length of each value. We will use a variable called `cur`
 to point at the current record and add up our total length as 
 we walk through the list.
 
+~~~
 
-```Oberon
   PROCEDURE Length*( source : DynamicString) : INTEGER;
     VAR cur : DynamicString; total : INTEGER;
   BEGIN
@@ -274,17 +287,18 @@ we walk through the list.
     END; 
     RETURN total
   END Length;
-```
+
+~~~
 
 ## Extending DynamicStrings module
 
 With these few procedures we have a basic means of working with 
 dynamic strings. Moving beyond this we can look at the standard 
 Oberon `Strings` module for inspiration.  If we use similar 
-procedure signatures[^sigs] we can create a drop in replacement 
+procedure signatures we can create a drop in replacement 
 for `Strings` with `DynamicStrings`.
 
-[^sigs]: Procedure signatures refer to procedures type along 
+NOTE: Procedure signatures refer to procedures type along 
 with the order and types of parameters. A quick review of the 
 procedure signatures for the standard module [Strings](https://miasap.se/obnc/obncdoc/basic/Strings.def.html) is 
 provided by the [OBNC](https://miasap.se/obnc) compiler docs. 
@@ -326,9 +340,9 @@ rest of our destination dynamic string. The record which held
 the characters before the insert position needs to be truncated 
 and it needs to be linked to the dynamic string we want to 
 insert. NOTE: This will leave a small amount of unused 
-memory[^repack]. 
+memory.
 
-[^repack]: If conserving memory is critical then re-packing the 
+NOTE: If conserving memory is critical then re-packing the 
 dynamic string could be implemented as another procedure. The 
 cost would be complexity and time to shift characters between 
 later records and earlier ones replacing excess NULL values.
@@ -339,12 +353,12 @@ split point. We then can copy the excess characters in that
 split record to a new record and truncate the `.value`'s 
 `ARRAY OF CHAR` to create our split point. Truncating is easy 
 in that we replace the CHAR in the `.values` that are not 
-needed with a NULL character[^nullchar]. We can do that with a 
+needed with a NULL character. We can do that with a 
 simple loop. Likewise calculating the relative insertion 
 position can be done by taking the modulo of the `vSize` of 
 `.value`.
 
-[^nullchar]: In Oberon stings are terminated with a NULL 
+NOTE: In Oberon stings are terminated with a NULL 
 character. A NULL character holds the ASCII value `0X`.
 
 Our algorithm:
@@ -361,8 +375,8 @@ Our algorithm:
 
 Our procedure:
 
+~~~
 
-```Oberon
   PROCEDURE Insert*(extra : DynamicString; 
                     pos : INTEGER; 
                     VAR dest : DynamicString);
@@ -410,7 +424,8 @@ Our procedure:
     (* 8. Set the `cur.next` to point at `rest` *)
     cur.next := rest;
   END Insert;
-```
+
+~~~
 
 While our `Insert` is the longest procedure so far the steps 
 are mostly simple. Additionally we can easily extend this to 
@@ -419,7 +434,8 @@ previously established design pattern of converting a basic type
 into our dynamic type before calling the dynamic version of the
 function.
 
-```Oberon
+~~~
+
   PROCEDURE InsertCharArray*(source : ARRAY OF CHAR; 
                              pos : INTEGER; 
                              VAR dest : DynamicString);
@@ -428,7 +444,8 @@ function.
     New(extra); Set(extra, source);
     Insert(extra, pos, dest);
   END InsertCharArray;
-```
+
+~~~
 
 ## Where to go next
 

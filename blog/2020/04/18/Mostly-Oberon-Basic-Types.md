@@ -1,9 +1,8 @@
 {
     "markup": "mmark",
     "title": "Oberon Basic Types",
-    "series": "Mostly Oberon",
     "number": 3,
-    "author": "R. S. Doiel",
+    "byline": "R. S. Doiel",
     "date": "2020-04-18",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
@@ -14,32 +13,40 @@
 
 By R. S. Doiel, 2020-04-18
 
-This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
 ## Simple Types
 
 Oberon is a small systems language. It provides a useful but 
-limited number of basic types[^basic-types]. These can be be
+limited umber of basic types. These can be be
 thought of as simple types mapping to specific memory locations
 and more complex types composed of multiple memory locations.
 
-[^basic-types]: INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO
+NOTE: __basic types__, INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO
 
 ### INTEGER
 
-Integers can be thought of as whole numbers. They may be
+Integers are easiest to be thought of as whole numbers. They may be
 positive numbers or negative numbers. Declaring an integer
 variable `i` it would look something like
 
-```Oberon
+
+~~~
+
     VAR i : INTEGER;
-```
+
+~~~
+
 
 Setting `i`'s value to seven would look like
 
-```Oberon
+
+~~~
+
     i := 7;
-```
+
+~~~
+
 
 
 ### REAL
@@ -51,16 +58,24 @@ positive or negative.
 
 Declaring a real number variable `a` would look like
 
-```Oberon
+
+~~~
+
     VAR a : REAL;
-```
+
+~~~
+
 
 Setting the value of `a` to seven and one tenth (7.1) would
 look like
 
-```Oberon
+
+~~~
+
     a := 7.1;
-```
+
+~~~
+
 
 ### CHAR
 
@@ -76,15 +91,23 @@ encoding, decoding and other operations.
 
 Declaring a CHAR variable `c` would look like
 
-```Oberon
+
+~~~
+
     VAR c: CHAR;
-```
+
+~~~
+
 
 Setting the value of `c` to capital Z would look like
 
-```Oberon
+
+~~~
+
     c := "Z";
-```
+
+~~~
+
 
 Note: Oberon expects double quotes to notate a character.
 
@@ -104,17 +127,21 @@ memory when the program starts to hold the array.  While this
 seems restrictive our next data type, RECORD, lets us move
 into more dynamic memory structures.  Pre-allocating the array
 size also has the advantage that we can re-use those locations
-easily in a type safe manner[^type-safety]. 
+easily in a type safe manner.
 
 Declaring a variable "name" as an array of twelve characters would 
 look like and declaring a variable "scores" as an array of ten
 integers would look like
 
-```Oberon
+
+~~~
+
     VAR 
       name : ARRAY 24 OF CHAR;
       scores : ARRAY 10 OF INTEGER;
-```
+
+~~~
+
 
 The length of the array immediately follows the keyword "ARRAY" and
 the "OF CHAR" or "OF INTEGER" phrases describes the types that can be 
@@ -125,22 +152,30 @@ Setting an array value can be done using an index. In this example
 the zero-th element (first element of the array) is set to the value
 102. 
 
-```Oberon
+
+~~~
+
     scores[0] := 102;
-```
+
+~~~
+
 
 In the case of CHAR arrays the whole array can be set in a simple 
 single assignment.
 
-```Oberon
+
+~~~
+
     name := "Ada Lovelace";
-```
+
+~~~
+
 
 Two key points of arrays in Oberon are a known length and a single 
 type of data associated with them. Arrays can have more than
 one dimension but the cells of the array most contain the same type.
 
-[^type-safety]: Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.
+NOTE: __type safety__, Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.
 
 ### RECORD
 
@@ -151,22 +186,30 @@ create a record that holds an game's name, a list of three player names
 and a list of three scores. We'll call this record type 
 "TopThreeScoreboard". 
 
-```Oberon
+
+~~~
+
     TYPE
       TopThreeScoreboard = RECORD
         gameName : ARRAY 24 OF CHAR;
         playerNames : ARRAY 3, 24 OF CHAR;
         scores : ARRAY 3 OF INTEGER
       END;
-```
+
+~~~
+
 
 Now that we have describe a record of type "TopThreeScoreboard" we can
 declare it with our "VAR" statement.
 
-```Oberon
+
+~~~
+
     VAR
       scoreboard : TopThreeScoreboard;
-```
+
+~~~
+
 
 Setting the element values in a record uses a dot notation
 and if those elements are themselves. In this case we'll set
@@ -174,7 +217,9 @@ the game name to "Basketball", the three players are
 "Ada Lovelace", "Blaise Pascal", and "John McCarthy", with
 the scores 102, 101, 100.
 
-```Oberon
+
+~~~
+
    scoreboard.gameName := "Basketball";
    scoreboard.playerNames[0] := "Ada Lovelace";
    scoreboard.scores[0] := 102;
@@ -182,11 +227,14 @@ the scores 102, 101, 100.
    scoreboard.scores[0] := 101;
    scoreboard.playerNames[2] := "John McCarthy";
    scoreboard.scores[0] := 100;
-```
 
-Records are also used to create dynamic memory structures such as lists, trees and maps[^ad].  The dynamic nature of records is achieved with
+~~~
+
+
+Records are also used to create dynamic memory structures such as lists, trees and maps (see note on "AD").  The dynamic nature of records is achieved with
 our next type "POINTER TO".
 
+NOTE: __AD__, Prof. Wirth wrote an excellent text on [Algorithms and Data structures](https://inf.ethz.ch/personal/wirth/AD.pdf) available in PDF format.
 ### POINTER TO
 
 Oberon is a type safe language. To keep things safe in a type
@@ -209,7 +257,9 @@ to the next record. We can then also define a pointer to this type
 of record.  If there is no next character record
 we assume we're at the end of the string.
 
-```Oberon
+
+~~~
+
     TYPE
       DStringDesc = RECORD
         value : CHAR;
@@ -217,16 +267,22 @@ we assume we're at the end of the string.
       END;
 
       DString : POINTER TO DStringDesc;
-```
+
+~~~
+
 
 RECORD types are permitted to use recursive definition so our 
 "next" value is itself a type "DStringDesc".  Declaring a 
 DString variable is as easy as declaring our scoreboard type variable.
 
-```Oberon
+
+~~~
+
   VAR
     VAR s : DString;
-```
+
+~~~
+
 
 Setting our DString is a little trickier. This is where
 Oberon's procedures come into play. We can pass our variable "s"
@@ -237,7 +293,9 @@ creating new elements in our dynamic string. That is what Oberon's
 built-in `NEW()` procedure does. It allocates new memory for our
 list of records.
 
-```Oberon
+
+~~~
+
     PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
         VAR i : INTEGER; cur, tmp : DString;
     BEGIN
@@ -263,12 +321,16 @@ list of records.
         i := i + 1;
       END;
     END SetDString;
-```
+
+~~~
+
 
 We can move our string back into a fixed length array of char
 with a similar procedure.
 
-```Oberon
+
+~~~
+
     PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
       VAR cur : DString; i, l : INTEGER;
     BEGIN
@@ -286,7 +348,9 @@ with a similar procedure.
         i := i + 1;
       END;
     END DStringToCharArray;
-```
+
+~~~
+
 
 At this stage we have the basics of data organization. Modules
 allow us to group operations and data into cohesive focused units.
@@ -300,7 +364,9 @@ Here is a [module demoing our basic type](BasicTypeDemo.Mod). In it
 we can define procedures to demo our assignments, display their results
 all called from inside the module's initialization block.
 
-```Oberon
+
+~~~
+
     MODULE BasicTypeDemo;
       IMPORT Out;
     
@@ -427,7 +493,9 @@ all called from inside the module's initialization block.
       DStringToCharArray(s, name);
       Out.String("Display 'name' our array of char: ");Out.String(name);Out.Ln;
     END BasicTypeDemo.
-```
+
+~~~
+
 
 ## Reading through the code
 
@@ -443,10 +511,9 @@ create a description record, `DStringDesc` then create a pointer to
 the descriptive type, i.e. `DString`. This is a very common
 idiom in building out complex data structures. A good place to learn
 about implementing algorithms and data structures in Oberon-7 is 
-Prof. Wirth's 2004 edition of "Algorithms and Data Structures" which
-is available from his personal website[^ad] in PDF[^ad].
+Prof. Wirth's 2004 edition of [Algorithms and Data Structures](https://inf.ethz.ch/personal/wirth/AD.pdf) which
+is available from his personal website in PDF.
 
-[^ad]: Prof. Wirth wrote an excellent text on [Algorithms and Data structures](https://inf.ethz.ch/personal/wirth/AD.pdf) available in PDF format.
 
 ### Next and Previous
 

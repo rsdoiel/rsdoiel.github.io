@@ -27,15 +27,21 @@ an animal noise will include the name of the animal speaking.  We'll call this t
 of procedure "Noise". It'll accept an ARRAY OF CHAR for the name as a parameter 
 then use the standard Out module to display the animal name and noise they make.
 
-```Oberon
+
+~~~
+
     TYPE
       Noise : PROCEDURE (who : ARRAY OF CHAR);
-```
+
+~~~
+
 
 The two "Noise" procedures will be "BarkBark" and "ChirpChirp". They will
 implement the same parameter signature as describe in the "Noise" type.
 
-```Oberon
+
+~~~
+
     PROCEDURE BarkBark(who : ARRAY OF CHAR);
     BEGIN
       Out.String(who);
@@ -47,25 +53,33 @@ implement the same parameter signature as describe in the "Noise" type.
       Out.String(who);
       Out.String(": Chirp, chirp");Out.Ln();
     END ChirpChirp;
-```
+
+~~~
+
 
 We'll also create a procedure, MakeNoise, that accepts the animal name and
 our "Noise" procedure name and it'll call the "Noise" type procedure 
 passing in the animal name.
 
-```Oberon
+
+~~~
+
     PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
     BEGIN
       (* Call noise with the animal name *)
       noise(name);
     END MakeNoise;
-```
+
+~~~
+
 
 If we invoke MakeNoise with our animal name and pass the name of the 
 procedure we want to do the MakeNoise procedure will generate our
 noise output. Here' is what is looks like all together.
 
-```Oberon
+
+~~~
+
     MODULE Noises;
       IMPORT Out;
     
@@ -96,7 +110,9 @@ noise output. Here' is what is looks like all together.
       MakeNoise("Fido", ChirpChirp);
       MakeNoise("Tweety", BarkBark);
     END Noises.
-```
+
+~~~
+
 
 Note when we pass the procedures we include their name **without** parenthesis.
 Our type definition tells the compiler that the procedure can be a parameter,
