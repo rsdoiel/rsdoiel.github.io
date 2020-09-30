@@ -25,6 +25,8 @@ This is my running collection of notes to help me remember various terms, abbrev
     + A short piece of text that is algorithmically derived from a file and allows the determination of whether the file has been corrupted.
 + [CDL](http://www.cdlib.org)
     + California Digital Library
++ [CDL](https://controlleddigitallending.org/)
+    + Controlled Digital Lending
 + [CLIR](http://www.clir.org)
     + Council on Library and Information Resources
     + [CLIR/DLF](http://www.clir.org/dlf)
