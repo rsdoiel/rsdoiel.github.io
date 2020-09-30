@@ -47,7 +47,8 @@
          IF In.Done THEN
            Out.String(text);Out.Ln();
          END;
-       UNTIL In.Done = FALSE;</code></pre>
+       UNTIL In.Done = FALSE;
+   </code></pre>
    <p>So when you read this it is easy to think of <code>In.Done</code> as you're done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we're at the end of the file, sets <code>In.Done</code> to false!</p>
    <h3>Out</h3>
    <p>As mention <code>Out</code> provides our output functions. We'll be using two procedure from <code>Out</code>, namely <code>Out.String()</code> and <code>Out.Ln()</code>. We've seen both before.</p>
@@ -145,12 +146,14 @@
          ELSE
            Usage();
          END;
-       END SlowCat.</code></pre>
+       END SlowCat.
+   </code></pre>
    <h2>Compiling and trying it out</h2>
    <p>To compile our program and try it out reading our source code do the following.</p>
    <pre><code>    obnc SlowCat.Mod
        # If successful
-       ./SlowCat 2 &lt; SlowCat.Mod</code></pre>
+       ./SlowCat 2 &lt; SlowCat.Mod
+   </code></pre>
    <h2>Oakwood Guidelines and POW!</h2>
    <p>Oberon and Oberon-2 were both used in creating and enhancing the Oberon System(s) as well as for writing programs on other operating systems (e.g. Apple's Mac and Microsoft Windows). Implementing Oberon compilers on non Oberon Systems required clarification beyond the specification. The Oakwood Guidelines were an agreement between some of the important Oberon-2 compiler implementers which attempted to fill in that gap while encouraging portability in source code between operating systems. Portability was desirable because it allowed programmers (e.g. students) to compile and run their Oberon programs with minimal modification in any environment where an Oakwood compliant compiler was available.</p>
    <p>Citation for Oakwood can be found in <a href="https://archive.org/details/oberonprogrammin00mhlb/page/n363/mode/2up?q=Oakwood+Guidlines">Oberon-2 Programming with Windows</a>.</p>

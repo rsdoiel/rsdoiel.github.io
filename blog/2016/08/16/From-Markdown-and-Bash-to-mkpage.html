@@ -43,13 +43,13 @@
    <p>I wanted a simple command line tool that would make a single web page. It would take a few data sources and formats and run them through a template system. The template system needed to be simple but support the case where data might not be available. It would be nice if it handled the case of repititious data like that used in tables or lists. Ideally I could render many pages from a single template assuming a simple website and layout.</p>
    <h3>A single page generator</h3>
    <p><a href="https://github.com/rsdoiel/mkpage">mkpage</a> started as an experiment in building a simple single page generator. It's responsibilities include mapping data sources to the template, transforming data if needed and rendering the results. After reviewing the websites I've setup in the last year or two I realized I had three common types of data.</p>
-   <ol type="1">
+   <ol>
    <li>Plain text or content that did not need further processing</li>
    <li>Markdown content (e.g. page content, navigation lists)</li>
    <li>Occassionally I include content from JSON feeds</li>
    </ol>
    <p>I also realized I only needed to handle three data sources.</p>
-   <ol type="1">
+   <ol>
    <li>strings</li>
    <li>files</li>
    <li>web resources</li>
@@ -58,22 +58,25 @@
    <p>That poses the question of how to express the data format and the data source when mapping the content into a template. The web resources are easy in the sense that the web responses include content type information. Files can be simple too as the file extension indicates their format (e.g. ".md" for Markdown, ".json" for JSON documents). What remained was how to identify a text string's format. I opted for a prefix ending in a colon (e.g. "text:" for plain text, "markdown:" for markdown and "json:" for JSON). This mapping allows for a simple key/value relationship to be expressed easily on the command line.</p>
    <h3>mkpage in action</h3>
    <p>Describing how to build "mypage.html" from "mypage.md" and "nav.md" (containing links for navigating the website) is as easy as typing</p>
-   <pre class="shell"><code>    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html</code></pre>
+   <pre class="shell"><code>    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html
+   </code></pre>
    <p>In this example the template is called "page.tmpl" and we redirect the output to "mypage.html".</p>
    <p>Adding a custom page title is easy too.</p>
    <pre class="shell"><code>    mkpage &quot;title=text:My Page&quot; \
            &quot;content=mypage.md&#39; &quot;navigation=nav.md&quot; 
            page.tmpl \
-           &gt; mypage.html</code></pre>
+           &gt; mypage.html
+   </code></pre>
    <p>Likewise integrating some JSON data from weather.gov is relatively straight forward. The hardest part is discovering the <a href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a> that returns JSON! Notice I have added a weather field and the URL. When data is recieved back from weather.gov it is JSON decoded and then passed to the template for rendering using the "range" template function.</p>
    <pre class="shell"><code>    mkpage &quot;title=My Page&quot; \
            &quot;content=mypage.md&quot; \
            &quot;navigation=nav.md&quot; \
            &quot;weather=http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json&quot; \
            page.tmpl \
-           &gt; mypage.html</code></pre>
+           &gt; mypage.html
+   </code></pre>
    <p>What is <em>mkpage</em> doing?</p>
-   <ol type="1">
+   <ol>
    <li>Reading the data sources and formats from the command line</li>
    <li>Transforming the Markdown and JSON content appropriately</li>
    <li>Applying them to the template (e.g. page.tmpl)</li>
@@ -81,32 +84,30 @@
    </ol>
    <p>Building a website then is only a matter of maintaining navigation in <em>nav.md</em> and identifing the pages needing to be created. I can easily automated that using the Unix find, grep, cut and sort. Also with find I can iteratively process each markdown file applying a template and rendering the related HTML file. This can be done for a site of a few pages (e.g. about, resume and cv) to more complex websites like blogs and repository activities.</p>
    <p>Here's an example template that would be suitable for the previous command line example. It's mostly just HTML and some curly bracket notation sprinkled in.</p>
-   <div id="cb4" class="sourceCode">
-   <pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
-   <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">&lt;html&gt;</span></span>
-   <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="kw">&lt;head&gt;</span></span>
-   <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>        {{with .title}}<span class="kw">&lt;title&gt;</span>{{- . -}}<span class="kw">&lt;/title&gt;</span>{{end}}</span>
-   <span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>        <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;css/site.css&quot;</span><span class="kw">&gt;</span></span>
-   <span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">&lt;/head&gt;</span></span>
-   <span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="kw">&lt;body&gt;</span></span>
-   <span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>        <span class="kw">&lt;nav&gt;</span></span>
-   <span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>        {{ .navigation }}</span>
-   <span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>        <span class="kw">&lt;/nav&gt;</span></span>
-   <span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>        <span class="kw">&lt;section&gt;</span></span>
-   <span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>        {{ .content }}</span>
-   <span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>        <span class="kw">&lt;/section&gt;</span></span>
-   <span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>        <span class="kw">&lt;aside&gt;</span></span>
-   <span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>        Weather Demo<span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
-   <span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>        <span class="kw">&lt;ul&gt;</span></span>
-   <span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>        {{range .weather.data.text}}</span>
-   <span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>            <span class="kw">&lt;li&gt;</span>{{ . }}<span class="kw">&lt;/li&gt;</span></span>
-   <span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>        {{end}}</span>
-   <span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>        <span class="kw">&lt;/ul&gt;</span></span>
-   <span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a>        <span class="kw">&lt;/aside&gt;</span></span>
-   <span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a></span>
-   <span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>    <span class="kw">&lt;/body&gt;</span></span>
-   <span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>    <span class="kw">&lt;/html&gt;</span></span></code></pre>
-   </div>
+   <div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1"></a>    <span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+   <span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">&lt;html&gt;</span></span>
+   <span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">&lt;head&gt;</span></span>
+   <span id="cb4-4"><a href="#cb4-4"></a>        {{with .title}}<span class="kw">&lt;title&gt;</span>{{- . -}}<span class="kw">&lt;/title&gt;</span>{{end}}</span>
+   <span id="cb4-5"><a href="#cb4-5"></a>        <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;css/site.css&quot;</span><span class="kw">&gt;</span></span>
+   <span id="cb4-6"><a href="#cb4-6"></a>    <span class="kw">&lt;/head&gt;</span></span>
+   <span id="cb4-7"><a href="#cb4-7"></a>    <span class="kw">&lt;body&gt;</span></span>
+   <span id="cb4-8"><a href="#cb4-8"></a>        <span class="kw">&lt;nav&gt;</span></span>
+   <span id="cb4-9"><a href="#cb4-9"></a>        {{ .navigation }}</span>
+   <span id="cb4-10"><a href="#cb4-10"></a>        <span class="kw">&lt;/nav&gt;</span></span>
+   <span id="cb4-11"><a href="#cb4-11"></a>        <span class="kw">&lt;section&gt;</span></span>
+   <span id="cb4-12"><a href="#cb4-12"></a>        {{ .content }}</span>
+   <span id="cb4-13"><a href="#cb4-13"></a>        <span class="kw">&lt;/section&gt;</span></span>
+   <span id="cb4-14"><a href="#cb4-14"></a>        <span class="kw">&lt;aside&gt;</span></span>
+   <span id="cb4-15"><a href="#cb4-15"></a>        Weather Demo<span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+   <span id="cb4-16"><a href="#cb4-16"></a>        <span class="kw">&lt;ul&gt;</span></span>
+   <span id="cb4-17"><a href="#cb4-17"></a>        {{range .weather.data.text}}</span>
+   <span id="cb4-18"><a href="#cb4-18"></a>            <span class="kw">&lt;li&gt;</span>{{ . }}<span class="kw">&lt;/li&gt;</span></span>
+   <span id="cb4-19"><a href="#cb4-19"></a>        {{end}}</span>
+   <span id="cb4-20"><a href="#cb4-20"></a>        <span class="kw">&lt;/ul&gt;</span></span>
+   <span id="cb4-21"><a href="#cb4-21"></a>        <span class="kw">&lt;/aside&gt;</span></span>
+   <span id="cb4-22"><a href="#cb4-22"></a></span>
+   <span id="cb4-23"><a href="#cb4-23"></a>    <span class="kw">&lt;/body&gt;</span></span>
+   <span id="cb4-24"><a href="#cb4-24"></a>    <span class="kw">&lt;/html&gt;</span></span></code></pre></div>
    <p>You can find out more about <a href="https://github.com/rsdoiel/mkpage">mkpage</a> <a href="https://rsdoiel.github.io/mkpage">rsdoiel.github.io/mkpage</a>.</p>
    <p>To learn more about Go's text templates see <a href="https://golang.org/pkg/text/template/">golang.org/pkg/text/template</a>.</p>
    <p>If your site generator needs are more than <em>mkpage</em> I suggest <a href="https://gohugo.io">Hugo</a>. It's what I would probably reach for if I was building a large complex organizational site or news site.</p>

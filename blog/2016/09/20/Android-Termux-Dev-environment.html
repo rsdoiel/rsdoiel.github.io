@@ -28,7 +28,7 @@
    <p>By R. S. Doiel 2016-09-20</p>
    <p>Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.</p>
    <h2>Challenges</h2>
-   <ol type="1">
+   <ol>
    <li>Find a way to run Bash without rooting my device</li>
    <li>See if I could use my normal web toolkit
    <ul>
@@ -52,7 +52,8 @@
        imagemagick jq less lynx m4 make-dev man-dev nano nodejs \
            openssh patch php-dev python readline-dev rlwrap rsync ruby-dev \
            sed sensible-utils sharutils sqlite tar texinfo tree unzip vim \
-           w3m wget zip</code></pre>
+           w3m wget zip
+   </code></pre>
    <p>This then allowed me to setup my <em>golang</em> envuronment variables and install my typical custom written tools</p>
    <pre class="shell"><code>    export PATH=$HOME/bin:$PATH
        export GOPATH=$HOME
@@ -60,13 +61,15 @@
        go get github.com/rsdoiel/shelltools/...
        go get github.com/caltechlibrary/mkpage/...
        go get github.com/caltechlibrary/md2slides/...
-       go get github.com/caltechlibrary/ws/...</code></pre>
+       go get github.com/caltechlibrary/ws/...
+   </code></pre>
    <p>Finally pulled down some content to test.</p>
    <pre class="shell"><code>    cd
        mkdir Sites
        git clone https://github.com/rsdoiel/rsdoiel.github.io.git Sites/rsdoiel.github.io
        cd  Sites/rsdoiel.github.io
-       ws</code></pre>
+       ws
+   </code></pre>
    <p>This started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000 and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.</p>
       </article>
     </section>

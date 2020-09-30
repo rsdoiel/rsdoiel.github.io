@@ -3,7 +3,7 @@
     "title": "Software Tools",
     "number": 1,
     "byline": "R. S. Doiel",
-    "date": "2020-04-11",
+    "date": "2020-09-29",
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
@@ -13,7 +13,7 @@
 
 ## Overview
 
-This is post starts a series revisiting the
+This post starts a series revisiting the
 programs described in the 1981 book by Brian W. Kernighan and
 P. J. Plauger's called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern).
 The book is available from the [Open Library](https://openlibrary.org/)

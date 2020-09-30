@@ -42,23 +42,23 @@
    <p>Many companies use Go. The short list includes Google, Amazon, Netflix, Dropbox, Box, eBay, Pearsons and even Walmart and Microsoft. This came to my attention at developer conferences back in 2014. People from many of these companies started presenting at conferences on pilot projects that had been successful and moved to production. Part of what drove adoption was the ease of development in Go along with good system performance. I also think there was a growing disenchantment with alternatives like C++, C sharp and Java as well as the weight of the LAMP, Tomcat, and OpenStack.</p>
    <p>Highly visible Go based projects include</p>
    <ul>
-   <li><p><a href="http://docker.org">Docker</a> and <a href="http://www.docker.com">Rocket</a> - Containerization for running process in the cloud</p></li>
-   <li><p><a href="http://kubernetes.io/">Kubernettes</a> and <a href="https://www.terraform.io/">Terraform</a> - Container orchestration systems</p></li>
-   <li><p><a href="http://hugo.io">Hugo</a> - the fast/popular static website generator, an alternative to Jekyll, for those who want speed</p></li>
-   <li><p><a href="https://caddyserver.com/">Caddy</a> - a Go based web server trying to unseat Apache/NGinX focusing on easy of use plus speed</p></li>
-   <li><p><a href="http://ipfs.io">IPFS</a> - a cutting edge distributed storage system based on block chains</p></li>
+   <li><a href="http://docker.org">Docker</a> and <a href="http://www.docker.com">Rocket</a> - Containerization for running process in the cloud</li>
+   <li><a href="http://kubernetes.io/">Kubernettes</a> and <a href="https://www.terraform.io/">Terraform</a> - Container orchestration systems</li>
+   <li><a href="http://hugo.io">Hugo</a> - the fast/popular static website generator, an alternative to Jekyll, for those who want speed</li>
+   <li><a href="https://caddyserver.com/">Caddy</a> - a Go based web server trying to unseat Apache/NGinX focusing on easy of use plus speed</li>
+   <li><a href="http://ipfs.io">IPFS</a> - a cutting edge distributed storage system based on block chains</li>
    </ul>
    <h3>Who is using Blevesearch?</h3>
    <p>Here's some larger projects using Bleve.</p>
    <ul>
-   <li><p><a href="http://www.couchbase.com">Couchbase</a>, a NoSQL database platform are replacing Lucene with Bleve. Currently the creator of Bleve works for them.</p></li>
-   <li><p><a href="http://hugo.io">Hugo</a> can integrate with Bleve for search and index generation</p></li>
-   <li><p><a href="https://caddyserver.com/">Caddy</a> integrates with Bleve to provide an embedded search capability</p></li>
+   <li><a href="http://www.couchbase.com">Couchbase</a>, a NoSQL database platform are replacing Lucene with Bleve. Currently the creator of Bleve works for them.</li>
+   <li><a href="http://hugo.io">Hugo</a> can integrate with Bleve for search and index generation</li>
+   <li><a href="https://caddyserver.com/">Caddy</a> integrates with Bleve to provide an embedded search capability</li>
    </ul>
    <h2>Managing risks</h2>
    <p>In 2014 Go was moving from bleeding to leading edge. Serious capital was behind its adoption and it stopped being an exotic conference item. In 2014 Bleve was definitely bleeding edge. By late 2015 and early 2016 the program level API stabilized. People were piloting projects with it. This included our small group at Caltech Library. In 2015 non-English language support appeared followed by a growing list of non-European languages in 2016. By mid 2016 we started to see missing features like alternative sorting added. While Bleve isn't yet 1.0 (Feb. 2018) it is reliable. The primary challenge for the Bleve project is documentation targeting the novice and non-Programmer users. Bleve has proven effective as an indexing and search platform for archival, library, and data repository content.</p>
    <p>Adopting new software comes with risk. We have mitigated this in two ways.</p>
-   <ol type="1">
+   <ol>
    <li>Identify alternative technology (a plan B)</li>
    <li>Architect our systems for easy decomposition and re-composition</li>
    </ol>

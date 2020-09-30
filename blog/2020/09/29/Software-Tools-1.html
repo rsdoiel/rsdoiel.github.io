@@ -26,12 +26,12 @@
       <article>
 	  <h1>Software Tools, Chapter 1</h1>
    <h2>Overview</h2>
-   <p>This is post starts a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger's called <a href="https://archive.org/details/softwaretoolsinp00kern">Software Tools in Pascal</a>. The book is available from the <a href="https://openlibrary.org/">Open Library</a> and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs. Pascal was chosen as the implementation language because at the time Pascal was supplanting FORTRAN as the portable language of choice (an early version used a dialect of FORTRAN, "ratifier"). In 1981 <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> was not ubiquitous.</p>
+   <p>This post starts a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger's called <a href="https://archive.org/details/softwaretoolsinp00kern">Software Tools in Pascal</a>. The book is available from the <a href="https://openlibrary.org/">Open Library</a> and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs. Pascal was chosen as the implementation language because at the time Pascal was supplanting FORTRAN as the portable language of choice (an early version used a dialect of FORTRAN, "ratifier"). In 1981 <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> was not ubiquitous.</p>
    <p>In this series of posts I will present the K &amp; P programs re-implemented in Oberon-7 using Karl Landström's <a href="http://miasap.se/obnc/">OBNC</a> compiler[^langstrom].</p>
    <p>[^langstrom]: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.</p>
    <h2>Getting Started.</h2>
    <p>The opening chapter in the K &amp; P book is about getting oriented to developing in Pascal and starts off with some very simple straight forward and useful examples. It introduces programs which for the most part are included in standard POSIX compatible systems (e.g. Linux, macOS, even Windows 10).</p>
-   <ol type="1">
+   <ol>
    <li>CopyProg, this is like "cat" in a POSIX system[^POSIX]</li>
    <li>CharCount, this is like the "wc" POSIX command using the "-c" option</li>
    <li>LineCount, this is like the "wc" POSIX command using the "-l" option</li>
@@ -59,7 +59,8 @@
 
    BEGIN
      copy();
-   END CopyProg.</code></pre>
+   END CopyProg.
+   </code></pre>
    <h4>Limitations</h4>
    <p>This program only works with standard input and output. A more generalized version would work with named files.</p>
    <h3><a href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">1.2 Counting Characters</a></h3>
@@ -86,7 +87,8 @@
 
    BEGIN
      CharCount();
-   END CharCount.</code></pre>
+   END CharCount.
+   </code></pre>
    <h4>Limitations</h4>
    <p>The obvious limitation is the naivete's in counting characters. Even non-printed characters are counted. Like our first program this only works on standard input and output. Ideally this should be written so it works on any file including standard input and output. If the reader implements that it could become part of a package on statistical analysis of plain text files.</p>
    <h3><a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.3 Counting Lines</a></h3>
@@ -115,7 +117,8 @@
 
    BEGIN
      LineCount();
-   END LineCount.</code></pre>
+   END LineCount.
+   </code></pre>
    <h4>Limitations</h4>
    <p>This program assumes that NEWLINE is ASCII value 10. Line delimiters vary between operating systems. If your OS used carriage returns without a NEWLINE then this program would not count lines correctly. The reader could extend the checking to support carriage returns, new lines, and carriage return with new lines and cover most versions of line endings.</p>
    <h3><a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.4 Counting Words</a></h3>
@@ -155,7 +158,8 @@
 
    BEGIN
      WordCount();
-   END WordCount.</code></pre>
+   END WordCount.
+   </code></pre>
    <h2><a href="https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up">1.5 Removing Tabs</a></h2>
    <p>The source code for "detab" can be found in <a href="https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up">page 24</a> in the last section of chapter 1. The "detab" program that removes tabs and replaces them with spaces. Rather than a simple "tab" replaced with four spaces, this "detab" preserves the idea of tab stops. In 1981 typewrites were still widely used though word processing software would replacement. I think this shows an important aspect of writing programs. Most humans of the time who worked in offices preparing documents assumed the type writer or even the computer interface version, the teletype, was the model's assumptions. K &amp; P implementation includes separate source files for setting tab stops and checking for a tab stop. The Pascal they used don't support separate program modules in the way later Pascal versions would (e.g. UCSD Pascal and Turbo Pascal). Modularization and code reuse are import software techniques. To allow reuse the K &amp; P book included a preprocessor for their programs that support including files inline. This preprocessor written in Pascal was based on the early versions of the "C" preprocessor they had available in the early UNIX systems. Not terribly Pascal line but it worked and allowed the two files to be shared between this program and the one in the next chapter.</p>
    <p>Oberon-7 of course benefits from all the language improvements that came before. Oberon-7 supports modules and as such their is no need for a preprocessor. Rather than have three files to build our program well have two, One will be "Detab.Mod" and the other will be "Tabs.Mod". The latter one will allow for code reuse and be the place where we define our tab stop data structure as well as the procedures that operating on that data structure.</p>
@@ -197,7 +201,8 @@
 
    BEGIN
      Detab();
-   END Detab.</code></pre>
+   END Detab.
+   </code></pre>
    <p>Our second module is "Tabs.Mod" provides the supporting procedures and definition of the our "TabType" data structure. For us this is the first time we write a module which "exports" procedures and type definitions. If you are new to Oberon, expected constants, variables and procedures names have a trailing "*". Otherwise the Oberon compiler will assume a local use only. This is a very powerful information hiding capability and what allows you to evolve a modules' internal implementation independently of the programs that rely on it.</p>
    <pre class="oberon"><code>MODULE Tabs;
 
@@ -234,7 +239,8 @@
        END;
    END SetTabs;
 
-   END Tabs.</code></pre>
+   END Tabs.
+   </code></pre>
    <p>NOTE: This module is used by Detab.Mod and Entab.Mod and provides for common type definitions and code reuse. We exported TabType, TabPos and SetTabs. Everything else is private to this module.</p>
    <h2>In closing</h2>
    <p>This post briefly highlighted ports of the programs presented in Chapter 1 of "Software Tools in Pascal". I have included links below for the source files of my implementation of the K &amp; P tools. One of the nice features of Oberon is that any text after the closing "END *." statement is ignore by the compiler. In these source files I've transcribed the documentation examples in the K &amp; P text as well as the Pascal shown in the chapter. In this way you can compare implementations easily and see what has changed between the languages.</p>

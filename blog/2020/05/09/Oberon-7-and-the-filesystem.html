@@ -48,7 +48,7 @@
    <p>In POSIX we generally want to explicitly close the file when we're through. In the Oberon language we only need to close a file if we've modified it.</p>
    <p>The behavior of files and riders in Oberon creates interesting nuances around deleting files. The Delete operation can in principle happen multiple times before the file is deleted on disc. That is because the file handles and riders may still be operating on it. To know when a file is finally deleted when <code>Delete</code> procedure is called it includes a results parameter. When that value is set to zero by the <code>Delete</code> procedure you know your file has been deleted.</p>
    <p>The <code>Files</code> module provides a number of methods to read and write basic Oberon types. These use the rider rather than the file handle. Calling them automatically updates the riders position. The procedures themselves map to what we've seen in the modules <code>In</code> and <code>Out</code>.<br />
-   There are a few additional commands for file system house keeping such as <code>Length</code>, <code>GetDate</code>, <code>Base</code>. See the OBNC documentation for the <code>Files</code> module for details[^FilesModule]</p>
+   There are a few additional commands for file system house keeping such as <code>Length</code>, <code>GetDate</code>, <code>Base</code>. See the OBNC documentation for the <code>Files</code> module for details<a href="https://miasap.se/obnc/obncdoc/basic/Files.def.html">^FilesModule</a></p>
    <p>In the following examples we'll be using the <code>Files</code> module to create, update and delete a file called <code>HelloWorld.txt</code>.</p>
    <h3>Creating a file</h3>
    <p>The recipe we want to follow for creating a file is New (creates an empty file in memory), Register (associations the filename with the file system), Set the rider position, with the rider write our content and with the file call close because we've have changed the file.</p>
@@ -72,14 +72,15 @@
        Files.WriteString(r, 0AX);
        (* Close our modified file *)
        Files.Close(f);
-     END WriteHelloWorld;</code></pre>
+     END WriteHelloWorld;
+   </code></pre>
    <h4>Receipt in review</h4>
    <ul>
-   <li><p>New, creates our file</p></li>
-   <li><p>Register, associates the file handle with the file system</p></li>
-   <li><p>Set initializes the rider's position</p></li>
-   <li><p>WriteString, writes our "Hello World!" to the file</p></li>
-   <li><p>Close, closes the file, flushing unwritten content to disc</p></li>
+   <li>New, creates our file</li>
+   <li>Register, associates the file handle with the file system</li>
+   <li>Set initializes the rider's position</li>
+   <li>WriteString, writes our "Hello World!" to the file</li>
+   <li>Close, closes the file, flushing unwritten content to disc</li>
    </ul>
    <h3>Working with an existing file</h3>
    <p>If we're working with an existing file we swap <code>New</code> for a procedure named <code>Old</code>. We don't need to register the file because it already exists. We still need to set our rider and we want to read back the string we previously wrote. We don't need to close it because we haven't modified it. To demonstrate a new procedure is added to our module called <code>ReadHelloWorld</code>.</p>
@@ -99,7 +100,8 @@
        (* Check the value we read, if it is not the name, 
           halt the program with an error *)
        ASSERT(src = &quot;Hello World!&quot;);
-     END ReadHelloWorld;</code></pre>
+     END ReadHelloWorld;
+   </code></pre>
    <h4>Receipt in review</h4>
    <ul>
    <li>Old, gets returns a file handle for an existing file</li>
@@ -117,7 +119,8 @@
        Files.Delete(&quot;HelloWorld.txt&quot;, result);
        (* Check our result, if not zero then halt program with error *)
        ASSERT(result = 0);
-     END DeleteHelloWorld;</code></pre>
+     END DeleteHelloWorld;
+   </code></pre>
    <h4>Receipt in review</h4>
    <ul>
    <li>Delete the file setting a result value</li>
@@ -181,7 +184,8 @@
            WriteHelloWorld();
            ReadHelloWorld();
            DeleteHelloWorld();
-       END TypingHi.</code></pre>
+       END TypingHi.
+   </code></pre>
    <h3>Next and Previous</h3>
    <ul>
    <li>Next <a href="../25/Dynamic-types.html">Dynamic Types</a></li>
