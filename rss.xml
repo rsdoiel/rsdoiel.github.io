@@ -5,9 +5,65 @@
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigsRobert&#39;s ramblings and wonderings</description>
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
-        <pubDate>Thu, 03 Sep 2020 00:00:00 UTC</pubDate>
-        <lastBuildDate>Thu, 03 Sep 2020 00:00:00 UTC</lastBuildDate>
+        <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+        <lastBuildDate>Tue, 29 Sep 2020 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.2.0</generator>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/Tabs.Mod</link>
+            <description>&lt;p&gt;MODULE Tabs;&lt;/p&gt;&#xA;&lt;p&gt;CONST MAXLINE = 1000; (* or whatever *)&lt;/p&gt;&#xA;&lt;p&gt;TYPE TabType* = ARRAY MAXLINE OF BOOLEAN;&lt;/p&gt;&#xA;&lt;p&gt;(* TabPos – return TRUE if col is a tab stop &lt;em&gt;) PROCEDURE TabPos&lt;/em&gt;(col : INTEGER; VAR tabstops : TabType) : BOOLEAN; VAR res : BOOLEAN; BEGIN res := FALSE; (* Initialize our internal default return value *) IF (col &amp;gt; MAXLINE) THEN res := TRUE; ELSE res := tabstops[col]; END; RETURN res END TabPos;&lt;/p&gt;&#xA;&lt;p&gt;(* SetTabs – set initial tab stops &lt;em&gt;) PROCEDURE SetTabs&lt;/em&gt;(VAR tabstops: TabType); CONST TABSPACE = 4; (* 4 spaces per tab &lt;em&gt;) VAR i : INTEGER; BEGIN (&lt;/em&gt; NOTE: Arrays in Oberon start at zero, we want to stop at the last cell *) FOR i := 0 TO (MAXLINE - 1) DO tabstops[i] := (i MOD TABSPACE = 1); END; END SetTabs;&lt;/p&gt;&#xA;&lt;p&gt;END Tabs. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/Tabs.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/Detab.Mod</link>
+            <description>&lt;p&gt;MODULE Detab; IMPORT In, Out, Tabs;&lt;/p&gt;&#xA;&lt;p&gt;CONST NEWLINE = 10; TAB = 9; BLANK = 32;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE Detab; VAR c : CHAR; col : INTEGER; tabstops : Tabs.TabType; BEGIN Tabs.SetTabs(tabstops); (* set initial tab stops *) col := 1; REPEAT In.Char(c); IF In.Done THEN IF (ORD(c) = TAB) THEN REPEAT Out.Char(CHR(BLANK)); col := col + 1; UNTIL Tabs.TabPos(col, tabstops); ELSIF (ORD(c) = NEWLINE) THEN Out.Char(c); col := 1; ELSE Out.Char(c); col := col + 1; END; END; UNTIL In.Done # TRUE; END Detab;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN Detab(); END Detab.&lt;/p&gt;&#xA;&lt;p&gt;K &amp;amp; P, used a pre-processor similar to the C pre-processor to compensate for the inability of their version of Pascal to include modules (a.k.a. Units in UCSD and Turbo Pascal). Oberon-7 addresses this easily with the use of Modules which happen to be our fundamental unit of code in Oberon-7. The “Detab” module and later “Entab” will both take advantage of common type definitions and procedures which we’ll put in a module called “Tabs”. This removes the need for preprocessors as a mechanism of code reuse. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/Detab.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/WordCount.Mod</link>
+            <description>&lt;p&gt;MODULE WordCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE WordCount; CONST NEWLINE = 10; BLANK = 32; TAB = 9;&lt;/p&gt;&#xA;&lt;p&gt;VAR nw : INTEGER; c : CHAR; inword : BOOLEAN; BEGIN nw := 0; inword := FALSE; REPEAT In.Char(c); IF In.Done THEN IF ((ORD(c) = BLANK) OR (ORD(c) = NEWLINE) OR (ORD(c) = TAB)) THEN inword := FALSE; ELSIF (inword = FALSE) THEN inword := TRUE; nw := nw + 1; END; END; UNTIL In.Done # TRUE; Out.Int(nw, 1); Out.Ln(); END WordCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN WordCount(); END WordCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/WordCount.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/LineCount.Mod</link>
+            <description>&lt;p&gt;MODULE LineCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE LineCount; CONST NEWLINE = 10;&lt;/p&gt;&#xA;&lt;p&gt;VAR nl : INTEGER; c : CHAR; BEGIN nl := 0; REPEAT In.Char(c); IF In.Done THEN IF (ORD(c) = NEWLINE) THEN nl := nl + 1; END; END; UNTIL In.Done # TRUE; Out.Int(nl, 1); Out.Ln(); END LineCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN LineCount(); END LineCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/LineCount.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/CharCount.Mod</link>
+            <description>&lt;p&gt;MODULE CharCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE CharCount; VAR nc : INTEGER; c : CHAR; BEGIN nc := 0;&lt;/p&gt;&#xA;&lt;p&gt;REPEAT In.Char(c); IF In.Done THEN nc := nc + 1; END; UNTIL In.Done # TRUE; Out.Int(nc, 1); Out.Ln(); END CharCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN CharCount(); END CharCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/CharCount.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/CopyProg.Mod</link>
+            <description>&lt;p&gt;MODULE CopyProg; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE copy; VAR c : CHAR; BEGIN REPEAT In.Char(c); IF In.Done THEN Out.Char(c); END; UNTIL In.Done # TRUE; END copy;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN copy(); END CopyProg.&lt;/p&gt;&#xA;&lt;p&gt;===============================================================&lt;/p&gt;&#xA;&lt;p&gt;PROGRAM …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/CopyProg.Mod</guid>
+        </item>
+        <item>
+            <title>Software Tools</title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.md</link>
+            <description>&lt;h1 id=&#34;software-tools-chapter-1&#34;&gt;Software Tools, Chapter 1&lt;/h1&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;This is post starts a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called &lt;a href=&#34;https://archive.org/details/softwaretoolsinp00kern&#34;&gt;Software Tools in Pascal&lt;/a&gt;. The book is available from the &lt;a href=&#34;https://openlibrary.org/&#34;&gt;Open Library&lt;/a&gt; and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs. Pascal was chosen as the implementation language because at the time Pascal was supplanting FORTRAN as the portable language of choice (an early version used a dialect of FORTRAN, “ratifier”). In 1981 &lt;a href=&#34;https://en.wikipedia.org/wiki/C_(programming_language)&#34;&gt;C&lt;/a&gt; was not ubiquitous.&lt;/p&gt;&#xA;&lt;p&gt;In this series of posts I will present the K &amp;amp; P programs re-implemented in Oberon-7 using Karl Landström’s &lt;a href=&#34;http://miasap.se/obnc/&#34;&gt;OBNC&lt;/a&gt; compiler[^langstrom]. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.md</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/08/15/SlowCat.Mod</link>
+            <description>&lt;p&gt;MODULE SlowCat; IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;&lt;/p&gt;&#xA;&lt;p&gt;CONST MAXLINE = 1024;&lt;/p&gt;&#xA;&lt;p&gt;VAR count: INTEGER;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE Usage(); BEGIN Out.String(“USAGE:”);Out.Ln(); Out.Ln(); Out.String(“SlowCat outputs lines of text delayed by”);Out.Ln(); Out.String(“a number of seconds. It takes one parameter,”);Out.Ln(); Out.String(“an integer, which is the number of seconds to”);Out.Ln(); Out.String(“delay a line of output.”);Out.Ln(); Out.String(“SlowCat works on standard input and output.”);Out.Ln(); Out.Ln(); Out.String(“EXAMPLE:”); Out.Ln(); Out.String(&#34; SlowCat 15 &amp;lt; README.md&#34;);Out.Ln(); Out.Ln();&lt;br /&gt;&#xA;END Usage;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ProcessArgs() : BOOLEAN; VAR i : INTEGER; ok : BOOLEAN; arg : ARRAY MAXLINE OF CHAR; res : BOOLEAN; BEGIN res := FALSE; IF Args.count = 1 THEN Args.Get(0, arg, i); Convert.StringToInt(arg, i, ok); IF ok THEN (* convert seconds to microseconds of clock &lt;em&gt;) count := (i &lt;/em&gt; 1000); res := TRUE; END; END; RETURN res END ProcessArgs; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Sat, 15 Aug 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/08/15/SlowCat.Mod</guid>
+        </item>
         <item>
             <title>Portable Oberon 7</title>
             <link>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-7.md</link>
