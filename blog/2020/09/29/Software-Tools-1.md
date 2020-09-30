@@ -45,7 +45,7 @@ systems (e.g. Linux, macOS, even Windows 10).
 
 ### [1.1. File Copying](https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up)
 
-The "copyprog.pas" is shown on [page 9](https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up).
+The program "copyprog.pas" is shown on [page 9](https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up).
 It introduces both the copy procedure described in the preceding pages as
 well as complete program. This "Copy" program functions like POSIX "cat"
 without command line parameters.  It reads from standard input and writes
