@@ -267,26 +267,29 @@ of chapter 1. The "detab" program that removes
 tabs and replaces them with spaces. Rather than a simple "tab"
 replaced with four spaces, this "detab" preserves the idea of
 tab stops. In 1981 typewrites were still widely used though
-word processing software would replacement. I think this shows
+word processing software would replace them. I think this shows
 an important aspect of writing programs. Most humans of the time
 who worked in offices preparing documents assumed the type writer
 or even the computer interface version, the teletype, was the model's
-assumptions. K & P implementation includes separate source files
+assumptions. That awareness informed their solutikn.
+
+K & P implementation includes separate source files
 for setting tab stops and checking for a tab stop.  The Pascal they
-used don't support separate program modules in the way later Pascal
+used didn't support separate program modules in the way later Pascal
 versions would (e.g. UCSD Pascal and Turbo Pascal). Modularization
 and code reuse are import software techniques. To allow reuse
 the K & P book included a preprocessor for their programs
 that support including files inline. This preprocessor written
 in Pascal was based on the early versions of the "C" preprocessor
 they had available in the early UNIX systems. Not terribly Pascal
-line but it worked and allowed the two files to be shared between
-this program and the one in the next chapter.
+like but it worked and allowed the two files to be shared between
+this program and one in the next chapter.
 
 Oberon-7 of course benefits from all the language improvements that
-came before. Oberon-7 supports modules and as such their is no need
+came after Pascal. Oberon-7 supports modules and as such
+there is no need
 for a preprocessor.  Rather than have three files to build our
-program well have two, One will be "Detab.Mod" and the other will
+program I have two. One will be "Detab.Mod" and the other will
 be "Tabs.Mod". The latter one will allow for code reuse and be the
 place where we define our tab stop data structure as well as the
 procedures that operating on that data structure.
@@ -340,7 +343,7 @@ BEGIN
 END Detab.
 ```
 
-Our second module is "Tabs.Mod" provides the supporting procedures
+Our second module is "Tabs.Mod". It provides the supporting procedures
 and definition of the our "TabType" data structure. For us this
 is the first time we write a module which "exports" procedures
 and type definitions. If you are new to Oberon, expected constants,
