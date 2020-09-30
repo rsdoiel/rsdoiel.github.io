@@ -19,13 +19,10 @@ P. J. Plauger's called [Software Tools in Pascal](https://archive.org/details/so
 The book is available from the [Open Library](https://openlibrary.org/)
 and physical copies are still (2020) commonly available from used book 
 sellers.  The book was an early text on creating portable command 
-line programs.  Pascal was chosen as the implementation language 
-because at the time Pascal was supplanting FORTRAN as the portable 
-language of choice (an early version used a dialect of FORTRAN, 
-"ratifier"). In 1981 [C](https://en.wikipedia.org/wiki/C_(programming_language)) was not ubiquitous.
+line programs.  
 
-In this series of posts I will present the K & P programs re-implemented in
-Oberon-7 using Karl Landström's [OBNC](http://miasap.se/obnc/)
+In this series I present the K & P programs re-implemented in
+Oberon-7 based on the modules provided by Karl Landström's [OBNC](http://miasap.se/obnc/)
 compiler[^langstrom].
 
 [^langstrom]: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.
