@@ -12,68 +12,163 @@
   <body>
     <nav>
     <ul>
-    <li><a href="/">R. S. Doiel</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/presentations.html">Presentations</a></li>
-    <li><a href="/library-terminology.html">Library Jargon</a></li>
-    <li><a href="/cv.html">CV</a></li>
-    <li><a href="/resume.html">Resume</a></li>
-    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li>
+    <a href="/">R. S. Doiel</a>
+    </li>
+    <li>
+    <a href="/blog/">Blog</a>
+    </li>
+    <li>
+    <a href="/presentations.html">Presentations</a>
+    </li>
+    <li>
+    <a href="/library-terminology.html">Library Jargon</a>
+    </li>
+    <li>
+    <a href="/cv.html">CV</a>
+    </li>
+    <li>
+    <a href="/resume.html">Resume</a>
+    </li>
+    <li>
+    <a href="https://github.com/rsdoiel">GitHub</a>
+    </li>
     </ul>
     </nav>
 
     <section>
       <article>
-	  <h1>Portable Oberon 7</h1>
-   <h2>using OBNC modules</h2>
-   <p>This is the eleventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-   <h2>Working with standard input</h2>
-   <p>By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)</p>
-   <p>Karl Landström's <a href="https://miasap.se/obnc/">OBNC</a>, Oberon-7 compiler, comes with an Oberon-2 inspired set of modules described in the Oakwood Guidelines as well as several very useful additions making Oberon-7 suitable for writing programs in a POSIX environment. We're going to explore three of the Oakwood modules and two of Karl's own additions in this post as we create a program called <a href="SlowCat.Mod">SlowCat</a>. I am using the term "portable" to mean the code can be compiled using OBNC on macOS, Linux, and Raspberry Pi OS and Windows 10 (i.e. wherever OBNC is available). The Oakwood Guideline modules focus on portability between an Oberon System and other systems. I'll leave that discussion along with <a href="http://www.fim.uni-linz.ac.at/pow/pow.htm">POW!</a> to the end of this post.</p>
-   <h3>SlowCat</h3>
-   <p>Recently while I was reviewing logs at work using <a href="https://en.wikipedia.org/wiki/Cat_(Unix)">cat</a>, <a href="https://en.wikipedia.org/wiki/Grep">grep</a> and <a href="https://en.wikipedia.org/wiki/More_(command)">more</a> it struck me that it would have been nice if <strong>cat</strong> or <strong>more</strong> came with a time delay so you could use them like a teleprompter. This would let you casually watch the file scroll by while still being able to read the lines. The program we'll build in this post is "SlowCat" which accepts a command line parameter indicating the delay in seconds between display each line read from standard input.</p>
-   <h2>Working with Standard Input and Output</h2>
-   <p>The Oakwood guides for Oberon-2 describe two modules particularly useful for working with standard input and output. They are appropriately called <code>In</code> and <code>Out</code>. On many Oberon Systems these have been implemented such that your code could run under Unix or Oberon System with a simple re-compile. We've used <code>Out</code> in our first program of this series, "Hello World". It provides a means to write Oberon system base types to standard out. We've used <code>In</code> a few times too. But <code>In</code> is worth diving into a bit more.</p>
-   <h3>In</h3>
-   <p>The <a href="http://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> module provides a mirror of inputs to those of <a href="http://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>. In Karl's implementation we are interested in one procedure and module status variable.</p>
+	  <h1>
+   Portable Oberon 7
+   </h1>
+   <h2>
+   using OBNC modules
+   </h2>
+   <p>
+   This is the eleventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+   </p>
+   <h2>
+   Working with standard input
+   </h2>
+   <p>
+   By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)
+   </p>
+   <p>
+   Karl Landström’s <a href="https://miasap.se/obnc/">OBNC</a>, Oberon-7 compiler, comes with an Oberon-2 inspired set of modules described in the Oakwood Guidelines as well as several very useful additions making Oberon-7 suitable for writing programs in a POSIX environment. We’re going to explore three of the Oakwood modules and two of Karl’s own additions in this post as we create a program called <a href="SlowCat.Mod">SlowCat</a>. I am using the term “portable” to mean the code can be compiled using OBNC on macOS, Linux, and Raspberry Pi OS and Windows 10 (i.e. wherever OBNC is available). The Oakwood Guideline modules focus on portability between an Oberon System and other systems. I’ll leave that discussion along with <a href="http://www.fim.uni-linz.ac.at/pow/pow.htm">POW!</a> to the end of this post.
+   </p>
+   <h3>
+   SlowCat
+   </h3>
+   <p>
+   Recently while I was reviewing logs at work using <a href="https://en.wikipedia.org/wiki/Cat_(Unix)">cat</a>, <a href="https://en.wikipedia.org/wiki/Grep">grep</a> and <a href="https://en.wikipedia.org/wiki/More_(command)">more</a> it struck me that it would have been nice if <strong>cat</strong> or <strong>more</strong> came with a time delay so you could use them like a teleprompter. This would let you casually watch the file scroll by while still being able to read the lines. The program we’ll build in this post is “SlowCat” which accepts a command line parameter indicating the delay in seconds between display each line read from standard input.
+   </p>
+   <h2>
+   Working with Standard Input and Output
+   </h2>
+   <p>
+   The Oakwood guides for Oberon-2 describe two modules particularly useful for working with standard input and output. They are appropriately called <code>In</code> and <code>Out</code>. On many Oberon Systems these have been implemented such that your code could run under Unix or Oberon System with a simple re-compile. We’ve used <code>Out</code> in our first program of this series, “Hello World”. It provides a means to write Oberon system base types to standard out. We’ve used <code>In</code> a few times too. But <code>In</code> is worth diving into a bit more.
+   </p>
+   <h3>
+   In
+   </h3>
+   <p>
+   The <a href="http://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> module provides a mirror of inputs to those of <a href="http://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>. In Karl’s implementation we are interested in one procedure and module status variable.
+   </p>
    <ul>
-   <li><code>In.Line(VAR line: ARRAY OF CHAR)</code> : Read a sequence of characters from standard input from the current position in the file to the end of line.</li>
-   <li><code>In.Done</code> : Is a status Boolean variable, if the last call to an procedure in <code>In</code> was successful then it is set TRUE, otherwise FALSE (e.g. we're at the end of a file)</li>
+   <li>
+   <code>In.Line(VAR line: ARRAY OF CHAR)</code> : Read a sequence of characters from standard input from the current position in the file to the end of line.
+   </li>
+   <li>
+   <code>In.Done</code> : Is a status Boolean variable, if the last call to an procedure in <code>In</code> was successful then it is set TRUE, otherwise FALSE (e.g. we’re at the end of a file)
+   </li>
    </ul>
-   <p>We use Karl's <code>In.Line()</code> extension to the standard <code>In</code> implementation before and will do so again as it simplifies our code and keeps things easily readable.</p>
-   <p>There is one nuance with <code>In.Done</code> that is easy to get tripped up on. <code>In.Done</code> indicates if the last operation was successful. So if you're using <code>In.Line()</code> then <code>In.Done</code> should be true if reading the line was successful. If you hit the end of the file then <code>In.Done</code> should be false. When you write your loop this can be counter intuitive. Here is a example of testing <code>In.Done</code> with a repeat until loop.</p>
+   <p>
+   We use Karl’s <code>In.Line()</code> extension to the standard <code>In</code> implementation before and will do so again as it simplifies our code and keeps things easily readable.
+   </p>
+   <p>
+   There is one nuance with <code>In.Done</code> that is easy to get tripped up on. <code>In.Done</code> indicates if the last operation was successful. So if you’re using <code>In.Line()</code> then <code>In.Done</code> should be true if reading the line was successful. If you hit the end of the file then <code>In.Done</code> should be false. When you write your loop this can be counter intuitive. Here is a example of testing <code>In.Done</code> with a repeat until loop.
+   </p>
    <pre class="Oberon7"><code>    REPEAT
          In.Line(text);
          IF In.Done THEN
            Out.String(text);Out.Ln();
          END;
-       UNTIL In.Done = FALSE;
-   </code></pre>
-   <p>So when you read this it is easy to think of <code>In.Done</code> as you're done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we're at the end of the file, sets <code>In.Done</code> to false!</p>
-   <h3>Out</h3>
-   <p>As mention <code>Out</code> provides our output functions. We'll be using two procedure from <code>Out</code>, namely <code>Out.String()</code> and <code>Out.Ln()</code>. We've seen both before.</p>
-   <h3>Input</h3>
-   <p>"SlowCat" needs to calculate how often to write a line of text to standard output with the <code>Out</code> module. To do that I need access to the system's current time. There isn't an Oakwood module for time. There is a module called <code>Input</code> which provides a "Time" procedure. As a result I need to import <code>Input</code> as well as <code>In</code> even though I am using <code>In</code> to manage reading the file I am processing with "SlowCat".</p>
-   <p>A note about Karl's implementation. <code>Input</code> is an Oakwood module that provides access to three system resources -- mouse, keyboard and system time. Karl provides two versions <code>Input</code> and <code>Input0</code>, the first is intended to be used with the <code>XYPlane</code> module for graphical applications the second for POSIX shell based application. In the case of "SlowCat" I've stuck with <code>Input</code> as I am only accessing time I've stuck with <code>Input</code> to make my source code more portable if you're using another Oberon compiler.</p>
-   <h2>Working with Karl's extensions</h2>
-   <p>This is the part of my code which is not portable between compiler implementations and with Oberon Systems. Karl provides a number of extension module wrapping various POSIX calls. We are going to use two, <a href="http://miasap.se/obnc/obncdoc/ext/extArgs.def.html">extArgs</a> which provides access to command line arguments and <a href="http://miasap.se/obnc/obncdoc/ext/extConvert.def.html">extConvert</a> which provides a means of converting strings to integers. If you are using another Oberon compiler you'll need to find their equivalents and change my code example. I use <code>extArgs</code> to access the command line parameters included in my POSIX shell invocation and I've used <code>extConvert</code> to convert the string presentation of the delay to an integer value for my delay.</p>
-   <h2>Our Approach</h2>
-   <p>To create "SlowCat" we need four procedures and one global variable.</p>
-   <p><code>Usage()</code> : display a help text if parameters don't make sense</p>
-   <p><code>ProcessArgs()</code> : to get our delay time from the command line</p>
-   <p><code>Delay(count : INTEGER)</code> : a busy wait procedure</p>
-   <p><code>SlowCat(count : INTEGER)</code> : take standard input and display like a teleprompter</p>
-   <p><code>count</code> : is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()</p>
-   <h3>Usage</h3>
-   <p>Usage just wraps helpful text and display it to standard out.</p>
-   <h2>ProcessArgs()</h2>
-   <p>This a functional procedure. It uses two of Karl's extension modules. It uses <code>extArgs</code> to retrieve the command line parameters and <code>extConvert</code> the string value retrieved into an integer. <code>ProcessArgs()</code> returns TRUE if we can successful convert the command line parameter and set the value of count otherwise return FALSE.</p>
-   <h2>Delay(VAR count : INTEGER)</h2>
-   <p>This procedure uses <code>Input0</code> to fetch the current epoch time and counts the number of seconds until we've reached our delay value. It's a busy loop which isn't ideal but does keep the program simple.</p>
-   <h2>SlowCat(VAR count: INTEGER);</h2>
-   <p>This is the heart of our command line program. It reads a line of text from standard input, if successful writes it to standard out and then waits using delay before repeating this process. The delay is only invoked when a reading a line was successful.</p>
-   <h2>Putting it all together</h2>
-   <p>Here's a "SlowCat" program.</p>
+       UNTIL In.Done = FALSE;</code></pre>
+   <p>
+   So when you read this it is easy to think of <code>In.Done</code> as you’re done reading from standard input but actually we need to check for <code>FALSE</code>. The value of <code>In.Done</code> was indicating the success of reading our line. An unsuccessful line read, meaning we’re at the end of the file, sets <code>In.Done</code> to false!
+   </p>
+   <h3>
+   Out
+   </h3>
+   <p>
+   As mention <code>Out</code> provides our output functions. We’ll be using two procedure from <code>Out</code>, namely <code>Out.String()</code> and <code>Out.Ln()</code>. We’ve seen both before.
+   </p>
+   <h3>
+   Input
+   </h3>
+   <p>
+   “SlowCat” needs to calculate how often to write a line of text to standard output with the <code>Out</code> module. To do that I need access to the system’s current time. There isn’t an Oakwood module for time. There is a module called <code>Input</code> which provides a “Time” procedure. As a result I need to import <code>Input</code> as well as <code>In</code> even though I am using <code>In</code> to manage reading the file I am processing with “SlowCat”.
+   </p>
+   <p>
+   A note about Karl’s implementation. <code>Input</code> is an Oakwood module that provides access to three system resources – mouse, keyboard and system time. Karl provides two versions <code>Input</code> and <code>Input0</code>, the first is intended to be used with the <code>XYPlane</code> module for graphical applications the second for POSIX shell based application. In the case of “SlowCat” I’ve stuck with <code>Input</code> as I am only accessing time I’ve stuck with <code>Input</code> to make my source code more portable if you’re using another Oberon compiler.
+   </p>
+   <h2>
+   Working with Karl’s extensions
+   </h2>
+   <p>
+   This is the part of my code which is not portable between compiler implementations and with Oberon Systems. Karl provides a number of extension module wrapping various POSIX calls. We are going to use two, <a href="http://miasap.se/obnc/obncdoc/ext/extArgs.def.html">extArgs</a> which provides access to command line arguments and <a href="http://miasap.se/obnc/obncdoc/ext/extConvert.def.html">extConvert</a> which provides a means of converting strings to integers. If you are using another Oberon compiler you’ll need to find their equivalents and change my code example. I use <code>extArgs</code> to access the command line parameters included in my POSIX shell invocation and I’ve used <code>extConvert</code> to convert the string presentation of the delay to an integer value for my delay.
+   </p>
+   <h2>
+   Our Approach
+   </h2>
+   <p>
+   To create “SlowCat” we need four procedures and one global variable.
+   </p>
+   <p>
+   <code>Usage()</code> : display a help text if parameters don’t make sense
+   </p>
+   <p>
+   <code>ProcessArgs()</code> : to get our delay time from the command line
+   </p>
+   <p>
+   <code>Delay(count : INTEGER)</code> : a busy wait procedure
+   </p>
+   <p>
+   <code>SlowCat(count : INTEGER)</code> : take standard input and display like a teleprompter
+   </p>
+   <p>
+   <code>count</code> : is an integer holding our delay value (seconds of waiting) which is set by ProcessArgs()
+   </p>
+   <h3>
+   Usage
+   </h3>
+   <p>
+   Usage just wraps helpful text and display it to standard out.
+   </p>
+   <h2>
+   ProcessArgs()
+   </h2>
+   <p>
+   This a functional procedure. It uses two of Karl’s extension modules. It uses <code>extArgs</code> to retrieve the command line parameters and <code>extConvert</code> the string value retrieved into an integer. <code>ProcessArgs()</code> returns TRUE if we can successful convert the command line parameter and set the value of count otherwise return FALSE.
+   </p>
+   <h2>
+   Delay(VAR count : INTEGER)
+   </h2>
+   <p>
+   This procedure uses <code>Input0</code> to fetch the current epoch time and counts the number of seconds until we’ve reached our delay value. It’s a busy loop which isn’t ideal but does keep the program simple.
+   </p>
+   <h2>
+   SlowCat(VAR count: INTEGER);
+   </h2>
+   <p>
+   This is the heart of our command line program. It reads a line of text from standard input, if successful writes it to standard out and then waits using delay before repeating this process. The delay is only invoked when a reading a line was successful.
+   </p>
+   <h2>
+   Putting it all together
+   </h2>
+   <p>
+   Here’s a “SlowCat” program.
+   </p>
    <pre><code>    MODULE SlowCat;
          IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;
 
@@ -146,42 +241,77 @@
          ELSE
            Usage();
          END;
-       END SlowCat.
-   </code></pre>
-   <h2>Compiling and trying it out</h2>
-   <p>To compile our program and try it out reading our source code do the following.</p>
+       END SlowCat.</code></pre>
+   <h2>
+   Compiling and trying it out
+   </h2>
+   <p>
+   To compile our program and try it out reading our source code do the following.
+   </p>
    <pre><code>    obnc SlowCat.Mod
        # If successful
-       ./SlowCat 2 &lt; SlowCat.Mod
-   </code></pre>
-   <h2>Oakwood Guidelines and POW!</h2>
-   <p>Oberon and Oberon-2 were both used in creating and enhancing the Oberon System(s) as well as for writing programs on other operating systems (e.g. Apple's Mac and Microsoft Windows). Implementing Oberon compilers on non Oberon Systems required clarification beyond the specification. The Oakwood Guidelines were an agreement between some of the important Oberon-2 compiler implementers which attempted to fill in that gap while encouraging portability in source code between operating systems. Portability was desirable because it allowed programmers (e.g. students) to compile and run their Oberon programs with minimal modification in any environment where an Oakwood compliant compiler was available.</p>
-   <p>Citation for Oakwood can be found in <a href="https://archive.org/details/oberonprogrammin00mhlb/page/n363/mode/2up?q=Oakwood+Guidlines">Oberon-2 Programming with Windows</a>.</p>
+       ./SlowCat 2 &lt; SlowCat.Mod</code></pre>
+   <h2>
+   Oakwood Guidelines and POW!
+   </h2>
+   <p>
+   Oberon and Oberon-2 were both used in creating and enhancing the Oberon System(s) as well as for writing programs on other operating systems (e.g. Apple’s Mac and Microsoft Windows). Implementing Oberon compilers on non Oberon Systems required clarification beyond the specification. The Oakwood Guidelines were an agreement between some of the important Oberon-2 compiler implementers which attempted to fill in that gap while encouraging portability in source code between operating systems. Portability was desirable because it allowed programmers (e.g. students) to compile and run their Oberon programs with minimal modification in any environment where an Oakwood compliant compiler was available.
+   </p>
+   <p>
+   Citation for Oakwood can be found in <a href="https://archive.org/details/oberonprogrammin00mhlb/page/n363/mode/2up?q=Oakwood+Guidlines">Oberon-2 Programming with Windows</a>.
+   </p>
    <blockquote>
-   <p>Kirk B.(ed): The Oakwood Guidelines for Oberon-2 Compiler Developers. Available via FTP from ftp.fim.uni-linz.ac.at, /pub/soft/pow-oberon/oakwood</p>
+   <p>
+   Kirk B.(ed): The Oakwood Guidelines for Oberon-2 Compiler Developers. Available via FTP from ftp.fim.uni-linz.ac.at, /pub/soft/pow-oberon/oakwood
+   </p>
    </blockquote>
-   <p>The FTP machine doesn't exist any more and does not appear to have been included in JKU's preservation plans. Fortunately the POW! website has been preserved.</p>
-   <p><a href="http://www.fim.uni-linz.ac.at/pow/pow.htm">POW!</a> was a different approach. It was a compiler and IDE targeting other than Oberon Systems (e.g. Windows and later Java). It was intended to be used in a hybrid development environment and to facilitate leveraging non-Oberon resources (e.g. Java classes, native Windows API). POW project proposed "Opal" which was a super set of modules that went beyond Oakwood. Having skimmed "Oberon-2 Programming with Windows" some may seem reasonable to port to Oberon-7, others less so.</p>
-   <p>Why Oakwood and POW? These efforts are of interest to Oberon-7 developers as a well worn path to write code that is easy to compile on POSIX systems and on systems that are based on the more recent <a href="http://www.projectoberon.com/">Project Oberon 2013</a>. It enhances the opportunity to bring forward well written modules from prior systems like <a href="https://en.wikibooks.org/wiki/Oberon/A2">A2</a> but implemented for the next generation of Oberon Systems like <a href="https://github.com/io-core/io">Integrated Oberon</a>.</p>
-   <h3>Oakwood PDF</h3>
-   <p>Finding a PDF of the original Oakwood guidelines is going to become tricky in the future. It was created by Robinson Associates and the copy I've read from 1995 includes a page saying not for distribution. Which sorta makes sense in the era of closed source software development. It is problematic for those of us who want to explore how systems evolved. The term "Oakwood Guidelines" is bandied about after 1993 and several of the modules have had influence on the language use via book publications. I was able to find a PDF of the 1995 version of the guidelines at <a href="http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf">http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf</a>.</p>
-   <p>Here's a typical explanation of Oakwood from <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines</a> for a description of Oakwood.</p>
+   <p>
+   The FTP machine doesn’t exist any more and does not appear to have been included in JKU’s preservation plans. Fortunately the POW! website has been preserved.
+   </p>
+   <p>
+   <a href="http://www.fim.uni-linz.ac.at/pow/pow.htm">POW!</a> was a different approach. It was a compiler and IDE targeting other than Oberon Systems (e.g. Windows and later Java). It was intended to be used in a hybrid development environment and to facilitate leveraging non-Oberon resources (e.g. Java classes, native Windows API). POW project proposed “Opal” which was a super set of modules that went beyond Oakwood. Having skimmed “Oberon-2 Programming with Windows” some may seem reasonable to port to Oberon-7, others less so.
+   </p>
+   <p>
+   Why Oakwood and POW? These efforts are of interest to Oberon-7 developers as a well worn path to write code that is easy to compile on POSIX systems and on systems that are based on the more recent <a href="http://www.projectoberon.com/">Project Oberon 2013</a>. It enhances the opportunity to bring forward well written modules from prior systems like <a href="https://en.wikibooks.org/wiki/Oberon/A2">A2</a> but implemented for the next generation of Oberon Systems like <a href="https://github.com/io-core/io">Integrated Oberon</a>.
+   </p>
+   <h3>
+   Oakwood PDF
+   </h3>
+   <p>
+   Finding a PDF of the original Oakwood guidelines is going to become tricky in the future. It was created by Robinson Associates and the copy I’ve read from 1995 includes a page saying not for distribution. Which sorta makes sense in the era of closed source software development. It is problematic for those of us who want to explore how systems evolved. The term “Oakwood Guidelines” is bandied about after 1993 and several of the modules have had influence on the language use via book publications. I was able to find a PDF of the 1995 version of the guidelines at <a href="http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf">http://www.math.bas.bg/bantchev/place/oberon/oakwood-guidelines.pdf</a>.
+   </p>
+   <p>
+   Here’s a typical explanation of Oakwood from <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines</a> for a description of Oakwood.
+   </p>
    <blockquote>
-   <p><strong>The Oakwood Guidelines for the Oberon-2 Compiler Developers /These guidelines have been produced by a group of Oberon-2 compiler developers, including ETH developers, after a meeting at the Oakwood Hotel in Croydon, UK in June 1993</strong></p>
+   <p>
+   <strong>The Oakwood Guidelines for the Oberon-2 Compiler Developers /These guidelines have been produced by a group of Oberon-2 compiler developers, including ETH developers, after a meeting at the Oakwood Hotel in Croydon, UK in June 1993</strong>
+   </p>
    </blockquote>
-   <p><a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines</a><br />
-   (an OS/2 developer website) was helpful for providing details about Oakwood.</p>
-   <p>It would have been nice if the Oakwood document had made its way into either ETH's or JKU's research libraries.</p>
-   <p>Leveraging prior art opens doors to the past and future. Karl has done with this with the modules he provides with his OBNC compiler project.</p>
-   <h3>Previous</h3>
+   <p>
+   <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines</a><br /> (an OS/2 developer website) was helpful for providing details about Oakwood.
+   </p>
+   <p>
+   It would have been nice if the Oakwood document had made its way into either ETH’s or JKU’s research libraries.
+   </p>
+   <p>
+   Leveraging prior art opens doors to the past and future. Karl has done with this with the modules he provides with his OBNC compiler project.
+   </p>
+   <h3>
+   Previous
+   </h3>
    <ul>
-   <li>Previous <a href="../..//07/07/Procedures-in-records.html">Procedures in records</a></li>
+   <li>
+   Previous <a href="../..//07/07/Procedures-in-records.html">Procedures in records</a>
+   </li>
    </ul>
       </article>
     </section>
 
     <footer>
-    <p>copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.</p>
+    <p>
+    copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.
+    </p>
     </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
