@@ -65,14 +65,14 @@ similar to the Pascal but is shorter because reading and writing characters are
 provided for by Oberon's standard modules "In" and "Out".
 I have chosen to use a "REPEAT/UNTIL" loop over the "WHILE" used
 by K & P as we always try to read from standard in. One thing
-to note in our "REPEAT/UNTIL" look is the terminating condition.
+to note in our "REPEAT/UNTIL" loop is the terminating condition.
 The value of `In.Done` is true on successful read and false
 if you hit an end of file or the read failed for other reasons.
 That means our loop must terminate on `In.Done # TRUE` rather than
 `In.Done = TRUE`. This appears counter intuitive. It is important to
-understand that `In.Done` meanings the read was successful and does not
+understand that `In.Done` means the read was successful and does not
 mean "I'm done and can exit now". Likewise before writing out the character
-just read I check the `In.Done` value and if TRUE, I know can display
+I check the `In.Done` value and if TRUE, I know can display
 the character using `Out.Char(c);`.
 
 ```oberon
@@ -104,7 +104,7 @@ version would work with named files.
 ### [1.2 Counting Characters](https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up)
 
 [On page 13](https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up)
-K & P introduce their second program, CharCount. It is based on a single
+K & P introduces their second program, CharCount. It is based on a single
 procedure that reads from standard input and counts up the number of
 characters encountered then writes the total number found to standard out
 followed by a newline. In the text only the procedure is shown, it is 
@@ -202,17 +202,21 @@ of line endings.
 very nuanced but here K & P have chosen a simple definition
 which most of the time is "good enough" for languages like English.
 A word is defined simply as an run of characters separated by
-a space, tab, newline characters.  In practice most documents
+a space, tab or newline characters.  In practice most documents
 will work with this minimal definition. It also makes the code
 straight forward.  This is a good example of taking the simple
 road if you can. It keeps this program short and sweet.
 
-If you follow along in the K & P book note their rationals
-for the choices they make in choosing a simple solution.
-While we do see an "if then else if" sequence is remains
-clear what the program assumption are. This means the person
+If you follow along in the K & P book note their rational
+and choices in arriving at there solutions. There solutions
+will often balance readabilty and clarity over absolute
+efficiency.
+While we do see an "if then else if" sequence solution
+modeled remains
+clear. This means the person
 reading the source code can easily verify if the approach
-chosen was too simple to meet their needs.
+chosen was too simple to meet their needs or it was
+"good enough".
 
 Our Oberon-7 implementation is again very simple like the Pascal.
 Like in previous programs we still have an outer check to see
