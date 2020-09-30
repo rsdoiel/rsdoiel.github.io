@@ -71,7 +71,7 @@ settings for my virtual machine.
 14. Follow the install instructions, when you get to "Drive C: does not appear to be partitioned" dialog, pick "Yes - Partition drive C:"
 15. On the next screen pick "Yes - Please reboot now"
 16. When at the "Welcome to FreeDOS 1.2" scren hit TAB again
-17. Add the space raw " row" to the command and press enter
+17. Add a space to the command and then type "raw", press enter
 18. Pick "Yes - continue with the installation"
 19. Pick "Yes - Please erase and format drive C:"
 20. At this point its a normal FreeDOS install
