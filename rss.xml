@@ -5,279 +5,209 @@
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigsRobert&#39;s ramblings and wonderings</description>
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-        <lastBuildDate>Tue, 29 Sep 2020 00:00:00 UTC</lastBuildDate>
-        <generator>mkrss v0.2.0</generator>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/Tabs.Mod</link>
-            <description>&lt;p&gt;MODULE Tabs;&lt;/p&gt;&#xA;&lt;p&gt;CONST MAXLINE = 1000; (* or whatever *)&lt;/p&gt;&#xA;&lt;p&gt;TYPE TabType* = ARRAY MAXLINE OF BOOLEAN;&lt;/p&gt;&#xA;&lt;p&gt;(* TabPos – return TRUE if col is a tab stop &lt;em&gt;) PROCEDURE TabPos&lt;/em&gt;(col : INTEGER; VAR tabstops : TabType) : BOOLEAN; VAR res : BOOLEAN; BEGIN res := FALSE; (* Initialize our internal default return value *) IF (col &amp;gt; MAXLINE) THEN res := TRUE; ELSE res := tabstops[col]; END; RETURN res END TabPos;&lt;/p&gt;&#xA;&lt;p&gt;(* SetTabs – set initial tab stops &lt;em&gt;) PROCEDURE SetTabs&lt;/em&gt;(VAR tabstops: TabType); CONST TABSPACE = 4; (* 4 spaces per tab &lt;em&gt;) VAR i : INTEGER; BEGIN (&lt;/em&gt; NOTE: Arrays in Oberon start at zero, we want to stop at the last cell *) FOR i := 0 TO (MAXLINE - 1) DO tabstops[i] := (i MOD TABSPACE = 1); END; END SetTabs;&lt;/p&gt;&#xA;&lt;p&gt;END Tabs. …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/Tabs.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/Detab.Mod</link>
-            <description>&lt;p&gt;MODULE Detab; IMPORT In, Out, Tabs;&lt;/p&gt;&#xA;&lt;p&gt;CONST NEWLINE = 10; TAB = 9; BLANK = 32;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE Detab; VAR c : CHAR; col : INTEGER; tabstops : Tabs.TabType; BEGIN Tabs.SetTabs(tabstops); (* set initial tab stops *) col := 1; REPEAT In.Char(c); IF In.Done THEN IF (ORD(c) = TAB) THEN REPEAT Out.Char(CHR(BLANK)); col := col + 1; UNTIL Tabs.TabPos(col, tabstops); ELSIF (ORD(c) = NEWLINE) THEN Out.Char(c); col := 1; ELSE Out.Char(c); col := col + 1; END; END; UNTIL In.Done # TRUE; END Detab;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN Detab(); END Detab.&lt;/p&gt;&#xA;&lt;p&gt;K &amp;amp; P, used a pre-processor similar to the C pre-processor to compensate for the inability of their version of Pascal to include modules (a.k.a. Units in UCSD and Turbo Pascal). Oberon-7 addresses this easily with the use of Modules which happen to be our fundamental unit of code in Oberon-7. The “Detab” module and later “Entab” will both take advantage of common type definitions and procedures which we’ll put in a module called “Tabs”. This removes the need for preprocessors as a mechanism of code reuse. …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/Detab.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/WordCount.Mod</link>
-            <description>&lt;p&gt;MODULE WordCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE WordCount; CONST NEWLINE = 10; BLANK = 32; TAB = 9;&lt;/p&gt;&#xA;&lt;p&gt;VAR nw : INTEGER; c : CHAR; inword : BOOLEAN; BEGIN nw := 0; inword := FALSE; REPEAT In.Char(c); IF In.Done THEN IF ((ORD(c) = BLANK) OR (ORD(c) = NEWLINE) OR (ORD(c) = TAB)) THEN inword := FALSE; ELSIF (inword = FALSE) THEN inword := TRUE; nw := nw + 1; END; END; UNTIL In.Done # TRUE; Out.Int(nw, 1); Out.Ln(); END WordCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN WordCount(); END WordCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/WordCount.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/LineCount.Mod</link>
-            <description>&lt;p&gt;MODULE LineCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE LineCount; CONST NEWLINE = 10;&lt;/p&gt;&#xA;&lt;p&gt;VAR nl : INTEGER; c : CHAR; BEGIN nl := 0; REPEAT In.Char(c); IF In.Done THEN IF (ORD(c) = NEWLINE) THEN nl := nl + 1; END; END; UNTIL In.Done # TRUE; Out.Int(nl, 1); Out.Ln(); END LineCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN LineCount(); END LineCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/LineCount.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/CharCount.Mod</link>
-            <description>&lt;p&gt;MODULE CharCount; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE CharCount; VAR nc : INTEGER; c : CHAR; BEGIN nc := 0;&lt;/p&gt;&#xA;&lt;p&gt;REPEAT In.Char(c); IF In.Done THEN nc := nc + 1; END; UNTIL In.Done # TRUE; Out.Int(nc, 1); Out.Ln(); END CharCount;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN CharCount(); END CharCount.&lt;/p&gt;&#xA;&lt;p&gt;=============================================================== …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/CharCount.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/09/29/CopyProg.Mod</link>
-            <description>&lt;p&gt;MODULE CopyProg; IMPORT In, Out;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE copy; VAR c : CHAR; BEGIN REPEAT In.Char(c); IF In.Done THEN Out.Char(c); END; UNTIL In.Done # TRUE; END copy;&lt;/p&gt;&#xA;&lt;p&gt;BEGIN copy(); END CopyProg.&lt;/p&gt;&#xA;&lt;p&gt;===============================================================&lt;/p&gt;&#xA;&lt;p&gt;PROGRAM …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/09/29/CopyProg.Mod</guid>
-        </item>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 UTC</pubDate>
+        <lastBuildDate>Wed, 30 Sep 2020 00:00:00 UTC</lastBuildDate>
+        <generator>mkrss v0.2.2</generator>
         <item>
             <title>Software Tools</title>
             <link>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.md</link>
-            <description>&lt;h1 id=&#34;software-tools-chapter-1&#34;&gt;Software Tools, Chapter 1&lt;/h1&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;This post starts a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called &lt;a href=&#34;https://archive.org/details/softwaretoolsinp00kern&#34;&gt;Software Tools in Pascal&lt;/a&gt;. The book is available from the &lt;a href=&#34;https://openlibrary.org/&#34;&gt;Open Library&lt;/a&gt; and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs.&lt;/p&gt;&#xA;&lt;p&gt;In this series I present the K &amp;amp; P programs re-implemented in Oberon-7 based on the modules provided by Karl Landström’s &lt;a href=&#34;http://miasap.se/obnc/&#34;&gt;OBNC&lt;/a&gt; compiler[^langstrom]. …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Software Tools, Chapter 1&#xA;&#xA;## Overview&#xA;&#xA;This post is the first in a series revisiting the&#xA;programs described in the 1981 book by Brian W. Kernighan and&#xA;P. J. Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern).&#xA;The book is available from the [Open Library](https://openlibrary.org/)&#xA;and physical copies are still (2020) commonly available from used book&#xA;sellers.  The book was an early text on creating portable command&#xA;line programs.&#xA;&#xA;In this series I present the K &amp; P (i.e. Software Tools in Pascal)&#xA;programs re-implemented in Oberon-7. I am testing my implementations&#xA;using Karl Landström&#39;s [OBNC](http://miasap.se/obnc/)&#xA;compiler and his implementation of the Oakwood Guide&#39;s modules&#xA;for portable Oberon programs. Karl also provides a few additional&#xA;modules for working in a POSIX environment (e.g. BSD, macOS, Linux,&#xA;Windows 10 with Linux subsystem). ...</description>
             <pubDate>Tue, 29 Sep 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.md</guid>
         </item>
         <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/08/15/SlowCat.Mod</link>
-            <description>&lt;p&gt;MODULE SlowCat; IMPORT In, Out, Input, Args := extArgs, Convert := extConvert;&lt;/p&gt;&#xA;&lt;p&gt;CONST MAXLINE = 1024;&lt;/p&gt;&#xA;&lt;p&gt;VAR count: INTEGER;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE Usage(); BEGIN Out.String(“USAGE:”);Out.Ln(); Out.Ln(); Out.String(“SlowCat outputs lines of text delayed by”);Out.Ln(); Out.String(“a number of seconds. It takes one parameter,”);Out.Ln(); Out.String(“an integer, which is the number of seconds to”);Out.Ln(); Out.String(“delay a line of output.”);Out.Ln(); Out.String(“SlowCat works on standard input and output.”);Out.Ln(); Out.Ln(); Out.String(“EXAMPLE:”); Out.Ln(); Out.String(&#34; SlowCat 15 &amp;lt; README.md&#34;);Out.Ln(); Out.Ln();&lt;br /&gt;&#xA;END Usage;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ProcessArgs() : BOOLEAN; VAR i : INTEGER; ok : BOOLEAN; arg : ARRAY MAXLINE OF CHAR; res : BOOLEAN; BEGIN res := FALSE; IF Args.count = 1 THEN Args.Get(0, arg, i); Convert.StringToInt(arg, i, ok); IF ok THEN (* convert seconds to microseconds of clock &lt;em&gt;) count := (i &lt;/em&gt; 1000); res := TRUE; END; END; RETURN res END ProcessArgs; …&lt;/p&gt;&#xA;</description>
-            <pubDate>Sat, 15 Aug 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/08/15/SlowCat.Mod</guid>
-        </item>
-        <item>
             <title>Portable Oberon 7</title>
             <link>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-7.md</link>
-            <description>&lt;h1 id=&#34;portable-oberon-7&#34;&gt;Portable Oberon 7&lt;/h1&gt;&#xA;&lt;h2 id=&#34;using-obnc-modules&#34;&gt;using OBNC modules&lt;/h2&gt;&#xA;&lt;p&gt;This is the eleventh post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;working-with-standard-input&#34;&gt;Working with standard input …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Portable Oberon 7&#xA;&#xA;## using OBNC modules&#xA;&#xA;This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the&#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;## Working with standard input ...</description>
             <pubDate>Sat, 15 Aug 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-7.md</guid>
         </item>
         <item>
-            <title></title>
+            <title>Words Matter</title>
             <link>https://rsdoiel.github.io/blog/2020/07/08/words-matter.md</link>
-            <description>&lt;h1 id=&#34;words-matter&#34;&gt;Words Matter&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-07-08&lt;/p&gt;&#xA;&lt;p&gt;UPDATE (2020-08-15, RSD): When I added a post today I was VERY pleased to to see that GitHub now allows me to publish my blog via the “main” branch. It’s nice to see the change in the words we use.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Why does software development use the vocabulary of slavery and Jim Crow to describe our creations?&lt;/strong&gt; What we call things matters. This is especially true of the words we use day to day without thinking.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;shell     git pull origin master&lt;/code&gt; …&lt;/p&gt;&#xA;</description>
+            <description># Words Matter&#xA;&#xA;By R. S. Doiel, 2020-07-08&#xA;&#xA;UPDATE (2020-08-15, RSD): When I added a post today I was VERY pleased to &#xA;to see that GitHub now allows me to publish my blog via the &#34;main&#34; branch.&#xA;It&#39;s nice to see the change in the words we use.&#xA;&#xA;**Why does software development use the vocabulary of slavery and&#xA;Jim Crow to describe our creations?** What we call things matters.&#xA;This is especially true of the words we use day to day without thinking.&#xA;&#xA;```shell&#xA;    git pull origin master&#xA;``` ...</description>
             <pubDate>Wed, 08 Jul 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/07/08/words-matter.md</guid>
         </item>
         <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/07/07/Noises.Mod</link>
-            <description>&lt;p&gt;MODULE Noises; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ChirpChirp(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Chirp, chirp”);Out.Ln(); END ChirpChirp;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise); BEGIN (* Call noise with the animal name *) noise(name); END MakeNoise; …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 07 Jul 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/07/07/Noises.Mod</guid>
-        </item>
-        <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/07/07/Creatures.Mod</link>
-            <description>&lt;p&gt;MODULE Creatures; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;Creature = POINTER TO CreatureDesc; CreatureDesc = RECORD name : ARRAY 32 OF CHAR; noise : Noise END;&lt;/p&gt;&#xA;&lt;p&gt;VAR dog, bird : Creature;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark; …&lt;/p&gt;&#xA;</description>
-            <pubDate>Tue, 07 Jul 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/07/07/Creatures.Mod</guid>
-        </item>
-        <item>
             <title>Procedures in records</title>
             <link>https://rsdoiel.github.io/blog/2020/07/07/Procedures-in-records.md</link>
-            <description>&lt;h1 id=&#34;procedures-in-records&#34;&gt;Procedures in records&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-07-07&lt;/p&gt;&#xA;&lt;p&gt;This is the tenth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;p&gt;In my last post I looked at how Oberon-7 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can include procedures as a part of an Oberon RECORD. …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Procedures in records&#xA;&#xA;By R. S. Doiel, 2020-07-07&#xA;&#xA;This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the &#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;In my last post I looked at how Oberon-7 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can&#xA;include procedures as a part of an Oberon RECORD. ...</description>
             <pubDate>Tue, 07 Jul 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/07/07/Procedures-in-records.md</guid>
         </item>
         <item>
-            <title></title>
-            <link>https://rsdoiel.github.io/blog/2020/06/20/Noises.Mod</link>
-            <description>&lt;p&gt;MODULE Noises; IMPORT Out;&lt;/p&gt;&#xA;&lt;p&gt;TYPE Noise = PROCEDURE(who : ARRAY OF CHAR);&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE BarkBark(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Bark, bark”);Out.Ln(); END BarkBark;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE ChirpChirp(who : ARRAY OF CHAR); BEGIN Out.String(who); Out.String(“: Chirp, chirp”);Out.Ln(); END ChirpChirp;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise); BEGIN (* Call noise with the animal name *) noise(name); END MakeNoise; …&lt;/p&gt;&#xA;</description>
-            <pubDate>Sat, 20 Jun 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/06/20/Noises.Mod</guid>
-        </item>
-        <item>
             <title>Procedures as parameters</title>
             <link>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.md</link>
-            <description>&lt;h1 id=&#34;procedures-as-parameters&#34;&gt;Procedures as parameters&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-06-20&lt;/p&gt;&#xA;&lt;p&gt;This is the ninth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;p&gt;Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name &lt;a href=&#34;Noises.Mod&#34;&gt;Noises.Mod&lt;/a&gt; to explore this. …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Procedures as parameters&#xA;&#xA;By R. S. Doiel, 2020-06-20&#xA;&#xA;This is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the &#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon-7 supports the passing of procedures as parameters in a procedure. &#xA;Let&#39;s create a module name [Noises.Mod](Noises.Mod) to explore this. ...</description>
             <pubDate>Sat, 20 Jun 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.md</guid>
         </item>
         <item>
             <title>Dynamic types</title>
             <link>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.md</link>
-            <description>&lt;h1 id=&#34;dynamic-types&#34;&gt;Dynamic types&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-05-25&lt;/p&gt;&#xA;&lt;p&gt;This is the eighth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;dynamic-types-in-oberon&#34;&gt;Dynamic Types in Oberon …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Dynamic types&#xA;&#xA;By R. S. Doiel, 2020-05-25&#xA;&#xA;This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Dynamic Types in Oberon ...</description>
             <pubDate>Mon, 25 May 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.md</guid>
         </item>
         <item>
             <title>Oberon-7 and the file system</title>
             <link>https://rsdoiel.github.io/blog/2020/05/09/Oberon-7-and-the-filesystem.md</link>
-            <description>&lt;h1 id=&#34;oberon-7-and-the-file-system&#34;&gt;Oberon-7 and the file system&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-05-09&lt;/p&gt;&#xA;&lt;p&gt;This is the seventh post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;working-with-files-in-oberon-7&#34;&gt;Working with files in Oberon-7 …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Oberon-7 and the file system&#xA;&#xA;By R. S. Doiel, 2020-05-09&#xA;&#xA;This is the seventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Working with files in Oberon-7 ...</description>
             <pubDate>Sat, 09 May 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/05/09/Oberon-7-and-the-filesystem.md</guid>
         </item>
         <item>
             <title>Compiling OBNC on macOS</title>
             <link>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.md</link>
-            <description>&lt;h1 id=&#34;compiling-obnc-on-macos&#34;&gt;Compiling OBNC on macOS&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-05-06&lt;/p&gt;&#xA;&lt;p&gt;This is the sixth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;p&gt;Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is straight forward if you have the required dependencies and environment setup up. Below are my notes to get everything working.&lt;/p&gt;&#xA;&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites …&lt;/h2&gt;&#xA;</description>
+            <description># Compiling OBNC on macOS&#xA;&#xA;By R. S. Doiel, 2020-05-06&#xA;&#xA;This is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) &#xA;is straight forward if you have the required dependencies and &#xA;environment setup up. Below are my notes to get everything working.&#xA;&#xA;## Prerequisites ...</description>
             <pubDate>Wed, 06 May 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.md</guid>
         </item>
         <item>
             <title>Combining Oberon-7 and C with OBNC</title>
             <link>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.md</link>
-            <description>&lt;h1 id=&#34;combining-oberon-7-and-c-with-obnc&#34;&gt;Combining Oberon-7 and C with OBNC&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-05-01&lt;/p&gt;&#xA;&lt;p&gt;This is the fifth post in the &lt;a href=&#34;../../04/11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;p&gt;In my day job I write allot of code in Go and orchestration code in Python. It’s nice having the convenience of combining code written one language with an another. You can do the same with &lt;a href=&#34;https://miasap.se/obnc/&#34;&gt;OBNC&lt;/a&gt;. The OBNC compiler supports inclusion of C code in a straight forward manner. In fact Karl’s compiler will generate the C file for you! …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Combining Oberon-7 and C with OBNC&#xA;&#xA;By R. S. Doiel, 2020-05-01&#xA;&#xA;This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;In my day job I write allot of code in Go and&#xA;orchestration code in Python.  It&#39;s nice having&#xA;the convenience of combining code written one&#xA;language with an another.  You can do the same&#xA;with [OBNC](https://miasap.se/obnc/).  The OBNC&#xA;compiler supports inclusion of C code in a&#xA;straight forward manner. In fact Karl&#39;s compiler&#xA;will generate the C file for you! ...</description>
             <pubDate>Fri, 01 May 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.md</guid>
         </item>
         <item>
             <title>Oberon Loops and Conditions</title>
             <link>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.md</link>
-            <description>&lt;h1 id=&#34;oberon-loops-and-conditions&#34;&gt;Oberon Loops and Conditions&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-04-19&lt;/p&gt;&#xA;&lt;p&gt;This is the four post in the &lt;a href=&#34;../11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;data-flow&#34;&gt;Data Flow&lt;/h2&gt;&#xA;&lt;p&gt;Oberon is a small systems language and while it is minimalist. It provides you with the necessary primitives to get things done. I’ve touched on code organization, basic types and basic type extensions in the previous articles. I have shown the basic control statements but have not talked about them yet. …&lt;/p&gt;&#xA;</description>
+            <description># Oberon Loops and Conditions&#xA;&#xA;By R. S. Doiel, 2020-04-19&#xA;&#xA;This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Data Flow&#xA;&#xA;Oberon is a small systems language and while it is minimalist.&#xA;It provides you with the necessary primitives to get things done.&#xA;I&#39;ve touched on code organization, basic types and basic type&#xA;extensions in the previous articles.  I have shown the basic&#xA;control statements but have not talked about them yet. ...</description>
             <pubDate>Sun, 19 Apr 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.md</guid>
         </item>
         <item>
             <title>Oberon Basic Types</title>
             <link>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.md</link>
-            <description>&lt;h1 id=&#34;oberon-basic-types&#34;&gt;Oberon Basic Types&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-04-18&lt;/p&gt;&#xA;&lt;p&gt;This is the third post in the &lt;a href=&#34;../11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;simple-types&#34;&gt;Simple Types&lt;/h2&gt;&#xA;&lt;p&gt;Oberon is a small systems language. It provides a useful but limited number of basic types[^basic-types]. These can be be thought of as simple types mapping to specific memory locations and more complex types composed of multiple memory locations. …&lt;/p&gt;&#xA;</description>
+            <description># Oberon Basic Types&#xA;&#xA;By R. S. Doiel, 2020-04-18&#xA;&#xA;This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Simple Types&#xA;&#xA;Oberon is a small systems language. It provides a useful but &#xA;limited number of basic types[^basic-types]. These can be be&#xA;thought of as simple types mapping to specific memory locations&#xA;and more complex types composed of multiple memory locations. ...</description>
             <pubDate>Sat, 18 Apr 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.md</guid>
         </item>
         <item>
             <title>Oberon Modules and Procedures</title>
             <link>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.md</link>
-            <description>&lt;h1 id=&#34;oberon-modules-and-procedures&#34;&gt;Oberon Modules and Procedures&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-04-12&lt;/p&gt;&#xA;&lt;p&gt;This is the second post in the &lt;a href=&#34;../11/Mostly-Oberon.html&#34;&gt;Mostly Oberon&lt;/a&gt; series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;modules&#34;&gt;Modules …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Oberon Modules and Procedures&#xA;&#xA;By R. S. Doiel, 2020-04-12&#xA;&#xA;This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Modules ...</description>
             <pubDate>Sun, 12 Apr 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.md</guid>
         </item>
         <item>
             <title>Mostly Oberon</title>
             <link>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.md</link>
-            <description>&lt;h1 id=&#34;mostly-oberon&#34;&gt;Mostly Oberon&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-04-11&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Mostly Oberon&lt;/strong&gt; is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Mostly Oberon&#xA;&#xA;By R. S. Doiel, 2020-04-11&#xA;&#xA;**Mostly Oberon** is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;## Overview ...</description>
             <pubDate>Sat, 11 Apr 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.md</guid>
         </item>
         <item>
             <title>FreeDOS 1.2 to Oberon System 3</title>
             <link>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.md</link>
-            <description>&lt;h1 id=&#34;freedos-to-oberon-system-3&#34;&gt;FreeDOS to Oberon System 3&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2019-07-28 (updated: 2019-08-19)&lt;/p&gt;&#xA;&lt;p&gt;What follows are notes on getting a FreeDOS 1.2[^1] and then Native Oberon[^2] running under VirtualBox 6.0. You might wonder why these two are together. While it was easy to run the Native Oberon installation process that process assumes you have a properly partitioned hard disc and VirtualBox seems to skip that process. I found taking advantage of FreeDOS simplified things for me.&lt;/p&gt;&#xA;&lt;p&gt;My goal was running Oberon System 3, but setting up a Virtual Box with FreeDOS 1.2 gave me a virtual machine that functions like a 1999 era PC. From there all the steps in the Oberon instructions just worked. …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# FreeDOS to Oberon System 3&#xA;&#xA;By R. S. Doiel, 2019-07-28&#xA;(updated: 2019-08-19)&#xA;&#xA;What follows are notes on getting a FreeDOS 1.2[^1] and &#xA;then Native Oberon[^2] running under VirtualBox 6.0. You might &#xA;wonder why these two are together. While it was&#xA;easy to run the Native Oberon installation process that process&#xA;assumes you have a properly partitioned hard disc and VirtualBox&#xA;seems to skip that process. I found taking advantage of FreeDOS&#xA;simplified things for me.&#xA;&#xA;My goal was running Oberon System 3, but setting up a Virtual Box&#xA;with FreeDOS 1.2 gave me a virtual machine that functions like a &#xA;1999 era PC. From there all the steps in the Oberon instructions&#xA;just worked. ...</description>
             <pubDate>Sun, 28 Jul 2019 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.md</guid>
         </item>
         <item>
             <title>Review: Software Tools in Pascal</title>
             <link>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.md</link>
-            <description>&lt;h1 id=&#34;review-software-tools-in-pascal&#34;&gt;Review: Software Tools in Pascal&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2018-07-22 (updated: 2018-07-22, 1:39 pm, PDT)&lt;/p&gt;&#xA;&lt;p&gt;This book is by Brian W. Kernighan and P. J. Plauger. It is an example of the type of books I find I re-read and want in my personal library. The book covers software construction through a series of programs written in pascal. It is about how these programs work, how to approach problems and write sound software. I was surprised I did not know about this book when I was browsing the &lt;a href=&#34;https://openlibrary.org&#34;&gt;Open Library&lt;/a&gt; this weekend. While Pascal was a popular in the 1980’s it has faded for most people in the early 21st century. This review maybe a small bit of nostalgia. On the other hand I suspect &lt;a href=&#34;https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal&#34;&gt;“Software Tools in Pascal”&lt;/a&gt; is one of the short list of computer books that will remain useful over the long run.&lt;/p&gt;&#xA;&lt;h2 id=&#34;whats-covered&#34;&gt;What’s covered …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Review: Software Tools in Pascal&#xA;&#xA;By R. S. Doiel, 2018-07-22&#xA;(updated: 2018-07-22, 1:39 pm, PDT)&#xA;&#xA;This book is by Brian W. Kernighan and P. J. Plauger. It is an&#xA;example of the type of books I find I re-read and want in my&#xA;personal library. The book covers software construction through &#xA;a series of programs written in pascal. It is about how these &#xA;programs work, how to approach problems and write sound software.&#xA;I was surprised I did not know about this book when I was browsing &#xA;the [Open Library](https://openlibrary.org) this weekend.  While &#xA;Pascal was a popular in the 1980&#39;s it has faded for most people in the &#xA;early 21st century.  This review maybe a small bit of nostalgia. &#xA;On the other hand I suspect &#xA;[&#34;Software Tools in Pascal&#34;](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)&#xA;is one of the short list of computer books that will remain useful&#xA;over the long run.&#xA;&#xA;## What&#39;s covered ...</description>
             <pubDate>Sun, 22 Jul 2018 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.md</guid>
         </item>
         <item>
             <title>Accessing Go from Julia</title>
             <link>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.md</link>
-            <description>&lt;h1 id=&#34;accessing-go-from-julia&#34;&gt;Accessing Go from Julia&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2018-03-11&lt;/p&gt;&#xA;&lt;p&gt;The problem: I’ve started exploring Julia and I would like to leverage existing code I’ve written in Go. Essentially this is a revisit to the problem in my last post &lt;a href=&#34;https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html&#34;&gt;Go based Python Modules&lt;/a&gt; but with the language pairing of Go and Julia.&lt;/p&gt;&#xA;&lt;h2 id=&#34;example-1-libtwice.go-libtwice.jl-and-libtwice_test.jl&#34;&gt;Example 1, libtwice.go, libtwice.jl and libtwice_test.jl …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Accessing Go from Julia&#xA;&#xA;By R. S. Doiel, 2018-03-11&#xA;&#xA;The problem: I&#39;ve started exploring Julia and I would like to leverage existing&#xA;code I&#39;ve written in Go. Essentially this is a revisit to the problem in my&#xA;last post [Go based Python Modules](https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html) &#xA;but with the language pairing of Go and Julia.&#xA;&#xA;## Example 1, libtwice.go, libtwice.jl and libtwice_test.jl ...</description>
             <pubDate>Sun, 11 Mar 2018 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.md</guid>
         </item>
         <item>
             <title>Go based Python modules</title>
             <link>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.md</link>
-            <description>&lt;h1 id=&#34;go-based-python-modules&#34;&gt;Go based Python modules&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2018-02-24&lt;/p&gt;&#xA;&lt;p&gt;The problem: I have written a number of Go packages at work. My colleagues know Python and I’d like them to be able to use the packages without resorting to system calls from Python to the command line implementations. The solution is create a C-Shared library from my Go packages, using Go’s &lt;em&gt;C&lt;/em&gt; package and combine it with Python’s &lt;em&gt;ctypes&lt;/em&gt; package. What follows is a series of simple recipes I used to understand the details of how that worked.&lt;/p&gt;&#xA;&lt;h2 id=&#34;example-1-libtwice.go-and-twice.py&#34;&gt;Example 1, libtwice.go and twice.py …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Go based Python modules&#xA;&#xA;By R. S. Doiel, 2018-02-24&#xA;&#xA;The problem: I have written a number of Go packages at work.&#xA;My colleagues know Python and I&#39;d like them to be able to use the&#xA;packages without resorting to system calls from Python to the&#xA;command line implementations. The solution is create a C-Shared&#xA;library from my Go packages, using Go&#39;s _C_ package and combine it&#xA;with Python&#39;s _ctypes_ package.  What follows is a series of &#xA;simple recipes I used to understand the details of how that worked.&#xA;&#xA;## Example 1, libtwice.go and twice.py ...</description>
             <pubDate>Sat, 24 Feb 2018 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.md</guid>
         </item>
         <item>
             <title>Go, Bleve and Library oriented software</title>
             <link>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.md</link>
-            <description>&lt;h1 id=&#34;go-bleve-and-library-oriented-software&#34;&gt;Go, Bleve and Library oriented software&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2018-02-19 (updated: 2018-02-22)&lt;/p&gt;&#xA;&lt;p&gt;In 2016, Stephen Davison, asked me, “Why use Go and Blevesearch for our library projects?” After our conversation I wrote up some notes so I would remember. It is now 2018 and I am revising these notes. I think our choice paid off. What follows is the current state of my reflection on the background, rational, concerns, and risk mitigation strategies so far for using &lt;a href=&#34;https://golang.org&#34;&gt;Go&lt;/a&gt; and &lt;a href=&#34;https://blevesearch.com&#34;&gt;Blevesearch&lt;/a&gt; for Caltech Library projects.&lt;/p&gt;&#xA;&lt;h2 id=&#34;background&#34;&gt;Background …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Go, Bleve and Library oriented software&#xA;&#xA;By R. S. Doiel, 2018-02-19&#xA;(updated: 2018-02-22)&#xA;&#xA;In 2016, Stephen Davison, asked me, &#34;Why use Go and Blevesearch for&#xA;our library projects?&#34; After our conversation I wrote up some notes so&#xA;I would remember. It is now 2018 and I am revising these notes. I&#xA;think our choice paid off.  What follows is the current state of my&#xA;reflection on the background, rational, concerns, and risk mitigation&#xA;strategies so far for using [Go](https://golang.org) and&#xA;[Blevesearch](https://blevesearch.com) for Caltech Library projects.&#xA;&#xA;## Background ...</description>
             <pubDate>Mon, 19 Feb 2018 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.md</guid>
         </item>
         <item>
             <title>Raspbian Stretch on DELL E4310 Laptop</title>
             <link>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.md</link>
-            <description>&lt;h1 id=&#34;raspbian-stretch-on-dell-e4310-laptop&#34;&gt;Raspbian Stretch on DELL E4310 Laptop&lt;/h1&gt;&#xA;&lt;p&gt;by R. S. Doiel 2017-12-18&lt;/p&gt;&#xA;&lt;p&gt;Today I bought a used Dell E4310 laptop. The E4310 is an “old model” now but certainly not vintage yet. It has a nice keyboard and reasonable screen size and resolution. I bought it as a writing machine. I mostly write in Markdown or Fountain depending on what I am writing these days.&lt;/p&gt;&#xA;&lt;h2 id=&#34;getting-the-laptop-setup&#34;&gt;Getting the laptop setup …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Raspbian Stretch on DELL E4310 Laptop&#xA;&#xA;by R. S. Doiel 2017-12-18&#xA;&#xA;Today I bought a used Dell E4310 laptop. The E4310 is an &#34;old model&#34; now&#xA;but certainly not vintage yet.  It has a nice keyboard and reasonable &#xA;screen size and resolution. I bought it as a writing machine. I mostly&#xA;write in Markdown or Fountain depending on what I am writing these days.&#xA;&#xA;## Getting the laptop setup ...</description>
             <pubDate>Mon, 18 Dec 2017 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.md</guid>
         </item>
         <item>
             <title>Harvesting my Gists from GitHub</title>
             <link>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.md</link>
-            <description>&lt;h1 id=&#34;harvesting-my-gists-from-github&#34;&gt;Harvesting my Gists from GitHub&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2017-12-10&lt;/p&gt;&#xA;&lt;p&gt;This is a just quick set of notes on harvesting my Gists on Github so I have an independent copy for my own website.&lt;/p&gt;&#xA;&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Harvesting my Gists from GitHub&#xA;&#xA;By R. S. Doiel 2017-12-10&#xA;&#xA;This is a just quick set of notes on harvesting my Gists on Github so I&#xA;have an independent copy for my own website.&#xA;&#xA;## Assumptions ...</description>
             <pubDate>Sun, 10 Dec 2017 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.md</guid>
         </item>
         <item>
             <title>NodeJS, NPM, Electron</title>
             <link>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.md</link>
-            <description>&lt;h1 id=&#34;nodejs-npm-electron&#34;&gt;NodeJS, NPM, Electron&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2017-10-20&lt;/p&gt;&#xA;&lt;p&gt;Electron is an app platform leveraging web technoligies. Conceptually it is a mashup of NodeJS and Chrome browser. &lt;a href=&#34;https://electron.atom.io/&#34;&gt;Electron&lt;/a&gt; site has a nice starter app. It displays a window with Electron version info and ‘hello world’.&lt;/p&gt;&#xA;&lt;p&gt;Before you can get going with &lt;em&gt;Electron&lt;/em&gt; you need to have a working &lt;em&gt;NodeJS&lt;/em&gt; and &lt;em&gt;NPM&lt;/em&gt;. I usually compile from source and this was my old recipe (adjusted for v8.7.0). …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# NodeJS, NPM, Electron&#xA;&#xA;By R. S. Doiel 2017-10-20&#xA;&#xA;Electron is an app platform leveraging web technoligies. Conceptually it is a&#xA;mashup of NodeJS and Chrome browser. [Electron](https://electron.atom.io/) site&#xA;has a nice starter app. It displays a window with Electron version info and&#xA;&#39;hello world&#39;.&#xA;&#xA;Before you can get going with _Electron_ you need to have a&#xA;working _NodeJS_ and _NPM_. I usually compile from source and this&#xA;was my old recipe (adjusted for v8.7.0). ...</description>
             <pubDate>Fri, 20 Oct 2017 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.md</guid>
         </item>
         <item>
             <title>NodeJS, NPM, Electron</title>
             <link>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.md</link>
-            <description>&lt;h1 id=&#34;nodejs-npm-electron&#34;&gt;NodeJS, NPM, Electron&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2017-10-20&lt;/p&gt;&#xA;&lt;p&gt;Electron is an app platform leveraging web technoligies. Conceptually it is a mashup of NodeJS and Chrome browser. &lt;a href=&#34;https://electron.atom.io/&#34;&gt;Electron&lt;/a&gt; site has a nice starter app. It displays a window with Electron version info and ‘hello world’.&lt;/p&gt;&#xA;&lt;p&gt;Before you can get going with &lt;em&gt;Electron&lt;/em&gt; you need to have a working &lt;em&gt;NodeJS&lt;/em&gt; and &lt;em&gt;NPM&lt;/em&gt;. I usually compile from source and this was my old recipe (adjusted for v8.7.0). …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# NodeJS, NPM, Electron&#xA;&#xA;By R. S. Doiel 2017-10-20&#xA;&#xA;Electron is an app platform leveraging web technoligies. Conceptually it is a&#xA;mashup of NodeJS and Chrome browser. [Electron](https://electron.atom.io/) site&#xA;has a nice starter app. It displays a window with Electron version info and&#xA;&#39;hello world&#39;.&#xA;&#xA;Before you can get going with _Electron_ you need to have a&#xA;working _NodeJS_ and _NPM_. I usually compile from source and this&#xA;was my old recipe (adjusted for v8.7.0). ...</description>
             <pubDate>Tue, 20 Jun 2017 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.md</guid>
         </item>
         <item>
             <title>Cross compiling Go 1.8.3 for Pine64 Pinebook</title>
             <link>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.md</link>
-            <description>&lt;h1 id=&#34;cross-compiling-go-1.8.3-for-pine64-pinebook&#34;&gt;Cross compiling Go 1.8.3 for Pine64 Pinebook&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2017-06-16&lt;/p&gt;&#xA;&lt;p&gt;Pine64’s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is not the same ARM processor found on a Raspberry Pi 3. As a result it needs its own compiled version of Go. Fortunately cross compiling Go is very straight forward. I found two helpful Gists on Github discussing compiling Go for a 64-Bit ARM processor.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca&#34;&gt;conoro’s gist&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802&#34;&gt;truedat101’s gist&lt;/a&gt; …&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Cross compiling Go 1.8.3 for Pine64 Pinebook&#xA;&#xA;By R. S. Doiel 2017-06-16&#xA;&#xA;Pine64&#39;s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is &#xA;not the same ARM processor found on a Raspberry Pi 3. As a &#xA;result it needs its own compiled version of Go. Fortunately cross &#xA;compiling Go is very straight forward. I found two helpful Gists&#xA;on Github discussing compiling Go for a 64-Bit ARM processor.&#xA;&#xA;+ [conoro&#39;s gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)&#xA;+ [truedat101&#39;s gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802) ...</description>
             <pubDate>Fri, 16 Jun 2017 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.md</guid>
         </item>
         <item>
             <title>Android, Termux and Dev Environment</title>
             <link>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.md</link>
-            <description>&lt;h1 id=&#34;android-termux-and-dev-environment&#34;&gt;Android, Termux and Dev Environment&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-09-20&lt;/p&gt;&#xA;&lt;p&gt;Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.&lt;/p&gt;&#xA;&lt;h2 id=&#34;challenges&#34;&gt;Challenges …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Android, Termux and Dev Environment&#xA;&#xA;By R. S. Doiel 2016-09-20&#xA;&#xA;Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.&#xA;&#xA;## Challenges ...</description>
             <pubDate>Tue, 20 Sep 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.md</guid>
         </item>
         <item>
             <title>From Markdown and Bash to mkpage</title>
             <link>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.md</link>
-            <description>&lt;h1 id=&#34;from-markdown-and-bash-to-mkpage&#34;&gt;From Markdown and Bash to mkpage&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-08-16&lt;/p&gt;&#xA;&lt;p&gt;When I started maintaining a website on Github a few years ago my needs were so simple I hand coded the HTML. Eventually I adopted a markdown processor for maintaining the prose. My “theme” was a CSS file and some HTML fragments to wrap the markdown output. If I needed interactivity I used JavaScript to access content via a web API. Life was simple, all I had to learn to get started was Git and how to populate a branch called “gh-pages”.&lt;/p&gt;&#xA;&lt;h2 id=&#34;deconstructing-content-management-systems&#34;&gt;Deconstructing Content Management Systems …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# From Markdown and Bash to mkpage&#xA;&#xA;By R. S. Doiel 2016-08-16&#xA;&#xA;When I started maintaining a website on Github a few years ago my needs&#xA;were so simple I hand coded the HTML.  Eventually I adopted &#xA;a markdown processor for maintaining the prose. My &#34;theme&#34; was a&#xA;CSS file and some HTML fragments to wrap the markdown output. If I needed &#xA;interactivity I used JavaScript to access content via a web API. &#xA;Life was simple, all I had to learn to get started was Git and how to&#xA;populate a branch called &#34;gh-pages&#34;.&#xA;&#xA;## Deconstructing Content Management Systems ...</description>
             <pubDate>Tue, 16 Aug 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.md</guid>
         </item>
         <item>
             <title>Exploring Bash for Windows 10 Pro</title>
             <link>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.md</link>
-            <description>&lt;h1 id=&#34;exploring-bash-for-windows-10-pro&#34;&gt;Exploring Bash for Windows 10 Pro&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-08-15&lt;/p&gt;&#xA;&lt;p&gt;UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under Windows 10 Pro I’ve am getting compile errors when the assembler is being built. I can compile go1.4.3 but see errors in some of the tests results.&lt;/p&gt;&#xA;&lt;h2 id=&#34;initital-setup-and-configuration&#34;&gt;Initital Setup and configuration …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Exploring Bash for Windows 10 Pro&#xA;&#xA;By R. S. Doiel 2016-08-15&#xA;&#xA;UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under &#xA;    Windows 10 Pro I&#39;ve am getting compile errors when the &#xA;    assembler is being built.  I can compile go1.4.3 but see errors &#xA;    in some of the tests results.&#xA;&#xA;## Initital Setup and configuration ...</description>
             <pubDate>Mon, 15 Aug 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.md</guid>
         </item>
         <item>
             <title>How to make a Pi-Top more Raspbian</title>
             <link>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.md</link>
-            <description>&lt;h1 id=&#34;how-to-make-a-pi-top-more-raspbian&#34;&gt;How to make a Pi-Top more Raspbian&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-07-04&lt;/p&gt;&#xA;&lt;p&gt;I have a first generation Pi-Top. I like the idea but found I didn’t use it much due to a preferrence for basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively straight forward.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-recipe&#34;&gt;The recipe …&lt;/h2&gt;&#xA;</description>
+            <description>&#xA;&#xA;# How to make a Pi-Top more Raspbian&#xA;&#xA;By R. S. Doiel 2016-07-04&#xA;&#xA;I have a first generation Pi-Top.  I like the idea but found I didn&#39;t use it much due to a preferrence for&#xA;basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively&#xA;straight forward.&#xA;&#xA;## The recipe ...</description>
             <pubDate>Mon, 04 Jul 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.md</guid>
         </item>
         <item>
             <title>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</title>
             <link>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.md</link>
-            <description>&lt;h1 id=&#34;instant-articles-accelerated-mobile-pages-twitter-cards-and-open-graph&#34;&gt;Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-05-30&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-problem&#34;&gt;The problem&lt;/h2&gt;&#xA;&lt;p&gt;The web has gotten slow. In &lt;a href=&#34;http://httparchive.org/trends.php&#34;&gt;2016&lt;/a&gt; the average page weight is in multi-megabytes and the average number of network requests needed to deliver the content is counted in the hundreds. In the mix are saturated networks and a continued public expectation of responsiveness (web wisdom suggests you have about 3 seconds before people give up). The odd thing is we’ve known how to build fast websites for a &lt;a href=&#34;https://www.stevesouders.com/&#34;&gt;decade&lt;/a&gt; or so.&lt;br /&gt;&#xA;Collectively we don’t build them &lt;a href=&#34;https://www.sitepoint.com/average-page-weight-increased-another-16-2015/&#34;&gt;fast&lt;/a&gt;. …&lt;/p&gt;&#xA;</description>
+            <description>&#xA;&#xA;# Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph&#xA;&#xA;By R. S. Doiel 2016-05-30&#xA;&#xA;## The problem&#xA;&#xA;The web has gotten slow. In [2016](http://httparchive.org/trends.php) the &#xA;average page weight is in multi-megabytes and the average number of network &#xA;requests needed to deliver the content is counted in &#xA;the hundreds. In the mix are saturated networks and a continued public &#xA;expectation of responsiveness (web wisdom suggests you have about 3 seconds &#xA;before people give up).  The odd thing is we&#39;ve known how to build fast &#xA;websites for a [decade](https://www.stevesouders.com/) or so.  &#xA;Collectively we don&#39;t build them [fast](https://www.sitepoint.com/average-page-weight-increased-another-16-2015/). ...</description>
             <pubDate>Mon, 30 May 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.md</guid>
         </item>
         <item>
             <title>OPML to Markdown and back</title>
             <link>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.md</link>
-            <description>&lt;h1 id=&#34;opml-to-markdown-and-back&#34;&gt;OPML to Markdown and back&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel 2016-05-28&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;I wrote a Go language package to sort &lt;a href=&#34;http://dev.opml.org/spec2.html&#34;&gt;OPML&lt;/a&gt; outlines. I wrote this because my preferred &lt;a href=&#34;http://goread.io&#34;&gt;feed reader&lt;/a&gt; supports manual sorting but not automatic alpha sorting by the &lt;em&gt;outline&lt;/em&gt; element’s &lt;em&gt;text&lt;/em&gt; attribute.&lt;/p&gt;&#xA;&lt;h2 id=&#34;observations&#34;&gt;Observations …&lt;/h2&gt;&#xA;</description>
+            <description># OPML to Markdown and back&#xA;&#xA;By R. S. Doiel 2016-05-28&#xA;&#xA;## Overview&#xA;&#xA;I wrote a Go language package to sort [OPML](http://dev.opml.org/spec2.html) outlines. &#xA;I wrote this because my preferred [feed reader ](http://goread.io) supports manual &#xA;sorting but not automatic alpha sorting by the _outline_ element&#39;s _text_ attribute.&#xA;&#xA;## Observations ...</description>
             <pubDate>Sat, 28 May 2016 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.md</guid>
         </item>
