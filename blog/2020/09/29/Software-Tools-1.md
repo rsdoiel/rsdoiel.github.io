@@ -47,7 +47,7 @@ systems (e.g. Linux, macOS, even Windows 10).
 
 The program "copyprog.pas" is shown on [page 9](https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up).
 It introduces both the copy procedure described in the preceding pages as
-well as complete program. This "Copy" program functions like POSIX "cat"
+well as complete program. The program functions like POSIX "cat"
 without command line parameters.  It reads from standard input and writes
 to standard out. The body of the pascal program invokes a procedure called
 [copy](https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up)
