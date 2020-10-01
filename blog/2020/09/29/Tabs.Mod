@@ -11,7 +11,7 @@ PROCEDURE TabPos*(col : INTEGER; VAR tabstops : TabType) : BOOLEAN;
   VAR res : BOOLEAN;
 BEGIN
   res := FALSE; (* Initialize our internal default return value *)
-  IF (col > MAXLINE) THEN
+  IF (col >= MAXLINE) THEN
     res := TRUE;
   ELSE
     res := tabstops[col];
@@ -29,7 +29,7 @@ BEGIN
   (* NOTE: Arrays in Oberon start at zero, we want to
      stop at the last cell *)
   FOR i := 0 TO (MAXLINE - 1) DO
-    tabstops[i] := (i MOD TABSPACE = 1);
+    tabstops[i] := (i MOD TABSPACE = 0);
   END;
 END SetTabs;
 
