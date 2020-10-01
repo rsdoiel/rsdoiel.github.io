@@ -1,5 +1,5 @@
 
-+ [Software Tools](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
++ [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
 + [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
 + [Words Matter](/blog/2020/07/08/words-matter.html), 2020-07-08
 + [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07

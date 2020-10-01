@@ -1,6 +1,6 @@
 {
     "markup": "mmark",
-    "title": "Software Tools",
+    "title": "Software Tools, Getting Started",
     "number": 1,
     "byline": "R. S. Doiel",
     "date": "2020-09-29",
@@ -9,7 +9,7 @@
 }
 
 
-# Software Tools, Chapter 1
+# Software Tools, Getting Started
 
 ## Overview
 
@@ -636,3 +636,12 @@ compiler.
 + [WordCount](WordCount.Mod)
 + [Detab](Detab.Mod)
     + [Tabs](Tabs.Mod), this one we'll revisit in next installment.
+
+
+<!--
+
+# Next
+
++ [Filters]()
+
+-->
