@@ -362,7 +362,8 @@ Leveraging prior art opens doors to the past and future. Karl has
 done with this with the modules he provides with his OBNC compiler
 project.
 
-### Previous
+### Next and Previous
 
++ Next [Oberon to Markdown](../../10/03/Oberon-to-markdown.html)
 + Previous [Procedures in records](../..//07/07/Procedures-in-records.html)
 

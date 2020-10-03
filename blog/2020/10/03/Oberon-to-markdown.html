@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Oberon to markdown</title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="http://rsdoiel.github.io/rss.xml" />
+    <link rel="alternative" type="application/markdown" href="Oberon-to-markdown.md">
+  </head>
+  <body>
+    <nav>
+    <ul>
+    <li>
+    <a href="/">R. S. Doiel</a>
+    </li>
+    <li>
+    <a href="/blog/">Blog</a>
+    </li>
+    <li>
+    <a href="/presentations.html">Presentations</a>
+    </li>
+    <li>
+    <a href="/library-terminology.html">Library Jargon</a>
+    </li>
+    <li>
+    <a href="/cv.html">CV</a>
+    </li>
+    <li>
+    <a href="/resume.html">Resume</a>
+    </li>
+    <li>
+    <a href="https://github.com/rsdoiel">GitHub</a>
+    </li>
+    </ul>
+    </nav>
+
+    <section>
+      <article>
+	  <h1 id="oberon-to-markdown">
+   Oberon to Markdown
+   </h1>
+   <p>
+   This is the twelth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+   </p>
+   <h2 id="a-nice-feature-of-oberon">
+   A nice feature of Oberon
+   </h2>
+   <p>
+   Oberon source code has a very nice property in that anything after the closing end statement is ignored by the compiler. This makes it a nice place to write documentation, program notes and other ideas.
+   </p>
+   <p>
+   I’ve gotten in the habit of writing up program docs and notes there. When I prep to make a web document I used to copy the source file, doing a cut and paste to re-order the module code to the bottom of the document. I’d follow that with adding headers and code fences. Not hard but tedious. Of course if I changed the source code I’d also have to do another cut and paste edit. This program, <code>ObnToMd.Mod</code> automates that process.
+   </p>
+   <h2 id="program-documentation">
+   Program Documentation
+   </h2>
+   <pre><code>
+   PROGRAM
+
+     ObnToMd
+     
+   FUNCTION
+
+     This is a simple program that reads Oberon modules
+     from standard in and re-renders that to standard output
+     such that it is suitable to process with Pandoc or other
+     text processing system.
+     
+   EXAMPLE
+
+     Read the source for this program and render a file
+     called &quot;blog-post.md&quot;. Use Pandoc to render HTML.
+     
+       ObnToMd &lt;ObnToMd.Mod &gt; blog-post.md
+       pandoc -s --metadata title=&quot;Blog Post&quot; \
+           blog-post.md &gt;blog-post.html
+
+   BUGS
+
+     It uses a naive line analysis to identify the module
+     name and then the end of module statement. Might be
+     tripped up by comments containing the same strings.
+     The temporary file created is called &quot;o2m.tmp&quot; and
+     this filename could potentially conflict with another
+     file.
+   </code></pre>
+   <h2 id="source-code-for-obntomd.mod">
+   Source code for <strong>ObnToMd.Mod</strong>
+   </h2>
+   <pre><code>(* ObnToMd.Mod - an simple filter process for reading
+   an Oberon-7 module source file and rendering a markdown
+   friendly output suitable for piping into Pandoc. The
+   filter reads from standard input and writes to standard
+   output and makes use of a temp file name o2m.tmp which
+   it removes after successful rendering.
+
+   @Author R. S. Doiel, &lt;rsdoiel@gmail.com&gt;
+   copyright (c) 2020, all rights reserved.
+   Released under the BSD 2-clause license
+   See: https://opensource.org/licenses/BSD-2-Clause
+   *)
+   MODULE ObnToMd;
+     IMPORT In, Out, Files, Strings;
+
+   CONST
+     MAXLENGTH = 1024;
+     LF = CHR(10);
+     
+   VAR
+     endOfLine : ARRAY 2 OF CHAR;
+
+   (*
+    * Helper methods
+    *)
+   PROCEDURE GenTempName(prefix, suffix : ARRAY OF CHAR; VAR name : ARRAY OF CHAR);
+   BEGIN
+     name := &quot;&quot;;
+     Strings.Append(prefix, name);
+     Strings.Append(&quot;.&quot;, name);
+     Strings.Append(suffix, name);
+   END GenTempName;
+
+   PROCEDURE GenTempFile(name : ARRAY OF CHAR; VAR r : Files.Rider; VAR f : Files.File);
+   BEGIN
+     f := Files.New(name);
+     IF f = NIL THEN
+       Out.String(&quot;ERROR: can&#39;t create &quot;);Out.String(name);Out.Ln();
+       ASSERT(FALSE);
+     END;
+     Files.Register(f);
+     Files.Set(r, f, 0);
+   END GenTempFile;
+
+
+   PROCEDURE StartsWith(target, source : ARRAY OF CHAR) : BOOLEAN;
+     VAR res : BOOLEAN;
+   BEGIN
+     IF Strings.Pos(target, source, 0) &gt; -1 THEN
+       res := TRUE;
+     ELSE
+       res := FALSE;
+     END;
+     RETURN res
+   END StartsWith;
+
+   PROCEDURE ClearString(VAR s : ARRAY OF CHAR);
+     VAR i : INTEGER;
+   BEGIN
+     FOR i := 0 TO LEN(s) - 1 DO
+       s[i] := 0X;
+     END;
+   END ClearString;
+
+
+   PROCEDURE ProcessModuleDef(VAR r : Files.Rider; VAR modName : ARRAY OF CHAR);
+     VAR 
+       line, endStmt : ARRAY MAXLENGTH OF CHAR;
+       start, end : INTEGER;
+   BEGIN
+     line := &quot;&quot;;
+     endStmt := &quot;&quot;;
+     modName := &quot;&quot;;
+     (* Find the name of the module and calc the &quot;END {NAME}.&quot; statement *)
+     REPEAT
+       ClearString(line);
+       In.Line(line);
+       IF In.Done THEN
+         Files.WriteString(r, line); Files.WriteString(r, endOfLine);
+         (* When `MODULE {NAME};` is encountered extract the module name *)
+         IF StartsWith(&quot;MODULE &quot;, line) THEN
+           start := 7;
+           end := Strings.Pos(&quot;;&quot;, line, 0);
+           IF (end &gt; -1) &amp; (end &gt; start) THEN
+               Strings.Extract(line, start, end - start, modName);
+               endStmt := &quot;END &quot;;
+               Strings.Append(modName, endStmt);
+               Strings.Append(&quot;.&quot;, endStmt);
+           END;
+         END;
+       END;
+     UNTIL (In.Done # TRUE) OR (endStmt # &quot;&quot;);
+
+     (* When `END {NAME}.` is encountered  stop writing tmp file *)
+     REPEAT
+       In.Line(line);
+       IF In.Done THEN
+         Files.WriteString(r, line); Files.WriteString(r, endOfLine);
+       END;
+     UNTIL (In.Done # TRUE) OR StartsWith(endStmt, line);
+   END ProcessModuleDef;
+
+   PROCEDURE WriteModuleDef(name : ARRAY OF CHAR; VAR r : Files.Rider; VAR f : Files.File);
+     VAR s : ARRAY MAXLENGTH OF CHAR; res : INTEGER;
+   BEGIN
+     Files.Set(r, f, 0);
+     REPEAT
+       Files.ReadString(r, s);
+       IF r.eof # TRUE THEN
+         Out.String(s);
+       END;
+     UNTIL r.eof;
+     Files.Close(f);
+     Files.Delete(name, res);
+   END WriteModuleDef;
+
+
+   PROCEDURE OberonToMarkdown();
+   VAR
+     tmpName, modName, line : ARRAY MAXLENGTH OF CHAR;
+     f : Files.File;
+     r : Files.Rider;
+     i : INTEGER;
+   BEGIN
+     tmpName := &quot;&quot;; modName := &quot;&quot;;  line := &quot;&quot;;
+     (* Open temp file *)
+     GenTempName(&quot;o2m&quot;, &quot;tmp&quot;, tmpName);
+     GenTempFile(tmpName, r, f);
+
+     (* Read the Oberon source from standard input echo the lines tmp file *)
+     ProcessModuleDef(r, modName);
+     
+     (* Write remainder of file to standard out *)
+     REPEAT
+       In.Line(line);
+       IF In.Done THEN
+         Out.String(line);Out.Ln();
+       END;
+     UNTIL In.Done # TRUE;
+
+     (* Write two new lines *)
+     Out.Ln(); Out.Ln();
+     (* Write heading `Source code for {NAME}` *)
+     ClearString(line);
+     line := &quot;Source code for **&quot;;
+     Strings.Append(modName, line);
+     Strings.Append(&quot;.Mod**&quot;, line);
+     Out.String(line); Out.Ln();
+     FOR i := 0 TO Strings.Length(line) - 1 DO
+       Out.String(&quot;-&quot;);
+     END; 
+     Out.Ln();
+     (* Write code fence *)
+     Out.Ln();Out.String(&quot;~~~&quot;);Out.Ln();
+     (* Reset rider to top of tmp file
+        Write temp file to standard out
+        cleanup demp file *)
+     WriteModuleDef(tmpName, r, f);
+     (* Write code fence *)
+     Out.Ln();Out.String(&quot;~~~&quot;);Out.Ln();
+     (* Write tailing line and exit procedure *)
+     Out.Ln();
+   END OberonToMarkdown;
+
+   BEGIN
+     endOfLine[0] := LF;
+     endOfLine[1] := 0X;
+     OberonToMarkdown();
+   END ObnToMd.
+   </code></pre>
+   <h3 id="previous">
+   Previous
+   </h3>
+   <ul>
+   <li>
+   Previous <a href="../../08/15/Portable-Oberon-7.html">Portable Oberon 7</a>
+   </li>
+   </ul>
+      </article>
+    </section>
+
+    <footer>
+    <p>
+    copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.
+    </p>
+    </footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+    </body>
+</html>
