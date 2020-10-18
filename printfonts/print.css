@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Atkinson-Hyperlegible';
+    src : url('/printfonts/Atkinson-Hyperlegible-Bold-102.otf') format('opentype');
+    src : url('/printfonts//Atkinson-Hyperlegible-BoldItalic-102.otf') format('opentype');
+    src : url('/printfonts/Atkinson-Hyperlegible-Italic-102.otf') format('optentype');
+    src : url('/printfonts/Atkinson-Hyperlegible-Regular-102.otf') format('opentype')
+}
+
+body {
+    font-family: 'Atkinson-Hyperlegible', 'Open Sans', sans-serif;
+    font-size: calc(1em+1vw);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    color: black;
+    background-color: white;
+}
+
