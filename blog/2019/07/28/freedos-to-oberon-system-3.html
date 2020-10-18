@@ -134,7 +134,7 @@
    On the next screen pick “Yes - Please reboot now”
    </li>
    <li>
-   When at the “Welcome to FreeDOS 1.2” scren hit TAB again
+   When at the “Welcome to FreeDOS 1.2” screen hit TAB again
    </li>
    <li>
    Add a space to the command and then type “raw”, press enter
@@ -168,10 +168,10 @@
    NOTE: wget is easily installed with <a href="https://brew.sh/">HomeBrew</a> or <a href="https://www.macports.org/">Mac Ports</a>
    </p>
    <div id="cb1" class="sourceCode">
-   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="bu">cd</span></span>
-   <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="fu">mkdir</span> -p Desktop/NativeOberon-Standalone</span>
-   <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="bu">cd</span> Desktop/NativeOberon-Standalone</span>
-   <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="fu">wget</span> ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/*.*</span></code></pre>
+   <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>    <span class="bu">cd</span></span>
+   <span id="cb1-2"><a href="#cb1-2"></a>    <span class="fu">mkdir</span> -p Desktop/NativeOberon-Standalone</span>
+   <span id="cb1-3"><a href="#cb1-3"></a>    <span class="bu">cd</span> Desktop/NativeOberon-Standalone</span>
+   <span id="cb1-4"><a href="#cb1-4"></a>    <span class="fu">wget</span> ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/*.*</span></code></pre>
    </div>
    <p>
    Clone your FreeDOS Box first. You’ll want to do a “Full Clone”. You’ll also want to “remove disk from virtual drive” for any optical discs or floppies. You do that from the virtual boxes’ detail page and clicking on the drive and picking the “Remove disc from virtual drive” in the popup menu.
@@ -195,7 +195,7 @@
    Making the floppy disc images from FreeDOS
    </h2>
    <p>
-   Another approach would is to use FreeDOS. I create an iso image of the Oberon installation directory and mounted that as a CD under FreeDOS. Next I used Virtual Box’s “create a new floppy disc” to create an empty unformatted 1.44 MB disc which I think formated using the DOS command “format a:”. Once completed I copied the files to the “a:” drive also using the DOS copy command.
+   Another approach would is to use FreeDOS. I create an ISO image of the Oberon installation directory and mounted that as a CD under FreeDOS. Next I used Virtual Box’s “create a new floppy disc” to create an empty unformatted 1.44 MB disc which I think formatted using the DOS command “format a:”. Once completed I copied the files to the “a:” drive also using the DOS copy command.
    </p>
    <p>
    In either case make sure the formatted floppy disc images are FAT12 or FAT16. FAT32 came about after this version of Oberon was developed so it may not be readable for installation.

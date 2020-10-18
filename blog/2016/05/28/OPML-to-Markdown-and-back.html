@@ -59,10 +59,10 @@
    Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files, scripts, basic metadata (create, modified, authorship), and even directory structures.
    </p>
    <p>
-   <a href="http://fargo.io">Fargo</a> allows userdefined attributes to be applied to the <em>outline</em> element in OPML. This could be used in support some of the <a href="https://www.literatureandlatte.com/scrivener.php">Scrivener</a> features I miss such as describing how to render a project to various formats such as rtf, pdf, ePub, web pages or even <a href="https://www.finaldraft.com/">Final Draft fdx</a> files.
+   <a href="http://fargo.io">Fargo</a> allows user defined attributes to be applied to the <em>outline</em> element in OPML. This could be used in support some of the <a href="https://www.literatureandlatte.com/scrivener.php">Scrivener</a> features I miss such as describing how to render a project to various formats such as rtf, pdf, ePub, web pages or even <a href="https://www.finaldraft.com/">Final Draft fdx</a> files.
    </p>
    <p>
-   I write allot of Markdown formatted text. Markdown is simple to index, search and convert into useful formats. Markdown is not good at expressing more complex structures such as metadata. Website generators that use markdown often require a preable or <em>front matter</em> in the markdown to provide any metadata. This leaves your document head cluttered and less human readable.
+   I write allot of Markdown formatted text. Markdown is simple to index, search and convert into useful formats. Markdown is not good at expressing more complex structures such as metadata. Website generators that use markdown often require a preamble or <em>front matter</em> in the markdown to provide any metadata. This leaves your document head cluttered and less human readable.
    </p>
    <p>
    Another approach is to include a parallel document with the metadata. It occurred to me that an OPML file could easily hold that metadata. It can even hold Markdown content. The trouble with OPML is that it is not quick to edit by hand.
@@ -148,15 +148,15 @@
    Would become
    </p>
    <div id="cb7" class="sourceCode">
-   <pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="in">    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)</span></span></code></pre>
+   <pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="in">    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)</span></span></code></pre>
    </div>
    <p>
    In HTML this would look like
    </p>
    <div id="cb8" class="sourceCode">
-   <pre class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://histing.opml.org/dave/mySites.opml&quot;</span><span class="kw">&gt;</span>Scripting News Sites<span class="kw">&lt;/a&gt;</span></span>
-   <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;data:text/plain;link&quot;</span><span class="kw">&gt;</span>type<span class="kw">&lt;/a&gt;</span></span>
-   <span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;</span><span class="kw">&gt;</span>created<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span></code></pre>
+   <pre class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1"></a>    <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;http://histing.opml.org/dave/mySites.opml&quot;</span><span class="kw">&gt;</span>Scripting News Sites<span class="kw">&lt;/a&gt;</span></span>
+   <span id="cb8-2"><a href="#cb8-2"></a>        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;data:text/plain;link&quot;</span><span class="kw">&gt;</span>type<span class="kw">&lt;/a&gt;</span></span>
+   <span id="cb8-3"><a href="#cb8-3"></a>        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;</span><span class="kw">&gt;</span>created<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span></code></pre>
    </div>
    <h3 id="markdown-to-opml">
    Markdown to OPML
@@ -172,7 +172,7 @@
    For each <em>li</em> element inspect anchors,
    <ul>
    <li>
-   if anchors contain data URI then map <em>outline</em> elemnt
+   if anchors contain data URI then map <em>outline</em> element
    </li>
    <li>
    else URL encode and embed in <em>outline</em> <em>text</em> attribute
