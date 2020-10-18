@@ -78,3 +78,7 @@ Personal projects
 
 + [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
 + [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
++ [scriptool](https://rsdoiel.github.io/scriptool) - A command line program for converting various screen play formats, e.g. [Final Draft XML](https://www.finaldraft.com/) to/from [Fountain](https://fountain.io)) or [FadeIn](https://www.fadeinpro.com/) or Open Screenplay Format
+    + [fountain](https://rsdoiel.github.io/fountain) - A go package for working with the [Fountain](https://fountain.io) format
+    + [osf](https://rsdoiel.github.io/osf) - A go package for working with Open Screenplay and FadeIn formats
+    + [fdx](https://rsdoiel.github.io/fdx) - A go package for working with Final Draft XML format

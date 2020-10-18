@@ -45,8 +45,6 @@
     + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc, AWS S3 and Google Cloud Storage. It includes a search interface based on [Blevesearch](http://blevesearch.com)
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
     + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
-    + [cait](https://caltechlibrary.github.io/cait) - a tool for harvesting metadata from ArchivesSpace
-    + [ep](https://caltechlibrary.github.io/ep) - a tool for harvesting metadata from EPrints
 
 
 ## Past responsibilities
