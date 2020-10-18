@@ -1,5 +1,5 @@
 {
-	"title": "Oberon to markdown",
+	"title": "Oberon to Markdown",
 	"series": "Mostly Oberon",
 	"number": 12,
 	"author": "R. S. Doiel",

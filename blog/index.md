@@ -1,5 +1,5 @@
 
-+ [Oberon to markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
++ [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
 + [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
 + [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
 + [Words Matter](/blog/2020/07/08/words-matter.html), 2020-07-08
