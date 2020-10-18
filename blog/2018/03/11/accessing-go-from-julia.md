@@ -25,7 +25,7 @@ Julia to Go and back via a C shared library (written in Go). While Julia doesn't
 require type declarations I will be using those for clarity. Like in my previous post
 I think this implementation this is a good starting point to see how Julia interacts with
 C shared libraries. Like before I will present our Go code, an explanation 
-followed by the Julia code and comentary.
+followed by the Julia code and commentary.
 
 On the Go side we create a _libtwice.go_ file with an empty `main()` 
 function.  Notice that we also import the *C* package and use 
@@ -123,7 +123,7 @@ UTF-8 strings. Julia also supports UTF-8 but C still looks at strings as a point
 address space that ends in a null value. Fortunately in Julia the *ccall* function combined with
 Julia's rich type system gives us straight forward ways to map those value. 
 Go code remains unchanged from our Python example in the previous post. 
-In thie example we use Go's *fmt* package to display the string. In the next example
+In this example we use Go's *fmt* package to display the string. In the next example
 we will round trip our string message.
 
 ```go

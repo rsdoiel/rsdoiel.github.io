@@ -21,7 +21,7 @@ write in Markdown or Fountain depending on what I am writing these days.
 
 The machine came with a minimal bootable Windows 7 CD and an blank 
 internal drive. Windows 7 installed fine but was missing the network 
-drivers for WiFi.  I had previously copied the new [Raspbian Stretch](https://www.raspberrypi.org/blog/raspbian-stretch/) iso to a USB drive. While
+drivers for WiFi.  I had previously copied the new [Raspbian Stretch](https://www.raspberrypi.org/blog/raspbian-stretch/) ISO to a USB drive. While
 the E4310 didn't support booting from the USB drive Windows 7 does make
 it easy to write to a DVRW. After digging around and finding a blank disc
 I could write to it was a couple of mouse clicks and a bit of waiting 
@@ -33,7 +33,7 @@ wasn't visible so I just used keyboard navigation to setup the install.
 After the installation was complete and I rebooted without the install
 disc everything worked except the internal WiFi adapter.
 
-I had several WiFi dongles that I use with my Raspbarry Pis so I 
+I had several WiFi dongles that I use with my Raspberry Pis so I 
 borrowed one and with that was able to run the usual `sudo apt update 
 && sudo apt upgrade`.
 
@@ -56,7 +56,7 @@ After that everything came up fine.
 
 First, I like Raspbian Pixel. It was fun on my Pi but on an Intel box
 with 4Gig RAM it is wicked fast.  Pixel is currently my favorite flavor 
-of Debian GNU/Linux. It is simple, minimal with a consistant UI for 
+of Debian GNU/Linux. It is simple, minimal with a consistent UI for 
 an X based system. Quite lovely. 
 
 If you've got an old laptop you'd like to breath some life into 

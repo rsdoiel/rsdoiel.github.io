@@ -26,7 +26,7 @@ Collectively we don't build them [fast](https://www.sitepoint.com/average-page-w
 
 ## Meet the new abstractions
 
-Corprations believe they have the answer and they are providing us 
+Corporations believe they have the answer and they are providing us 
 with another set of abstractions. In a few years maybe these will 
 get distilled down to a shared common view but in the mean time disc 
 costs remain reasonably priced and generating these new forms of 
@@ -100,26 +100,26 @@ advertisements.
 ### Instant Articles
 
 In additional to Open Graph Facebook has put forward [Instant Articles](https://developers.facebook.com/docs/instant-articles).
-Like AMP it is targetting content delivery for mobile. Unlike AMP Instant Articles is an
+Like AMP it is targeting content delivery for mobile. Unlike AMP Instant Articles is an
 explicit binding into Facebook's walled garden only exposing the content on supported
 versions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when  
-your browser from a deskop webbrowser.  Unlike the previous
+you browse from a desktop web browser.  Unlike the previous
 examples you actually need to sign up to participate in the Instant Article publishing
 process.  Sign up cost is having a Facebook account, being approved by Facebook and compliance
 with their terms of service. Facebook does provide some publishing tools, publishing controls
 as well as some analytics. They do allow 3rd party ads as well as encourage access to
 their advertising network.  Once approved the burden on your content manage process 
-appears managable.  
+appears manageable.  
 
 You can submit Instant Articles via a modified RSS feed or directly through their API. 
 In this sense the overhead is about the same as that for implementing support for Twitter Cards
-Open Graph, and AMP. Facebook does a good job of quickly propogating changes to your
+Open Graph, and AMP. Facebook does a good job of quickly propagating changes to your
 Instant Articles across their platform. That's nice.
 
 Why go through the trouble? If you're a content producer and your audience lives on Facebook
-Facebook commands the attention of a lot of eye balls.  Instant Articles privides 
+Facebook commands the attention of a lot of eye balls.  Instant Articles provides 
 another avenue to reach them.  For some Facebook effectively controls the public view of the 
-web much as America Online and Prodegy did decades ago. [Dave Winer](https://twitter.com/davewiner) 
+web much as America Online and Prodigy did decades ago. [Dave Winer](https://twitter.com/davewiner) 
 has written extensively on how he implemented Instant Article support along with 
 some very reasoned pros and cons for doing so. The landscape is evolving and 
 [Dave's river of news](http://scripting.com) is worth following.
@@ -132,7 +132,7 @@ Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
 pages.  AMP proscribes what you should put in the BODY element of the webpage.
 Instant Articles tweaks your RSS output.  Not surprisingly the major content management 
 systems Wordpress and Drupal have plugins for this.  All can be implemented via your template 
-system or page generatation process.
+system or page generation process.
 
 
 ## Whither adopt?
@@ -140,6 +140,6 @@ system or page generatation process.
 Because these approaches boil down to content assembly the adoption risk 
 is low.  If your audience views Twitter, Facebook or Google search results 
 then it is probably worth doing.  All allow you to continue to publish your 
-own content and own your URLs as opposed to being a tenent on one or another 
+own content and own your URLs as opposed to being a tenant on one or another 
 platform. That benefits the open web.
 

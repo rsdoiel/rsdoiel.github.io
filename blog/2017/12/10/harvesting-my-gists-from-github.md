@@ -11,20 +11,20 @@
 
 By R. S. Doiel 2017-12-10
 
-This is a just quick set of notes on harvesting my Gists on Github so I
+This is a just quick set of notes on harvesting my Gists on GitHub so I
 have an independent copy for my own website. 
 
 ## Assumptions
 
-In this gist I assume you are using Bash on a Posix system (e.g. Raspbian 
+In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian 
 on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, 
 sed, curl). I also use Stephen Dolan's [jq](https://github.com/stedolan/jq)
 as well as Caltech Library's [datatools](https://github.com/caltechlibrary/datatools).
-See the respective Github repositories for installation instructions.
-The gist harvest process was developed against Github's v3 API
+See the respective GitHub repositories for installation instructions.
+The gist harvest process was developed against GitHub's v3 API
 (see developer.github.com). 
 
-In the following examples "USER" is assumed to hold your Github user id 
+In the following examples "USER" is assumed to hold your GitHub user id 
 (e.g. rsdoiel for https://github.com/rsdoiel).
 
 ## Getting my basic profile
@@ -51,7 +51,7 @@ Now `gists.json` should hold a JSON array of objects representing your Gists.
 When you look at _gists.json_ you'll see a multi-level JSON structure.  It has been
 formatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library
 has some nice utilities for working with JSON I'll use *jsonrange* and *jq* to pull out a list
-of indivdual Gists URLS.
+of individual Gists URLS.
 
 ```shell
     jsonrange -i gists.json | while read I; do 
@@ -70,7 +70,7 @@ Expanding this we can now curl each individual gist metadata to find URL to the 
     done
 ```
 
-Now that we have URLs to the raw gist files we can use curl again to featch each.
+Now that we have URLs to the raw gist files we can use curl again to fetch each.
 
 What do we want to store with our harvested gists?  The raw files, metadata
 about the Gist (e.g. when it was created), the Gist ID. Putting it all together

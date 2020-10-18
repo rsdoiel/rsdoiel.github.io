@@ -22,7 +22,7 @@ sorting but not automatic alpha sorting by the _outline_ element's _text_ attrib
 Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,
 scripts, basic metadata (create, modified, authorship), and even directory structures.
 
-[Fargo](http://fargo.io) allows userdefined attributes to be applied to the _outline_ 
+[Fargo](http://fargo.io) allows user defined attributes to be applied to the _outline_ 
 element in OPML. This could be used in support some of the 
 [Scrivener](https://www.literatureandlatte.com/scrivener.php)
 features I miss such as describing how to render a project to various formats such as
@@ -31,7 +31,7 @@ rtf, pdf, ePub, web pages or even [Final Draft fdx](https://www.finaldraft.com/)
 I write allot of Markdown formatted text.  Markdown is simple to index, 
 search and convert into useful formats. Markdown is not good at expressing more
 complex structures such as metadata. Website generators that use markdown often
-require a preable or _front matter_ in the markdown to provide any metadata. This
+require a preamble or _front matter_ in the markdown to provide any metadata. This
 leaves your document head cluttered and less human readable.
 
 Another approach is to include a parallel document with the metadata.  It occurred to me 
@@ -121,7 +121,7 @@ Coming back to OPML from Markdown then becomes
 
 + Convert Markdown to HTML
 + For each _li_ element inspect anchors, 
-    + if anchors contain data URI then map _outline_ elemnt
+    + if anchors contain data URI then map _outline_ element
     + else URL encode and embed in _outline_ _text_ attribute
 
 Is this viable? Does it have any advantages?

@@ -17,7 +17,7 @@ By R. S. Doiel 2016-08-15
     assembler is being built.  I can compile go1.4.3 but see errors 
     in some of the tests results.
 
-## Initital Setup and configuration
+## Initial Setup and configuration
 
 I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps
 
@@ -33,7 +33,7 @@ I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The V
     + Documentation can be found at https://aka.ms/wsldocs
 + Exit root install shell
 + Search for "Bash" locally
-+ Luanched "Bash on Ubuntu on Windows"
++ Launched "Bash on Ubuntu on Windows"
 + Authenticate with your username/password
 
 

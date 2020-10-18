@@ -12,7 +12,7 @@
 
 By R. S. Doiel 2016-09-20
 
-Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a developmment device when on the road. So this is my diary of that test.
+Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a development device when on the road. So this is my diary of that test.
 
 ## Challenges
 
@@ -29,13 +29,13 @@ Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboa
 
 After searching with Duck Duck Go and Google I came across the [termux](https://termux.com). Termux provides a minimal Bash shell environment with support for adding
 packages with _apt_ and _dpkg_.  The repositories visible to *termux* include
-most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites _curl_, _grep_, _sed_, _gawk_ and a new addition to my toolkit _jq_.  Additionally you'll find recent versionns (as of Sept. 2016) versions of _Golang_, _PHP_, _python_, and _Ruby_.
+most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites _curl_, _grep_, _sed_, _gawk_ and a new addition to my toolkit _jq_.  Additionally you'll find recent versions (as of Sept. 2016) versions of _Golang_, _PHP_, _python_, and _Ruby_.
 
 This quickly brought me through step 3.  Installing _go_, _git_, and _openssh_ completed what I needed to test static site development with some of the tools in our incubator at [Caltech Library](https://caltechlibrary.github.io).
 
 ## Setting up for static site development
 
-After configuring _git_, adding my public key to Github and running _go get_ on my
+After configuring _git_, adding my public key to GitHub and running _go get_ on my
 custom static site tools I confirmed I could build and test static websites from my Android tablet using *Termux*.
 
 Here's the list of packages I installed under *Termux* to provide a suitable shell environment for writing and website constructions.
@@ -50,7 +50,7 @@ Here's the list of packages I installed under *Termux* to provide a suitable she
         w3m wget zip
 ```
 
-This then allowed me to setup my *golang* envuronment variables and install
+This then allowed me to setup my *golang* environment variables and install
 my typical custom written tools
 
 ```shell

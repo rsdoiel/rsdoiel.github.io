@@ -12,7 +12,7 @@
 
 By R. S. Doiel 2017-10-20
 
-Electron is an app platform leveraging web technoligies. Conceptually it is a
+Electron is an app platform leveraging web technologies. Conceptually it is a
 mashup of NodeJS and Chrome browser. [Electron](https://electron.atom.io/) site
 has a nice starter app. It displays a window with Electron version info and
 'hello world'.
@@ -68,11 +68,11 @@ to work with _NodeJS_ or _Electron_.
     make install
 ```
 
-If I am on a device with a multi-core CPU (most of the time) you can spead
+If I am on a device with a multi-core CPU (most of the time) you can speed
 up the make process using a `-j CPU_CORE_COUNT_PLUS_ONE` option (e.g. `-j 5`
 for my 4 core x86 laptop).
 
-Once _node_ and _npm_ were working normaly the instructions in the
+Once _node_ and _npm_ were working normally the instructions in the
 *electron-quick-start* worked flawlessly on my x86.
 
 I have tested the node install recipe change on my Pine64 Pinebook, on 

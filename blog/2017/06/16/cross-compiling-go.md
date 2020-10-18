@@ -16,7 +16,7 @@ Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is
 not the same ARM processor found on a Raspberry Pi 3. As a 
 result it needs its own compiled version of Go. Fortunately cross 
 compiling Go is very straight forward. I found two helpful Gists
-on Github discussing compiling Go for a 64-Bit ARM processor. 
+on GitHub discussing compiling Go for a 64-Bit ARM processor. 
 
 + [conoro's gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)
 + [truedat101's gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802)

@@ -76,7 +76,7 @@ settings for my virtual machine.
 13. Add type a space than add "raw" (without quotes) press enter
 14. Follow the install instructions, when you get to "Drive C: does not appear to be partitioned" dialog, pick "Yes - Partition drive C:"
 15. On the next screen pick "Yes - Please reboot now"
-16. When at the "Welcome to FreeDOS 1.2" scren hit TAB again
+16. When at the "Welcome to FreeDOS 1.2" screen hit TAB again
 17. Add a space to the command and then type "raw", press enter
 18. Pick "Yes - continue with the installation"
 19. Pick "Yes - Please erase and format drive C:"
@@ -146,10 +146,10 @@ folder holding the appropriate file.
 ## Making the floppy disc images from FreeDOS
 
 Another approach would is to use FreeDOS.  I create an 
-iso image of the Oberon installation directory and mounted that 
+ISO image of the Oberon installation directory and mounted that 
 as a CD under FreeDOS. Next I used Virtual Box's 
 "create a new floppy disc" to create an empty unformatted 1.44 MB
-disc which I think formated using the DOS command "format a:".
+disc which I think formatted using the DOS command "format a:".
 Once completed I copied the files to the "a:" drive also using the
 DOS copy command.
 

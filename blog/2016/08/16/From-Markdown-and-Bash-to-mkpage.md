@@ -13,7 +13,7 @@
 
 By R. S. Doiel 2016-08-16
 
-When I started maintaining a website on Github a few years ago my needs
+When I started maintaining a website on GitHub a few years ago my needs
 were so simple I hand coded the HTML.  Eventually I adopted 
 a markdown processor for maintaining the prose. My "theme" was a
 CSS file and some HTML fragments to wrap the markdown output. If I needed 
@@ -41,14 +41,14 @@ Some of the core elements of modern content management systems are
 + mapping a data source to appropriate template set
 + rendering template sets to produce a final website
 
-Modern static site generators leave creation and curration to your 
+Modern static site generators leave creation and curation to your 
 text editor and revision control system (e.g. vi and git). 
 
 Most static site generators use a simplified markup. A populate one is
 called [Markdown](https://en.wikipedia.org/wiki/Markdown). This "markup"
 is predictable enough that you can easily convert the results to HTML and
 other useful formats with tools like [pandoc](http://pandoc.org/). In most 
-static site generators your content is currated in Markdown and when the 
+static site generators your content is curated in Markdown and when the 
 pages are built it is rendered to HTML for injection into your website's 
 template and theme.
 
@@ -64,7 +64,7 @@ I wanted a simple command line tool that would make a single web page.
 It would take a few data sources and formats and run them through a
 template system. The template system needed to be simple but support
 the case where data might not be available. It would be nice if it handled
-the case of repititious data like that used in tables or lists. Ideally
+the case of repetitious data like that used in tables or lists. Ideally
 I could render many pages from a single template assuming a simple website
 and layout.
 
@@ -78,7 +78,7 @@ the last year or two I realized I had three common types of data.
 
 1. Plain text or content that did not need further processing
 2. Markdown content (e.g. page content, navigation lists)
-3. Occassionally I include content from JSON feeds
+3. Occasionally I include content from JSON feeds
 
 I also realized I only needed to handle three data sources.
 
@@ -123,7 +123,7 @@ Adding a custom page title is easy too.
 Likewise integrating some JSON data from weather.gov is relatively straight
 forward. The hardest part is discovering the [URL](http://forecast.weather.gov/MapClick.php?lat=34.0522&lon=118.2437&DFcstType=json) 
 that returns JSON!  Notice I have added a weather field and the URL. When data
-is recieved back from weather.gov it is JSON decoded and then passed to the
+is received back from weather.gov it is JSON decoded and then passed to the
 template for rendering using the "range" template function.
 
 ```shell
@@ -143,7 +143,7 @@ What is *mkpage* doing?
 4. Render the results to stdout
 
 Building a website then is only a matter of maintaining navigation in
-*nav.md* and identifing the pages needing to be created. I can easily 
+*nav.md* and identifying the pages needing to be created. I can easily 
 automated that using the Unix find, grep, cut and sort. Also with find 
 I can iteratively process each markdown file applying a 
 template and rendering the related HTML file.  This can be done for a site 
