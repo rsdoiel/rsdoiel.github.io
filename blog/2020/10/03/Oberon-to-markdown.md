@@ -12,7 +12,7 @@
 Oberon to Markdown
 ==================
 
-This is the twelth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the twelfth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 A nice feature of Oberon
 ------------------------
@@ -24,7 +24,7 @@ notes and other ideas.
 
 I've gotten in the habit of writing up program docs and
 notes there. When I prep to make a web document I used to
-copy the source file, doing a cut and paste to re-order 
+copy the source file, doing a cut and paste to re-order
 the module code to the bottom of the document. I'd follow
 that with adding headers and code fences. Not hard but
 tedious. Of course if I changed the source code I'd also
@@ -39,19 +39,19 @@ Program Documentation
 PROGRAM
 
   ObnToMd
-  
+
 FUNCTION
 
   This is a simple program that reads Oberon modules
   from standard in and re-renders that to standard output
   such that it is suitable to process with Pandoc or other
   text processing system.
-  
+
 EXAMPLE
 
   Read the source for this program and render a file
   called "blog-post.md". Use Pandoc to render HTML.
-  
+
     ObnToMd <ObnToMd.Mod > blog-post.md
     pandoc -s --metadata title="Blog Post" \
         blog-post.md >blog-post.html
@@ -74,6 +74,7 @@ Source code for **ObnToMd.Mod**
 -------------------------------
 
 ~~~
+
 (* ObnToMd.Mod - an simple filter process for reading
 an Oberon-7 module source file and rendering a markdown
 friendly output suitable for piping into Pandoc. The
@@ -92,7 +93,7 @@ MODULE ObnToMd;
 CONST
   MAXLENGTH = 1024;
   LF = CHR(10);
-  
+
 VAR
   endOfLine : ARRAY 2 OF CHAR;
 
@@ -140,7 +141,7 @@ END ClearString;
 
 
 PROCEDURE ProcessModuleDef(VAR r : Files.Rider; VAR modName : ARRAY OF CHAR);
-  VAR 
+  VAR
     line, endStmt : ARRAY MAXLENGTH OF CHAR;
     start, end : INTEGER;
 BEGIN
@@ -205,7 +206,7 @@ BEGIN
 
   (* Read the Oberon source from standard input echo the lines tmp file *)
   ProcessModuleDef(r, modName);
-  
+
   (* Write remainder of file to standard out *)
   REPEAT
     In.Line(line);
@@ -224,7 +225,7 @@ BEGIN
   Out.String(line); Out.Ln();
   FOR i := 0 TO Strings.Length(line) - 1 DO
     Out.String("-");
-  END; 
+  END;
   Out.Ln();
   (* Write code fence *)
   Out.Ln();Out.String("~~~");Out.Ln();
@@ -246,7 +247,7 @@ END ObnToMd.
 
 ~~~
 
-### Previous
+### Next, Previous
 
++ Next [Assembling Pages](../../10/19/Assemble-pages.html)
 + Previous [Portable Oberon 7](../../08/15/Portable-Oberon-7.html)
-
