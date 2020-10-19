@@ -3,7 +3,7 @@ TODAY = $(shell date "+%Y-%m-%d")
 #
 # Make file for building website
 #
-all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html
+all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
 
 index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.tmpl
 	mkpage "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "about-author=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
@@ -29,6 +29,21 @@ resume.html: nav.md footer.md resume.md resume.tmpl
 library-terminology.html: nav.md footer.md library-terminology.md library-terminology.tmpl
 	mkpage "mdfile=text:library-terminology.md" "content=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
 	git add library-terminology.html
+
+series: series/index.html series/mostly-oberon.html series/software-tools.html
+
+
+series/index.html: series/index.md
+	pandoc -s --metadata title="Series" series/index.md >series/index.html
+	git add series/index.html
+
+series/mostly-oberon.html: series/mostly-oberon.md
+	pandoc -s --metadata title="Mostly Oberon Series" series/mostly-oberon.md >series/mostly-oberon.html
+	git add series/mostly-oberon.html
+
+series/software-tools.html: series/software-tools.md
+	pandoc -s --metadata title="Software Tools Series" series/software-tools.md >series/software-tools.html
+	git add series/software-tools.html
 
 blog: blog/index.html
 	git add blog/index.html
