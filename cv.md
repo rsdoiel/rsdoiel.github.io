@@ -26,6 +26,7 @@
 + JavaScript (NodeJS)
 + Make
 + Oberon
++ Pascal
 + Perl
 + PHP
 + Python

@@ -21,6 +21,7 @@ I am most comfortable in a Unix environment but have worked in others in the pas
 + JavaScript (NodeJS)
 + Make
 + Oberon
++ Pascal
 + Perl
 + PHP
 + Python
