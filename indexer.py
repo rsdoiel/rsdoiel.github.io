@@ -33,7 +33,7 @@ def get_json_frontmatter(fname):
 
 
 class Indexer:
-    def __init__(self, start_path = ".", htdocs_prefix = "", index_name = "index.json"):
+    def __init__(self, start_path = ".", htdocs_prefix = "", index_name = "lunr.json"):
         self.start_path = start_path
         self.htdocs_prefix = htdocs_prefix
         self.index_name = index_name
@@ -86,7 +86,7 @@ class Indexer:
 
     
 if __name__ in "__main__":
-    site = Indexer(".", "/")
+    site = Indexer()
     site.harvest_metadata()
     site.lunr_index()
     site.report()
