@@ -22,12 +22,15 @@ sellers.  The book was an early text on creating portable command
 line programs.  
 
 In this series I present the K & P (i.e. Software Tools in Pascal)
-programs re-implemented in Oberon-7. I am testing my implementations
+programs re-implemented in Oberon-7. I have testing my implementations
 using Karl Landström's [OBNC](http://miasap.se/obnc/)
 compiler and his implementation of the Oakwood Guide's modules
 for portable Oberon programs. Karl also provides a few additional
 modules for working in a POSIX environment (e.g. BSD, macOS, Linux,
-Windows 10 with Linux subsystem).
+Windows 10 with Linux subsystem). I have also tested these
+programs with Mike Spivey's [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler) an aside
+from the differences file extensions that both compilers use
+the source code works the same. 
 
 NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.
 
@@ -74,7 +77,7 @@ tackled and to the program user so they understand what they are using.
 
 ### [1.1. File Copying](https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up)
 
-Here's how K & P describe "copyprog.pas" (refered to as "copy" in
+Here's how K & P describe "copyprog.pas" (referred to as "copy" in
 the documentation).
 
 
@@ -629,6 +632,21 @@ compiler.
 
 ~~~
 
+If you happen to be using The [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler)
+you need to rename the files ending in ".Mod" to ".m" 
+and you can compiler with the following command.
+
+~~~
+    obc -07 -o copyprog CopyProg.m
+    obc -07 -o charcount CharCount.m
+    obc -07 -o linecount LineCount.m
+    obc -07 -o wordcount WordCount.m
+    obc -07 -o detab Tabs.m Detab.m
+~~~
+
+Note the line for compiling "Detab" with **obc**, your
+local modules need to become before the module calling them.
+
 
 + [CopyProg](CopyProg.Mod)
 + [CharCount](CharCount.Mod)
@@ -638,10 +656,8 @@ compiler.
     + [Tabs](Tabs.Mod), this one we'll revisit in next installment.
 
 
-<!--
-
 # Next
 
-+ [Filters]()
++ [Filters](../../10/31/Filters.html)
 
--->
+

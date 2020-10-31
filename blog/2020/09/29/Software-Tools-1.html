@@ -50,7 +50,7 @@
    This post is the first in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a href="https://archive.org/details/softwaretoolsinp00kern">Software Tools in Pascal</a>. The book is available from the <a href="https://openlibrary.org/">Open Library</a> and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs.
    </p>
    <p>
-   In this series I present the K &amp; P (i.e. Software Tools in Pascal) programs re-implemented in Oberon-7. I am testing my implementations using Karl Landström’s <a href="http://miasap.se/obnc/">OBNC</a> compiler and his implementation of the Oakwood Guide’s modules for portable Oberon programs. Karl also provides a few additional modules for working in a POSIX environment (e.g. BSD, macOS, Linux, Windows 10 with Linux subsystem).
+   In this series I present the K &amp; P (i.e. Software Tools in Pascal) programs re-implemented in Oberon-7. I have testing my implementations using Karl Landström’s <a href="http://miasap.se/obnc/">OBNC</a> compiler and his implementation of the Oakwood Guide’s modules for portable Oberon programs. Karl also provides a few additional modules for working in a POSIX environment (e.g. BSD, macOS, Linux, Windows 10 with Linux subsystem). I have also tested these programs with Mike Spivey’s <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a> an aside from the differences file extensions that both compilers use the source code works the same.
    </p>
    <p>
    NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.
@@ -94,7 +94,7 @@
    <a href="https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up">1.1. File Copying</a>
    </h3>
    <p>
-   Here’s how K &amp; P describe “copyprog.pas” (refered to as “copy” in the documentation).
+   Here’s how K &amp; P describe “copyprog.pas” (referred to as “copy” in the documentation).
    </p>
    <pre><code>
    PROGRAM
@@ -497,6 +497,17 @@
        obnc -o wordcount WordCount.Mod
        obnc -o detab Detab.Mod
    </code></pre>
+   <p>
+   If you happen to be using The <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a> you need to rename the files ending in “.Mod” to “.m” and you can compiler with the following command.
+   </p>
+   <pre><code>    obc -07 -o copyprog CopyProg.m
+       obc -07 -o charcount CharCount.m
+       obc -07 -o linecount LineCount.m
+       obc -07 -o wordcount WordCount.m
+       obc -07 -o detab Tabs.m Detab.m</code></pre>
+   <p>
+   Note the line for compiling “Detab” with <strong>obc</strong>, your local modules need to become before the module calling them.
+   </p>
    <ul>
    <li>
    <a href="CopyProg.Mod">CopyProg</a>
@@ -519,13 +530,14 @@
    </ul>
    </li>
    </ul>
-   <!--
-
-   # Next
-
-   + [Filters]()
-
-   -->
+   <h1 id="next">
+   Next
+   </h1>
+   <ul>
+   <li>
+   <a href="../../10/31/Filters.html">Filters</a>
+   </li>
+   </ul>
       </article>
     </section>
 

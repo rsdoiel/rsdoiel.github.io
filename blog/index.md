@@ -1,4 +1,5 @@
 
++ [Software Tools, Filters](/blog/2020/10/31/Filters.html), 2020-10-31
 + [Assembling Pages](/blog/2020/10/19/Assemble-pages.html), 2020-10-19
 + [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
 + [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
