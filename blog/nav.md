@@ -1,5 +1,6 @@
 + [R. S. Doiel](/)
 + [Blog](/blog/)
++ [Series](/series.html)
 + [Presentations](/presentations.html)
 + [Library Jargon](/library-terminology.html)
 + [CV](/cv.html)

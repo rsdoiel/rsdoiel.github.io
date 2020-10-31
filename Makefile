@@ -3,11 +3,14 @@ TODAY = $(shell date "+%Y-%m-%d")
 #
 # Make file for building website
 #
-all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
+all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series.html
 
-index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md index.tmpl
-	mkpage "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "about-author=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
+index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md series.md index.tmpl
+	mkpage "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "series=series.md" "about-author=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 	git add index.html
+
+series.html: nav.md series.md
+	mkpage "content=series.md" "nav=nav.md" page.tmpl > series.html
 
 presentations.html: presentations.md footer.md nav.md presentations.tmpl
 	mkpage "mdfile=text:presentations.md" "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
