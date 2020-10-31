@@ -1,7 +1,4 @@
 
-Series
-======
-
 Series start as blog posts but continue
 on to explore an idea or topic.
 
