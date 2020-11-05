@@ -181,9 +181,7 @@ BEGIN
         ELSE
             i := 0;
         END;
-        Out.String("DEBUG i: ");Out.Int(i, 0);Out.Ln();
         IF MakeSet(arg, i, fromset) = FALSE THEN
-        Out.String("DEBUG fromset: ");Out.String(fromset);Out.Ln();
             Error("from set too long");
         END;
     END;
