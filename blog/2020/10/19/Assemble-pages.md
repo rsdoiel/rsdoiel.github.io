@@ -4,7 +4,7 @@
 	"number": 13,
 	"author": "R. S. Doiel",
 	"date": "2020-10-19",
-	"keywords": [ "Oberon-7", "portable", "markdown", "pandoc", "frontmatter" ],
+	"keywords": [ "Oberon", "portable", "markdown", "pandoc", "frontmatter" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel",
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

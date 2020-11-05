@@ -2,6 +2,7 @@
     "title": "Harvesting my Gists from GitHub",
     "author": "R. S. Doiel",
     "date": "2017-12-10",
+    "keywords": [ "GitHub", "Gists", "JSON" ],
     "copyright": "copyright (c) 2017, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

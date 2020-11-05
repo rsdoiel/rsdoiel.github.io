@@ -638,7 +638,7 @@
    <strong>translit</strong> is the most complicated program so far in the book. Most of the translation process from Pascal to Oberon-7 has remained similar to the previous examples.
    </p>
    <p>
-   My implementation of <strong>translit</strong> diverges from the K &amp; P implementation at several points. Much of this is a result of Oberon evolution beyond Pascal. First Oberon counts arrays from zero instead of one so I have opted to use -1 as a value to indicate the index of a character in a string was not found. Equally I have simplified the logic in <code>xindex()</code> to make it clear how I am handling the index lookup described in <code>index()</code> of the Pascal implementation. K &amp; P implemented <code>makeset()</code> and <code>dodash()</code>. <code>dodash()</code> particularly looked troublesome. If you came across the function name <code>dodash()</code> without seeing the code comments “doing a dash” seems a little obscure. I have chosen to name that process “Expand Sequence” for clarity. I have simplified the task of making sets of characters for translation into three cases by splitting the test conditions from the actions. First check to see if we have an escape sequence and if so handle it. Second check to see if we have an expansion sequence and if so handle it else append the char found to the end of the set being assembled. This resulted in <code>dodash()</code> being replaced by <code>IsSequence()</code> and <code>ExpandSequence()</code>. Likewise <code>esc()</code> was replaced with <code>IsEscape()</code> and <code>ExpandEscape()</code>. I renamed <code>addchar()</code> to <code>AppendChar()</code> as that seemed more specific and clearer.
+   My implementation of <strong>translit</strong> diverges from the K &amp; P implementation at several points. Much of this is a result of Oberon evolution beyond Pascal. First Oberon counts arrays from zero instead of one so I have opted to use -1 as a value to indicate the index of a character in a string was not found. Equally I have simplified the logic in <code>xindex()</code> to make it clear how I am handling the index lookup described in <code>index()</code> of the Pascal implementation. K &amp; P implemented <code>makeset()</code> and <code>dodash()</code>. <code>dodash()</code> particularly looked troublesome. If you came across the function name <code>dodash()</code> without seeing the code comments “doing a dash” seems a little obscure. I have chosen to name that process “Expand Sequence” for clarity. I have simplified the task of making sets of characters for translation into three cases by splitting the test conditions from the actions. First check to see if we have an escape sequence and if so handle it. Second check to see if we have an expansion sequence and if so handle it else append the char found to the end of the set being assembled. This resulted in <code>dodash()</code> being replaced by <code>IsSequence()</code> and <code>ExpandSequence()</code>. Likewise <code>esc()</code> was replaced with <code>IsEscape()</code> and <code>ExpandEscape()</code>. I renamed <code>addchar()</code> to <code>AppendChar()</code> in the “Chars” module as that seemed more specific and clearer.
    </p>
    <p>
    I choose to advance the value used when expanding a set description in the loop inside of my <code>MakeSet()</code>. I minimized the side effects of the expand functions to the target destination. It is clearer while in the <code>MakeSet()</code> loop to see the relationship of the test and transformation and how to advance through the string. This also allowed me to use fewer parameters to procedures which tends to make things more readable as well as simpler.
@@ -751,35 +751,6 @@
        ASSERT(FALSE);
    END Error;
 
-   (* Clear string fills an array of char with 0X to (re)set
-      a string to a known state. *)
-   PROCEDURE ClearString*(VAR s : ARRAY OF CHAR);
-   VAR i : INTEGER;
-   BEGIN
-     FOR i := 0 TO LEN(s) - 1 DO
-       s[i] := 0X;
-     END;
-   END ClearString;
-
-   (* AppendChar - this copies the char and appends it to
-      the destination. Returns FALSE if append fails. *)
-   PROCEDURE AppendChar*(c : CHAR; VAR dest : ARRAY OF CHAR) : BOOLEAN;
-   VAR res : BOOLEAN; l : INTEGER;
-   BEGIN
-     l := Strings.Length(dest);
-     (* NOTE: we need to account for a trailing 0X to end
-        the string. *)
-     IF l &lt; (LEN(dest) - 1) THEN
-       dest[l] := c;
-       dest[l + 1] := 0X;
-       res := TRUE;
-     ELSE
-       res := FALSE;
-     END;
-     RETURN res
-   END AppendChar;
-
-
    (* IsEscape - this procedure looks to see if we have an
    escape sequence at position in variable i *)
    PROCEDURE IsEscape*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;
@@ -802,7 +773,7 @@
     res := FALSE;
     j := i + 1;
     IF j &lt; Strings.Length(src)  THEN
-       res := AppendChar(src[j], dest)
+       res := Chars.AppendChar(src[j], dest)
     END
     RETURN res
    END ExpandEscape;
@@ -835,7 +806,7 @@
      IF start &lt; end THEN
        FOR cur := start TO end DO
          IF res THEN
-           res := AppendChar(CHR(cur), dest);
+           res := Chars.AppendChar(CHR(cur), dest);
          END;
        END;
      ELSE
@@ -859,7 +830,7 @@
                makeset := ExpandSequence(src, i, dest);
                i := i + 3;
            ELSE
-               makeset := AppendChar(src[i], dest);
+               makeset := Chars.AppendChar(src[i], dest);
                i := i + 1;
            END;
        END;
@@ -927,9 +898,9 @@
           assignment and can easily overwrite a single 0X.  To be safe 
           we want to assign all the positions in the array to 0X so the 
           memory is in a known state.  *)
-       ClearString(arg);
-       ClearString(fromset);
-       ClearString(toset);
+       Chars.Clear(arg);
+       Chars.Clear(fromset);
+       Chars.Clear(toset);
        IF (Args.count = 0) THEN
            Error(&quot;usage: translit from to&quot;);
        END;
@@ -953,7 +924,7 @@
        END;
        (* NOTE: We&#39;ve initialized our array of char earlier so we only
           need to know if we need to update toset to a new value *)
-       ClearString(arg);
+       Chars.Clear(arg);
        IF (Args.count = 2) THEN
            Args.Get(1, arg, res);
            IF MakeSet(arg, 0, toset) = FALSE THEN
@@ -1038,12 +1009,18 @@
    </ul>
    </li>
    </ul>
-   <h2 id="previously">
-   Previously
+   <!--
+   Next and Previous
+   -----------------
+
+   + Next: [Files]()
+   -->
+   <h2 id="previous">
+   Previous
    </h2>
    <ul>
    <li>
-   <a href="../../09/29/Software-Tools-1.html">Software Tools, Getting Started</a>
+   Previous: <a href="../../09/29/Software-Tools-1.html">Getting Started</a>
    </li>
    </ul>
       </article>

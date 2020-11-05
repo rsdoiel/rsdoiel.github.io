@@ -24,7 +24,7 @@ class Query:
     def search(self, terms):
         results = self.idx.search(' '.join(terms))
         for i, item in enumerate(results):
-            print(i, item['ref'])
+            print(i, item['ref'], item['match_data'])
 
     
 if __name__ in "__main__":

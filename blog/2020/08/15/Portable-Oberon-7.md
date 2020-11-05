@@ -4,7 +4,7 @@
 	"number": 11,
 	"author": "R. S. Doiel",
 	"date": "2020-08-15",
-	"keywords": [ "Oberon-7", "portable", "stdin" ],
+	"keywords": [ "Oberon", "portable", "stdin" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel",
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

@@ -4,7 +4,7 @@
 	"number": 9,
 	"author": "R. S. Doiel",
 	"date": "2020-07-07",
-	"keywords": [ "Oberon-7", "procedures", "record procedures" ],
+	"keywords": [ "Oberon", "procedures", "record procedures", "programming" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel", 
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
 }

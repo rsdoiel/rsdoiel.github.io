@@ -4,6 +4,7 @@
     "number": 7,
     "author": "R. S. Doiel",
     "date": "2020-05-09",
+    "keywords": [ "Oberon", "programming" ],
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

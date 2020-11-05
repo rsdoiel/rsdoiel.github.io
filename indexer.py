@@ -8,8 +8,13 @@ import os
 import json
 from lunr import lunr
 
-def get_json_frontmatter(fname):
+def normalize_text(src):
+    for c in ["\n", "\t", "[", "]", "(", ")"]:
+        src = src.replace(c, " ")
+
+def document_as_object(fname):
     with open(fname) as fp:
+        obj = {}
         src = fp.read()
         if src[0] == "{":
             c = 1
@@ -27,8 +32,8 @@ def get_json_frontmatter(fname):
                 obj = json.loads(jsrc)
             except Exception as err:
                 return None, err
-            obj['content'] = data
-            return obj, None
+        obj["_Document"] = normalize_text(src)
+        return obj, None
     return None, None
 
 
@@ -47,7 +52,7 @@ class Indexer:
                 _, ext = os.path.splitext(name)
                 if ext == ".md":
                     self.files.append(fname)
-                    [obj, err] = get_json_frontmatter(fname)
+                    [obj, err] = document_as_object(fname)
                     if err:
                         print(f'WARNING: {err}')
                     elif obj != None:
@@ -64,6 +69,10 @@ class Indexer:
             for key in obj:
                 if not key in field_names:
                     field_names.append(key)
+                    if type(obj[key]) == 'list':
+                        for term in obj[key]:
+                            fields.append(dict(field_name=key, extractor = lambda x: f'{x}'))
+
                     if type(obj[key]) != 'string':
                         fields.append(dict(field_name=key, extractor = lambda x: f'{x}'))
                     else:

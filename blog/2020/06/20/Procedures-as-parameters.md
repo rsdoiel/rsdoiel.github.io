@@ -4,7 +4,7 @@
 	"number": 9,
 	"author": "R. S. Doiel",
 	"date": "2020-06-20",
-	"keywords": [ "Oberon-7", "procedures", "passing procedures as parameters" ],
+	"keywords": [ "Oberon", "procedures", "passing procedures as parameters", "programming" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel", 
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
 }

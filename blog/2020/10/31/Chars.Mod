@@ -1,4 +1,5 @@
 MODULE Chars;
+IMPORT Strings;
 
 CONST
     DASH* = "-";
@@ -84,6 +85,52 @@ BEGIN
     RETURN isalphanum
 END IsAlphaNum;
 
+
+(* AppendChar - this copies the char and appends it to
+   the destination. Returns FALSE if append fails. *)
+PROCEDURE AppendChar*(c : CHAR; VAR dest : ARRAY OF CHAR) : BOOLEAN;
+VAR res : BOOLEAN; l : INTEGER;
+BEGIN
+  l := Strings.Length(dest);
+  (* NOTE: we need to account for a trailing 0X to end
+     the string. *)
+  IF l < (LEN(dest) - 1) THEN
+    dest[l] := c;
+    dest[l + 1] := 0X;
+    res := TRUE;
+  ELSE
+    res := FALSE;
+  END;
+  RETURN res
+END AppendChar;
+
+(* Equal - compares two ARRAY OF CHAR and returns TRUE
+if the characters match up to the end of string, FALSE otherwise. *)
+PROCEDURE Equal*(a : ARRAY OF CHAR; b : ARRAY OF CHAR) : BOOLEAN;
+VAR isSame : BOOLEAN; i : INTEGER;
+BEGIN
+  isSame := TRUE;
+  IF Strings.Length(a) # Strings.Length(b) THEN
+    isSame := FALSE;
+  ELSE
+    FOR i := 0 TO (Strings.Length(a) - 1) DO
+      IF a[i] # b[i] THEN
+        isSame := FALSE;
+      END;
+    END;
+  END;
+  RETURN isSame
+END Equal;
+
+(* Clear - resets all cells of an ARRAY OF CHAR to 0X *)
+PROCEDURE Clear*(VAR a : ARRAY OF CHAR);
+VAR i : INTEGER;
+BEGIN
+  FOR i := 0 TO (LEN(a) - 1) DO
+    a[i] := 0X;
+  END;
+END Clear;
+
 END Chars.
 
 
@@ -111,3 +158,13 @@ IsDigit
 
 IsAlphaNum
 : Check to see if a character is alpha or a digit
+
+AppendChar
+: Append a single char to the end of an ARRAY OF CHAR adjusting the terminating null character.
+
+Equal
+: Compares two ARRAY OF CHAR and returns TRUE if they match, FALSE otherwise
+
+Clear
+: Sets all cells in an ARRAY OF CHAR to 0X.
+

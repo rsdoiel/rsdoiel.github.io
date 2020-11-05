@@ -3,6 +3,7 @@
     "title": "Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph",
     "author": "R. S. Doiel",
     "date": "2016-05-30",
+    "keywords": [ "structured data", "amp", "opengraph", "twitter", "google", "facebook", "instant pages" ],
     "copyright": "copyright (c) 2016, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

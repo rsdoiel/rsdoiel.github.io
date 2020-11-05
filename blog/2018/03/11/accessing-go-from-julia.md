@@ -3,6 +3,7 @@
     "title": "Accessing Go from Julia",
     "author": "R. S. Doiel",
     "date": "2018-03-11",
+    "keywords": [ "Golang", "Julia", "shared libraries" ],
     "copyright": "copyright (c) 2018, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

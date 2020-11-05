@@ -4,6 +4,7 @@
     "number": 1,
     "byline": "R. S. Doiel",
     "date": "2020-09-29",
+    "keywords": [ "Oberon", "Pascal", "programming" ],
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }

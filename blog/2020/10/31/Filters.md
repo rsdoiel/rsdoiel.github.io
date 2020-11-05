@@ -740,7 +740,7 @@ append the char found to the end of the set being assembled. This
 resulted in `dodash()` being replaced by `IsSequence()` and 
 `ExpandSequence()`.  Likewise `esc()` was replaced with `IsEscape()`
 and `ExpandEscape()`. I renamed `addchar()` to `AppendChar()` 
-as that seemed more specific and clearer.
+in the "Chars" module as that seemed more specific and clearer.
 
 I choose to advance the value used when expanding a set description
 in the loop inside of my `MakeSet()`. I minimized the side effects 
@@ -869,35 +869,6 @@ BEGIN
     ASSERT(FALSE);
 END Error;
 
-(* Clear string fills an array of char with 0X to (re)set
-   a string to a known state. *)
-PROCEDURE ClearString*(VAR s : ARRAY OF CHAR);
-VAR i : INTEGER;
-BEGIN
-  FOR i := 0 TO LEN(s) - 1 DO
-    s[i] := 0X;
-  END;
-END ClearString;
-
-(* AppendChar - this copies the char and appends it to
-   the destination. Returns FALSE if append fails. *)
-PROCEDURE AppendChar*(c : CHAR; VAR dest : ARRAY OF CHAR) : BOOLEAN;
-VAR res : BOOLEAN; l : INTEGER;
-BEGIN
-  l := Strings.Length(dest);
-  (* NOTE: we need to account for a trailing 0X to end
-     the string. *)
-  IF l < (LEN(dest) - 1) THEN
-    dest[l] := c;
-    dest[l + 1] := 0X;
-    res := TRUE;
-  ELSE
-    res := FALSE;
-  END;
-  RETURN res
-END AppendChar;
-
-
 (* IsEscape - this procedure looks to see if we have an
 escape sequence at position in variable i *)
 PROCEDURE IsEscape*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;
@@ -920,7 +891,7 @@ BEGIN
  res := FALSE;
  j := i + 1;
  IF j < Strings.Length(src)  THEN
-    res := AppendChar(src[j], dest)
+    res := Chars.AppendChar(src[j], dest)
  END
  RETURN res
 END ExpandEscape;
@@ -953,7 +924,7 @@ BEGIN
   IF start < end THEN
     FOR cur := start TO end DO
       IF res THEN
-        res := AppendChar(CHR(cur), dest);
+        res := Chars.AppendChar(CHR(cur), dest);
       END;
     END;
   ELSE
@@ -977,7 +948,7 @@ BEGIN
             makeset := ExpandSequence(src, i, dest);
             i := i + 3;
         ELSE
-            makeset := AppendChar(src[i], dest);
+            makeset := Chars.AppendChar(src[i], dest);
             i := i + 1;
         END;
     END;
@@ -1045,9 +1016,9 @@ BEGIN
        assignment and can easily overwrite a single 0X.  To be safe 
        we want to assign all the positions in the array to 0X so the 
        memory is in a known state.  *)
-    ClearString(arg);
-    ClearString(fromset);
-    ClearString(toset);
+    Chars.Clear(arg);
+    Chars.Clear(fromset);
+    Chars.Clear(toset);
     IF (Args.count = 0) THEN
         Error("usage: translit from to");
     END;
@@ -1071,7 +1042,7 @@ BEGIN
     END;
     (* NOTE: We've initialized our array of char earlier so we only
        need to know if we need to update toset to a new value *)
-    ClearString(arg);
+    Chars.Clear(arg);
     IF (Args.count = 2) THEN
         Args.Get(1, arg, res);
         IF MakeSet(arg, 0, toset) = FALSE THEN
@@ -1164,6 +1135,15 @@ Compiling with OBNC:
 + [Translit](Translit.Mod)
 	+ [Chars](Chars.Mod)
 
-## Previously
+<!--
+Next and Previous
+-----------------
 
-+ [Software Tools, Getting Started](../../09/29/Software-Tools-1.html)
++ Next: [Files]()
+-->
+
+Previous
+--------
+
++ Previous: [Getting Started](../../09/29/Software-Tools-1.html)
+

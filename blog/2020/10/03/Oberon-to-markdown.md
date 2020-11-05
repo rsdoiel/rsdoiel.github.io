@@ -4,7 +4,7 @@
 	"number": 12,
 	"author": "R. S. Doiel",
 	"date": "2020-10-03",
-	"keywords": [ "Oberon-7", "portable", "markdown" ],
+	"keywords": [ "Oberon", "portable", "markdown", "programming" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel",
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
