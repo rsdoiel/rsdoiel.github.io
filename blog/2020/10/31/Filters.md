@@ -3,6 +3,7 @@
     "title": "Software Tools, Filters",
     "number": 2,
     "byline": "R. S. Doiel",
+    "keywords": [ "Oberon", "Pascal", "Programming"],
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
@@ -19,12 +20,12 @@ described in the 1981 book by Brian W. Kernighan and P. J.
 Plauger's called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is available from the
 [Open Library](https://openlibrary.org/) and physical copies
 are still (2020) commonly available from used book sellers.
-The book was an late 20th century text on creating portable 
+The book was an late 20th century text on creating portable
 command line programs using ISO standard Pascal of the era.
 
 In this chapter K & P focuses on developing the idea of filters.
-Filters are programs which typically process standard input, do 
-some sort of transformation or calculation and write to standard 
+Filters are programs which typically process standard input, do
+some sort of transformation or calculation and write to standard
 output.  They are intended to work either standalone or in a pipeline
 to solve more complex problems. I like to think of filters as
 software [LEGO](https://en.wikipedia.org/wiki/Lego).
@@ -63,16 +64,16 @@ a second modules called [Tabs](Tabs.Mod). This removes
 the need for the `#include` macros used in the K & P version.
 I have used the same loop structure as K & P this time.
 There is a difference in my `WHILE` loop. I separate the
-character read from the `WHILE` conditional test.  Combining the 
-two is common in "C" and is consistent with the programming style 
-other books by Kernighan.  In Oberon-7 doesn't make sense at all. 
+character read from the `WHILE` conditional test.  Combining the
+two is common in "C" and is consistent with the programming style
+other books by Kernighan.  In Oberon-7 doesn't make sense at all.
 Oberon's `In.Char()` is not a function returning as in the Pascal
-primitives implemented for the K & P book or indeed like in the "C" 
-language. In Oberon's "In" module the status of a read operation is 
-exposed by `In.Done`. I've chosen to put the next call to 
-`In.Char()` at the bottom of my `WHILE` loop because it is clear 
-that it is the last think done before ether iterating again or 
-exiting the loop. Other than that the Oberon version looks much 
+primitives implemented for the K & P book or indeed like in the "C"
+language. In Oberon's "In" module the status of a read operation is
+exposed by `In.Done`. I've chosen to put the next call to
+`In.Char()` at the bottom of my `WHILE` loop because it is clear
+that it is the last think done before ether iterating again or
+exiting the loop. Other than that the Oberon version looks much
 like K & P's Pascal.
 
 
@@ -189,13 +190,13 @@ END Entab.
 Overstrike isn't a tool that is useful today but I've included it
 simply to be follow along the flow of the K & P book. It very much
 reflects an error where teletype like devices where still common and
-printers printed much like typewriters did. On a 20th century 
-manual type writer you could underline a word or letter by backing 
-up the carriage then typing the underscore character. Striking out 
-a word was accomplished by a similar technique. The mid to late 
+printers printed much like typewriters did. On a 20th century
+manual type writer you could underline a word or letter by backing
+up the carriage then typing the underscore character. Striking out
+a word was accomplished by a similar technique. The mid to late
 20th century computers device retained this mechanism though by
-1980's it was beginning to disappear along with manual typewriters. 
-This program relies on the the nature of ASCII character set and 
+1980's it was beginning to disappear along with manual typewriters.
+This program relies on the the nature of ASCII character set and
 reflects some of the non-print character's functionality. I
 found it did not work on today's terminal emulators reliably. Your
 mileage may very nor do I have a vintage printer to test it on.
@@ -208,27 +209,27 @@ if the last read was successful. This simplifies some of
 the `IF/ELSE` logic and the termination of the `REPEAT/UNTIL`
 loop.  It makes the `WHILE/DO` loop a little more verbose.
 
-One thing I would like to point out in the original Pascal of the 
-book is a problem often referred to as the "dangling else" problem. 
-While this is usually discussed in the context of compiler 
-implementation I feel like it is a bigger issue for the person 
-reading the source code. It is particularly problematic when you 
-have complex "IF/ELSE" sequences that are nested.  This is not 
-limited to the 1980's era Pascal. You see it in other languages 
-like C.  It is a convenience for the person typing the source code 
-but a problem for those who maintain it. We see this ambiguity in 
+One thing I would like to point out in the original Pascal of the
+book is a problem often referred to as the "dangling else" problem.
+While this is usually discussed in the context of compiler
+implementation I feel like it is a bigger issue for the person
+reading the source code. It is particularly problematic when you
+have complex "IF/ELSE" sequences that are nested.  This is not
+limited to the 1980's era Pascal. You see it in other languages
+like C.  It is a convenience for the person typing the source code
+but a problem for those who maintain it. We see this ambiguity in
 the Pascal procedure **overstrike** inside the repeat loop
 on [page 35](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up).
-It is made worse by the fact that K & P have taken advantage of 
-omitting the semi-colons where optional. If you type in this 
-procedure and remove the indication if quickly becomes ambiguous 
-about where on "IF/ELSE" begins and the next ends. In Oberon-7 it 
-is clear when you have a dangling "IF" statement. This vintage 
+It is made worse by the fact that K & P have taken advantage of
+omitting the semi-colons where optional. If you type in this
+procedure and remove the indication if quickly becomes ambiguous
+about where on "IF/ELSE" begins and the next ends. In Oberon-7 it
+is clear when you have a dangling "IF" statement. This vintage
 Pascal, not so much.
 
 K & P do mention the dangling "ELSE" problem later in the text.
 Their recommend practice was include the explicit final "ELSE"
-at a comment to avoid confusion. But you can see how easy an 
+at a comment to avoid confusion. But you can see how easy an
 omitting the comment is in the **overstrike** program.
 
 Limitations
@@ -236,9 +237,9 @@ Limitations
 
 This is documented "BUG" section describes the limitations
 well, "**overstrike** is naive about vertical motions and non-
-printing characters. It produces one over struck line for each 
-sequence of backspaces". But in addition to that most printing 
-devices these days either have their own drivers or expect to work 
+printing characters. It produces one over struck line for each
+sequence of backspaces". But in addition to that most printing
+devices these days either have their own drivers or expect to work
 with a standard like Postscript. This limited the usefulness of
 this program today though controlling character movement in a
 "vt100" emulation using old fashion ASCII control codes is
@@ -347,7 +348,7 @@ BEGIN
       ELSIF (col = 1) THEN (* NOTE: In.Done already check for end of file *)
         Out.Char(CHR(SKIP)); (* normal line *)
       END;
-      (* NOTE: In.Done already was checked so we're in mid line *)
+      (* NOTE: In.Done already was checked so we are in mid line *)
       Out.Char(c);    (* normal character *)
       IF (ORD(c) = NEWLINE) THEN
         col := 1
@@ -370,21 +371,21 @@ END Overstrike.
 
 [Page 37](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up)
 
-In 20th century computing everything is expensive, memory, 
-persistent storage computational ability in CPU.  If you were 
-primarily working with text you still worried about running out of 
+In 20th century computing everything is expensive, memory,
+persistent storage computational ability in CPU.  If you were
+primarily working with text you still worried about running out of
 space in your storage medium. You see it in the units
-of measurement used in that era such as bytes, kilobytes, hertz and 
-kilohertz. To day we talk about megabytes, gigabytes, terabytes and 
-petabytes. Plain text files are a tiny size compared to must 
+of measurement used in that era such as bytes, kilobytes, hertz and
+kilohertz. To day we talk about megabytes, gigabytes, terabytes and
+petabytes. Plain text files are a tiny size compared to must
 digital objects today but in the late 20th century
-their size in storage was still a concern.  One way to solve this 
-problem was to encode your plain text to use less storage space. 
-Early attempts at file compression took advantage of repetition to 
+their size in storage was still a concern.  One way to solve this
+problem was to encode your plain text to use less storage space.
+Early attempts at file compression took advantage of repetition to
 save space. Many text documents have repeated characters
-whether spaces or punctuation or other formatting. This is what 
-inspired the K & P implementation of **compress** and **expand**. 
-Today we'd use other approaches to save space whether we were 
+whether spaces or punctuation or other formatting. This is what
+inspired the K & P implementation of **compress** and **expand**.
+Today we'd use other approaches to save space whether we were
 storing text or a digital photograph.
 
 
@@ -514,17 +515,17 @@ END Compress.
 
 [Page 41](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up)
 
-Our procedures map closely to the original Pascal with a few 
-significant differences.  As previously I've chosen a 
-`REPEAT ... UNTIL` loop structure because we're always attempting 
-to read at least once. The `IF THEN ELSIF ELSE` logic is a little 
+Our procedures map closely to the original Pascal with a few
+significant differences.  As previously I've chosen a
+`REPEAT ... UNTIL` loop structure because we are always attempting
+to read at least once. The `IF THEN ELSIF ELSE` logic is a little
 different. In the K & P version they combine retrieving
-a character and testing its value.  This is a style common in 
-languages like C. As previous mentioned I split the read of the 
-character from the test.  Aside from the choices imposed by the 
-"In" module I also feel that retrieving the value, then testing is 
-a simpler statement to read. There is little need to worry about a 
-side effect when you separate the action from the test. It does 
+a character and testing its value.  This is a style common in
+languages like C. As previous mentioned I split the read of the
+character from the test.  Aside from the choices imposed by the
+"In" module I also feel that retrieving the value, then testing is
+a simpler statement to read. There is little need to worry about a
+side effect when you separate the action from the test. It does
 change the structure of the inner and outer `IF` statements.
 
 
@@ -720,50 +721,50 @@ END Echo.
 Most of the translation process from Pascal to Oberon-7 has
 remained similar to the previous examples.
 
-My implementation of **translit** diverges from the K & P 
-implementation at several points. Much of this is a result of 
-Oberon evolution beyond Pascal. First Oberon counts arrays from 
-zero instead of one so I have opted to use -1 as a value to 
-indicate the index of a character in a string was not found. 
-Equally I have simplified the logic in `xindex()` to make it clear 
-how I am handling the index lookup described in `index()` of the 
+My implementation of **translit** diverges from the K & P
+implementation at several points. Much of this is a result of
+Oberon evolution beyond Pascal. First Oberon counts arrays from
+zero instead of one so I have opted to use -1 as a value to
+indicate the index of a character in a string was not found.
+Equally I have simplified the logic in `xindex()` to make it clear
+how I am handling the index lookup described in `index()` of the
 Pascal implementation. K & P implemented `makeset()` and `dodash()`.
-`dodash()` particularly looked troublesome. If you came across the 
-function name `dodash()` without seeing the code comments 
+`dodash()` particularly looked troublesome. If you came across the
+function name `dodash()` without seeing the code comments
 "doing a dash" seems a little obscure.  I have chosen to name
-that process "Expand Sequence" for clarity. I have simplified the 
-task of making sets of characters for translation into three cases 
-by splitting the test conditions from the actions. First check to 
-see if we have an escape sequence and if so handle it. Second check 
-to see if we have an expansion sequence and if so handle it else 
-append the char found to the end of the set being assembled. This 
-resulted in `dodash()` being replaced by `IsSequence()` and 
+that process "Expand Sequence" for clarity. I have simplified the
+task of making sets of characters for translation into three cases
+by splitting the test conditions from the actions. First check to
+see if we have an escape sequence and if so handle it. Second check
+to see if we have an expansion sequence and if so handle it else
+append the char found to the end of the set being assembled. This
+resulted in `dodash()` being replaced by `IsSequence()` and
 `ExpandSequence()`.  Likewise `esc()` was replaced with `IsEscape()`
-and `ExpandEscape()`. I renamed `addchar()` to `AppendChar()` 
+and `ExpandEscape()`. I renamed `addchar()` to `AppendChar()`
 in the "Chars" module as that seemed more specific and clearer.
 
 I choose to advance the value used when expanding a set description
-in the loop inside of my `MakeSet()`. I minimized the side effects 
-of the expand functions to the target destination.  It is clearer 
-while in the `MakeSet()` loop to see the relationship of the test 
-and transformation and how to advance through the string. This also 
-allowed me to use fewer parameters to procedures which tends to 
+in the loop inside of my `MakeSet()`. I minimized the side effects
+of the expand functions to the target destination.  It is clearer
+while in the `MakeSet()` loop to see the relationship of the test
+and transformation and how to advance through the string. This also
+allowed me to use fewer parameters to procedures which tends to
 make things more readable as well as simpler.
 
-I have included an additional procedure not included in the K & P 
+I have included an additional procedure not included in the K & P
 Pascal of this program. `Error()` displays a string and halts.
-K & P provide this as part of their Pascal environment. I have 
+K & P provide this as part of their Pascal environment. I have
 chosen to embed it here because it is short and trivial.
 
-Translit suggested the "Chars" module because of the repetition in 
-previous programs. In K & P the approach to code reuse is to create 
-a separate source file and to included via a pre-processor. In 
+Translit suggested the "Chars" module because of the repetition in
+previous programs. In K & P the approach to code reuse is to create
+a separate source file and to included via a pre-processor. In
 Oberon we have the module concept.
 
-My [Chars](Chars.Mod) module provides a useful set of test 
-procedures like `IsAlpha(c)`, `IsUpper(c)`, `IsLower()` in addition 
-to the `CharInRange()` and `IsAlphaNum()`.  It also includes 
-`AppendChar()` which can be used to append a single character value 
+My [Chars](Chars.Mod) module provides a useful set of test
+procedures like `IsAlpha(c)`, `IsUpper(c)`, `IsLower()` in addition
+to the `CharInRange()` and `IsAlphaNum()`.  It also includes
+`AppendChar()` which can be used to append a single character value
 to an end of an array of char.
 
 
@@ -840,10 +841,10 @@ Pascal Source
 [length.p, Page 46](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up)
 
 
-The impacts of having a richer language than 1980s ISO Pascal and 
-evolution in practice suggest a revision in the K & P approach. I 
-have attempted to keep the spirit of their example program while 
-reflecting changes in practice that have occurred in the last four 
+The impacts of having a richer language than 1980s ISO Pascal and
+evolution in practice suggest a revision in the K & P approach. I
+have attempted to keep the spirit of their example program while
+reflecting changes in practice that have occurred in the last four
 decades.
 
 
@@ -882,7 +883,7 @@ BEGIN
   RETURN res
 END IsEscape;
 
-(* ExpandEscape - this procedure takes a source array, a 
+(* ExpandEscape - this procedure takes a source array, a
    position and appends the escaped value to the destintation
    array.  It returns TRUE on successuss, FALSE otherwise. *)
 PROCEDURE ExpandEscape*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;
@@ -902,17 +903,17 @@ PROCEDURE IsSequence*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;
 VAR res : BOOLEAN;
 BEGIN
   res := Strings.Length(src) - i >= 3;
-  (* Do we have a sequence of alphumeric character 
+  (* Do we have a sequence of alphumeric character
      DASH alpanumeric character? *)
-  IF res & Chars.IsAlphaNum(src[i]) & (src[i+1] = DASH) & 
+  IF res & Chars.IsAlphaNum(src[i]) & (src[i+1] = DASH) &
             Chars.IsAlphaNum(src[i+2]) THEN
       res := TRUE;
   END;
   RETURN res
 END IsSequence;
 
-(* ExpandSequence - this procedure expands a sequence x 
-   starting at i and append the sequence into the destination 
+(* ExpandSequence - this procedure expands a sequence x
+   starting at i and append the sequence into the destination
    string. It returns TRUE on success, FALSE otherwise *)
 PROCEDURE ExpandSequence*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;
 VAR res : BOOLEAN; cur, start, end : INTEGER;
@@ -940,7 +941,7 @@ VAR i : INTEGER; makeset : BOOLEAN;
 BEGIN
     i := start;
     makeset := TRUE;
-    WHILE (makeset = TRUE) & (i < Strings.Length(src)) DO 
+    WHILE (makeset = TRUE) & (i < Strings.Length(src)) DO
         IF IsEscape(src, i) THEN
             makeset := ExpandEscape(src, i, dest);
             i := i + 2;
@@ -1008,13 +1009,13 @@ BEGIN
     i := 0;
     lastto := MAXSTR - 1;
     (* NOTE: We are doing low level of string manimulation. Oberon
-       strings are terminated by 0X, but Oberon compilers do not 
-       automatically initialize memory to a specific state. In the 
-       OBNC implementation of Oberon-7 assign "" to an assignment 
-       like `s := "";` only writes a 0X to position zero of the 
-       array of char. Since we're doing position based character 
-       assignment and can easily overwrite a single 0X.  To be safe 
-       we want to assign all the positions in the array to 0X so the 
+       strings are terminated by 0X, but Oberon compilers do not
+       automatically initialize memory to a specific state. In the
+       OBNC implementation of Oberon-7 assign "" to an assignment
+       like `s := "";` only writes a 0X to position zero of the
+       array of char. Since we are doing position based character
+       assignment and can easily overwrite a single 0X.  To be safe
+       we want to assign all the positions in the array to 0X so the
        memory is in a known state.  *)
     Chars.Clear(arg);
     Chars.Clear(fromset);
@@ -1022,7 +1023,7 @@ BEGIN
     IF (Args.count = 0) THEN
         Error("usage: translit from to");
     END;
-    (* NOTE: I haven't used an IF ELSE here because we have
+    (* NOTE: I have not used an IF ELSE here because we have
        additional conditions that lead to complex logic.  The
        procedure Error() calls ASSERT(FALSE); which in Oberon-7
        halts the program from further execution *)
@@ -1034,13 +1035,11 @@ BEGIN
         ELSE
             i := 0;
         END;
-        Out.String("DEBUG i: ");Out.Int(i, 0);Out.Ln();
         IF MakeSet(arg, i, fromset) = FALSE THEN
-        Out.String("DEBUG fromset: ");Out.String(fromset);Out.Ln();
             Error("from set too long");
         END;
     END;
-    (* NOTE: We've initialized our array of char earlier so we only
+    (* NOTE: We have initialized our array of char earlier so we only
        need to know if we need to update toset to a new value *)
     Chars.Clear(arg);
     IF (Args.count = 2) THEN
@@ -1083,33 +1082,33 @@ In closing
 
 In this chapter we interact with some of the most common features
 of command line programs available on POSIX systems. K & P have given
-us a solid foundation on which to build more complex and ambitious 
-programs. In the following chapters the read will find an 
-accelerated level of complexity bit also programs that are 
-significantly more powerful. 
+us a solid foundation on which to build more complex and ambitious
+programs. In the following chapters the read will find an
+accelerated level of complexity bit also programs that are
+significantly more powerful.
 
-Oberon language evolved with the Oberon System which had a very 
-different rich text user interface when compared with POSIX. 
-Fortunately Karl's OBNC comes with a set of modules that make 
-Oberon-7 friendly for building programs for POSIX operating systems. 
+Oberon language evolved with the Oberon System which had a very
+different rich text user interface when compared with POSIX.
+Fortunately Karl's OBNC comes with a set of modules that make
+Oberon-7 friendly for building programs for POSIX operating systems.
 I've taken advantage of his `extArgs` module much in the way
-that K & P relied on a set of primitive tools to provide a common 
+that K & P relied on a set of primitive tools to provide a common
 programming environment. K & P's version of
 [implementation of primitives](https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up)
 listed in their appendix. Karl's OBNC extensions modules are
 described on [website](https://miasap.se/obnc/obncdoc/ext/).
-Other Oberon compilers provide similar modules though implementation 
+Other Oberon compilers provide similar modules though implementation
 specific. A good example is Spivey's [Oxford Oberon-2 Compiler](https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).
-K & P chose to target multiple Pascal implementations, I have the 
-luxury of targeting one Oberon-7 implementation. That said if you 
-added a pre-processor like K & P did you could also take their approach 
-to allow you Oberon-7 code to work across many Oberon compiler 
+K & P chose to target multiple Pascal implementations, I have the
+luxury of targeting one Oberon-7 implementation. That said if you
+added a pre-processor like K & P did you could also take their approach
+to allow you Oberon-7 code to work across many Oberon compiler
 implementations. I leave that as an exercise for the reader.
 
-I've chosen to revise some of the code presented in K & P's book. I 
-believe the K & P implementations still contains wisdom in their 
-implementations. They had different constraints and thus made 
-different choices in implementation. Understand the trade offs and 
+I've chosen to revise some of the code presented in K & P's book. I
+believe the K & P implementations still contains wisdom in their
+implementations. They had different constraints and thus made
+different choices in implementation. Understand the trade offs and
 challenges to writing portable code capable of running in very
 divergent set of early 1980's operating systems remains useful today.
 
@@ -1146,4 +1145,3 @@ Previous
 --------
 
 + Previous: [Getting Started](../../09/29/Software-Tools-1.html)
-

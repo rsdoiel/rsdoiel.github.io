@@ -316,7 +316,7 @@
          ELSIF (col = 1) THEN (* NOTE: In.Done already check for end of file *)
            Out.Char(CHR(SKIP)); (* normal line *)
          END;
-         (* NOTE: In.Done already was checked so we&#39;re in mid line *)
+         (* NOTE: In.Done already was checked so we are in mid line *)
          Out.Char(c);    (* normal character *)
          IF (ORD(c) = NEWLINE) THEN
            col := 1
@@ -460,7 +460,7 @@
    <a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up">Page 41</a>
    </p>
    <p>
-   Our procedures map closely to the original Pascal with a few significant differences. As previously I’ve chosen a <code>REPEAT … UNTIL</code> loop structure because we’re always attempting to read at least once. The <code>IF THEN ELSIF ELSE</code> logic is a little different. In the K &amp; P version they combine retrieving a character and testing its value. This is a style common in languages like C. As previous mentioned I split the read of the character from the test. Aside from the choices imposed by the “In” module I also feel that retrieving the value, then testing is a simpler statement to read. There is little need to worry about a side effect when you separate the action from the test. It does change the structure of the inner and outer <code>IF</code> statements.
+   Our procedures map closely to the original Pascal with a few significant differences. As previously I’ve chosen a <code>REPEAT … UNTIL</code> loop structure because we are always attempting to read at least once. The <code>IF THEN ELSIF ELSE</code> logic is a little different. In the K &amp; P version they combine retrieving a character and testing its value. This is a style common in languages like C. As previous mentioned I split the read of the character from the test. Aside from the choices imposed by the “In” module I also feel that retrieving the value, then testing is a simpler statement to read. There is little need to worry about a side effect when you separate the action from the test. It does change the structure of the inner and outer <code>IF</code> statements.
    </p>
    <h2 id="program-documentation-3">
    Program Documentation
@@ -764,7 +764,7 @@
      RETURN res
    END IsEscape;
 
-   (* ExpandEscape - this procedure takes a source array, a 
+   (* ExpandEscape - this procedure takes a source array, a
       position and appends the escaped value to the destintation
       array.  It returns TRUE on successuss, FALSE otherwise. *)
    PROCEDURE ExpandEscape*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;
@@ -784,17 +784,17 @@
    VAR res : BOOLEAN;
    BEGIN
      res := Strings.Length(src) - i &gt;= 3;
-     (* Do we have a sequence of alphumeric character 
+     (* Do we have a sequence of alphumeric character
         DASH alpanumeric character? *)
-     IF res &amp; Chars.IsAlphaNum(src[i]) &amp; (src[i+1] = DASH) &amp; 
+     IF res &amp; Chars.IsAlphaNum(src[i]) &amp; (src[i+1] = DASH) &amp;
                Chars.IsAlphaNum(src[i+2]) THEN
          res := TRUE;
      END;
      RETURN res
    END IsSequence;
 
-   (* ExpandSequence - this procedure expands a sequence x 
-      starting at i and append the sequence into the destination 
+   (* ExpandSequence - this procedure expands a sequence x
+      starting at i and append the sequence into the destination
       string. It returns TRUE on success, FALSE otherwise *)
    PROCEDURE ExpandSequence*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;
    VAR res : BOOLEAN; cur, start, end : INTEGER;
@@ -822,7 +822,7 @@
    BEGIN
        i := start;
        makeset := TRUE;
-       WHILE (makeset = TRUE) &amp; (i &lt; Strings.Length(src)) DO 
+       WHILE (makeset = TRUE) &amp; (i &lt; Strings.Length(src)) DO
            IF IsEscape(src, i) THEN
                makeset := ExpandEscape(src, i, dest);
                i := i + 2;
@@ -890,13 +890,13 @@
        i := 0;
        lastto := MAXSTR - 1;
        (* NOTE: We are doing low level of string manimulation. Oberon
-          strings are terminated by 0X, but Oberon compilers do not 
-          automatically initialize memory to a specific state. In the 
-          OBNC implementation of Oberon-7 assign &quot;&quot; to an assignment 
-          like `s := &quot;&quot;;` only writes a 0X to position zero of the 
-          array of char. Since we&#39;re doing position based character 
-          assignment and can easily overwrite a single 0X.  To be safe 
-          we want to assign all the positions in the array to 0X so the 
+          strings are terminated by 0X, but Oberon compilers do not
+          automatically initialize memory to a specific state. In the
+          OBNC implementation of Oberon-7 assign &quot;&quot; to an assignment
+          like `s := &quot;&quot;;` only writes a 0X to position zero of the
+          array of char. Since we are doing position based character
+          assignment and can easily overwrite a single 0X.  To be safe
+          we want to assign all the positions in the array to 0X so the
           memory is in a known state.  *)
        Chars.Clear(arg);
        Chars.Clear(fromset);
@@ -904,7 +904,7 @@
        IF (Args.count = 0) THEN
            Error(&quot;usage: translit from to&quot;);
        END;
-       (* NOTE: I haven&#39;t used an IF ELSE here because we have
+       (* NOTE: I have not used an IF ELSE here because we have
           additional conditions that lead to complex logic.  The
           procedure Error() calls ASSERT(FALSE); which in Oberon-7
           halts the program from further execution *)
@@ -916,13 +916,11 @@
            ELSE
                i := 0;
            END;
-           Out.String(&quot;DEBUG i: &quot;);Out.Int(i, 0);Out.Ln();
            IF MakeSet(arg, i, fromset) = FALSE THEN
-           Out.String(&quot;DEBUG fromset: &quot;);Out.String(fromset);Out.Ln();
                Error(&quot;from set too long&quot;);
            END;
        END;
-       (* NOTE: We&#39;ve initialized our array of char earlier so we only
+       (* NOTE: We have initialized our array of char earlier so we only
           need to know if we need to update toset to a new value *)
        Chars.Clear(arg);
        IF (Args.count = 2) THEN
