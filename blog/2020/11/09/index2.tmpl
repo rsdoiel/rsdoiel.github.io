@@ -1,0 +1,14 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+      ${if(title)}<title>${title}</title>${endif}
+    </head>
+    <body>
+    <nav>
+    ${ for(nav) } <a href="${ it.href }">${ it.label }</a>${ sep }, ${ endfor }
+    </nav>
+    <section>
+    ${body}
+    </section>
+    </body>
+    </html>

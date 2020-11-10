@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+${if(title)}<title>${title}</title>${endif}
+</head>
+<body>
+${if(nav)}
+${nav.tmpl()}
+${endif}
+<section>
+${body}
+</section>
+</body>
+</html>

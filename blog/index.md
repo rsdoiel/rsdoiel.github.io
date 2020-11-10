@@ -1,4 +1,5 @@
 
++ [Pandoc Partials](/blog/2020/11/09/Pandoc-Partials.html), 2020-11-09
 + [Software Tools, Filters](/blog/2020/10/31/Filters.html), 2020-10-31
 + [Assembling Pages](/blog/2020/10/19/Assemble-pages.html), 2020-10-19
 + [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03

@@ -5,29 +5,8 @@
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigsRobert&#39;s ramblings and wonderings</description>
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
-        <pubDate>Thu, 05 Nov 2020 00:00:00 UTC</pubDate>
-        <lastBuildDate>Thu, 05 Nov 2020 00:00:00 UTC</lastBuildDate>
+        <pubDate>Mon, 09 Nov 2020 00:00:00 UTC</pubDate>
+        <lastBuildDate>Mon, 09 Nov 2020 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.2.2</generator>
-        <item>
-            <title>Software Tools, Filters</title>
-            <link>https://rsdoiel.github.io/blog/2020/10/31/Filters.md</link>
-            <description>&#xA;&#xA;Software Tools, Filters&#xA;=======================&#xA;&#xA;Overview&#xA;--------&#xA;&#xA;This post is the second in a series revisiting the programs&#xA;described in the 1981 book by Brian W. Kernighan and P. J.&#xA;Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is available from the&#xA;[Open Library](https://openlibrary.org/) and physical copies&#xA;are still (2020) commonly available from used book sellers.&#xA;The book was an late 20th century text on creating portable&#xA;command line programs using ISO standard Pascal of the era.&#xA;&#xA;In this chapter K &amp; P focuses on developing the idea of filters.&#xA;Filters are programs which typically process standard input, do&#xA;some sort of transformation or calculation and write to standard&#xA;output.  They are intended to work either standalone or in a pipeline&#xA;to solve more complex problems. I like to think of filters as&#xA;software [LEGO](https://en.wikipedia.org/wiki/Lego).&#xA;Filter programs can be &#34;snapped&#34; together creating simple shapes&#xA;data shapes or combined to for complex compositions. ...</description>
-            <pubDate>Sat, 31 Oct 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/10/31/Filters.md</guid>
-        </item>
-        <item>
-            <title>Assembling Pages</title>
-            <link>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.md</link>
-            <description>Assembling pages&#xA;================&#xA;&#xA;This is the thirteenth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Pandoc and JSON&#xA;---------------&#xA;&#xA;I use [Pandoc](https://pandoc.org) to process Markdown documents. I like to keep my&#xA;front matter in JSON rather than Pandoc&#39;s YAML. Fortunately Pandoc&#xA;does support working with JSON as a metadata file include. Normally I would&#xA;manually split the JSON front matter and the rest of the markup into two&#xA;separate files, then process with Pandoc and other tooling like&#xA;[LunrJS](https://lunrjs.com). [AssemblePage](AssemblePage.Mod) automates this&#xA;process.&#xA;&#xA;Example shell usage: ...</description>
-            <pubDate>Mon, 19 Oct 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.md</guid>
-        </item>
-        <item>
-            <title>Oberon to Markdown</title>
-            <link>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.md</link>
-            <description>Oberon to Markdown&#xA;==================&#xA;&#xA;This is the twelfth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;A nice feature of Oberon&#xA;------------------------&#xA;&#xA;Oberon source code has a very nice property in that anything&#xA;after the closing end statement is ignored by the compiler.&#xA;This makes it a nice place to write documentation, program&#xA;notes and other ideas.&#xA;&#xA;I&#39;ve gotten in the habit of writing up program docs and&#xA;notes there. When I prep to make a web document I used to&#xA;copy the source file, doing a cut and paste to re-order&#xA;the module code to the bottom of the document. I&#39;d follow&#xA;that with adding headers and code fences. Not hard but&#xA;tedious. Of course if I changed the source code I&#39;d also&#xA;have to do another cut and paste edit. This program,&#xA;`ObnToMd.Mod` automates that process. ...</description>
-            <pubDate>Sat, 03 Oct 2020 00:00:00 UTC</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.md</guid>
-        </item>
     </channel>
 </rss>
