@@ -1,6 +1,8 @@
 {
     "title": "Pandoc Partials",
     "byline": "R. S. Doiel",
+    "series": "Pandoc Tips and Tricks",
+    "number": 1,
     "keywords": [ "Pandoc", "Templates"],
     "copyright": "copyright (c) 2020, R. S. Doiel",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
