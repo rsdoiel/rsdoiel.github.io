@@ -1,7 +1,7 @@
 {
     "title": "Pandoc Partials",
     "byline": "R. S. Doiel",
-    "series": "Pandoc Tips and Tricks",
+    "series": "Pandoc Techniques",
     "number": 1,
     "keywords": [ "Pandoc", "Templates"],
     "copyright": "copyright (c) 2020, R. S. Doiel",
@@ -29,11 +29,11 @@ can be deceptively simple to implement.
 Use your own template
 ---------------------
 
-First thing is in this tutorial is to use our own template with Pandoc
-when rendering a single webpage. You use the `--template` option to 
-provide your a template name.  I think of this as the page level template.
-This template, as I will show later, can then call other partial templates
-as needed.
+First thing in this tutorial is to use our own template with Pandoc
+when rendering a single webpage. You use the `–-template` option to
+provide your a template name. I think of this as the page level template.
+This template, as I will show later, can then call other partial
+templates as needed.
 
 Example, render the [Pandoc-Partials.txt](Pandoc-Partials.txt) file using the
 template named [index1.tmpl](index1.tmpl):
@@ -41,7 +41,7 @@ template named [index1.tmpl](index1.tmpl):
 ~~~{.shell}
 
     pandoc --from=markdown --to=html \
-        --template=index1.tmpl Pandoc-Partials.txt > index1.html
+        --template=index1.tmpl Pandoc-Partials.txt > index1.htm
 
 ~~~
 
@@ -65,7 +65,7 @@ When we run our Pandoc command the file called
 the "body" element where it says `${body}`. See this Pandoc 
 [User Guide](https://pandoc.org/MANUAL.html#templates) for the basics.
 
-Example 1 rendered: [index1.html](index1.html)
+Example 1 rendered: [index1.htm](index1.htm)
 
 Variables and metadata
 ----------------------
@@ -90,9 +90,9 @@ Example [metadata.json](metadata.json):
         "title": "Pandoc Partial Examples",
         "nav": [
             {"label": "Pandoc-Partials", "href": "Pandoc-Partials.html" },
-            {"label": "Version 1", "href": "index1.html" },
-            {"label": "Version 2", "href": "index2.html" },
-            {"label": "Version 3", "href": "index3.html" }
+            {"label": "Version 1", "href": "index1.htm" },
+            {"label": "Version 2", "href": "index2.htm" },
+            {"label": "Version 3", "href": "index3.htm" }
         ]
     }
 
@@ -128,7 +128,7 @@ We would include our navigation metadata with a Pandoc command like
 
     pandoc --from=markdown --to=html \
            --template=index2.tmpl \
-           --metadata-file=metadata.json Pandoc-Partials.txt > index2.html
+           --metadata-file=metadata.json Pandoc-Partials.txt > index2.htm
 
 ~~~
 
@@ -136,7 +136,7 @@ When we render this we now should be able to view a web page
 with simple navigation driven by the JSON file as well as the
 body content contained in the Pandoc-Partials.txt file.
 
-Example 2 rendered: [index2.html](index2.html)
+Example 2 rendered: [index2.htm](index2.htm)
 
 Partials
 --------
@@ -209,10 +209,10 @@ Putting it all together:
 
     pandoc --from=markdown --to=html \
            --template=index3.tmpl \
-           --metadata-file=metadata.json Pandoc-Partials.txt > index3.html
+           --metadata-file=metadata.json Pandoc-Partials.txt > index3.htm
 
 ~~~
 
-Example 3 rendered: [index3.html](index3.html)
+Example 3 rendered: [index3.htm](index3.htm)
 
 

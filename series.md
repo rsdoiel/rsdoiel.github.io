@@ -2,6 +2,7 @@
 Series start as blog posts but continue
 on to explore an idea or topic.
 
-1. [Mostly Oberon](blog/2020/04/11/Mostly-Oberon.html)
-2. [Software Tools](blog/2020/09/29/Software-Tools-1.html)
+1. [Mostly Oberon](series/mostly-oberon.html)
+2. [Software Tools](series/software-tools.html)
+3. [Pandoc Techniques](series/pandoc-techniques.html)
 
