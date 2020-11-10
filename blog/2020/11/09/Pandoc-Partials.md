@@ -36,7 +36,7 @@ as needed.
 Example, render the [Pandoc-Partials.txt](Pandoc-Partials.txt) file using the
 template named [index1.tmpl](index1.tmpl):
 
-~~~
+~~~{.shell}
 
     pandoc --from=markdown --to=html \
         --template=index1.tmpl Pandoc-Partials.txt > index1.html
@@ -87,7 +87,7 @@ Example [metadata.json](metadata.json):
     {
         "title": "Pandoc Partial Examples",
         "nav": [
-            {"label": "Pandoc-Partials", "href": "./" },
+            {"label": "Pandoc-Partials", "href": "Pandoc-Partials.html" },
             {"label": "Version 1", "href": "index1.html" },
             {"label": "Version 2", "href": "index2.html" },
             {"label": "Version 3", "href": "index3.html" }
@@ -110,9 +110,7 @@ Example [index2.tmpl](index2.tmpl):
     </head>
     <body>
     <nav>
-    ${for(nav)}
-        <a href="${it.href}">${it.label}</a>
-    ${endfor}
+    ${for(nav)}<a href="${it.href}">${it.label}</a>${sep}, ${endfor}
     </nav>
     <section>
     ${body}
