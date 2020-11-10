@@ -84,7 +84,9 @@ publish: all
 	git commit -am "save and publish"
 	git push origin main
 
-clean:
-	rm $(shell findfile -s .html)
+# Clean now breaks the blog as I have examples and other docs that should
+# note be removed (e.g. Pandoc-Partials examples index?.html files).
+#clean:
+#	rm $(shell findfile -s .html)
 
 .FORCE:
