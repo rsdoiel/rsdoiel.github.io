@@ -9,7 +9,7 @@ features of Oberon avoid the need for macro processors and file
 inclusion through the use of modules.
 
 1. [Getting Started](/blog/2020/09/29/Software-Tools-1.html)
-2. Filters
+2. [Filters](http://localhost:8000/blog/2020/10/31/Filters.html)
 3. Files
 4. Sorting
 5. Text Patterns
