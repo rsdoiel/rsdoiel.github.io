@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${title}</title>
+</head>
+<body>
+    <nav>
+    ${for(nav)}<a href="${nav.href}">${nav.label}</a>${sep}, ${endfor}
+    </nav>
+    <h1>${title}</h1>
+    ${if(pubdate)}<h2>${pubdate}</h2>${endif}
+    <p>
+    ${body}
+    <p>
+</body>
+</html>
