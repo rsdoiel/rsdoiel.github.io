@@ -144,8 +144,7 @@ END AssemblePage.
 
 ~~~
 
-Previous & Next
----------------
+### Next, Previous
 
-+ Previous [Oberon To Markdown](../../10/03/Oberon-to-markdown.html)
 + Next [Dates & Clock](../../11/27/Dates-and-Clock.html)
++ Previous [Oberon To Markdown](../../10/03/Oberon-to-markdown.html)

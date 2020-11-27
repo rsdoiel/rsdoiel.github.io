@@ -14,7 +14,10 @@
 
 By R. S. Doiel, 2020-05-01
 
-This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+series. Mostly Oberon documents my exploration of the Oberon
+Language, Oberon System and the various rabbit holes I will
+inevitably fall into.
 
 In my day job I write allot of code in Go and
 orchestration code in Python.  It's nice having
@@ -69,10 +72,12 @@ explain the procedures.
 
     MODULE Fmt;
 
-    	PROCEDURE Int*(value : INTEGER; fmt: ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
+    	PROCEDURE Int*(value : INTEGER; fmt: ARRAY OF CHAR;
+                       VAR dest : ARRAY OF CHAR);
     	END Int;
 
-    	PROCEDURE Real*(value : REAL; fmt: ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
+    	PROCEDURE Real*(value : REAL; fmt: ARRAY OF CHAR;
+                        VAR dest : ARRAY OF CHAR);
     	END Real;
 
     BEGIN
@@ -159,12 +164,16 @@ Here's what OBNC generated version.
 
     #define OBERON_SOURCE_FILENAME "Fmt.Mod"
 
-    void Fmt__Int_(OBNC_INTEGER value_, const char fmt_[], OBNC_INTEGER fmt_len, char dest_[], OBNC_INTEGER dest_len)
+    void Fmt__Int_(OBNC_INTEGER value_, const char fmt_[], 
+                   OBNC_INTEGER fmt_len, char dest_[], 
+                   OBNC_INTEGER dest_len)
     {
     }
 
 
-    void Fmt__Real_(OBNC_REAL value_, const char fmt_[], OBNC_INTEGER fmt_len, char dest_[], OBNC_INTEGER dest_len)
+    void Fmt__Real_(OBNC_REAL value_, const char fmt_[],
+                    OBNC_INTEGER fmt_len, char dest_[],
+                    OBNC_INTEGER dest_len)
     {
     }
 
@@ -187,13 +196,17 @@ Here's the skeleton revised with do what we need to be done.
 
     #define OBERON_SOURCE_FILENAME "Fmt.Mod"
 
-    void Fmt__Int_(OBNC_INTEGER value_, const char fmt_[], OBNC_INTEGER fmt_len, char dest_[], OBNC_INTEGER dest_len)
+    void Fmt__Int_(OBNC_INTEGER value_, 
+                   const char fmt_[], OBNC_INTEGER fmt_len,
+                   char dest_[], OBNC_INTEGER dest_len)
     {
         sprintf(dest_, fmt_, value_);
     }
 
 
-    void Fmt__Real_(OBNC_REAL value_, const char fmt_[], OBNC_INTEGER fmt_len, char dest_[], OBNC_INTEGER dest_len)
+    void Fmt__Real_(OBNC_REAL value_, const char fmt_[],
+                    OBNC_INTEGER fmt_len, char dest_[],
+                    OBNC_INTEGER dest_len)
     {
         sprintf(dest_, fmt_, value_);
     }
