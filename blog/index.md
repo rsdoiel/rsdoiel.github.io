@@ -1,4 +1,5 @@
 
++ [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
 + [Pandoc & Metadata](/blog/2020/11/11/Pandoc-Metadata.html), 2020-11-11
 + [Pandoc Partials](/blog/2020/11/09/Pandoc-Partials.html), 2020-11-09
 + [Software Tools, Filters](/blog/2020/10/31/Filters.html), 2020-10-31

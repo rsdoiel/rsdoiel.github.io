@@ -4,7 +4,7 @@
 	"number": 13,
 	"author": "R. S. Doiel",
 	"date": "2020-10-19",
-	"keywords": [ "Oberon", "portable", "markdown", "pandoc", "frontmatter" ],
+	"keywords": [ "Oberon-7", "portable", "markdown", "pandoc", "frontmatter" ],
 	"copyright": "copyright (c) 2020, R. S. Doiel",
 	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
@@ -144,6 +144,8 @@ END AssemblePage.
 
 ~~~
 
-### Previous
+Previous & Next
+---------------
 
 + Previous [Oberon To Markdown](../../10/03/Oberon-to-markdown.html)
++ Next [Dates & Clock](../../11/27/Dates-and-Clock.html)

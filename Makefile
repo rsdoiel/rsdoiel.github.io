@@ -1,15 +1,17 @@
-
-TODAY = $(shell date "+%Y-%m-%d")
 #
 # Make file for building website
 #
+TODAY = $(shell date "+%Y-%m-%d")
+
 all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
 
-index.html: nav.md footer.md author.md blog/index.md presentations.md cli-tools.md series.md index.tmpl
-	mkpage "blogPosts=blog/index.md" "presentations=presentations.md" "cliTools=cli-tools.md" "series=series.md" "about-author=author.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
+index.html: index.md nav.md footer.md index.tmpl
+	mkpage "content=index.md" "mdfile=text:index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 	git add index.html
 
-
+index.md: index.txt author.md blog/index.md presentations.md cli-tools.md series/index.md
+	Include index.txt >index.md
+	
 presentations.html: presentations.md footer.md nav.md presentations.tmpl
 	mkpage "mdfile=text:presentations.md" "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
 	git add presentations.html
@@ -90,5 +92,6 @@ publish: all
 # note be removed (e.g. Pandoc-Partials examples index?.html files).
 clean:
 	rm $(shell findfile -s .html)
+	if [ -f index.md ]; then rm index.md; fi
 
 .FORCE:
