@@ -91,7 +91,10 @@
    NOTE: Both <code>DynamicString</code> and <code>DynamicStringDesc</code> are defined using an <code>*</code>. These are public and will be available to other modules. Inside our record <code>DynamicStringDesc</code> we have two private to our module attributes, <code>.value</code> and <code>.next</code>. They are private so that we can change our implementation in the future without requiring changes in modules that use our dynamic strings. Likewise our constant <code>vSize</code> is private as that is an internal implementation detail. This practice is called information hiding.
    </p>
    <p>
-   NOTE: The asterisk in Oberon decorates procedures, types, variables and constants that are “public” to other modules. NOTE: Variables are always exported read only.
+   NOTE: The asterisk in Oberon decorates procedures, types, variables and constants that are “public” to other modules.
+   </p>
+   <p>
+   NOTE: Variables are always exported read only.
    </p>
    <p>
    NOTE: With information hiding some details of implementation allow us to keep a clean division between implementation inside the module and how that implementation might be used. With out information hiding we often have “leaky” abstractions that become brittle and hard to maintain and rely on.
@@ -350,11 +353,16 @@
          END;
        END;
 
-       (* 3. Copy the characters in `cur.value` from relative split point to end of `.value` into a temporary `ARRAY OF CHAR` *)
+       (* 3. Copy the characters in `cur.value` from relative
+             split point to end of `.value` into a 
+             temporary `ARRAY OF CHAR` *)
        splitPos := pos MOD vSize;
-       Strings.Extract(cur.value, splitPos, Strings.Length(cur.value), tmp);
+       Strings.Extract(cur.value, splitPos,
+                       Strings.Length(cur.value), tmp);
 
-       (* 4. Make a new record, `rest`, using the temporary `ARRAY OF CHAR` and update the value of `.next` to match that of `cur.next` *)
+       (* 4. Make a new record, `rest`, using the temporary 
+             `ARRAY OF CHAR` and update the value of `.next` to
+             match that of `cur.next` *)
        New(rest); Set(rest, tmp);
        rest.next := cur.next;
 
@@ -365,7 +373,8 @@
          INC(i);
        END;
 
-       (* 6. Set `cur.next` to point to our `extra` dynamic string. *)
+       (* 6. Set `cur.next` to point to our `extra`
+             dynamic string. *)
        cur.next := extra;
 
        (* 7. Move to the end of extra with `cur` *)
