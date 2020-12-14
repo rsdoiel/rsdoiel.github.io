@@ -1132,4 +1132,4 @@ END Dates.
 
 ### Previous
 
-+ [Assemble Pages](http://localhost:8000/blog/2020/10/19/Assemble-pages.html)
++ [Assemble Pages](/blog/2020/10/19/Assemble-pages.html)
