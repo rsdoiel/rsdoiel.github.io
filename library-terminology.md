@@ -80,6 +80,7 @@ This is my running collection of notes to help me remember various terms, abbrev
     + [EZID Developer Docs](http://ezid.cdlib.org/doc/apidoc.html)
 + full-text
     + XML Bibliographic metadata plus the full text of the article is included in an XML file.
++ [FAIR](https://www.fairdata.fi/en/) is a set of principles and practices for preservation. Should not be confused with the use of the same acronym in defense and DOD use in the federal government. Also see [Fairmetrics](http://fairmetrics.org/) for evaluating compliance with FAIR principles and practices.
 + [GLAM](http://openglam.org/)
     + GLAM is Galleries, Libraries, Archives, and Museums
 + [GOKB](gobk.kuali.org/gokb/)
@@ -147,6 +148,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [PREMIS Data Model](http://www.loc.gov/standards/premis/) and PREMIS Data Dictionary for Preservation Metadata
     + is the international standard for metadata to support the preservation of digital objects and ensure their long-term usability.  
 + [ProQuest](https://en.wikipedia.org/wiki/ProQuest) - ProQuest LLC is an Ann Arbor, Michigan-based global information-content and technology company[1] founded in 1938 as University Microfilms. 
++ [PROV](https://en.wikipedia.org/wiki/PROV_(Provenance)) standard defines a data model that serializes provenance metadata. It is a [W3C](https://www.w3.org/TR/prov-overview/) standard.
 + [PURR](http://authors.library.caltech.edu/25887) - Persistant URL Resource Resolver
     + Used by Caltech library for maintaining a persistent connection to web resources
     + [Detailed documentation](http://authors.library.caltech.edu/25887/1/purr.pdf)
