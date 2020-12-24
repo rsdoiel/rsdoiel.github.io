@@ -1,4 +1,5 @@
 
++ [RetroFlag GPi Case Setup](/blog/2020/12/24/gpi-case-setup.html), 2020-12-24
 + [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
 + [Pandoc & Metadata](/blog/2020/11/11/Pandoc-Metadata.html), 2020-11-11
 + [Pandoc Partials](/blog/2020/11/09/Pandoc-Partials.html), 2020-11-09

@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1 id="from-markdown-and-bash-to-mkpage">
+	  <h1>
    From Markdown and Bash to mkpage
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    When I started maintaining a website on GitHub a few years ago my needs were so simple I hand coded the HTML. Eventually I adopted a markdown processor for maintaining the prose. My “theme” was a CSS file and some HTML fragments to wrap the markdown output. If I needed interactivity I used JavaScript to access content via a web API. Life was simple, all I had to learn to get started was Git and how to populate a branch called “gh-pages”.
    </p>
-   <h2 id="deconstructing-content-management-systems">
+   <h2>
    Deconstructing Content Management Systems
    </h2>
    <p>
@@ -84,13 +84,13 @@
    <p>
    Mapping the data sources to templates, combining the templates and rendering the final website is where most systems introduce a large amount of complexity. This is true of static site generators like <a href="https://jekyllrb.com">Jekill</a> and <a href="https://gohugo.io">Hugo</a>.
    </p>
-   <h2 id="an-experimental-deconstruction">
+   <h2>
    An experimental deconstruction
    </h2>
    <p>
    I wanted a simple command line tool that would make a single web page. It would take a few data sources and formats and run them through a template system. The template system needed to be simple but support the case where data might not be available. It would be nice if it handled the case of repetitious data like that used in tables or lists. Ideally I could render many pages from a single template assuming a simple website and layout.
    </p>
-   <h3 id="a-single-page-generator">
+   <h3>
    A single page generator
    </h3>
    <p>
@@ -127,7 +127,7 @@
    <p>
    That poses the question of how to express the data format and the data source when mapping the content into a template. The web resources are easy in the sense that the web responses include content type information. Files can be simple too as the file extension indicates their format (e.g. “.md” for Markdown, “.json” for JSON documents). What remained was how to identify a text string’s format. I opted for a prefix ending in a colon (e.g. “text:” for plain text, “markdown:” for markdown and “json:” for JSON). This mapping allows for a simple key/value relationship to be expressed easily on the command line.
    </p>
-   <h3 id="mkpage-in-action">
+   <h3>
    mkpage in action
    </h3>
    <p>

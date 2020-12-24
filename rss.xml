@@ -5,15 +5,50 @@
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigsRobert&#39;s ramblings and wonderings</description>
         <copyright>copyright © 2016 - 2020 R. S. Doiel</copyright>
-        <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
-        <lastBuildDate>Fri, 27 Nov 2020 00:00:00 UTC</lastBuildDate>
-        <generator>mkrss v0.2.2</generator>
+        <pubDate>Thu, 24 Dec 2020 00:00:00 UTC</pubDate>
+        <lastBuildDate>Thu, 24 Dec 2020 00:00:00 UTC</lastBuildDate>
+        <generator>mkrss v0.2.0</generator>
+        <item>
+            <title>RetroFlag GPi Case Setup</title>
+            <link>https://rsdoiel.github.io/blog/2020/12/24/gpi-case-setup.txt</link>
+            <description>&lt;h1 id=&#34;setting-up-a-retroflag-gpi-case&#34;&gt;Setting up a RetroFlag GPi Case&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-12-24&lt;/p&gt;&#xA;&lt;p&gt;These are my notes for setting up a RetroFlag GPi case using Recalbox distribution for retro gaming.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)&lt;/li&gt;&#xA;&lt;li&gt;A computer to setup the SD Card and the Raspberry Pi Imager v1.5&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;We will be installing Recalbox[^1] v7.7.x for Raspberry Pi Zero W and GPi case. Recalbox which is a Retro Gaming Linux distribution. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Thu, 24 Dec 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/12/24/gpi-case-setup.txt</guid>
+        </item>
         <item>
             <title>Dates &amp; Clock</title>
             <link>https://rsdoiel.github.io/blog/2020/11/27/Dates-and-Clock.md</link>
-            <description>&#xA;&#xA;Dates and Clock&#xA;===============&#xA;&#xA;By R. S. Doiel, 2020-11-27&#xA;&#xA;The [Oakwood](http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines)&#xA;guidelines specified a common set of modules for Oberon-2 for writing&#xA;programs outside of an Oberon System. A missing module from the Oakwood&#xA;guidelines is modules for working with dates and the system clock.&#xA;Fortunately the A2 Oberon System[^1] provides a template for that&#xA;functionality. In this article I am exploring implementing the&#xA;[Dates](Dates.Mod) and [Clock](Clock.Mod) modules for Oberon-7. I&#xA;also plan to go beyond the A2 implementations and provide additional&#xA;functionality such as parsing procedures and the ability to work with&#xA;either the date or time related attributes separately in the&#xA;`Dates.DateTime` record.&#xA;&#xA;[^1]: A2 information can be found in the [Oberon wikibook](https://en.wikibooks.org/wiki/Oberon#In_A2) ...</description>
+            <description>&lt;h1 id=&#34;dates-and-clock&#34;&gt;Dates and Clock&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2020-11-27&lt;/p&gt;&#xA;&lt;p&gt;The &lt;a href=&#34;http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines&#34;&gt;Oakwood&lt;/a&gt; guidelines specified a common set of modules for Oberon-2 for writing programs outside of an Oberon System. A missing module from the Oakwood guidelines is modules for working with dates and the system clock. Fortunately the A2 Oberon System&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34; role=&#34;doc-noteref&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; provides a template for that functionality. In this article I am exploring implementing the &lt;a href=&#34;Dates.Mod&#34;&gt;Dates&lt;/a&gt; and &lt;a href=&#34;Clock.Mod&#34;&gt;Clock&lt;/a&gt; modules for Oberon-7. I also plan to go beyond the A2 implementations and provide additional functionality such as parsing procedures and the ability to work with either the date or time related attributes separately in the &lt;code&gt;Dates.DateTime&lt;/code&gt; record.&lt;/p&gt;&#xA;&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr /&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn1&#34; role=&#34;doc-endnote&#34;&gt;&lt;p&gt;A2 information can be found in the &lt;a href=&#34;https://en.wikibooks.org/wiki/Oberon#In_A2&#34;&gt;Oberon wikibook&lt;/a&gt; …&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34; role=&#34;doc-backlink&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/section&gt;&#xA;</description>
             <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/27/Dates-and-Clock.md</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/DatesTest.Mod</link>
+            <description>&lt;p&gt;(* DatesTest.Mod - test the Dates module.&lt;/p&gt;&#xA;&lt;p&gt;Copyright (C) 2020 R. S. Doiel&lt;/p&gt;&#xA;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;/p&gt;&#xA;&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.&lt;/p&gt;&#xA;&lt;p&gt;You should have received a copy of the GNU Affero General Public License along with this program. If not, see &lt;a href=&#34;https://www.gnu.org/licenses/&#34; class=&#34;uri&#34;&gt;https://www.gnu.org/licenses/&lt;/a&gt;. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/DatesTest.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Dates.Mod</link>
+            <description>&lt;p&gt;(* Dates – this module was inspired by the A2’s Dates module, adapted for Oberon-7 and a POSIX system. It provides an assortment of procedures for working with a simple datetime record.&lt;/p&gt;&#xA;&lt;p&gt;Copyright (C) 2020 R. S. Doiel&lt;/p&gt;&#xA;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;/p&gt;&#xA;&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.&lt;/p&gt;&#xA;&lt;p&gt;You should have received a copy of the GNU Affero General Public License along with this program. If not, see &lt;a href=&#34;https://www.gnu.org/licenses/&#34; class=&#34;uri&#34;&gt;https://www.gnu.org/licenses/&lt;/a&gt;. …&lt;/p&gt;&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Dates.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/ClockTest.Mod</link>
+            <description>&lt;p&gt;MODULE ClockTest;&lt;/p&gt;&#xA;&lt;p&gt;IMPORT Tests, Chars, Clock; (* , Out; *)&lt;/p&gt;&#xA;&lt;p&gt;CONST MAXSTR = Chars.MAXSTR;&lt;/p&gt;&#xA;&lt;p&gt;VAR title : ARRAY MAXSTR OF CHAR; success, errors : INTEGER;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE TestGetRtcTime() : BOOLEAN; VAR second, minute, hour, day, month, year : INTEGER; test, expected, result: BOOLEAN; BEGIN test := TRUE; second := 0; minute := 0; hour := 0; day := 0; month := 0; year := 0; expected := TRUE; Clock.GetRtcTime(second, minute, hour, day, month, year); …&lt;/p&gt;&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/ClockTest.Mod</guid>
+        </item>
+        <item>
+            <title></title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Clock.Mod</link>
+            <description>&lt;p&gt;MODULE Clock;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE GetRtcTime*(VAR second, minute, hour, day, month, year : INTEGER); BEGIN END GetRtcTime;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE Get*(VAR time, date : INTEGER); BEGIN END Get;&lt;/p&gt;&#xA;&lt;p&gt;END Clock.&lt;/p&gt;&#xA;&lt;p&gt;Clock ===== …&lt;/p&gt;&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 UTC</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Clock.Mod</guid>
         </item>
     </channel>
 </rss>

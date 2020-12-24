@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1 id="compiling-obnc-on-macos">
+	  <h1>
    Compiling OBNC on macOS
    </h1>
    <p>
@@ -55,7 +55,7 @@
    <p>
    Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is straight forward if you have the required dependencies and environment setup up. Below are my notes to get everything working.
    </p>
-   <h2 id="prerequisites">
+   <h2>
    Prerequisites
    </h2>
    <ul>
@@ -72,7 +72,7 @@
    A C compiler and linker (OBNC uses this to generate machine specific code)
    </li>
    </ul>
-   <h3 id="sdl-1.2">
+   <h3>
    SDL 1.2
    </h3>
    <p>
@@ -81,7 +81,7 @@
    <pre><code>
       sudo port install libsdl
    </code></pre>
-   <h3 id="the-boehm-demers-weiser-gc">
+   <h3>
    The Boehm-Demers-Weiser GC
    </h3>
    <p>
@@ -101,13 +101,13 @@
    <a href="https://ports.macports.org/port/boehmgc/summary">MacPorts page</a>
    </li>
    </ul>
-   <h3 id="c-compiler-and-linker">
+   <h3>
    C compiler and linker
    </h3>
    <p>
    XCode is provides a C compiler and linker. That is what is installed on my machine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can install other C compilers (e.g. Clang) but I haven’t tried them yet.
    </p>
-   <h2 id="setting-up-my-environment">
+   <h2>
    Setting up my environment
    </h2>
    <p>
@@ -118,7 +118,7 @@
        export LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
        export LD_LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
    </code></pre>
-   <h2 id="obnc-environment-variables">
+   <h2>
    OBNC environment variables
    </h2>
    <p>
@@ -127,7 +127,7 @@
    <pre><code>
        export OBNC_IMPORT_PATH=&quot;/usr/local/lib/obnc:$HOME/lib/obnc&quot;
    </code></pre>
-   <h3 id="next-and-previous">
+   <h3>
    Next and Previous
    </h3>
    <ul>

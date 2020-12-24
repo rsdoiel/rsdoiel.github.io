@@ -43,10 +43,10 @@
 
     <section>
       <article>
-	  <h1 id="software-tools-filters">
+	  <h1>
    Software Tools, Filters
    </h1>
-   <h2 id="overview">
+   <h2>
    Overview
    </h2>
    <p>
@@ -78,7 +78,7 @@
    <strong>translit</strong>, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K &amp; P
    </li>
    </ul>
-   <h2 id="implementing-in-oberon-7">
+   <h2>
    Implementing in Oberon-7
    </h2>
    <p>
@@ -90,7 +90,7 @@
    <p>
    In <strong>translit</strong> the notation let’s us describe what we want to translate. At the simplest level the <strong>translit</strong> program takes a character and replaces it with another character. What make increases <strong>translit</strong> utility is that it can take a set of characters and replace it with another. If you want to change all lower cases letters and replace them with uppercase letters. This “from set” and “to set” are easy to describe as two ranges, “a” to “z” and “A” to “Z”. Our domain notation allows us to express this as “a-z” and “A-Z”. K &amp; P include several of features in there notation including characters to exclude from a translation as well as an “escape notation” for describing characters like new lines, tabs, or the characters that describe a range and exclusion (i.e. dash and caret).
    </p>
-   <h1 id="putting-tabs-back">
+   <h1>
    2.1 Putting Tabs Back
    </h1>
    <p>
@@ -99,7 +99,7 @@
    <p>
    Implementing <strong>entab</strong> in Oberon-7 is straight forward. Like my <a href="Detab.Mod">Detab</a> implementation I am using a second modules called <a href="Tabs.Mod">Tabs</a>. This removes the need for the <code>#include</code> macros used in the K &amp; P version. I have used the same loop structure as K &amp; P this time. There is a difference in my <code>WHILE</code> loop. I separate the character read from the <code>WHILE</code> conditional test. Combining the two is common in “C” and is consistent with the programming style other books by Kernighan. In Oberon-7 doesn’t make sense at all. Oberon’s <code>In.Char()</code> is not a function returning as in the Pascal primitives implemented for the K &amp; P book or indeed like in the “C” language. In Oberon’s “In” module the status of a read operation is exposed by <code>In.Done</code>. I’ve chosen to put the next call to <code>In.Char()</code> at the bottom of my <code>WHILE</code> loop because it is clear that it is the last think done before ether iterating again or exiting the loop. Other than that the Oberon version looks much like K &amp; P’s Pascal.
    </p>
-   <h2 id="program-documentation">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -138,7 +138,7 @@
      to a tab if it occurs at a tab stop. The entab is not an
      exact inverse of detab.
    </code></pre>
-   <h2 id="source-code-for-entab.mod">
+   <h2>
    Source code for <strong>Entab.Mod</strong>
    </h2>
    <pre><code>
@@ -194,7 +194,7 @@
      Entab();
    END Entab.
    </code></pre>
-   <h1 id="overstrikes">
+   <h1>
    2.2 Overstrikes
    </h1>
    <p>
@@ -212,13 +212,13 @@
    <p>
    K &amp; P do mention the dangling “ELSE” problem later in the text. Their recommend practice was include the explicit final “ELSE” at a comment to avoid confusion. But you can see how easy an omitting the comment is in the <strong>overstrike</strong> program.
    </p>
-   <h2 id="limitations">
+   <h2>
    Limitations
    </h2>
    <p>
    This is documented “BUG” section describes the limitations well, “<strong>overstrike</strong> is naive about vertical motions and non- printing characters. It produces one over struck line for each sequence of backspaces”. But in addition to that most printing devices these days either have their own drivers or expect to work with a standard like Postscript. This limited the usefulness of this program today though controlling character movement in a “vt100” emulation using old fashion ASCII control codes is still interesting if only for historical reasons.
    </p>
-   <h2 id="program-documentation-1">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -260,7 +260,7 @@
      characters. It produces one over struck line for each sequence
      of backspaces.
    </code></pre>
-   <h2 id="source-code-for-overstrike.mod">
+   <h2>
    Source code for <strong>Overstrike.Mod</strong>
    </h2>
    <pre><code>
@@ -331,7 +331,7 @@
      Overstrike();
    END Overstrike.
    </code></pre>
-   <h1 id="text-compression">
+   <h1>
    2.3 Text Compression
    </h1>
    <p>
@@ -340,7 +340,7 @@
    <p>
    In 20th century computing everything is expensive, memory, persistent storage computational ability in CPU. If you were primarily working with text you still worried about running out of space in your storage medium. You see it in the units of measurement used in that era such as bytes, kilobytes, hertz and kilohertz. To day we talk about megabytes, gigabytes, terabytes and petabytes. Plain text files are a tiny size compared to must digital objects today but in the late 20th century their size in storage was still a concern. One way to solve this problem was to encode your plain text to use less storage space. Early attempts at file compression took advantage of repetition to save space. Many text documents have repeated characters whether spaces or punctuation or other formatting. This is what inspired the K &amp; P implementation of <strong>compress</strong> and <strong>expand</strong>. Today we’d use other approaches to save space whether we were storing text or a digital photograph.
    </p>
-   <h2 id="program-documentation-2">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -379,7 +379,7 @@
 
        The implementation assumes 26 legal characters beginning with A.
    </code></pre>
-   <h2 id="source-code-for-compress.mod">
+   <h2>
    Source code for <strong>Compress.Mod</strong>
    </h2>
    <pre><code>
@@ -453,7 +453,7 @@
        Compress();
    END Compress.
    </code></pre>
-   <h1 id="text-expansion">
+   <h1>
    2.4 Text Expansion
    </h1>
    <p>
@@ -462,7 +462,7 @@
    <p>
    Our procedures map closely to the original Pascal with a few significant differences. As previously I’ve chosen a <code>REPEAT … UNTIL</code> loop structure because we are always attempting to read at least once. The <code>IF THEN ELSIF ELSE</code> logic is a little different. In the K &amp; P version they combine retrieving a character and testing its value. This is a style common in languages like C. As previous mentioned I split the read of the character from the test. Aside from the choices imposed by the “In” module I also feel that retrieving the value, then testing is a simpler statement to read. There is little need to worry about a side effect when you separate the action from the test. It does change the structure of the inner and outer <code>IF</code> statements.
    </p>
-   <h2 id="program-documentation-3">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -498,7 +498,7 @@
        1       car         -$7,000.00
        &lt;ENDFILE&gt;
    </code></pre>
-   <h2 id="source-code-for-expand.mod">
+   <h2>
    Source code for <strong>Expand.Mod</strong>
    </h2>
    <pre><code>MODULE Expand;
@@ -559,13 +559,13 @@
        Expand();
    END Expand.
    </code></pre>
-   <h1 id="command-arguments">
+   <h1>
    2.5 Command Arguments
    </h1>
    <p>
    <a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up">Page 44</a>
    </p>
-   <h2 id="program-documentation-4">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -594,7 +594,7 @@
            echo hello world!
            hello world!
    </code></pre>
-   <h2 id="source-code-for-echo.mod">
+   <h2>
    Source code for <strong>Echo.Mod</strong>
    </h2>
    <pre><code>
@@ -628,7 +628,7 @@
        Echo();
    END Echo.
    </code></pre>
-   <h1 id="character-transliteration">
+   <h1>
    2.6 Character Transliteration
    </h1>
    <p>
@@ -652,7 +652,7 @@
    <p>
    My <a href="Chars.Mod">Chars</a> module provides a useful set of test procedures like <code>IsAlpha(c)</code>, <code>IsUpper(c)</code>, <code>IsLower()</code> in addition to the <code>CharInRange()</code> and <code>IsAlphaNum()</code>. It also includes <code>AppendChar()</code> which can be used to append a single character value to an end of an array of char.
    </p>
-   <h2 id="program-documentation-5">
+   <h2>
    Program Documentation
    </h2>
    <p>
@@ -703,7 +703,7 @@
            This is a simple-minded test, i.e., a test of translit.
            This is a simple minded test i e a test of translit
    </code></pre>
-   <h2 id="pascal-source">
+   <h2>
    Pascal Source
    </h2>
    <p>
@@ -730,7 +730,7 @@
    <p>
    The impacts of having a richer language than 1980s ISO Pascal and evolution in practice suggest a revision in the K &amp; P approach. I have attempted to keep the spirit of their example program while reflecting changes in practice that have occurred in the last four decades.
    </p>
-   <h2 id="source-code-for-translit.mod">
+   <h2>
    Source code for <strong>Translit.Mod</strong>
    </h2>
    <pre><code>MODULE Translit;
@@ -954,7 +954,7 @@
        Translit();
    END Translit.
    </code></pre>
-   <h1 id="in-closing">
+   <h1>
    In closing
    </h1>
    <p>
@@ -1013,7 +1013,7 @@
 
    + Next: [Files]()
    -->
-   <h2 id="previous">
+   <h2>
    Previous
    </h2>
    <ul>

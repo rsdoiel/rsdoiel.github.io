@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1 id="pandoc-partial-templates">
+	  <h1>
    Pandoc Partial Templates
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    The main Pandoc documentation of the template engine can be found in the <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a>. The documentation is complete in terms of describing the template capabilities but lacks a tutorial for using as a replacement for more ambitious rendering systems like <a href="https://jekyllrb.com/">Jekyll</a> or <a href="https://gohugo.io/">Hugo</a>. Pandoc takes a vary direct approach and can be deceptively simple to implement.
    </p>
-   <h2 id="use-your-own-template">
+   <h2>
    Use your own template
    </h2>
    <p>
@@ -61,14 +61,14 @@
    <p>
    Example, render the <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> file using the template named <a href="index1.tmpl">index1.tmpl</a>:
    </p>
-   <pre class="shell"><code>
+   <pre class="{.shell}"><code>
        pandoc --from=markdown --to=html \
            --template=index1.tmpl Pandoc-Partials.txt &gt; index1.htm
    </code></pre>
    <p>
    This is a simple template page level template.
    </p>
-   <pre class="html-code"><code>
+   <pre class="{.html-code}"><code>
        &lt;!DOCTYPE html&gt;
        &lt;html&gt;
        &lt;head&gt;
@@ -84,7 +84,7 @@
    <p>
    Example 1 rendered: <a href="index1.htm">index1.htm</a>
    </p>
-   <h2 id="variables-and-metadata">
+   <h2>
    Variables and metadata
    </h2>
    <p>
@@ -93,25 +93,24 @@
    <p>
    Example <a href="metadata.json">metadata.json</a>:
    </p>
-   <div id="cb3" class="sourceCode">
-   <pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
-   <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="fu">{</span></span>
-   <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Partial Examples&quot;</span><span class="fu">,</span></span>
-   <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-   <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-   <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 1&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index1.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-   <span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 2&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index2.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-   <span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 3&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index3.htm&quot;</span> <span class="fu">}</span></span>
-   <span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        <span class="ot">]</span></span>
-   <span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre>
-   </div>
+   <pre class="{.json}"><code>
+       {
+           &quot;title&quot;: &quot;Pandoc Partial Examples&quot;,
+           &quot;nav&quot;: [
+               {&quot;label&quot;: &quot;Pandoc-Partials&quot;, &quot;href&quot;: &quot;Pandoc-Partials.html&quot; },
+               {&quot;label&quot;: &quot;Version 1&quot;, &quot;href&quot;: &quot;index1.htm&quot; },
+               {&quot;label&quot;: &quot;Version 2&quot;, &quot;href&quot;: &quot;index2.htm&quot; },
+               {&quot;label&quot;: &quot;Version 3&quot;, &quot;href&quot;: &quot;index3.htm&quot; }
+           ]
+       }
+   </code></pre>
    <p>
    Let’s modify our initial template to include our simple navigation and title.
    </p>
    <p>
    Example <a href="index2.tmpl">index2.tmpl</a>:
    </p>
-   <pre class="html-code"><code>
+   <pre class="{.html-code}"><code>
        &lt;!DOCTYPE html&gt;
        &lt;html&gt;
        &lt;head&gt;
@@ -130,7 +129,7 @@
    <p>
    We would include our navigation metadata with a Pandoc command like
    </p>
-   <pre class="shell"><code>
+   <pre class="{.shell}"><code>
        pandoc --from=markdown --to=html \
               --template=index2.tmpl \
               --metadata-file=metadata.json Pandoc-Partials.txt &gt; index2.htm
@@ -141,13 +140,13 @@
    <p>
    Example 2 rendered: <a href="index2.htm">index2.htm</a>
    </p>
-   <h2 id="partials">
+   <h2>
    Partials
    </h2>
    <p>
    Sometimes you have more complex documents. Putting this all in one template can become tedious. Web designers use a term called “partials”. This usually means a template for a “part” of a page. In our initial example we can split our navigation into it’s own template.
    </p>
-   <h2 id="implementing-partials">
+   <h2>
    Implementing partials
    </h2>
    <p>
@@ -156,7 +155,7 @@
    <p>
    Here’s my partial template:
    </p>
-   <pre class="html-code"><code>
+   <pre class="{.html-code}"><code>
        &lt;nav&gt;
        ${for(nav)}&lt;a href=&quot;${it.href}&quot;&gt;${it.label}&lt;/a&gt;${sep}, ${endfor}
        &lt;/nav&gt;
@@ -164,7 +163,7 @@
    <p>
    Here’s my third iteration of our index template, <a href="index3.tmpl">index3.tmpl</a>.
    </p>
-   <pre class="html-code"><code>
+   <pre class="{.html-code}"><code>
        &lt;!DOCTYPE html&gt;
        &lt;html&gt;
        &lt;head&gt;
@@ -189,7 +188,7 @@
    <p>
    Putting it all together:
    </p>
-   <pre class="shell"><code>
+   <pre class="{.shell}"><code>
        pandoc --from=markdown --to=html \
               --template=index3.tmpl \
               --metadata-file=metadata.json Pandoc-Partials.txt &gt; index3.htm

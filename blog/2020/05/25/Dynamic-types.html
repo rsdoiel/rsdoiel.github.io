@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1 id="dynamic-types">
+	  <h1>
    Dynamic types
    </h1>
    <p>
@@ -52,19 +52,19 @@
    <p>
    This is the eighth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
    </p>
-   <h2 id="dynamic-types-in-oberon">
+   <h2>
    Dynamic Types in Oberon
    </h2>
    <p>
    Oberon-7 is a succinct systems language. It provides a minimal but useful set of basic static types. Relying on them addresses many common programming needs. The Oberon compiler ensures static types are efficiently allocated in memory. One of the strengths of Oberon is this ability to extend the type system. This means when the basic types fall short you can take advantage of Oberon’s type extension features. This includes creating dynamically allocated data structures. In Oberon-7 combining Oberon’s <code>POINTER TO</code> and <code>RECORD</code> types allows us to create complex and dynamic data structures.
    </p>
-   <h2 id="an-example-dynamic-strings">
+   <h2>
    An example, dynamic strings
    </h2>
    <p>
    Strings in Oberon-7 are typical declared as an <code>ARRAY OF CHAR</code> with a specific length. If the length of a string is not known a head of time this presents a challenge. One approach is to declare a long array but that would allocate allot of memory which may not get used. Another approach is to create a dynamic data structure. An example is using a linked list of shorter <code>ARRAY OF CHAR</code>. The small fixed strings can combine to represent much larger strings. When one fills up we add another.
    </p>
-   <h3 id="pointers-and-records-an-oberon-idiom">
+   <h3>
    Pointers and records, an Oberon idiom
    </h3>
    <p>
@@ -99,13 +99,13 @@
    <p>
    NOTE: With information hiding some details of implementation allow us to keep a clean division between implementation inside the module and how that implementation might be used. With out information hiding we often have “leaky” abstractions that become brittle and hard to maintain and rely on.
    </p>
-   <h2 id="working-with-dynamicstring">
+   <h2>
    Working with DynamicString
    </h2>
    <p>
    Our type definitions describe to the compiler how to layout our data in memory. The type system in Oberon-7 also ensures that access to that memory is restricted to assignments, operations and procedures compatible with that type. To be useful from other modules we need a few procedures to help work with this new data type. What follows is a minimal set needed to be useful.
    </p>
-   <h3 id="newvar-str-dynamicstring">
+   <h3>
    <code>New*(VAR str : DynamicString)</code>
    </h3>
    <p>
@@ -118,7 +118,7 @@
        str.next := NIL;
      END New;
    </code></pre>
-   <h3 id="setvar-str-dynamicstring-source-array-of-char">
+   <h3>
    <code>Set*(VAR str : DynamicString; source : ARRAY OF CHAR)</code>
    </h3>
    <p>
@@ -144,7 +144,7 @@
        END;
      END Set;
    </code></pre>
-   <h3 id="tochararraystr-dynamicstring-var-dest-array-of-char-var-ok-boolean">
+   <h3>
    <code>ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)</code>
    </h3>
    <p>
@@ -169,7 +169,7 @@
    <p>
    Two additional procedures will likely be needed– <code>Append</code> and <code>AppendCharArray</code>. This first one is trivial, if we want to add one dynamic string onto another all we need to do is link the last record of the first and point it to a copy of the second string we’re appending.
    </p>
-   <h3 id="appendextra-dynamicstring-var-dest-dynamicstring">
+   <h3>
    <code>Append*(extra : DynamicString; VAR dest : DynamicString);</code>
    </h3>
    <p>
@@ -223,7 +223,7 @@
    <p>
    A second procedure for appending an <code>ARRAY OF CHAR</code> also becomes trivial. First convert the <code>ARRAY OF CHAR</code> to a dynamic string then append it with the previous procedure.
    </p>
-   <h3 id="appendchararraysrc-array-of-char-var-str-dynamicstring">
+   <h3>
    <code>AppendCharArray*(src : ARRAY OF CHAR; VAR str : DynamicString);</code>
    </h3>
    <p>
@@ -242,7 +242,7 @@
    <p>
    At some point we will want to know the length of our dynamic string.
    </p>
-   <h3 id="lengthstr-dynamicstring-integer">
+   <h3>
    <code>Length(str : DynamicString) : INTEGER</code>
    </h3>
    <p>
@@ -261,7 +261,7 @@
        RETURN total
      END Length;
    </code></pre>
-   <h2 id="extending-dynamicstrings-module">
+   <h2>
    Extending DynamicStrings module
    </h2>
    <p>
@@ -273,7 +273,7 @@
    <p>
    Let’s look at recreating <code>Insert</code> as a potential guide to a more fully featured <a href="DynamicStrings.Mod">“DynamicStrings.Mod”</a>. In our <code>Insert</code> we modify the procedure signature so the source and destinations are dynamic strings.
    </p>
-   <h3 id="insertsource-dynamicstring-pos-integer-var-dest-dynamicstring">
+   <h3>
    <code>Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)</code>
    </h3>
    <p>
@@ -397,7 +397,7 @@
        Insert(extra, pos, dest);
      END InsertCharArray;
    </code></pre>
-   <h2 id="where-to-go-next">
+   <h2>
    Where to go next
    </h2>
    <p>
@@ -406,13 +406,13 @@
    <p>
    The procedure I suggest is to mirror <code>Strings</code> replacing the parameters that are <code>ARRAY OF CHAR</code> with <code>DynamicString</code>. It will be helpful to include some bridging procedures that accept <code>ARRAY OF CHAR</code> as inputs too. These will use similar names with a suffix of <code>CharArray</code>.
    </p>
-   <h2 id="parameter-conventions-and-order">
+   <h2>
    Parameter conventions and order
    </h2>
    <p>
    Oberon is highly composable. The trick to creating a drop in replacement module is use the same parameter signatures so you only need to make minor changes like updating the <code>IMPORT</code> statement and using a module alias to map the old module to the new one. The parameter signatures in <code>Strings</code> follow a convention you’ll see in other Oberon modules. The parameter order is based on the “inputs”, “modify parameters”, and “output parameters”. Inputs are non-<code>VAR</code> parameters. The remaining are <code>VAR</code> parameters. I think of “modify parameters” as those objects who reflect side effects. I think of “output” as values that in other languages would be returned by functions. This is only a convention. A variation I’ve read in other Oberon modules is “object”, “inputs”, “outputs”. “object” and “outputs” are <code>VAR</code> parameters and “inputs” are not. This ordering makes sense when we think of records as holding an object. In both cases ordering is a convention and not enforced by the language. Convention and consistency is helpful but readability is the most important. Oberon is a readable language. It does not reward obfuscation. Readability is a great virtue in a programming language. When creating your own modules choose readability based on the concepts you want to emphasize in the module (e.g. procedural, object oriented).
    </p>
-   <h2 id="the-modules-so-far">
+   <h2>
    The modules so far
    </h2>
    <p>
@@ -420,13 +420,17 @@
    </p>
    <ul>
    <li>
+   <p>
    <a href="DynamicStrings.Mod">DynamicStrings.Mod</a>
+   </p>
    </li>
    <li>
+   <p>
    <a href="DynamicStringsTest.Mod">DynamicStringsTest.Mod</a>
+   </p>
    </li>
    </ul>
-   <h3 id="next-and-previous">
+   <h3>
    Next and Previous
    </h3>
    <ul>
