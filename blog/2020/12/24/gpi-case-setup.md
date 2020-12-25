@@ -1,8 +1,11 @@
 {
     "title": "RetroFlag GPi Case Setup",
-    "byline": "R. S. Doiel, 2020-12-24",
-    "pubDate": "2020-12-24",
-    "keywords": [ "raspberry pi", "retro games", "case" ]
+    "author": "R. S. Doiel",
+    "date": "2020-12-24",
+    "keywords": [ "raspberry pi", "retro games", "case" ],
+	"copyright": "copyright (c) 2020, R. S. Doiel",
+	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
+
 }
 
 Setting up a RetroFlag GPi Case
@@ -16,8 +19,9 @@ distribution for retro gaming.
 + RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)
 + A computer to setup the SD Card  and the Raspberry Pi Imager v1.5
 
-We will be installing Recalbox[^1] v7.7.x for Raspberry Pi Zero W
-and GPi case.  Recalbox which is a Retro Gaming Linux distribution.
+We will be installing [Recalbox](https://www.recalbox.com/ "the all-in-one retro gaming console")
+v7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro
+Gaming Linux distribution.
 
 Steps
 =====
@@ -49,8 +53,8 @@ Installing the Raspberry Pi Zero W in the GPi Case
 
 The RetroFlag comes with instructions to install the Raspberry Pi Zero W
 in the case. I found the pictorial instructions confusing. Doing a search
-for "RetroFlag GPi Case Setup" yielded a link to Howchoo's YouTube
-video[^2],  This video also talks about setting up Retro Pi software,
+for "RetroFlag GPi Case Setup" yielded a link to [Howchoo's YouTube
+video](https://www.youtube.com/watch?v=NyJUlNifN1I&feature=youtu.be "RetroFlag GPi CASE Setup and Usage"),  This video also talks about setting up Retro Pi software,
 GPi case patches. Skip these. The instructions are now for software that
 is out of date (the video dates back to 2019). 
 
@@ -80,7 +84,6 @@ Booting the Pi Zero W with the SD Card
 7. Wait patiently, it's going to take several minutes to boot the first time
 
 
-[^1]: [Recalbox](https://www.recalbox.com/), the all-in-one retro gaming console
 
-[^2]: [RetroFlag GPi CASE Setup and Usage](https://www.youtube.com/watch?v=NyJUlNifN1I&feature=youtu.be)
+
 
