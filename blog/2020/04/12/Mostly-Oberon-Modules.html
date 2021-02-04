@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="oberon-modules-and-procedures">
    Oberon Modules and Procedures
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    This is the second post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
    </p>
-   <h2>
+   <h2 id="modules">
    Modules
    </h2>
    <p>
@@ -85,7 +85,7 @@
    <p>
    For a module to be really useful you want to have the capability of including both private and public code. Public code allows us to reuse our code in other modules while the private code keeps internal things inside the module safe from colliding with other modules private code. This technique is classically known as “information hiding” and in computer sciences texts as “scope”. Lets create a a more composable module called <code>SayingHi.Mod</code>. In addition to display “Hello World!” we want a public method (procedure in Oberon terminology) that can ask for a name and print out a salutation. We will use the <code>SayingHi.Mod</code> module along with a newer version of <code>HelloWorld.Mod</code> named <code>HelloWorld2.Mod</code>.
    </p>
-   <h2>
+   <h2 id="procedures">
    Procedures
    </h2>
    <p>
@@ -110,7 +110,7 @@
    <p>
    This modules looks allot like <code>HelloWorld.Mod</code> with a couple key differences. Rather than relying on the module’s begin and end statements we declare a procedure with its own begin and end statements. Notice the procedures end statement includes the procedure name and is terminated by semicolon rather than a period. Like <code>HelloWorld.Mod</code> we import the <code>Out</code> module to display our greeting.
    </p>
-   <h2>
+   <h2 id="putting-it-all-together">
    Putting it all together
    </h2>
    <p>
@@ -218,7 +218,7 @@
       Excuse me, may I ask your name? Robert
       Hello Robert, very nice to meeting you.
    </code></pre>
-   <h2>
+   <h2 id="reading-our-code">
    Reading our code
    </h2>
    <p>
@@ -236,7 +236,7 @@
    <p>
    Our second module <a href="SayingHi.Mod">SayingHi.Mod</a> does the heavy lifting. It contains both public and private procedures. If you tried to use <code>GetName</code> from <code>SayingHi</code> in <code>HelloWorld2.Mod</code> you would get a compiler error. As far as <code>HelloWorld2.Mod</code> is concerned <code>GetName</code> does not exist. This is called information hiding and is an important capability provided by Oberon’s Modules system.
    </p>
-   <h3>
+   <h3 id="explore-sayinghi-more-deeply">
    explore <code>SayingHi</code> more deeply
    </h3>
    <p>
@@ -317,7 +317,7 @@
    <p>
    The memory for <code>ourName</code> will be populated when we pass the variable to <code>GetName</code> based on what we type at the keyboard. If we type more than 256 ASCII characters they will be ignored. After <code>GetName</code> records the typed character we use the memory associated with the <code>ourName</code> variable we read that memory to display what we typed in the procedure named <code>AssembleGreeting</code>.
    </p>
-   <h3>
+   <h3 id="going-a-little-deeper">
    Going a little deeper
    </h3>
    <p>
@@ -332,27 +332,21 @@
    <p>
    We’ve minimized the memory we’ve used in our program. Memory is typically allocated on the stack (a block of memory made available by the operating system to the program). We’ve told the operating system we need 256 <code>CHAR</code> worth of consecutive memory locations when we allocated room the variable <code>ourName</code> in <code>Greetings</code>. When we invoke <code>GetName</code> Oberon knows to use that same memory location for the value of <code>ourName</code> defined in the parameter. In turn when <code>In.String(ourName);</code> is called the module <code>In</code> knows to store the name typed on the keyboard in that location of memory. When <code>Out.String(outName);</code> is called the compiler knows to use the same location of memory to send the contents to the display. When we finally finish the <code>Greetings*</code> procedure the memory is released back to the operating system for re-use by this or other programs.
    </p>
-   <h3>
+   <h3 id="what-weve-explored">
    What we’ve explored
    </h3>
    <ol type="1">
    <li>
-   <p>
    Using a module to break down a simple problem
-   </p>
    </li>
    <li>
-   <p>
    Using a module’s ability to have public and private procedures
-   </p>
    </li>
    <li>
-   <p>
    Touched on how memory is used in a simple interactive program
-   </p>
    </li>
    </ol>
-   <h3>
+   <h3 id="next-and-previous">
    Next and Previous
    </h3>
    <ul>

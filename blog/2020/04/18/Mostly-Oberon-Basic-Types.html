@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="oberon-basic-types">
    Oberon Basic Types
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    This is the third post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
    </p>
-   <h2>
+   <h2 id="simple-types">
    Simple Types
    </h2>
    <p>
@@ -61,7 +61,7 @@
    <p>
    NOTE: <strong>basic types</strong>, INTEGER, REAL, CHAR, ARRAY, RECORD and POINTER TO
    </p>
-   <h3>
+   <h3 id="integer">
    INTEGER
    </h3>
    <p>
@@ -76,7 +76,7 @@
    <pre><code>
        i := 7;
    </code></pre>
-   <h3>
+   <h3 id="real">
    REAL
    </h3>
    <p>
@@ -94,7 +94,7 @@
    <pre><code>
        a := 7.1;
    </code></pre>
-   <h3>
+   <h3 id="char">
    CHAR
    </h3>
    <p>
@@ -115,13 +115,13 @@
    <p>
    Note: Oberon expects double quotes to notate a character.
    </p>
-   <h3>
+   <h3 id="more-complex-types">
    More complex types
    </h3>
    <p>
    The simplest types would prove problematic when addressing more complex data representations if Oberon lacked two three built-in types - ARRAY, RECORD and POINTER TO.
    </p>
-   <h3>
+   <h3 id="array">
    ARRAY
    </h3>
    <p>
@@ -156,7 +156,7 @@
    <p>
    NOTE: <strong>type safety</strong>, Type safe means the compiler or run time verify that the data stored at that location conforms to the program defined, this is helpful in maintaining program correctness.
    </p>
-   <h3>
+   <h3 id="record">
    RECORD
    </h3>
    <p>
@@ -193,11 +193,8 @@
    Records are also used to create dynamic memory structures such as lists, trees and maps (see note on “AD”). The dynamic nature of records is achieved with our next type “POINTER TO”.
    </p>
    <p>
-   NOTE: <strong>AD</strong>, Prof. Wirth wrote an excellent text on <a href="https://inf.ethz.ch/personal/wirth/AD.pdf">Algorithms and Data structures</a> available in PDF format.
+   NOTE: <strong>AD</strong>, Prof. Wirth wrote an excellent text on <a href="https://inf.ethz.ch/personal/wirth/AD.pdf">Algorithms and Data structures</a> available in PDF format. ### POINTER TO
    </p>
-   <h3>
-   POINTER TO
-   </h3>
    <p>
    Oberon is a type safe language. To keep things safe in a type safe language you need to place constraints around random memory access. Memory can be thought of a list of locations and we can go to those locations if we know their address. A pointer in most languages holds an address. Oberon has pointers but they must point at specific data types. So like array you have to indicate the type of the thing you are pointing at in a declaration. E.g. <code>VAR a : POINTER TO CHAR;</code> would declare a variable ‘a’ that points to a memory location that holds a CHAR. The more common case is we use “POINTER TO” in records to create dynamic data structures such as linked lists.
    </p>
@@ -275,7 +272,7 @@
    <p>
    At this stage we have the basics of data organization. Modules allow us to group operations and data into cohesive focused units. Procedures allow us to define consistent ways of interacting with out data, and types singularly and collectively allow us to structure data in a way that is useful to solving problems.
    </p>
-   <h2>
+   <h2 id="putting-it-all-together">
    Putting it all together
    </h2>
    <p>
@@ -409,7 +406,7 @@
          Out.String(&quot;Display &#39;name&#39; our array of char: &quot;);Out.String(name);Out.Ln;
        END BasicTypeDemo.
    </code></pre>
-   <h2>
+   <h2 id="reading-through-the-code">
    Reading through the code
    </h2>
    <p>
@@ -418,7 +415,7 @@
    <p>
    In creating our <code>DString</code> data structure the Oberon idiom is to first create a description record, <code>DStringDesc</code> then create a pointer to the descriptive type, i.e. <code>DString</code>. This is a very common idiom in building out complex data structures. A good place to learn about implementing algorithms and data structures in Oberon-7 is Prof. Wirth’s 2004 edition of <a href="https://inf.ethz.ch/personal/wirth/AD.pdf">Algorithms and Data Structures</a> which is available from his personal website in PDF.
    </p>
-   <h3>
+   <h3 id="next-and-previous">
    Next and Previous
    </h3>
    <ul>

@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="harvesting-my-gists-from-github">
    Harvesting my Gists from GitHub
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    This is a just quick set of notes on harvesting my Gists on GitHub so I have an independent copy for my own website.
    </p>
-   <h2>
+   <h2 id="assumptions">
    Assumptions
    </h2>
    <p>
@@ -61,14 +61,14 @@
    <p>
    In the following examples “USER” is assumed to hold your GitHub user id (e.g. rsdoiel for https://github.com/rsdoiel).
    </p>
-   <h2>
+   <h2 id="getting-my-basic-profile">
    Getting my basic profile
    </h2>
    <p>
    This retrieves the public view of your profile.
    </p>
    <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;</code></pre>
-   <h2>
+   <h2 id="find-the-url-for-your-gists">
    Find the urL for your gists
    </h2>
    <p>
@@ -79,7 +79,7 @@
    <p>
    Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.
    </p>
-   <h2>
+   <h2 id="harvesting-the-individual-gists.">
    Harvesting the individual Gists.
    </h2>
    <p>

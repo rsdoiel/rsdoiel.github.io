@@ -1,24 +1,27 @@
 
-+ [RetroFlag GPi Case Setup](/blog/2020/12/24/gpi-case-setup.html), 2020-12-24
-+ [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
-+ [Pandoc & Metadata](/blog/2020/11/11/Pandoc-Metadata.html), 2020-11-11
-+ [Pandoc Partials](/blog/2020/11/09/Pandoc-Partials.html), 2020-11-09
-+ [Software Tools, Filters](/blog/2020/10/31/Filters.html), 2020-10-31
-+ [Assembling Pages](/blog/2020/10/19/Assemble-pages.html), 2020-10-19
-+ [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
-+ [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
-+ [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
-+ [Words Matter](/blog/2020/07/08/words-matter.html), 2020-07-08
-+ [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07
-+ [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
-+ [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
-+ [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
-+ [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06
-+ [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
-+ [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-19
-+ [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
-+ [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
-+ [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html), 2020-04-11
+
+## 2020
+
+ + 12-24, [RetroFlag GPi Case Setup](/blog/2020/12/24/gpi-case-setup.html)
+ + 11-27, [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html)
+ + 11-11, [Pandoc & Metadata](/blog/2020/11/11/Pandoc-Metadata.html)
+ + 11-09, [Pandoc Partials](/blog/2020/11/09/Pandoc-Partials.html)
+ + 10-31, [Software Tools, Filters](/blog/2020/10/31/Filters.html)
+ + 10-19, [Assembling Pages](/blog/2020/10/19/Assemble-pages.html)
+ + 10-03, [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html)
+ + 09-29, [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html)
+ + 08-15, [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html)
+ + 07-08, [Words Matter](/blog/2020/07/08/words-matter.html)
+ + 07-07, [Procedures in records](/blog/2020/07/07/Procedures-in-records.html)
+ + 06-20, [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html)
+ + 05-25, [Dynamic types](/blog/2020/05/25/Dynamic-types.html)
+ + 05-09, [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html)
+ + 05-06, [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html)
+ + 05-01, [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html)
+ + 04-19, [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html)
+ + 04-18, [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html)
+ + 04-12, [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html)
+ + 04-11, [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html)
 
 ## 2019
 

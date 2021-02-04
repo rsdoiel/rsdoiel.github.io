@@ -43,7 +43,7 @@
 
     <section>
       <article>
-	  <h1>
+	  <h1 id="go-bleve-and-library-oriented-software">
    Go, Bleve and Library oriented software
    </h1>
    <p>
@@ -52,7 +52,7 @@
    <p>
    In 2016, Stephen Davison, asked me, “Why use Go and Blevesearch for our library projects?” After our conversation I wrote up some notes so I would remember. It is now 2018 and I am revising these notes. I think our choice paid off. What follows is the current state of my reflection on the background, rational, concerns, and risk mitigation strategies so far for using <a href="https://golang.org">Go</a> and <a href="https://blevesearch.com">Blevesearch</a> for Caltech Library projects.
    </p>
-   <h2>
+   <h2 id="background">
    Background
    </h2>
    <p>
@@ -67,7 +67,7 @@
    <p>
    Go is unsurprising and has even been called boring. This turns out to be a strength when building sustainable projects in a small team.
    </p>
-   <h2>
+   <h2 id="why-do-i-write-go">
    Why do I write Go?
    </h2>
    <p>
@@ -85,7 +85,7 @@
    <p>
    Bleve is a Go package for building search engines. When I originally came across Bleve (around 2014), it was described as “Lucene lite”. “Lucene lite” was an apt description, but I find it easier to use than Lucene. When I first used Bleve I embedded its functionality into the tools I used to process data and present web services. It did not have much in the way of stand alone command line tooling. Today I increasingly think of Bleve as “Elastic Search lite”. It ships with a set of command line tools that include support for building Bleve’s indexes. My current practice is to only embed the search portion of the packages. I can use the Bleve command line for the rest. In 2018, Bleve is being actively developed, has a small vibrant community and is used by <a href="https://couchbase.com">Couchbase</a>, a well established NoSQL player.
    </p>
-   <h2>
+   <h2 id="who-is-using-go">
    Who is using Go?
    </h2>
    <p>
@@ -96,32 +96,22 @@
    </p>
    <ul>
    <li>
-   <p>
    <a href="http://docker.org">Docker</a> and <a href="http://www.docker.com">Rocket</a> - Containerization for running process in the cloud
-   </p>
    </li>
    <li>
-   <p>
    <a href="http://kubernetes.io/">Kubernettes</a> and <a href="https://www.terraform.io/">Terraform</a> - Container orchestration systems
-   </p>
    </li>
    <li>
-   <p>
    <a href="http://hugo.io">Hugo</a> - the fast/popular static website generator, an alternative to Jekyll, for those who want speed
-   </p>
    </li>
    <li>
-   <p>
    <a href="https://caddyserver.com/">Caddy</a> - a Go based web server trying to unseat Apache/NGinX focusing on easy of use plus speed
-   </p>
    </li>
    <li>
-   <p>
    <a href="http://ipfs.io">IPFS</a> - a cutting edge distributed storage system based on block chains
-   </p>
    </li>
    </ul>
-   <h3>
+   <h3 id="who-is-using-blevesearch">
    Who is using Blevesearch?
    </h3>
    <p>
@@ -129,22 +119,16 @@
    </p>
    <ul>
    <li>
-   <p>
    <a href="http://www.couchbase.com">Couchbase</a>, a NoSQL database platform are replacing Lucene with Bleve. Currently the creator of Bleve works for them.
-   </p>
    </li>
    <li>
-   <p>
    <a href="http://hugo.io">Hugo</a> can integrate with Bleve for search and index generation
-   </p>
    </li>
    <li>
-   <p>
    <a href="https://caddyserver.com/">Caddy</a> integrates with Bleve to provide an embedded search capability
-   </p>
    </li>
    </ul>
-   <h2>
+   <h2 id="managing-risks">
    Managing risks
    </h2>
    <p>
@@ -170,7 +154,7 @@
    <p>
    The greatest risk in adopting Go for library and archive projects was knowledge transfer. We addressed this by knowledge sharing and insuring the Go codebase can be used via command line programs. Additionally we are adding support for Go based Python modules. Training also is available in the form of books, websites and online courses (<a href="https://www.lynda.com/Go-tutorials/Up-Running-Go/412378-2.html">lynda.com</a> offers a “Up Running Go” course).
    </p>
-   <h2>
+   <h2 id="what-are-the-benefits">
    What are the benefits?
    </h2>
    <p>
