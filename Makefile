@@ -6,7 +6,8 @@ TODAY = $(shell date "+%Y-%m-%d")
 all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
 
 index.html: index.md nav.md footer.md index.tmpl
-	mkpage "content=index.md" "mdfile=text:index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
+#	mkpage "content=index.md" "mdfile=text:index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
+	mkpage "content=index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 	git add index.html
 
 index.md: index.txt author.md blog/index.md presentations.md cli-tools.md series/index.md
@@ -52,11 +53,11 @@ series/pandoc-techniques.html: series/pandoc-techniques.md
 	mkpage "title=text:Pandoc Techniques Series" "content=series/pandoc-techniques.md" "nav=nav.md" "footer=footer.md" page.tmpl > series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
 
-blog: blog/index.html
-	git add blog/index.html
-
-blog/index.html:
+blog: .FORCE
+	blogit -prefix=blog -refresh=2021,2020,2019,2018,2017,2016
 	bash blog.bash
+	git add blog/index.html
+	python3 indexer.py
 
 rssfeed.html: rssfeed.md
 	mkpage "mdfile=text:rssfeed.md" "content=rssfeed.md" "nav=nav.md" "footer=footer.md" about.tmpl > rssfeed.html

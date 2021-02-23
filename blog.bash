@@ -63,8 +63,6 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
         TITLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE="${Y}-"$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
-        INAME="${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" ".md").json"
-        frontmatter -j -i "${Y}/${FNAME}" >"${INAME}"
         mkpage \
             "year=text:${POST_DATE:0:4}" \
             "title=text:${TITLE}" \
@@ -80,7 +78,7 @@ done
 echo "Building $BLOG/index.md"
 TITLE="Robert's ramblings"
 echo "" > index.md
-echo "Building links to $THIS_YEAR posts"
+echo "Building Index for $THIS_YEAR posts"
 findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
     echo "Processing index.md <-- $THIS_YEAR/$ITEM"
     POST_FILENAME=$THIS_YEAR/$ITEM

@@ -6,6 +6,8 @@
 import sys
 import os
 import json
+from subprocess import run, Popen, PIPE
+
 from lunr import lunr
 
 def normalize_text(src):
@@ -16,18 +18,18 @@ def normalize_text(src):
         src = src.replace(c, " ")
 
 def document_as_object(fname):
-    frontmatter = fname.rstrip(".md")+".json"
     obj = {}
-    if os.path.exists(frontmatter):
-        with open(frontmatter) as fp:
-            src = fp.read()
+    cmd = ['frontmatter', '-j', '-i', fname]
+    with Popen(cmd, stdout = PIPE, encoding = 'utf-8') as proc:
+        src = proc.stdout.read()
+        if src.startswith('{'):
             obj = json.loads(src)
-            os.remove(frontmatter)
-        print(f'DEBUG Process document {fname}')
-        with open(fname) as fp:
-            src = fp.read()
-            obj["_Document"] = normalize_text(src)
-            return obj, None
+        else:
+            return obj, f'No front matter found {fname}'
+    with open(fname) as fp:
+        src = fp.read()
+        obj["_Document"] = normalize_text(src)
+        return obj, None
     return None, None
 
 
@@ -47,12 +49,10 @@ class Indexer:
                 if ext == ".md":
                     self.files.append(fname)
                     [obj, err] = document_as_object(fname)
-                    if err:
-                        print(f'WARNING: {err}')
-                    elif obj != None:
-                        if fname.startswith("./"):
-                            key = self.htdocs_prefix + fname[2:]
-                            obj['_Key'] = key
+                    if (obj != None) and (len(obj) > 0):
+                        key = os.path.join(self.htdocs_prefix, fname)
+                        print(f'Indexing document {fname}')
+                        obj['_Key'] = key
                         self.documents.append(obj)
 
     def lunr_index(self):
@@ -89,7 +89,7 @@ class Indexer:
 
     
 if __name__ in "__main__":
-    site = Indexer()
+    site = Indexer(start_path = 'blog')
     site.harvest_metadata()
     site.lunr_index()
     site.report()
