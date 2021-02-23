@@ -28,8 +28,14 @@ fi
 MKPAGE=$(which mkpage)
 if [ "${MKPAGE}" = "" ]; then
     echo 'Installing mkpage'
-install_tools \
-	github.com/caltechlibrary/mkpage
+    install_tools github.com/caltechlibrary/mkpage
 else
     echo "MkPage available: ${MKPAGE}"
+fi
+DATATOOLS=$(which range)
+if [ "$DATATOOLS" = "" ]; then
+    echo 'Installing datatools for range cli'
+    install_tools github.com/caltechlibrary/datatools
+else
+    echo "range available: ${DATATOOLS}"
 fi
