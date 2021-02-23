@@ -18,7 +18,18 @@ function install_tools() {
 	done
 }
 
+PANDOC=$(which pandoc)
+if [ "${PANDOC}" = "" ]; then 
+    echo 'Missing pandoc, try "sudo apt install pandoc"'
+    exit 1
+else
+    echo "Pandoc available: ${PANDOC}"
+fi
+MKPAGE=$(which mkpage)
+if [ "${MKPAGE}" = "" ]; then
+    echo 'Installing mkpage'
 install_tools \
-	mvdan.cc/sh/cmd/shfmt \
-	github.com/caltechlibrary/datatools \
 	github.com/caltechlibrary/mkpage
+else
+    echo "MkPage available: ${MKPAGE}"
+fi
