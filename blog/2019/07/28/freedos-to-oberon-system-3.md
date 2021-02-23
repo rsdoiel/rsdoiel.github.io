@@ -1,8 +1,13 @@
-{
-    "title": "FreeDOS 1.2 to Oberon System 3",
-    "byline": "By R. S. Doiel, 2019-07-28",
-    "pubdate": "2019-07-29, 5:45pm, PST"
-}
+---
+title: "FreeDOS 1.2 to Oberon System 3"
+byline: "By R. S. Doiel, 2019-07-28"
+author: "R. S. Doiel"
+date: "2019-07-29"
+pubdate: "2019-07-29, 5:45pm, PST"
+keywords: [ "FreeDOS", "Oberon System" ]
+copyright: "copyright (c) 2019, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 FreeDOS to Oberon System 3

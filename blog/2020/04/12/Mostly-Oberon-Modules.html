@@ -58,7 +58,7 @@
    <p>
    The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions. A module’s name should match the filename you are saving it under. A module starts with declaring it’s name and ends the declaration with a semicolon the statement separator in Oberon. Our simple “Hello World” example shows the basic code shape.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE HelloWorld;
          IMPORT Out;
        BEGIN
@@ -71,7 +71,7 @@
    <p>
    Here’s an example
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE HelloWorld;
          IMPORT Out;
        BEGIN
@@ -97,7 +97,7 @@
    <p>
    NOTE: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are “read only” in other modules.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE SayingHi;
          IMPORT Out;
        
@@ -116,7 +116,7 @@
    <p>
    Let’s create a new “Hello World” module called <code>HelloWorld2.Mod</code> and use our <code>SayingHi</code> module instead of directly importing <code>Out</code>.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE HelloWorld2;
          IMPORT SayingHi;
        BEGIN
@@ -158,7 +158,7 @@
    <p>
    To keep our “Greeting” procedure short we’ll split this up into some private procedures. These will not be available outside <code>SayingHi.Mod</code>. Here’s a sketch of our improved module.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE SayingHi;
          IMPORT In, Out;
        
@@ -195,7 +195,7 @@
    <p>
    Now let’s add our Greetings procedure to <code>HelloWorld2.Mod</code>.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE HelloWorld2;
          IMPORT SayingHi;
        BEGIN
@@ -253,7 +253,7 @@
    <p>
    <code>SayingHi.Mod</code> imports two module, <code>In</code> which is for getting text input from the keyboard, and <code>Out</code> which is used for displaying text to standard output.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        IMPORT In, Out;
    </code></pre>
    <p>
@@ -265,7 +265,7 @@
    <p>
    The first procedure is <code>HelloWorld</code> and it’s pretty straight forward. It displays a “Hello World!” message in our terminal. It uses <code>Out</code>. <code>Out.String</code> to display the “Hello World!” and <code>Out.Ln</code> to force a new line. <code>Out.String</code> is responsible for displaying values that are of type <code>ARRAY OF CHAR</code>. This includes text we provided in double quotes.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE HelloWorld*;
        BEGIN
          Out.String(&quot;Hello World!&quot;); Out.Ln;
@@ -277,7 +277,7 @@
    <p>
    Our second procedure is <code>AskOurName</code>. It’s private because it lacks the <code><em></code>. It is invisible to <code>HelloWorld2.Mod</code>. It is visible within <code>SayingHi</code> module and we’ll use it later in <code>Greetings</em></code>. Before a procedure, variable, constant or record can be used it must be declared. That is why we most define <code>AskOurName</code> before we define <code>Greetings<em></code>. <code>AskOurName</code> is in other respects very similar to <code>HelloWorld</em></code>.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE AskOurName;
        BEGIN
          Out.String(&quot;Excuse me, may I ask your name? &quot;);
@@ -286,13 +286,13 @@
    <p>
    Our third procedure <code>GetName</code> is a little more interesting. It demonstrates several features of the Oberon language. Most obvious is that it is the first procedure which contains a parameter list.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE GetName(VAR ourName: ARRAY OF CHAR);
    </code></pre>
    <p>
    There is allot packed in this single statement in addition to putting a name to our procedure. Specifically it uses a <code>VAR</code> in the parameter. Oberon provides two kinds of parameters in declaring procedures. The two are <code>VAR</code> and static. A <code>VAR</code> parameter means that the procedure is allowed to up date the value in the memory location indicated by the name. A static variable (a parameter without the <code>VAR</code> prefix passes in a read only value. This allows us to distinguish between those procedures and variables where that can be modified by the procedure and those which will be left the same. Inside of <code>GetName</code> we call the <code>In</code> module using the <code>Line</code>. This retrieves a line of text (a sequence of keyboard strokes ended with the return key).
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        In.Line(ourName);
    </code></pre>
    <p>
@@ -301,7 +301,7 @@
    <p>
    Our next procedure <code>AssembleGreeting</code> is private like <code>AskOurName</code> and <code>GetName</code>. Like <code>HelloWorld<em></code> and <code>AskOurName</code> it makes use of the <code>Out</code> module to display content. Unlike <code>HelloWorld</em></code> it has a parameter but this time a static one. Notice the missing <code>VAR</code>. This indicates that <code>AssembleGreeting</code> doesn’t modify, cannot modify <code>ourName</code>.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);
        BEGIN
          Out.String(&quot;Hello &quot;);Out.String(ourName);

@@ -1,12 +1,11 @@
-{
-    "markup": "mmark",
-    "title": "Android, Termux and Dev Environment",
-    "author": "R. S. Doiel",
-    "date": "2016-09-20",
-    "keywords": [ "Bash", "cURL", "jq", "sed", "grep", "search", "golang", "Android" ],
-    "copyright": "copyright (c) 2016, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Android, Termux and Dev Environment"
+author: "R. S. Doiel"
+date: "2016-09-20"
+keywords: [ "Bash", "cURL", "jq", "sed", "grep", "search", "golang", "Android" ]
+copyright: "copyright (c) 2016, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Android, Termux and Dev Environment

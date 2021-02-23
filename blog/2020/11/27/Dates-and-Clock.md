@@ -1,13 +1,13 @@
-{
-	"title": "Dates & Clock",
-	"series": "Mostly Oberon",
-	"number": 14,
-	"author": "R. S. Doiel",
-	"date": "2020-11-27",
-	"keywords": [ "Oberon-7", "C-shared", "obnc" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel",
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Dates & Clock"
+series: "Mostly Oberon"
+number: 14
+author: "R. S. Doiel"
+date: "2020-11-27"
+keywords: [ "Oberon-7", "C-shared", "obnc" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 Dates and Clock

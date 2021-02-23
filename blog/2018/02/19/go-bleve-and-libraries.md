@@ -1,12 +1,11 @@
-{
-    "markup": "mmark",
-    "title": "Go, Bleve and Library oriented software",
-    "author": "R. S. Doiel",
-    "date": "2018-02-19",
-    "keywords": [ "Golang", "Bleve", "search" ],
-    "copyright": "copyright (c) 2018, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Go, Bleve and Library oriented software"
+author: "R. S. Doiel"
+date: "2018-02-19"
+keywords: [ "Golang", "Bleve", "search" ]
+copyright: "copyright (c) 2018, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Go, Bleve and Library oriented software

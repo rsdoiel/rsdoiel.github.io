@@ -1,12 +1,12 @@
-{
-    "markup": "mmark",
-    "title": "Software Tools, Filters",
-    "number": 2,
-    "byline": "R. S. Doiel",
-    "keywords": [ "Oberon", "Pascal", "Programming"],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Software Tools, Filters"
+series: "Software Tools"
+number: 2
+author: "R. S. Doiel"
+keywords: [ "Oberon", "Pascal", "Programming"]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 Software Tools, Filters

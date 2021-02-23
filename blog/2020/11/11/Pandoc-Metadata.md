@@ -1,12 +1,12 @@
-{
-    "title": "Pandoc & Metadata",
-    "byline": "R. S. Doiel",
-    "series": "Pandoc Techniques",
-    "number": 2,
-    "keywords": [ "Pandoc", "Metadata", "Templates" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Pandoc & Metadata"
+author: "R. S. Doiel"
+series: "Pandoc Techniques"
+number: 2
+keywords: [ "Pandoc", "Metadata", "Templates" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 Pandoc & Metadata 

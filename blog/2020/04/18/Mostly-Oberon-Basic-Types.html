@@ -67,13 +67,13 @@
    <p>
    Integers are easiest to be thought of as whole numbers. They may be positive numbers or negative numbers. Declaring an integer variable <code>i</code> it would look something like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        VAR i : INTEGER;
    </code></pre>
    <p>
    Setting <code>i</code>’s value to seven would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        i := 7;
    </code></pre>
    <h3 id="real">
@@ -85,13 +85,13 @@
    <p>
    Declaring a real number variable <code>a</code> would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        VAR a : REAL;
    </code></pre>
    <p>
    Setting the value of <code>a</code> to seven and one tenth (7.1) would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        a := 7.1;
    </code></pre>
    <h3 id="char">
@@ -103,13 +103,13 @@
    <p>
    Declaring a CHAR variable <code>c</code> would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        VAR c: CHAR;
    </code></pre>
    <p>
    Setting the value of <code>c</code> to capital Z would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        c := &quot;Z&quot;;
    </code></pre>
    <p>
@@ -130,7 +130,7 @@
    <p>
    Declaring a variable “name” as an array of twelve characters would look like and declaring a variable “scores” as an array of ten integers would look like
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        VAR 
          name : ARRAY 24 OF CHAR;
          scores : ARRAY 10 OF INTEGER;
@@ -141,13 +141,13 @@
    <p>
    Setting an array value can be done using an index. In this example the zero-th element (first element of the array) is set to the value 102.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        scores[0] := 102;
    </code></pre>
    <p>
    In the case of CHAR arrays the whole array can be set in a simple single assignment.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        name := &quot;Ada Lovelace&quot;;
    </code></pre>
    <p>
@@ -162,7 +162,7 @@
    <p>
    The RECORD is Oberon’s secret sauce. The record is used to create new types if data representations. It extend Oberon’s basic types creating structured data representation. In this example we’ll create a record that holds an game’s name, a list of three player names and a list of three scores. We’ll call this record type “TopThreeScoreboard”.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        TYPE
          TopThreeScoreboard = RECORD
            gameName : ARRAY 24 OF CHAR;
@@ -173,14 +173,14 @@
    <p>
    Now that we have describe a record of type “TopThreeScoreboard” we can declare it with our “VAR” statement.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        VAR
          scoreboard : TopThreeScoreboard;
    </code></pre>
    <p>
    Setting the element values in a record uses a dot notation and if those elements are themselves. In this case we’ll set the game name to “Basketball”, the three players are “Ada Lovelace”, “Blaise Pascal”, and “John McCarthy”, with the scores 102, 101, 100.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
       scoreboard.gameName := &quot;Basketball&quot;;
       scoreboard.playerNames[0] := &quot;Ada Lovelace&quot;;
       scoreboard.scores[0] := 102;
@@ -201,7 +201,7 @@
    <p>
    Here’s a simple data structure representing a dynamic list of characters. Let’s call it a DString and we will implement it using a single link list. The list can be implemented by defining a RECORD type that holds a single character and a pointer to the next record. We can then also define a pointer to this type of record. If there is no next character record we assume we’re at the end of the string.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        TYPE
          DStringDesc = RECORD
            value : CHAR;
@@ -213,14 +213,14 @@
    <p>
    RECORD types are permitted to use recursive definition so our “next” value is itself a type “DStringDesc”. Declaring a DString variable is as easy as declaring our scoreboard type variable.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
      VAR
        VAR s : DString;
    </code></pre>
    <p>
    Setting our DString is a little trickier. This is where Oberon’s procedures come into play. We can pass our variable “s” of type DString to a procedure to build out our DString from an simple array of characters. Note “s” is declared as a “VAR” parameter in our procedure heading. Our <code>SetDString</code> will also need to handle creating new elements in our dynamic string. That is what Oberon’s built-in <code>NEW()</code> procedure does. It allocates new memory for our list of records.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
            VAR i : INTEGER; cur, tmp : DString;
        BEGIN
@@ -250,7 +250,7 @@
    <p>
    We can move our string back into a fixed length array of char with a similar procedure.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
          VAR cur : DString; i, l : INTEGER;
        BEGIN
@@ -278,7 +278,7 @@
    <p>
    Here is a <a href="BasicTypeDemo.Mod">module demoing our basic type</a>. In it we can define procedures to demo our assignments, display their results all called from inside the module’s initialization block.
    </p>
-   <pre><code>
+   <pre class="oberon"><code>
        MODULE BasicTypeDemo;
          IMPORT Out;
        

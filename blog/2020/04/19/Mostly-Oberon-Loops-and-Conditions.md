@@ -1,14 +1,13 @@
-{
-    "markup": "mmark",
-    "title": "Oberon Loops and Conditions",
-    "series": "Mostly Oberon",
-    "number": 4,
-    "author": "R. S. Doiel",
-    "date": "2020-04-19",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon Loops and Conditions"
+series: "Mostly Oberon"
+number: 4
+author: "R. S. Doiel"
+date: "2020-04-19"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 # Oberon Loops and Conditions
 

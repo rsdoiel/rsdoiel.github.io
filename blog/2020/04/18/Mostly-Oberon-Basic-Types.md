@@ -1,13 +1,14 @@
-{
-    "markup": "mmark",
-    "title": "Oberon Basic Types",
-    "number": 3,
-    "byline": "R. S. Doiel",
-    "date": "2020-04-18",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon Basic Types"
+number: 3
+series: "Mostly Oberon"
+byline: "R. S. Doiel"
+author: "R. S. Doiel"
+date: "2020-04-18"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 # Oberon Basic Types
 
@@ -32,7 +33,7 @@ positive numbers or negative numbers. Declaring an integer
 variable `i` it would look something like
 
 
-~~~
+~~~{.oberon}
 
     VAR i : INTEGER;
 
@@ -42,7 +43,7 @@ variable `i` it would look something like
 Setting `i`'s value to seven would look like
 
 
-~~~
+~~~{.oberon}
 
     i := 7;
 
@@ -60,7 +61,7 @@ positive or negative.
 Declaring a real number variable `a` would look like
 
 
-~~~
+~~~{.oberon}
 
     VAR a : REAL;
 
@@ -71,7 +72,7 @@ Setting the value of `a` to seven and one tenth (7.1) would
 look like
 
 
-~~~
+~~~{.oberon}
 
     a := 7.1;
 
@@ -93,7 +94,7 @@ encoding, decoding and other operations.
 Declaring a CHAR variable `c` would look like
 
 
-~~~
+~~~{.oberon}
 
     VAR c: CHAR;
 
@@ -103,7 +104,7 @@ Declaring a CHAR variable `c` would look like
 Setting the value of `c` to capital Z would look like
 
 
-~~~
+~~~{.oberon}
 
     c := "Z";
 
@@ -135,7 +136,7 @@ look like and declaring a variable "scores" as an array of ten
 integers would look like
 
 
-~~~
+~~~{.oberon}
 
     VAR 
       name : ARRAY 24 OF CHAR;
@@ -154,7 +155,7 @@ the zero-th element (first element of the array) is set to the value
 102. 
 
 
-~~~
+~~~{.oberon}
 
     scores[0] := 102;
 
@@ -165,7 +166,7 @@ In the case of CHAR arrays the whole array can be set in a simple
 single assignment.
 
 
-~~~
+~~~{.oberon}
 
     name := "Ada Lovelace";
 
@@ -188,7 +189,7 @@ and a list of three scores. We'll call this record type
 "TopThreeScoreboard". 
 
 
-~~~
+~~~{.oberon}
 
     TYPE
       TopThreeScoreboard = RECORD
@@ -204,7 +205,7 @@ Now that we have describe a record of type "TopThreeScoreboard" we can
 declare it with our "VAR" statement.
 
 
-~~~
+~~~{.oberon}
 
     VAR
       scoreboard : TopThreeScoreboard;
@@ -219,7 +220,7 @@ the game name to "Basketball", the three players are
 the scores 102, 101, 100.
 
 
-~~~
+~~~{.oberon}
 
    scoreboard.gameName := "Basketball";
    scoreboard.playerNames[0] := "Ada Lovelace";
@@ -259,7 +260,7 @@ of record.  If there is no next character record
 we assume we're at the end of the string.
 
 
-~~~
+~~~{.oberon}
 
     TYPE
       DStringDesc = RECORD
@@ -277,7 +278,7 @@ RECORD types are permitted to use recursive definition so our
 DString variable is as easy as declaring our scoreboard type variable.
 
 
-~~~
+~~~{.oberon}
 
   VAR
     VAR s : DString;
@@ -295,7 +296,7 @@ built-in `NEW()` procedure does. It allocates new memory for our
 list of records.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE SetDString(VAR s : DString; buf : ARRAY OF CHAR);
         VAR i : INTEGER; cur, tmp : DString;
@@ -330,7 +331,7 @@ We can move our string back into a fixed length array of char
 with a similar procedure.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE DStringToCharArray(s : DString; VAR buf : ARRAY OF CHAR);
       VAR cur : DString; i, l : INTEGER;
@@ -366,7 +367,7 @@ we can define procedures to demo our assignments, display their results
 all called from inside the module's initialization block.
 
 
-~~~
+~~~{.oberon}
 
     MODULE BasicTypeDemo;
       IMPORT Out;

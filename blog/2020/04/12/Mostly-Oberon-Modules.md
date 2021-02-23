@@ -1,13 +1,14 @@
-{
-    "markup": "mmark",
-    "title": "Oberon Modules and Procedures",
-    "number": 2,
-    "byline": "R. S. Doiel",
-    "date": "2020-04-12",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon Modules and Procedures"
+number: 2
+series: "Mostly Oberon"
+byline: "R. S. Doiel"
+author: "R. S. Doiel"
+date: "2020-04-12"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Oberon Modules and Procedures
@@ -24,7 +25,7 @@ the statement separator in Oberon. Our simple "Hello World" example
 shows the basic code shape.
 
 
-~~~
+~~~{.oberon}
 
     MODULE HelloWorld;
       IMPORT Out;
@@ -45,7 +46,7 @@ that the compiler will ignore it.
 Here's an example
 
 
-~~~
+~~~{.oberon}
 
     MODULE HelloWorld;
       IMPORT Out;
@@ -96,7 +97,7 @@ Below is a sketch of our module `SayingHi.Mod` so far.
 NOTE: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are "read only" in other modules.
 
 
-~~~
+~~~{.oberon}
 
     MODULE SayingHi;
       IMPORT Out;
@@ -123,7 +124,7 @@ Let's create a new "Hello World" module called `HelloWorld2.Mod` and
 use our `SayingHi` module instead of directly importing `Out`.
 
 
-~~~
+~~~{.oberon}
 
     MODULE HelloWorld2;
       IMPORT SayingHi;
@@ -175,7 +176,7 @@ up into some private procedures. These will not be available
 outside `SayingHi.Mod`. Here's a sketch of our improved module.
 
 
-~~~
+~~~{.oberon}
 
     MODULE SayingHi;
       IMPORT In, Out;
@@ -216,7 +217,7 @@ outside `SayingHi.Mod`. Here's a sketch of our improved module.
 Now let's add our Greetings procedure to `HelloWorld2.Mod`.
 
 
-~~~
+~~~{.oberon}
 
     MODULE HelloWorld2;
       IMPORT SayingHi;
@@ -299,7 +300,7 @@ text input from the keyboard, and `Out` which is used for displaying
 text to standard output.
 
 
-~~~
+~~~{.oberon}
 
     IMPORT In, Out;
 
@@ -323,7 +324,7 @@ line. `Out.String` is responsible for displaying values that are of type
 `ARRAY OF CHAR`. This includes text we provided in double quotes.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE HelloWorld*;
     BEGIN
@@ -350,7 +351,7 @@ declared. That is why we most define `AskOurName` before we define
 `HelloWorld*`.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE AskOurName;
     BEGIN
@@ -366,7 +367,7 @@ obvious is that it is the first procedure which contains a
 parameter list.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE GetName(VAR ourName: ARRAY OF CHAR);
 
@@ -387,7 +388,7 @@ will be left the same. Inside of `GetName` we call the
 (a sequence of keyboard strokes ended with the return key).
 
 
-~~~
+~~~{.oberon}
 
     In.Line(ourName);
 
@@ -405,7 +406,7 @@ a static one. Notice the missing `VAR`. This indicates that
 `AssembleGreeting` doesn't modify, cannot modify `ourName`.
 
 
-~~~
+~~~{.oberon}
 
     PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);
     BEGIN

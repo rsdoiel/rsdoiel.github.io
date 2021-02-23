@@ -1,12 +1,12 @@
-{
-    "title": "RetroFlag GPi Case Setup",
-    "author": "R. S. Doiel",
-    "date": "2020-12-24",
-    "keywords": [ "raspberry pi", "retro games", "case" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel",
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
+---
+title: "RetroFlag GPi Case Setup"
+author: "R. S. Doiel"
+date: "2020-12-24"
+keywords: [ "raspberry pi", "retro games", "case" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
-}
 
 Setting up a RetroFlag GPi Case
 ===============================

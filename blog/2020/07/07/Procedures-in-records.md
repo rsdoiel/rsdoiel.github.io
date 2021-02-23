@@ -1,13 +1,13 @@
-{
-	"title": "Procedures in records",
-	"series": "Mostly Oberon",
-	"number": 9,
-	"author": "R. S. Doiel",
-	"date": "2020-07-07",
-	"keywords": [ "Oberon", "procedures", "record procedures", "programming" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel", 
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
-}
+---
+title: "Procedures in records"
+series: "Mostly Oberon"
+number: 9
+author: "R. S. Doiel"
+date: "2020-07-07"
+keywords: [ "Oberon", "procedures", "record procedures", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/" 
+---
 
 
 # Procedures in records

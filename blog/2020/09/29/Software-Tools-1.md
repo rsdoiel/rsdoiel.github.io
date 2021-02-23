@@ -1,13 +1,13 @@
-{
-    "markup": "mmark",
-    "title": "Software Tools, Getting Started",
-    "number": 1,
-    "byline": "R. S. Doiel",
-    "date": "2020-09-29",
-    "keywords": [ "Oberon", "Pascal", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Software Tools, Getting Started"
+series: "Software Tools"
+number: 1
+byline: "R. S. Doiel"
+date: "2020-09-29"
+keywords: [ "Oberon", "Pascal", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Software Tools, Getting Started
