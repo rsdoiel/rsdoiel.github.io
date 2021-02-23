@@ -1,11 +1,12 @@
-{
-    "title": "Words Matter",
-    "author": "R. S. Doiel",
-    "date": "2020-07-08",
-	"keywords": [ "civil rights", "diversity", "equality" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel", 
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
-}
+---
+title: "Words Matter"
+author: "R. S. Doiel"
+date: "2020-07-08"
+keywords: [ "civil rights", "diversity", "equality" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/" 
+---
+
 
 # Words Matter
 

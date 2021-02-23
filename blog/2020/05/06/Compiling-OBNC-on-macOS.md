@@ -1,14 +1,14 @@
-{
-    "markup": "mmark",
-    "title": "Compiling OBNC on macOS",
-    "series": "Mostly Oberon",
-    "number": 6,
-    "author": "R. S. Doiel",
-    "date": "2020-05-06",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Compiling OBNC on macOS"
+series: "Mostly Oberon"
+number: 6
+author: "R. S. Doiel"
+date: "2020-05-06"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
+
 
 # Compiling OBNC on macOS 
 

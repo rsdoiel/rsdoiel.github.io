@@ -1,12 +1,12 @@
-{
-    "title": "Pandoc Partials",
-    "byline": "R. S. Doiel",
-    "series": "Pandoc Techniques",
-    "number": 1,
-    "keywords": [ "Pandoc", "Templates"],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Pandoc Partials"
+series: "Pandoc Techniques"
+number: 1
+author: "R. S. Doiel"
+keywords: [ "Pandoc", "Templates"]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 Pandoc Partial Templates

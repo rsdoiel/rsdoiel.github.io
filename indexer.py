@@ -9,31 +9,25 @@ import json
 from lunr import lunr
 
 def normalize_text(src):
+    if src.startswith('---\n'):
+        parts = src.split('---\n')
+        src = parts[2].rstrip()
     for c in ["\n", "\t", "[", "]", "(", ")"]:
         src = src.replace(c, " ")
 
 def document_as_object(fname):
-    with open(fname) as fp:
-        obj = {}
-        src = fp.read()
-        if src[0] == "{":
-            c = 1
-            i = 1
-            #FIXME: this is a naive implementation, if {} are included in a string it'll miss count.
-            while (c != 0) and (i < len(src)):
-                if src[i] == '{':
-                    c += 1
-                elif src[i] == '}':
-                    c -= 1
-                i += 1
-            jsrc = src[0:i]
-            data = src[i:]
-            try:
-                obj = json.loads(jsrc)
-            except Exception as err:
-                return None, err
-        obj["_Document"] = normalize_text(src)
-        return obj, None
+    frontmatter = fname.rstrip(".md")+".json"
+    print(f"DEBUG Process front matter JSON {frontmatter}")
+    obj = {}
+    if os.path.exists(frontmatter):
+        with open(frontmatter) as fp:
+            src = fp.read()
+            obj = json.loads(src)
+        print(f'DEBUG Process document {fname}')
+        with open(fname) as fp:
+            src = fp.read()
+            obj["_Document"] = normalize_text(src)
+            return obj, None
     return None, None
 
 

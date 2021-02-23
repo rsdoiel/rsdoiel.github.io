@@ -1,13 +1,14 @@
-{
-	"title": "Oberon to Markdown",
-	"series": "Mostly Oberon",
-	"number": 12,
-	"author": "R. S. Doiel",
-	"date": "2020-10-03",
-	"keywords": [ "Oberon", "portable", "markdown", "programming" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel",
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon to Markdown"
+series: "Mostly Oberon"
+number: 12
+author: "R. S. Doiel"
+date: "2020-10-03"
+keywords: [ "Oberon", "portable", "markdown", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
+
 
 Oberon to Markdown
 ==================

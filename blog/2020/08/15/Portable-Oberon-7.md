@@ -1,13 +1,13 @@
-{
-	"title": "Portable Oberon 7",
-	"series": "Mostly Oberon",
-	"number": 11,
-	"author": "R. S. Doiel",
-	"date": "2020-08-15",
-	"keywords": [ "Oberon", "portable", "stdin" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel",
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Portable Oberon 7"
+series: "Mostly Oberon"
+number: 11
+author: "R. S. Doiel"
+date: "2020-08-15"
+keywords: [ "Oberon", "portable", "stdin" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Portable Oberon 7

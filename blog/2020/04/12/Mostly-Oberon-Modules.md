@@ -1,13 +1,13 @@
-{
-    "markup": "mmark",
-    "title": "Oberon Modules and Procedures",
-    "number": 2,
-    "byline": "R. S. Doiel",
-    "date": "2020-04-12",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon Modules and Procedures"
+series: "Mostly Oberon"
+number: 2
+byline: "R. S. Doiel"
+date: "2020-04-12"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Oberon Modules and Procedures

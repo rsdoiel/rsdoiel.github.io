@@ -1,13 +1,13 @@
-{
-    "markup": "mmark",
-    "title": "Oberon-7 and the file system",
-    "number": 7,
-    "author": "R. S. Doiel",
-    "date": "2020-05-09",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon-7 and the file system"
+series: "Mostly Oberon"
+number: 7
+author: "R. S. Doiel"
+date: "2020-05-09"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
 
 
 # Oberon-7 and the file system

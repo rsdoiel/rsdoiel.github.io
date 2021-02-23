@@ -1,14 +1,13 @@
-{
-	"markup": "commonmark_x", 
-	"title": "Dynamic types",
-	"series": "Mostly Oberon",
-	"number": 8,
-	"author": "R. S. Doiel",
-	"date": "2020-05-25",
-	"keywords": [ "Oberon", "programming", "type extension", "dynamic data" ],
-	"copyright": "copyright (c) 2020, R. S. Doiel", 
-	"license": "https://creativecommons.org/licenses/by-sa/4.0/" 
-}
+---
+title: "Dynamic types"
+series: "Mostly Oberon"
+number: 8
+author: "R. S. Doiel"
+date: "2020-05-25"
+keywords: [ "Oberon", "programming", "type extension", "dynamic data" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/" 
+---
 
 
 # Dynamic types

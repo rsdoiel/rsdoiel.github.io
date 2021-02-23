@@ -1,13 +1,14 @@
-{
-    "markup": "mmark",
-    "title": "Oberon Basic Types",
-    "number": 3,
-    "byline": "R. S. Doiel",
-    "date": "2020-04-18",
-    "keywords": [ "Oberon", "programming" ],
-    "copyright": "copyright (c) 2020, R. S. Doiel",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-}
+---
+title: "Oberon Basic Types"
+series: "Mostly Oberon"
+number: 3
+author: "R. S. Doiel"
+date: "2020-04-18"
+keywords: [ "Oberon", "programming" ]
+copyright: "copyright (c) 2020, R. S. Doiel"
+license: "https://creativecommons.org/licenses/by-sa/4.0/"
+---
+
 
 # Oberon Basic Types
 
