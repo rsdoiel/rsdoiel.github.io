@@ -1,4 +1,4 @@
---
+---
 title: "From Markdown and Bash to mkpage"
 author: "R. S. Doiel"
 date: "2016-08-16"
@@ -8,8 +8,8 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-
-# From Markdown and Bash to mkpage
+From Markdown and Bash to mkpage
+================================
 
 By R. S. Doiel 2016-08-16
 

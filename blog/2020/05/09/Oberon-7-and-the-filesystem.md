@@ -1,7 +1,7 @@
 ---
 title: "Oberon-7 and the file system"
 series: "Mostly Oberon"
-number: 7,
+number: 7
 author: "R. S. Doiel"
 date: "2020-05-09"
 keywords: [ "Oberon", "programming" ]

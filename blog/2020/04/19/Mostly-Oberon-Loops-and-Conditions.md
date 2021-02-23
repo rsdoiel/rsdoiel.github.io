@@ -9,7 +9,8 @@ copyright: "copyright (c) 2020, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
-# Oberon Loops and Conditions
+Oberon Loops and Conditions
+===========================
 
 By R. S. Doiel, 2020-04-19
 

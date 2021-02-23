@@ -3,6 +3,7 @@ title: "Oberon Basic Types"
 number: 3
 series: "Mostly Oberon"
 byline: "R. S. Doiel"
+=======
 author: "R. S. Doiel"
 date: "2020-04-18"
 keywords: [ "Oberon", "programming" ]
@@ -10,7 +11,9 @@ copyright: "copyright (c) 2020, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
-# Oberon Basic Types
+
+Oberon Basic Types
+==================
 
 
 By R. S. Doiel, 2020-04-18

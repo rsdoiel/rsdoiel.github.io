@@ -1,14 +1,15 @@
 ---
-markup: "mmark"
-itle: "OPML to Markdown and back"
+title: "OPML to Markdown and back"
 author: "R. S. Doiel"
 date: "2016-05-28"
-keywords: [ "golang", "opml",  "markdown" ]
+keywords: [ "golang", "opml", "markdown" ]
 copyright: "copyright (c) 2016, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
-# OPML to Markdown and back
+
+OPML to Markdown and back
+=========================
 
 By R. S. Doiel 2016-05-28
 

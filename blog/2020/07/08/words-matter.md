@@ -7,6 +7,7 @@ copyright: "copyright (c) 2020, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/" 
 ---
 
+
 # Words Matter
 
 By R. S. Doiel, 2020-07-08

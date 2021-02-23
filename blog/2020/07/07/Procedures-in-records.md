@@ -1,7 +1,7 @@
 ---
 title: "Procedures in records"
 series: "Mostly Oberon"
-number: 9
+number: 10
 author: "R. S. Doiel"
 date: "2020-07-07"
 keywords: [ "Oberon", "procedures", "record procedures", "programming" ]

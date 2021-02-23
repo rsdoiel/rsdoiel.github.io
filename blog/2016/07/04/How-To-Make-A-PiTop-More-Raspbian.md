@@ -2,13 +2,14 @@
 title: "How to make a Pi-Top more Raspbian"
 author: "R. S. Doiel"
 date: "2016-07-04"
-keywords: [ "Raspberry Pi", "Pi-Top", "Rasbian", "Raspberry Pi OS", "operating systems" ]
+keywords: [ "Raspberry Pi", "Pi-Top", "Rasbian", "Raspberry Pi OS", ":operating systems" ]
 copyright: "copyright (c) 2016, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-# How to make a Pi-Top more Raspbian
+How to make a Pi-Top more Raspbian
+==================================
 
 By R. S. Doiel 2016-07-04
 

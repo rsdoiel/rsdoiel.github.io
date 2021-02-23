@@ -2,7 +2,6 @@
 title: "Oberon Modules and Procedures"
 number: 2
 series: "Mostly Oberon"
-byline: "R. S. Doiel"
 author: "R. S. Doiel"
 date: "2020-04-12"
 keywords: [ "Oberon", "programming" ]
@@ -11,7 +10,8 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-# Oberon Modules and Procedures
+Oberon Modules and Procedures
+=============================
 
 By R. S. Doiel, 2020-04-12
 
