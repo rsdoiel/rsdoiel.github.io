@@ -17,12 +17,12 @@ def normalize_text(src):
 
 def document_as_object(fname):
     frontmatter = fname.rstrip(".md")+".json"
-    print(f"DEBUG Process front matter JSON {frontmatter}")
     obj = {}
     if os.path.exists(frontmatter):
         with open(frontmatter) as fp:
             src = fp.read()
             obj = json.loads(src)
+            os.remove(frontmatter)
         print(f'DEBUG Process document {fname}')
         with open(fname) as fp:
             src = fp.read()
