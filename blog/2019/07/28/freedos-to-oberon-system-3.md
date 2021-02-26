@@ -15,13 +15,16 @@ FreeDOS to Oberon System 3
 By R. S. Doiel, 2019-07-28
 
 >    UPDATE: (2021-02-26, RSD) Under VirtualBox 6.1 these
->    instructions fail. I am experimenting with VirtualBox 6.1
->    and FreeDOS 1.3rc3 and hope to have revised instructions
->    when I get it all sorted out.
+>    instructions still fail. My hope is to revise these 
+>    instructions when I get it all sorted out.
 >    
 >    Many links such as the ftp site at ETH Oberon are 
 >    no more. I've updated this page to point at Wayback machine
 >    or included content in here where I cannot find it else where.
+>
+>    UPDATE: (2021-02-19, RSD) Under VirtualBox 6.1 these instructions 
+>    fail. For VirtualBox I’ve used FreeDOS 1.3rc3 Live CD installing 
+>    the “Plain DOS” without problems.
 
 What follows are notes on getting a FreeDOS 1.2[^1] and 
 then Native Oberon[^2] running under VirtualBox 6.0. You might 
@@ -73,13 +76,13 @@ settings for my virtual machine.
     a. Display, I picked bumped memory up to 128M and picked VBoxSVGA with 33D acceleration (for games)
     b. Storage, I added a second floppy drive (empty)
     c. Network, I picked attached to NAT
-10. When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click "choose disc image" and pointed at the downloaded isntalled CD
+10. When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click "choose disc image" and pointed at the downloaded installed CD
 11. Click Start.
 12. At "Welcome to FreeDOS 1.2" blue screen, hit TAB key
 13. Add type a space than add "raw" (without quotes) press enter
 14. Follow the install instructions, when you get to "Drive C: does not appear to be partitioned" dialog, pick "Yes - Partition drive C:"
 15. On the next screen pick "Yes - Please reboot now"
-16. When at the "Welcome to FreeDOS 1.2" scren hit TAB again
+16. When at the "Welcome to FreeDOS 1.2" screen hit TAB again
 17. Add the space raw " row" to the command and press enter
 18. Pick "Yes - continue with the installation"
 19. Pick "Yes - Please erase and format drive C:"
@@ -140,7 +143,7 @@ on the virtual floppy disk in the Virtual Box and "remove"
 the disc then create disk2, disk3, etc. In each the empty disc image
 files places the files from the table above. These image files can then
 be opened on your host operating system and files copied to them. 
-It's a tedious process but this gives you something the Oberon Sytem 
+It's a tedious process but this gives you something the Oberon System 
 can read and install from. Originally I just put all the files into an 
 ISO CD ROM image but I could not figure out how to mount that from this
 version of Oberon. Now when you start up your Oberon V3 virtual machine
