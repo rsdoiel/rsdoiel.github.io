@@ -51,7 +51,10 @@
    </p>
    <blockquote>
    <p>
-   UPDATE: (2021-02-19, RSD) Under VirtualBox 6.1 these instructions fail. For VirtualBox I’ve used FreeDOS 1.3rc3 Live CD installing the “Plain DOS” without problems.
+   UPDATE: (2021-02-26, RSD) Under VirtualBox 6.1 these instructions fail. I am experimenting with VirtualBox 6.1 and FreeDOS 1.3rc3 and hope to have revised instructions when I get it all sorted out.
+   </p>
+   <p>
+   Many links such as the ftp site at ETH Oberon are no more. I’ve updated this page to point at Wayback machine or included content in here where I cannot find it else where.
    </p>
    </blockquote>
    <p>
@@ -170,7 +173,7 @@
    Clone your FreeDOS Box first. You’ll want to do a “Full Clone”. You’ll also want to “remove” any optical disks or floppies. You do that from the virtual boxes’ detail page and clicking on the drive and picking the “Remove disk from virtual drive” in the popup menu.
    </p>
    <p>
-   At this point we have a a virtual machine that is very similar to an 1999 era PC installed with MS DOS. <a href="http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you’d install Native Oberon via 1.44MB floppy disks. We can simulate that with our Virtual machine. In the folder of you downloaded there is disc called “oberon0.dsk”. That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn’t obvious to me at first.
+   At this point we have a a virtual machine that is very similar to an 1999 era PC installed with MS DOS. <a href="http://web.archive.org/web/20190929033749/http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you’d install <a href="NativeOberon-StdAlone-2.3.6.zip">Native Oberon via 1.44MB floppy disks</a>. We can simulate that with our Virtual machine. In the folder of you downloaded there is disc called “oberon0.dsk”. That can go in our first floppy drive. But how to we get the rest of the files onto a virtual floppies? This wasn’t obvious to me at first.
    </p>
    <p>
    The Oberon install disks were organized as follows
@@ -198,7 +201,7 @@
    Oberon-0
    </td>
    <td>
-   oberon0.dsk
+   <a href="oberon0.dsk" title="boot disk">oberon0.dsk</a>
    </td>
    <td>
    </td>
@@ -211,7 +214,7 @@
    Gadgets
    </td>
    <td>
-   gadgets.arc
+   <a href="gadgets1.arc" title="a modified gadgets.arc to fit 1.4 floppy">gadgets.arc</a>
    </td>
    <td>
    1.4 2.9
@@ -225,7 +228,7 @@
    Documentation
    </td>
    <td>
-   docu.arc
+   <a href="docu.arc" title="documentation">docu.arc</a>
    </td>
    <td>
    1.3 2.5
@@ -239,7 +242,7 @@
    Applications
    </td>
    <td>
-   apps.arc
+   <a href="apps.arc" title="applications">apps.arc</a>
    </td>
    <td>
    1.3 2.8
@@ -253,7 +256,7 @@
    Tutorials
    </td>
    <td>
-   tutorial.arc
+   <a href="tutorial.arc" title="tutorial">tutorial.arc</a>
    </td>
    <td>
    0.3 0.8
@@ -267,7 +270,7 @@
    Pr3Fonts
    </td>
    <td>
-   pr3fonts.arc
+   <a href="pr3fonts.arc" title="fonts">pr3fonts.arc</a>
    </td>
    <td>
    0.3 0.6
@@ -281,7 +284,7 @@
    Pr6Fonts
    </td>
    <td>
-   pr6fonts.arc
+   <a href="pr6fonts.arc" title="fonts">pr6fonts.arc</a>
    </td>
    <td>
    0.5 1.8
@@ -295,7 +298,7 @@
    Source1
    </td>
    <td>
-   source1.arc
+   <a href="source1.arc" title="Source Code">source1.arc</a>
    </td>
    <td>
    0.9 2.5
@@ -309,7 +312,7 @@
    Source2
    </td>
    <td>
-   source2.arc
+   <a href="source2.arc" title="Source Code">source2.arc</a>
    </td>
    <td>
    1.2 3.5
@@ -323,7 +326,7 @@
    Source3
    </td>
    <td>
-   source3.arc
+   <a href="source3.arc" title="Source Code">source3.arc</a>
    </td>
    <td>
    0.6 1.7
@@ -335,7 +338,7 @@
    </tbody>
    </table>
    <p>
-   It turns out you can create 1.44MB Fat16 disc images from the Virtual Box 6.0 floppy drive link. When you click on the floppy drive in the details page you have a choice that includes “create a new floppy disc”. Select this, five the disc a filename like “disk1”. Remove the disc then create disk2, disk3, etc. In each the empty disc image files places the files from the table above. It’s a tedious process but this gives you something the Oberon Sytem can read and install from. Originally I just put all the files into an ISO CD ROM image but I could not figure out how to mount that from this version of Oberon. Now when you start up your Oberon V3 virtual machine you can install the rest of the software like Gadgets.
+   It turns out you can create 1.44MB Fat16 disc images from the Virtual Box 6.0 floppy drive link. When you click on the floppy drive in the details page you have a choice that includes “create a new floppy disc”. Select this, find the disc a filename like “disk1”. Click on the virtual floppy disk in the Virtual Box and “remove” the disc then create disk2, disk3, etc. In each the empty disc image files places the files from the table above. These image files can then be opened on your host operating system and files copied to them. It’s a tedious process but this gives you something the Oberon Sytem can read and install from. Originally I just put all the files into an ISO CD ROM image but I could not figure out how to mount that from this version of Oberon. Now when you start up your Oberon V3 virtual machine you can install the rest of the software like Gadgets.
    </p>
    <section class="footnotes" role="doc-endnotes">
    <hr />
@@ -357,7 +360,7 @@
    </li>
    <li id="fn4" role="doc-endnote">
    <p>
-   Download Native Oberon Stand Alone from ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a>
+   Download Native Oberon Stand Alone from <a href="NativeOberon-StdAlone-2.3.6.zip" title="Zip of what used to be available in that directory at ftp.ethoberon.ethz.ch">ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a>
    </p>
    </li>
    <li id="fn5" role="doc-endnote">
