@@ -12,6 +12,8 @@ This is my running collection of notes to help me remember various terms, abbrev
     + [Archival Resource Key](http://n2t.net/e/ark_ids.html)
     + Is a unique identifier used in archives analogus to a DOI used in a digital library repository
     + IFLA's [best practice](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793) description
++ [AS](https://archivesspace.org/) ArchiveSpace
+    + ArchivesSpace is an archival collection manager software system
 + [arXiv](arXiv.org)
     + open access to e-prints in Physics, Math, Comp. Sci., Quant. Bio., Quant Finance and Stats (hosted by Cornell University Library)
 + BagIt
@@ -81,6 +83,8 @@ This is my running collection of notes to help me remember various terms, abbrev
 + full-text
     + XML Bibliographic metadata plus the full text of the article is included in an XML file.
 + [FAIR](https://www.fairdata.fi/en/) is a set of principles and practices for preservation. Should not be confused with the use of the same acronym in defense and DOD use in the federal government. Also see [Fairmetrics](http://fairmetrics.org/) for evaluating compliance with FAIR principles and practices.
++ [FOLIO](https://www.folio.org/) "future of library is open"
+    + a library management system and services platform
 + [GLAM](http://openglam.org/)
     + GLAM is Galleries, Libraries, Archives, and Museums
 + [GOKB](gobk.kuali.org/gokb/)
@@ -108,6 +112,10 @@ This is my running collection of notes to help me remember various terms, abbrev
     + an open source Integrated Library System
 + [Kuali OLE](http://www.kuali.org/ole/partners)
     + Kuali (Software Solutions for Higher Ed.) OLE (Open Library Environment)
++ LMS
+    + Library Management System
++ LSP
+    + Library Services Platform
 + manifest
     + Detailed listing of the items contained in a package.
 + [MARC](http://www.loc.gov/marc/uma/pt1-7.html)
@@ -133,6 +141,8 @@ This is my running collection of notes to help me remember various terms, abbrev
 + [ONIX-PL](http://www.niso.org/workrooms/onixpl)
   + Workgroup for publication licenses
   + Note: This appears to a standard that lacks actual adoption.
++ OPAC
+    + online public access catalog
 + [Open Library](https://openlibrary.org/)
     + is an initiative of the Internet Archive
     + [Open Library data](https://openlibrary.org/data)
@@ -191,6 +201,7 @@ predetermined conclusion.
             + UseZ39.50 to look for records in a catalogue or union database allows for better retrieval of records than simply constructing a title or ISBN/ISSN based URL.
 
 
+
 ## Articles
 
 + [On identifiers doi, isbn, casrn, ssn, issn, etc.](http://blogs.scientificamerican.com/information-culture/on-identifiers-doi-isbn-casrn-ssn-issn-etc/)
@@ -199,6 +210,7 @@ predetermined conclusion.
 
 ## Various FAQ
 
++ [American Library Association](https://www.researchsquare.com/researchers/preprints) acronyms list
 + [CUFTS FAQ](http://lib-code.lib.sfu.ca/projects/CUFTS/wiki/FrequentlyAskedQuestions)
 + [DOI FAQ](http://www.doi.org/faq.html)
 + [DOI Factsheets](http://www.doi.org/factsheets.html)
@@ -216,3 +228,4 @@ predetermined conclusion.
 + [OCLC collection manager FAQ](https://www.oclc.org/support/services/collection-manager/faq.en.html) provides some helpful context (e.g. explains OCLC numbers for titles)
 + [Z39-7 standard](http://z39-7.niso.org/standard.html)
 + [COAR resource types vocabular](http://vocabularies.coar-repositories.org/documentation/resource_types)
+
