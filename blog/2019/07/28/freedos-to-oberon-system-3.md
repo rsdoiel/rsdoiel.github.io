@@ -2,7 +2,7 @@
 title: "FreeDOS 1.2 to Oberon System 3"
 author: "R. S. Doiel"
 date: "2019-07-28"
-updated: "2021-02-26"
+updated: "2021-03-16"
 keywords: [ "FreeDOS", "Oberon System" ]
 copyright: "copyright (c) 2018, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
@@ -25,6 +25,13 @@ By R. S. Doiel, 2019-07-28
 >    UPDATE: (2021-02-19, RSD) Under VirtualBox 6.1 these instructions 
 >    fail. For VirtualBox I’ve used FreeDOS 1.3rc3 Live CD installing 
 >    the “Plain DOS” without problems.
+>
+>    UPDATE: (2021-03-16, RSD) After reviewing my post, correcting
+>    some mistakes I finally was able to get FreeDOS up and running
+>    on VirtualBox 6.1. This allows NativeOberon 2.3.6 to be brought
+>    up by booting the "oberon0.dsk" virtual floppy and following
+>    the instructions included. You need to know how to use
+>    the Oberon mouse and the way commands work in Oberon.
 
 What follows are notes on getting a FreeDOS 1.2[^1] and 
 then Native Oberon[^2] running under VirtualBox 6.0. You might 
@@ -79,15 +86,15 @@ settings for my virtual machine.
 10. When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click "choose disc image" and pointed at the downloaded installed CD
 11. Click Start.
 12. At "Welcome to FreeDOS 1.2" blue screen, hit TAB key
-13. Add type a space than add "raw" (without quotes) press enter
+13. You will see a line that begins with a boot instruction. Add a space than add the word "raw" (without quotes) press enter
 14. Follow the install instructions, when you get to "Drive C: does not appear to be partitioned" dialog, pick "Yes - Partition drive C:"
 15. On the next screen pick "Yes - Please reboot now"
 16. When at the "Welcome to FreeDOS 1.2" screen hit TAB again
-17. Add the space raw " row" to the command and press enter
+17. Once again add a space and type "raw" to the command then press enter
 18. Pick "Yes - continue with the installation"
 19. Pick "Yes - Please erase and format drive C:"
 20. At this point its a normal FreeDOS install
-21. When the install is done and reboots choose the "boot from system disk",you now should have a working FreeDOS on VirtualBox
+21. When the install is done and reboots "eject" the virtual CD form the "Optical Drive" in the VirtualBox panel, then choose "boot from system disk",you now should have a working FreeDOS on VirtualBox
 
 ## Native Oberon System 3 on Virtual Box
 
@@ -101,11 +108,18 @@ the macOS Terminal application. I assume you've got a Unix
 command called [wget](https://en.wikipedia.org/wiki/Wget)
 already installed[^5].
 
+> NOTE: The ETH ftp server is no more. I've included Web Archive
+> links and links to my own copies of the files needed to
+> install Native Oberon 2.3.6 in the paragraphs that follow.
+> RSD, 2021-03-16
+
 ```bash
+
     cd
     mkdir -p Desktop/NativeOberon-Standalone
     cd Desktop/NativeOberon-Standalone
     wget ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/
+
 ```
 
 Clone your FreeDOS Box first. You'll want to do a "Full Clone". You'll
@@ -115,7 +129,8 @@ the virtual boxes' detail page and clicking on the drive and picking the
 
 At this point we have a a virtual machine that is very similar to an 
 1999 era PC installed with MS DOS.  [Native Oberon](http://web.archive.org/web/20190929033749/http://www.ethoberon.ethz.ch/native/) Normally you'd
-install [Native Oberon via 1.44MB floppy disks](NativeOberon-StdAlone-2.3.6.zip). We can simulate that with our Virtual machine.
+install [Native Oberon via 1.44MB floppy disks](/blog/2019/07/28/NativeOberon-StnAlone-2.3.6.zip "Zip file of individual floppies"). 
+We can simulate that with our Virtual machine.
 In the folder of you downloaded there is disc called "oberon0.dsk". That
 can go in our first floppy drive. But how to we get the rest of the 
 files onto a virtual floppies? This wasn't obvious to me at first.
