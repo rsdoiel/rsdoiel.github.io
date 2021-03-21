@@ -445,6 +445,16 @@ read an ISO formatted CD-ROM.
 Making our virtual CD-ROM
 -------------------------
 
+Under Ubuntu 20.04.2 LTS machine creating a ISO image
+is one command. Below is I am going to create an ISO 
+image of the directory "NativeOberon-2.3.7"
+and save the image as "NativeOberon-2.3.7.iso".
+
+```shell
+    mkisofs -o NativeOberon-2.3.7.iso NativeOberon-2.3.7
+```
+
+
 On macOS this involves two commands. First use
 the "Disk Utility" to create an image of the folder
 where you unpacked NativeOberon_2.3.7.tar.gz.
