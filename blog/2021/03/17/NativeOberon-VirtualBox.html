@@ -332,7 +332,11 @@
    <p>
    Under Ubuntu 20.04.2 LTS machine creating a ISO image is one command. Below is I am going to create an ISO image of the directory “NativeOberon-2.3.7” and save the image as “NativeOberon-2.3.7.iso”.
    </p>
-   <pre class="shell"><code>    mkisofs -o NativeOberon-2.3.7.iso NativeOberon-2.3.7</code></pre>
+   <pre class="shell"><code>    mkisofs -J --iso-level 3 \
+           -o NativeOberon-2.3.7.iso NativeOberon-2.3.7</code></pre>
+   <p>
+   The <code>-J</code> says to use the Joliet extensions, the <code>–iso-level</code> sets the level of ISO support, in this case to 3. See the manpage for <code>mkisofs</code> for details.
+   </p>
    <p>
    On macOS this involves two commands. First use the “Disk Utility” to create an image of the folder where you unpacked NativeOberon_2.3.7.tar.gz. This will result in a “.dmg” or disk image file common on macOS. Next we need to convert this to an ISO formatted image file. For that we use a command line macOS tool called <code>hdiutil</code> to convert the disk image to an ISO format. In the process you will create the ISO file but it will have the extension of “.cdr”. You can rename (i.e. mv) that file so it has a “.iso” extension. This is suitable to mount in VirtualBox’s virtual CD-ROM drive.
    </p>

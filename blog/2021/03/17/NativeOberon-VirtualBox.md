@@ -451,9 +451,13 @@ image of the directory "NativeOberon-2.3.7"
 and save the image as "NativeOberon-2.3.7.iso".
 
 ```shell
-    mkisofs -o NativeOberon-2.3.7.iso NativeOberon-2.3.7
+    mkisofs -J --iso-level 3 \
+        -o NativeOberon-2.3.7.iso NativeOberon-2.3.7
 ```
 
+The `-J` says to use the Joliet extensions, the `--iso-level`
+sets the level of ISO support, in this case to 3. See
+the manpage for `mkisofs` for details.
 
 On macOS this involves two commands. First use
 the "Disk Utility" to create an image of the folder
