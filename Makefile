@@ -6,11 +6,10 @@ TODAY = $(shell date "+%Y-%m-%d")
 all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
 
 index.html: index.md nav.md footer.md index.tmpl
-#	mkpage "content=index.md" "mdfile=text:index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 	mkpage "content=index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
 	git add index.html
 
-index.md: index.txt author.md blog/index.md presentations.md cli-tools.md series/index.md
+index.md: index.txt author.md blog/index.md presentations.md cli-tools.md 
 	Include index.txt >index.md
 	
 presentations.html: presentations.md footer.md nav.md presentations.tmpl
