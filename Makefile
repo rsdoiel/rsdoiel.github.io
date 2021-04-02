@@ -58,6 +58,11 @@ blog: .FORCE
 	bash blog.bash
 	git add blog/index.html
 	python3 indexer.py
+	git add lunr.json
+
+lunr.json: .FORCE
+	python3 indexer.py
+	git add lunr.json
 
 rssfeed.html: rssfeed.md
 	mkpage "mdfile=text:rssfeed.md" "content=rssfeed.md" "nav=nav.md" "footer=footer.md" about.tmpl > rssfeed.html
@@ -94,5 +99,6 @@ publish: all
 clean:
 	rm $(shell findfile -s .html)
 	if [ -f index.md ]; then rm index.md; fi
+	if [ -f lunr.json ]; then rm lunr.json; fi
 
 .FORCE:
