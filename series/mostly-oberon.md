@@ -42,6 +42,7 @@ Oberon Systems
 
 14. [FreeDOS 1.2 to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html), 2019-07-28
 15. [ETD Oberon System 3 on VirtualBox 6.1](/blog/2021/03/17/NativeOberon-VirtualBox.html), 2021-03-17
+16. [A2 Oberon on VirtualBox 6.1](/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html), 2021-04-02
 
 [Back](./)
 
