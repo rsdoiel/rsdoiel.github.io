@@ -11,6 +11,8 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 A2 Oberon on VirtualBox 6.1
 ===========================
 
+By R. S. Doiel, 2021-04-02
+
 This is a short article documenting how I install A2 Oberon
 in VirtualBox using the [FreeDOS 1.2](https://freedos.org),
 the A2 [ISO](https://sourceforge.net/projects/a2oberon/files/) cd image and [VirtualBox 6.1](https://virtualbox.org).
