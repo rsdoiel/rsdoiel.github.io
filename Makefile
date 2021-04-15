@@ -3,7 +3,7 @@
 #
 TODAY = $(shell date "+%Y-%m-%d")
 
-all: index.html about.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
+all: index.html about.html search.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
 
 index.html: index.md nav.md footer.md index.tmpl
 	mkpage "content=index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
@@ -19,6 +19,10 @@ presentations.html: presentations.md footer.md nav.md presentations.tmpl
 about.html: nav.md footer.md author.md bio.md about.tmpl
 	mkpage "mdfile=text:bio.md" "about-author=author.md" "content=bio.md" "nav=nav.md" "footer=footer.md" about.tmpl > about.html
 	git add about.html
+
+search.html: nav.md footer.md search.md search.tmpl
+	mkpage "content=search.md" "nav=nav.md" "footer=footer.md" search.tmpl > search.html
+	git add search.html
 
 cv.html: nav.md footer.md cv.md cv.tmpl
 	mkpage "mdfile=text:cv.md" "content=cv.md" "nav=nav.md" "footer=footer.md" cv.tmpl > cv.html

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>R. S. Doiel, Software Engineer/Analyst</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+    <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+    
+  </head>
+  <body>
+    <nav>
+    <ul>
+    <li>
+    <a href="/">R. S. Doiel</a>
+    </li>
+    <li>
+    <a href="/blog/">Blog</a>
+    </li>
+    <li>
+    <a href="/series/">Series</a>
+    </li>
+    <li>
+    <a href="/presentations.html">Presentations</a>
+    </li>
+    <li>
+    <a href="/library-terminology.html">Library Jargon</a>
+    </li>
+    <li>
+    <a href="/cv.html">CV</a>
+    </li>
+    <li>
+    <a href="/resume.html">Resume</a>
+    </li>
+    <li>
+    <a href="/search.html">Search</a>
+    </li>
+    <li>
+    <a href="https://github.com/rsdoiel">GitHub</a>
+    </li>
+    </ul>
+    </nav>
+
+	<section>
+	
+	<noscript>
+ JavaScript must be enabled for search to work
+ </noscript>
+ <div id="searchbox">
+ <p><input id="query" type="text" value="" size="60" placeholder="search blog"> <input id="search" type="submit" value="Search"></p>
+ </div>
+ <hr>
+ <div id="results">
+
+ </div>
+    </section>
+
+    <footer>
+    <p>
+    copyright © 2016 - 2020 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash and Make.
+    </p>
+    </footer>
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script>
+    (function(window, document) {
+        var request = new XMLHttpRequest();
+
+        request.addEventListener("load", function() {
+           var data = this.responseText;
+                idx = lunr.Index.load(JSON.parse(data));
+                query_elem = document.getElementById('query'),
+                search_button = document.getElementById('search');
+
+            function runQuery(query) {
+                 var results = document.getElementById('results');
+                 if (query !== '') {
+                     res = idx.search(query);
+                     if (res.length > 0) {
+                         results.innerHTML = '';
+                         res.forEach(function(data) {
+                             var div = document.createElement('div'),
+                                 parts, label;
+                             if (data.ref != undefined) {
+                                 parts = data.ref.split('\/');
+                                 label = parts[parts.length-1].replaceAll('-', ' ');
+                                div.innerHTML = '<a href="/' + data.ref.slice(0, data.ref.length - 3) + '.html">' + label.slice(0, label.length - 3) + '</a>';
+                                results.appendChild(div);
+                             }
+                         });
+                     } else {
+                         results.innerHTML = '"' + query + '" not found';
+                     }
+                 }
+             }
+
+            query_elem.addEventListener('change', function(evt) {
+                runQuery(query_elem.value);
+            });
+            search_button.addEventListener('click', function(evt) {
+                runQuery(query_elem.value);
+            });
+        });
+        request.open("GET", "https://rsdoiel.github.io/lunr.json");
+        request.send();
+    })(window, document);
+    </script>
+    </body>
+</html>

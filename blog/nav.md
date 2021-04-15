@@ -5,4 +5,5 @@
 + [Library Jargon](/library-terminology.html)
 + [CV](/cv.html)
 + [Resume](/resume.html)
++ [Search](/search.html)
 + [GitHub](https://github.com/rsdoiel)
