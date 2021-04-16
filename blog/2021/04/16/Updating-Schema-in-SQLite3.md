@@ -29,7 +29,7 @@ doesn't return the page in the SQLite documentation.
 In the next sections I'll be modeling a simple person object
 with a id, uname, display_name, role and updated fields.
 
-creating a person table
+Creating a person table
 -----------------------
 
 
