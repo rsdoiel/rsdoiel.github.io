@@ -4,9 +4,16 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Wed, 14 Apr 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Wed, 14 Apr 2021 00:00:00 UTC</lastBuildDate>
+        <pubDate>Fri, 16 Apr 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Fri, 16 Apr 2021 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.2.5</generator>
+        <item>
+            <title>Updating Schema in SQLite3</title>
+            <link>/blog/2021/04/16/Updating-Schema-in-SQLite3.md</link>
+            <description>Updating Schema in SQLite3&#xA;==========================&#xA;&#xA;By R. S. Doiel, 2020-04-16&#xA;&#xA;[SQLite3](https://sqlite.org/docs.html) is a handy little&#xA;database as single file tool.  You can interact with the file&#xA;through largely standard SQL commands and embed it easily into&#xA;applications via the C libraries that the project supports.&#xA;It is also available from various popular scripting languages&#xA;like Python, PHP, and Lua. One of the things I occasionally&#xA;need to do and always seems to forget it how to is modify a&#xA;table schema where I need to remove a column[^1]. So here are&#xA;some of the basics do I can quickly find them later and avoid&#xA;reading various articles tutorials because the search engines&#xA;doesn&#39;t return the page in the SQLite documentation.&#xA;&#xA;[^1]: The SQL `ALTER TABLE table_name DROP COLUMN column_name` does not work in SQLite3&#xA;&#xA;In the next sections I&#39;ll be modeling a simple person object&#xA;with a id, uname, display_name, role and updated fields. ...</description>
+            <pubDate>Fri, 16 Apr 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/04/16/Updating-Schema-in-SQLite3.md</guid>
+        </item>
         <item>
             <title>A2 Oberon on VirtualBox 6.1</title>
             <link>/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.md</link>
