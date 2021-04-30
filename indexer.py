@@ -5,6 +5,7 @@
 #
 import sys
 import os
+import io
 import json
 from subprocess import run, Popen, PIPE
 
@@ -14,8 +15,9 @@ def normalize_text(src):
     if src.startswith('---\n'):
         parts = src.split('---\n')
         src = parts[2].rstrip()
-    for c in ["\n", "\t", "[", "]", "(", ")"]:
+    for c in [ "\r", "\n", "\t", "[", "]", "(", ")"]:
         src = src.replace(c, " ")
+    return src
 
 def document_as_object(key, fname):
     obj = {}
@@ -26,7 +28,7 @@ def document_as_object(key, fname):
             obj = json.loads(src)
         else:
             return None, f'No front matter found {fname}'
-    with open(fname) as fp:
+    with io.open(fname, encoding = 'utf-8') as fp:
         src = fp.read()
         obj['_Key'] = key
         obj["_Document"] = normalize_text(src)
@@ -76,7 +78,7 @@ class Indexer:
         print(f'Generatiing LunrJS index {self.index_name}')
         idx = lunr(ref = '_Key', fields = fields, documents = self.documents, languages = 'en')
         index = idx.serialize()
-        with open(self.index_name, 'w') as fp:
+        with io.open(self.index_name, 'w', encoding = 'utf-8') as fp:
             src = json.dumps(index)
             fp.write(src)
 
