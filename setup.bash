@@ -39,3 +39,6 @@ if [ "$DATATOOLS" = "" ]; then
 else
     echo "range available: ${DATATOOLS}"
 fi
+if [ -f "requirements.txt" ]; then
+    python3 -m pip install -r requirements.txt
+fi
