@@ -19,11 +19,11 @@ that are helpful working with the differences in text file formats between
 Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of
 POSIX with minimal compromises that distract from the Oberon experience.
 
-[^1]: http://www.software-templ.com/ 
+[^1]: Ofront was developed by Joseph Templ, see http://www.software-templ.com/ 
 
-[^2]: https://www.raspberrypi.org/software/ (a 32 bit Debian based Linux for both i386 and ARM)
+[^2]: see https://www.raspberrypi.org/software/ (a 32 bit Debian based Linux for both i386 and ARM)
 
-[^3]: https://ssw.jku.at/Research/Projects/Oberon.html
+[^3]: see https://ssw.jku.at/Research/Projects/Oberon.html
 
 
 An Initial Impression
