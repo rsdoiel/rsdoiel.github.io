@@ -50,7 +50,7 @@
    Ofront on Raspberry Pi OS
    </h1>
    <p>
-   By R. S. Doiel, 2021-04-25
+   By R. S. Doiel, 2020-04-25
    </p>
    <p>
    This post is about getting Ofront<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> up and running on Raspberry Pi OS<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> development environment. There are additional clever tools like <code>ocat</code> that are helpful working with the differences in text file formats between Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of POSIX with minimal compromises that distract from the Oberon experience.
@@ -59,7 +59,7 @@
    An Initial Impression
    </h2>
    <p>
-   I first heard of running Ofront/V4 via the ETH Oberon Mail list<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. What caught my eye is the reference to running on Raspberry Pi. Prof. Templ provides two flavors of Ofront. One targets the Raspberry Pi OS on ARM hardware the second Linux on i386. The Raspberry Pi OS for Intel is an i386 variant. I downloaded the tar file, unpacked it and immediately ran the “oberon.bash” script provided eager to see a V4 environment. It renders but the fonts rendered terribly slowly. <strong>I should have read the documentation first!</strong> Prof. Templ provides man pages for the tools that come with Ofront including the oberon application. Reading the man page for oberon quickly addresses the point of slow font rendering. It also discusses how to convert Oberon fonts to X Windows bitmap fonts. If you use the X Window fonts the V4 environment is very snappy. It does require that X Windows knows where to find the fonts used in V4. That is done by appending the V4 converted fonts to the X Window font map. I had installed the Ofront system in my home directory so the command was
+   I first heard of running Ofront/V4 via the ETH Oberon Mail list<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. What caught my eye is the reference to running on Raspberry Pi. Prof. Templ provides two flavors of Ofront. One targets the Raspberry Pi OS on ARM hardware the second Linux on i386. The Raspberry Pi OS for Intel is an i386 variant. I downloaded the tar file, unpacked it and immediately ran the “oberon.bash” script provided eager to see a V4 environment. It renders but the fonts rendered terribly slowly. I should have read the documentation first! Prof. Templ provides man pages for the tools that come with Ofront including the oberon application. Reading the man page for oberon quickly addresses the point of slow font rendering. It also discusses how to convert Oberon fonts to X Windows bitmap fonts. If you use the X Window fonts the V4 environment is very snappy. It does require that X Windows knows where to find the fonts used in V4. That is done by appending the V4 converted fonts to the X Window font map. I had installed the Ofront system in my home directory so the command was
    </p>
    <div id="cb1" class="sourceCode">
    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">xset</span> +fp <span class="va">$HOME</span>/ofront_1.4/fonts</span></code></pre>
@@ -231,7 +231,7 @@
    Now that we have a fast running V4 system we have some choices for development. Joseph Templ has adapted the display for X and also the file system so the files are visible from the Unix shell. This is a powerful arrangement. This supports both Oberon development and the use of Oberon language for the development of POSIX friendly programs. The Ofront collection provides the <code>ofront</code> an Oberon-2 to C translator, <code>ocl</code> is a tool that will combine <code>ofront</code> with your C compiler and linker to produce programs and libraries for Linux. There is also <code>ocat</code> for converting Oberon texts to POSIX plain text and <code>showdef</code> for showing module definitions. Finally Ofront provides the <code>oberon</code> command so we have an Oberon System available as a development environment.
    </p>
    <p>
-   One thing I recommend exploring is Jospeh Templ’s GitHub repository. The makefile provided with the GitHub version assumes an existing installation of Ofront. Since we have one we can compile our own copy from scratch. If you’re running i386 you’ll want to look at <code>V4_ofront/linix386</code> for Pi hardware take a look at <code>V4_ofront/raspbian</code>.
+   One thing I recommend exploring is Jospeh Templ’s GitHub repository. The makefile provided with the GitHub version assuming an existing installation of ofront. Since we have one we can compile our own copy from scratch. If you’re running i386 you’ll want to look at <code>V4_ofront/linix386</code> for Pi hardware take a look at <code>V4_ofront/raspbian</code>.
    </p>
    <p>
    Here’s how I generated a new version on my Pi hardware.
@@ -252,9 +252,6 @@
    <ul>
    <li>
    Figure out how to make Atkinson-Hyperlegible<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> available to V4
-   </li>
-   <li>
-   Compile for a 64-bit x86 Linux platform
    </li>
    <li>
    Replace the X11 integration with SDL 2 integration and run under macOS or Windows

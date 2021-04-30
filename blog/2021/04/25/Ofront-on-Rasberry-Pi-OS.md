@@ -2,7 +2,7 @@
 title: "Ofront on Raspberry Pi OS"
 author: "R. S. Doiel"
 date: "2021-04-25"
-keywords: [ "Oberon", "Raspberry Pi OS", "Ofront", "Mostly Oberon"  ]
+keywords: [ "Oberon", "Raspberry Pi OS", "Ofront", "Mostly Oberon", "V4", "Linz" ]
 copyright: "copyright (c) 2021, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
@@ -10,7 +10,7 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 Ofront on Raspberry Pi OS
 =========================
 
-By R. S. Doiel, 2021-04-25
+By R. S. Doiel, 2020-04-25
 
 This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2].
 Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3]
@@ -35,8 +35,8 @@ provides two flavors of Ofront. One targets the Raspberry Pi OS on ARM
 hardware the second Linux on i386. The Raspberry Pi OS for Intel is an
 i386 variant. I downloaded the tar file, unpacked it and immediately ran
 the "oberon.bash" script provided eager to see a V4 environment. It
-renders but the fonts rendered terribly slowly. **I should have read the
-documentation first!**  Prof. Templ provides man pages for the tools that
+renders but the fonts rendered terribly slowly. I should have read the
+documentation first!  Prof. Templ provides man pages for the tools that
 come with Ofront including the oberon application. Reading the
 man page for oberon quickly addresses the point of slow font rendering.
 It also discusses how to convert Oberon fonts to X Windows bitmap fonts.
@@ -244,8 +244,8 @@ showing module definitions.  Finally Ofront provides the
 development environment.
 
 One thing I recommend exploring is Jospeh Templ's GitHub repository.
-The makefile provided with the GitHub version assumes an existing
-installation of Ofront. Since we have one we can compile our own copy
+The makefile provided with the GitHub version assuming an existing
+installation of ofront. Since we have one we can compile our own copy
 from scratch. If you're running i386 you'll want to look at
 `V4_ofront/linix386` for Pi hardware take a look at `V4_ofront/raspbian`.
 
@@ -274,7 +274,6 @@ Someday, Maybe
 Things that come to mind after initial exploration include--
 
 - Figure out how to make Atkinson-Hyperlegible[^8] available to V4
-- Compile for a 64-bit x86 Linux platform
 - Replace the X11 integration with SDL 2 integration and run under macOS or Windows
 - Exploring porting V4 to run natively Raspberry Pi via Clang cross compilers
 

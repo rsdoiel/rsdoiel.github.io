@@ -105,7 +105,8 @@
                 runQuery(query_elem.value);
             });
         });
-        request.open("GET", "https://rsdoiel.github.io/lunr.json");
+        /* request.open("GET", "https://rsdoiel.github.io/lunr.json"); */
+        request.open("GET", "/lunr.json");
         request.send();
     })(window, document);
     </script>

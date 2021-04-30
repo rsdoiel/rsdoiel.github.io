@@ -17,7 +17,7 @@ def normalize_text(src):
     for c in ["\n", "\t", "[", "]", "(", ")"]:
         src = src.replace(c, " ")
 
-def document_as_object(fname):
+def document_as_object(key, fname):
     obj = {}
     cmd = ['frontmatter', '-j', '-i', fname]
     with Popen(cmd, stdout = PIPE, encoding = 'utf-8') as proc:
@@ -25,9 +25,10 @@ def document_as_object(fname):
         if src.startswith('{'):
             obj = json.loads(src)
         else:
-            return obj, f'No front matter found {fname}'
+            return None, f'No front matter found {fname}'
     with open(fname) as fp:
         src = fp.read()
+        obj['_Key'] = key
         obj["_Document"] = normalize_text(src)
         return obj, None
     return None, None
@@ -48,11 +49,10 @@ class Indexer:
                 _, ext = os.path.splitext(name)
                 if ext == ".md":
                     self.files.append(fname)
-                    [obj, err] = document_as_object(fname)
+                    key = os.path.join(self.htdocs_prefix, fname)
+                    [obj, err] = document_as_object(key, fname)
                     if (obj != None) and (len(obj) > 0):
-                        key = os.path.join(self.htdocs_prefix, fname)
-                        print(f'Indexing document {fname}')
-                        obj['_Key'] = key
+                        print(f'Indexing document {fname} as {key}')
                         self.documents.append(obj)
 
     def lunr_index(self):
