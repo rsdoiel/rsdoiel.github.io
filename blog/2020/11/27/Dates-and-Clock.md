@@ -1,13 +1,13 @@
----
-title: "Dates & Clock"
-series: "Mostly Oberon"
-number: 14
-author: "R. S. Doiel"
-date: "2020-11-27"
-keywords: [ "Oberon-7", "C-shared", "obnc" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+{
+	"title": "Dates & Clock",
+	"series": "Mostly Oberon",
+	"number": 14,
+	"author": "R. S. Doiel",
+	"date": "2020-11-27",
+	"keywords": [ "Oberon-7", "C-shared", "obnc" ],
+	"copyright": "copyright (c) 2020, R. S. Doiel",
+	"license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
 
 
 Dates and Clock
@@ -1129,6 +1129,10 @@ BEGIN
 END Dates.
 
 ~~~
+
+Postscript: In this article I included a reference to the module
+**Chars**. This is a non-standard module I wrote for Oberon-7.
+Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
 
 ### Previous
 
