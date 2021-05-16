@@ -1,6 +1,12 @@
+---
+title : "Robert's Library Terminology and Jargon List"
+---
+
+<a href="/" text="When I press keys letters and punctuation sometimes appear on the surface."><img src="media/Wee-Free-Doiels-Summer-Reading.jpg" alt="When I press keys letters and punctuation sometimes appear on the surface."></a>
+
 
 Robert's Library Terminology and Jargon list
-============================================
+--------------------------------------------
 
 This is my running collection of notes to help me remember various terms, abbreviations and concepts I have run across as a software developer working in a Academic/Research library setting.
 

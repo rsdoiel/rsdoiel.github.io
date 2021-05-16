@@ -4,18 +4,14 @@ START_PATH=$(pwd)
 BLOG=blog
 
 # Build blog nav
-echo "Building blog nav"
 if [ ! -f nav.include ]; then
-  echo "<nav>" > "nav.include"
+  echo "Building blog nav"
   pandoc nav.md >> "nav.include"
-  echo "</nav>" >> "nav.include"
 fi
 
 if [ ! -f footer.include ]; then
   echo "Building blog footer"
-  echo "<footer>" > "footer.include"
   pandoc footer.md >> "footer.include"
-  echo "</footer>" >> "footer.include"
 fi
 
 #
@@ -85,7 +81,17 @@ done
 # Build index
 echo "Building $BLOG/index.md"
 TITLE="Robert's ramblings"
-echo "" > index.md
+
+cat <<EOT> index.md
+---
+title: "${TITLE}"
+---
+
+Recent Posts
+------------
+
+EOT
+
 echo "Building Index for $THIS_YEAR posts"
 findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
     echo "Processing index.md <-- $THIS_YEAR/$ITEM"
@@ -100,7 +106,8 @@ echo "" >> index.md
 echo "Building Prior Years $LAST_YEAR to $START_YEAR"
 for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "Building index for year $Y"
-    echo "## $Y" >> index.md
+    echo "$Y" >> index.md
+    echo "----" >> index.md
     echo "" >> index.md
     findfile -s .html "$Y" | sort -r | while read FNAME; do
         POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html")"
@@ -115,7 +122,7 @@ pandoc \
     -M "title:$TITLE" \
     -B ../nav.include \
     -A ../footer.include \
-    --template index.tmpl \
+    --template ../page.tmpl \
     index.md \
     > index.html
 

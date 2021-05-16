@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>R. S. Doiel, Software Engineer/Analyst</title>
+  $if(title)$<title>R. S. Doiel, Software Engineer/Analyst - $title$</title>$else$<title>R. S. Doiel, Software Engineer/Analyst</title>$endif$
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
@@ -18,7 +18,7 @@ $endfor$
 </nav>
 
 <section>
-  <h1>$title$</h1>
+  $for(title)$<h1>$title$</h1>$endfor$
 
 $body$
 </section>

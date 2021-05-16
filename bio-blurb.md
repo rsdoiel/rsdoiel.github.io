@@ -1,5 +1,6 @@
 
-# Bio
+Bio
+===
 
 R. S. Doiel is a software developer at Caltech Library. With 
 a Bachelors of Science from USC's Viterbi School of Engineering

@@ -1,5 +1,6 @@
-
-# Robert Doiel, Software Engineer/Analyst
+---
+title : "Robert Doiel, Software Engineer/Analyst"
+---
 
 Santa Clarita, CA, United States
 
@@ -12,7 +13,8 @@ My interests bridge both my background in Computer Science and the Humanities. B
 I am most comfortable in a Unix environment but have worked in others in the past (e.g. CPM, DOS, Windows  1.x - 95 and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. C, Go, Groovy, InfoBasic, Java, Lisp, NodeJS/JavaScript, Pascal, Perl, PHP, Python, SQL). I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
 
 
-## Technical Skills
+Technical Skills
+----------------
 
 + Bash
 + C
@@ -30,7 +32,8 @@ I am most comfortable in a Unix environment but have worked in others in the pas
     + MongoDB/CouchDB/BoltDB
 
 
-## Experience
+Experience
+----------
 
 ### Digital Services Programmer, California Institute of Technology, April 2015 - current
 
@@ -46,7 +49,8 @@ Prior to 1992 I worked freelance and in student positions. As a student employee
 Earlier employment did not involve engineering though it did include working for the Social Security Administration as a service representative and claims representative. I entered Federal employment as a GS-4 and left as a GS-9 with career status.
 
 
-## Responsibilities
+Responsibilities
+----------------
 
 + Software architecture and implementation for applications, APIs and data services
 + Technology evaluation
@@ -59,14 +63,16 @@ Earlier employment did not involve engineering though it did include working for
     + Automating content analysis
 
 
-## Education
+Education
+---------
 
 + Master of Arts in the Humanities, [Mount Saint Mary's University](http://www.msmu.edu), 2010
 + Bachelor of Science in Computer Science, [University of Southern California](http://www.usc.edu), 2004
 + Associate of Arts in the Humanities, [College of the Canyons](https://www.canyons.edu), 1989
 
 
-## Code samples
+Code samples
+------------
 
 Projects at Caltech Library
 

@@ -1,15 +1,19 @@
 
-# Action items
+Action items
+============
 
-## Bugs
+Bugs
+----
 
-## Next
+Next
+----
 
 + [x] Convert JSON frontmatter to YAML for pandoc 2.2 compatibility
 + [x] Convert Makefile, blog.bash to use pandoc 2.2 for Raspbian OS
 + [ ] consolidate templates
 
-## Someday Maybe
+Someday Maybe
+-------------
 
 + Update make-rss.sh to include presentations as well as blog
 + Update the visual design

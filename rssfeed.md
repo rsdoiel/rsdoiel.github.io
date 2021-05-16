@@ -1,3 +1,6 @@
+---
+title : "Feeds"
+---
 
 This is a link to my RSS feed. RSS is used by developers and hobbyists 
 to build their own listeners and to view updates to websites and blogs. 

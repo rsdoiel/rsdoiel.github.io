@@ -15,14 +15,15 @@
 <nav>
 <ul>
 <li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
 <li><a href="/blog/">Blog</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/library-terminology.html">Library Jargon</a></li>
 <li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
 <li><a href="/resume.html">Resume</a></li>
 <li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/series/">Series</a></li>
 </ul>
 </nav>
 
@@ -33,7 +34,7 @@
 <p>The main Pandoc documentation of the template engine can be found in the <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a>. The documentation is complete in terms of describing the template capabilities but lacks a tutorial for using as a replacement for more ambitious rendering systems like <a href="https://jekyllrb.com/">Jekyll</a> or <a href="https://gohugo.io/">Hugo</a>. Pandoc takes a vary direct approach and can be deceptively simple to implement.</p>
 <h2 id="use-your-own-template">Use your own template</h2>
 <p>First thing in this tutorial is to use our own template with Pandoc when rendering a single webpage. You use the <code>–-template</code> option to provide your a template name. I think of this as the page level template. This template, as I will show later, can then call other partial templates as needed.</p>
-<p>Example, render the <a href="Pandoc-Partials.txt" class="uri">Pandoc-Partials.txt</a> file using the template named <a href="index1.tmpl" class="uri">index1.tmpl</a>:</p>
+<p>Example, render the <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> file using the template named <a href="index1.tmpl">index1.tmpl</a>:</p>
 <pre class="shell"><code>
     pandoc --from=markdown --to=html \
         --template=index1.tmpl Pandoc-Partials.txt &gt; index1.htm
@@ -49,23 +50,23 @@
     &lt;/body&gt;
     &lt;/html&gt;
 </code></pre>
-<p>When we run our Pandoc command the file called <a href="Pandoc-Partials.txt" class="uri">Pandoc-Partials.txt</a> is passed into the template as the “body” element where it says <code>${body}</code>. See this Pandoc <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a> for the basics.</p>
-<p>Example 1 rendered: <a href="index1.htm" class="uri">index1.htm</a></p>
+<p>When we run our Pandoc command the file called <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> is passed into the template as the “body” element where it says <code>${body}</code>. See this Pandoc <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a> for the basics.</p>
+<p>Example 1 rendered: <a href="index1.htm">index1.htm</a></p>
 <h2 id="variables-and-metadata">Variables and metadata</h2>
-<p>Pandoc’s documentation is good at describing the ways of referencing a variable or using the built-in template functions. Where do the variables get their values? The easiest way I’ve found is to set the variables values in a JSON metadata file. While Pandoc can also use the metadata described in YAML front matter Pandoc doesn’t support some of the other common front matter formats. If you’re using another format like JSON or TOML for front matter there are tools which can split the front matter from the rest of the markdown document. For this example I have created the metadata as JSON in a file called <a href="metadata.json" class="uri">metadata.json</a>.</p>
-<p>Example <a href="metadata.json" class="uri">metadata.json</a>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" title="1"></a>
-<a class="sourceLine" id="cb3-2" title="2">    <span class="fu">{</span></a>
-<a class="sourceLine" id="cb3-3" title="3">        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Partial Examples&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb3-4" title="4">        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb3-5" title="5">            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb3-6" title="6">            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 1&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index1.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb3-7" title="7">            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 2&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index2.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb3-8" title="8">            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 3&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index3.htm&quot;</span> <span class="fu">}</span></a>
-<a class="sourceLine" id="cb3-9" title="9">        <span class="ot">]</span></a>
-<a class="sourceLine" id="cb3-10" title="10">    <span class="fu">}</span></a></code></pre></div>
+<p>Pandoc’s documentation is good at describing the ways of referencing a variable or using the built-in template functions. Where do the variables get their values? The easiest way I’ve found is to set the variables values in a JSON metadata file. While Pandoc can also use the metadata described in YAML front matter Pandoc doesn’t support some of the other common front matter formats. If you’re using another format like JSON or TOML for front matter there are tools which can split the front matter from the rest of the markdown document. For this example I have created the metadata as JSON in a file called <a href="metadata.json">metadata.json</a>.</p>
+<p>Example <a href="metadata.json">metadata.json</a>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Partial Examples&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Partials.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 1&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index1.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 2&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index2.htm&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Version 3&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;index3.htm&quot;</span> <span class="fu">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        <span class="ot">]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre></div>
 <p>Let’s modify our initial template to include our simple navigation and title.</p>
-<p>Example <a href="index2.tmpl" class="uri">index2.tmpl</a>:</p>
+<p>Example <a href="index2.tmpl">index2.tmpl</a>:</p>
 <pre class="html-code"><code>
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -89,18 +90,18 @@
            --metadata-file=metadata.json Pandoc-Partials.txt &gt; index2.htm
 </code></pre>
 <p>When we render this we now should be able to view a web page with simple navigation driven by the JSON file as well as the body content contained in the Pandoc-Partials.txt file.</p>
-<p>Example 2 rendered: <a href="index2.htm" class="uri">index2.htm</a></p>
+<p>Example 2 rendered: <a href="index2.htm">index2.htm</a></p>
 <h2 id="partials">Partials</h2>
 <p>Sometimes you have more complex documents. Putting this all in one template can become tedious. Web designers use a term called “partials”. This usually means a template for a “part” of a page. In our initial example we can split our navigation into it’s own template.</p>
 <h2 id="implementing-partials">Implementing partials</h2>
-<p>Pandoc will look in the current directory for partials as well as in a sub directory called “templates” of the current direct. In this example I am going to include my partial template for navigation in the current directory along side my <a href="index3.tmpl" class="uri">index3.tmpl</a>. My navigation template is called <a href="nav.tmpl" class="uri">nav.tmpl</a>.</p>
+<p>Pandoc will look in the current directory for partials as well as in a sub directory called “templates” of the current direct. In this example I am going to include my partial template for navigation in the current directory along side my <a href="index3.tmpl">index3.tmpl</a>. My navigation template is called <a href="nav.tmpl">nav.tmpl</a>.</p>
 <p>Here’s my partial template:</p>
 <pre class="html-code"><code>
     &lt;nav&gt;
     ${for(nav)}&lt;a href=&quot;${it.href}&quot;&gt;${it.label}&lt;/a&gt;${sep}, ${endfor}
     &lt;/nav&gt;
 </code></pre>
-<p>Here’s my third iteration of our index template, <a href="index3.tmpl" class="uri">index3.tmpl</a>.</p>
+<p>Here’s my third iteration of our index template, <a href="index3.tmpl">index3.tmpl</a>.</p>
 <pre class="html-code"><code>
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -125,7 +126,7 @@
            --template=index3.tmpl \
            --metadata-file=metadata.json Pandoc-Partials.txt &gt; index3.htm
 </code></pre>
-<p>Example 3 rendered: <a href="index3.htm" class="uri">index3.htm</a></p>
+<p>Example 3 rendered: <a href="index3.htm">index3.htm</a></p>
   </article>
 </section>
 

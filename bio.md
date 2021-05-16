@@ -1,7 +1,4 @@
 
-About
-=====
-
 I work as a "Digital Services Programmer" (aka. software engineer, software developer, programmer) for the [California Institute of Technology Library](http://library.caltech.edu). In my career I have focused on building web based systems for academic institutions (previously USC, now Caltech).  I bring to the table both [B.S. in Computer Science](http://www.cs.usc.edu/academics/undergrad/) as well as an [M.A. in the Humanities](http://www.msmu.edu/graduate-programs/humanities/). I enjoy diving deeply into a problem and working through solutions that have measurable results.
 
 
@@ -43,8 +40,5 @@ Past interests/projects
 + [Firefox OS](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS) and extending the web platform to small and embeddable devices
 + [Chrome OS](http://www.google.com/chromeos), I was a lucky CR-48 tester, then a Samsung Series 5 regular and a few more Chromebooks later I wound up using a Pixel combined with a Raspberry Pi and really enjoyed it. Then I spilt coffee on it, couldn't get it repaired and I moved on to focusing on Raspberry Pi computers.
 + Node/[NPM](https://www.npmjs.com/~rsdoiel) modules
-
-
-
 
 

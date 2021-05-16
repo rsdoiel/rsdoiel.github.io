@@ -15,14 +15,15 @@
 <nav>
 <ul>
 <li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
 <li><a href="/blog/">Blog</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/library-terminology.html">Library Jargon</a></li>
 <li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
 <li><a href="/resume.html">Resume</a></li>
 <li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/series/">Series</a></li>
 </ul>
 </nav>
 
@@ -31,7 +32,7 @@
 <h1 id="procedures-as-parameters">Procedures as parameters</h1>
 <p>By R. S. Doiel, 2020-06-20</p>
 <p>This is the ninth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-<p>Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name <a href="Noises.Mod" class="uri">Noises.Mod</a> to explore this.</p>
+<p>Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name <a href="Noises.Mod">Noises.Mod</a> to explore this.</p>
 <p>The key to supporting this is Oberon’s type system. We need to decide what our generic procedure will look like first. In our case our procedures that will display an animal noise will include the name of the animal speaking. We’ll call this type of procedure “Noise”. It’ll accept an ARRAY OF CHAR for the name as a parameter then use the standard Out module to display the animal name and noise they make.</p>
 <pre><code>
     TYPE
@@ -92,7 +93,7 @@
       MakeNoise(&quot;Tweety&quot;, BarkBark);
     END Noises.
 </code></pre>
-<p>Note when we pass the procedures we include their name <strong>without</strong> parenthesis. Our type definition tells the compiler that the procedure can be a parameter, any procedure with the same signature, e.g. <code>who : ARRAY OF CHAR</code> as the only parameter will be treated as a “Noise” type procedures.</p>
+<p>Note when we pass the procedures we include their name <strong>without</strong> parenthesis. Our type definition tells the compiler that the procedure can be a parameter, any procedure with the same signature, e.g. <code>who : ARRAY OF CHAR</code> as the only parameter will be treated as a “Noise” type procedures.</p>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
 <li>Next <a href="../../07/07/Procedures-in-records.html">Procedures in Records</a></li>

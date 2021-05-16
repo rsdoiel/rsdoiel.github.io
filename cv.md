@@ -1,15 +1,18 @@
-
-# Robert Doiel, Software Engineer/Analyst
+---
+title : "Robert Doiel, Software Engineer/Analyst"
+---
 
 <a href="https://orcid.org/0000-0003-0900-6903" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-0900-6903</a>
 
-## Education
+Education
+---------
 
 + [Mount Saint Mary's University](http://www.msmu.edu/)  - Masters of Arts, Humanities, May 2010
 + [University of Southern California](http://www.usc.edu/) - Bachelor of Science, Computer Science, May 2004
 + [College of the Canyons](http://www.canyons.edu/) - Associate of Arts, Humanities, May 1989
 
-## Current responsibilities
+Current responsibilities
+------------------------
 
 + Application development for [Caltech Library](http://library.caltech.edu) working with
     + Aggregation and search related [projects](https://caltechlibrary.github.io)
@@ -17,7 +20,8 @@
     + Content integration with [EPrints](http://eprints.org)
     + Content integration with [Invenio](http://invenio-software.org/)
 
-## Technical Skills
+Technical Skills
+----------------
 
 + Bash
 + C
@@ -39,7 +43,8 @@
     + automated content aggregation, migration and analysis
     + in browser services
 
-## Current Projects
+Current Projects
+----------------
 
 + Build [cool things](http://caltechlibrary.github.io) for Caltech Library
     + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc, AWS S3 and Google Cloud Storage. It includes a search interface based on [Blevesearch](http://blevesearch.com)
@@ -47,7 +52,8 @@
     + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
 
 
-## Past responsibilities
+Past responsibilities
+---------------------
 
 + Data migration for old Caltech Archives system to ArchivesSpace
 + Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
@@ -64,7 +70,8 @@
     + Special Purpose content management systems
 
 
-## Past Projects
+Past Projects
+-------------
 
 + Infrastructure research and planning
 + 4th generation USC Event Calandar system (legacy, LAMP)
@@ -98,7 +105,8 @@
 + Project management, application architecture for Exercise Science  with Dr. Jill McNitt-Gray (retired, Java applet for "digitizing" image points)
 + Tool development and design for Oral Pathology website with Dr. Bill Crawford (retired, Perl based site generation tools)
 
-## Presentations
+Presentations
+-------------
 
 + September 15, 2016, [Command Line for Librarians](https://caltechlibrary.github.io/command-line-for-librarians), co-presentation with Heather Wilson for [MMWCon 2016](https://mmwcon.org/sessions/21a) at UCLA
 + Aug 2, 2016, [Introducing the ArchivesSpace REST API using Python 3](https://rsdoiel.github.io/archivesspace-api-workshop), presentation for the [ArchivesSpace Member Forum 2016](https://archivesspace.atlassian.net/wiki/display/ADC/ArchivesSpace+Member+Forum+2016)
@@ -122,7 +130,8 @@
     - _Roll &rsquo;Em_, Streaming Video on the Web
     - _Smile: You&rsquo;re Gonna Love SMIL_ Introduction to SMIL basics.
 
-## Publications
+Publications
+------------
 
 + Doiel, R. and Lundsten, A.
     - [Getting Ready for Internet2](https://campustechnology.com/articles/2001/04/getting-ready-for-internet2.aspx), April 2001 issue of Syllabus Magazine.

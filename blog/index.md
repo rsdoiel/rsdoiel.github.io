@@ -1,3 +1,9 @@
+---
+title: "Robert's ramblings"
+---
+
+Recent Posts
+------------
 
 + [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 + [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html), 2021-04-25
@@ -5,7 +11,8 @@
 + [A2 Oberon on VirtualBox 6.1](/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html), 2021-04-02
 + [ETH Oberon System 3 on VirtualBox 6.1](/blog/2021/03/17/NativeOberon-VirtualBox.html), 2021-03-17
 
-## 2020
+2020
+----
 
  + 12-24, [RetroFlag GPi Case Setup](/blog/2020/12/24/gpi-case-setup.html)
  + 11-27, [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html)
@@ -28,25 +35,29 @@
  + 04-12, [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html)
  + 04-11, [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html)
 
-## 2019
+2019
+----
 
  + 07-28, [FreeDOS 1.2 to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html)
 
-## 2018
+2018
+----
 
  + 07-22, [Review: Software Tools in Pascal](/blog/2018/07/22/software-tools-in-pascal.html)
  + 03-11, [Accessing Go from Julia](/blog/2018/03/11/accessing-go-from-julia.html)
  + 02-24, [Go based Python modules](/blog/2018/02/24/go-based-python-modules.html)
  + 02-19, [Go, Bleve and Library oriented software](/blog/2018/02/19/go-bleve-and-libraries.html)
 
-## 2017
+2017
+----
 
  + 12-18, [Raspbian Stretch on DELL E4310 Laptop](/blog/2017/12/18/raspbian-stretch-on-amd64.html)
  + 12-10, [Harvesting my Gists from GitHub](/blog/2017/12/10/harvesting-my-gists-from-github.html)
  + 10-20, [NodeJS, NPM, Electron](/blog/2017/10/20/node-npm-electron.html)
  + 06-16, [Cross compiling Go 1.8.3 for Pine64 Pinebook](/blog/2017/06/16/cross-compiling-go.html)
 
-## 2016
+2016
+----
 
  + 09-20, [Android, Termux and Dev Environment](/blog/2016/09/20/Android-Termux-Dev-environment.html)
  + 08-16, [From Markdown and Bash to mkpage](/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html)

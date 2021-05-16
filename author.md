@@ -1,6 +1,11 @@
+---
+title : "About Me"
+---
 
-Who am I?
-=========
+<a href="/" text="When I press keys letters and punctuation sometimes appear on the surface."><img src="media/Wee-Free-Doiels-Summer-Reading.jpg" alt="When I press keys letters and punctuation sometimes appear on the surface."></a>
 
-I am a human. I write software. Once upon a time I wrote music and prose. I am interested in the intersection of technology and the humanities.
+Welcome
+-------
+
+> I am a human. Once upon a time I wrote music and prose. I write software. 
 
