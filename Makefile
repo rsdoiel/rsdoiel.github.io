@@ -5,7 +5,7 @@ TODAY = $(shell date "+%Y-%m-%d")
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: nav.include footer.include index.html about.html search.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series series/index.html
+all: nav.include footer.include index.html about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html blog blog/index.html search.html
 
 
 nav.include: nav.md
@@ -50,7 +50,7 @@ series: series/index.html series/mostly-oberon.html series/software-tools.html s
 	git add series/index.html
 
 series/index.html: nav.include footer.include series/index.md
-	$(PANDOC) --template page.tmpl series/index.md >series/index.html
+	$(PANDOC) -M "title:Article Series" --template page.tmpl series/index.md >series/index.html
 	git add series/index.html
 
 series/mostly-oberon.html: nav.include footer.include series/mostly-oberon.md
