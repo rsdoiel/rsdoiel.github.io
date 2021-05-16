@@ -1,153 +1,113 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Procedures as parameters</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Procedures as parameters</title>
 
-    <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
-    <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
-    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
-    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
-    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-    <link rel="alternative" type="application/markdown" href="Procedures-as-parameters.md">
-  </head>
-  <body>
-    <nav>
-    <ul>
-    <li>
-    <a href="/">R. S. Doiel</a>
-    </li>
-    <li>
-    <a href="/blog/">Blog</a>
-    </li>
-    <li>
-    <a href="/series/">Series</a>
-    </li>
-    <li>
-    <a href="/presentations.html">Presentations</a>
-    </li>
-    <li>
-    <a href="/library-terminology.html">Library Jargon</a>
-    </li>
-    <li>
-    <a href="/cv.html">CV</a>
-    </li>
-    <li>
-    <a href="/resume.html">Resume</a>
-    </li>
-    <li>
-    <a href="/search.html">Search</a>
-    </li>
-    <li>
-    <a href="https://github.com/rsdoiel">GitHub</a>
-    </li>
-    </ul>
-    </nav>
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link rel="alternative" type="application/markdown" href="2020/06/20/Procedures-as-parameters.md">
+</head>
+<body>
+<nav>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/series/">Series</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+</ul>
+</nav>
+</nav>
 
-    <section>
-      <article>
-	  <h1 id="procedures-as-parameters">
-   Procedures as parameters
-   </h1>
-   <p>
-   By R. S. Doiel, 2020-06-20
-   </p>
-   <p>
-   This is the ninth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
-   </p>
-   <p>
-   Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name <a href="Noises.Mod">Noises.Mod</a> to explore this.
-   </p>
-   <p>
-   The key to supporting this is Oberon’s type system. We need to decide what our generic procedure will look like first. In our case our procedures that will display an animal noise will include the name of the animal speaking. We’ll call this type of procedure “Noise”. It’ll accept an ARRAY OF CHAR for the name as a parameter then use the standard Out module to display the animal name and noise they make.
-   </p>
-   <pre><code>
-       TYPE
-         Noise : PROCEDURE (who : ARRAY OF CHAR);
-   </code></pre>
-   <p>
-   The two “Noise” procedures will be “BarkBark” and “ChirpChirp”. They will implement the same parameter signature as describe in the “Noise” type.
-   </p>
-   <pre><code>
-       PROCEDURE BarkBark(who : ARRAY OF CHAR);
-       BEGIN
-         Out.String(who);
-         Out.String(&quot;: Bark, bark&quot;);Out.Ln();
-       END BarkBark;
+<section>
+  <article>
+<h1 id="procedures-as-parameters">Procedures as parameters</h1>
+<p>By R. S. Doiel, 2020-06-20</p>
+<p>This is the ninth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+<p>Oberon-7 supports the passing of procedures as parameters in a procedure. Let’s create a module name <a href="Noises.Mod" class="uri">Noises.Mod</a> to explore this.</p>
+<p>The key to supporting this is Oberon’s type system. We need to decide what our generic procedure will look like first. In our case our procedures that will display an animal noise will include the name of the animal speaking. We’ll call this type of procedure “Noise”. It’ll accept an ARRAY OF CHAR for the name as a parameter then use the standard Out module to display the animal name and noise they make.</p>
+<pre><code>
+    TYPE
+      Noise : PROCEDURE (who : ARRAY OF CHAR);
+</code></pre>
+<p>The two “Noise” procedures will be “BarkBark” and “ChirpChirp”. They will implement the same parameter signature as describe in the “Noise” type.</p>
+<pre><code>
+    PROCEDURE BarkBark(who : ARRAY OF CHAR);
+    BEGIN
+      Out.String(who);
+      Out.String(&quot;: Bark, bark&quot;);Out.Ln();
+    END BarkBark;
 
-       PROCEDURE ChirpChirp(who : ARRAY OF CHAR);
-       BEGIN
-         Out.String(who);
-         Out.String(&quot;: Chirp, chirp&quot;);Out.Ln();
-       END ChirpChirp;
-   </code></pre>
-   <p>
-   We’ll also create a procedure, MakeNoise, that accepts the animal name and our “Noise” procedure name and it’ll call the “Noise” type procedure passing in the animal name.
-   </p>
-   <pre><code>
-       PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
-       BEGIN
-         (* Call noise with the animal name *)
-         noise(name);
-       END MakeNoise;
-   </code></pre>
-   <p>
-   If we invoke MakeNoise with our animal name and pass the name of the procedure we want to do the MakeNoise procedure will generate our noise output. Here’ is what is looks like all together.
-   </p>
-   <pre><code>
-       MODULE Noises;
-         IMPORT Out;
-       
-       TYPE 
-         Noise = PROCEDURE(who : ARRAY OF CHAR);
-       
-       PROCEDURE BarkBark(who : ARRAY OF CHAR);
-       BEGIN
-         Out.String(who);
-         Out.String(&quot;: Bark, bark&quot;);Out.Ln();
-       END BarkBark;
-       
-       PROCEDURE ChirpChirp(who : ARRAY OF CHAR);
-       BEGIN
-         Out.String(who);
-         Out.String(&quot;: Chirp, chirp&quot;);Out.Ln();
-       END ChirpChirp;
-       
-       PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
-       BEGIN
-         (* Call noise with the animal name *)
-         noise(name);
-       END MakeNoise;
-       
-       BEGIN
-         MakeNoise(&quot;Fido&quot;, BarkBark);
-         MakeNoise(&quot;Tweety&quot;, ChirpChirp);
-         MakeNoise(&quot;Fido&quot;, ChirpChirp);
-         MakeNoise(&quot;Tweety&quot;, BarkBark);
-       END Noises.
-   </code></pre>
-   <p>
-   Note when we pass the procedures we include their name <strong>without</strong> parenthesis. Our type definition tells the compiler that the procedure can be a parameter, any procedure with the same signature, e.g. <code>who : ARRAY OF CHAR</code> as the only parameter will be treated as a “Noise” type procedures.
-   </p>
-   <h3 id="next-and-previous">
-   Next and Previous
-   </h3>
-   <ul>
-   <li>
-   Next <a href="../../07/07/Procedures-in-records.html">Procedures in Records</a>
-   </li>
-   <li>
-   Previous <a href="../../05/25/Dynamic-types.html">Dynamic types</a>
-   </li>
-   </ul>
-      </article>
-    </section>
+    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);
+    BEGIN
+      Out.String(who);
+      Out.String(&quot;: Chirp, chirp&quot;);Out.Ln();
+    END ChirpChirp;
+</code></pre>
+<p>We’ll also create a procedure, MakeNoise, that accepts the animal name and our “Noise” procedure name and it’ll call the “Noise” type procedure passing in the animal name.</p>
+<pre><code>
+    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
+    BEGIN
+      (* Call noise with the animal name *)
+      noise(name);
+    END MakeNoise;
+</code></pre>
+<p>If we invoke MakeNoise with our animal name and pass the name of the procedure we want to do the MakeNoise procedure will generate our noise output. Here’ is what is looks like all together.</p>
+<pre><code>
+    MODULE Noises;
+      IMPORT Out;
+    
+    TYPE 
+      Noise = PROCEDURE(who : ARRAY OF CHAR);
+    
+    PROCEDURE BarkBark(who : ARRAY OF CHAR);
+    BEGIN
+      Out.String(who);
+      Out.String(&quot;: Bark, bark&quot;);Out.Ln();
+    END BarkBark;
+    
+    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);
+    BEGIN
+      Out.String(who);
+      Out.String(&quot;: Chirp, chirp&quot;);Out.Ln();
+    END ChirpChirp;
+    
+    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);
+    BEGIN
+      (* Call noise with the animal name *)
+      noise(name);
+    END MakeNoise;
+    
+    BEGIN
+      MakeNoise(&quot;Fido&quot;, BarkBark);
+      MakeNoise(&quot;Tweety&quot;, ChirpChirp);
+      MakeNoise(&quot;Fido&quot;, ChirpChirp);
+      MakeNoise(&quot;Tweety&quot;, BarkBark);
+    END Noises.
+</code></pre>
+<p>Note when we pass the procedures we include their name <strong>without</strong> parenthesis. Our type definition tells the compiler that the procedure can be a parameter, any procedure with the same signature, e.g. <code>who : ARRAY OF CHAR</code> as the only parameter will be treated as a “Noise” type procedures.</p>
+<h3 id="next-and-previous">Next and Previous</h3>
+<ul>
+<li>Next <a href="../../07/07/Procedures-in-records.html">Procedures in Records</a></li>
+<li>Previous <a href="../../05/25/Dynamic-types.html">Dynamic types</a></li>
+</ul>
+  </article>
+</section>
 
-    <footer>
-    <p>
-    copyright © 2016 - 2021 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.
-    </p>
-    </footer>
+<footer>
+<footer>
+<p>copyright © 2016 - 2021 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+</footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
 /* We want to add the class "prettyprint" to all the pre elements */
@@ -171,5 +131,5 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 prettify.js"></script>
 <!--  END: PrettyFi from https://github.com/google/code-prettify -->
 
-    </body>
+</body>
 </html>

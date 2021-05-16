@@ -1,196 +1,162 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Assembling Pages</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Assembling Pages</title>
 
-    <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
-    <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
-    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
-    <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
-    <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-    <link rel="alternative" type="application/markdown" href="Assemble-pages.md">
-  </head>
-  <body>
-    <nav>
-    <ul>
-    <li>
-    <a href="/">R. S. Doiel</a>
-    </li>
-    <li>
-    <a href="/blog/">Blog</a>
-    </li>
-    <li>
-    <a href="/series/">Series</a>
-    </li>
-    <li>
-    <a href="/presentations.html">Presentations</a>
-    </li>
-    <li>
-    <a href="/library-terminology.html">Library Jargon</a>
-    </li>
-    <li>
-    <a href="/cv.html">CV</a>
-    </li>
-    <li>
-    <a href="/resume.html">Resume</a>
-    </li>
-    <li>
-    <a href="/search.html">Search</a>
-    </li>
-    <li>
-    <a href="https://github.com/rsdoiel">GitHub</a>
-    </li>
-    </ul>
-    </nav>
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link rel="alternative" type="application/markdown" href="2020/10/19/Assemble-pages.md">
+</head>
+<body>
+<nav>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/series/">Series</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+</ul>
+</nav>
+</nav>
 
-    <section>
-      <article>
-	  <h1 id="assembling-pages">
-   Assembling pages
-   </h1>
-   <p>
-   This is the thirteenth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
-   </p>
-   <h2 id="pandoc-and-json">
-   Pandoc and JSON
-   </h2>
-   <p>
-   I use <a href="https://pandoc.org">Pandoc</a> to process Markdown documents. I like to keep my front matter in JSON rather than Pandoc’s YAML. Fortunately Pandoc does support working with JSON as a metadata file include. Normally I would manually split the JSON front matter and the rest of the markup into two separate files, then process with Pandoc and other tooling like <a href="https://lunrjs.com">LunrJS</a>. <a href="AssemblePage.Mod">AssemblePage</a> automates this process.
-   </p>
-   <p>
-   Example shell usage:
-   </p>
-   <pre><code>
-      AssemblePage MyText.txt \
-         metadata=document.json \
-         document=document.md
-      pandoc --from markdown --to html \
-         --metadata-file document.json \
-         --standalone \
-         document.md &gt;MyText.html
-   </code></pre>
-   <h2 id="source-code-for-assemblepage.mod">
-   Source code for <strong>AssemblePage.Mod</strong>
-   </h2>
-   <pre><code>
-   MODULE AssemblePage;
-     IMPORT Out, Strings, Files, Args := extArgs;
+<section>
+  <article>
+<h1 id="assembling-pages">Assembling pages</h1>
+<p>This is the thirteenth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+<h2 id="pandoc-and-json">Pandoc and JSON</h2>
+<p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown documents. I like to keep my front matter in JSON rather than Pandoc’s YAML. Fortunately Pandoc does support working with JSON as a metadata file include. Normally I would manually split the JSON front matter and the rest of the markup into two separate files, then process with Pandoc and other tooling like <a href="https://lunrjs.com">LunrJS</a>. <a href="AssemblePage.Mod">AssemblePage</a> automates this process.</p>
+<p>Example shell usage:</p>
+<pre><code>
+   AssemblePage MyText.txt \
+      metadata=document.json \
+      document=document.md
+   pandoc --from markdown --to html \
+      --metadata-file document.json \
+      --standalone \
+      document.md &gt;MyText.html
+</code></pre>
+<h2 id="source-code-for-assemblepage.mod">Source code for <strong>AssemblePage.Mod</strong></h2>
+<pre><code>
+MODULE AssemblePage;
+  IMPORT Out, Strings, Files, Args := extArgs;
 
-   VAR
-     srcName, metaName, docName : ARRAY 1024 OF CHAR;
+VAR
+  srcName, metaName, docName : ARRAY 1024 OF CHAR;
 
-   (* FrontMatter takes a &quot;read&quot; Rider, r, and a &quot;write&quot; Rider &quot;w&quot;.
-   If the first character read by r is an opening curly bracket
-   (the start of the front matter) it writes it out with w, until
-   it finds a matching closing curly bracket or the file ends. *)
-   PROCEDURE FrontMatter*(VAR r : Files.Rider; VAR w : Files.Rider);
-     VAR c : BYTE; cCnt : INTEGER;
-   BEGIN
-     (* Scan for opening JSON front matter *)
-     cCnt := 0;
-     REPEAT
-       Files.Read(r, c);
-       IF r.eof = FALSE THEN
-         IF c = ORD(&quot;{&quot;) THEN
-           cCnt := cCnt + 1;
-         ELSIF c = ORD(&quot;}&quot;) THEN
-           cCnt := cCnt - 1;
-         END;
-         Files.Write(w, c);
-       END;
-     UNTIL (r.eof = TRUE) OR (cCnt = 0);
-     IF cCnt # 0 THEN
-       Out.String(&quot;ERROR: mis matched &#39;{&#39; and &#39;}&#39; in front matter&quot;);
-       ASSERT(FALSE);
-     END;
-   END FrontMatter;
+(* FrontMatter takes a &quot;read&quot; Rider, r, and a &quot;write&quot; Rider &quot;w&quot;.
+If the first character read by r is an opening curly bracket
+(the start of the front matter) it writes it out with w, until
+it finds a matching closing curly bracket or the file ends. *)
+PROCEDURE FrontMatter*(VAR r : Files.Rider; VAR w : Files.Rider);
+  VAR c : BYTE; cCnt : INTEGER;
+BEGIN
+  (* Scan for opening JSON front matter *)
+  cCnt := 0;
+  REPEAT
+    Files.Read(r, c);
+    IF r.eof = FALSE THEN
+      IF c = ORD(&quot;{&quot;) THEN
+        cCnt := cCnt + 1;
+      ELSIF c = ORD(&quot;}&quot;) THEN
+        cCnt := cCnt - 1;
+      END;
+      Files.Write(w, c);
+    END;
+  UNTIL (r.eof = TRUE) OR (cCnt = 0);
+  IF cCnt # 0 THEN
+    Out.String(&quot;ERROR: mis matched &#39;{&#39; and &#39;}&#39; in front matter&quot;);
+    ASSERT(FALSE);
+  END;
+END FrontMatter;
 
-   (* CopyIO copies the characters from a &quot;read&quot; Rider to a &quot;write&quot; Rider *)
-   PROCEDURE CopyIO*(VAR r : Files.Rider; VAR w: Files.Rider);
-     VAR c : BYTE;
-   BEGIN
-     REPEAT
-       Files.Read(r, c);
-       IF r.eof = FALSE THEN
-         Files.Write(w, c);
-       END;
-     UNTIL r.eof = TRUE;
-   END CopyIO;
+(* CopyIO copies the characters from a &quot;read&quot; Rider to a &quot;write&quot; Rider *)
+PROCEDURE CopyIO*(VAR r : Files.Rider; VAR w: Files.Rider);
+  VAR c : BYTE;
+BEGIN
+  REPEAT
+    Files.Read(r, c);
+    IF r.eof = FALSE THEN
+      Files.Write(w, c);
+    END;
+  UNTIL r.eof = TRUE;
+END CopyIO;
 
-   PROCEDURE ProcessParameters(VAR sName, mName, dName : ARRAY OF CHAR);
-     VAR
-       arg : ARRAY 1024 OF CHAR;
-       i, res : INTEGER;
-   BEGIN
-     mName := &quot;document.json&quot;;
-     dName := &quot;document.txt&quot;;
-     arg := &quot;&quot;;
-     FOR i := 0 TO (Args.count - 1) DO
-       Args.Get(i, arg, res);
-       IF Strings.Pos(&quot;metadata=&quot;, arg, 0) = 0 THEN
-         Strings.Extract(arg, 9, Strings.Length(arg), mName);
-       ELSIF Strings.Pos(&quot;document=&quot;, arg, 0) = 0 THEN
-         Strings.Extract(arg, 9, Strings.Length(arg), dName);
-       ELSE
-         Strings.Extract(arg, 0, Strings.Length(arg), sName);
-       END;
-     END;
-   END ProcessParameters;
+PROCEDURE ProcessParameters(VAR sName, mName, dName : ARRAY OF CHAR);
+  VAR
+    arg : ARRAY 1024 OF CHAR;
+    i, res : INTEGER;
+BEGIN
+  mName := &quot;document.json&quot;;
+  dName := &quot;document.txt&quot;;
+  arg := &quot;&quot;;
+  FOR i := 0 TO (Args.count - 1) DO
+    Args.Get(i, arg, res);
+    IF Strings.Pos(&quot;metadata=&quot;, arg, 0) = 0 THEN
+      Strings.Extract(arg, 9, Strings.Length(arg), mName);
+    ELSIF Strings.Pos(&quot;document=&quot;, arg, 0) = 0 THEN
+      Strings.Extract(arg, 9, Strings.Length(arg), dName);
+    ELSE
+      Strings.Extract(arg, 0, Strings.Length(arg), sName);
+    END;
+  END;
+END ProcessParameters;
 
-   PROCEDURE AssemblePage(srcName, metaName, docName : ARRAY OF CHAR);
-   VAR
-     src, meta, doc : Files.File;
-     reader, writer : Files.Rider;
-   BEGIN
-     src := Files.Old(srcName);
-     IF src # NIL THEN
-       Files.Set(reader, src, 0);
-       IF metaName # &quot;&quot; THEN
-         meta := Files.New(metaName);
-         Files.Register(meta);
-         Files.Set(writer, meta, 0);
-         FrontMatter(reader, writer);
-         Files.Close(meta);
-       END;
-       IF docName # &quot;&quot; THEN
-         doc := Files.New(docName);
-         Files.Register(doc);
-         Files.Set(writer, doc, 0);
-         CopyIO(reader, writer);
-         Files.Close(doc);
-       END;
-     ELSE
-       Out.String(&quot;ERROR: Could not read &quot;);Out.String(srcName);Out.Ln();
-       ASSERT(FALSE);
-     END;
-     Files.Close(src);
-   END AssemblePage;
+PROCEDURE AssemblePage(srcName, metaName, docName : ARRAY OF CHAR);
+VAR
+  src, meta, doc : Files.File;
+  reader, writer : Files.Rider;
+BEGIN
+  src := Files.Old(srcName);
+  IF src # NIL THEN
+    Files.Set(reader, src, 0);
+    IF metaName # &quot;&quot; THEN
+      meta := Files.New(metaName);
+      Files.Register(meta);
+      Files.Set(writer, meta, 0);
+      FrontMatter(reader, writer);
+      Files.Close(meta);
+    END;
+    IF docName # &quot;&quot; THEN
+      doc := Files.New(docName);
+      Files.Register(doc);
+      Files.Set(writer, doc, 0);
+      CopyIO(reader, writer);
+      Files.Close(doc);
+    END;
+  ELSE
+    Out.String(&quot;ERROR: Could not read &quot;);Out.String(srcName);Out.Ln();
+    ASSERT(FALSE);
+  END;
+  Files.Close(src);
+END AssemblePage;
 
-   BEGIN
-     ProcessParameters(srcName, metaName, docName);
-     AssemblePage(srcName, metaName, docName);
-   END AssemblePage.
-   </code></pre>
-   <h3 id="next-previous">
-   Next, Previous
-   </h3>
-   <ul>
-   <li>
-   Next <a href="../../11/27/Dates-and-Clock.html">Dates &amp; Clock</a>
-   </li>
-   <li>
-   Previous <a href="../../10/03/Oberon-to-markdown.html">Oberon To Markdown</a>
-   </li>
-   </ul>
-      </article>
-    </section>
+BEGIN
+  ProcessParameters(srcName, metaName, docName);
+  AssemblePage(srcName, metaName, docName);
+END AssemblePage.
+</code></pre>
+<h3 id="next-previous">Next, Previous</h3>
+<ul>
+<li>Next <a href="../../11/27/Dates-and-Clock.html">Dates &amp; Clock</a></li>
+<li>Previous <a href="../../10/03/Oberon-to-markdown.html">Oberon To Markdown</a></li>
+</ul>
+  </article>
+</section>
 
-    <footer>
-    <p>
-    copyright © 2016 - 2021 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.
-    </p>
-    </footer>
+<footer>
+<footer>
+<p>copyright © 2016 - 2021 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+</footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
 /* We want to add the class "prettyprint" to all the pre elements */
@@ -214,5 +180,5 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 prettify.js"></script>
 <!--  END: PrettyFi from https://github.com/google/code-prettify -->
 
-    </body>
+</body>
 </html>

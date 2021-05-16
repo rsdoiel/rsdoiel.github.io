@@ -5,10 +5,18 @@ BLOG=blog
 
 # Build blog nav
 echo "Building blog nav"
-cat nav.md > "$BLOG/nav.md"
+if [ ! -f nav.include ]; then
+  echo "<nav>" > "nav.include"
+  pandoc nav.md >> "nav.include"
+  echo "</nav>" >> "nav.include"
+fi
 
-echo "Building blog footer"
-cat footer.md > "$BLOG/footer.md"
+if [ ! -f footer.include ]; then
+  echo "Building blog footer"
+  echo "<footer>" > "footer.include"
+  pandoc footer.md >> "footer.include"
+  echo "</footer>" >> "footer.include"
+fi
 
 #
 # Add post - create a date directory if needed and then
@@ -63,14 +71,14 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
         TITLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE="${Y}-"$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
-        mkpage \
-            "year=text:${POST_DATE:0:4}" \
-            "title=text:${TITLE}" \
-            "contentBlock=${Y}/${FNAME}" \
-            "nav=../nav.md" \
-            "footer=footer.md" \
-            "mdfile=text:$(basename "${FNAME}")" \
-            post.tmpl > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"
+        pandoc \
+            -M "year:${POST_DATE:0:4}" \
+            -M "title:${TITLE}" \
+            -B ../nav.include \
+            -A ../footer.include \
+            --template post.tmpl \
+            "${Y}/${FNAME}" \
+            > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"
     done 
 done
 
@@ -102,12 +110,13 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     done
     echo "" >> index.md
 done
-mkpage \
-    "year=text:$(date +%Y)" \
-    "title=text:$TITLE" \
-    "pageContent=index.md" \
-    "nav=nav.md" \
-    "footer=footer.md" \
-    index.tmpl > index.html
+pandoc \
+    -M "year:$(date +%Y)" \
+    -M "title:$TITLE" \
+    -B ../nav.include \
+    -A ../footer.include \
+    --template index.tmpl \
+    index.md \
+    > index.html
 
 cd "$START_PATH"

@@ -3,57 +3,66 @@
 #
 TODAY = $(shell date "+%Y-%m-%d")
 
-all: index.html about.html search.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series
+PANDOC=pandoc -B nav.include -A footer.include
 
-index.html: index.md nav.md footer.md index.tmpl
-	mkpage "content=index.md" "nav=nav.md" "footer=footer.md" index.tmpl > index.html
+all: nav.include footer.include index.html about.html search.html cv.html resume.html library-terminology.html presentations.html blog blog/index.html rssfeed.html series series/index.html
+
+
+nav.include: nav.md
+	pandoc nav.md >> nav.include
+
+footer.include: footer.md
+	pandoc footer.md >> footer.include
+
+index.html: nav.include footer.include index.md index.tmpl
+	$(PANDOC) --template index.tmpl index.md > index.html
 	git add index.html
 
 index.md: index.txt author.md blog/index.md presentations.md cli-tools.md 
 	Include index.txt >index.md
 	
-presentations.html: presentations.md footer.md nav.md presentations.tmpl
-	mkpage "mdfile=text:presentations.md" "presentations=presentations.md" "nav=nav.md" "footer=footer.md" presentations.tmpl > presentations.html
+presentations.html: presentations.md footer.include nav.include presentations.tmpl
+	$(PANDOC) --template presentations.tmpl presentations.md >presentations.html
 	git add presentations.html
 
-about.html: nav.md footer.md author.md bio.md about.tmpl
-	mkpage "mdfile=text:bio.md" "about-author=author.md" "content=bio.md" "nav=nav.md" "footer=footer.md" about.tmpl > about.html
+about.html: nav.include footer.include author.md bio.md about.tmpl
+	$(PANDOC) --template about.tmpl author.md bio.md >about.html
 	git add about.html
 
-search.html: nav.md footer.md search.md search.tmpl
-	mkpage "content=search.md" "nav=nav.md" "footer=footer.md" search.tmpl > search.html
+search.html: nav.include footer.include search.md search.tmpl
+	$(PANDOC) --template search.tmpl search.md>search.html
 	git add search.html
 
-cv.html: nav.md footer.md cv.md cv.tmpl
-	mkpage "mdfile=text:cv.md" "content=cv.md" "nav=nav.md" "footer=footer.md" cv.tmpl > cv.html
+cv.html: nav.include footer.include cv.md cv.tmpl
+	$(PANDOC) --template cv.tmpl cv.md >cv.html
 	git add cv.html
 
-resume.html: nav.md footer.md resume.md resume.tmpl
-	mkpage "mdfile=text:resume.md" "content=resume.md" "nav=nav.md" "footer=footer.md" resume.tmpl > resume.html
+resume.html: nav.include footer.include resume.md resume.tmpl
+	$(PANDOC) --template resume.tmpl resume.md>resume.html
 	git add resume.html
 
 
-library-terminology.html: nav.md footer.md library-terminology.md library-terminology.tmpl
-	mkpage "mdfile=text:library-terminology.md" "content=library-terminology.md" "nav=nav.md" "footer=footer.md" library-terminology.tmpl > library-terminology.html
+library-terminology.html: nav.include footer.include library-terminology.md library-terminology.tmpl
+	$(PANDOC) --template library-terminology.tmpl library-terminology.md >library-terminology.html
 	git add library-terminology.html
 
 series: series/index.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html
 	git add series/index.html
 
-series/index.html: series/index.md
-	mkpage "title=text:Series" "content=series/index.md" "nav=nav.md" "footer=footer.md" page.tmpl > series/index.html
+series/index.html: nav.include footer.include series/index.md
+	$(PANDOC) --template page.tmpl series/index.md >series/index.html
 	git add series/index.html
 
-series/mostly-oberon.html: series/mostly-oberon.md
-	mkpage "title=text:Mostly Oberon Series" "content=series/mostly-oberon.md" "nav=nav.md" "footer=footer.md" page.tmpl > series/mostly-oberon.html
+series/mostly-oberon.html: nav.include footer.include series/mostly-oberon.md
+	$(PANDOC) --template page.tmpl -M "title:Mostly Oberon Series" series/mostly-oberon.md >series/mostly-oberon.html
 	git add series/mostly-oberon.html
 
-series/software-tools.html: series/software-tools.md
-	mkpage "title=text:Software Tools Series" "content=series/software-tools.md" "nav=nav.md" "footer=footer.md" page.tmpl > series/software-tools.html
+series/software-tools.html: nav.include footer.include series/software-tools.md
+	$(PANDOC) --template page.tmpl -M "title:Software Tools Series" series/software-tools.md >series/software-tools.html
 	git add series/software-tools.html
 
 series/pandoc-techniques.html: series/pandoc-techniques.md
-	mkpage "title=text:Pandoc Techniques Series" "content=series/pandoc-techniques.md" "nav=nav.md" "footer=footer.md" page.tmpl > series/pandoc-techniques.html
+	$(PANDOC) --template page.tmpl -M "title:Pandoc Techniques Series" series/pandoc-techniques.md >series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
 
 blog: .FORCE
@@ -67,8 +76,8 @@ lunr.json: .FORCE
 	python3 indexer.py
 	git add lunr.json
 
-rssfeed.html: rssfeed.md
-	mkpage "mdfile=text:rssfeed.md" "content=rssfeed.md" "nav=nav.md" "footer=footer.md" about.tmpl > rssfeed.html
+rssfeed.html: nav.include footer.include rssfeed.md
+	$(PANDOC) --template about.tmpl rssfeed.md >rssfeed.html
 	git add rssfeed.html
 
 status:
@@ -101,6 +110,8 @@ publish: all
 # note be removed (e.g. Pandoc-Partials examples index?.html files).
 clean:
 	rm $(shell findfile -s .html)
+	if [ -f nav.include ]; then rm nav.include; fi
+	if [ -f footer.include ]; then rm footer.include; fi
 	if [ -f index.md ]; then rm index.md; fi
 	if [ -f lunr.json ]; then rm lunr.json; fi
 
