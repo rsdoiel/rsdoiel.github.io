@@ -3,12 +3,11 @@
 
 ## Bugs
 
-+ Need a way to handle composit page from front matter, then add the parts to the ignore list like nav.md, not sure if I implemented this in the current mkpage
-
 ## Next
 
-+ Migration from mk-website.bash to mk_website.py
-+ Add Lunrjs support to website via Python Lunr indexes and LunrJS browser side
++ [x] Convert JSON frontmatter to YAML for pandoc 2.2 compatibility
++ [x] Convert Makefile, blog.bash to use pandoc 2.2 for Raspbian OS
++ [ ] consolidate templates
 
 ## Someday Maybe
 
