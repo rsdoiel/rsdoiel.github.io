@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 START_PATH=$(pwd)
 BLOG=blog
@@ -72,7 +72,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
             -M "title:${TITLE}" \
             -B ../nav.include \
             -A ../footer.include \
-            --template post.tmpl \
+            --template ../post.tmpl \
             "${Y}/${FNAME}" \
             > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"
     done 
