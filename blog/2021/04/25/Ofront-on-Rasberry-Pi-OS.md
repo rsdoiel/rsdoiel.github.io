@@ -10,7 +10,7 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 Ofront on Raspberry Pi OS
 =========================
 
-By R. S. Doiel, 2020-04-25
+By R. S. Doiel, 2021-04-25
 
 This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2].
 Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3]
