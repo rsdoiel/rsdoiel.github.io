@@ -36,6 +36,7 @@ Exploration
 11. [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
 12. [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
 13. [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
+18. [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 
 Oberon Systems
 --------------
