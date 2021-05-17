@@ -111,10 +111,10 @@ publish: all
 # Clean now breaks the blog as I have examples and other docs that should
 # note be removed (e.g. Pandoc-Partials examples index?.html files).
 clean:
-	for FNAME in $(shell findfile -s .html); do if [ -f $$FNAME ]; then rm $$FNAME; fi; done
-	if [ -f nav.include ]; then rm nav.include; fi
-	if [ -f footer.include ]; then rm footer.include; fi
-	if [ -f index.md ]; then rm index.md; fi
-	if [ -f lunr.json ]; then rm lunr.json; fi
+	@for FNAME in $(shell findfile -s .html); do if [ -f $$FNAME ]; then rm $$FNAME; fi; done
+	@if [ -f nav.include ]; then rm nav.include; fi
+	@if [ -f footer.include ]; then rm footer.include; fi
+	@if [ -f index.md ]; then rm index.md; fi
+	@if [ -f lunr.json ]; then rm lunr.json; fi
 
 .FORCE:
