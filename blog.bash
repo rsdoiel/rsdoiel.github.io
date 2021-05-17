@@ -67,6 +67,9 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
         TITLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE="${Y}-"$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
+        if [ "${title}" = "" ]; then
+            TITLE=$(basename "${FNAME}" '.md')
+        fi
         pandoc \
             -M "year:${POST_DATE:0:4}" \
             -M "title:${TITLE}" \
@@ -113,7 +116,9 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
         POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html")"
         ARTICLE=$(titleline -i "${Y}/${POST_FILENAME}.md")
         POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
-        echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
+        if [ "${ARTICLE}" != "" ]; then
+          echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
+        fi
     done
     echo "" >> index.md
 done

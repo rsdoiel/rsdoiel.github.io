@@ -1131,8 +1131,8 @@ END Dates.
 ~~~
 
 Postscript: In this article I included a reference to the module
-**Chars**. This is a non-standard module I wrote for Oberon-7.
-Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
+**[Chars](Chars.html)**. This is a non-standard module I wrote
+for Oberon-7. Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
 
 ### Next, Previous
 
