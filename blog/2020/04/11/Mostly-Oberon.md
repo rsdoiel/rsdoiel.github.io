@@ -43,7 +43,7 @@ I am starting my exploration with Karl Landström's [OBNC](https://miasap.se/obn
 
 Here's an example of a simple "Hello World" program in Oberon written for a POSIX system. I've named the [source code](HelloWorld.Mod) `HelloWorld.Mod`.
 
-NOTE: In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux, [BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) and [macOS](https://en.wikipedia.org/wiki/MacOS).
+NOTE: In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux), [BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) and [macOS](https://en.wikipedia.org/wiki/MacOS).
 
 
 ~~~

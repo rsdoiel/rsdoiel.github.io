@@ -4,9 +4,16 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 17 May 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Mon, 17 May 2021 00:00:00 UTC</lastBuildDate>
+        <pubDate>Mon, 14 Jun 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Mon, 14 Jun 2021 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.2.5</generator>
+        <item>
+            <title>Combining Oberon-7 with C using Obc-3</title>
+            <link>/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.md</link>
+            <description>&#xA;&#xA;Combing Oberon-7 with C using Obc-3&#xA;===================================&#xA;&#xA;By R. S. Doiel, 2021-06-14&#xA;&#xA;This post explores integrating C code with an Oberon-7 module use&#xA;Mike Spivey&#39;s Obc-3 Oberon Compiler.  Last year I wrote a similar post&#xA;for Karl Landström&#39;s [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).&#xA;This goal of this post is to document how I created a version of Karl&#39;s&#xA;Extension Library that would work with Mike&#39;s Obc-3 compiler.&#xA;If you want to take a shortcut you can see the results on GitHub&#xA;in my [obc-3-libext](https://github.com/rsdoiel/obc-3-libext) repository.&#xA;&#xA;From my time with OBNC I&#39;ve come to rely on three modules from Karl&#39;s&#xA;extension library. When trying to port some of my code to use with&#xA;Mike&#39;s compiler. That&#39;s where I ran into a problem with that dependency.&#xA;Karl&#39;s modules aren&#39;t available. I needed an [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html),&#xA;an [extEnv](http://miasap.se/obnc/obncdoc/ext/extEnv.def.html) and&#xA;[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html). ...</description>
+            <pubDate>Mon, 14 Jun 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.md</guid>
+        </item>
         <item>
             <title>Beyond Oakwood, Modules and Aliases</title>
             <link>/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md</link>

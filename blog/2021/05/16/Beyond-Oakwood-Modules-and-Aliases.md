@@ -287,7 +287,13 @@ maintained the spirit of "Simple but not simpler".
 
 + [Chars.Mod](Chars.Mod)
 
-### Previous
+UPDATE: The current version of my `Chars` module can be found in 
+my [Artemis](https://github.com/rsdoiel/Artemis) repository. The
+repository include additional code and modules suitable to working
+with Oberon-7 in a POSIX envinronment.
 
-+ [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.html)
+### Next, Previous
+
++ Next [Combining Oberon-7 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html)
++ Prev [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.html)
 

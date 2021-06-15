@@ -15,17 +15,15 @@ Getting started
 ---------------
 
 1. [Mostly Oberon](/blog/2020/04/11/Mostly-Oberon.html), 2020-04-11
-2. [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
-3. [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06
+6. [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html), 2020-05-06
 
 
 The basics
 ----------
 
-4. [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
-5. [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
-6. [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
-7. [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-19
+2. [Oberon Modules and Procedures](/blog/2020/04/12/Mostly-Oberon-Modules.html), 2020-04-12
+3. [Oberon Basic Types](/blog/2020/04/18/Mostly-Oberon-Basic-Types.html), 2020-04-18
+4. [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html), 2020-04-19
 8. [Dynamic types](/blog/2020/05/25/Dynamic-types.html), 2020-05-25
 9. [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
 10. [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07
@@ -33,10 +31,14 @@ The basics
 Exploration
 -----------
 
+7. [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
 11. [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
+5. [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
+16. [Combing Oberon-7 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html), 2021-06-14
+14. [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
 12. [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
-13. [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
-18. [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
+13. [Assemble Pages](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-19
+15. [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 
 Oberon Systems
 --------------
