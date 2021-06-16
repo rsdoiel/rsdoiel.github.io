@@ -1,6 +1,10 @@
-(** Chars.Mod - A module for working with CHAR and ARRAY OF CHAR data types.
+(** Chars.Mod - A module for working with CHAR and ARRAY OF CHAR
+    data types.
 
-Copyright (C) 2020, 2021 R. S. Doiel <rsdoiel@gmail.com> This Source Code Form is subject to the terms of the Mozilla PublicLicense, v. 2.0. If a copy of the MPL was not distributed with thisfile, You can obtain one at http://mozilla.org/MPL/2.0/. *)
+Copyright (C) 2020, 2021 R. S. Doiel <rsdoiel@gmail.com> This Source Code
+Form is subject to the terms of the Mozilla PublicLicense, v. 2.0. If a
+copy of the MPL was not distributed with thisfile, You can obtain one
+at http://mozilla.org/MPL/2.0/. *)
 MODULE Chars;
 
 (**
@@ -147,7 +151,8 @@ BEGIN
     RETURN isAlphaNum
 END IsAlphaNum;
 
-(** IsSpace returns TRUE if the char is a space, tab, carriage return or line feed *)
+(** IsSpace returns TRUE if the char is a space, tab, carriage return
+    or line feed *)
 PROCEDURE IsSpace*(c : CHAR) : BOOLEAN;
 BEGIN
   RETURN InCharList(c, spaces)
@@ -172,7 +177,8 @@ END Length;
 (** Insert inserts a source ARRAY OF CHAR into a destination 
     ARRAY OF CHAR maintaining a trailing 0X and truncating if
     necessary [Oakwood compatible] *)
-PROCEDURE Insert*(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
+PROCEDURE Insert*(source : ARRAY OF CHAR; pos : INTEGER; 
+                  VAR dest : ARRAY OF CHAR);
   VAR sourceLength, sourceSize, 
       destLength, destSize,
       newLength, i, offset : INTEGER;
@@ -183,8 +189,9 @@ BEGIN
   ASSERT(pos <= destLength);
   newLength := Minimum((destLength + sourceLength), destSize);
   dest[newLength] := 0X; (* Add trailing 0X *)
-  (* Shift dest values to the end of the string and make room for source *)
-  i := newLength - 1; (* Set i to last character position before 0X *)
+  (* Shift dest values to the end of the string
+     and make room for source *)
+  i := newLength - 1; (* Set i to last position before 0X *)
   offset := i - sourceLength;
   WHILE i >= (pos + sourceLength) DO
     dest[i] := dest[offset];
@@ -254,7 +261,8 @@ END Delete;
     source ARRAY OF CHAR overwriting the characters in dest
     ARRAY OF CHAR. Replace will enforce a terminating 0X as
     needed. [Oakwood compatible] *)
-PROCEDURE Replace*(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
+PROCEDURE Replace*(source : ARRAY OF CHAR; pos : INTEGER; 
+                   VAR dest : ARRAY OF CHAR);
 BEGIN
   Delete(dest, pos, Length(source));
   Insert(source, pos, dest);
@@ -263,7 +271,8 @@ END Replace;
 (** Extract copies out a substring from an ARRAY OF CHAR into a dest
     ARRAY OF CHAR starting at pos and for n characters
     [Oakwood compatible] *)
-PROCEDURE Extract*(source : ARRAY OF CHAR; pos, n : INTEGER; VAR dest : ARRAY OF CHAR);
+PROCEDURE Extract*(source : ARRAY OF CHAR; pos, n : INTEGER;
+                   VAR dest : ARRAY OF CHAR);
   VAR copyCount, sourceLength, destEnd, i, offset : INTEGER;
 BEGIN
   sourceLength := Length(source);
@@ -298,7 +307,8 @@ BEGIN
     offset := pos; 
     WHILE (offset < (sourceLength - patternLength)) & (res = -1) DO
       i := 0; j := offset; res := offset;
-      WHILE (j < sourceLength) & (i < patternLength) & (pattern[i] # 0X) & (source[j] = pattern[i]) DO
+      WHILE (j < sourceLength) & (i < patternLength) &
+            (pattern[i] # 0X) & (source[j] = pattern[i]) DO
         INC(offset); INC(i);
       END;
       IF pattern[i] # 0X THEN
@@ -311,7 +321,8 @@ BEGIN
   RETURN res
 END Pos;
 
-(** Cap replaces each lower case letter within source by an uppercase one *)
+(** Cap replaces each lower case letter within source by an
+    uppercase one *)
 PROCEDURE Cap*(VAR source : ARRAY OF CHAR);
   VAR i, sourceLength : INTEGER;
 BEGIN
@@ -344,7 +355,8 @@ END Equal;
 
 
 (** StartsWith - check to see of a prefix starts an ARRAY OF CHAR *)
-PROCEDURE StartsWith*(prefix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
+PROCEDURE StartsWith*(prefix : ARRAY OF CHAR;
+                      VAR source : ARRAY OF CHAR) : BOOLEAN;
 VAR startsWith : BOOLEAN; i: INTEGER;
 BEGIN
     startsWith := FALSE;
@@ -362,7 +374,8 @@ BEGIN
 END StartsWith;
 
 (** EndsWith - check to see of a prefix starts an ARRAY OF CHAR *)
-PROCEDURE EndsWith*(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
+PROCEDURE EndsWith*(suffix : ARRAY OF CHAR;
+                    VAR source : ARRAY OF CHAR) : BOOLEAN;
 VAR endsWith : BOOLEAN; i, j : INTEGER;
 BEGIN
     endsWith := FALSE;
@@ -546,7 +559,8 @@ Chars
 This module provides common character oriented tests.
 
 InRange
-: Check to see if a character, c, is in an inclusive range from a lower to upper character.
+: Check to see if a character, c, is in an inclusive range from a
+lower to upper character.
 
 IsUpper
 : Check to see if a character is upper case
@@ -555,8 +569,8 @@ IsLower
 : Check to see if a character is lower case
 
 IsAlpha
-: Check to see if a character is alphabetic, i.e. in the range of "a" to "z"
-or "A" to "Z".
+: Check to see if a character is alphabetic, i.e. in the range of
+"a" to "z" or "A" to "Z".
 
 IsDigit
 : Check to see if a character is a digit, i.e. in range of "0" to "9"
@@ -565,16 +579,19 @@ IsAlphaNum
 : Check to see if a character is alpha or a digit
 
 IsSpace
-: Check to see if a character is a space, tab, carriage return or line feed
+: Check to see if a character is a space, tab, carriage return or 
+line feed
 
 AppendChar
-: Append a single char to the end of an ARRAY OF CHAR adjusting the terminating null character and return TRUE on success or FALSE otherwise.
+: Append a single char to the end of an ARRAY OF CHAR adjusting the
+terminating null character and return TRUE on success or FALSE otherwise.
 
 Append
 : Append an ARRAY OF CHAR to another the destination ARRAY OF CHAR.
 
 Equal
-: Compares two ARRAY OF CHAR and returns TRUE if they match, FALSE otherwise
+: Compares two ARRAY OF CHAR and returns TRUE if they match,
+FALSE otherwise
 
 Clear
 : Sets all cells in an ARRAY OF CHAR to 0X.
@@ -589,10 +606,12 @@ TrimRightSpace
 : Trim the trailing space characters from an ARRAY OF CHAR
 
 StartsWith
-: Checks to see if a prefix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise
+: Checks to see if a prefix ARRAY OF CHAR matches a target ARRAY OF CHAR
+return TRUE if found, FALSE otherwise
 
 EndsWith
-: Checks to see if a suffix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise
+: Checks to see if a suffix ARRAY OF CHAR matches a target
+ARRAY OF CHAR return TRUE if found, FALSE otherwise
 
 TrimPrefix
 : Trim a prefix ARRAY OF CHAR from a target ARRAY OF CHAR

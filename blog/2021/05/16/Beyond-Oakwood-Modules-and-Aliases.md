@@ -23,17 +23,19 @@ compilers like
 [OBNC](https://miasap.se/obnc/), [Vishap Oberon Compiler](https://github.com/vishaps/voc) and the 
 [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).
 
-The Oakwood guides described a minimum expectation so the modules
-implemented to meet those guidelines can be minimalist. This is a
-good thing. Minimalism can assist in easing the learning curve
+The Oakwood guidelines described a minimum expectation for
+a standard set of modules to be shipped with compilers.
+The modules themselves are minimalist in implementation.
+Minimalism can assist in easing the learning curve
 and encouraging a deeper understanding of how things work.
 
-The Oberon-7 language smaller is than the original Oberon language
+The Oberon-7 language is smaller than the original Oberon language
 and the many dialects that followed.  I think of Oberon-7 as the
 distillation of all previous innovation.  It embodies the
-spirit of "Simple but not simpler than necessary". Minimalism has
-been true of the Oakwood modules that were adapted to support 
+spirit of "Simple but not simpler than necessary". Minimalism is
+a fit description of the adaptions of the Oakwood modules for 
 Oberon-7 in the POSIX environment.
+
 
 When simple is too simple
 -------------------------
@@ -51,7 +53,7 @@ testing prefixes and suffixes as well as trim procedures. It was
 all I included in `Chars` was until recently.
 
 Over the last couple of weeks I have been reviewing my own Oberon-7
-code base used in my personal projects.  I came to understand that
+code in my personal projects.  I came to understand that
 in my quest for minimalism I had fallen for "too simple".
 This was evidenced by two observations.  Everywhere I had used
 the `Strings` module I also included `Chars`. It was boiler plate.
@@ -62,7 +64,7 @@ The IMPORT sequence was invariably a form of --
 ~~~
 
 On top of that I found it distracting to see `Chars.*` and `Strings.*`
-go mingled and operating on the same data. If felt sub optimal. It
+comingled and operating on the same data. If felt sub optimal. It
 felt baroque. That got me thinking.
 
 > What if Chars included the functionality of Strings?
@@ -90,7 +92,7 @@ provided in the IMPORT statement.
 
 In my new [implementation](Chars.Mod) I support all the standard
 procedures you'd find in an Oakwood compliant `Strings`.  I've
-included additional additional constants, as functional procedures
+included additional additional constants and functional procedures
 like `StartsWith()` and `EndsWith()` and a complement of trim
 procedures like `TrimLeft()`, `TrimRight()`, `Trim()`.
 `TrimPrefix()`, and `TrimSuffix()`.
@@ -99,14 +101,20 @@ Here's how `Chars` definition stacks up as rendered by the
 obncdoc tool.
 
 ```
-(* Chars.Mod - A module for working with CHAR and ARRAY OF CHAR data types.
+(* Chars.Mod - A module for working with CHAR and 
+   ARRAY OF CHAR data types.
 
-Copyright (C) 2020, 2021 R. S. Doiel <rsdoiel@gmail.com> This Source Code Form is subject to the terms of the Mozilla PublicLicense, v. 2.0. If a copy of the MPL was not distributed with thisfile, You can obtain one at http://mozilla.org/MPL/2.0/. *)
+Copyright (C) 2020, 2021 R. S. Doiel <rsdoiel@gmail.com>
+This Source Code Form is subject to the terms of the
+Mozilla PublicLicense, v. 2.0. If a copy of the MPL was
+not distributed with thisfile, You can obtain one at
+http://mozilla.org/MPL/2.0/. *)
 DEFINITION Chars;
 
 (*
-Chars.Mod provides a modern set of procedures for working with CHAR and
-ARRAY OF CHAR. It is a drop in replacement for the Oakwood definition 
+Chars.Mod provides a modern set of procedures for working
+with CHAR and ARRAY OF CHAR. It is a drop in replacement
+for the Oakwood definition 
 Strings module.
 
 Example:
@@ -117,7 +125,8 @@ You now have a Strings compatible Chars module plus all the Chars
 extra accessible through the module alias of Strings. *)
 
 CONST
-  (* MAXSTR is exported so we can use a common max string size easily *)
+  (* MAXSTR is exported so we can use a common
+     max string size easily *)
   MAXSTR = 1024;
   (* Character constants *)
   EOT = 0X;
@@ -289,7 +298,7 @@ maintained the spirit of "Simple but not simpler".
 
 UPDATE: The current version of my `Chars` module can be found in 
 my [Artemis](https://github.com/rsdoiel/Artemis) repository. The
-repository include additional code and modules suitable to working
+repository includes additional code and modules suitable to working
 with Oberon-7 in a POSIX envinronment.
 
 ### Next, Previous
