@@ -7,5 +7,5 @@ title : "About Me"
 Welcome
 -------
 
-> I am a human. Once upon a time I wrote music and prose. I write software. 
+> I am a human. I wrote music and prose. I write software. 
 

@@ -16,7 +16,7 @@ nav.include: nav.md
 footer.include: footer.md
 	pandoc footer.md > footer.include
 
-index.md: index.txt blog/index.md presentations.md cli-tools.md 
+index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md 
 	Include index.txt > index.md
 	
 index.html: nav.include footer.include index.md page.tmpl
