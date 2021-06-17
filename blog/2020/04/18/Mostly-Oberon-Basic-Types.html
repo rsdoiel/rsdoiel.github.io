@@ -68,7 +68,7 @@
 <h3 id="more-complex-types">More complex types</h3>
 <p>The simplest types would prove problematic when addressing more complex data representations if Oberon lacked two three built-in types - ARRAY, RECORD and POINTER TO.</p>
 <h3 id="array">ARRAY</h3>
-<p>An array is a sequence of memory locations which contain a common type. In Oberon 7 all arrays have to have a known link. This is because the Oberon compiler is responsible for pre-allocating memory when the program starts to hold the array. While this seems restrictive our next data type, RECORD, lets us move into more dynamic memory structures. Pre-allocating the array size also has the advantage that we can re-use those locations easily in a type safe manner.</p>
+<p>An array is a sequence of memory locations which contain a common type. In Oberon-07 all arrays have to have a known link. This is because the Oberon compiler is responsible for pre-allocating memory when the program starts to hold the array. While this seems restrictive our next data type, RECORD, lets us move into more dynamic memory structures. Pre-allocating the array size also has the advantage that we can re-use those locations easily in a type safe manner.</p>
 <p>Declaring a variable “name” as an array of twelve characters would look like and declaring a variable “scores” as an array of ten integers would look like</p>
 <pre class="oberon"><code>
     VAR 
