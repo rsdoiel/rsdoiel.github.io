@@ -1,5 +1,5 @@
 ---
-title: "Portable Oberon 7"
+title: "Portable Oberon-07"
 series: "Mostly Oberon"
 number: 11
 author: "R. S. Doiel"
@@ -10,7 +10,7 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-# Portable Oberon 7
+# Portable Oberon-07
 
 ## using OBNC modules
 

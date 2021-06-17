@@ -29,10 +29,10 @@
 
 <section>
   <article>
-<h1 id="oberon-7-and-the-file-system">Oberon-7 and the file system</h1>
+<h1 id="oberon-07-and-the-file-system">Oberon-07 and the file system</h1>
 <p>By R. S. Doiel, 2020-05-09</p>
 <p>This is the seventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-<h2 id="working-with-files-in-oberon-7">Working with files in Oberon-7</h2>
+<h2 id="working-with-files-in-oberon-07">Working with files in Oberon-07</h2>
 <p>In a POSIX system we often talk of opening files, writing and reading files and close files. The Oberon language reflects a more Oberon System point of view.</p>
 <p>The Oberon System generally avoids modality in favor of action. Modality is where a context must be set before a set of actions are possible. The <code>vi</code> text editor is a “modal” editor. You are in either edit (typing) mode or command mode. At the function level POSIX’s <code>open()</code>, is also modal. You can open a file for reading, open a file for writing, you can open a file for appending, etc. The Oberon language and base modules avoids modality.</p>
 <p>The Oberon System is highly interactive but has a very different idea about code, data and computer resources. In POSIX the basic unit of code is a program and the basic unit of execution is a program. In Oberon the basic unit of code is the module and the basic unit of execution is the procedure. Modules are brought into memory and persist. As a result it is common in the Oberon System to need to have file representations that can persist across procedure calls. It provides a set of abstractions that are a little bit like views and cursors found in database systems. In taking this approach Oberon language eschews modality at the procedure level.</p>

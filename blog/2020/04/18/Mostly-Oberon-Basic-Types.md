@@ -124,7 +124,7 @@ types - ARRAY, RECORD and POINTER TO.
 ### ARRAY
 
 An array is a sequence of memory locations which contain a common
-type.  In Oberon 7 all arrays have to have a known link. This is
+type.  In Oberon-07 all arrays have to have a known link. This is
 because the Oberon compiler is responsible for pre-allocating
 memory when the program starts to hold the array.  While this
 seems restrictive our next data type, RECORD, lets us move

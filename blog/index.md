@@ -5,7 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
-+ [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
++ [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html), 2021-06-14
 + [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 + [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html), 2021-04-25
 + [Updating Schema in SQLite3](/blog/2021/04/16/Updating-Schema-in-SQLite3.html), 2021-04-16
@@ -23,12 +23,12 @@ Recent Posts
  + 10-19, [Assembling Pages](/blog/2020/10/19/Assemble-pages.html)
  + 10-03, [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html)
  + 09-29, [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html)
- + 08-15, [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-07.html)
+ + 08-15, [Portable Oberon-07](/blog/2020/08/15/Portable-Oberon-7.html)
  + 07-08, [Words Matter](/blog/2020/07/08/words-matter.html)
  + 07-07, [Procedures in records](/blog/2020/07/07/Procedures-in-records.html)
  + 06-20, [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html)
  + 05-25, [Dynamic types](/blog/2020/05/25/Dynamic-types.html)
- + 05-09, [Oberon-07 and the file system](/blog/2020/05/09/Oberon-07-and-the-filesystem.html)
+ + 05-09, [Oberon-07 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html)
  + 05-06, [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html)
  + 05-01, [Combining Oberon-07 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html)
  + 04-19, [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html)

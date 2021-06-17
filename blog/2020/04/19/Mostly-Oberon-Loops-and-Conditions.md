@@ -73,7 +73,7 @@ This is like combining an "if EXPR is false then system exit".
 
 ## WHILE DO, ELSIF DO
 
-Oberon 7 also provides two loop structures. These are very 
+Oberon-07 also provides two loop structures. These are very 
 similar to other languages as well. The only expectation is that
 a while loop may contain an ELSIF which continues the loop
 execution until both clauses return FALSE.

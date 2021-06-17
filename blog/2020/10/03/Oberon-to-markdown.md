@@ -251,4 +251,4 @@ END ObnToMd.
 ### Next, Previous
 
 + Next [Assembling Pages](../../10/19/Assemble-pages.html)
-+ Previous [Portable Oberon 7](../../08/15/Portable-Oberon-07.html)
++ Previous [Portable Oberon-07](../../08/15/Portable-Oberon-07.html)

@@ -31,13 +31,13 @@
   <article>
 <h1 id="dates-and-clock">Dates and Clock</h1>
 <p>By R. S. Doiel, 2020-11-27</p>
-<p>The <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">Oakwood</a> guidelines specified a common set of modules for Oberon-2 for writing programs outside of an Oberon System. A missing module from the Oakwood guidelines is modules for working with dates and the system clock. Fortunately the A2 Oberon System<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> provides a template for that functionality. In this article I am exploring implementing the <a href="Dates.Mod">Dates</a> and <a href="Clock.Mod">Clock</a> modules for Oberon-7. I also plan to go beyond the A2 implementations and provide additional functionality such as parsing procedures and the ability to work with either the date or time related attributes separately in the <code>Dates.DateTime</code> record.</p>
+<p>The <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">Oakwood</a> guidelines specified a common set of modules for Oberon-2 for writing programs outside of an Oberon System. A missing module from the Oakwood guidelines is modules for working with dates and the system clock. Fortunately the A2 Oberon System<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> provides a template for that functionality. In this article I am exploring implementing the <a href="Dates.Mod">Dates</a> and <a href="Clock.Mod">Clock</a> modules for Oberon-07. I also plan to go beyond the A2 implementations and provide additional functionality such as parsing procedures and the ability to work with either the date or time related attributes separately in the <code>Dates.DateTime</code> record.</p>
 <h2 id="divergences">Divergences</h2>
-<p>One of the noticeable differences between Oberon-7 and Active Oberon is the types that functional procedures can return. We cannot return an Object in Oberon-7. This is not much of a handicap as we have variable procedure parameters. Likewise Active Oberon provides a large variety of integer number types. In Oberon-7 we have only INTEGER. Where I’ve create new procedures I’ve used the Oberon idiom of read only input parameters followed by variable parameters with side effects and finally parameters for the target record or values to be updated.</p>
+<p>One of the noticeable differences between Oberon-07 and Active Oberon is the types that functional procedures can return. We cannot return an Object in Oberon-07. This is not much of a handicap as we have variable procedure parameters. Likewise Active Oberon provides a large variety of integer number types. In Oberon-07 we have only INTEGER. Where I’ve create new procedures I’ve used the Oberon idiom of read only input parameters followed by variable parameters with side effects and finally parameters for the target record or values to be updated.</p>
 <h2 id="similarities">Similarities</h2>
-<p>In spite of the divergence I have split the module into two. The <a href="Dates.html">Dates</a> module is the one you would include in your program, it provides a DateTime record type which holds the integer values for year, month, day, hour, minute and second. It provides the means of parsing a date or time string, comparison, difference and addition of dates. The second module <a href="Clock.html">Clock</a> provides a mechanism to retrieve the real time clock value from the host system and map the C based time object into our own DateTime record. Clock is specific to OBNC method of interfacing to the C standard libraries of the host system. If you were to use a different Oberon compiled such as the Oxford Oberon Compiler you would need to re-implement Clock. Dates itself should be system independent and work with Oberon-7 compilers generally.</p>
+<p>In spite of the divergence I have split the module into two. The <a href="Dates.html">Dates</a> module is the one you would include in your program, it provides a DateTime record type which holds the integer values for year, month, day, hour, minute and second. It provides the means of parsing a date or time string, comparison, difference and addition of dates. The second module <a href="Clock.html">Clock</a> provides a mechanism to retrieve the real time clock value from the host system and map the C based time object into our own DateTime record. Clock is specific to OBNC method of interfacing to the C standard libraries of the host system. If you were to use a different Oberon compiled such as the Oxford Oberon Compiler you would need to re-implement Clock. Dates itself should be system independent and work with Oberon-07 compilers generally.</p>
 <h2 id="clock">Clock</h2>
-<p>The Clock module is built from a skeleton in Oberon-7 describing the signatures of the procedure and an implementation in <a href="Clock.c">C</a> that is built using the technique for discussed in my post <a href="../../05/01/Combining-Oberon-and-C.html">Combining Oberon-7 and C with OBNC</a>. In that article I outline Karl’s three step process to create a module that will be an interface to C code. In Step one I create the Oberon module. Normally I’d leave all procedures empty and develop them in C. In this specific case I went ahead and wrote the procedure called <code>Get</code> in Oberon and left the procedure <code>GetRtcTime</code> blank. This allowed OBNC to generate the C code for <code>Get</code> saving me some time and create the skeleton for <code>GetRtcTime</code> which does the work interfacing with the system clock via C library calls.</p>
+<p>The Clock module is built from a skeleton in Oberon-07 describing the signatures of the procedure and an implementation in <a href="Clock.c">C</a> that is built using the technique for discussed in my post <a href="../../05/01/Combining-Oberon-and-C.html">Combining Oberon-07 and C with OBNC</a>. In that article I outline Karl’s three step process to create a module that will be an interface to C code. In Step one I create the Oberon module. Normally I’d leave all procedures empty and develop them in C. In this specific case I went ahead and wrote the procedure called <code>Get</code> in Oberon and left the procedure <code>GetRtcTime</code> blank. This allowed OBNC to generate the C code for <code>Get</code> saving me some time and create the skeleton for <code>GetRtcTime</code> which does the work interfacing with the system clock via C library calls.</p>
 <p>The interface Oberon module looked like this:</p>
 <pre class="oberon"><code>
 MODULE Clock;
@@ -57,8 +57,8 @@ END Get;
 
 END Clock.
 </code></pre>
-<p>I wrote the <code>Get</code> procedure code in Oberon-7 is the OBNC compiler will render the Oberon as C during the compilation process. I save myself writing some C code in by leveraging OBNC.</p>
-<p>Step two was to write <a href="ClockTest.Mod">ClockTest.Mod</a> in Oberon-7.</p>
+<p>I wrote the <code>Get</code> procedure code in Oberon-07 is the OBNC compiler will render the Oberon as C during the compilation process. I save myself writing some C code in by leveraging OBNC.</p>
+<p>Step two was to write <a href="ClockTest.Mod">ClockTest.Mod</a> in Oberon-07.</p>
 <pre class="oberon"><code>
 MODULE ClockTest;
 
@@ -302,7 +302,7 @@ END ToChars;
 
 (*
  * Date and Time functions very much inspired by A2 but
- * adapted for use in Oberon-7 and OBNC compiler.
+ * adapted for use in Oberon-07 and OBNC compiler.
  *)
 
 (* LeapYear -- returns TRUE if &#39;year&#39; is a leap year *)
@@ -1043,7 +1043,7 @@ BEGIN
 
 END Dates.
 </code></pre>
-<p>Postscript: In this article I included a reference to the module <strong><a href="Chars.html">Chars</a></strong>. This is a non-standard module I wrote for Oberon-7. Here is a link to <a href="Chars.Mod">Chars</a>. RSD, 2021-05-06</p>
+<p>Postscript: In this article I included a reference to the module <strong><a href="Chars.html">Chars</a></strong>. This is a non-standard module I wrote for Oberon-07. Here is a link to <a href="Chars.Mod">Chars</a>. RSD, 2021-05-06</p>
 <h3 id="next-previous">Next, Previous</h3>
 <ul>
 <li>Next <a href="/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">Beyond Oakwood, Modules and Aliases</a></li>

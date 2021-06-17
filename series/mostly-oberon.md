@@ -32,7 +32,7 @@ Exploration
 -----------
 
 7. [Oberon-07 and the file system](/blog/2020/05/09/Oberon-07-and-the-filesystem.html), 2020-05-09
-11. [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-07.html), 2020-08-15
+11. [Portable Oberon-07](/blog/2020/08/15/Portable-Oberon-07.html), 2020-08-15
 5. [Combining Oberon-07 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
 16. [Combing Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
 14. [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27

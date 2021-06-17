@@ -20,7 +20,7 @@ By R. S. Doiel, 2020-04-11
 
 ## Overview
 
-Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon 7 language based on [Project Oberon 2013](http://www.projectoberon.com/).
+Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon-07 language based on [Project Oberon 2013](http://www.projectoberon.com/).
 
 NOTE: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol.
 
@@ -28,7 +28,7 @@ NOTE: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from h
 
 I am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal).  Oberon's language shape is more Pascal than C. For that reason I think it has largely been overlooked.
 
-Oberon 7 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like [Go](https://golang.org).
+Oberon-07 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like [Go](https://golang.org).
 
 While Wirth conceived of Oberon in the context of a whole system it's use in research and instruction means it is also well suited [POSIX](https://en.wikipedia.org/wiki/POSIX) based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
 
@@ -78,7 +78,7 @@ If you're following along please install OBNC on your computer.  Instructions ar
 
 ### Running OBNC
 
-OBNC provides a Oberon 7 compiler with some optional modules for working in a POSIX environment.  Compiling our "Hello World" is easy from your shell or terminal.
+OBNC provides a Oberon-07 compiler with some optional modules for working in a POSIX environment.  Compiling our "Hello World" is easy from your shell or terminal.
 
 
 ~~~
