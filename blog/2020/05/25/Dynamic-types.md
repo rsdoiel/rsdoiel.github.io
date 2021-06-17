@@ -20,21 +20,21 @@ Oberon System and the various rabbit holes I will inevitably fall into.
 
 ## Dynamic Types in Oberon
 
-Oberon-7 is a succinct systems language. It provides a minimal
+Oberon-07 is a succinct systems language. It provides a minimal
 but useful set of basic static types. Relying on them addresses 
 many common programming needs. The Oberon compiler ensures 
 static types are efficiently allocated in memory. One of the 
 strengths of Oberon is this ability to extend the type system. 
 This means when the basic types fall short you can take 
 advantage of Oberon's type  extension features. This includes 
-creating dynamically allocated data structures. In Oberon-7 
+creating dynamically allocated data structures. In Oberon-07 
 combining Oberon's `POINTER TO` and `RECORD` types allows us to
 create complex and dynamic data structures. 
 
 
 ## An example, dynamic strings 
 
-Strings in Oberon-7 are typical declared as an `ARRAY OF CHAR` 
+Strings in Oberon-07 are typical declared as an `ARRAY OF CHAR` 
 with a specific length. If the length of a string is not 
 known a head of time this presents a challenge. One approach is 
 to declare a long array but that would allocate allot of memory 
@@ -114,7 +114,7 @@ rely on.
 ## Working with DynamicString
 
 Our type definitions describe to the compiler how to layout our 
-data in memory. The type system in Oberon-7 also ensures that 
+data in memory. The type system in Oberon-07 also ensures that 
 access to that memory is restricted to assignments, operations 
 and procedures compatible with that type. To be useful from 
 other modules we need a few procedures to help work with
@@ -509,4 +509,4 @@ with a test module in the links that follow.
 ### Next and Previous 
 
 + Next [Procedures as parameters](../../06/20/Procedures-as-parameters.html)
-+ Previous [Oberon-7 and the file system](../09/Oberon-7-and-the-filesystem.html) 
++ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html) 

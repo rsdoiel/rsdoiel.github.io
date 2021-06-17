@@ -113,7 +113,7 @@ Source code for **Dates.Mod**
 
 ~~~
 (* Dates -- this module was inspired by the A2's Dates module, adapted
-   for Oberon-7 and a POSIX system. It provides an assortment of procedures
+   for Oberon-07 and a POSIX system. It provides an assortment of procedures
    for working with a simple datetime record.
 
 Copyright (C) 2020 R. S. Doiel
@@ -235,7 +235,7 @@ END ToChars;
 
 (* 
  * Date and Time functions very much inspired by A2 but
- * adapted for use in Oberon-7 and OBNC compiler.
+ * adapted for use in Oberon-07 and OBNC compiler.
  *)
 
 (* LeapYear -- returns TRUE if 'year' is a leap year *)

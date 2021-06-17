@@ -18,7 +18,7 @@ This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) se
 Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the 
 various rabbit holes I will inevitably fall into.
 
-In my last post I looked at how Oberon-7 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can
+In my last post I looked at how Oberon-07 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can
 include procedures as a part of an Oberon RECORD. 
 
 Let's modify our module name [Noises.Mod](Noises.Mod) to explore this.
@@ -155,7 +155,7 @@ that would let you change the noise procedure to something new.
 
 ### Next and Previous 
 
-+ Next [Portable Oberon 7](../../08/15/Portable-Oberon-7.html)
++ Next [Portable Oberon 7](../../08/15/Portable-Oberon-07.html)
 + Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.html) 
 
 

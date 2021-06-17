@@ -1,5 +1,5 @@
 ---
-title: "Combining Oberon-7 and C with OBNC"
+title: "Combining Oberon-07 and C with OBNC"
 series: "Mostly Oberon"
 number: 5
 author: "R. S. Doiel"
@@ -10,7 +10,7 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-# Combining Oberon-7 and C with OBNC
+# Combining Oberon-07 and C with OBNC
 
 By R. S. Doiel, 2020-05-01
 
@@ -28,7 +28,7 @@ compiler supports inclusion of C code in a
 straight forward manner. In fact Karl's compiler
 will generate the C file for you!
 
-In learning how to combine C code and Oberon-7
+In learning how to combine C code and Oberon-07
 I started by reviewing Karl's [manual page](https://miasap.se/obnc/man/obnc.txt).
 The bottom part of that manual page describes
 the steps I will repeat below. The description

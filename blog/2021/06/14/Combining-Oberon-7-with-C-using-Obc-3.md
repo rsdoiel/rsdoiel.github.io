@@ -1,5 +1,5 @@
 ---
-title: "Combining Oberon-7 with C using Obc-3"
+title: "Combining Oberon-07 with C using Obc-3"
 number: 19
 author: "R. S. Doiel"
 date: "2021-06-14"
@@ -9,12 +9,12 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-Combing Oberon-7 with C using Obc-3
+Combing Oberon-07 with C using Obc-3
 ===================================
 
 By R. S. Doiel, 2021-06-14
 
-This post explores integrating C code with an Oberon-7 module use
+This post explores integrating C code with an Oberon-07 module use
 Mike Spivey's Obc-3 Oberon Compiler.  Last year I wrote a similar post
 for Karl Landström's [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).
 This goal of this post is to document how I created a version of Karl's
@@ -53,13 +53,13 @@ Differences: OBNC and Obc-3
 ---------------------------
 
 The OBNC compiler written by Karl takes the approach of translating
-Oberon-7 code to C and then calling the C tool chain to convert that
+Oberon-07 code to C and then calling the C tool chain to convert that
 into a   executable.  Karl's compiler is largely written in C
 with some parts written in Oberon.
 
 Mike's takes a different approach. His compiler uses a run time JIT
 and is written mostly in OCaml with some C parts and shell scripting.
-When you compile an Oberon program (either Oberon-2 or Oberon-7) using
+When you compile an Oberon program (either Oberon-2 or Oberon-07) using
 Mike's compiler you get a bunch of "*.k" files that the object code
 for Mike's thunder virtual machine and JIT.  This can in turn be used
 to create a executable.
@@ -85,10 +85,10 @@ PROCEDURE DoMyThing() IS "do_my_thing";
 Of course both compilers have completely different command line options
 and when you're integrating C shared libraries in Mike's you need to
 call your local CC (e.g. GCC, clang) to create a share library file.
-Mike has extended Oberon-7 SYSTEM to include `SYSTEM.LOADLIB()` which
+Mike has extended Oberon-07 SYSTEM to include `SYSTEM.LOADLIB()` which
 takes a string containing the path to the compiler shared library.
 
-In Karl's own Oberon-7 modules he uses the `.obn` file extension but
+In Karl's own Oberon-07 modules he uses the `.obn` file extension but
 also accepts `.Mod`.  In Mike's he uses `.m` and also accepts `.Mod`.
 In this article I will be using `.m` as that simplified the recipe
 of building and integrating the shared C libraries.
@@ -97,7 +97,7 @@ of building and integrating the shared C libraries.
 Similarities of OBNC and Obc-3
 ------------------------------
 
-Both compilers provide for compiling Oberon-7 code, Mike's requires
+Both compilers provide for compiling Oberon-07 code, Mike's requires
 the `-07` option to be used to switch from Oberon-2. Both offer the
 ability to extend reach into the host POSIX system by wrapping
 C shared libraries. Both run on a wide variety of POSIX systems and
@@ -211,7 +211,7 @@ Mike provides a module called `Conv.m` for converting numbers
 to strings.  It is a little minimal for my current purpose.
 That is easy enough to solve as Mike, like Karl provides a means
 of extending Oberon code with C.  That means I need to write
-`extConvert` as both `extConvert.m` (the Oberon-7 part) and
+`extConvert` as both `extConvert.m` (the Oberon-07 part) and
 `extConvert.c` (the C part).
 
 Here's Karl's definition
@@ -230,7 +230,7 @@ PROCEDURE StringToReal*(s: ARRAY OF CHAR; VAR x: REAL; VAR done: BOOLEAN);
 END extConvert.
 ```
 
-I have implement my `extConvert` as a hybrid of Oberon-7 and calls
+I have implement my `extConvert` as a hybrid of Oberon-07 and calls
 to a C shared library I will create called `extConvert.c`.
 
 The Oberon file (i.e. extConvert.m)

@@ -22,10 +22,10 @@ various rabbit holes I will inevitably fall into.
 
 By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)
 
-Karl Landström's [OBNC](https://miasap.se/obnc/), Oberon-7 compiler,
+Karl Landström's [OBNC](https://miasap.se/obnc/), Oberon-07 compiler,
 comes with an Oberon-2 inspired set of modules
 described in the Oakwood Guidelines as well as
-several very useful additions making Oberon-7 suitable for
+several very useful additions making Oberon-07 suitable for
 writing programs in a POSIX environment.  We're going to
 explore three of the Oakwood modules and two of Karl's own additions
 in this post as we create a program called [SlowCat](SlowCat.Mod).
@@ -322,9 +322,9 @@ facilitate leveraging non-Oberon resources (e.g. Java classes,
 native Windows API).  POW project proposed "Opal" which was a
 super set of modules that went beyond Oakwood. Having skimmed
 "Oberon-2 Programming with Windows" some may seem reasonable to
-port to Oberon-7, others less so.
+port to Oberon-07, others less so.
 
-Why Oakwood and POW? These efforts are of interest to Oberon-7
+Why Oakwood and POW? These efforts are of interest to Oberon-07
 developers as a well worn path to write code that is easy to
 compile on POSIX systems and on systems that are based on the
 more recent [Project Oberon 2013](http://www.projectoberon.com/).

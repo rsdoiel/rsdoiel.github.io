@@ -1,5 +1,5 @@
 
-This is a series of posts documenting my exploration of Oberon-7
+This is a series of posts documenting my exploration of Oberon-07
 languages and things related to Oberon and Oberon Systems.
 The order presented here isn't the order the articles were
 posted in. It has been re-organizaed to follow a more direct
@@ -9,7 +9,7 @@ Oberon on POSIX
 ---------------
 
 Compilers are available for Oberon language on POSIX
-systems. I've focused on the Oberon-7 dialect in this series.
+systems. I've focused on the Oberon-07 dialect in this series.
 
 Getting started 
 ---------------
@@ -31,10 +31,10 @@ The basics
 Exploration
 -----------
 
-7. [Oberon-7 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html), 2020-05-09
-11. [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-7.html), 2020-08-15
-5. [Combining Oberon-7 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
-16. [Combing Oberon-7 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html), 2021-06-14
+7. [Oberon-07 and the file system](/blog/2020/05/09/Oberon-07-and-the-filesystem.html), 2020-05-09
+11. [Portable Oberon 7](/blog/2020/08/15/Portable-Oberon-07.html), 2020-08-15
+5. [Combining Oberon-07 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
+16. [Combing Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
 14. [Dates & Clock](/blog/2020/11/27/Dates-and-Clock.html), 2020-11-27
 12. [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
 13. [Assemble Pages](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-19

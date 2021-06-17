@@ -41,10 +41,10 @@ The programs from this chapter include:
 + **echo**, write echo's command line parameters to standard output, introduces working with command line parameters
 + **translit**, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K & P
 
-Implementing in Oberon-7
+Implementing in Oberon-07
 ------------------------
 
-With the exception of **echo** (used to introduce command line parameter processing) each program increases in complexity.  The last program **translit**is the most complex in this chapter.  It introducing what we a "domain specific language" or "DSL".  A DSL is a notation allowing us to describe something implicitly rather than explicitly. All the programs except **translit** follow closely the original Pascal translated to Oberon-7.  **translit** book implementation is very much a result of the constraints of Pascal of the early 1980s as well as the minimalist assumption that could be made about the host operating system. I will focus on revising that program in particular bring the code up to current practice as well as offering insights I've learned.
+With the exception of **echo** (used to introduce command line parameter processing) each program increases in complexity.  The last program **translit**is the most complex in this chapter.  It introducing what we a "domain specific language" or "DSL".  A DSL is a notation allowing us to describe something implicitly rather than explicitly. All the programs except **translit** follow closely the original Pascal translated to Oberon-07.  **translit** book implementation is very much a result of the constraints of Pascal of the early 1980s as well as the minimalist assumption that could be made about the host operating system. I will focus on revising that program in particular bring the code up to current practice as well as offering insights I've learned.
 
 
 The program **translit** introduces what is called a "Domain Specific Language".Domain specific languages or DSL for short are often simple notations to describe how to solve vary narrow problems.  If you've used any of the popular spreadsheet programs where you've entered a formula to compute something you've used a domain specific language.  If you've ever search for text in a document using a regular expression you've used a domain specific language.  By focusing a notation on a small problem space you can often come up with simple ways of expressing or composing programmatic solutions to get a job done.
@@ -58,7 +58,7 @@ In **translit** the notation let's us describe what we want to translate. At the
 
 [Page 31](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up)
 
-Implementing **entab** in Oberon-7 is straight forward.
+Implementing **entab** in Oberon-07 is straight forward.
 Like my [Detab](Detab.Mod) implementation I am using
 a second modules called [Tabs](Tabs.Mod). This removes
 the need for the `#include` macros used in the K & P version.
@@ -66,7 +66,7 @@ I have used the same loop structure as K & P this time.
 There is a difference in my `WHILE` loop. I separate the
 character read from the `WHILE` conditional test.  Combining the
 two is common in "C" and is consistent with the programming style
-other books by Kernighan.  In Oberon-7 doesn't make sense at all.
+other books by Kernighan.  In Oberon-07 doesn't make sense at all.
 Oberon's `In.Char()` is not a function returning as in the Pascal
 primitives implemented for the K & P book or indeed like in the "C"
 language. In Oberon's "In" module the status of a read operation is
@@ -202,7 +202,7 @@ found it did not work on today's terminal emulators reliably. Your
 mileage may very nor do I have a vintage printer to test it on.
 
 Our module follows K & P design almost verbatim. The differences
-are those suggested by differences between Pascal and Oberon-7.
+are those suggested by differences between Pascal and Oberon-07.
 Like in previous examples we don't need to use an ENDFILE constant
 as we can simply check the value of `In.Done` to determine
 if the last read was successful. This simplifies some of
@@ -223,7 +223,7 @@ on [page 35](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mo
 It is made worse by the fact that K & P have taken advantage of
 omitting the semi-colons where optional. If you type in this
 procedure and remove the indication if quickly becomes ambiguous
-about where on "IF/ELSE" begins and the next ends. In Oberon-7 it
+about where on "IF/ELSE" begins and the next ends. In Oberon-07 it
 is clear when you have a dangling "IF" statement. This vintage
 Pascal, not so much.
 
@@ -718,7 +718,7 @@ END Echo.
 
 
 **translit** is the most complicated program so far in the book.
-Most of the translation process from Pascal to Oberon-7 has
+Most of the translation process from Pascal to Oberon-07 has
 remained similar to the previous examples.
 
 My implementation of **translit** diverges from the K & P
@@ -1011,7 +1011,7 @@ BEGIN
     (* NOTE: We are doing low level of string manimulation. Oberon
        strings are terminated by 0X, but Oberon compilers do not
        automatically initialize memory to a specific state. In the
-       OBNC implementation of Oberon-7 assign "" to an assignment
+       OBNC implementation of Oberon-07 assign "" to an assignment
        like `s := "";` only writes a 0X to position zero of the
        array of char. Since we are doing position based character
        assignment and can easily overwrite a single 0X.  To be safe
@@ -1025,7 +1025,7 @@ BEGIN
     END;
     (* NOTE: I have not used an IF ELSE here because we have
        additional conditions that lead to complex logic.  The
-       procedure Error() calls ASSERT(FALSE); which in Oberon-7
+       procedure Error() calls ASSERT(FALSE); which in Oberon-07
        halts the program from further execution *)
     IF (Args.count > 0) THEN
         Args.Get(0, arg, res);
@@ -1090,7 +1090,7 @@ significantly more powerful.
 Oberon language evolved with the Oberon System which had a very
 different rich text user interface when compared with POSIX.
 Fortunately Karl's OBNC comes with a set of modules that make
-Oberon-7 friendly for building programs for POSIX operating systems.
+Oberon-07 friendly for building programs for POSIX operating systems.
 I've taken advantage of his `extArgs` module much in the way
 that K & P relied on a set of primitive tools to provide a common
 programming environment. K & P's version of
@@ -1100,9 +1100,9 @@ described on [website](https://miasap.se/obnc/obncdoc/ext/).
 Other Oberon compilers provide similar modules though implementation
 specific. A good example is Spivey's [Oxford Oberon-2 Compiler](https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).
 K & P chose to target multiple Pascal implementations, I have the
-luxury of targeting one Oberon-7 implementation. That said if you
+luxury of targeting one Oberon-07 implementation. That said if you
 added a pre-processor like K & P did you could also take their approach
-to allow you Oberon-7 code to work across many Oberon compiler
+to allow you Oberon-07 code to work across many Oberon compiler
 implementations. I leave that as an exercise for the reader.
 
 I've chosen to revise some of the code presented in K & P's book. I

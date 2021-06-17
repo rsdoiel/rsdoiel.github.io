@@ -77,7 +77,7 @@ Source code for **ObnToMd.Mod**
 ~~~
 
 (* ObnToMd.Mod - an simple filter process for reading
-an Oberon-7 module source file and rendering a markdown
+an Oberon-07 module source file and rendering a markdown
 friendly output suitable for piping into Pandoc. The
 filter reads from standard input and writes to standard
 output and makes use of a temp file name o2m.tmp which
@@ -251,4 +251,4 @@ END ObnToMd.
 ### Next, Previous
 
 + Next [Assembling Pages](../../10/19/Assemble-pages.html)
-+ Previous [Portable Oberon 7](../../08/15/Portable-Oberon-7.html)
++ Previous [Portable Oberon 7](../../08/15/Portable-Oberon-07.html)

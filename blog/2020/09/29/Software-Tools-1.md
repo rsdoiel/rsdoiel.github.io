@@ -23,7 +23,7 @@ sellers.  The book was an early text on creating portable command
 line programs.  
 
 In this series I present the K & P (i.e. Software Tools in Pascal)
-programs re-implemented in Oberon-7. I have testing my implementations
+programs re-implemented in Oberon-07. I have testing my implementations
 using Karl Landström's [OBNC](http://miasap.se/obnc/)
 compiler and his implementation of the Oakwood Guide's modules
 for portable Oberon programs. Karl also provides a few additional
@@ -132,7 +132,7 @@ that follow. K & P provide a good explanation for this simple approach.
 Also note K & P's rational for working character by character versus
 line by line.
 
-My Oberon-7 version takes a similar approach. The module looks remarkably
+My Oberon-07 version takes a similar approach. The module looks remarkably
 similar to the Pascal but is shorter because reading and writing characters are
 provided for by Oberon's standard modules "In" and "Out".
 I have chosen to use a "REPEAT/UNTIL" loop over the "WHILE"
@@ -210,7 +210,7 @@ procedure that reads from standard input and counts up the number of
 characters encountered then writes the total number found to standard out
 followed by a newline. In the text only the procedure is shown, it is
 assumed you'll write the outer wrapper of the program yourself as
-was done with the **copyprog** program. My Oberon-7 version is very similar
+was done with the **copyprog** program. My Oberon-07 version is very similar
 to the Pascal. Like in the our first "CopyProg" we will make use of the
 "In" and "Out" modules. Since we will
 need to write an INTEGER value we'll also use "Out.Int()" procedure which
@@ -284,7 +284,7 @@ EXAMPLE
 **linecount**, from [page 15](https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up)
 is very similar to **charcount** except adding a
 conditional count in the loop for processing the file. In
-our Oberon-7 implementation we'll check if the `In.Char(c)`
+our Oberon-07 implementation we'll check if the `In.Char(c)`
 call was successful but we'll add a second condition to see if the
 character read was a NEWLINE. If it was I increment
 our counter variable.
@@ -379,7 +379,7 @@ clear. This means the person reading the source code can easily verify
 if the approach chosen was too simple to meet their needs or it was
 "good enough".
 
-My Oberon-7 implementation is again very simple. Like in previous programs
+My Oberon-07 implementation is again very simple. Like in previous programs
 I still have an outer check to see if the read worked (i.e. "In.Done = TRUE"),
 otherwise the conditional logic is the same as the Pascal implementation.
 
@@ -491,9 +491,9 @@ they had available in the early UNIX systems. Not terribly Pascal
 like but it worked and allowed the two files to be shared between
 this program and one in the next chapter.
 
-Oberon-7 of course benefits from all of Wirth's language improvements
-that came after Pascal. Oberon-7 supports modules and as such
-there is no need for a preprocessor.  Because of Oberon-7's module
+Oberon-07 of course benefits from all of Wirth's language improvements
+that came after Pascal. Oberon-07 supports modules and as such
+there is no need for a preprocessor.  Because of Oberon-07's module
 support I've implemented the Oberon version using two files
 rather than three. My main program file is "Detab.Mod",
 the supporting library module is "Tabs.Mod". "Tabs" is where I

@@ -209,6 +209,6 @@ the conditional and loop syntax.
 
 ### Next and Previous
 
-+ Next [Combining Oberon-7 and C with OBNC](../../05/01/Combining-Oberon-and-C.html)
++ Next [Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.html)
 + Previous [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
 

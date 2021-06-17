@@ -18,7 +18,7 @@ This is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) se
 Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the 
 various rabbit holes I will inevitably fall into.
 
-Oberon-7 supports the passing of procedures as parameters in a procedure. 
+Oberon-07 supports the passing of procedures as parameters in a procedure. 
 Let's create a module name [Noises.Mod](Noises.Mod) to explore this.
 
 The key to supporting this is Oberon's type system.  We need to decide what our 

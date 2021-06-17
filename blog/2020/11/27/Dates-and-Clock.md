@@ -4,7 +4,7 @@ series: "Mostly Oberon"
 number: 14
 author: "R. S. Doiel"
 date: "2020-11-27"
-keywords: [ "Oberon-7", "C-shared", "obnc" ]
+keywords: [ "Oberon-07", "C-shared", "obnc" ]
 copyright: "copyright (c) 2020, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
@@ -21,7 +21,7 @@ programs outside of an Oberon System. A missing module from the Oakwood
 guidelines is modules for working with dates and the system clock.
 Fortunately the A2 Oberon System[^1] provides a template for that
 functionality. In this article I am exploring implementing the
-[Dates](Dates.Mod) and [Clock](Clock.Mod) modules for Oberon-7. I
+[Dates](Dates.Mod) and [Clock](Clock.Mod) modules for Oberon-07. I
 also plan to go beyond the A2 implementations and provide additional
 functionality such as parsing procedures and the ability to work with
 either the date or time related attributes separately in the
@@ -32,11 +32,11 @@ either the date or time related attributes separately in the
 Divergences
 -----------
 
-One of the noticeable differences between Oberon-7 and Active Oberon
+One of the noticeable differences between Oberon-07 and Active Oberon
 is the types that functional procedures can return. We cannot return
-an Object in Oberon-7. This is not much of a handicap as we have
+an Object in Oberon-07. This is not much of a handicap as we have
 variable procedure parameters.  Likewise Active Oberon provides
-a large variety of integer number types. In Oberon-7 we have only
+a large variety of integer number types. In Oberon-07 we have only
 INTEGER. Where I've create new procedures I've used the Oberon idiom
 of read only input parameters followed by variable parameters with
 side effects and finally parameters for the target record or values
@@ -57,15 +57,15 @@ C based time object into our own DateTime record.  Clock is specific to
 OBNC method of interfacing to the C standard libraries of the host system.
 If you were to use a different Oberon compiled such as the Oxford
 Oberon Compiler you would need to re-implement Clock. Dates itself
-should be system independent and work with Oberon-7 compilers generally.
+should be system independent and work with Oberon-07 compilers generally.
 
 Clock
 -----
 
-The Clock module is built from a skeleton in Oberon-7 describing the
+The Clock module is built from a skeleton in Oberon-07 describing the
 signatures of the procedure and an implementation in [C](Clock.c) that
 is built using the technique for discussed in my post
-[Combining Oberon-7 and C with OBNC](../../05/01/Combining-Oberon-and-C.html). In that article I outline Karl's three step process to create a
+[Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.html). In that article I outline Karl's three step process to create a
 module that will be an interface to C code.  In Step one I create
 the Oberon module. Normally I'd leave all procedures empty and
 develop them in C. In this specific case I went ahead and wrote
@@ -97,13 +97,13 @@ END Clock.
 
 ~~~
 
-I wrote the `Get` procedure code in Oberon-7 is the OBNC
+I wrote the `Get` procedure code in Oberon-07 is the OBNC
 compiler will render the Oberon as C during the
 compilation process. I save myself writing some C code
 in by leveraging OBNC.
 
 
-Step two was to write [ClockTest.Mod](ClockTest.Mod) in Oberon-7.
+Step two was to write [ClockTest.Mod](ClockTest.Mod) in Oberon-07.
 
 ~~~{.oberon}
 
@@ -387,7 +387,7 @@ END ToChars;
 
 (*
  * Date and Time functions very much inspired by A2 but
- * adapted for use in Oberon-7 and OBNC compiler.
+ * adapted for use in Oberon-07 and OBNC compiler.
  *)
 
 (* LeapYear -- returns TRUE if 'year' is a leap year *)
@@ -1132,7 +1132,7 @@ END Dates.
 
 Postscript: In this article I included a reference to the module
 **[Chars](Chars.html)**. This is a non-standard module I wrote
-for Oberon-7. Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
+for Oberon-07. Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
 
 ### Next, Previous
 

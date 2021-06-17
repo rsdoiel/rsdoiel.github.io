@@ -17,8 +17,8 @@ Oakwood is the name used to refer to an early Oberon language
 standardization effort in the late 20th century.  It's the name
 of a hotel where compiler developers and the creators of Oberon
 and the Oberon System met to discuss compatibility. The lasting
-influence on the 21st century Oberon-7 language can be seen
-in the standard set of modules shipped with POSIX based Oberon-7
+influence on the 21st century Oberon-07 language can be seen
+in the standard set of modules shipped with POSIX based Oberon-07
 compilers like
 [OBNC](https://miasap.se/obnc/), [Vishap Oberon Compiler](https://github.com/vishaps/voc) and the 
 [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).
@@ -29,12 +29,12 @@ The modules themselves are minimalist in implementation.
 Minimalism can assist in easing the learning curve
 and encouraging a deeper understanding of how things work.
 
-The Oberon-7 language is smaller than the original Oberon language
-and the many dialects that followed.  I think of Oberon-7 as the
+The Oberon-07 language is smaller than the original Oberon language
+and the many dialects that followed.  I think of Oberon-07 as the
 distillation of all previous innovation.  It embodies the
 spirit of "Simple but not simpler than necessary". Minimalism is
 a fit description of the adaptions of the Oakwood modules for 
-Oberon-7 in the POSIX environment.
+Oberon-07 in the POSIX environment.
 
 
 When simple is too simple
@@ -52,7 +52,7 @@ I got down to a handful of functions for testing characters,
 testing prefixes and suffixes as well as trim procedures. It was
 all I included in `Chars` was until recently.
 
-Over the last couple of weeks I have been reviewing my own Oberon-7
+Over the last couple of weeks I have been reviewing my own Oberon-07
 code in my personal projects.  I came to understand that
 in my quest for minimalism I had fallen for "too simple".
 This was evidenced by two observations.  Everywhere I had used
@@ -299,10 +299,10 @@ maintained the spirit of "Simple but not simpler".
 UPDATE: The current version of my `Chars` module can be found in 
 my [Artemis](https://github.com/rsdoiel/Artemis) repository. The
 repository includes additional code and modules suitable to working
-with Oberon-7 in a POSIX envinronment.
+with Oberon-07 in a POSIX envinronment.
 
 ### Next, Previous
 
-+ Next [Combining Oberon-7 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html)
++ Next [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
 + Prev [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.html)
 

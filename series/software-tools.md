@@ -4,7 +4,7 @@ This is a set of articles based on Kernighan and Plauger's Book,
 
 The articles follow the structure of the book, with brief discussion
 of what was involved in translating from the vintage Standard Pascal 
-to Oberon-7. In most cases the Oberon code is more compact and the
+to Oberon-07. In most cases the Oberon code is more compact and the
 features of Oberon avoid the need for macro processors and file
 inclusion through the use of modules.
 

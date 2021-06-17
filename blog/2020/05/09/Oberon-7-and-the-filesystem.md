@@ -1,5 +1,5 @@
 ---
-title: "Oberon-7 and the file system"
+title: "Oberon-07 and the file system"
 series: "Mostly Oberon"
 number: 7
 author: "R. S. Doiel"
@@ -10,13 +10,13 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---
 
 
-# Oberon-7 and the file system
+# Oberon-07 and the file system
 
 By R. S. Doiel, 2020-05-09
 
 This is the seventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
-## Working with files in Oberon-7
+## Working with files in Oberon-07
 
 In a POSIX system we often talk of opening files,
 writing and reading files and close files. The Oberon

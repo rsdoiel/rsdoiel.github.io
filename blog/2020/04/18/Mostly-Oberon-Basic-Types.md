@@ -513,7 +513,7 @@ In creating our `DString` data structure the Oberon idiom is to first
 create a description record, `DStringDesc` then create a pointer to
 the descriptive type, i.e. `DString`. This is a very common
 idiom in building out complex data structures. A good place to learn
-about implementing algorithms and data structures in Oberon-7 is 
+about implementing algorithms and data structures in Oberon-07 is 
 Prof. Wirth's 2004 edition of [Algorithms and Data Structures](https://inf.ethz.ch/personal/wirth/AD.pdf) which
 is available from his personal website in PDF.
 
