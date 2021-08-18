@@ -5,6 +5,7 @@
 + [GitHub](https://github.com/rsdoiel)
 + [Library Jargon](/library-terminology.html)
 + [Presentations](/presentations.html)
++ [Projects](/projects.html)
 + [Resume](/resume.html)
 + [Search](/search.html)
 + [Series](/series/)

@@ -27,6 +27,10 @@ presentations.html: presentations.md footer.include nav.include page.tmpl
 	$(PANDOC) --template page.tmpl presentations.md > presentations.html
 	git add presentations.html
 
+projects.html: projects.md
+	$(PANDOC) --template page.tmpl projects.md > projects.html
+	git add projects.html
+
 about.html: nav.include footer.include author.md bio.md index.tmpl
 	$(PANDOC) --template page.tmpl author.md bio.md > about.html
 	git add about.html
