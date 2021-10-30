@@ -17,7 +17,7 @@ MODULE TypingHi;
     (* Use the rider to write out "Hello World!" *)
     Files.WriteString(r, "Hello World!");
     (* Write a end of line *)
-    Files.WriteString(r, 0AX);
+    Files.Write(r, 10);
     (* Close our modified file *)
     Files.Close(f);
   END WriteHelloWorld;
