@@ -28,7 +28,7 @@ Recent Posts
  + 07-07, [Procedures in records](/blog/2020/07/07/Procedures-in-records.html)
  + 06-20, [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html)
  + 05-25, [Dynamic types](/blog/2020/05/25/Dynamic-types.html)
- + 05-09, [Oberon-07 and the file system](/blog/2020/05/09/Oberon-7-and-the-filesystem.html)
+ + 05-09, [Oberon-07 and the file system](/blog/2020/05/09/Oberon-07-and-the-filesystem.html)
  + 05-06, [Compiling OBNC on macOS](/blog/2020/05/06/Compiling-OBNC-on-macOS.html)
  + 05-01, [Combining Oberon-07 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html)
  + 04-19, [Oberon Loops and Conditions](/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html)
