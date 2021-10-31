@@ -23,7 +23,7 @@ Recent Posts
  + 10-19, [Assembling Pages](/blog/2020/10/19/Assemble-pages.html)
  + 10-03, [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html)
  + 09-29, [Software Tools, Getting Started](/blog/2020/09/29/Software-Tools-1.html)
- + 08-15, [Portable Oberon-07](/blog/2020/08/15/Portable-Oberon-7.html)
+ + 08-15, [Portable Oberon-07](/blog/2020/08/15/Portable-Oberon-07.html)
  + 07-08, [Words Matter](/blog/2020/07/08/words-matter.html)
  + 07-07, [Procedures in records](/blog/2020/07/07/Procedures-in-records.html)
  + 06-20, [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html)
