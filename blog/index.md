@@ -5,7 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
-+ [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.html), 2021-06-14
++ [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
 + [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 + [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html), 2021-04-25
 + [Updating Schema in SQLite3](/blog/2021/04/16/Updating-Schema-in-SQLite3.html), 2021-04-16

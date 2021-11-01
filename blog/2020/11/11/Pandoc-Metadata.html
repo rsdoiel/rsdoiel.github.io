@@ -68,17 +68,17 @@
 <p>More complex metadata is better suited to creating a JSON document with the structure you need to render your template.</p>
 <h2 id="metadata-file">Metadata file</h2>
 <p>Metadata files can be included with the option <code>--metadata-file</code>. This like the <code>--metadata</code> option are discussed in the Pandoc User Guide under the [Read Options(https://pandoc.org/MANUAL.html) heading. The JSON document should contain an Object where each attribute corresponds to the variable you wish to referenced in template. Pandoc’s template engine support both single values but also objects and arrays. In this way you can structure the elements you wish to include even elements which are iterative (e.g. a list of links or topics). Below is a JSON data structure that includes the page title as well as links for the navigation. The nav attribute holds a list of objects with attributes of href and label containing data that will be used to render a list of anchor elements in the template.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="fu">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;pubdate&quot;</span><span class="fu">:</span> <span class="st">&quot;September 28, 1787&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Metadata&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Metadata.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Magnacarta&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;magnacarta.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Declaration of Independence&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;independence.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;constitution.html&quot;</span><span class="fu">}</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        <span class="ot">]</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;pubdate&quot;</span><span class="fu">:</span> <span class="st">&quot;September 28, 1787&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Metadata&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Metadata.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Magnacarta&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;magnacarta.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Declaration of Independence&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;independence.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;constitution.html&quot;</span><span class="fu">}</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
 <p>Here’s a revised template to include the navigation, see <a href="doc2.tmpl">doc2.tmpl</a>.</p>
 <pre><code>
    &lt;!DOCTYPE html&gt;
@@ -123,7 +123,7 @@
         constitution.txt
 </code></pre>
 <p>See <a href="magnacarta.html">Magna Carta</a>, <a href="independence.html">The Declaration of Independence</a>, <a href="constitution.html">U. S. Constitution</a></p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>The <a href="https://caltechlibrary.github.io/mkpage/">MkPage Project</a> provides a tool called <a href="https://caltechlibrary.github.io/mkpage/docs/frontmatter/">frontmatter</a> that can be easy or your can easily roll your own in Python or other favorite language.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

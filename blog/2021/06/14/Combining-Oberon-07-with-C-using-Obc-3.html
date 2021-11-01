@@ -2,14 +2,14 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Combining-Oberon-7-with-C-using-Obc-3</title>
+  <title>Combining-Oberon-07-with-C-using-Obc-3</title>
 
   <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
   <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <link rel="alternative" type="application/markdown" href="2021/06/14/Combining-Oberon-7-with-C-using-Obc-3.md">
+  <link rel="alternative" type="application/markdown" href="2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md">
 </head>
 <body>
 <nav>
@@ -48,7 +48,7 @@
 </ul>
 <h2 id="differences-obnc-and-obc-3">Differences: OBNC and Obc-3</h2>
 <p>The OBNC compiler written by Karl takes the approach of translating Oberon-07 code to C and then calling the C tool chain to convert that into a executable. Karl’s compiler is largely written in C with some parts written in Oberon.</p>
-<p>Mike’s takes a different approach. His compiler uses a run time JIT and is written mostly in OCaml with some C parts and shell scripting. When you compile an Oberon program (either Oberon-2 or Oberon-07) using Mike’s compiler you get a bunch of "*.k" files that the object code for Mike’s thunder virtual machine and JIT. This can in turn be used to create a executable.</p>
+<p>Mike’s takes a different approach. His compiler uses a run time JIT and is written mostly in OCaml with some C parts and shell scripting. When you compile an Oberon program (either Oberon-2 or Oberon-07) using Mike’s compiler you get a bunch of “*.k” files that the object code for Mike’s thunder virtual machine and JIT. This can in turn be used to create a executable.</p>
 <p>For implementing Oberon procedures in C Karl’s expects an empty procedure body. e.g.</p>
 <pre class="oberon"><code>PROCEDURE DoMyThing();
 BEGIN
@@ -187,28 +187,28 @@ END extConvert.</code></pre>
 <p>If you review Mike’s module code you’ll see I have followed a similar pattern. Before calling out to C I take care of what house keeping I can in Oberon, then I call a “0” version of the function implemented in C. The C implementation are not exported only the wrapping Oberon procedures are.</p>
 <p>Notice how the initialization block calls <code>SYSTEM.LOADLIB("./extConvert.so");</code> this loads the C shared library so that the Oberon module can call out it it.</p>
 <p>The C code in <code>extConvert.c</code> looks very traditional without the macros you’d see in OBNC’s implementation. Here’s what the C code look like.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="dt">void</span> conv_int_to_string(<span class="dt">int</span> i, <span class="dt">char</span> *s, <span class="dt">int</span> l) {</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>  snprintf(s, l, <span class="st">&quot;%d&quot;</span>, i);</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>}</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="dt">void</span> conv_real_to_string(<span class="dt">float</span> r, <span class="dt">char</span> *s, <span class="dt">int</span> l) {</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>  snprintf(s, l, <span class="st">&quot;%f&quot;</span>, r);</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>}</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a><span class="dt">void</span> conv_real_to_exp_string(<span class="dt">float</span> r, <span class="dt">char</span> *s, <span class="dt">int</span> l) {</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>  snprintf(s, l, <span class="st">&quot;%e&quot;</span>, r);</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>}</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="dt">void</span> conv_string_to_int(<span class="dt">char</span> *s, <span class="dt">int</span> *i) {</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>    *i = atoi(s);</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>}</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a><span class="dt">void</span> conv_string_to_real(<span class="dt">char</span> *s, <span class="dt">float</span> *r) {</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>    *r = atof(s);</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> conv_int_to_string<span class="op">(</span><span class="dt">int</span> i<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>s<span class="op">,</span> l<span class="op">,</span> <span class="st">&quot;%d&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> conv_real_to_string<span class="op">(</span><span class="dt">float</span> r<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>s<span class="op">,</span> l<span class="op">,</span> <span class="st">&quot;%f&quot;</span><span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> conv_real_to_exp_string<span class="op">(</span><span class="dt">float</span> r<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> l<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>s<span class="op">,</span> l<span class="op">,</span> <span class="st">&quot;%e&quot;</span><span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> conv_string_to_int<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>i <span class="op">=</span> atoi<span class="op">(</span>s<span class="op">);</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> conv_string_to_real<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">float</span> <span class="op">*</span>r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>r <span class="op">=</span> atof<span class="op">(</span>s<span class="op">);</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The dance to compile the module and C shared library is very different between OBNC and Obc-3. With Obc-3 we compile and skip linking the wrapping Oberon module <code>extConvert.m</code>. We compile using CC our C shared library. We can then put it all together to test everything out in <code>ConvertTest.m</code>.</p>
 <pre class="shell"><code>obc -07 -c extConvert.m
 gcc -fPIC -shared extConvert.c -o extConvert.so</code></pre>
