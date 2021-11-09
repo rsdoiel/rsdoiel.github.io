@@ -37,7 +37,7 @@
 <p>The key to supporting this is Oberon’s type system. We need to decide what our generic procedure will look like first. In our case our procedures that will display an animal noise will include the name of the animal speaking. We’ll call this type of procedure “Noise”. It’ll accept an ARRAY OF CHAR for the name as a parameter then use the standard Out module to display the animal name and noise they make.</p>
 <pre><code>
     TYPE
-      Noise : PROCEDURE (who : ARRAY OF CHAR);
+      Noise = PROCEDURE (who : ARRAY OF CHAR);
 </code></pre>
 <p>The two “Noise” procedures will be “BarkBark” and “ChirpChirp”. They will implement the same parameter signature as describe in the “Noise” type.</p>
 <pre><code>

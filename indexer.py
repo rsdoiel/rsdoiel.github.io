@@ -75,7 +75,7 @@ class Indexer:
                         fields.append(key)
         print(f'Found {len(fields)} unique fields to index')
         print(f'Fields: {", ".join(field_names)}')
-        print(f'Generatiing LunrJS index {self.index_name}')
+        print(f'Generating LunrJS index {self.index_name}')
         idx = lunr(ref = '_Key', fields = fields, documents = self.documents, languages = 'en')
         index = idx.serialize()
         with io.open(self.index_name, 'w', encoding = 'utf-8') as fp:

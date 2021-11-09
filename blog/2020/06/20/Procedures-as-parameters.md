@@ -31,7 +31,7 @@ then use the standard Out module to display the animal name and noise they make.
 ~~~
 
     TYPE
-      Noise : PROCEDURE (who : ARRAY OF CHAR);
+      Noise = PROCEDURE (who : ARRAY OF CHAR);
 
 ~~~
 

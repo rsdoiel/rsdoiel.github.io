@@ -35,36 +35,36 @@
 <p><a href="https://sqlite.org/docs.html">SQLite3</a> is a handy little database as single file tool. You can interact with the file through largely standard SQL commands and embed it easily into applications via the C libraries that the project supports. It is also available from various popular scripting languages like Python, PHP, and Lua. One of the things I occasionally need to do and always seems to forget it how to is modify a table schema where I need to remove a column<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. So here are some of the basics do I can quickly find them later and avoid reading various articles tutorials because the search engines doesn’t return the page in the SQLite documentation.</p>
 <p>In the next sections I’ll be modeling a simple person object with a id, uname, display_name, role and updated fields.</p>
 <h2 id="creating-a-person-table">Creating a person table</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;person&quot;</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        (<span class="ot">&quot;id&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;uname&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;role&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;display_name&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;updated&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;person&quot;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        (<span class="ot">&quot;id&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="ot">&quot;uname&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="ot">&quot;role&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        <span class="ot">&quot;display_name&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="ot">&quot;updated&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>);</span></code></pre></div>
 <h2 id="adding-a-column">Adding a column</h2>
 <p>We will create a <em>junk</em> column which we will remove later.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>.<span class="kw">schema</span> person</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> person <span class="kw">ADD</span> <span class="kw">COLUMN</span> junk <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>.<span class="kw">schema</span> person</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>.<span class="kw">schema</span> person</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> person <span class="kw">ADD</span> <span class="kw">COLUMN</span> junk <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>.<span class="kw">schema</span> person</span></code></pre></div>
 <h2 id="dropping-a-column">Dropping a column</h2>
 <p>To drop a column in SQLite you need to actually create a new table, migrate the data into it then drop the old table and finally rename it. It is best to wrap this in a transaction.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span> <span class="kw">TRANSACTION</span>;</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;person_new&quot;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           (<span class="ot">&quot;id&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="ot">&quot;uname&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>           <span class="ot">&quot;role&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>           <span class="ot">&quot;display_name&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>           <span class="ot">&quot;updated&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>);</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> person_new</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>           <span class="kw">SELECT</span> <span class="kw">id</span>, uname, <span class="kw">role</span>, display_name, updated</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>           <span class="kw">FROM</span> person;</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> person;</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ALTER</span> <span class="kw">TABLE</span> person_new <span class="kw">RENAME</span> <span class="kw">TO</span> person;</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMIT</span>;</span></code></pre></div>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="cf">BEGIN</span> <span class="kw">TRANSACTION</span>;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;person_new&quot;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>           (<span class="ot">&quot;id&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>           <span class="ot">&quot;uname&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>           <span class="ot">&quot;role&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>           <span class="ot">&quot;display_name&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>           <span class="ot">&quot;updated&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>);</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> person_new</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>           <span class="kw">SELECT</span> <span class="kw">id</span>, uname, <span class="kw">role</span>, display_name, updated</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>           <span class="kw">FROM</span> person;</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>    <span class="kw">DROP</span> <span class="kw">TABLE</span> person;</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="kw">ALTER</span> <span class="kw">TABLE</span> person_new <span class="kw">RENAME</span> <span class="kw">TO</span> person;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="kw">COMMIT</span>;</span></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>The SQL <code>ALTER TABLE table_name DROP COLUMN column_name</code> does not work in SQLite3<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
