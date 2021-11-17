@@ -4,13 +4,13 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 09 Nov 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Tue, 09 Nov 2021 00:00:00 UTC</lastBuildDate>
-        <generator>mkrss 1.0.0</generator>
+        <pubDate>Wed, 17 Nov 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Wed, 17 Nov 2021 00:00:00 UTC</lastBuildDate>
+        <generator>mkrss v0.2.0</generator>
         <item>
             <title>Combining Oberon-07 with C using Obc-3</title>
             <link>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</link>
-            <description>&#xA;&#xA;Combing Oberon-07 with C using Obc-3&#xA;===================================&#xA;&#xA;By R. S. Doiel, 2021-06-14&#xA;&#xA;This post explores integrating C code with an Oberon-07 module use&#xA;Mike Spivey&#39;s Obc-3 Oberon Compiler.  Last year I wrote a similar post&#xA;for Karl Landström&#39;s [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).&#xA;This goal of this post is to document how I created a version of Karl&#39;s&#xA;Extension Library that would work with Mike&#39;s Obc-3 compiler.&#xA;If you want to take a shortcut you can see the results on GitHub&#xA;in my [obc-3-libext](https://github.com/rsdoiel/obc-3-libext) repository.&#xA;&#xA;From my time with OBNC I&#39;ve come to rely on three modules from Karl&#39;s&#xA;extension library. When trying to port some of my code to use with&#xA;Mike&#39;s compiler. That&#39;s where I ran into a problem with that dependency.&#xA;Karl&#39;s modules aren&#39;t available. I needed an [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html),&#xA;an [extEnv](http://miasap.se/obnc/obncdoc/ext/extEnv.def.html) and&#xA;[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html). ...</description>
+            <description>&lt;h1 id=&#34;combing-oberon-07-with-c-using-obc-3&#34;&gt;Combing Oberon-07 with C using Obc-3&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2021-06-14&lt;/p&gt;&#xA;&lt;p&gt;This post explores integrating C code with an Oberon-07 module use Mike Spivey’s Obc-3 Oberon Compiler. Last year I wrote a similar post for Karl Landström’s &lt;a href=&#34;/blog/2020/05/01/Combining-Oberon-and-C.html&#34;&gt;OBNC&lt;/a&gt;. This goal of this post is to document how I created a version of Karl’s Extension Library that would work with Mike’s Obc-3 compiler. If you want to take a shortcut you can see the results on GitHub in my &lt;a href=&#34;https://github.com/rsdoiel/obc-3-libext&#34;&gt;obc-3-libext&lt;/a&gt; repository.&lt;/p&gt;&#xA;&lt;p&gt;From my time with OBNC I’ve come to rely on three modules from Karl’s extension library. When trying to port some of my code to use with Mike’s compiler. That’s where I ran into a problem with that dependency. Karl’s modules aren’t available. I needed an &lt;a href=&#34;http://miasap.se/obnc/obncdoc/ext/extArgs.def.html&#34;&gt;extArgs&lt;/a&gt;, an &lt;a href=&#34;http://miasap.se/obnc/obncdoc/ext/extEnv.def.html&#34;&gt;extEnv&lt;/a&gt; and &lt;a href=&#34;http://miasap.se/obnc/obncdoc/ext/extConvert.def.html&#34;&gt;extConvert&lt;/a&gt;. …&lt;/p&gt;&#xA;</description>
             <pubDate>Mon, 14 Jun 2021 00:00:00 UTC</pubDate>
             <guid>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</guid>
         </item>
