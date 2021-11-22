@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22
 + [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
 + [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
 + [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html), 2021-04-25

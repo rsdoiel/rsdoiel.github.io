@@ -4,9 +4,23 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Wed, 17 Nov 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Wed, 17 Nov 2021 00:00:00 UTC</lastBuildDate>
+        <pubDate>Mon, 22 Nov 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Mon, 22 Nov 2021 00:00:00 UTC</lastBuildDate>
         <generator>mkrss v0.2.0</generator>
+        <item>
+            <title></title>
+            <link>/blog/2021/11/22/HelloworldFile.Mod</link>
+            <description>&lt;p&gt;MODULE HelloworldFile;&lt;/p&gt;&#xA;&lt;p&gt;IMPORT Files, Strings;&lt;/p&gt;&#xA;&lt;p&gt;CONST OberonEOL = 1; UnixEOL = 2; WindowsEOL = 3;&lt;/p&gt;&#xA;&lt;p&gt;VAR (* holds the eol marker type to use in WriteLn() &lt;em&gt;) eolType : INTEGER; (&lt;/em&gt; Define a file handle &lt;em&gt;) f : Files.File; (&lt;/em&gt; Define a file rider *) r : Files.Rider;&lt;/p&gt;&#xA;&lt;p&gt;PROCEDURE WriteLn(VAR r : Files.Rider); BEGIN IF eolType = WindowsEOL THEN (* A DOS/Windows style line ending, LFCR &lt;em&gt;) Files.Write(r, 13); Files.Write(r, 10); ELSIF eolType = UnixEOL THEN (&lt;/em&gt; Linux/macOS style line ending, LF &lt;em&gt;) Files.Write(r, 10); ELSE (&lt;/em&gt; Oberon, RISC OS style line ending, CR *) Files.Write(r, 13); END; END WriteLn; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Mon, 22 Nov 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/11/22/HelloworldFile.Mod</guid>
+        </item>
+        <item>
+            <title>Revisiting Files</title>
+            <link>/blog/2021/11/22/Revisiting-Files.md</link>
+            <description>&lt;h1 id=&#34;revisiting-files&#34;&gt;Revisiting Files&lt;/h1&gt;&#xA;&lt;p&gt;By R. S. Doiel, 2021-11-22&lt;/p&gt;&#xA;&lt;p&gt;In October I had an Email exchange with Algojack regarding a buggy example in &lt;a href=&#34;../../../2020/05/09/Oberon-07-and-the-filesystem.html&#34;&gt;Oberon-07 and the file system&lt;/a&gt;. The serious bug was extraneous non-printable characters appearing a plain text file containing the string “Hello World”. The trouble with the example was a result of my misreading the Oakwood guidelines and how &lt;strong&gt;Files.WriteString()&lt;/strong&gt; is required to work. The &lt;strong&gt;Files.WriteString()&lt;/strong&gt; procedure is supposed to write every element of a string to a file. This &lt;strong&gt;includes the trailing Null character&lt;/strong&gt;. The problem for me is &lt;strong&gt;Files.WriteString()&lt;/strong&gt; litters plain text files with tailing nulls. What I should have done was write my own &lt;strong&gt;WriteString()&lt;/strong&gt; and &lt;strong&gt;WriteLn()&lt;/strong&gt;. The program &lt;a href=&#34;./HelloworldFile.Mod&#34;&gt;HelloworldFile&lt;/a&gt; below is a more appropriate solution to writing strings and line endings than relying directly on &lt;strong&gt;Files&lt;/strong&gt;. In a future post I will explorer making this more generalized in a revised “Fmt” module.&lt;/p&gt;&#xA;&lt;p&gt;~~~ MODULE HelloworldFile;&lt;/p&gt;&#xA;&lt;p&gt;IMPORT Files, Strings; …&lt;/p&gt;&#xA;</description>
+            <pubDate>Mon, 22 Nov 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/11/22/Revisiting-Files.md</guid>
+        </item>
         <item>
             <title>Combining Oberon-07 with C using Obc-3</title>
             <link>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</link>

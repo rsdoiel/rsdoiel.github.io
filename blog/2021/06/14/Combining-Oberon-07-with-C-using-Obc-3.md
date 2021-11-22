@@ -392,7 +392,8 @@ Source code for these modules is available on GitHub at
 [github.com/rsdoiel/obc-3-libest](https://github.com/rsdoiel/obc-3-libext)
 
 
-Previous
---------
+Next & Previous
+---------------
 
-- [Beyond Oakwood, Modules and Aliases](../../05/16/Beyond-Oakwood-Modules-and-Aliases.html)
+- Next [Revisiting Files](../../11/22/Revisiting-Files.html)
+- Previous [Beyond Oakwood, Modules and Aliases](../../05/16/Beyond-Oakwood-Modules-and-Aliases.html)
