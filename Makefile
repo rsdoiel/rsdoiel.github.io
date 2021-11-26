@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html blog blog/index.html search.html index.html
+all: nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html blog blog/index.html search.html index.html redirects
 
 
 nav.include: nav.md
@@ -70,6 +70,9 @@ series/software-tools.html: nav.include footer.include series/software-tools.md
 series/pandoc-techniques.html: series/pandoc-techniques.md
 	$(PANDOC) --template page.tmpl -M "title:Pandoc Techniques Series" series/pandoc-techniques.md > series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
+
+redirects: .FORCE
+	bash generate-redirect-pages.bash
 
 blog: .FORCE
 	blogit -prefix=blog -refresh=2021,2020,2019,2018,2017,2016

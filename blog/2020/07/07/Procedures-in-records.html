@@ -34,7 +34,7 @@
 <p>By R. S. Doiel, 2020-07-07</p>
 <p>This is the tenth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
 <p>In my last post I looked at how Oberon-07 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can include procedures as a part of an Oberon RECORD.</p>
-<p>Let’s modify our module name <a href="Noises.Mod">Noises.Mod</a> to explore this. Copy “Noises.Mod” to “Creatures.Mod”. Replace the “MODULE Noises;” line with “MODULE Creatures;” and the final “END Noises.” statement with “END Creatures.”.</p>
+<p>Let’s modify our module name <a href="Noises.Mod" class="uri">Noises.Mod</a> to explore this. Copy “Noises.Mod” to “Creatures.Mod”. Replace the “MODULE Noises;” line with “MODULE Creatures;” and the final “END Noises.” statement with “END Creatures.”.</p>
 <pre><code>
     MODULE Creatures;
     
@@ -43,7 +43,7 @@
     END Creatures.
 </code></pre>
 <p>The key to supporting records with procedures as record attributes is once again Oberon’s type system. The type <code>Noise</code> we created in the previous post can also be used to declare a record attribute similar to how we use this new type to pass the procedure. In this exploration will create a linked list of “Creature” types which include a “MakeNoise” attribute.</p>
-<p>First let’s define our “Creature” as a type as well as a <code>CreatureList</code>. Add the following under our <code>TYPE</code> definition in <a href="Creatures.Mod">Creatures.Mod</a>.</p>
+<p>First let’s define our “Creature” as a type as well as a <code>CreatureList</code>. Add the following under our <code>TYPE</code> definition in <a href="Creatures.Mod" class="uri">Creatures.Mod</a>.</p>
 <pre><code>
     Creature = POINTER TO CreatureDesc;
     CreatureDesc = RECORD
