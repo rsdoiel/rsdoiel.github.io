@@ -16,7 +16,7 @@ Current responsibilities
 
 + Application development for [Caltech Library](http://library.caltech.edu) working with
     + Aggregation and search related [projects](https://caltechlibrary.github.io)
-    + Content integration witb [ArchivesSpace](http://archivesspace.org/)
+    + Content integration with [ArchivesSpace](http://archivesspace.org/)
     + Content integration with [EPrints](http://eprints.org)
     + Content integration with [Invenio RDM](https://inveniosoftware.org/products/rdm/)
 
@@ -46,10 +46,11 @@ Technical Skills
 Current Projects
 ----------------
 
-+ Build [cool things](http://caltechlibrary.github.io) for Caltech Library
-    + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc, AWS S3 and Google Cloud Storage. It includes a search interface based on [Blevesearch](http://blevesearch.com)
-    + [datatools](https://caltechlibrary.github.io/datatools) - a collection of comand line utilities for working with CSV, JSON and Excel Workbooks
-    + [mkpage](https://caltechlibrary.github.io/mkpage) - An experimental light weight template/markdown processor for webcontent and more
++ Build [cool things](https://caltechlibrary.github.io) for Caltech Library
+    + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or as a localhost web service
+    + [datatools](https://caltechlibrary.github.io/datatools) - a collection of command line utilities for working with CSV, JSON and Excel Workbooks
+    + [mkpage](https://caltechlibrary.github.io/mkpage) - A experimental deconstructed content management system implemented as a pre-processor for [Pandoc](https://pandoc.org)
+    + [eprinttools](https://caltechlibrary.github.io/eprinttools) - a collection of tools for migrating, managing and interacting with EPrints repository software and metadata
 
 
 Past responsibilities
@@ -90,7 +91,7 @@ Past Projects
 + Architect and implement second generation webcam image and video processing (retired, LAMP)
 + Developed a strategy to support mobile web devices (legacy, LAMP)
 + Migrating our legacy first generation CMS to a VMWare environment (retired, LAMP+Unix utilities)
-+ WSCORE2, a light weight general purpose library for PHP and Javascript development. (retired, LAMP+JS)
++ WSCORE2, a light weight general purpose library for PHP and JavaScript development. (retired, LAMP+JS)
 + Varanosaurus &mdash; a light weight monitoring system (retired, NodeJS+MongoDB)
 + Thornton Alumni Directory (inactive, LAMP)
 + Schedule of Classes API and caching service (legacy, LAMP)
