@@ -12,7 +12,7 @@ My interests bridge both my background in Computer Science and the Humanities. B
 
 I am most comfortable in a Unix environment but have worked in others in the past (e.g. CPM, DOS, Windows  1.x - 95 and Prime Information). I have written and maintained software in many languages over the course of my career (e.g. C, Go, Groovy, InfoBasic, Java, Lisp, NodeJS/JavaScript, Pascal, Perl, PHP, Python, SQL). I have experience implementing and running services in cloud based virtual machines. I commonly build software to run on both Intel and ARM processors.
 
-I am currently a Senior Applications Developer in the Digital Library Development group at Caltech Library. Primary focus in recent years has been building tools and systems  to meet the Library and Archive's 21st century
+I am currently a Senior Applications Developer in the Digital Library Development group at Caltech Library. Primary focus in recent years has been building tools and systems to meet the Library and Archive's 21st century needs.
 
 Technical Skills
 ----------------
@@ -36,9 +36,10 @@ Technical Skills
 Experience
 ----------
 
-### Digital Services Programmer, California Institute of Technology, April 2015 - current
+### Senior Application Developer, California Institute of Technology, 
+April 2015 - current
 
-I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, Invenio as well as custom aggregation and search software.
+I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, Invenio RDM as well as custom aggregation and search software.
 
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
