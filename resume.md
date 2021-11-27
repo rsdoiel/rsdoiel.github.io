@@ -36,8 +36,7 @@ Technical Skills
 Experience
 ----------
 
-### Senior Application Developer, California Institute of Technology, 
-April 2015 - current
+### Senior Application Developer, California Institute of Technology, April 2015 - current
 
 I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, Invenio RDM as well as custom aggregation and search software.
 
