@@ -14,9 +14,9 @@ Presentations
 Interests/Projects
 ------------------
 
++ [Oberon](series/Mostly-Oberon.html) programming language and system
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     + Go, Lisp, Oberon, Standard ML and bare metal programming
-+ [Oberon](series/Mostly-Oberon.html) programming language and system
 + [Golang](http://golang.org) based Unix utilities
     + [shorthand](https://github.com/rsdoiel/shorthand) - [a simple label expander](http://rsdoiel.github.io/shorthand) for text substitions (i.e. expand abbreviations, include the contents of another text file)
     + [stngo](https://github.com/rsdoiel/stngo) a Golang implementation of Simple Timesheet Notation and related command line utilities
