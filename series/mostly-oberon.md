@@ -28,11 +28,12 @@ The basics
 9. [Procedures as parameters](/blog/2020/06/20/Procedures-as-parameters.html), 2020-06-20
 10. [Procedures in records](/blog/2020/07/07/Procedures-in-records.html), 2020-07-07
 
+
 Exploration
 -----------
 
 7. [Oberon-07 and the file system](/blog/2020/05/09/Oberon-07-and-the-filesystem.html), 2020-05-09
-17. [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22
+18. [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22
 11. [Portable Oberon-07](/blog/2020/08/15/Portable-Oberon-07.html), 2020-08-15
 5. [Combining Oberon-07 and C with OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html), 2020-05-01
 16. [Combing Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
@@ -40,6 +41,7 @@ Exploration
 12. [Oberon to Markdown](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-03
 13. [Assemble Pages](/blog/2020/10/03/Oberon-to-markdown.html), 2020-10-19
 15. [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
+19. [Portable Conversions (Integer)](/blog/2021/11/26/Portable-Conversions-Integers.html), 2021-11-26
 
 Oberon Systems
 --------------

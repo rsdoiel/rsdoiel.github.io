@@ -102,7 +102,8 @@ References and resources
 You can see a definition of the [Files](https://miasap.se/obnc/obncdoc/basic/Files.def.html "My example module definition is based on the on Karl created in OBNC") at Karl Landström's documentation for his compiler along with the definitions for [In](https://miasap.se/obnc/obncdoc/basic/In.def.html) and [Out](https://miasap.se/obnc/obncdoc/basic/Out.def.html).
 
 
-Previous
---------
+Next & Previous
+---------------
 
-- [Combining Oberon-07 with C using Obc-3](../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
+- Next [Portable Conversions (Integers)](../../11/26/Portable-Conversions-Integers.html)
+- Prev [Combining Oberon-07 with C using Obc-3](../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
