@@ -18,7 +18,7 @@ Current responsibilities
     + Aggregation and search related [projects](https://caltechlibrary.github.io)
     + Content integration witb [ArchivesSpace](http://archivesspace.org/)
     + Content integration with [EPrints](http://eprints.org)
-    + Content integration with [Invenio](http://invenio-software.org/)
+    + Content integration with [Invenio RDM](https://inveniosoftware.org/products/rdm/)
 
 Technical Skills
 ----------------
