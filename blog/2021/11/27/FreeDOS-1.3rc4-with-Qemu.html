@@ -50,8 +50,8 @@ unzip FD13-FullUSB.zip</code></pre>
 <pre><code>ls -l </code></pre>
 <h2 id="prepping-my-virtual-machine">Prepping my virtual machine</h2>
 <p>A virtual machine is not just a CPU and some random access memory. A machine can include storage devices. For the retro “DOS” experience you might looking virtual devices for a “harddrive”, “floppy drive” and “CD-ROM drive”. Qemu provides a tool called <code>qemu-img</code> for creating these types of virtual devices.</p>
-<p>The basic command is <code>qemu-img</code> using the “create” option with some parameters. The parameter are filename and size (see <code>man qemu-img</code> for gory details). I am calling my virtual harddrive “freedos.img”. With <code>qemu-img</code> the size can be specified with a suffix like “K” for kilobytes, “M” for megabytes and “G” for gigabytes. DOS is a minimal requirements a small (by today’s standards) 500 megabyte harddrive seems appropriate.</p>
-<pre><code>qemu-img create freedos.img 500M</code></pre>
+<p>The basic command is <code>qemu-img</code> using the “create” option with some parameters. The parameter are filename and size (see <code>man qemu-img</code> for gory details). I am calling my virtual harddrive “freedos.img”. With <code>qemu-img</code> the size can be specified with a suffix like “K” for kilobytes, “M” for megabytes and “G” for gigabytes. DOS is a minimal requirements a small (by today’s standards) 750 megabyte harddrive seems appropriate.</p>
+<pre><code>qemu-img create freedos.img 750M</code></pre>
 <p>For my purposes I need a harddrive so I stopped there. You can always create other drives and then restart your virtual machine with the appropriate options.</p>
 <h2 id="bring-up-my-freedos-box">Bring up my FreeDOS box</h2>
 <p>Now I was ready to boot from installation media and install FreeDOS 1.3rc4 on my virtual harddrive. For that I use a “qemu” command for the system I want to emulate. I picked <code>qemu-system-i386</code> (see can see the gory details of that command using <code>man qemu-system-i386</code>). To install FreeDOS I’m going to boot from the vmdk file provided for the purpose of installation. I then use the FreeDOS installer to make my freedos.img file bootable with all the DOS software I want to play with.</p>
@@ -61,13 +61,13 @@ unzip FD13-FullUSB.zip</code></pre>
    -hda freedos.img \
    -hdb FD13FULL.vmdk</code></pre>
 <p>At this point you should see the machine start to boot, press Esc when prompted and select the second hard drive to boot from (that’s our vmdk drive). The drive is then treated like the CD-ROM, follow the programs instructions for installation. You will need to reboot several times during the process. Until your full installation is complete you’ll need to select the second harddrive as the boot drive and continue the installation.</p>
-<p>The first time I successfully installed FreeDOS 1.3rc4 I just installed the plain dos. When I re-did the process I install everything. It fills up my 500M virtual harddrive but rc4 includes development tools like a C compiler. That I think made it worth it.</p>
+<p>The first time I successfully installed FreeDOS 1.3rc4 I just installed the plain dos. When I re-did the process I install everything. It fills up my 750M virtual harddrive but rc4 includes development tools like a C compiler. That I think made it worth it.</p>
 <p>Here’s a Bash script you can use to build your FreeDOS machine.</p>
 <pre><code>#!/bin/bash
 
 if [ ! -f freedos.img ]; then
   echo &quot;Creating fresh Harddisk as drive C:&quot;
-  qemu-img create freedos.img 500M
+  qemu-img create freedos.img 750M
 fi
 echo &quot;Booting machine using FD13FULL.vmdk for installation&quot;
 qemu-system-i386 \

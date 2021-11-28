@@ -86,11 +86,11 @@ some parameters.  The parameter are filename and size (see
 harddrive "freedos.img".  With `qemu-img` the size can be
 specified with a suffix like "K" for kilobytes,  "M" for
 megabytes and "G" for gigabytes. DOS is a minimal requirements
-a small (by today's standards) 500 megabyte harddrive seems
+a small (by today's standards) 750 megabyte harddrive seems
 appropriate.
 
 ~~~
-qemu-img create freedos.img 500M
+qemu-img create freedos.img 750M
 ~~~
 
 For my purposes I need a harddrive so I stopped there. You
@@ -128,7 +128,7 @@ and continue the installation.
 
 The first time I successfully installed FreeDOS 1.3rc4 I just installed
 the plain dos. When I re-did the process I install everything. It
-fills up my 500M virtual harddrive but rc4 includes development tools
+fills up my 750M virtual harddrive but rc4 includes development tools
 like a C compiler.  That I think made it worth it.
 
 Here's a Bash script you can use to build your FreeDOS machine.
@@ -138,7 +138,7 @@ Here's a Bash script you can use to build your FreeDOS machine.
 
 if [ ! -f freedos.img ]; then
   echo "Creating fresh Harddisk as drive C:"
-  qemu-img create freedos.img 500M
+  qemu-img create freedos.img 750M
 fi
 echo "Booting machine using FD13FULL.vmdk for installation"
 qemu-system-i386 \
