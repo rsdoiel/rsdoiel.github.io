@@ -148,8 +148,7 @@ qemu-system-i386 \
     -hdb FD13FULL.vmdk
 ~~~
 
-And here is one for running it. In my run example I'm mounting the
-"bonus" FreeDOS CD too.
+And here is one for running it.
 
 ~~~
 #!/bin/bash
@@ -158,8 +157,7 @@ echo "Booting machine using freedos.img as drive C:"
 qemu-system-i386 \
     -m 8 \
     -boot menu=on,strict=on \
-    -hda freedos.img \
-    -cdrom FD13BNS.iso
+    -hda freedos.img
 ~~~
 
 Next step, explore FreeDOS and see what I can build.
