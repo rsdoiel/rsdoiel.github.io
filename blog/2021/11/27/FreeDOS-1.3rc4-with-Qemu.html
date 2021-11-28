@@ -84,6 +84,46 @@ qemu-system-i386 \
     -boot menu=on,strict=on \
     -hda freedos.img</code></pre>
 <p>Next step, explore FreeDOS and see what I can build.</p>
+<h2 id="putting-everything-together">Putting everything together</h2>
+<p>Below is a <a href="run-freedos-1.3rc4.bash">script</a> I developed automating either building or running your FreeDOS setup.</p>
+<pre><code>#!/bin/bash
+
+if [ ! -f FD13FULL.vmdk ]; then
+    if [ ! -f FD13-FullUSB.zip ]; then
+      echo &quot;Missing FD13FULL.vmdk, downloading FD13-FullUSB.zip&quot;
+      curl -L -O https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.3/previews/1.3-rc4/FD13-FullUSB.zip
+    fi
+    echo &quot;Unzipping FD13-FullUSB.zip&quot;
+    unzip FD13-FullUSB.zip
+fi
+
+if [ ! -f freedos.img ]; then
+  echo &quot;Creating fresh Harddisk as drive C:&quot;
+  qemu-img create freedos.img 750M
+  echo &quot;Booting machine using FD13FULL.vmdk as drive C:&quot;
+  echo &quot;Installing FreeDOS on drive D:&quot;
+  qemu-system-i386 \
+      -name FreeDOS \
+      -machine pc \
+      -m 32 \
+      -boot order=c \
+      -hda FD13FULL.vmdk \
+      -hdb freedos.img \
+      -parallel none \
+      -vga cirrus \
+      -display gtk
+else
+  echo &quot;Booting machine using freedos.img on drive C:&quot;
+  qemu-system-i386 \
+      -name FreeDOS \
+      -machine pc \
+      -m 32 \
+      -boot menu=on,strict=on \
+      -hda freedos.img \
+      -parallel none \
+      -vga cirrus \
+      -display gtk
+fi</code></pre>
 <h2 id="reference-material">Reference material</h2>
 <p>My inspiration for this was the description of manual install in the FreeDOS book section of the website, <a href="https://www.freedos.org/books/get-started/june14-manual-install.html">Manual Install</a>.</p>
   </article>

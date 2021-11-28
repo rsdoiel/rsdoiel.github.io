@@ -52,7 +52,7 @@ library-terminology.html: nav.include footer.include library-terminology.md inde
 	$(PANDOC) --template index.tmpl library-terminology.md > library-terminology.html
 	git add library-terminology.html
 
-series: series/index.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html
+series: series/index.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html
 	git add series/index.html
 
 series/index.html: nav.include footer.include series/index.md
@@ -70,6 +70,10 @@ series/software-tools.html: nav.include footer.include series/software-tools.md
 series/pandoc-techniques.html: series/pandoc-techniques.md
 	$(PANDOC) --template page.tmpl -M "title:Pandoc Techniques Series" series/pandoc-techniques.md > series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
+
+series/freedos.html: series/freedos.md
+	$(PANDOC) --template page.tmpl -M "title:Exploring FreeDOS" series/freedos.md > series/freedos.html
+	git add series/freedos.html
 
 redirects: .FORCE
 	bash generate-redirect-pages.bash
