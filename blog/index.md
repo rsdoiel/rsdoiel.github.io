@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Setting up FreeDOS 1.3rc4 with Qemu](/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html), 2021-11-27
 + [Portable Conversions (Integers)](/blog/2021/11/26/Portable-Conversions-Integers.html), 2021-11-26
 + [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22
 + [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14

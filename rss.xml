@@ -4,9 +4,16 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 26 Nov 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Fri, 26 Nov 2021 00:00:00 UTC</lastBuildDate>
+        <pubDate>Sat, 27 Nov 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Sat, 27 Nov 2021 00:00:00 UTC</lastBuildDate>
         <generator>mkrss 0.2.5</generator>
+        <item>
+            <title>Setting up FreeDOS 1.3rc4 with Qemu</title>
+            <link>/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.md</link>
+            <description>Setting up FreeDOS 1.3rc4 with Qemu&#xA;-----------------------------------&#xA;&#xA;By R. S. Doiel, 2021-11-27&#xA;&#xA;In this article I&#39;m going explore setting up FreeDOS with Qemu&#xA;on my venerable Dell 4319 running Raspberry Pi Desktop OS (Debian&#xA;GNU/Linux).  First step is to download FreeDOS &#34;Live CD&#34; in the&#xA;1.3 RC4 release. See http://freedos.org/download/ for that.&#xA;&#xA;Installing Qemu&#xA;---------------&#xA;&#xA;I needed to install Qemu in my laptop. It runs the Raspberry Pi&#xA;Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install&#xA;the &#34;qemu-system&#34; package since I will likely use qemu for other&#xA;things besides FreeDOS. The qemu-system package contains all the&#xA;various systems I might want to emulate in other projects as well&#xA;as several qemu utilities that are handy.  Here&#39;s the full sequence&#xA;of `apt` commands I ran (NOTE: these included making sure my laptop&#xA;was up to date before I installed qemu-system). ...</description>
+            <pubDate>Sat, 27 Nov 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.md</guid>
+        </item>
         <item>
             <title>Portable Conversions (Integers)</title>
             <link>/blog/2021/11/26/Portable-Conversions-Integers.md</link>
