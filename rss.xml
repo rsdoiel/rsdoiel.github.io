@@ -4,9 +4,16 @@
         <title>R. S. Doiel</title>
         <link>https://rsdoiel.github.io/blog</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sat, 27 Nov 2021 00:00:00 UTC</pubDate>
-        <lastBuildDate>Sat, 27 Nov 2021 00:00:00 UTC</lastBuildDate>
-        <generator>mkrss 0.2.5</generator>
+        <pubDate>Sat, 18 Dec 2021 00:00:00 UTC</pubDate>
+        <lastBuildDate>Sat, 18 Dec 2021 00:00:00 UTC</lastBuildDate>
+        <generator>mkrss 1.0.0</generator>
+        <item>
+            <title>Notes on setting up a Mid-2010 Mac Mini</title>
+            <link>/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.md</link>
+            <description>Notes on setting up a Mid-2010 Mac Mini&#xA;=======================================&#xA;&#xA;By R. S. Doiel, 2021-12-18&#xA;&#xA;I acquired a Mid 2010 Mac Mini. It was in good condition but lacked an OS on the hard drive.  I used a previously purchased copy of Mac OS X Snow Leopard to get an OS up and running on the bare hardware. Then it was a longer effort to get the machine into a state with the software I wanted to use on it. My goal was Mac OS X High Sierra, Xcode 10.1 and Mac Ports. The process was straight forward but very time consuming but I think worth it.  I wound up with a nice machine for experimenting with and writing blog posts.&#xA;&#xA;The setup process was as follows:&#xA;&#xA;1. Install macOS Snow Leopard on the bare disk of the Mac Mini&#xA;2. Install macOS El Capitan on the Mac Mini after manually downloading it from Apple&#39;s support site&#xA;3. Run updates indicated by El Capitan&#xA;4. Install macOS High Sierra on the Mac Mini after manually downloading it from the Apple&#39;s support site&#xA;5. Run updates indicated by High Sierra &#xA;6. Manually download and install Xcode 10.1 command line tools &#xA;7. Check and run some updates again&#xA;8. Finally install Mac Ports ...</description>
+            <pubDate>Sat, 18 Dec 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.md</guid>
+        </item>
         <item>
             <title>Setting up FreeDOS 1.3rc4 with Qemu</title>
             <link>/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.md</link>
@@ -34,6 +41,48 @@
             <description>&#xA;&#xA;Combing Oberon-07 with C using Obc-3&#xA;===================================&#xA;&#xA;By R. S. Doiel, 2021-06-14&#xA;&#xA;This post explores integrating C code with an Oberon-07 module use&#xA;Mike Spivey&#39;s Obc-3 Oberon Compiler.  Last year I wrote a similar post&#xA;for Karl Landström&#39;s [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).&#xA;This goal of this post is to document how I created a version of Karl&#39;s&#xA;Extension Library that would work with Mike&#39;s Obc-3 compiler.&#xA;If you want to take a shortcut you can see the results on GitHub&#xA;in my [obc-3-libext](https://github.com/rsdoiel/obc-3-libext) repository.&#xA;&#xA;From my time with OBNC I&#39;ve come to rely on three modules from Karl&#39;s&#xA;extension library. When trying to port some of my code to use with&#xA;Mike&#39;s compiler. That&#39;s where I ran into a problem with that dependency.&#xA;Karl&#39;s modules aren&#39;t available. I needed an [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html),&#xA;an [extEnv](http://miasap.se/obnc/obncdoc/ext/extEnv.def.html) and&#xA;[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html). ...</description>
             <pubDate>Mon, 14 Jun 2021 00:00:00 UTC</pubDate>
             <guid>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</guid>
+        </item>
+        <item>
+            <title>Combining Oberon-07 with C using Obc-3</title>
+            <link>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</link>
+            <description>&#xA;&#xA;Combing Oberon-07 with C using Obc-3&#xA;===================================&#xA;&#xA;By R. S. Doiel, 2021-06-14&#xA;&#xA;This post explores integrating C code with an Oberon-07 module use&#xA;Mike Spivey&#39;s Obc-3 Oberon Compiler.  Last year I wrote a similar post&#xA;for Karl Landström&#39;s [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).&#xA;This goal of this post is to document how I created a version of Karl&#39;s&#xA;Extension Library that would work with Mike&#39;s Obc-3 compiler.&#xA;If you want to take a shortcut you can see the results on GitHub&#xA;in my [obc-3-libext](https://github.com/rsdoiel/obc-3-libext) repository.&#xA;&#xA;From my time with OBNC I&#39;ve come to rely on three modules from Karl&#39;s&#xA;extension library. When trying to port some of my code to use with&#xA;Mike&#39;s compiler. That&#39;s where I ran into a problem with that dependency.&#xA;Karl&#39;s modules aren&#39;t available. I needed an [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html),&#xA;an [extEnv](http://miasap.se/obnc/obncdoc/ext/extEnv.def.html) and&#xA;[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html). ...</description>
+            <pubDate>Mon, 14 Jun 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md</guid>
+        </item>
+        <item>
+            <title>Beyond Oakwood, Modules and Aliases</title>
+            <link>/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md</link>
+            <description>Beyond Oakwood, Modules and Aliases&#xA;===================================&#xA;&#xA;By R. S. Doiel, 2021-05-16&#xA;&#xA;Oakwood is the name used to refer to an early Oberon language&#xA;standardization effort in the late 20th century.  It&#39;s the name&#xA;of a hotel where compiler developers and the creators of Oberon&#xA;and the Oberon System met to discuss compatibility. The lasting&#xA;influence on the 21st century Oberon-07 language can be seen&#xA;in the standard set of modules shipped with POSIX based Oberon-07&#xA;compilers like&#xA;[OBNC](https://miasap.se/obnc/), [Vishap Oberon Compiler](https://github.com/vishaps/voc) and the &#xA;[Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).&#xA;&#xA;The Oakwood guidelines described a minimum expectation for&#xA;a standard set of modules to be shipped with compilers.&#xA;The modules themselves are minimalist in implementation.&#xA;Minimalism can assist in easing the learning curve&#xA;and encouraging a deeper understanding of how things work.&#xA;&#xA;The Oberon-07 language is smaller than the original Oberon language&#xA;and the many dialects that followed.  I think of Oberon-07 as the&#xA;distillation of all previous innovation.  It embodies the&#xA;spirit of &#34;Simple but not simpler than necessary&#34;. Minimalism is&#xA;a fit description of the adaptions of the Oakwood modules for &#xA;Oberon-07 in the POSIX environment. ...</description>
+            <pubDate>Sun, 16 May 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md</guid>
+        </item>
+        <item>
+            <title>Ofront on Raspberry Pi OS</title>
+            <link>/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.md</link>
+            <description>Ofront on Raspberry Pi OS&#xA;=========================&#xA;&#xA;By R. S. Doiel, 2021-04-25&#xA;&#xA;This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2].&#xA;Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3]&#xA;development environment. There are additional clever tools like `ocat`&#xA;that are helpful working with the differences in text file formats between&#xA;Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of&#xA;POSIX with minimal compromises that distract from the Oberon experience.&#xA;&#xA;[^1]: Ofront was developed by Joseph Templ, see http://www.software-templ.com/&#xA;&#xA;[^2]: see https://www.raspberrypi.org/software/ (a 32 bit Debian based Linux for both i386 and ARM) ...</description>
+            <pubDate>Sun, 25 Apr 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.md</guid>
+        </item>
+        <item>
+            <title>Updating Schema in SQLite3</title>
+            <link>/blog/2021/04/16/Updating-Schema-in-SQLite3.md</link>
+            <description>Updating Schema in SQLite3&#xA;==========================&#xA;&#xA;By R. S. Doiel, 2020-04-16&#xA;&#xA;[SQLite3](https://sqlite.org/docs.html) is a handy little&#xA;database as single file tool.  You can interact with the file&#xA;through largely standard SQL commands and embed it easily into&#xA;applications via the C libraries that the project supports.&#xA;It is also available from various popular scripting languages&#xA;like Python, PHP, and Lua. One of the things I occasionally&#xA;need to do and always seems to forget it how to is modify a&#xA;table schema where I need to remove a column[^1]. So here are&#xA;some of the basics do I can quickly find them later and avoid&#xA;reading various articles tutorials because the search engines&#xA;doesn&#39;t return the page in the SQLite documentation.&#xA;&#xA;[^1]: The SQL `ALTER TABLE table_name DROP COLUMN column_name` does not work in SQLite3&#xA;&#xA;In the next sections I&#39;ll be modeling a simple person object&#xA;with a id, uname, display_name, role and updated fields. ...</description>
+            <pubDate>Fri, 16 Apr 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/04/16/Updating-Schema-in-SQLite3.md</guid>
+        </item>
+        <item>
+            <title>A2 Oberon on VirtualBox 6.1</title>
+            <link>/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.md</link>
+            <description>&#xA;&#xA;A2 Oberon on VirtualBox 6.1&#xA;===========================&#xA;&#xA;By R. S. Doiel, 2021-04-02&#xA;&#xA;This is a short article documenting how I install A2 Oberon&#xA;in VirtualBox using the [FreeDOS 1.2](https://freedos.org),&#xA;the A2 [ISO](https://sourceforge.net/projects/a2oberon/files/) cd image and [VirtualBox 6.1](https://virtualbox.org).&#xA;&#xA;Basic Approach&#xA;-------------- ...</description>
+            <pubDate>Fri, 02 Apr 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.md</guid>
+        </item>
+        <item>
+            <title>ETH Oberon System 3 on VirtualBox 6.1</title>
+            <link>/blog/2021/03/17/NativeOberon-VirtualBox.md</link>
+            <description>ETH Oberon System 3 on VirtualBox 6.1&#xA;=====================================&#xA;&#xA;By R. S. Doiel, 2021-03-17&#xA;&#xA;In this post I am walking through installing Native Oberon 2.3.7&#xA;(aka ETH Oberon System 3) on a virtual machine running under&#xA;VirtualBox 6.1. It is a follow up to my 2019 post &#xA;[FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html &#34;Link to old blog post for bringing up Oberon System 3 in VirtualBox 6.0 using FreeDOS 1.2&#34;). To facilitate the install I will first prepare&#xA;my virtual machine as a FreeDOS 1.2 box. This simplifies getting the&#xA;virtual machines&#39; hard disk partitioned and formatted correctly.&#xA;When Native Oberon was released back in 1990&#39;s most Intel flavored&#xA;machines shipped with some sort Microsoft OS on them.  I believe&#xA;that is why the tools and instructions for Native Oberon assume&#xA;you&#39;re installing over or along side a DOS partition.&#xA;&#xA;Building our machine&#xA;--------------------&#xA;&#xA;Requirements&#xA;------------ ...</description>
+            <pubDate>Wed, 17 Mar 2021 00:00:00 UTC</pubDate>
+            <guid>/blog/2021/03/17/NativeOberon-VirtualBox.md</guid>
         </item>
     </channel>
 </rss>
