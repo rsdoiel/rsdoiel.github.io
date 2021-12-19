@@ -47,7 +47,7 @@
 <h2 id="virtual-machine-setup">Virtual Machine Setup</h2>
 <p>VirtualBox 6.1 can be obtained from <a href="https://www.virtualbox.org/">virtualbox.org</a>. This involves downloading the installer for your particular host operating system (e.g. Linux, macOS or Windows) and follow the instructions on the VirtualBox website to complete the installation.</p>
 <p>Once VirtualBox is installed, launch VirtualBox.</p>
-<p>Click the “New” button and name your machine (e.g. “Native Oberon 2.3.7 Alpha”) and choose type of “Other” and version “DOS”. Click continue. I accepted the default memory size of 32 MB. This is plenty for Oberon. I clicked on create disk and accepted the default VDI (VirtualBox Disk Image). Press continue. I think accepted “Dynamically allocated”, press continue. I chose a “disk size” of 100.00 MB. Oberon System is tiny. Press create button.</p>
+<p>Click the “New” button and name your machine (e.g. “Native Oberon 2.3.7 Alpha”) and choose type of “Other” and version “DOS”. Click continue. I accepted the default memory size of 32 MB. This is plenty for Oberon. I clicked on create disk and accepted the default VDI (VirtualBox Disk Image). Press continue. I think accepted “Dynamically allocated”, press continue. I chose a “disk size” of 100.00 MB. Oberon System is tiny. Press create button.</p>
 <p>Make sure your new machine is highlight on the left side of the VirtualBox management panel. Click on Settings button, it looks like a gear towards the top. Click “Display” on the model dialog and bump the Video Memory up to 128 MB. I also clicked Enable 3D Acceleration (though I don’t think Oberon uses this). Before clicking OK click on the Network icon in the modal dialog box. Change “NAT” to “Bridged Adapter”. Now click “OK” to close the modal dialog box.</p>
 <p>Your VirtualBox is now ready, before pressing “Start” we need to install FreeDOS 1.2.</p>
 <h2 id="make-a-freedos-1.2-machine">Make a FreeDOS 1.2 machine</h2>
@@ -56,7 +56,7 @@
 <p>Now press the green “Start” arrow in the VirtualBox management panel. This should start your virtual machine and it will boot using the CD-ROM drive.</p>
 <p>This will display a welcome screen with installation options. Press your “tab” key once. This should cause a boot string to be displayed. Type a space and then type the word “raw” (without quotes). Press enter. Next select the language you want to install with (e.g. English). Choose “Yes - Continue with installation” on the next prompt. You should then be given a dialog box that indicates “Drive C: does not appear to be partitioned.”, select “Yes - Partition drive C:”. Then that completes press “Yes - Please reboot now”.</p>
 <p>This will cause the machine to reboot and you will be faced with the “Welcome to FreeDOS 1.2” screen once again. Press the “tab” Add a space and type “raw” to the boot string as before. Select the language again then select “Yes - Continue with installation”. The screen should now say something like “Drive C: does not appear to be formatted”, select “Yes - Please erase and format drive C:”.</p>
-<p>When done it’ll gather some info on the system and ask you which keyboard you’re using. Pick yours (e.g. “US English (Default)”). It will then give you a choice of what to install. Since we’re going to overwrite this when we install Oberon just select the base package, then select “Yes - Please install FreeDOS 1.2”</p>
+<p>When done it’ll gather some info on the system and ask you which keyboard you’re using. Pick yours (e.g. “US English (Default)”). It will then give you a choice of what to install. Since we’re going to overwrite this when we install Oberon just select the base package, then select “Yes - Please install FreeDOS 1.2”</p>
 <p>Before selecting “Yes - Please reboot now” when the install is finished you want to “eject” your FD12CD.ISO from the virtual CD-ROM drive. Switch back to your VirtualBox management panel. Click the text that says “FD12CD.iso” and select “remove disk from virtual drive” in the popup menu. Switch back to your Virtual machine and select “Yes - Please reboot now”</p>
 <p>If all goes well the machine will boot into FreeDOS 1.2. When you see the “C:&gt;” prompt type “shutdown” (without the quotes) and press enter. We’re now ready to start installing Native Oberon 2.3.7.</p>
 <h2 id="native-oberon-2.3.7">Native Oberon 2.3.7</h2>
@@ -84,7 +84,7 @@
 <h2 id="installing-to-our-virtual-hard-disk">Installing to our Virtual Hard disk</h2>
 <p>Along the right side (in the system track) is the text “Edit.Open Introduction.Text”. Click with your middle button (scroll wheel on my mouse) and this will open the text in the “Edit” track on the left side. Read this text if you haven’t before. Scrolling through the text is a little different than the scroll bars on macOS, Windows, X Windows. They are on the left side and the middle mouse button sets the scroll position. The left button pages down, the right pages up. You can close the “Introduction.Text” windows by middle clicking “System.Close” in the upper menu bar.</p>
 <h2 id="review-step-1.">Review step 1.</h2>
-<p>We need to configure the hard drive by middle clicking on “Config.Desk Standard ATA/EIDE”<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. In the console viewer above you should see something like</p>
+<p>We need to configure the hard drive by middle clicking on “Config.Desk Standard ATA/EIDE”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. In the console viewer above you should see something like</p>
 <pre><code>Disk: Standard ATA/EIDE
 Static BootLinker for OM Object Files / prk
  linking Native.Bin 255388</code></pre>
@@ -203,10 +203,10 @@ is where we&#39;ll find the CD-ROM.
         ~
 </code></pre>
 <p>You should now have a full installed Native Oberon 2.3.7 system running under VirtualBox 6.1. Enjoy your explorations.</p>
-<section class="footnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>This blue text makes it clear the command is actionable, like a link in the web browser. But the actual text is the command not the color.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>This blue text makes it clear the command is actionable, like a link in the web browser. But the actual text is the command not the color.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>

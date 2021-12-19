@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Notes on setting up a Mid-2010 Mac Mini](/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.html), 2021-12-18
 + [Setting up FreeDOS 1.3rc4 with Qemu](/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html), 2021-11-27
 + [Portable Conversions (Integers)](/blog/2021/11/26/Portable-Conversions-Integers.html), 2021-11-26
 + [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22

@@ -219,7 +219,7 @@ There are a few additional commands for file system house keeping such as <code>
     END TypingHi.
 </code></pre>
 <h2 id="post-script-2021-10-29">Post Script, 2021-10-29</h2>
-<p>On October 29, 2021 I had an email conversation with Jules. It pointed out a problem in this implementation of Hello World. I had incorrectly coded the end of line with <code>Files.WriteString(r, 0AX);</code> this is wrong. At best it should have been <code>Files.Write(r, 10);</code>. There remains an issues with <code>Files.WriteString(&quot;Hello World!&quot;);</code>. The Oakwood module <code>Files</code> defines “WriteString” to include the trailing NULL character. This will be output in the file. It all depends on how close to the Oakwood specification that your compiler implements the <code>Files</code> module.</p>
+<p>On October 29, 2021 I had an email conversation with Jules. It pointed out a problem in this implementation of Hello World. I had incorrectly coded the end of line with <code>Files.WriteString(r, 0AX);</code> this is wrong. At best it should have been <code>Files.Write(r, 10);</code>. There remains an issues with <code>Files.WriteString("Hello World!");</code>. The Oakwood module <code>Files</code> defines “WriteString” to include the trailing NULL character. This will be output in the file. It all depends on how close to the Oakwood specification that your compiler implements the <code>Files</code> module.</p>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
 <li>Next <a href="../25/Dynamic-types.html">Dynamic Types</a></li>
