@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Word Card Game Scoreboard</title>
+    <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+    <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />  
+  </head>
+  <body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf">Game Rules</a></li>
+    </ul>
+  </nav>
+  <section>
+    <style>
+      .hand-number  {
+        text-align: center;
+      }
+      .subtotal, .total {
+        text-align: right;
+      }
+      .word-values {
+        text-align: left;
+      }
+      input[type="number"] {
+        text-align: center;
+        width: 6em;
+      }
+      .number-of-players {
+        text-align: center;
+        width: 3em;
+      }
+      .disclaimer {
+        font-size: x-small;
+      }
+      th {
+        width: 6em;
+        word-break: break-word;
+      }
+      td {
+        padding: 0.24em;
+      }
+    </style>
+    <h1>Word Card Game Scoreboard<sub><a href="#disclaimer">*</a></sub></h1>
+    <h2>Step one</h2>
+    <div><label>Choose the number of Players</label> <input id="number-of-players" class="number-of-players" name="number-of-players" value="2" type="number" required="true" min="2" step="1", max="8"></div>
+    <h2>Step two</h2>
+    <p>
+      Score the individual players hand then press the "Score Hand" button. This will record the player's score for a given hand.
+      The game scoreboard can score from two to eight players. 
+    </p>
+    <noscript>This a Game Scoreboard requires JavaScript to be enabled in your web browser.</noscript>
+    <table>
+    <thead>
+        <th>Player</th>
+        <th>Word card values (added)</th>
+        <th>Non-word card values (subtracted)</th>
+        <th>Bonus</th><th>&nbsp;</th>
+        <th>Hand No.</th>
+        <th>Score for hand</th>
+        <th>Score for Game</th>
+    </thead>
+    <tbody class="scoreboard">
+    </tbody>
+  </table>
+  <p class="disclaimer"><sup id="disclaimer">*</sup> This is a game scoreboard for a word card game called <a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf" title="Quiddler ® is trademarked and copyrighted by Cannei, CCL">Quiddler ®</a>
+  and is not affiliated with this trademark or copyright holder of the word card game.</p>
+</section>
+  <footer>
+      Copyright © 2022 R. S. Doiel all rights reserved. 
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+  </footer>
+  <script>
+    class PlayerHands {
+       constructor() {
+         this.hand_no = 0;
+         this.subtotal = 0;
+         this.total = 0;
+         this.word_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+         this.non_word_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+         this.bonus_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+       }
+
+       scoreHand(word_score, non_word_score, bonus_score) {
+         let i = this.hand_no;
+         this.word_scores[i] = word_score;
+         this.non_word_scores[i] = non_word_score;
+         this.bonus_scores[i] = bonus_score;
+         /* sum up our word scores, substract our non-word scores add bonuses for each hand */
+         let subtotal = (this.word_scores[i] + this.bonus_scores[i]) - this.non_word_scores[i];
+         this.hand_no += 1;
+         this.subtotal = subtotal;
+         this.total += this.subtotal;
+       }
+    }
+
+    let number_of_players = document.getElementById("number-of-players"), 
+        scoreboard = document.querySelector(".scoreboard"),
+        hands_scored = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        players = [];
+    
+    number_of_players.addEventListener("change", makeScoreboard);
+
+    function makeScoreboard(event) {
+      let player_count = number_of_players.value;
+      scoreboard.innerHTML = '';
+      players = [];
+      for (let i = 1; i <= player_count; i++ ) {
+        players.push(new PlayerHands);
+        scoreboard.innerHTML += `<tr id="player-row-${i}" class="player-row">
+          <td class="player-name" contenteditable="true" title="Enter player's name">Player #${i}</td>
+          <td class="word-values" title="Words card values"><input id="player-${i}-word-values" class="word-values" name="word-values" type="number" step="1" min="0" value="0"></td>
+          <td class="non-word-values" title="Non-word cards values"><input id="player-${i}-non-word-values" class="non-word-values" name="non-word-values" type="number" step="1" min="0" value="0"></td>
+          <td class="bonus-score" title="Bonus score value"><input id="player-${i}-bonus-score"  name="bonus-score" type="number" step="10", min="0" max="20" value="0"></td>
+          <td class="score-hand"><button id="player-${i}-score-hand">Score Hand</button></td>
+          <td id="player-${i}-hand-number" class="hand-number" title="Score for hand number"></td>
+          <td id="player-${i}-subtotal" class="subtotal" title="Player's score"></td>
+          <td id="player-${i}-total" class="total" title="Player's score"></td>
+        </tr>`;
+      }
+      for (let i = 0; i < player_count; i++) {
+        let score_hand_button = document.getElementById(`player-${i+1}-score-hand`);
+        score_hand_button.addEventListener('click', function (evt) {
+          let hand_number = document.getElementById(`player-${i+1}-hand-number`),
+                  word_values = document.getElementById(`player-${i+1}-word-values`),
+                  non_word_values = document.getElementById(`player-${i+1}-non-word-values`),
+                  bonus_score = document.getElementById(`player-${i+1}-bonus-score`),
+                  subtotal = document.getElementById(`player-${i+1}-subtotal`),
+                  total = document.getElementById(`player-${i+1}-total`);
+              hands_scored[i] += 1;  
+              hand_number.innerText = hands_scored[i];
+              players[i].scoreHand(new Number(word_values.value), new Number(non_word_values.value), new Number(bonus_score.value));
+              subtotal.innerHTML = `` + players[i].subtotal;
+              total.innerHTML = `` + players[i].total;
+        }, false);
+      }
+    }
+    makeScoreboard();
+  </script>
+  </body>
+</html>
