@@ -79,7 +79,7 @@ redirects: .FORCE
 	bash generate-redirect-pages.bash
 
 blog: .FORCE
-	blogit -prefix=blog -refresh=2021,2020,2019,2018,2017,2016
+	blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
 	python3 indexer.py
