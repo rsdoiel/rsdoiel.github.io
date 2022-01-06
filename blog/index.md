@@ -5,16 +5,20 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
-+ [Notes on setting up a Mid-2010 Mac Mini](/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.html), 2021-12-18
-+ [Setting up FreeDOS 1.3rc4 with Qemu](/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html), 2021-11-27
-+ [Portable Conversions (Integers)](/blog/2021/11/26/Portable-Conversions-Integers.html), 2021-11-26
-+ [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html), 2021-11-22
-+ [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html), 2021-06-14
-+ [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html), 2021-05-16
-+ [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html), 2021-04-25
-+ [Updating Schema in SQLite3](/blog/2021/04/16/Updating-Schema-in-SQLite3.html), 2021-04-16
-+ [A2 Oberon on VirtualBox 6.1](/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html), 2021-04-02
-+ [ETH Oberon System 3 on VirtualBox 6.1](/blog/2021/03/17/NativeOberon-VirtualBox.html), 2021-03-17
+
+2021
+----
+
+ + 12-18, [Notes on setting up a Mid-2010 Mac Mini](/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.html)
+ + 11-27, [Setting up FreeDOS 1.3rc4 with Qemu](/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html)
+ + 11-26, [Portable Conversions (Integers)](/blog/2021/11/26/Portable-Conversions-Integers.html)
+ + 11-22, [Revisiting Files](/blog/2021/11/22/Revisiting-Files.html)
+ + 06-14, [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
+ + 05-16, [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html)
+ + 04-25, [Ofront on Raspberry Pi OS](/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html)
+ + 04-16, [Updating Schema in SQLite3](/blog/2021/04/16/Updating-Schema-in-SQLite3.html)
+ + 04-02, [A2 Oberon on VirtualBox 6.1](/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html)
+ + 03-17, [ETH Oberon System 3 on VirtualBox 6.1](/blog/2021/03/17/NativeOberon-VirtualBox.html)
 
 2020
 ----
