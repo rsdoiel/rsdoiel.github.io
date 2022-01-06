@@ -2,29 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Word Card Game Scoreboard</title>
+    <title>Scoreboard</title>
     <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
     <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
     <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />  
-  </head>
-  <body>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="./quiddler-scoreboard.html" target="_blank">New Scoreboard</a></li>
-      <li><a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf">Game Rules</a></li>
-    </ul>
-  </nav>
-  <section>
     <style>
-      .hand-number  {
+      h1 {
+        font-size: medium;
+        text-transform: lowercase;
+      }
+      th {
+        width: 6em;
+        word-break: break-word;
+      }
+      td {
+        padding: 0.24em;
+      }
+      .hand-number, .cards-played  {
         text-align: center;
       }
       .subtotal, .total {
-        text-align: right;
+        text-align: center;
       }
       .word-values {
-        text-align: left;
+        text-align: center;
       }
       input[type="number"] {
         text-align: center;
@@ -37,16 +38,19 @@
       .disclaimer {
         font-size: x-small;
       }
-      th {
-        width: 6em;
-        word-break: break-word;
-      }
-      td {
-        padding: 0.24em;
-      }
     </style>
-    <h1>Word Card Game Scoreboard<sub><a href="#disclaimer">*</a></sub></h1>
-    <h2>Step one</h2>
+  </head>
+  <body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="./quiddler-scoreboard.html" target="_blank">New Scoreboard</a></li>
+      <li><a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf">Game Rules</a></li>
+    </ul>
+  </nav>
+  <section>
+    <h1>Quiddler® Scoreboard<sub><a href="#disclaimer">*</a></sub></h1>
+     <h2>Step one</h2>
     <div><label>Choose the number of Players</label> <input id="number-of-players" class="number-of-players" name="number-of-players" value="2" type="number" required="true" min="2" step="1", max="8"></div>
     <h2>Step two</h2>
     <p>
@@ -57,18 +61,21 @@
     <table>
     <thead>
         <th>Player</th>
-        <th>Word card values (added)</th>
         <th>Non-word card values (subtracted)</th>
-        <th>Bonus</th><th>&nbsp;</th>
+        <th>Word card values (added)</th>
+        <th>Challenge penalty (subtracted)</th>
+        <th>Bonus (added)</th><th>&nbsp;</th>
         <th>Hand No.</th>
+        <th>Cards played</th>
         <th>Score for hand</th>
         <th>Score for Game</th>
     </thead>
     <tbody class="scoreboard">
     </tbody>
   </table>
-  <p class="disclaimer"><sup id="disclaimer">*</sup> This is a game scoreboard for a word card game called <a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf" title="Quiddler ® is trademarked and copyrighted by Cannei, CCL">Quiddler ®</a>
-  and is not affiliated with this trademark or copyright holder of the word card game.</p>
+  <p class="disclaimer"><sup id="disclaimer">*</sup> This is a game scoreboard for a word card game called 
+    <a href="https://www.playmonster.com/wp-content/uploads/2019/09/Quiddler_RULES.pdf" title="Quiddler ® is trademarked and copyrighted by Cannei, CCL">Quiddler®</a>
+  and is not affiliated with the game's trademark or copyright holder.</p>
 </section>
   <footer>
       Copyright © 2022 R. S. Doiel all rights reserved. 
@@ -78,22 +85,40 @@
     class PlayerHands {
        constructor() {
          this.hand_no = 0;
+         this.cards_played = 0;
          this.subtotal = 0;
          this.total = 0;
+         this.challenge_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
          this.word_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
          this.non_word_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
          this.bonus_scores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
        }
 
-       scoreHand(word_score, non_word_score, bonus_score) {
+       scoreHand(non_word_score, challenge_score, word_score, bonus_score) {
          let i = this.hand_no;
-         this.word_scores[i] = word_score;
          this.non_word_scores[i] = non_word_score;
+         this.challenge_scores[i] = challenge_score;
+         this.word_scores[i] = word_score;
          this.bonus_scores[i] = bonus_score;
+         /*
+          * Score the hand based on Quiddler rules
+          */
          /* sum up our word scores, substract our non-word scores add bonuses for each hand */
-         let subtotal = (this.word_scores[i] + this.bonus_scores[i]) - this.non_word_scores[i];
+         let subtotal = 0;
+         /* RULE: if non word card values are greater than word card values then hand is zero score */
+         if (this.non_word_scores[i] < this.word_scores[i]) {
+            subtotal = (this.word_scores[i] + this.bonus_scores[i]) - this.non_word_scores[i];  
+         }
+         /* RULE: if challange successful then hand can be negative */
+         if (this.challenge_scores[i] > 0) {
+            subtotal -= this.challenge_scores[i];
+         }
+         /* This number of cards played started at 3, need to add before incrementing hand number */
+         this.cards_played = this.hand_no + 3;
          this.hand_no += 1;
+         /* Update our subtotal */
          this.subtotal = subtotal;
+         /* Update our total with subtotal */
          this.total += this.subtotal;
        }
     }
@@ -109,33 +134,50 @@
       let player_count = number_of_players.value;
       scoreboard.innerHTML = '';
       players = [];
+      /* Create scoreboard elements */
       for (let i = 1; i <= player_count; i++ ) {
         players.push(new PlayerHands);
         scoreboard.innerHTML += `<tr id="player-row-${i}" class="player-row">
           <td class="player-name" contenteditable="true" title="Enter player's name">Player #${i}</td>
-          <td class="word-values" title="Words card values"><input id="player-${i}-word-values" class="word-values" name="word-values" type="number" step="1" min="0" value="0"></td>
           <td class="non-word-values" title="Non-word cards values"><input id="player-${i}-non-word-values" class="non-word-values" name="non-word-values" type="number" step="1" min="0" value="0"></td>
+          <td class="word-values" title="Words card values"><input id="player-${i}-word-values" class="word-values" name="word-values" type="number" step="1" min="0" value="0"></td>
+          <td class="challenge-values" title="Challenge penalty"><input id="player-${i}-challenge-values" class="challenge-values" name="challenge-values" type="number" step="10" max="0" value="0"></td>
           <td class="bonus-score" title="Bonus score value"><input id="player-${i}-bonus-score"  name="bonus-score" type="number" step="10", min="0" max="20" value="0"></td>
           <td class="score-hand"><button id="player-${i}-score-hand">Score Hand</button></td>
           <td id="player-${i}-hand-number" class="hand-number" title="Score for hand number"></td>
+          <td id="player-${i}-cards-played" class="cards-played" title="Number of cards played in hand"></td>
           <td id="player-${i}-subtotal" class="subtotal" title="Player's score"></td>
           <td id="player-${i}-total" class="total" title="Player's score"></td>
         </tr>`;
       }
+      /* Add event listeners */
       for (let i = 0; i < player_count; i++) {
         let score_hand_button = document.getElementById(`player-${i+1}-score-hand`);
         score_hand_button.addEventListener('click', function (evt) {
           let hand_number = document.getElementById(`player-${i+1}-hand-number`),
-                  word_values = document.getElementById(`player-${i+1}-word-values`),
-                  non_word_values = document.getElementById(`player-${i+1}-non-word-values`),
-                  bonus_score = document.getElementById(`player-${i+1}-bonus-score`),
-                  subtotal = document.getElementById(`player-${i+1}-subtotal`),
-                  total = document.getElementById(`player-${i+1}-total`);
-              hands_scored[i] += 1;  
-              hand_number.innerText = hands_scored[i];
-              players[i].scoreHand(new Number(word_values.value), new Number(non_word_values.value), new Number(bonus_score.value));
-              subtotal.innerHTML = `` + players[i].subtotal;
-              total.innerHTML = `` + players[i].total;
+              non_word_values = document.getElementById(`player-${i+1}-non-word-values`),
+              challenge_values = document.getElementById(`player-${i+1}-challenge-values`),
+              word_values = document.getElementById(`player-${i+1}-word-values`),
+              bonus_score = document.getElementById(`player-${i+1}-bonus-score`),
+              cards_played = document.getElementById(`player-${i+1}-cards-played`),
+              subtotal = document.getElementById(`player-${i+1}-subtotal`),
+              total = document.getElementById(`player-${i+1}-total`);
+          /* FIXME: need to validate scores, also need to think about challenge score being number of words successfully challenged,
+             then calc the penality, the bonuses should probably be a check boxes and the bonus values calculate.
+            
+            IDEA: A "quick calc" feature would be to type in the words (or non word letters) and quickly calculate the totals.
+          */
+          hands_scored[i] += 1;
+          hand_number.innerText = hands_scored[i];
+          players[i].scoreHand(new Number(non_word_values.value), new Number(challenge_values.value), new Number(word_values.value), new Number(bonus_score.value));
+          subtotal.innerHTML = `` + players[i].subtotal;
+          total.innerHTML = `` + players[i].total;
+          /* Reset values scored */
+          challenge_values.value = "0";
+          non_word_values.value = "0";
+          word_values.value = "0";
+          bonus_score.value = "0";
+          cards_played.innerHTML = `${players[i].cards_played}`;
         }, false);
       }
     }
