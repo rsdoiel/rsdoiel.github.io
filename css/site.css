@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Atkinson-Hyperlegible', 'Open Sans', sans-serif;
-    font-size: calc(1em+1vw);
+    /* font-size: calc(1em+1vw); */
     padding: 0;
     margin: 0;
     width: 100%;
@@ -12,11 +12,14 @@ body {
 }
 
 a, a:link, a:visited {
-    color:  forestgreen;
+    /* color:  forestgreen; */
+    font-size: 110%;
+    color: darkgreen;
     text-decoration: none;
 }
 
 a:active, a:focus, a:hover {
+    font-size: 110%;
     color: maroon;
     text-decoration: underline;
 }
