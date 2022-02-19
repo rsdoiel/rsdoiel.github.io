@@ -31,14 +31,25 @@
 
 <section>
   <article>
-<h1 id="cross-compiling-go-1.8.3-for-pine64-pinebook">Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
+<h1 id="cross-compiling-go-1.8.3-for-pine64-pinebook">Cross compiling Go
+1.8.3 for Pine64 Pinebook</h1>
 <p>By R. S. Doiel 2017-06-16</p>
-<p>Pine64’s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is not the same ARM processor found on a Raspberry Pi 3. As a result it needs its own compiled version of Go. Fortunately cross compiling Go is very straight forward. I found two helpful Gists on GitHub discussing compiling Go for a 64-Bit ARM processor.</p>
+<p>Pine64’s Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is not
+the same ARM processor found on a Raspberry Pi 3. As a result it needs
+its own compiled version of Go. Fortunately cross compiling Go is very
+straight forward. I found two helpful Gists on GitHub discussing
+compiling Go for a 64-Bit ARM processor.</p>
 <ul>
-<li><a href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro’s gist</a></li>
-<li><a href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101’s gist</a></li>
+<li><a
+href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro’s
+gist</a></li>
+<li><a
+href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101’s
+gist</a></li>
 </ul>
-<p>I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile host. Go 1.8.3 is already compiled and available. Inspired by the gists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.</p>
+<p>I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile
+host. Go 1.8.3 is already compiled and available. Inspired by the gists
+I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.</p>
 <pre class="shell"><code>    cd
     mkdir -p gobuild
     cd gobuild
@@ -50,7 +61,9 @@
     export GOOS=linux
     cd src
     ./bootstrap.bash</code></pre>
-<p>After the bootstrap compile is finished I switch to my Pinebook, copy the bootstrap compiler to my Pinebook and use it to compile a new go1.8.3 for Pine64.</p>
+<p>After the bootstrap compile is finished I switch to my Pinebook, copy
+the bootstrap compiler to my Pinebook and use it to compile a new
+go1.8.3 for Pine64.</p>
 <pre class="shell"><code>    cd
     scp -r raspberrypi.local:gobuild/*.tbz ./
     tar jxvf go-linux-arm64-bootstrap.tbz
@@ -63,12 +76,19 @@
     export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap
     cd src
     ./all.bash</code></pre>
-<p><em>all.bash</em> will successfully compile <em>go</em> and <em>gofmt</em> but fail on the tests. It’s not perfect but appears to work as I explore building Go applications on my Pinebook. Upcoming Go releases should provide better support for 64 bit ARM.</p>
+<p><em>all.bash</em> will successfully compile <em>go</em> and
+<em>gofmt</em> but fail on the tests. It’s not perfect but appears to
+work as I explore building Go applications on my Pinebook. Upcoming Go
+releases should provide better support for 64 bit ARM.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feed and website built with <a
+href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a
+href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash,
+Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

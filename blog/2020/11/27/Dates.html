@@ -32,103 +32,170 @@
 <section>
   <article>
 <h1 id="dates">Dates</h1>
-<p>This module provides minimal date time records and procedures for working with dates in YYYY-MM-DD and MM/DD/YYYY format and times in H:MM, HH:MM and HH:MM:SS formats.</p>
+<p>This module provides minimal date time records and procedures for
+working with dates in YYYY-MM-DD and MM/DD/YYYY format and times in
+H:MM, HH:MM and HH:MM:SS formats.</p>
 <dl>
 <dt>Set</dt>
-<dd>Set a DateTime record providing year, month, day, hour, minute and second as integers and the DateTime record to be populated.
+<dd>
+Set a DateTime record providing year, month, day, hour, minute and
+second as integers and the DateTime record to be populated.
 </dd>
 <dt>SetDate</dt>
-<dd>Set the date portion of a DateTime record, leaves the hour, minute and second attributes unmodified.
+<dd>
+Set the date portion of a DateTime record, leaves the hour, minute and
+second attributes unmodified.
 </dd>
 <dt>SetTime</dt>
-<dd>Set the time portion of a DateTime record, leaves the year, month, date attributes unmodified.
+<dd>
+Set the time portion of a DateTime record, leaves the year, month, date
+attributes unmodified.
 </dd>
 <dt>Copy</dt>
-<dd>Copy the attributes of one DateTime record into another DateTime record
+<dd>
+Copy the attributes of one DateTime record into another DateTime record
 </dd>
 <dt>ToChars</dt>
-<dd>Given a DateTime record and a format constant, render the DateTime record to an array of CHAR.
+<dd>
+Given a DateTime record and a format constant, render the DateTime
+record to an array of CHAR.
 </dd>
 <dt>LeapYear</dt>
-<dd>Given a DateTime record check to see if it is a leap year.
+<dd>
+Given a DateTime record check to see if it is a leap year.
 </dd>
 <dt>NumOfDays</dt>
-<dd>Given a year and monoth return the number of days in the month.
+<dd>
+Given a year and monoth return the number of days in the month.
 </dd>
 <dt>IsValid</dt>
-<dd>Check to see if the all attributes in a DateTime record are valid.
+<dd>
+Check to see if the all attributes in a DateTime record are valid.
 </dd>
 <dt>OberonToDateTime</dt>
-<dd>Convert oberon date and time integer values into a DateTime record
+<dd>
+Convert oberon date and time integer values into a DateTime record
 </dd>
 <dt>DateTimeToOberon</dt>
-<dd>Convert a DateTime record into Oberon date and time integer values.
+<dd>
+Convert a DateTime record into Oberon date and time integer values.
 </dd>
 <dt>Now</dt>
-<dd>Set a DateTime record’s attributes to the current time, depends of on the implementation of Clock.Mod.
+<dd>
+Set a DateTime record’s attributes to the current time, depends of on
+the implementation of Clock.Mod.
 </dd>
 <dt>WeekDate</dt>
-<dd>Given a DateTime record calculates the year, week and weekday as integers values.
+<dd>
+Given a DateTime record calculates the year, week and weekday as
+integers values.
 </dd>
 <dt>Equal</dt>
-<dd>Checks to DateTime records to see if they have equivalent attribute values.
+<dd>
+Checks to DateTime records to see if they have equivalent attribute
+values.
 </dd>
 <dt>Compare</dt>
-<dd>Compare two DateTime records, if t1 &lt; t2 then return -1, if t1 = t2 return 0 else if t1 &gt; t2 return 1.
+<dd>
+Compare two DateTime records, if t1 &lt; t2 then return -1, if t1 = t2
+return 0 else if t1 &gt; t2 return 1.
 </dd>
 <dt>CompareDate</dt>
-<dd>Compare the year, month, day attributes of two DateTime records following the approach used in Compare.
+<dd>
+Compare the year, month, day attributes of two DateTime records
+following the approach used in Compare.
 </dd>
 <dt>CompareTime</dt>
-<dd>Compare the hour, minute, second attributes of two DateTime records following the approach used in Compare.
+<dd>
+Compare the hour, minute, second attributes of two DateTime records
+following the approach used in Compare.
 </dd>
 <dt>TimeDifference</dt>
-<dd>Take the differ of two DateTime records setting the difference in integer values for days, hours, minutes and seconds.
+<dd>
+Take the differ of two DateTime records setting the difference in
+integer values for days, hours, minutes and seconds.
 </dd>
 <dt>AddYears</dt>
-<dd>Add years to a DateTime record. Years is a positive or negative integer.
+<dd>
+Add years to a DateTime record. Years is a positive or negative integer.
 </dd>
 <dt>AddMonths</dt>
-<dd>Add months to a DateTime record. Months is either a positive or negative integer. Months will propogate to year in the DataTime record.
+<dd>
+Add months to a DateTime record. Months is either a positive or negative
+integer. Months will propogate to year in the DataTime record.
 </dd>
 <dt>AddDays</dt>
-<dd>Add days to a DateTime record. Days can be either a positive or negative integer. Days will propogate to month and year attributes of the DateTime record.
+<dd>
+Add days to a DateTime record. Days can be either a positive or negative
+integer. Days will propogate to month and year attributes of the
+DateTime record.
 </dd>
 <dt>AddHours</dt>
-<dd>Add hours to a DateTime record. Hours can be either a positive or negative integer. Hours will propogate to day, month and year attributes of the DateTime record.
+<dd>
+Add hours to a DateTime record. Hours can be either a positive or
+negative integer. Hours will propogate to day, month and year attributes
+of the DateTime record.
 </dd>
 <dt>AddMinutes</dt>
-<dd>Add minutes to a DateTime record. Minutes can be either a positive or negative integer. Minutes will propogate to hour, day, month and year attributes of the DateTime record.
+<dd>
+Add minutes to a DateTime record. Minutes can be either a positive or
+negative integer. Minutes will propogate to hour, day, month and year
+attributes of the DateTime record.
 </dd>
 <dt>AddSeconds</dt>
-<dd>Add seconds to a DateTime record. Seconds can be either a positive or negatice integer. Seconds will propogate to minute, hour, day, month, year attributes of the DateTime record.
+<dd>
+Add seconds to a DateTime record. Seconds can be either a positive or
+negatice integer. Seconds will propogate to minute, hour, day, month,
+year attributes of the DateTime record.
 </dd>
 <dt>IsValidDate</dt>
-<dd>IsValidDate checks the day, month, year attributes of a DateTime record and validates the values. Returns TRUE if everthing is ok, FALSE otherwise.
+<dd>
+IsValidDate checks the day, month, year attributes of a DateTime record
+and validates the values. Returns TRUE if everthing is ok, FALSE
+otherwise.
 </dd>
 <dt>IsValidTime</dt>
-<dd>IsValidTime checks the hour, minute, second attributes of a DateTime record and validates the values. Returns TRUE if everthing is ok, FALSE otherwise.
+<dd>
+IsValidTime checks the hour, minute, second attributes of a DateTime
+record and validates the values. Returns TRUE if everthing is ok, FALSE
+otherwise.
 </dd>
 <dt>IsDateString</dt>
-<dd>Checks to see if an ARRAY OF CHAR is a parsiable date string (e.g. in 2020-11-26 or 11/26/2020). Returns TRUE if the string is parsable, FALSE otherwise. NOTE: It does NOT check to see if the day, month or year values are valid. It only checks the format of the string.
+<dd>
+Checks to see if an ARRAY OF CHAR is a parsiable date string (e.g. in
+2020-11-26 or 11/26/2020). Returns TRUE if the string is parsable, FALSE
+otherwise. NOTE: It does NOT check to see if the day, month or year
+values are valid. It only checks the format of the string.
 </dd>
 <dt>IsTimeString</dt>
-<dd>Checks to see if an ARRAY OF CHAR is a parsible time string (e.g. 3:32, 14:55, 09:19:22). NOTE: It only checks the format and does not check the hour, minute and second values.
+<dd>
+Checks to see if an ARRAY OF CHAR is a parsible time string (e.g. 3:32,
+14:55, 09:19:22). NOTE: It only checks the format and does not check the
+hour, minute and second values.
 </dd>
 <dt>ParseDate</dt>
-<dd>Parse an ARRAY OF CHAR setting the values if year, month and day. Return TRUE on successful parse and FALSE otherwise.
+<dd>
+Parse an ARRAY OF CHAR setting the values if year, month and day. Return
+TRUE on successful parse and FALSE otherwise.
 </dd>
 <dt>ParseTime</dt>
-<dd>Parse an ARRAY OF CHAR setting the values of hour, minute and second. Return TRUE on succesful parse and FALSE otherwise.
+<dd>
+Parse an ARRAY OF CHAR setting the values of hour, minute and second.
+Return TRUE on succesful parse and FALSE otherwise.
 </dd>
 <dt>Parse</dt>
-<dd>Parse an ARRAY OF CHAR setting the attributes of a DateTime record. Return TURE on success, FALSE otherwise.
+<dd>
+Parse an ARRAY OF CHAR setting the attributes of a DateTime record.
+Return TURE on success, FALSE otherwise.
 </dd>
 </dl>
 <h2 id="limitations">Limitations</h2>
-<p>Dates are presumed to be in the YYYY-DD-MM or MM/DD/YYYY formats. Does not handle dates with spelled out months or weekdays.</p>
-<p>Time portion of the date object doesn’t include time zone. This will need to be rectified at some point.</p>
-<h2 id="source-code-for-dates.mod">Source code for <strong>Dates.Mod</strong></h2>
+<p>Dates are presumed to be in the YYYY-DD-MM or MM/DD/YYYY formats.
+Does not handle dates with spelled out months or weekdays.</p>
+<p>Time portion of the date object doesn’t include time zone. This will
+need to be rectified at some point.</p>
+<h2 id="source-code-for-dates.mod">Source code for
+<strong>Dates.Mod</strong></h2>
 <pre><code>(* Dates -- this module was inspired by the A2&#39;s Dates module, adapted
    for Oberon-07 and a POSIX system. It provides an assortment of procedures
    for working with a simple datetime record.
@@ -944,7 +1011,11 @@ END Dates.
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feed and website built with <a
+href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a
+href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash,
+Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
