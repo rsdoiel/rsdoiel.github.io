@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: redirects blog nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html blog blog/index.html search.html index.html
+all: redirects blog nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html blog blog/index.html search.html index.html
 
 
 nav.include: nav.md
@@ -122,7 +122,7 @@ publish: all
 # Clean now breaks the blog as I have examples and other docs that should
 # note be removed (e.g. Pandoc-Partials examples index?.html files).
 clean:
-	@for FNAME in $(shell findfile -s .html); do if [ -f $$FNAME ]; then rm $$FNAME; fi; done
+	@for FNAME in $(shell findfile -s .html); do if [ -f $$FNAME ] && [ $$FNAME != "quiddler-scoreboard.html" ]; then rm $$FNAME; fi; done
 	@if [ -f nav.include ]; then rm nav.include; fi
 	@if [ -f footer.include ]; then rm footer.include; fi
 	@if [ -f index.md ]; then rm index.md; fi
