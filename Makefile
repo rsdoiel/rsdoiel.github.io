@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: redirects blog nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html blog blog/index.html search.html index.html
+all: redirects blog nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html blog blog/index.html search.html index.html rss.xml
 
 
 nav.include: nav.md
@@ -77,6 +77,12 @@ series/freedos.html: series/freedos.md
 
 redirects: .FORCE
 	bash generate-redirect-pages.bash
+
+rss.xml: .FORCE
+	mkrss -channel-title="R. S. Doiel" \
+        -channel-description="Robert&#39;s ramblings and wonderigs" \
+        -channel-link="https://rsdoiel.github.io" \
+        blog rss.xml
 
 blog: .FORCE
 	blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
