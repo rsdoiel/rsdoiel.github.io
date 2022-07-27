@@ -11,6 +11,11 @@ Oberon on POSIX
 Compilers are available for Oberon language on POSIX
 systems. I've focused on the Oberon-07 dialect in this series.
 
+Project Status
+--------------
+
+- [Artimes Status, Summer 2022](/blog/2022/07/27/Artemis-Status-Summer-2022.html), 2022-07-27
+
 Getting started 
 ---------------
 

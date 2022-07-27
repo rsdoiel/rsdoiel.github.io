@@ -85,7 +85,7 @@ rss.xml: .FORCE
         blog rss.xml
 
 blog: .FORCE
-	blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
+	pdtk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
 	python3 indexer.py
