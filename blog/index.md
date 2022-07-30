@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Turbo Oberon, the dream](/blog/2022/07/30/Turbo-Oberon.html), 2022-07-30
 + [Artemis Project Status, 2022](/blog/2022/07/27/Artemis-Status-Summer-2022.html), 2022-07-27
 + [Installing Golang from source on RPi-OS for arm64](/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.html), 2022-02-18
 
