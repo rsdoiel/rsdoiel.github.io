@@ -80,6 +80,7 @@ redirects: .FORCE
 
 rss.xml: .FORCE
 	pdtk rss -channel-title="R. S. Doiel Blog" \
+		-atom-link="https://rsdoiel.github.io/rss.xml" \
         -channel-description="Robert's ramblings and wonderigs" \
         -channel-link="https://rsdoiel.github.io" \
         blog >rss.xml
