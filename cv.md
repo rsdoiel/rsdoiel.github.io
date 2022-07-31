@@ -16,10 +16,9 @@ Current responsibilities
 
 + Application development for [Caltech Library](http://library.caltech.edu) working with
     + Aggregation and search related [projects](https://caltechlibrary.github.io)
-    + Content integration with [ArchivesSpace](http://archivesspace.org/)
-    + Content integration with [EPrints](http://eprints.org)
-    + Content integration with [Invenio RDM](https://inveniosoftware.org/products/rdm/)
+    + Content integration with [ArchivesSpace](http://archivesspace.org/), [EPrints](http://eprints.org), [Invenio RDM](https://inveniosoftware.org/products/rdm/)
     + Content Migration from EPrints to Invenio RDM
+    + Applications for crosswalking data between systems
 
 Technical Skills
 ----------------
