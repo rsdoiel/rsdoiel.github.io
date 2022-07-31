@@ -1,7 +1,7 @@
 ---
 title: Artemis Project Status, 2022
-author: R. S. Doiel
-date: "2022-07-27"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
+date: 2022-07-27
 keywords: [ "Oberon", "Oberon-07", "Artemis" ]
 copyright: "copyright (c) 2022, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"

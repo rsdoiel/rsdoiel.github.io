@@ -1,6 +1,6 @@
 ---
 title: "Cross compiling Go 1.8.3 for Pine64 Pinebook"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2016-06-16"
 keywords: [ "Golang", "Pine64", "ARM" ]
 copyright: "copyright (c) 2016, R. S. Doiel"

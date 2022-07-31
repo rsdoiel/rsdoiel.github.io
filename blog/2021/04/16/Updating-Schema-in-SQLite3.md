@@ -1,6 +1,6 @@
 ---
 title: "Updating Schema in SQLite3"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-04-16"
 keywords: [ "SQLite", "SQL", "database"  ]
 copyright: "copyright (c) 2021, R. S. Doiel"

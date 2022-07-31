@@ -2,7 +2,7 @@
 title: "Software Tools, Filters"
 series: "Software Tools"
 number: 2
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 keywords: [ "Oberon", "Pascal", "Programming"]
 copyright: "copyright (c) 2020, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"

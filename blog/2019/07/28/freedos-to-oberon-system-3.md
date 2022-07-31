@@ -1,6 +1,6 @@
 ---
 title: "FreeDOS 1.2 to Oberon System 3"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2019-07-28"
 updated: "2021-03-16"
 keywords: [ "FreeDOS", "Oberon System" ]

@@ -1,6 +1,6 @@
 ---
 title: "Notes on setting up a Mid-2010 Mac Mini"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-12-18"
 copyright: "copyright (c) 2021, R. S. Doiel"
 keywords: [ "macOS", "High Sierra", "Mac Mini" ]

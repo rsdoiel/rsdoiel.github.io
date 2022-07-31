@@ -1,7 +1,7 @@
 ---
 title: "Revisiting Files"
 number: 20
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-11-12"
 copyright: "copyright (c) 2021, R. S. Doiel"
 keywords: [ "Oberon", "Files", "plain text" ]

@@ -1,6 +1,6 @@
 ---
 title: "NodeJS, NPM, Electron"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2017-10-20"
 keywords: [ "Javascript", "NodeJS", "Electron" ]
 copyright: "copyright (c) 2017, R. S. Doiel"

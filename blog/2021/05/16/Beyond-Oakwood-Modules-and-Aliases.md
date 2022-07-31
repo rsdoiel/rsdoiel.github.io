@@ -1,7 +1,7 @@
 ---
 title: "Beyond Oakwood, Modules and Aliases"
 number: 18
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-05-16"
 copyright: "copyright (c) 2021, R. S. Doiel"
 keywords: [ "Oberon", "Modules", "Oakwood", "Strings", "Chars" ]

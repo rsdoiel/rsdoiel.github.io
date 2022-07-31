@@ -2,7 +2,7 @@
 title: "Oberon Modules and Procedures"
 number: 2
 series: "Mostly Oberon"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-04-12"
 keywords: [ "Oberon", "programming" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

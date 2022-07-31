@@ -2,7 +2,7 @@
 title: "Oberon to Markdown"
 series: "Mostly Oberon"
 number: 12
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-10-03"
 keywords: [ "Oberon", "portable", "markdown", "programming" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

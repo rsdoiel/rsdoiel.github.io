@@ -1,6 +1,6 @@
 ---
 title: "Words Matter"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-07-08"
 keywords: [ "civil rights", "diversity", "equality" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

@@ -1,6 +1,6 @@
 ---
 title: "Review: Software Tools in Pascal"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2018-07-22"
 keywords: [ "Pascal", "programming", "book review" ]
 copyright: "copyright (c) 2018, R. S. Doiel"

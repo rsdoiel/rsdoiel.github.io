@@ -1,6 +1,6 @@
 ---
 title: "Pandoc Partials"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 series: "Pandoc Techniques"
 number: 1
 keywords: [ "Pandoc", "Templates" ]

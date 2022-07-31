@@ -2,7 +2,7 @@
 title: "Installing Golang from source on RPi-OS for arm64"
 series: "Raspberry Pi"
 number: 1
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2022-02-18"
 copyright: "copyright (c) 2022, R. S. Doiel"
 keywords: [ "raspberry pi", "Raspberry Pi OS", "arm64" ]

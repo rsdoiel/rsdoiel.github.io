@@ -3,7 +3,7 @@ title: "Mostly Oberon"
 number: 1
 series: "Mostly Oberon"
 byline: "R. S. Doiel"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-04-11"
 keywords: [ "Oberon", "Wirth", "Gutknecht", "ETH", "Parc", "programming", "operating systems" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

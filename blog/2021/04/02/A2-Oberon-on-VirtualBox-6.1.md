@@ -1,6 +1,6 @@
 ---
 title: "A2 Oberon on VirtualBox 6.1"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-04-02"
 keywords: [ "FreeDOS 1.2", "VirtualBox 6.1", "A2 Oberon"  ]
 copyright: "copyright (c) 2021, R. S. Doiel"

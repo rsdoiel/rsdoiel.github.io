@@ -2,7 +2,7 @@
 title: "Software Tools, Getting Started"
 series: "Software Tools"
 number: 1
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-09-29"
 keywords: [ "Oberon", "Pascal", "programming" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

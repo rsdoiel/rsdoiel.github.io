@@ -2,7 +2,7 @@
 title: "Oberon-07 and the file system"
 series: "Mostly Oberon"
 number: 7
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-05-09"
 updated: "2021-10-29"
 keywords: [ "Oberon", "programming" ]

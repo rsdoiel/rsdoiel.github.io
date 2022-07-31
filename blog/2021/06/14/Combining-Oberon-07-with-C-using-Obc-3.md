@@ -1,7 +1,7 @@
 ---
 title: "Combining Oberon-07 with C using Obc-3"
 number: 19
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-06-14"
 copyright: "copyright (c) 2021, R. S. Doiel"
 keywords: [ "Oberon", "Obc-3", "C", "extArgs", "extEnv", "extConvert" ]

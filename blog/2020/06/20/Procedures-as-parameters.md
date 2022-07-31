@@ -2,7 +2,7 @@
 title: "Procedures as parameters"
 series: "Mostly Oberon"
 number: 9
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-06-20"
 keywords: [ "Oberon", "procedures", "passing procedures as parameters", "programming" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

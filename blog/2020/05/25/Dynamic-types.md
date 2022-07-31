@@ -2,7 +2,7 @@
 title: "Dynamic types"
 series: "Mostly Oberon"
 number: 8
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-05-25"
 keywords: [ "Oberon", "programming", "type extension", "dynamic data" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

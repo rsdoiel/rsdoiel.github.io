@@ -1,6 +1,6 @@
 ---
 title: "Accessing Go from Julia"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2018-03-11"
 keywords: [ "Golang", "Julia", "shared libraries" ]
 copyright: "copyright (c) 2018, R. S. Doiel"

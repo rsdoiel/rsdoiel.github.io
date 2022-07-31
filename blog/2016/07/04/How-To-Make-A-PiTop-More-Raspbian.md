@@ -1,6 +1,6 @@
 ---
 title: "How to make a Pi-Top more Raspbian"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2016-07-04"
 keywords: [ "Raspberry Pi", "Pi-Top", "Rasbian", "Raspberry Pi OS", ":operating systems" ]
 copyright: "copyright (c) 2016, R. S. Doiel"
@@ -11,7 +11,7 @@ license: "https://creativecommons.org/licenses/by-sa/4.0/"
 How to make a Pi-Top more Raspbian
 ==================================
 
-By R. S. Doiel 2016-07-04
+By R. S. Doiel, 2016-07-04
 
 I have a first generation Pi-Top.  I like the idea but found I didn't use it much due to a preference for
 basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively

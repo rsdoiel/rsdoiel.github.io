@@ -1,6 +1,6 @@
 ---
 title: "RetroFlag GPi Case Setup"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-12-24"
 keywords: [ "raspberry pi", "retro games", "case" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

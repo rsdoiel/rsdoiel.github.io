@@ -1,6 +1,6 @@
 ---
 title: "ETH Oberon System 3 on VirtualBox 6.1"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-03-17"
 keywords: [ "FreeDOS 1.2", "VirtualBox 6.1", "Oberon System 3", "Native Oberon" ]
 copyright: "copyright (c) 2021, R. S. Doiel"

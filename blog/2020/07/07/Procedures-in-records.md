@@ -2,7 +2,7 @@
 title: "Procedures in records"
 series: "Mostly Oberon"
 number: 10
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-07-07"
 keywords: [ "Oberon", "procedures", "record procedures", "programming" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

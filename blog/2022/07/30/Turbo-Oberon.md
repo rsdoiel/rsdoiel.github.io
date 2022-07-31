@@ -1,6 +1,6 @@
 ---
 title: Turbo Oberon, the dream
-author: R. S. Doiel
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: 2022-07-30
 byline: "R. S. Doiel"
 keywords: [ "Oberon", "Wirth", "ETH", "dreams", "compilers", "operating systems" ]

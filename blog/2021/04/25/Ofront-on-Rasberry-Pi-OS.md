@@ -1,6 +1,6 @@
 ---
 title: "Ofront on Raspberry Pi OS"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-04-25"
 keywords: [ "Oberon", "Raspberry Pi OS", "Ofront", "Mostly Oberon", "V4", "Linz" ]
 copyright: "copyright (c) 2021, R. S. Doiel"

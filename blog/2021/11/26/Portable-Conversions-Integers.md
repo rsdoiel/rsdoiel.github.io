@@ -1,7 +1,7 @@
 ---
 title: "Portable Conversions (Integers)"
 number: 21
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-11-26"
 copyright: "copyright (c) 2021, R. S. Doiel"
 keywords: [ "Oberon", "Modules", "Types", "conversion" ]

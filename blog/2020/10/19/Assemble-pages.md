@@ -2,7 +2,7 @@
 title: "Assembling Pages"
 series: "Mostly Oberon"
 number: 13
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-10-19"
 keywords: [ "Oberon-07", "portable", "markdown", "pandoc", "frontmatter" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

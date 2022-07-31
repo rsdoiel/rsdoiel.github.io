@@ -1,6 +1,6 @@
 ---
 title: "Go based Python modules"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2018-02-24"
 keywords: [ "Golang", "Python", "shared libraries" ]
 copyright: "copyright (c) 2018, R. S. Doiel"

@@ -1,6 +1,6 @@
 ---
 title: "From Markdown and Bash to mkpage"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2016-08-16"
 keywords: [ "Bash", "Markdown", "site generator", "mkpage", "pandoc" ]
 copyright: "copyright (c) 2016, R. S. Doiel"

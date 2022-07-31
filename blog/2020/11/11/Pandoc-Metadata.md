@@ -1,6 +1,6 @@
 ---
 title: "Pandoc & Metadata"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 series: "Pandoc Techniques"
 number: 2
 keywords: [ "Pandoc", "Metadata", "Templates" ]

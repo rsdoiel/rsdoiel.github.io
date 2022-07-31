@@ -2,7 +2,7 @@
 title: "Portable Oberon-07"
 series: "Mostly Oberon"
 number: 11
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-08-15"
 keywords: [ "Oberon", "portable", "stdin" ]
 copyright: "copyright (c) 2020, R. S. Doiel"

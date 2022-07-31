@@ -2,7 +2,7 @@
 title: "Dates & Clock"
 series: "Mostly Oberon"
 number: 14
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2020-11-27"
 keywords: [ "Oberon-07", "C-shared", "obnc" ]
 copyright: "copyright (c) 2020, R. S. Doiel"
