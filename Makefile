@@ -79,10 +79,11 @@ redirects: .FORCE
 	bash generate-redirect-pages.bash
 
 rss.xml: .FORCE
-	pdtk rss -channel-title="R. S. Doiel" \
-        -channel-description="Robert&#39;s ramblings and wonderigs" \
+	pdtk rss -channel-title="R. S. Doiel Blog" \
+        -channel-description="Robert's ramblings and wonderigs" \
         -channel-link="https://rsdoiel.github.io" \
         blog >rss.xml
+
 
 blog: .FORCE
 	pdtk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
@@ -107,21 +108,12 @@ save:
 	git push origin main
 
 #FIXME: Need to switch from pdtk rss to pdtk rss
-website: all .FORCE
+website: rss.xml all .FORCE
 	bash blog.bash
-	pdtk rss -channel-title="R. S. Doiel" \
-		-channel-description="Robert's ramblings and wonderigs" \
-		-channel-pubdate="$(TODAY)" \
-		-channel-link="https://rsdoiel.github.io/blog" \
-		blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: all
+publish: rss.xml all
 	bash blog.bash
-	pdtk rss -channel-title="R. S. Doiel" \
-	   	  -channel-description="Robert's ramblings and wonderigs" \
-		  -channel-link="https://rsdoiel.github.io/blog" \
-		  blog rss.xml 
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin main

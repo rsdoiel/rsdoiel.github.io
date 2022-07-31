@@ -7,6 +7,7 @@ to build their own listeners and to view updates to websites and blogs.
 RSS helps support innovation on the open web, and keeps the 
 internet silo-free.
 
-> https://rsdoiel.github.io/rss.xml
+- [blog feed](https://rsdoiel.github.io/rss.xml) https://rsdoiel.github.io/blog/index.xml) 
+- [site feed](https://rsdoiel.github.io/index.xml) https://rsdoiel.github.io/index.ml
 
 
