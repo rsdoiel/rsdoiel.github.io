@@ -31,127 +31,57 @@
 
 <section>
   <article>
-<h1 id="oberon-07-and-the-file-system">Oberon-07 and the file
-system</h1>
+<h1 id="oberon-07-and-the-file-system">Oberon-07 and the file system</h1>
 <p>By R. S. Doiel, 2020-05-09 (updated: 2021-10-29)</p>
-<p>This is the seventh post in the <a
-href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
-Oberon documents my exploration of the Oberon Language, Oberon System
-and the various rabbit holes I will inevitably fall into.</p>
-<h2 id="working-with-files-in-oberon-07">Working with files in
-Oberon-07</h2>
-<p>In a POSIX system we often talk of opening files, writing and reading
-files and close files. The Oberon language reflects a more Oberon System
-point of view.</p>
-<p>The Oberon System generally avoids modality in favor of action.
-Modality is where a context must be set before a set of actions are
-possible. The <code>vi</code> text editor is a “modal” editor. You are
-in either edit (typing) mode or command mode. At the function level
-POSIX’s <code>open()</code>, is also modal. You can open a file for
-reading, open a file for writing, you can open a file for appending,
-etc. The Oberon language and base modules avoids modality.</p>
-<p>The Oberon System is highly interactive but has a very different idea
-about code, data and computer resources. In POSIX the basic unit of code
-is a program and the basic unit of execution is a program. In Oberon the
-basic unit of code is the module and the basic unit of execution is the
-procedure. Modules are brought into memory and persist. As a result it
-is common in the Oberon System to need to have file representations that
-can persist across procedure calls. It provides a set of abstractions
-that are a little bit like views and cursors found in database systems.
-In taking this approach Oberon language eschews modality at the
-procedure level.</p>
-<p>NOTE: Modules can be explicitly unload otherwise they persist until
-the computer is turned off</p>
+<p>This is the seventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+<h2 id="working-with-files-in-oberon-07">Working with files in Oberon-07</h2>
+<p>In a POSIX system we often talk of opening files, writing and reading files and close files. The Oberon language reflects a more Oberon System point of view.</p>
+<p>The Oberon System generally avoids modality in favor of action. Modality is where a context must be set before a set of actions are possible. The <code>vi</code> text editor is a “modal” editor. You are in either edit (typing) mode or command mode. At the function level POSIX’s <code>open()</code>, is also modal. You can open a file for reading, open a file for writing, you can open a file for appending, etc. The Oberon language and base modules avoids modality.</p>
+<p>The Oberon System is highly interactive but has a very different idea about code, data and computer resources. In POSIX the basic unit of code is a program and the basic unit of execution is a program. In Oberon the basic unit of code is the module and the basic unit of execution is the procedure. Modules are brought into memory and persist. As a result it is common in the Oberon System to need to have file representations that can persist across procedure calls. It provides a set of abstractions that are a little bit like views and cursors found in database systems. In taking this approach Oberon language eschews modality at the procedure level.</p>
+<p>NOTE: Modules can be explicitly unload otherwise they persist until the computer is turned off</p>
 <h2 id="key-oberon-concepts">Key Oberon Concepts</h2>
 <p>The following are exported in the <code>Files</code> module.</p>
 <dl>
 <dt>File</dt>
-<dd>
-is a handle to the representation of a file, a File and Rider form a
-view into a file.
+<dd>is a handle to the representation of a file, a File and Rider form a view into a file.
 </dd>
 <dt>Rider</dt>
-<dd>
-similar to a database cursor, it is the mechanism that lets you navigate
-in a file
+<dd>similar to a database cursor, it is the mechanism that lets you navigate in a file
 </dd>
 <dt>New</dt>
-<dd>
-Creates a new file (in memory but not on disc).
+<dd>Creates a new file (in memory but not on disc).
 </dd>
 <dt>Registration</dt>
-<dd>
-Associates a file handle created with New with the file system. A file
-must be registered to persist in the file system.
+<dd>Associates a file handle created with New with the file system. A file must be registered to persist in the file system.
 </dd>
 <dt>Old</dt>
-<dd>
-Opens an existing file for use.
+<dd>Opens an existing file for use.
 </dd>
 <dt>Set</dt>
-<dd>
-Set the position of a rider in a file
+<dd>Set the position of a rider in a file
 </dd>
 <dt>Pos</dt>
-<dd>
-Gets the position of a rider in a file
+<dd>Gets the position of a rider in a file
 </dd>
 <dt>Close</dt>
-<dd>
-Writes out unwritten buffers in file to disc, file handle is still value
-as is the rider.
+<dd>Writes out unwritten buffers in file to disc, file handle is still value as is the rider.
 </dd>
 <dt>Purge</dt>
-<dd>
-Sets a file’s length to zero.
+<dd>Sets a file’s length to zero.
 </dd>
 <dt>Delete</dt>
-<dd>
-Unregister the filename with the file system.
+<dd>Unregister the filename with the file system.
 </dd>
 </dl>
-<p>In the Oberon Systems a file can be “opened” many times with only one
-copy maintained in memory. This allows efficient operations across a
-module’s procedures. Likewise a file can have one or more Riders
-associated with it. Each rider can move through the file independently
-operating on the common in memory file. If a file is created with
-<code>New</code> but not registered it can be treated like an in-memory
-temp file. Closing a file writes its buffers but the file remains
-accessible through it handle and riders. If a file is not modified it
-doesn’t need to be closed.</p>
-<p>In POSIX we generally want to explicitly close the file when we’re
-through. In the Oberon language we only need to close a file if we’ve
-modified it.</p>
-<p>The behavior of files and riders in Oberon creates interesting
-nuances around deleting files. The Delete operation can in principle
-happen multiple times before the file is deleted on disc. That is
-because the file handles and riders may still be operating on it. To
-know when a file is finally deleted when <code>Delete</code> procedure
-is called it includes a results parameter. When that value is set to
-zero by the <code>Delete</code> procedure you know your file has been
-deleted.</p>
-<p>The <code>Files</code> module provides a number of methods to read
-and write basic Oberon types. These use the rider rather than the file
-handle. Calling them automatically updates the riders position. The
-procedures themselves map to what we’ve seen in the modules
-<code>In</code> and <code>Out</code>.<br />
-There are a few additional commands for file system house keeping such
-as <code>Length</code>, <code>GetDate</code>, <code>Base</code>. See the
-OBNC documentation for the <code>Files</code> module for details <a
-href="https://miasap.se/obnc/obncdoc/basic/Files.def.html"
-class="uri">https://miasap.se/obnc/obncdoc/basic/Files.def.html</a>.</p>
-<p>In the following examples we’ll be using the <code>Files</code>
-module to create, update and delete a file called
-<code>HelloWorld.txt</code>.</p>
+<p>In the Oberon Systems a file can be “opened” many times with only one copy maintained in memory. This allows efficient operations across a module’s procedures. Likewise a file can have one or more Riders associated with it. Each rider can move through the file independently operating on the common in memory file. If a file is created with <code>New</code> but not registered it can be treated like an in-memory temp file. Closing a file writes its buffers but the file remains accessible through it handle and riders. If a file is not modified it doesn’t need to be closed.</p>
+<p>In POSIX we generally want to explicitly close the file when we’re through. In the Oberon language we only need to close a file if we’ve modified it.</p>
+<p>The behavior of files and riders in Oberon creates interesting nuances around deleting files. The Delete operation can in principle happen multiple times before the file is deleted on disc. That is because the file handles and riders may still be operating on it. To know when a file is finally deleted when <code>Delete</code> procedure is called it includes a results parameter. When that value is set to zero by the <code>Delete</code> procedure you know your file has been deleted.</p>
+<p>The <code>Files</code> module provides a number of methods to read and write basic Oberon types. These use the rider rather than the file handle. Calling them automatically updates the riders position. The procedures themselves map to what we’ve seen in the modules <code>In</code> and <code>Out</code>.<br />
+There are a few additional commands for file system house keeping such as <code>Length</code>, <code>GetDate</code>, <code>Base</code>. See the OBNC documentation for the <code>Files</code> module for details <a href="https://miasap.se/obnc/obncdoc/basic/Files.def.html" class="uri">https://miasap.se/obnc/obncdoc/basic/Files.def.html</a>.</p>
+<p>In the following examples we’ll be using the <code>Files</code> module to create, update and delete a file called <code>HelloWorld.txt</code>.</p>
 <h3 id="creating-a-file">Creating a file</h3>
-<p>The recipe we want to follow for creating a file is New (creates an
-empty file in memory), Register (associations the filename with the file
-system), Set the rider position, with the rider write our content and
-with the file call close because we’ve have changed the file.</p>
-<p>Like our origin <code>SayingHi</code> we’ll demonstrate this code in
-a new module called <code>TypingHi.Mod</code>. Below is a procedure
-called <code>WriteHelloWorld</code>. It shows how to create, write and
-close the new file called “HelloWorld.txt”.</p>
+<p>The recipe we want to follow for creating a file is New (creates an empty file in memory), Register (associations the filename with the file system), Set the rider position, with the rider write our content and with the file call close because we’ve have changed the file.</p>
+<p>Like our origin <code>SayingHi</code> we’ll demonstrate this code in a new module called <code>TypingHi.Mod</code>. Below is a procedure called <code>WriteHelloWorld</code>. It shows how to create, write and close the new file called “HelloWorld.txt”.</p>
 <pre><code>
   PROCEDURE WriteHelloWorld;
     VAR
@@ -182,14 +112,8 @@ close the new file called “HelloWorld.txt”.</p>
 <li>WriteString, writes our “Hello World!” to the file</li>
 <li>Close, closes the file, flushing unwritten content to disc</li>
 </ul>
-<h3 id="working-with-an-existing-file">Working with an existing
-file</h3>
-<p>If we’re working with an existing file we swap <code>New</code> for a
-procedure named <code>Old</code>. We don’t need to register the file
-because it already exists. We still need to set our rider and we want to
-read back the string we previously wrote. We don’t need to close it
-because we haven’t modified it. To demonstrate a new procedure is added
-to our module called <code>ReadHelloWorld</code>.</p>
+<h3 id="working-with-an-existing-file">Working with an existing file</h3>
+<p>If we’re working with an existing file we swap <code>New</code> for a procedure named <code>Old</code>. We don’t need to register the file because it already exists. We still need to set our rider and we want to read back the string we previously wrote. We don’t need to close it because we haven’t modified it. To demonstrate a new procedure is added to our module called <code>ReadHelloWorld</code>.</p>
 <pre><code>
   PROCEDURE ReadHelloWorld;
     VAR
@@ -217,9 +141,7 @@ to our module called <code>ReadHelloWorld</code>.</p>
 <li>Check the value we read with an ASSERT</li>
 </ul>
 <h3 id="removing-a-file">Removing a file</h3>
-<p>Deleting the file only requires knowing the name of the file. Like in
-<code>ReadHelloWorld</code> we’ll use the built-in ASSERT procedure to
-check if the file was successfully removed.</p>
+<p>Deleting the file only requires knowing the name of the file. Like in <code>ReadHelloWorld</code> we’ll use the built-in ASSERT procedure to check if the file was successfully removed.</p>
 <pre><code>
   PROCEDURE DeleteHelloWorld;
     VAR
@@ -298,31 +220,17 @@ check if the file was successfully removed.</p>
     END TypingHi.
 </code></pre>
 <h2 id="post-script-2021-10-29">Post Script, 2021-10-29</h2>
-<p>On October 29, 2021 I had an email conversation with Jules. It
-pointed out a problem in this implementation of Hello World. I had
-incorrectly coded the end of line with
-<code>Files.WriteString(r, 0AX);</code> this is wrong. At best it should
-have been <code>Files.Write(r, 10);</code>. There remains an issues with
-<code>Files.WriteString("Hello World!");</code>. The Oakwood module
-<code>Files</code> defines “WriteString” to include the trailing NULL
-character. This will be output in the file. It all depends on how close
-to the Oakwood specification that your compiler implements the
-<code>Files</code> module.</p>
+<p>On October 29, 2021 I had an email conversation with Jules. It pointed out a problem in this implementation of Hello World. I had incorrectly coded the end of line with <code>Files.WriteString(r, 0AX);</code> this is wrong. At best it should have been <code>Files.Write(r, 10);</code>. There remains an issues with <code>Files.WriteString("Hello World!");</code>. The Oakwood module <code>Files</code> defines “WriteString” to include the trailing NULL character. This will be output in the file. It all depends on how close to the Oakwood specification that your compiler implements the <code>Files</code> module.</p>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
 <li>Next <a href="../25/Dynamic-types.html">Dynamic Types</a></li>
-<li>Previous <a href="../06/Compiling-OBNC-on-macOS.html">Compiling OBNC
-on macOS</a></li>
+<li>Previous <a href="../06/Compiling-OBNC-on-macOS.html">Compiling OBNC on macOS</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feed and website built with <a
-href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a
-href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash,
-Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

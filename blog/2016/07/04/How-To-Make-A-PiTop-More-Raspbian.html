@@ -31,20 +31,15 @@
 
 <section>
   <article>
-<h1 id="how-to-make-a-pi-top-more-raspbian">How to make a Pi-Top more
-Raspbian</h1>
+<h1 id="how-to-make-a-pi-top-more-raspbian">How to make a Pi-Top more Raspbian</h1>
 <p>By R. S. Doiel 2016-07-04</p>
-<p>I have a first generation Pi-Top. I like the idea but found I didn’t
-use it much due to a preference for basic Raspbian. With the recent
-Pi-TopOS upgrades I realized getting back to basic Raspbian was
-relatively straight forward.</p>
+<p>I have a first generation Pi-Top. I like the idea but found I didn’t use it much due to a preference for basic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively straight forward.</p>
 <h2 id="the-recipe">The recipe</h2>
 <ol type="1">
 <li>Make sure you’re running the latest Pi-TopOS based on Jessie</li>
 <li>Login into your Pi-Top normally</li>
 <li>From the Pi-Top dashboard select the “Desktop” icon</li>
-<li>When you see the familiar Raspbian desktop click on the following
-things
+<li>When you see the familiar Raspbian desktop click on the following things
 <ul>
 <li>Click on the Raspberry Menu (upper left corner)</li>
 <li>Click on Preferences</li>
@@ -61,8 +56,7 @@ things
 <li>Click on shutdown</li>
 <li>Select <em>reboot</em></li>
 </ul></li>
-<li>When you restart you’ll see an old school console login, login as
-the pi user using your Pi-Top password</li>
+<li>When you restart you’ll see an old school console login, login as the pi user using your Pi-Top password</li>
 <li>Remove the following program use the <em>apt</em> command
 <ul>
 <li>ceed-universe</li>
@@ -71,17 +65,12 @@ the pi user using your Pi-Top password</li>
 </ul></li>
 </ol>
 <pre><code>    sudo apt purge ceed-universe pt-dashboard pt-splashscreen</code></pre>
-<p>Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware
-drivers specific to your Pi-Top so you probably want to keep them.</p>
+<p>Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably want to keep them.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feed and website built with <a
-href="https://caltechlibrary.github.io/mkpage">mkpage</a>, <a
-href="https://caltechlibrary.github.io/datatools">datatools</a>, Bash,
-Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feed and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

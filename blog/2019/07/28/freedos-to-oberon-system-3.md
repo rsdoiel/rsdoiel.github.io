@@ -17,7 +17,7 @@ By R. S. Doiel, 2019-07-28
 >    UPDATE: (2021-02-26, RSD) Under VirtualBox 6.1 these
 >    instructions still fail. My hope is to revise these 
 >    instructions when I get it all sorted out.
->    
+>
 >    Many links such as the ftp site at ETH Oberon are 
 >    no more. I've updated this page to point at Wayback machine
 >    or included content in here where I cannot find it else where.
