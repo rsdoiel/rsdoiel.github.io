@@ -19,6 +19,7 @@ Current responsibilities
     + Content integration with [ArchivesSpace](http://archivesspace.org/)
     + Content integration with [EPrints](http://eprints.org)
     + Content integration with [Invenio RDM](https://inveniosoftware.org/products/rdm/)
+    + Content Migration from EPrints to Invenio RDM
 
 Technical Skills
 ----------------
@@ -35,6 +36,7 @@ Technical Skills
 + Python
 + SQL/PSM
 + Various SQL/NoSQL database platforms
+    + SQLite3
     + MySQL/MariaDB
     + MongoDB/CouchDB
 + Design and implementation of
