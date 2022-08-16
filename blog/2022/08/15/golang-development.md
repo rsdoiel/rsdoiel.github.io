@@ -2,6 +2,7 @@
 title: "Pdtk and STN"
 pubDate: 2022-08-15
 author: "R. S. Doiel"
+byline: "R. S. Doiel, 2022-08-15"
 ---
 
 Pdtk and STN
@@ -9,7 +10,7 @@ Pdtk and STN
 
 By R. S. Doiel, started 2022-08-15
 
-This log is a proof of concept in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation is combines two of my personal projects, [stngo](https://github.com/rsdoiel/stngo) package and my experimental writing tool [pdtk](https://github.com/rsdoiel/pdtk). In the __pdtk__ cli I added a function to the "blogit" action that will translates the simple timesheet notation (aka STN) to a short blog post.  The "short" post is a response to me limited writing time. What follows is the STN markup. See the [Markdown](https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md) source for the unprocessed text.
+This log is a proof of concept in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation combines two of my personal projects, [stngo](https://github.com/rsdoiel/stngo) and my experimental writing tool [pdtk](https://github.com/rsdoiel/pdtk). Updating the __pdtk__ cli I added a function to the "blogit" action that will translates the simple timesheet notation (aka STN) to a short blog post.  My "short post" interest is a response to my limited writing time. What follows is the STN markup. See the [Markdown](https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md) source for the unprocessed text.
 
 2022-08-15
 
