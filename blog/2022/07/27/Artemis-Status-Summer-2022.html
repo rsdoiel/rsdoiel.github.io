@@ -10,7 +10,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <link rel="alternative" type="application/markdown" href="2022/07/27/Artemis-Status-Summer-2022.md">
+  <link rel="alternative" type="application/markdown" href="/blog/2022/07/27/Artemis-Status-Summer-2022.md">
+  <meta name="keywords" content="Oberon, Oberon-07, Artemis">
 </head>
 <body>
 <nav>
@@ -32,23 +33,47 @@
 <section>
   <article>
 <h1 id="artemis-project-status-2022">Artemis Project Status, 2022</h1>
-<p>It’s been a while since I wrote an Oberon-07 post and even longer since I’ve worked on Artemis. Am I done with Oberon-07 and abandoning Artemis? No. Life happens and free time to just hasn’t been available. I don’t know when that will change.</p>
+<p>It’s been a while since I wrote an Oberon-07 post and even longer
+since I’ve worked on Artemis. Am I done with Oberon-07 and abandoning
+Artemis? No. Life happens and free time to just hasn’t been available. I
+don’t know when that will change.</p>
 <h2 id="whats-the-path-forward">What’s the path forward?</h2>
-<p>Since I plan to continue working Artemis I need to find a way forward in much less available time. Time to understand some of my constraints.</p>
+<p>Since I plan to continue working Artemis I need to find a way forward
+in much less available time. Time to understand some of my
+constraints.</p>
 <ol type="1">
-<li>I work on a variety of machines, OBNC is the only compiler I’ve consistently been able to use across all my machines</li>
-<li>Porting between compilers takes energy and time, and those compilers don’t work across all my machines</li>
-<li>When I write Oberon-07 code I quickly hit a wall for the things I want to do, this is what original inspired Artemis, so there is still a need for a collection of modules</li>
-<li>Oberon/Oberon-07 on Wirth RISC virtual machine is not sufficient for my development needs</li>
-<li>A2, while very impressive, isn’t working for me either (mostly because I need to work on ARM CPUs)</li>
+<li>I work on a variety of machines, OBNC is the only compiler I’ve
+consistently been able to use across all my machines</li>
+<li>Porting between compilers takes energy and time, and those compilers
+don’t work across all my machines</li>
+<li>When I write Oberon-07 code I quickly hit a wall for the things I
+want to do, this is what original inspired Artemis, so there is still a
+need for a collection of modules</li>
+<li>Oberon/Oberon-07 on Wirth RISC virtual machine is not sufficient for
+my development needs</li>
+<li>A2, while very impressive, isn’t working for me either (mostly
+because I need to work on ARM CPUs)</li>
 </ol>
-<p>These constraints imply Artemis is currently too broadly scoped. I think I need to focus on what works in OBNC for now. Once I have a clear set of modules then I can revisit portability to other compilers.</p>
-<p>What modules do I think I need? If I look at my person projects I tend to work allot with text, often structured text (e.g. XML, JSON, CSV). I also tend to be working with network services. Occasionally I need to interact with database (e.g. SQLite3, MySQL, Postgres). Artemis should provide modules to make it easy to write code in Oberon-07 that works in those areas. Some of that I can do by wrapping existing C libraries. Some I can simply write from scratch in Oberon-07 (e.g. a JSON encoder/decoder). That’s going to me my focus as my hobby time becomes available and then.</p>
+<p>These constraints imply Artemis is currently too broadly scoped. I
+think I need to focus on what works in OBNC for now. Once I have a clear
+set of modules then I can revisit portability to other compilers.</p>
+<p>What modules do I think I need? If I look at my person projects I
+tend to work allot with text, often structured text (e.g. XML, JSON,
+CSV). I also tend to be working with network services. Occasionally I
+need to interact with database (e.g. SQLite3, MySQL, Postgres). Artemis
+should provide modules to make it easy to write code in Oberon-07 that
+works in those areas. Some of that I can do by wrapping existing C
+libraries. Some I can simply write from scratch in Oberon-07 (e.g. a
+JSON encoder/decoder). That’s going to me my focus as my hobby time
+becomes available and then.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

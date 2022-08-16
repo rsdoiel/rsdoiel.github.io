@@ -10,7 +10,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <link rel="alternative" type="application/markdown" href="2020/11/27/Clock.md">
+  <link rel="alternative" type="application/markdown" href="/blog/2020/11/27/Clock.md">
+  
 </head>
 <body>
 <nav>
@@ -32,8 +33,13 @@
 <section>
   <article>
 <h1 id="clock">Clock</h1>
-<p>This is a C time library wrapper for getting system time to support Dates.Mod. The procedures are read only as setting time is non-standard on many Unix-like systems<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The two procedures follow the A2 style procedure signatures adjusted for Oberon-07.</p>
-<h2 id="source-code-for-clock.mod">Source code for <strong>Clock.Mod</strong></h2>
+<p>This is a C time library wrapper for getting system time to support
+Dates.Mod. The procedures are read only as setting time is non-standard
+on many Unix-like systems<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. The two procedures follow the A2
+style procedure signatures adjusted for Oberon-07.</p>
+<h2 id="source-code-for-clock.mod">Source code for
+<strong>Clock.Mod</strong></h2>
 <pre><code>MODULE Clock;
 
 PROCEDURE GetRtcTime*(VAR second, minute, hour, day, month, year : INTEGER);
@@ -83,17 +89,23 @@ void Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)
 void Clock__Init(void)
 {
 }</code></pre>
-<section class="footnotes" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Eric Raymond discusses time functions, http://www.catb.org/esr/time-programming/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Eric Raymond discusses time functions,
+http://www.catb.org/esr/time-programming/<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
