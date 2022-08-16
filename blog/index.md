@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Pdtk and STN](/blog/2022/08/15/golang-development.html), 2022-08-15
 + [5:45 PM, Golang: ptdk,  stngo](/blog/2022/08/15/golang-development-2022-08-15_170545.html), 2022-08-15
 + [5:00 PM, Golang: pdtk,  stngo](/blog/2022/08/14/golang-development-2022-08-14_170500.html), 2022-08-14
 + [4:30 PM, Golang: stngo](/blog/2022/08/12/golang-development-2022-08-12_160430.html), 2022-08-12
