@@ -5,9 +5,16 @@
         <title>Robert&#39;s ramblings and wonderig</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Tue, 16 Aug 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Fri, 19 Aug 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Fri, 19 Aug 2022 00:00:00 +0000</lastBuildDate>
         <generator>pdtk rss 0.0.3</generator>
+        <item>
+            <title>Rosette Notes: Postgres and MySQL</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</link>
+            <description>&gt; A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar&#39;s rosette&#xA;&#xA;What follows are my preliminary notes learning Postgres 12 and 14.&#xA;&#xA;This is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you&#39;re using `psql` to access Postgres and `mysql` to  access MySQL. Values between `&lt;` and `&gt;` should be replaced with an appropriate value.&#xA;&#xA;| Task                    | Postgres 14.5                     | MySQL 8           |&#xA;|-------------------------|------------------------------------|-------------------|&#xA;| show all databases      | `SELECT datname FROM pg_database;` | `SHOW DATABASES;` |&#xA;| select a database       | `\c &lt;dbname&gt;`                      | `USE &lt;dbname&gt;`    |&#xA;| show tables in database | `\dt`                              | `SHOW TABLES;`    |&#xA;| show columns in table   | `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = &#39;&lt;table_name&gt;&#39;;` | `SHOW COLUMNS IN &lt;table_name&gt;` |&#xA;&#xA;The Postgres shell, `psql`, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the `SHOW TABLES` query. For me `SHOW ...` feels like SQL where as `\d` or `\dt` takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. `\dt` quickly becomes second nature and is shorter to type than `SHOW TABLES`. ...</description>
+            <pubDate>Fri, 19 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</guid>
+        </item>
         <item>
             <title>Pdtk and STN</title>
             <link>https://rsdoiel.github.io/blog/2022/08/15/golang-development.html</link>
