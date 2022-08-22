@@ -33,7 +33,7 @@
 <section>
   <article>
 <h1 id="rosette-notes">Rosette Notes</h1>
-<p>By R. S. Doiel, 2022-08-18</p>
+<p>By R. S. Doiel, 2022-08-19</p>
 <blockquote>
 <p>A dance around two relational databases, piecing together
 similarities as with the tiny mosaic tiles of a guitar’s rosette</p>
@@ -184,6 +184,22 @@ tooling is a little different.</p>
 same way you can restore from <code>pg_dumpall</code> but if you
 Postgres instance already exists then you’re going to run into various
 problems, e.g. errors about <code>template1</code> db.</p>
+<h2 id="lessons-learned-along-the-way">Lessons learned along the
+way</h2>
+<p>2022-08-22</p>
+<p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be
+challenges in the SQL I write, first back ticks is a MySQL-ism for
+literal quoting of table and column names, causes problems in Postgres.
+Second issue is “REPLACE” is a none standard extension I picked up from
+MySQL <a
+href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it
+wraps a DELETE and INSERT together</a>, should be using UPDATE more than
+I have done in the past. The third is parameter replacement in SQL
+statement. This appears to be <a
+href="http://go-database-sql.org/prepared.html">db implementation
+specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I
+need ot use “$1”, “$2”, etc. Challenging to write SQL once and have it
+work everywhere. Beginning to understand why GORM has traction.</p>
   </article>
 </section>
 

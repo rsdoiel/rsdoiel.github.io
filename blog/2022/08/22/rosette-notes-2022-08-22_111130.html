@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>rosette-notes-2022-08-22_111130</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link rel="alternative" type="application/markdown" href="/blog/2022/08/22/rosette-notes-2022-08-22_111130.md">
+  <meta name="keywords" content="Postgres">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="am-sql-postgres">11:30 AM, SQL: Postgres</h1>
+<p>Post: Monday, August 22, 2022, 11:30 AM</p>
+<p>Three things have turned out to be challenges in the SQL I write,
+first back ticks is a MySQL-ism for literal quoting of table and column
+names, causes problems in Postgres. Second issue is “REPLACE” is a none
+standard extension I picked up from MySQL <a
+href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it
+wraps a DELETE and INSERT together</a>, should be using UPDATE more than
+I have done in the past. The third is parameter replacement in SQL
+statement. This appears to be <a
+href="http://go-database-sql.org/prepared.html">db implementation
+specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I
+need ot use “$1”, “$2”, etc. Challenging to write SQL once and have it
+work everywhere. Beginning to understand why GORM has traction.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+</body>
+</html>

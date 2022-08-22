@@ -1,14 +1,14 @@
 ---
 title: "Rosette Notes: Postgres and MySQL"
 author: "R. S. Doiel"
-byline: "R. S. Doiel, 2022-08-18"
-pubDate: 2022-08-18
+byline: "R. S. Doiel, 2022-08-19"
+pubDate: 2022-08-19
 ---
 
 Rosette Notes
 =============
 
-By R. S. Doiel, 2022-08-18
+By R. S. Doiel, 2022-08-19
 
 > A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar's rosette
 
@@ -58,3 +58,11 @@ You can restore a database dump in both Postgres and MySQL. The tooling is a lit
 | `psql -f <dump_filename>`       |`mysql <dbname> < <dump_filename>`            |
 
 NOTE: These instructions work for a database dumped with `pg_dump` for the Postgres example. In principle it is the same way you can restore from `pg_dumpall` but if you Postgres instance already exists then you're going to run into various problems, e.g. errors about `template1` db.
+
+Lessons learned along the way
+-----------------------------
+
+2022-08-22
+
+8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is "REPLACE" is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I've used "?" with SQLite and MySQL but with Postgres I need ot use "$1", "$2", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.
+
