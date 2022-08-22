@@ -11,7 +11,7 @@
         <item>
             <title>11:30 AM, SQL: Postgres</title>
             <link>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</link>
-            <description>Post: Monday, August 22, 2022, 11:30 AM&#xA;&#xA;Two things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &#34;REPLACE&#34; is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past.&#xA;&#xA; ...</description>
+            <description>Post: Monday, August 22, 2022, 11:30 AM&#xA;&#xA;Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &#34;REPLACE&#34; is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be db implementation specific. I&#39;ve used &#34;?&#34; with SQLite and MySQL but with Postgres I need ot use &#34;$1&#34;, &#34;$2&#34;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.&#xA;&#xA; ...</description>
             <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
             <guid>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</guid>
         </item>
