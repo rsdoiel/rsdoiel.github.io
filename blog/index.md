@@ -5,6 +5,8 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [12:00 PM, SQL: Postgres](/blog/2022/08/24/rosette-notes-2022-08-24_121200.html), 2022-08-24
++ [A Quick into to PL/pgSQL](/blog/2022/08/24/plpgsql-quick-intro.html), 2022-08-24
 + [11:30 AM, SQL: Postgres](/blog/2022/08/22/rosette-notes-2022-08-22_111130.html), 2022-08-22
 + [Rosette Notes: Postgres and MySQL](/blog/2022/08/19/rosette-notes.html), 2022-08-19
 + [Pdtk and STN](/blog/2022/08/15/golang-development.html), 2022-08-15

@@ -198,8 +198,15 @@ I have done in the past. The third is parameter replacement in SQL
 statement. This appears to be <a
 href="http://go-database-sql.org/prepared.html">db implementation
 specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I
-need ot use “$1”, “$2”, etc. Challenging to write SQL once and have it
+need to use “$1”, “$2”, etc. Challenging to write SQL once and have it
 work everywhere. Beginning to understand why GORM has traction.</p>
+<p>2022-08-24</p>
+<p>11:00 - 12:00; SQL; Postgres; I miss <code>SHOW TABLES</code> it’s
+just muscle memory from MySQL, the SQL to show tables is
+<code>SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';</code>.
+I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL’s
+“SHOW TABLES”. Might be a good way to learn PL/pgSQL. I could then do
+one for MySQL and compare the PL/SQL language implementations.</p>
   </article>
 </section>
 
