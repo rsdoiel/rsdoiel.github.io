@@ -3,6 +3,13 @@ title: "Rosette Notes: Postgres and MySQL"
 author: "R. S. Doiel"
 byline: "R. S. Doiel, 2022-08-19"
 pubDate: 2022-08-19
+series: "SQL Relfections"
+number: 1
+keywords:
+  - postgres
+  - mysql
+  - sql
+  - psql
 ---
 
 Rosette Notes

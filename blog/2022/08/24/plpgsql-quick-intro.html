@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2022/08/24/plpgsql-quick-intro.md">
-  
+  <meta name="keywords" content="postgres, sql, psql, plsql, plpgsql">
 </head>
 <body>
 <nav>
@@ -70,11 +70,11 @@ PL/pgSQL.</li>
 <p>We can run the procedure using the “CALL” query.</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CALL</span> helloworld()</span></code></pre></div>
-<p>NOTE: If you want to change or replace the procedure you need to
-“DROP” it first.</p>
+<p>NOTE: If you want to change the procedure you can “DROP” it first
+otherwise you’ll get an error that it already exists.</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">PROCEDURE</span> helloworld;</span></code></pre></div>
-<h2 id="my-workflow">My workflow</h2>
+<h2 id="improving-my-workflow">Improving my workflow</h2>
 <p>SQL procedures are generally stored in the RDBMs in database
 environment. You can think of them as records in the system’s database.
 Procedures and functions are created and can be dropped. While they can
@@ -89,58 +89,60 @@ in plain text files outside the RDBM environment.</p>
 </ol></li>
 <li>Call the procedure to test it</li>
 </ol>
-<p>To turn these steps into a look I add a “DROP” statement before my
-“CREATE PROCEDURE” statement. Note in the revised example the “–” lines
-are comments.</p>
+<p>To turn these steps into a look I use a “CREATE OR REPLACE” statement
+and be able to reload the updated procedure easier see <a
+href="https://www.postgresql.org/docs/14/plpgsql-development-tips.html">43.12.
+Tips for Developing in PL/pgSQL</a>. Note in the revised example the “–”
+lines are comments.</p>
+<p>Our revised <a href="helloworld.plpgsql">helloworld</a>.</p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- This is a basic hello world example.</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- DROP the &quot;helloworld&quot; procedure if it exists already.</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">PROCEDURE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> helloworld;</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create the new &quot;helloworld&quot; procedure.</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- </span><span class="al">NOTE</span><span class="co">: this can be run with &quot;CALL&quot;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        RAISE NOTICE <span class="st">&#39;Hello World!&#39;</span>;</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create (or replace) the new &quot;helloworld&quot; procedure.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- </span><span class="al">NOTE</span><span class="co">: this can be run with &quot;CALL&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        RAISE NOTICE <span class="st">&#39;Hello World!&#39;</span>;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <h2 id="hi-there">Hi There</h2>
-<p><code>hithere</code> is similar to our helloworld example except it
-is a function that takes a parameter of the person’s name. The function
-returns a “VARCHAR”, so this should work as part of a select
-statement.</p>
+<p><a href="hithere.plpgsql">hithere</a> is similar to our helloworld
+example except it is a function that takes a parameter of the person’s
+name. The function returns a “VARCHAR”, so this should work as part of a
+select statement.</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- This is a &quot;Hi There&quot; function. The function takes</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- a single parameter and forms a greeting.</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">FUNCTION</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> hithere;</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create the new &quot;hithere&quot; function.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">FUNCTION</span> hithere(name <span class="dt">varchar</span>) RETURNS <span class="dt">varchar</span> <span class="kw">AS</span> $$</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      greeting <span class="dt">varchar</span>;</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">IF</span> name <span class="op">=</span> <span class="st">&#39;&#39;</span> <span class="cf">THEN</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hi there!&#39;</span>;</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hello &#39;</span> <span class="op">||</span> name <span class="op">||</span> <span class="st">&#39;!&#39;</span>;</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">END</span> <span class="cf">IF</span>;</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">RETURN</span> greeting;</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> hithere(name <span class="dt">varchar</span>) RETURNS <span class="dt">varchar</span> <span class="kw">AS</span> $$</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      greeting <span class="dt">varchar</span>;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">IF</span> name <span class="op">=</span> <span class="st">&#39;&#39;</span> <span class="cf">THEN</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hi there!&#39;</span>;</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hello &#39;</span> <span class="op">||</span> name <span class="op">||</span> <span class="st">&#39;!&#39;</span>;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">END</span> <span class="cf">IF</span>;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">RETURN</span> greeting;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <p>Giving it a try.</p>
 <pre class="shell"><code>    SELECT hithere(&#39;Mojo Sam&#39;);</code></pre>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a
+href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Conditionals</a></li>
+<li><a
+href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS">Loops</a></li>
+<li><a
+href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE">Calling
+a procedure</a></li>
+<li><a
+href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE">Early
+return from a procedure</a></li>
+</ul>
   </article>
 </section>
 

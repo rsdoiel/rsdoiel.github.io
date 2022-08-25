@@ -1,6 +1,14 @@
 ---
 title: "A Quick into to PL/pgSQL"
 pubDate: 2022-08-24
+series: "SQL Relfections"
+number: 2
+keywords:
+  - postgres
+  - sql
+  - psql
+  - plsql
+  - plpgsql
 ---
 
 A Quick intro to PL/pgSQL
@@ -39,14 +47,14 @@ We can run the procedure using the "CALL" query.
     CALL helloworld()
 ```
 
-NOTE: If you want to change or replace the procedure you need to "DROP" it first.
+NOTE: If you want to change the procedure you can "DROP" it first otherwise you'll get an error that it already exists.
 
 ```sql
     DROP PROCEDURE helloworld;
 ```
 
-My workflow
------------
+Improving my workflow
+---------------------
 
 SQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system's database. Procedures and functions are created and can be dropped. While they can be manually typed in the database's shell it is easier to maintain them in plain text files outside the RDBM environment.  
 
@@ -56,26 +64,16 @@ SQL procedures are generally stored in the RDBMs in database environment. You ca
    b. inside the Postgres shell used `\i FILENAME`
 3. Call the procedure to test it
 
-To turn these steps into a look I add a "DROP" statement before my 
-"CREATE PROCEDURE" statement. Note in the revised example the "-- " lines
-are comments.
+To turn these steps into a look I use a "CREATE OR REPLACE" statement and be able to reload the updated procedure easier see [43.12. Tips for Developing in PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql-development-tips.html).  Note in the revised example the "-- " lines are comments.
 
+Our revised [helloworld](helloworld.plpgsql).
 
 ```sql
     --
-    -- This is a basic hello world example.
-    --
-    
-    --
-    -- DROP the "helloworld" procedure if it exists already.
-    --
-    DROP PROCEDURE IF EXISTS helloworld;
-    
-    --
-    -- Create the new "helloworld" procedure.
+    -- Create (or replace) the new "helloworld" procedure.
     -- NOTE: this can be run with "CALL"
     --
-    CREATE PROCEDURE helloworld() AS $$
+    CREATE OR REPLACE PROCEDURE helloworld() AS $$
     DECLARE
     BEGIN
         RAISE NOTICE 'Hello World!';
@@ -87,19 +85,14 @@ are comments.
 Hi There
 --------
 
-`hithere` is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a "VARCHAR", so this should work as part of a select statement.
+[hithere](hithere.plpgsql) is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a "VARCHAR", so this should work as part of a select statement.
 
 ```sql
     --
     -- This is a "Hi There" function. The function takes
     -- a single parameter and forms a greeting.
     --
-    
-    DROP FUNCTION IF EXISTS hithere;
-    --
-    -- Create the new "hithere" function.
-    --
-    CREATE FUNCTION hithere(name varchar) RETURNS varchar AS $$
+    CREATE OR REPLACE FUNCTION hithere(name varchar) RETURNS varchar AS $$
     DECLARE
       greeting varchar;
     BEGIN
@@ -118,4 +111,12 @@ Giving it a try.
 ```shell
     SELECT hithere('Mojo Sam');
 ```
+
+Further reading
+---------------
+
+- [Conditionals](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS)
+- [Loops](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS)
+- [Calling a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE)
+- [Early return from a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE)
 

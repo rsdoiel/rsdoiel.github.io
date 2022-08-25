@@ -1,0 +1,16 @@
+--
+-- This is a "Hi There" function. The function takes
+-- a single parameter and forms a greeting.
+--
+CREATE OR REPLACE FUNCTION hithere(name varchar) RETURNS varchar AS $$
+DECLARE
+  greeting varchar;
+BEGIN
+    IF name = '' THEN
+        greeting := 'Hi there!';
+    ELSE
+        greeting := 'Hello ' || name || '!';
+    END IF;
+    RETURN greeting;
+END;
+$$ LANGUAGE plpgsql;

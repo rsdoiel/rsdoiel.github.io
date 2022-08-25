@@ -1,0 +1,14 @@
+--
+-- This is a basic hello world example.
+--
+
+--
+-- Create (or replace) the new "helloworld" procedure.
+-- NOTE: this can be run with "CALL"
+--
+CREATE OR REPLACE PROCEDURE helloworld() AS $$
+DECLARE
+BEGIN
+    RAISE NOTICE 'Hello World!';
+END;
+$$ LANGUAGE plpgsql;
