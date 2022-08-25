@@ -3,6 +3,8 @@ title: "Updating Schema in SQLite3"
 author: "rsdoiel@gmail.com (R. S. Doiel)"
 date: "2021-04-16"
 keywords: [ "SQLite", "SQL", "database"  ]
+series: "SQL Reflections"
+number: 1
 copyright: "copyright (c) 2021, R. S. Doiel"
 license: "https://creativecommons.org/licenses/by-sa/4.0/"
 ---

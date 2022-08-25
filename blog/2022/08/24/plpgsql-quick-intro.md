@@ -1,8 +1,10 @@
 ---
 title: "A Quick into to PL/pgSQL"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
+byline: "R. S. Doiel, 2022-08-24"
 pubDate: 2022-08-24
-series: "SQL Relfections"
-number: 2
+series: "SQL Reflections"
+number: 3
 keywords:
   - postgres
   - sql

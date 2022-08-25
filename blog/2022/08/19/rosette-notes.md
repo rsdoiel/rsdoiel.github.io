@@ -1,10 +1,10 @@
 ---
 title: "Rosette Notes: Postgres and MySQL"
-author: "R. S. Doiel"
+author: "rsdoiel@gmail.com (R. S. Doiel)"
 byline: "R. S. Doiel, 2022-08-19"
 pubDate: 2022-08-19
-series: "SQL Relfections"
-number: 1
+series: "SQL Reflections"
+number: 2
 keywords:
   - postgres
   - mysql
