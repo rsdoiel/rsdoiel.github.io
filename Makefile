@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: redirects blog nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html blog blog/index.html search.html index.html rss.xml
+all: blog blog/index.html redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml
 
 
 nav.include: nav.md

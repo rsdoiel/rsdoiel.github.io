@@ -106,6 +106,7 @@ findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
     echo "+ [$POST_TITLE](/blog/$THIS_YEAR/${ITEM/.md/.html}), $POST_DATE" >> index.md
 done
 echo "" >> index.md
+cp -vp index.md ../recent.md
 echo "Building Prior Years $LAST_YEAR to $START_YEAR"
 for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "Building index for year $Y"
@@ -122,6 +123,7 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     done
     echo "" >> index.md
 done
+
 pandoc \
     -M "year:$(date +%Y)" \
     -M "title:$TITLE" \
