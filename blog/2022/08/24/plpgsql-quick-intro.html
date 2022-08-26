@@ -33,53 +33,31 @@
 <section>
   <article>
 <h1 id="a-quick-intro-to-plpgsql">A Quick intro to PL/pgSQL</h1>
-<p>PL/pgSQL is a procedure language extended from SQL. It adds flow
-control and local state for procedures, functions and triggers.
-Procedures, functions and triggers are also the compilation unit.
-Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It
-reminds me of a mashup of ALGO and SQL. Like the unit of compilation,
-the unit of execution is also procedure, function or trigger.</p>
-<p>The Postgres documentation defines and explains the <a
-href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and
-how it works. This document is just a quick orientation with specific
-examples to provide context.</p>
+<p>PL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger.</p>
+<p>The Postgres documentation defines and explains the <a href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and how it works. This document is just a quick orientation with specific examples to provide context.</p>
 <h2 id="hello-world">Hello World</h2>
 <p>Here is a “helloworld” procedure definition.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>       RAISE NOTICE <span class="st">&#39;Hello WORLD!&#39;</span>;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">DECLARE</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>       RAISE NOTICE <span class="st">&#39;Hello WORLD!&#39;</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="cf">END</span>;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <p>Let’s take a look this line by line.</p>
 <ol type="1">
-<li>CREATE PROCEDURE defines the procedure and the starting and ending
-delimiter for the procedure (e.g. <code>AS $$</code> the procedure’s
-text ends when <code>$$</code> is encountered an second time.</li>
-<li>DECLARE is the block where you would declare the variables used in
-the procedure, we have none in this example</li>
+<li>CREATE PROCEDURE defines the procedure and the starting and ending delimiter for the procedure (e.g. <code>AS $$</code> the procedure’s text ends when <code>$$</code> is encountered an second time.</li>
+<li>DECLARE is the block where you would declare the variables used in the procedure, we have none in this example</li>
 <li>The BEGIN starts the actual procedure instructions</li>
-<li>The <code>RAISE NOTICE</code> line is how you can display output to
-the console when the procedure is run</li>
+<li>The <code>RAISE NOTICE</code> line is how you can display output to the console when the procedure is run</li>
 <li>The END completes the procedure definition</li>
-<li>the <code>$$ LANGUAGE plpgsql;</code> concludes the text defining
-the procedure and tells the database engine that procedure is written in
-PL/pgSQL.</li>
+<li>the <code>$$ LANGUAGE plpgsql;</code> concludes the text defining the procedure and tells the database engine that procedure is written in PL/pgSQL.</li>
 </ol>
 <p>We can run the procedure using the “CALL” query.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CALL</span> helloworld()</span></code></pre></div>
-<p>NOTE: If you want to change the procedure you can “DROP” it first
-otherwise you’ll get an error that it already exists.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">PROCEDURE</span> helloworld;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>    <span class="kw">CALL</span> helloworld()</span></code></pre></div>
+<p>NOTE: If you want to change the procedure you can “DROP” it first otherwise you’ll get an error that it already exists.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="kw">DROP</span> <span class="kw">PROCEDURE</span> helloworld;</span></code></pre></div>
 <h2 id="improving-my-workflow">Improving my workflow</h2>
-<p>SQL procedures are generally stored in the RDBMs in database
-environment. You can think of them as records in the system’s database.
-Procedures and functions are created and can be dropped. While they can
-be manually typed in the database’s shell it is easier to maintain them
-in plain text files outside the RDBM environment.</p>
+<p>SQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system’s database. Procedures and functions are created and can be dropped. While they can be manually typed in the database’s shell it is easier to maintain them in plain text files outside the RDBM environment.</p>
 <ol type="1">
 <li>Write the procedure in a text file.</li>
 <li>Load the text file (e.g. FILENAME) into Postgres
@@ -89,68 +67,50 @@ in plain text files outside the RDBM environment.</p>
 </ol></li>
 <li>Call the procedure to test it</li>
 </ol>
-<p>To turn these steps into a look I use a “CREATE OR REPLACE” statement
-and be able to reload the updated procedure easier see <a
-href="https://www.postgresql.org/docs/14/plpgsql-development-tips.html">43.12.
-Tips for Developing in PL/pgSQL</a>. Note in the revised example the “–”
-lines are comments.</p>
+<p>To turn these steps into a look I use a “CREATE OR REPLACE” statement and be able to reload the updated procedure easier see <a href="https://www.postgresql.org/docs/14/plpgsql-development-tips.html">43.12. Tips for Developing in PL/pgSQL</a>. Note in the revised example the “–” lines are comments.</p>
 <p>Our revised <a href="helloworld.plpgsql">helloworld</a>.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create (or replace) the new &quot;helloworld&quot; procedure.</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- </span><span class="al">NOTE</span><span class="co">: this can be run with &quot;CALL&quot;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        RAISE NOTICE <span class="st">&#39;Hello World!&#39;</span>;</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="co">--</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="co">-- Create (or replace) the new &quot;helloworld&quot; procedure.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="co">-- NOTE: this can be run with &quot;CALL&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    <span class="co">--</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">DECLARE</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>        RAISE NOTICE <span class="st">&#39;Hello World!&#39;</span>;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    <span class="cf">END</span>;</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <h2 id="hi-there">Hi There</h2>
-<p><a href="hithere.plpgsql">hithere</a> is similar to our helloworld
-example except it is a function that takes a parameter of the person’s
-name. The function returns a “VARCHAR”, so this should work as part of a
-select statement.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- This is a &quot;Hi There&quot; function. The function takes</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- a single parameter and forms a greeting.</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> hithere(name <span class="dt">varchar</span>) RETURNS <span class="dt">varchar</span> <span class="kw">AS</span> $$</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DECLARE</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      greeting <span class="dt">varchar</span>;</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">IF</span> name <span class="op">=</span> <span class="st">&#39;&#39;</span> <span class="cf">THEN</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hi there!&#39;</span>;</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hello &#39;</span> <span class="op">||</span> name <span class="op">||</span> <span class="st">&#39;!&#39;</span>;</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">END</span> <span class="cf">IF</span>;</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">RETURN</span> greeting;</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
+<p><a href="hithere.plpgsql">hithere</a> is similar to our helloworld example except it is a function that takes a parameter of the person’s name. The function returns a “VARCHAR”, so this should work as part of a select statement.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>    <span class="co">--</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    <span class="co">-- This is a &quot;Hi There&quot; function. The function takes</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="co">-- a single parameter and forms a greeting.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="co">--</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> hithere(name <span class="dt">varchar</span>) RETURNS <span class="dt">varchar</span> <span class="kw">AS</span> $$</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="kw">DECLARE</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>      greeting <span class="dt">varchar</span>;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>        <span class="cf">IF</span> name <span class="op">=</span> <span class="st">&#39;&#39;</span> <span class="cf">THEN</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hi there!&#39;</span>;</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>        <span class="cf">ELSE</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>            greeting <span class="op">:=</span> <span class="st">&#39;Hello &#39;</span> <span class="op">||</span> name <span class="op">||</span> <span class="st">&#39;!&#39;</span>;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>        <span class="cf">END</span> <span class="cf">IF</span>;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>        <span class="kw">RETURN</span> greeting;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>    <span class="cf">END</span>;</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <p>Giving it a try.</p>
 <pre class="shell"><code>    SELECT hithere(&#39;Mojo Sam&#39;);</code></pre>
 <h2 id="further-reading">Further reading</h2>
 <ul>
-<li><a
-href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Conditionals</a></li>
-<li><a
-href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS">Loops</a></li>
-<li><a
-href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE">Calling
-a procedure</a></li>
-<li><a
-href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE">Early
-return from a procedure</a></li>
+<li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Conditionals</a></li>
+<li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS">Loops</a></li>
+<li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE">Calling a procedure</a></li>
+<li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE">Early return from a procedure</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

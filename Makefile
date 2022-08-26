@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: blog blog/index.html redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml
+all: blog website blog/index.html redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml
 
 
 nav.include: nav.md
@@ -118,9 +118,10 @@ save:
 	git commit -am "Quick Save"
 	git push origin main
 
-#FIXME: Need to switch from pdtk rss to pdtk rss
-website: rss.xml all .FORCE
-	bash blog.bash
+# NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pdtk
+website: all .FORCE
+
+sitemap.xml: .FORCE
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
 publish: rss.xml all

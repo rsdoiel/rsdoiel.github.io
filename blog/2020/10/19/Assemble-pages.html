@@ -33,19 +33,9 @@
 <section>
   <article>
 <h1 id="assembling-pages">Assembling pages</h1>
-<p>This is the thirteenth post in the <a
-href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly
-Oberon</a> series. Mostly Oberon documents my exploration of the Oberon
-Language, Oberon System and the various rabbit holes I will inevitably
-fall into.</p>
+<p>This is the thirteenth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
 <h2 id="pandoc-and-json">Pandoc and JSON</h2>
-<p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown
-documents. I like to keep my front matter in JSON rather than Pandoc’s
-YAML. Fortunately Pandoc does support working with JSON as a metadata
-file include. Normally I would manually split the JSON front matter and
-the rest of the markup into two separate files, then process with Pandoc
-and other tooling like <a href="https://lunrjs.com">LunrJS</a>. <a
-href="AssemblePage.Mod">AssemblePage</a> automates this process.</p>
+<p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown documents. I like to keep my front matter in JSON rather than Pandoc’s YAML. Fortunately Pandoc does support working with JSON as a metadata file include. Normally I would manually split the JSON front matter and the rest of the markup into two separate files, then process with Pandoc and other tooling like <a href="https://lunrjs.com">LunrJS</a>. <a href="AssemblePage.Mod">AssemblePage</a> automates this process.</p>
 <p>Example shell usage:</p>
 <pre><code>
    AssemblePage MyText.txt \
@@ -56,8 +46,7 @@ href="AssemblePage.Mod">AssemblePage</a> automates this process.</p>
       --standalone \
       document.md &gt;MyText.html
 </code></pre>
-<h2 id="source-code-for-assemblepage.mod">Source code for
-<strong>AssemblePage.Mod</strong></h2>
+<h2 id="source-code-for-assemblepage.mod">Source code for <strong>AssemblePage.Mod</strong></h2>
 <pre><code>
 MODULE AssemblePage;
   IMPORT Out, Strings, Files, Args := extArgs;
@@ -159,19 +148,14 @@ END AssemblePage.
 </code></pre>
 <h3 id="next-previous">Next, Previous</h3>
 <ul>
-<li>Next <a href="../../11/27/Dates-and-Clock.html">Dates &amp;
-Clock</a></li>
-<li>Previous <a href="../../10/03/Oberon-to-markdown.html">Oberon To
-Markdown</a></li>
+<li>Next <a href="../../11/27/Dates-and-Clock.html">Dates &amp; Clock</a></li>
+<li>Previous <a href="../../10/03/Oberon-to-markdown.html">Oberon To Markdown</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
