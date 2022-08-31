@@ -33,10 +33,22 @@
 <section>
   <article>
 <h1 id="oberon-to-markdown">Oberon to Markdown</h1>
-<p>This is the twelfth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+<p>This is the twelfth post in the <a
+href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly
+Oberon</a> series. Mostly Oberon documents my exploration of the Oberon
+Language, Oberon System and the various rabbit holes I will inevitably
+fall into.</p>
 <h2 id="a-nice-feature-of-oberon">A nice feature of Oberon</h2>
-<p>Oberon source code has a very nice property in that anything after the closing end statement is ignored by the compiler. This makes it a nice place to write documentation, program notes and other ideas.</p>
-<p>I’ve gotten in the habit of writing up program docs and notes there. When I prep to make a web document I used to copy the source file, doing a cut and paste to re-order the module code to the bottom of the document. I’d follow that with adding headers and code fences. Not hard but tedious. Of course if I changed the source code I’d also have to do another cut and paste edit. This program, <code>ObnToMd.Mod</code> automates that process.</p>
+<p>Oberon source code has a very nice property in that anything after
+the closing end statement is ignored by the compiler. This makes it a
+nice place to write documentation, program notes and other ideas.</p>
+<p>I’ve gotten in the habit of writing up program docs and notes there.
+When I prep to make a web document I used to copy the source file, doing
+a cut and paste to re-order the module code to the bottom of the
+document. I’d follow that with adding headers and code fences. Not hard
+but tedious. Of course if I changed the source code I’d also have to do
+another cut and paste edit. This program, <code>ObnToMd.Mod</code>
+automates that process.</p>
 <h2 id="program-documentation">Program Documentation</h2>
 <pre><code>
 PROGRAM
@@ -68,7 +80,8 @@ BUGS
   this filename could potentially conflict with another
   file.
 </code></pre>
-<h2 id="source-code-for-obntomd.mod">Source code for <strong>ObnToMd.Mod</strong></h2>
+<h2 id="source-code-for-obntomd.mod">Source code for
+<strong>ObnToMd.Mod</strong></h2>
 <pre><code>
 (* ObnToMd.Mod - an simple filter process for reading
 an Oberon-07 module source file and rendering a markdown
@@ -242,14 +255,19 @@ END ObnToMd.
 </code></pre>
 <h3 id="next-previous">Next, Previous</h3>
 <ul>
-<li>Next <a href="../../10/19/Assemble-pages.html">Assembling Pages</a></li>
-<li>Previous <a href="../../08/15/Portable-Oberon-07.html">Portable Oberon-07</a></li>
+<li>Next <a href="../../10/19/Assemble-pages.html">Assembling
+Pages</a></li>
+<li>Previous <a href="../../08/15/Portable-Oberon-07.html">Portable
+Oberon-07</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

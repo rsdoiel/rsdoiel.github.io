@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Ordering front matter](/blog/2022/08/30/Ordering-Frontmatter.html), 2022-08-30
 + [10:30 AM, SQL: Postgres](/blog/2022/08/26/rosette-notes-2022-08-26_101030.html), 2022-08-26
 + [Postgres 14 on Ubuntu 22.04 LTS](/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html), 2022-08-26
 + [12:00 PM, SQL: Postgres](/blog/2022/08/24/rosette-notes-2022-08-24_121200.html), 2022-08-24

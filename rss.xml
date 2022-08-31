@@ -5,9 +5,16 @@
         <title>Robert&#39;s ramblings and wonderig</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Tue, 30 Aug 2022 00:00:00 +0000</lastBuildDate>
         <generator>pdtk rss 0.0.4</generator>
+        <item>
+            <title>Ordering front matter</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</link>
+            <description>A colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).&#xA;&#xA;The order he wanted in the front matter was&#xA;&#xA;- title&#xA;- interviewer&#xA;- interviewee&#xA;- abstract&#xA;&#xA;This was for a collection of oral histories. When my friend use Pandoc&#39;s `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.&#xA;&#xA;We found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes. ...</description>
+            <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</guid>
+        </item>
         <item>
             <title>Postgres 14 on Ubuntu 22.04 LTS</title>
             <link>https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html</link>

@@ -32,26 +32,78 @@
 
 <section>
   <article>
-<h1 id="software-tools-getting-started">Software Tools, Getting Started</h1>
+<h1 id="software-tools-getting-started">Software Tools, Getting
+Started</h1>
 <h2 id="overview">Overview</h2>
-<p>This post is the first in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a href="https://archive.org/details/softwaretoolsinp00kern">Software Tools in Pascal</a>. The book is available from the <a href="https://openlibrary.org/">Open Library</a> and physical copies are still (2020) commonly available from used book sellers. The book was an early text on creating portable command line programs.</p>
-<p>In this series I present the K &amp; P (i.e. Software Tools in Pascal) programs re-implemented in Oberon-07. I have testing my implementations using Karl Landström’s <a href="http://miasap.se/obnc/">OBNC</a> compiler and his implementation of the Oakwood Guide’s modules for portable Oberon programs. Karl also provides a few additional modules for working in a POSIX environment (e.g. BSD, macOS, Linux, Windows 10 with Linux subsystem). I have also tested these programs with Mike Spivey’s <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a> an aside from the differences file extensions that both compilers use the source code works the same.</p>
-<p>NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.</p>
-<p>NOTE: POSIX defines a standard of compatibility inspired by <a href="https://en.wikipedia.org/wiki/Unix">UNIX</a>, see <a href="https://en.wikipedia.org/wiki/POSIX" class="uri">https://en.wikipedia.org/wiki/POSIX</a></p>
+<p>This post is the first in a series revisiting the programs described
+in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a
+href="https://archive.org/details/softwaretoolsinp00kern">Software Tools
+in Pascal</a>. The book is available from the <a
+href="https://openlibrary.org/">Open Library</a> and physical copies are
+still (2020) commonly available from used book sellers. The book was an
+early text on creating portable command line programs.</p>
+<p>In this series I present the K &amp; P (i.e. Software Tools in
+Pascal) programs re-implemented in Oberon-07. I have testing my
+implementations using Karl Landström’s <a
+href="http://miasap.se/obnc/">OBNC</a> compiler and his implementation
+of the Oakwood Guide’s modules for portable Oberon programs. Karl also
+provides a few additional modules for working in a POSIX environment
+(e.g. BSD, macOS, Linux, Windows 10 with Linux subsystem). I have also
+tested these programs with Mike Spivey’s <a
+href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford
+Oberon Compiler</a> an aside from the differences file extensions that
+both compilers use the source code works the same.</p>
+<p>NOTE: OBNC compiler is the work of Karl Langström, it is portable
+across many systems where the C tool chain is available.</p>
+<p>NOTE: POSIX defines a standard of compatibility inspired by <a
+href="https://en.wikipedia.org/wiki/Unix">UNIX</a>, see <a
+href="https://en.wikipedia.org/wiki/POSIX"
+class="uri">https://en.wikipedia.org/wiki/POSIX</a></p>
 <h2 id="getting-started.">Getting Started.</h2>
-<p>Chapter one in K &amp; P is the first chapter that presents code. It introduces some challenges and constraints creating portable Pascal suitable for use across hardware architectures and operating systems. In 1981 this included mainframes, minicomputers as well as the recent evolution of the microcomputer. The programs presented build up from simple to increasingly complex as you move through the book. They provide example documentation and discuss their implementation choices. It is well worth reading the book for those discussions, while specific to the era, mirror the problems program authors face today in spite of the wide spread success of the POXIS model, the consolidation of CPU types and improvements made in development tools in the intervening decades.</p>
-<p>Through out K &amp; P you’ll see the bones of many POSIX commands we have today.</p>
+<p>Chapter one in K &amp; P is the first chapter that presents code. It
+introduces some challenges and constraints creating portable Pascal
+suitable for use across hardware architectures and operating systems. In
+1981 this included mainframes, minicomputers as well as the recent
+evolution of the microcomputer. The programs presented build up from
+simple to increasingly complex as you move through the book. They
+provide example documentation and discuss their implementation choices.
+It is well worth reading the book for those discussions, while specific
+to the era, mirror the problems program authors face today in spite of
+the wide spread success of the POXIS model, the consolidation of CPU
+types and improvements made in development tools in the intervening
+decades.</p>
+<p>Through out K &amp; P you’ll see the bones of many POSIX commands we
+have today.</p>
 <p>Programs from this chapter include:</p>
 <ol type="1">
 <li><strong>copyprog</strong>, this is like “cat” in a POSIX system</li>
-<li><strong>charcount</strong>, this is like the “wc” POSIX command using the “-c” option</li>
-<li><strong>linecount</strong>, this is like the “wc” POSIX command using the “-l” option</li>
-<li><strong>wordcount</strong>, this is like the “wc” POSIX command using the “-w” option</li>
-<li><strong>detab</strong>, converts tabs to spaces using tab stops every four characters in a line</li>
+<li><strong>charcount</strong>, this is like the “wc” POSIX command
+using the “-c” option</li>
+<li><strong>linecount</strong>, this is like the “wc” POSIX command
+using the “-l” option</li>
+<li><strong>wordcount</strong>, this is like the “wc” POSIX command
+using the “-w” option</li>
+<li><strong>detab</strong>, converts tabs to spaces using tab stops
+every four characters in a line</li>
 </ol>
-<p>All programs in this chapter rely solely on standard input and output. Today’s reader will notice an absence to common concepts in today’s command line programs. First is the lack of interaction with command line parameters, the second is no example take advantage of environment variables. These operating system features were not always available across operating systems of the early 1980s. Finally I’d like to point out a really nice feature included in the book. It is often left out as a topic in programming books. K &amp; P provide example documentation. It’s structure like an early UNIX man page. It very clear and short. This is something I wish all programming texts at least mentioned. Documentation is important to the program author because it clarifies scope of the problem being tackled and to the program user so they understand what they are using.</p>
-<h3 id="file-copying"><a href="https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up">1.1. File Copying</a></h3>
-<p>Here’s how K &amp; P describe “copyprog.pas” (referred to as “copy” in the documentation).</p>
+<p>All programs in this chapter rely solely on standard input and
+output. Today’s reader will notice an absence to common concepts in
+today’s command line programs. First is the lack of interaction with
+command line parameters, the second is no example take advantage of
+environment variables. These operating system features were not always
+available across operating systems of the early 1980s. Finally I’d like
+to point out a really nice feature included in the book. It is often
+left out as a topic in programming books. K &amp; P provide example
+documentation. It’s structure like an early UNIX man page. It very clear
+and short. This is something I wish all programming texts at least
+mentioned. Documentation is important to the program author because it
+clarifies scope of the problem being tackled and to the program user so
+they understand what they are using.</p>
+<h3 id="file-copying"><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up">1.1.
+File Copying</a></h3>
+<p>Here’s how K &amp; P describe “copyprog.pas” (referred to as “copy”
+in the documentation).</p>
 <pre><code>
 PROGRAM
 
@@ -79,9 +131,41 @@ EXAMPLE
     **yes, I am.**
     &lt;ENDFILE&gt;
 </code></pre>
-<p>The source code for “copyprog.pas” is shown on <a href="https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up">page 9</a> of K &amp; P. First the authors introduce the <strong>copy</strong> procedure then a complete the section introducing it in context of the complete Pascal program. After this first example K &amp; P leave implementation of the full program up to the reader.</p>
-<p>The body of the Pascal program invokes a procedure called <a href="https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up">copy</a> which reads from standard input character by character and writes to standard output character by character without modification. Two supporting procedures are introduced, “getc” and “putc”. These are shown in the complete program listing on page 9. They are repeatedly used through out the book. One of the really good aspects of this simple program is relying on the idea of standard input and output. This makes “copyprog.pas” a simple filter and template for writing many of the programs that follow. K &amp; P provide a good explanation for this simple approach. Also note K &amp; P’s rational for working character by character versus line by line.</p>
-<p>My Oberon-07 version takes a similar approach. The module looks remarkably similar to the Pascal but is shorter because reading and writing characters are provided for by Oberon’s standard modules “In” and “Out”. I have chosen to use a “REPEAT/UNTIL” loop over the “WHILE” loop used by K &amp; P is the attempt to read from standard input needs to happen at least once. Note in my “REPEAT/UNTIL” loop’s terminating condition. The value of <code>In.Done</code> is true on successful read and false otherwise (e.g. you hit an end of the file). That means our loop must terminate on <code>In.Done # TRUE</code> rather than <code>In.Done = TRUE</code>. This appears counter intuitive unless you keep in mind our loop stops when we having nothing more to read, rather than when we can continue to read. It <code>In.Done</code> means the read was successful and does not mean “I’m done and can exit now”. Likewise before writing out the character we read, it is good practice to check the <code>In.Done</code> value. If <code>In.Done</code> is TRUE, I know can safely display the character using <code>Out.Char(c);</code>.</p>
+<p>The source code for “copyprog.pas” is shown on <a
+href="https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up">page
+9</a> of K &amp; P. First the authors introduce the
+<strong>copy</strong> procedure then a complete the section introducing
+it in context of the complete Pascal program. After this first example K
+&amp; P leave implementation of the full program up to the reader.</p>
+<p>The body of the Pascal program invokes a procedure called <a
+href="https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up">copy</a>
+which reads from standard input character by character and writes to
+standard output character by character without modification. Two
+supporting procedures are introduced, “getc” and “putc”. These are shown
+in the complete program listing on page 9. They are repeatedly used
+through out the book. One of the really good aspects of this simple
+program is relying on the idea of standard input and output. This makes
+“copyprog.pas” a simple filter and template for writing many of the
+programs that follow. K &amp; P provide a good explanation for this
+simple approach. Also note K &amp; P’s rational for working character by
+character versus line by line.</p>
+<p>My Oberon-07 version takes a similar approach. The module looks
+remarkably similar to the Pascal but is shorter because reading and
+writing characters are provided for by Oberon’s standard modules “In”
+and “Out”. I have chosen to use a “REPEAT/UNTIL” loop over the “WHILE”
+loop used by K &amp; P is the attempt to read from standard input needs
+to happen at least once. Note in my “REPEAT/UNTIL” loop’s terminating
+condition. The value of <code>In.Done</code> is true on successful read
+and false otherwise (e.g. you hit an end of the file). That means our
+loop must terminate on <code>In.Done # TRUE</code> rather than
+<code>In.Done = TRUE</code>. This appears counter intuitive unless you
+keep in mind our loop stops when we having nothing more to read, rather
+than when we can continue to read. It <code>In.Done</code> means the
+read was successful and does not mean “I’m done and can exit now”.
+Likewise before writing out the character we read, it is good practice
+to check the <code>In.Done</code> value. If <code>In.Done</code> is
+TRUE, I know can safely display the character using
+<code>Out.Char(c);</code>.</p>
 <pre><code>
 MODULE CopyProg;
 IMPORT In, Out;
@@ -103,8 +187,11 @@ BEGIN
 END CopyProg.
 </code></pre>
 <h4 id="limitations">Limitations</h4>
-<p>This program only works with standard input and output. A more generalized version would work with named files.</p>
-<h3 id="counting-characters"><a href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">1.2 Counting Characters</a></h3>
+<p>This program only works with standard input and output. A more
+generalized version would work with named files.</p>
+<h3 id="counting-characters"><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">1.2
+Counting Characters</a></h3>
 <pre><code>
 PROGRAM
 
@@ -128,7 +215,20 @@ EXAMPLE
   &lt;ENDFILE&gt;
   24
 </code></pre>
-<p><a href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">On page 13</a> K &amp; P introduces their second program, <strong>charcount</strong>. It is based on a single procedure that reads from standard input and counts up the number of characters encountered then writes the total number found to standard out followed by a newline. In the text only the procedure is shown, it is assumed you’ll write the outer wrapper of the program yourself as was done with the <strong>copyprog</strong> program. My Oberon-07 version is very similar to the Pascal. Like in the our first “CopyProg” we will make use of the “In” and “Out” modules. Since we will need to write an INTEGER value we’ll also use “Out.Int()” procedure which is very similar to K &amp; P’s “putdec()”. Aside from the counting this is very simple like our first program.</p>
+<p><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up">On
+page 13</a> K &amp; P introduces their second program,
+<strong>charcount</strong>. It is based on a single procedure that reads
+from standard input and counts up the number of characters encountered
+then writes the total number found to standard out followed by a
+newline. In the text only the procedure is shown, it is assumed you’ll
+write the outer wrapper of the program yourself as was done with the
+<strong>copyprog</strong> program. My Oberon-07 version is very similar
+to the Pascal. Like in the our first “CopyProg” we will make use of the
+“In” and “Out” modules. Since we will need to write an INTEGER value
+we’ll also use “Out.Int()” procedure which is very similar to K &amp;
+P’s “putdec()”. Aside from the counting this is very simple like our
+first program.</p>
 <pre><code>
 MODULE CharCount;
 IMPORT In, Out;
@@ -155,8 +255,16 @@ BEGIN
 END CharCount.
 </code></pre>
 <h4 id="limitations-1">Limitations</h4>
-<p>The primary limitation in counting characters is most readers are interested in visible character count. In our implementation even non-printed characters are counted. Like our first program this only works on standard input and output. Ideally this should be written so it works on any file including standard input and output. If the reader implements that it could become part of a package on statistical analysis of plain text files.</p>
-<h3 id="counting-lines"><a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.3 Counting Lines</a></h3>
+<p>The primary limitation in counting characters is most readers are
+interested in visible character count. In our implementation even
+non-printed characters are counted. Like our first program this only
+works on standard input and output. Ideally this should be written so it
+works on any file including standard input and output. If the reader
+implements that it could become part of a package on statistical
+analysis of plain text files.</p>
+<h3 id="counting-lines"><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.3
+Counting Lines</a></h3>
 <pre><code>
 PROGRAM
 
@@ -178,7 +286,13 @@ EXAMPLE
   &lt;ENDFILE&gt;
   1
 </code></pre>
-<p><strong>linecount</strong>, from <a href="https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up">page 15</a> is very similar to <strong>charcount</strong> except adding a conditional count in the loop for processing the file. In our Oberon-07 implementation we’ll check if the <code>In.Char(c)</code> call was successful but we’ll add a second condition to see if the character read was a NEWLINE. If it was I increment our counter variable.</p>
+<p><strong>linecount</strong>, from <a
+href="https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up">page
+15</a> is very similar to <strong>charcount</strong> except adding a
+conditional count in the loop for processing the file. In our Oberon-07
+implementation we’ll check if the <code>In.Char(c)</code> call was
+successful but we’ll add a second condition to see if the character read
+was a NEWLINE. If it was I increment our counter variable.</p>
 <pre><code>
 MODULE LineCount;
 IMPORT In, Out;
@@ -207,8 +321,15 @@ BEGIN
 END LineCount.
 </code></pre>
 <h4 id="limitations-2">Limitations</h4>
-<p>This program assumes that NEWLINE is ASCII value 10. Line delimiters vary between operating systems. If your OS used carriage returns without a NEWLINE then this program would not count lines correctly. The reader could extend the checking to support carriage returns, new lines, and carriage return with new lines and cover most versions of line endings.</p>
-<h3 id="counting-words"><a href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.4 Counting Words</a></h3>
+<p>This program assumes that NEWLINE is ASCII value 10. Line delimiters
+vary between operating systems. If your OS used carriage returns without
+a NEWLINE then this program would not count lines correctly. The reader
+could extend the checking to support carriage returns, new lines, and
+carriage return with new lines and cover most versions of line
+endings.</p>
+<h3 id="counting-words"><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up">1.4
+Counting Words</a></h3>
 <pre><code>
 PROGRAM
 
@@ -235,9 +356,27 @@ BUGS
 
   The definition of &quot;word&quot; is simplistic.
 </code></pre>
-<p><a href="https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up">Page 17</a> brings us to the <strong>wordcount</strong> program. Counting words can be very nuanced but here K &amp; P have chosen a simple definition which most of the time is “good enough” for languages like English. A word is defined simply as an run of characters separated by a space, tab or newline characters. In practice most documents will work with this minimal definition. It also makes the code straight forward. This is a good example of taking the simple road if you can. It keeps this program short and sweet.</p>
-<p>If you follow along in the K &amp; P book note their rational and choices in arriving at there solutions. There solutions will often balance readability and clarity over machine efficiency. While the code has progressed from “if then” to “if then else if” logical sequence, the solution’s modeled remains clear. This means the person reading the source code can easily verify if the approach chosen was too simple to meet their needs or it was “good enough”.</p>
-<p>My Oberon-07 implementation is again very simple. Like in previous programs I still have an outer check to see if the read worked (i.e. “In.Done = TRUE”), otherwise the conditional logic is the same as the Pascal implementation.</p>
+<p><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up">Page
+17</a> brings us to the <strong>wordcount</strong> program. Counting
+words can be very nuanced but here K &amp; P have chosen a simple
+definition which most of the time is “good enough” for languages like
+English. A word is defined simply as an run of characters separated by a
+space, tab or newline characters. In practice most documents will work
+with this minimal definition. It also makes the code straight forward.
+This is a good example of taking the simple road if you can. It keeps
+this program short and sweet.</p>
+<p>If you follow along in the K &amp; P book note their rational and
+choices in arriving at there solutions. There solutions will often
+balance readability and clarity over machine efficiency. While the code
+has progressed from “if then” to “if then else if” logical sequence, the
+solution’s modeled remains clear. This means the person reading the
+source code can easily verify if the approach chosen was too simple to
+meet their needs or it was “good enough”.</p>
+<p>My Oberon-07 implementation is again very simple. Like in previous
+programs I still have an outer check to see if the read worked
+(i.e. “In.Done = TRUE”), otherwise the conditional logic is the same as
+the Pascal implementation.</p>
 <pre><code>
 MODULE WordCount;
 IMPORT In, Out;
@@ -274,7 +413,9 @@ BEGIN
   WordCount();
 END WordCount.
 </code></pre>
-<h2 id="removing-tabs"><a href="https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up">1.5 Removing Tabs</a></h2>
+<h2 id="removing-tabs"><a
+href="https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up">1.5
+Removing Tabs</a></h2>
 <pre><code>
 PROGRAM
 
@@ -305,11 +446,54 @@ BUGS
   detab is naive about backspaces, vertical motions, and
   non-printing characters.
 </code></pre>
-<p>The source code for “detab” can be found on <a href="https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up">page 24</a> in the last section of chapter 1. <strong>detab</strong> removes tabs and replaces them with spaces. Rather than a simple “tab” replaced with four spaces <strong>detab</strong> preserves a concept found on typewriters called “tab stops”. In 1981 typewrites were still widely used though word processing software would become common. Supporting the “tab stop” model means the program works with what office workers would expect from older tools like the typewriter or even the computer’s teletype machine. I think this shows an important aspect of writing programs. Write the program for people, support existing common concepts they will likely know.</p>
-<p>K &amp; P implementation includes separate source files for setting tab stops and checking a tab stop. The Pascal K &amp; P wrote for didn’t support separate source files or program modules. Recent Pascal versions did support the concept of modularization (e.g. UCSD Pascal). Since and significant goal of K &amp; P was portability they needed to come up with a solution that worked on the “standard” Pascal compilers available on minicomputers and mainframes and not write their solution to a specific Pascal system like UCSD Pascal (see Appendix, "IMPLEMENTATION PRIMITIVES <a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up">page 315</a>). Modularization facilitates code reuse and like information hiding is an import software technique. Unfortunately the preprocessor approach doesn’t support information hiding.</p>
-<p>To facilitate code reuse the K &amp; P book includes a preprocessor as part of the Pascal development tools (see <a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up">page 71</a> for implementation). The preprocessor written in Pascal was based on the early versions of the “C” preprocessor they had available in the early UNIX systems. Not terribly Pascal like but it worked and allowed the two files to be shared between this program and one in the next chapter.</p>
-<p>Oberon-07 of course benefits from all of Wirth’s language improvements that came after Pascal. Oberon-07 supports modules and as such there is no need for a preprocessor. Because of Oberon-07’s module support I’ve implemented the Oberon version using two files rather than three. My main program file is “Detab.Mod”, the supporting library module is “Tabs.Mod”. “Tabs” is where I define our tab stop data structure as well as the procedures that operating on that data structure.</p>
-<p>Let’s look at the first part, “Detab.Mod”. This is the module that forms the program and it features an module level “BEGIN/END” block. In that block I call “Detab();” which implements the program’s functionality. I import “In”, “Out” as before but I also import “Tabs” which I will show next. Like my previous examples I validate the read was successful before proceeding with the logic presented in the original Pascal and deciding what to write to standard output.</p>
+<p>The source code for “detab” can be found on <a
+href="https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up">page
+24</a> in the last section of chapter 1. <strong>detab</strong> removes
+tabs and replaces them with spaces. Rather than a simple “tab” replaced
+with four spaces <strong>detab</strong> preserves a concept found on
+typewriters called “tab stops”. In 1981 typewrites were still widely
+used though word processing software would become common. Supporting the
+“tab stop” model means the program works with what office workers would
+expect from older tools like the typewriter or even the computer’s
+teletype machine. I think this shows an important aspect of writing
+programs. Write the program for people, support existing common concepts
+they will likely know.</p>
+<p>K &amp; P implementation includes separate source files for setting
+tab stops and checking a tab stop. The Pascal K &amp; P wrote for didn’t
+support separate source files or program modules. Recent Pascal versions
+did support the concept of modularization (e.g. UCSD Pascal). Since and
+significant goal of K &amp; P was portability they needed to come up
+with a solution that worked on the “standard” Pascal compilers available
+on minicomputers and mainframes and not write their solution to a
+specific Pascal system like UCSD Pascal (see Appendix, “IMPLEMENTATION
+PRIMITIVES <a
+href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up">page
+315</a>). Modularization facilitates code reuse and like information
+hiding is an import software technique. Unfortunately the preprocessor
+approach doesn’t support information hiding.</p>
+<p>To facilitate code reuse the K &amp; P book includes a preprocessor
+as part of the Pascal development tools (see <a
+href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up">page
+71</a> for implementation). The preprocessor written in Pascal was based
+on the early versions of the “C” preprocessor they had available in the
+early UNIX systems. Not terribly Pascal like but it worked and allowed
+the two files to be shared between this program and one in the next
+chapter.</p>
+<p>Oberon-07 of course benefits from all of Wirth’s language
+improvements that came after Pascal. Oberon-07 supports modules and as
+such there is no need for a preprocessor. Because of Oberon-07’s module
+support I’ve implemented the Oberon version using two files rather than
+three. My main program file is “Detab.Mod”, the supporting library
+module is “Tabs.Mod”. “Tabs” is where I define our tab stop data
+structure as well as the procedures that operating on that data
+structure.</p>
+<p>Let’s look at the first part, “Detab.Mod”. This is the module that
+forms the program and it features an module level “BEGIN/END” block. In
+that block I call “Detab();” which implements the program’s
+functionality. I import “In”, “Out” as before but I also import “Tabs”
+which I will show next. Like my previous examples I validate the read
+was successful before proceeding with the logic presented in the
+original Pascal and deciding what to write to standard output.</p>
 <pre><code>
 MODULE Detab;
   IMPORT In, Out, Tabs;
@@ -350,7 +534,15 @@ BEGIN
   Detab();
 END Detab.
 </code></pre>
-<p>Our second module is “Tabs.Mod”. It provides the supporting procedures and definition of the our “TabType” data structure. For us this is the first time we write a module which “exports” procedures and type definitions. If you are new to Oberon, expected constants, variables and procedures names have a trailing "*". Otherwise the Oberon compiler will assume a local use only. This is a very powerful information hiding capability and what allows you to evolve a modules’ internal implementation independently of the programs that rely on it.</p>
+<p>Our second module is “Tabs.Mod”. It provides the supporting
+procedures and definition of the our “TabType” data structure. For us
+this is the first time we write a module which “exports” procedures and
+type definitions. If you are new to Oberon, expected constants,
+variables and procedures names have a trailing “*“. Otherwise the Oberon
+compiler will assume a local use only. This is a very powerful
+information hiding capability and what allows you to evolve a modules’
+internal implementation independently of the programs that rely on
+it.</p>
 <pre><code>
 MODULE Tabs;
 
@@ -389,9 +581,21 @@ END SetTabs;
 
 END Tabs.
 </code></pre>
-<p>NOTE: This module is used by “Detab.Mod” and “Entab.Mod” and provides for common type definitions and code reuse. We exported <code>TabType</code>, <code>TabPos</code> and <code>SetTabs</code>. Everything else is private to this module.</p>
+<p>NOTE: This module is used by “Detab.Mod” and “Entab.Mod” and provides
+for common type definitions and code reuse. We exported
+<code>TabType</code>, <code>TabPos</code> and <code>SetTabs</code>.
+Everything else is private to this module.</p>
 <h2 id="in-closing">In closing</h2>
-<p>This post briefly highlighted ports of the programs presented in Chapter 1 of “Software Tools in Pascal”. Below are links to my source files of the my implementations inspired by the K &amp; P book. Included in each Oberon module source after the module definition is transcribed text of the program documentation as well as transcribed text of the K &amp; P Pascal implementations. Each file should compiler without modification using the OBNC compiler. By default the OBNC compiler will use the module’s name as the name of the executable version. I I have used mixed case module names, if you prefer lower case executable names use the “-o” option with the OBNC compiler.</p>
+<p>This post briefly highlighted ports of the programs presented in
+Chapter 1 of “Software Tools in Pascal”. Below are links to my source
+files of the my implementations inspired by the K &amp; P book. Included
+in each Oberon module source after the module definition is transcribed
+text of the program documentation as well as transcribed text of the K
+&amp; P Pascal implementations. Each file should compiler without
+modification using the OBNC compiler. By default the OBNC compiler will
+use the module’s name as the name of the executable version. I I have
+used mixed case module names, if you prefer lower case executable names
+use the “-o” option with the OBNC compiler.</p>
 <pre><code>
     obnc -o copy CopyProg.Mod
     obnc -o charcount CharCount.Mod
@@ -399,13 +603,17 @@ END Tabs.
     obnc -o wordcount WordCount.Mod
     obnc -o detab Detab.Mod
 </code></pre>
-<p>If you happen to be using The <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a> you need to rename the files ending in “.Mod” to “.m” and you can compiler with the following command.</p>
+<p>If you happen to be using The <a
+href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford
+Oberon Compiler</a> you need to rename the files ending in “.Mod” to
+“.m” and you can compiler with the following command.</p>
 <pre><code>    obc -07 -o copyprog CopyProg.m
     obc -07 -o charcount CharCount.m
     obc -07 -o linecount LineCount.m
     obc -07 -o wordcount WordCount.m
     obc -07 -o detab Tabs.m Detab.m</code></pre>
-<p>Note the line for compiling “Detab” with <strong>obc</strong>, your local modules need to become before the module calling them.</p>
+<p>Note the line for compiling “Detab” with <strong>obc</strong>, your
+local modules need to become before the module calling them.</p>
 <ul>
 <li><a href="CopyProg.Mod">CopyProg</a></li>
 <li><a href="CharCount.Mod">CharCount</a></li>
@@ -413,7 +621,8 @@ END Tabs.
 <li><a href="WordCount.Mod">WordCount</a></li>
 <li><a href="Detab.Mod">Detab</a>
 <ul>
-<li><a href="Tabs.Mod">Tabs</a>, this one we’ll revisit in next installment.</li>
+<li><a href="Tabs.Mod">Tabs</a>, this one we’ll revisit in next
+installment.</li>
 </ul></li>
 </ul>
 <h1 id="next">Next</h1>
@@ -424,7 +633,10 @@ END Tabs.
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
