@@ -32,58 +32,17 @@
 
 <section>
   <article>
+  <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="dates-and-clock">Dates and Clock</h1>
 <p>By R. S. Doiel, 2020-11-27</p>
-<p>The <a
-href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">Oakwood</a>
-guidelines specified a common set of modules for Oberon-2 for writing
-programs outside of an Oberon System. A missing module from the Oakwood
-guidelines is modules for working with dates and the system clock.
-Fortunately the A2 Oberon System<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a> provides a template for
-that functionality. In this article I am exploring implementing the <a
-href="Dates.Mod">Dates</a> and <a href="Clock.Mod">Clock</a> modules for
-Oberon-07. I also plan to go beyond the A2 implementations and provide
-additional functionality such as parsing procedures and the ability to
-work with either the date or time related attributes separately in the
-<code>Dates.DateTime</code> record.</p>
+<p>The <a href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">Oakwood</a> guidelines specified a common set of modules for Oberon-2 for writing programs outside of an Oberon System. A missing module from the Oakwood guidelines is modules for working with dates and the system clock. Fortunately the A2 Oberon System<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> provides a template for that functionality. In this article I am exploring implementing the <a href="Dates.Mod">Dates</a> and <a href="Clock.Mod">Clock</a> modules for Oberon-07. I also plan to go beyond the A2 implementations and provide additional functionality such as parsing procedures and the ability to work with either the date or time related attributes separately in the <code>Dates.DateTime</code> record.</p>
 <h2 id="divergences">Divergences</h2>
-<p>One of the noticeable differences between Oberon-07 and Active Oberon
-is the types that functional procedures can return. We cannot return an
-Object in Oberon-07. This is not much of a handicap as we have variable
-procedure parameters. Likewise Active Oberon provides a large variety of
-integer number types. In Oberon-07 we have only INTEGER. Where I’ve
-create new procedures I’ve used the Oberon idiom of read only input
-parameters followed by variable parameters with side effects and finally
-parameters for the target record or values to be updated.</p>
+<p>One of the noticeable differences between Oberon-07 and Active Oberon is the types that functional procedures can return. We cannot return an Object in Oberon-07. This is not much of a handicap as we have variable procedure parameters. Likewise Active Oberon provides a large variety of integer number types. In Oberon-07 we have only INTEGER. Where I’ve create new procedures I’ve used the Oberon idiom of read only input parameters followed by variable parameters with side effects and finally parameters for the target record or values to be updated.</p>
 <h2 id="similarities">Similarities</h2>
-<p>In spite of the divergence I have split the module into two. The <a
-href="Dates.html">Dates</a> module is the one you would include in your
-program, it provides a DateTime record type which holds the integer
-values for year, month, day, hour, minute and second. It provides the
-means of parsing a date or time string, comparison, difference and
-addition of dates. The second module <a href="Clock.html">Clock</a>
-provides a mechanism to retrieve the real time clock value from the host
-system and map the C based time object into our own DateTime record.
-Clock is specific to OBNC method of interfacing to the C standard
-libraries of the host system. If you were to use a different Oberon
-compiled such as the Oxford Oberon Compiler you would need to
-re-implement Clock. Dates itself should be system independent and work
-with Oberon-07 compilers generally.</p>
+<p>In spite of the divergence I have split the module into two. The <a href="Dates.html">Dates</a> module is the one you would include in your program, it provides a DateTime record type which holds the integer values for year, month, day, hour, minute and second. It provides the means of parsing a date or time string, comparison, difference and addition of dates. The second module <a href="Clock.html">Clock</a> provides a mechanism to retrieve the real time clock value from the host system and map the C based time object into our own DateTime record. Clock is specific to OBNC method of interfacing to the C standard libraries of the host system. If you were to use a different Oberon compiled such as the Oxford Oberon Compiler you would need to re-implement Clock. Dates itself should be system independent and work with Oberon-07 compilers generally.</p>
 <h2 id="clock">Clock</h2>
-<p>The Clock module is built from a skeleton in Oberon-07 describing the
-signatures of the procedure and an implementation in <a
-href="Clock.c">C</a> that is built using the technique for discussed in
-my post <a href="../../05/01/Combining-Oberon-and-C.html">Combining
-Oberon-07 and C with OBNC</a>. In that article I outline Karl’s three
-step process to create a module that will be an interface to C code. In
-Step one I create the Oberon module. Normally I’d leave all procedures
-empty and develop them in C. In this specific case I went ahead and
-wrote the procedure called <code>Get</code> in Oberon and left the
-procedure <code>GetRtcTime</code> blank. This allowed OBNC to generate
-the C code for <code>Get</code> saving me some time and create the
-skeleton for <code>GetRtcTime</code> which does the work interfacing
-with the system clock via C library calls.</p>
+<p>The Clock module is built from a skeleton in Oberon-07 describing the signatures of the procedure and an implementation in <a href="Clock.c">C</a> that is built using the technique for discussed in my post <a href="../../05/01/Combining-Oberon-and-C.html">Combining Oberon-07 and C with OBNC</a>. In that article I outline Karl’s three step process to create a module that will be an interface to C code. In Step one I create the Oberon module. Normally I’d leave all procedures empty and develop them in C. In this specific case I went ahead and wrote the procedure called <code>Get</code> in Oberon and left the procedure <code>GetRtcTime</code> blank. This allowed OBNC to generate the C code for <code>Get</code> saving me some time and create the skeleton for <code>GetRtcTime</code> which does the work interfacing with the system clock via C library calls.</p>
 <p>The interface Oberon module looked like this:</p>
 <pre class="oberon"><code>
 MODULE Clock;
@@ -103,11 +62,8 @@ END Get;
 
 END Clock.
 </code></pre>
-<p>I wrote the <code>Get</code> procedure code in Oberon-07 is the OBNC
-compiler will render the Oberon as C during the compilation process. I
-save myself writing some C code in by leveraging OBNC.</p>
-<p>Step two was to write <a href="ClockTest.Mod">ClockTest.Mod</a> in
-Oberon-07.</p>
+<p>I wrote the <code>Get</code> procedure code in Oberon-07 is the OBNC compiler will render the Oberon as C during the compilation process. I save myself writing some C code in by leveraging OBNC.</p>
+<p>Step two was to write <a href="ClockTest.Mod">ClockTest.Mod</a> in Oberon-07.</p>
 <pre class="oberon"><code>
 MODULE ClockTest;
 
@@ -180,62 +136,54 @@ BEGIN
     Tests.Summarize(title, success, errors);
 END ClockTest.
 </code></pre>
-<p>ClockTest is a simple test module for <a
-href="Clock.Mod">Clock.Mod</a>. It also serves the role when compiled
-with OBNC to create the template C code for <a
-href="Clock.c">Clock.c</a>. Here’s the steps we take to generate
-<code>Clock.c</code> with OBNC:</p>
+<p>ClockTest is a simple test module for <a href="Clock.Mod">Clock.Mod</a>. It also serves the role when compiled with OBNC to create the template C code for <a href="Clock.c">Clock.c</a>. Here’s the steps we take to generate <code>Clock.c</code> with OBNC:</p>
 <pre class="shell"><code>
 obnc ClockTest.Mod
 mv .obnc/Clock.c ./
 vi Clock.c
 </code></pre>
-<p>After compiling <code>.obnc/Clock.c</code> I then moved
-<code>.obnc/Clock.c</code> to my working directory. Filled in the C
-version of <code>GetRtcTime</code> function and modified my <a
-href="Clock.Mod">Clock.Mod</a> to contain my empty procedure.</p>
-<p>The finally version of Clock.c looks like (note how we need to
-include “Clock.h” in the head of the our C source file).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">/*GENERATED BY OBNC 0.16.1*/</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;.obnc/Clock.h&quot;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define OBERON_SOURCE_FILENAME &quot;Clock.Mod&quot;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__GetRtcTime_<span class="op">(</span>OBNC_INTEGER <span class="op">*</span>second_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>minute_<span class="op">,</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     OBNC_INTEGER <span class="op">*</span>hour_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>day_<span class="op">,</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     OBNC_INTEGER <span class="op">*</span>month_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>year_<span class="op">)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time_t</span> now<span class="op">;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> tm <span class="op">*</span>time_info<span class="op">;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> time<span class="op">(</span>NULL<span class="op">);</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    time_info <span class="op">=</span> localtime<span class="op">(&amp;</span>now<span class="op">);</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>second_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_sec<span class="op">;</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>minute_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_min<span class="op">;</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>hour_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_hour<span class="op">;</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>day_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_mday<span class="op">;</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>month_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_mon<span class="op">;</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>year_ <span class="op">=</span> <span class="op">(</span>time_info<span class="op">-&gt;</span>tm_year<span class="op">)</span> <span class="op">+</span> <span class="dv">1900</span><span class="op">;</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__Get_<span class="op">(</span>OBNC_INTEGER <span class="op">*</span>time_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>date_<span class="op">)</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    OBNC_INTEGER second_<span class="op">,</span> minute_<span class="op">,</span> hour_<span class="op">,</span> day_<span class="op">,</span> month_<span class="op">,</span> year_<span class="op">;</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    Clock__GetRtcTime_<span class="op">(&amp;</span>second_<span class="op">,</span> <span class="op">&amp;</span>minute_<span class="op">,</span> </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                       <span class="op">&amp;</span>hour_<span class="op">,</span> <span class="op">&amp;</span>day_<span class="op">,</span> <span class="op">&amp;</span>month_<span class="op">,</span> <span class="op">&amp;</span>year_<span class="op">);</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">(*</span>time_<span class="op">)</span> <span class="op">=</span> <span class="op">((</span>hour_ <span class="op">*</span> <span class="dv">4096</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span>minute_ <span class="op">*</span> <span class="dv">64</span><span class="op">))</span> <span class="op">+</span> second_<span class="op">;</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">(*</span>date_<span class="op">)</span> <span class="op">=</span> <span class="op">((</span>year_ <span class="op">*</span> <span class="dv">512</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span>month_ <span class="op">*</span> <span class="dv">32</span><span class="op">))</span> <span class="op">+</span> day_<span class="op">;</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__Init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>After compiling <code>.obnc/Clock.c</code> I then moved <code>.obnc/Clock.c</code> to my working directory. Filled in the C version of <code>GetRtcTime</code> function and modified my <a href="Clock.Mod">Clock.Mod</a> to contain my empty procedure.</p>
+<p>The finally version of Clock.c looks like (note how we need to include “Clock.h” in the head of the our C source file).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="co">/*GENERATED BY OBNC 0.16.1*/</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&quot;.obnc/Clock.h&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="pp">#define OBERON_SOURCE_FILENAME &quot;Clock.Mod&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="dt">void</span> Clock__GetRtcTime_(OBNC_INTEGER *second_, OBNC_INTEGER *minute_,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>     OBNC_INTEGER *hour_, OBNC_INTEGER *day_,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>     OBNC_INTEGER *month_, OBNC_INTEGER *year_)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>{</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>    <span class="dt">time_t</span> now;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>    <span class="kw">struct</span> tm *time_info;</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>    now = time(NULL);</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>    time_info = localtime(&amp;now);</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>    *second_ = time_info-&gt;tm_sec;</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>    *minute_ = time_info-&gt;tm_min;</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>    *hour_ = time_info-&gt;tm_hour;</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a>    *day_ = time_info-&gt;tm_mday;</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a>    *month_ = time_info-&gt;tm_mon;</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>    *year_ = (time_info-&gt;tm_year) + <span class="dv">1900</span>;</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>}</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a><span class="dt">void</span> Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a>{</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a>    OBNC_INTEGER second_, minute_, hour_, day_, month_, year_;</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a>    Clock__GetRtcTime_(&amp;second_, &amp;minute_, </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a>                       &amp;hour_, &amp;day_, &amp;month_, &amp;year_);</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true"></a>    (*time_) = ((hour_ * <span class="dv">4096</span>) + (minute_ * <span class="dv">64</span>)) + second_;</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true"></a>    (*date_) = ((year_ * <span class="dv">512</span>) + (month_ * <span class="dv">32</span>)) + day_;</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true"></a>}</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true"></a><span class="dt">void</span> Clock__Init(<span class="dt">void</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true"></a>{</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true"></a>}</span></code></pre></div>
 <p>The final version of Clock.Mod looks like</p>
 <pre class="oberon"><code>
 MODULE Clock;
@@ -251,20 +199,13 @@ END Get;
 
 END Clock.
 </code></pre>
-<p>Step three was to re-compile <code>ClockTest.Mod</code> and run the
-tests.</p>
+<p>Step three was to re-compile <code>ClockTest.Mod</code> and run the tests.</p>
 <pre class="shell"><code>
     obnc ClockTest.Mod
     ./ClockTest
 </code></pre>
 <h2 id="dates">Dates</h2>
-<p>The dates module provides a rich variety of procedures for working
-with dates. This includes parsing date strings into
-<code>DateTime</code> records, testing strings for supported date
-formats, setting dates or time in a <code>DateTime</code> record as well
-as comparison, difference and addition (both addition and subtraction)
-of dates. Tests for the Dates module is implemented in <a
-href="DatesTest.Mod">DatesTest.Mod</a>.</p>
+<p>The dates module provides a rich variety of procedures for working with dates. This includes parsing date strings into <code>DateTime</code> records, testing strings for supported date formats, setting dates or time in a <code>DateTime</code> record as well as comparison, difference and addition (both addition and subtraction) of dates. Tests for the Dates module is implemented in <a href="DatesTest.Mod">DatesTest.Mod</a>.</p>
 <pre class="oberon"><code>
 MODULE Dates;
 IMPORT Chars, Strings, Clock, Convert := extConvert;
@@ -1107,35 +1048,23 @@ BEGIN
 
 END Dates.
 </code></pre>
-<p>Postscript: In this article I included a reference to the module
-<strong><a href="Chars.html">Chars</a></strong>. This is a non-standard
-module I wrote for Oberon-07. Here is a link to <a
-href="Chars.Mod">Chars</a>. RSD, 2021-05-06</p>
+<p>Postscript: In this article I included a reference to the module <strong><a href="Chars.html">Chars</a></strong>. This is a non-standard module I wrote for Oberon-07. Here is a link to <a href="Chars.Mod">Chars</a>. RSD, 2021-05-06</p>
 <h3 id="next-previous">Next, Previous</h3>
 <ul>
-<li>Next <a
-href="/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">Beyond
-Oakwood, Modules and Aliases</a></li>
-<li>Previous <a href="/blog/2020/10/19/Assemble-pages.html">Assemble
-Pages</a></li>
+<li>Next <a href="/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">Beyond Oakwood, Modules and Aliases</a></li>
+<li>Previous <a href="/blog/2020/10/19/Assemble-pages.html">Assemble Pages</a></li>
 </ul>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>A2 information can be found in the <a
-href="https://en.wikibooks.org/wiki/Oberon#In_A2">Oberon wikibook</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>A2 information can be found in the <a href="https://en.wikibooks.org/wiki/Oberon#In_A2">Oberon wikibook</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pdtk">pdtk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
