@@ -3,6 +3,7 @@ title: "Rosette Notes: Postgres and MySQL"
 author: "rsdoiel@gmail.com (R. S. Doiel)"
 byline: "R. S. Doiel, 2022-08-19"
 pubDate: 2022-08-19
+updated: 2022-09-19
 series: "SQL Reflections"
 number: 2
 keywords:
@@ -81,3 +82,8 @@ Lessons learned along the way
 2022-08-26
 
 9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \[Quickstart\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.
+
+2022-09-19
+
+10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users
+
