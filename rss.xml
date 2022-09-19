@@ -9,6 +9,13 @@
         <lastBuildDate>Mon, 19 Sep 2022 00:00:00 +0000</lastBuildDate>
         <generator>pdtk rss 0.0.4</generator>
         <item>
+            <title>PostgreSQL dump and restore</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</link>
+            <description>This is a quick note on easily dumping and restoring a specific database&#xA;in Postgres 14.5.  This example has PostgreSQL running on localhost and&#xA;[psql](https://www.postgresql.org/docs/current/app-psql.html) and&#xA;[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.&#xA;Our database administrator username is &#34;admin&#34;, the database to dump is called &#34;collections&#34;. The SQL dump&#xA;file will be named &#34;collections-dump-2022-09-19.sql&#34;.&#xA;&#xA;```shell&#xA;&#x9;pg_dump --username=admin --column-inserts \&#xA;&#x9;    collections &gt;collections-dump-2022-09-19.sql&#xA;```&#xA;&#xA;For the restore process I follow these steps&#xA;&#xA;1. Using `psql` create an empty database to restore into&#xA;2. Using `psql` replay (import) the dump file in the new database to restoring the data&#xA;&#xA;The database we want to restore our content into is called &#34;collections_snapshot&#34; ...</description>
+            <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</guid>
+        </item>
+        <item>
             <title>12:30 PM, SQL: Postgres</title>
             <link>https://rsdoiel.github.io/blog/2022/09/19/rosette-notes-2022-09-19_121230.html</link>
             <description>Post: Monday, September 19, 2022, 12:30 PM&#xA;&#xA;Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users&#xA;&#xA; ...</description>
