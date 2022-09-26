@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [7:30 AM, Golang: pttk](/blog/2022/09/26/golang-development-2022-09-26_070730.html), 2022-09-26
 + [12:30 PM, SQL: Postgres](/blog/2022/09/19/rosette-notes-2022-09-19_121230.html), 2022-09-19
 + [PostgreSQL dump and restore](/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html), 2022-09-19
 + [Ordering front matter](/blog/2022/08/30/Ordering-Frontmatter.html), 2022-08-30
@@ -14,9 +15,9 @@ Recent Posts
 + [A Quick into to PL/pgSQL](/blog/2022/08/24/plpgsql-quick-intro.html), 2022-08-24
 + [11:30 AM, SQL: Postgres](/blog/2022/08/22/rosette-notes-2022-08-22_111130.html), 2022-08-22
 + [Rosette Notes: Postgres and MySQL](/blog/2022/08/19/rosette-notes.html), 2022-08-19
-+ [Pdtk and STN](/blog/2022/08/15/golang-development.html), 2022-08-15
++ [PTTK and STN](/blog/2022/08/15/golang-development.html), 2022-08-15
 + [5:45 PM, Golang: ptdk,  stngo](/blog/2022/08/15/golang-development-2022-08-15_170545.html), 2022-08-15
-+ [5:00 PM, Golang: pdtk,  stngo](/blog/2022/08/14/golang-development-2022-08-14_170500.html), 2022-08-14
++ [5:00 PM, Golang: pttk,  stngo](/blog/2022/08/14/golang-development-2022-08-14_170500.html), 2022-08-14
 + [4:30 PM, Golang: stngo](/blog/2022/08/12/golang-development-2022-08-12_160430.html), 2022-08-12
 + [Turbo Oberon, the dream](/blog/2022/07/30/Turbo-Oberon.html), 2022-07-30
 + [Artemis Project Status, 2022](/blog/2022/07/27/Artemis-Status-Summer-2022.html), 2022-07-27

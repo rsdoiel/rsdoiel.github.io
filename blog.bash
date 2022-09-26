@@ -23,7 +23,7 @@ if [[ "$#" = "2" ]]; then
     FILENAME="${1}"
     echo "Posting markdown file into blog path $POST_PATH"
     echo "Generating directory $POST_PATH"
-    pdtk blogit -verbose -prefix=blog "$FILENAME" "${2}"
+    pttk blogit -verbose -prefix=blog "$FILENAME" "${2}"
 
     echo "Resolving $FILENAME to basename"
     FILENAME=$(basename "$FILENAME")
@@ -38,7 +38,7 @@ elif [[ "$1" != "" ]]; then
     POST_PATH=$(reldate 0 day| tr - /)
     echo "Posting markdown file into blog path $POST_PATH"
     echo "Generating directory $POST_PATH"
-    pdtk blogit -verbose -prefix=blog "$FILENAME" "${2}"
+    pttk blogit -verbose -prefix=blog "$FILENAME" "${2}"
 
     FILENAME=$(basename "$FILENAME")
     echo "Resolving $FILENAME to basename"
@@ -78,7 +78,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
             --template ../post.tmpl \
             "${Y}/${FNAME}" \
             > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"
-    done 
+    done
 done
 
 # Build index

@@ -16,9 +16,9 @@ nav.include: nav.md
 footer.include: footer.md
 	pandoc footer.md > footer.include
 
-index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md 
-	pdtk include index.txt >index.md
-	
+index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md
+	pttk include index.txt >index.md
+
 index.html: nav.include footer.include index.md page.tmpl
 	$(PANDOC) --template index.tmpl index.md > index.html
 	git add index.html
@@ -82,13 +82,13 @@ redirects: .FORCE
 	bash generate-redirect-pages.bash
 
 rss.xml: .FORCE
-	pdtk rss -channel-title="R. S. Doiel Blog" \
+	pttk rss -channel-title="R. S. Doiel Blog" \
 		-atom-link="https://rsdoiel.github.io/rss.xml" \
 		-base-url="https://rsdoiel.github.io" \
         -channel-description="Robert's ramblings and wonderigs" \
         -channel-link="https://rsdoiel.github.io/blog" \
         blog >rss.xml
-	pdtk rss -channel-title="R. S. Doiel Website" \
+	pttk rss -channel-title="R. S. Doiel Website" \
 		-atom-link="https://rsdoiel.github.io/index.xml" \
 		-base-url="https://rsdoiel.github.io" \
         -channel-description="Robert's Website" \
@@ -97,7 +97,7 @@ rss.xml: .FORCE
 
 
 blog: .FORCE
-	pdtk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
+	pttk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
 	python3 indexer.py
@@ -118,7 +118,7 @@ save:
 	git commit -am "Quick Save"
 	git push origin main
 
-# NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pdtk
+# NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pttk
 website: all .FORCE
 
 sitemap.xml: .FORCE

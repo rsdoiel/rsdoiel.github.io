@@ -5,71 +5,15 @@
         <title>Robert&#39;s ramblings and wonderig</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Mon, 19 Sep 2022 00:00:00 +0000</lastBuildDate>
-        <generator>pdtk rss 0.0.4</generator>
+        <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 26 Sep 2022 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.5</generator>
         <item>
-            <title>PostgreSQL dump and restore</title>
-            <link>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</link>
-            <description>This is a quick note on easily dumping and restoring a specific database&#xA;in Postgres 14.5.  This example has PostgreSQL running on localhost and&#xA;[psql](https://www.postgresql.org/docs/current/app-psql.html) and&#xA;[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.&#xA;Our database administrator username is &#34;admin&#34;, the database to dump is called &#34;collections&#34;. The SQL dump&#xA;file will be named &#34;collections-dump-2022-09-19.sql&#34;.&#xA;&#xA;```shell&#xA;&#x9;pg_dump --username=admin --column-inserts \&#xA;&#x9;    collections &gt;collections-dump-2022-09-19.sql&#xA;```&#xA;&#xA;For the restore process I follow these steps&#xA;&#xA;1. Using `psql` create an empty database to restore into&#xA;2. Using `psql` replay (import) the dump file in the new database to restoring the data&#xA;&#xA;The database we want to restore our content into is called &#34;collections_snapshot&#34; ...</description>
-            <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</guid>
-        </item>
-        <item>
-            <title>12:30 PM, SQL: Postgres</title>
-            <link>https://rsdoiel.github.io/blog/2022/09/19/rosette-notes-2022-09-19_121230.html</link>
-            <description>Post: Monday, September 19, 2022, 12:30 PM&#xA;&#xA;Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users&#xA;&#xA; ...</description>
-            <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/09/19/rosette-notes-2022-09-19_121230.html</guid>
-        </item>
-        <item>
-            <title>Ordering front matter</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</link>
-            <description>A colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).&#xA;&#xA;The order he wanted in the front matter was&#xA;&#xA;- title&#xA;- interviewer&#xA;- interviewee&#xA;- abstract&#xA;&#xA;This was for a collection of oral histories. When my friend use Pandoc&#39;s `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.&#xA;&#xA;We found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes. ...</description>
-            <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</guid>
-        </item>
-        <item>
-            <title>Postgres 14 on Ubuntu 22.04 LTS</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html</link>
-            <description>This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe).&#xA;&#xA;Assumptions&#xA;&#xA;- include `jane.doe` is in the sudo group&#xA;- `jane.doe` is the one logged in and installing Postgres for machine wide use&#xA;- `jane.doe` will want to work with her own database by default&#xA;&#xA;Steps&#xA;&#xA;1. Install Postgres&#xA;2. Confirm installation&#xA;3. Add `jane.doe` user providing access ...</description>
-            <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html</guid>
-        </item>
-        <item>
-            <title>10:30 AM, SQL: Postgres</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/26/rosette-notes-2022-08-26_101030.html</link>
-            <description>Post: Friday, August 26, 2022, 10:30 AM&#xA;&#xA;If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \[Quickstart\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.&#xA;&#xA; ...</description>
-            <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/26/rosette-notes-2022-08-26_101030.html</guid>
-        </item>
-        <item>
-            <title>A Quick into to PL/pgSQL</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html</link>
-            <description>PL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger.&#xA;&#xA;The Postgres documentation defines and explains the [PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql.html) and how it works.  This document is just a quick orientation with specific examples to provide context.&#xA;&#xA;Here is a &#34;helloworld&#34; procedure definition.&#xA;&#xA;```sql&#xA;    CREATE PROCEDURE helloworld() AS $$&#xA;    DECLARE&#xA;    BEGIN&#xA;       RAISE NOTICE &#39;Hello WORLD!&#39;;&#xA;    END;&#xA;    $$ LANGUAGE plpgsql;&#xA;```&#xA;&#xA;Let&#39;s take a look this line by line. ...</description>
-            <pubDate>Wed, 24 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html</guid>
-        </item>
-        <item>
-            <title>12:00 PM, SQL: Postgres</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/24/rosette-notes-2022-08-24_121200.html</link>
-            <description>Post: Wednesday, August 24, 2022, 12:00 PM&#xA;&#xA;I miss `SHOW TABLES` it&#39;s just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE &#39;pg_%&#39;&#xA;`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL&#39;s &#34;SHOW TABLES&#34;. Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.&#xA;&#xA; ...</description>
-            <pubDate>Wed, 24 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/24/rosette-notes-2022-08-24_121200.html</guid>
-        </item>
-        <item>
-            <title>11:30 AM, SQL: Postgres</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</link>
-            <description>Post: Monday, August 22, 2022, 11:30 AM&#xA;&#xA;Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &#34;REPLACE&#34; is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I&#39;ve used &#34;?&#34; with SQLite and MySQL but with Postgres I need to use &#34;$1&#34;, &#34;$2&#34;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.&#xA;&#xA; ...</description>
-            <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</guid>
-        </item>
-        <item>
-            <title>Rosette Notes: Postgres and MySQL</title>
-            <link>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</link>
-            <description>&gt; A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar&#39;s rosette&#xA;&#xA;What follows are my preliminary notes learning Postgres 12 and 14.&#xA;&#xA;This is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you&#39;re using `psql` to access Postgres and `mysql` to  access MySQL. Values between `&lt;` and `&gt;` should be replaced with an appropriate value.&#xA;&#xA;| Task                    | Postgres 14.5                     | MySQL 8           |&#xA;|-------------------------|------------------------------------|-------------------|&#xA;| show all databases      | `SELECT datname FROM pg_database;` | `SHOW DATABASES;` |&#xA;| select a database       | `\c &lt;dbname&gt;`                      | `USE &lt;dbname&gt;`    |&#xA;| show tables in database | `\dt`                              | `SHOW TABLES;`    |&#xA;| show columns in table   | `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = &#39;&lt;table_name&gt;&#39;;` | `SHOW COLUMNS IN &lt;table_name&gt;` |&#xA;&#xA;The Postgres shell, `psql`, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the `SHOW TABLES` query. For me `SHOW ...` feels like SQL where as `\d` or `\dt` takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. `\dt` quickly becomes second nature and is shorter to type than `SHOW TABLES`. ...</description>
-            <pubDate>Fri, 19 Aug 2022 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</guid>
+            <title>7:30 AM, Golang: pttk</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/26/golang-development-2022-09-26_070730.html</link>
+            <description>Post: Monday, September 26, 2022, 7:30 AM&#xA;&#xA;renamed &#34;pandoc toolkit&#34; (pdtk) to &#34;plain text toolkit&#34; (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.&#xA;&#xA; ...</description>
+            <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/26/golang-development-2022-09-26_070730.html</guid>
         </item>
     </channel>
 </rss>
