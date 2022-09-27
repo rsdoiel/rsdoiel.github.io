@@ -45,7 +45,7 @@ It was good that the error message provided a lead. It's also good that cargo ha
 
 If I wind up playing with rust more then I'll add somemore notes here in the future.
 
-My cargo/config.toml file looks like to have cargo use the git cli instead of the built in rust library.
+My `$HOME/.cargo/config.toml` file looks like to have cargo use the git cli instead of the built in rust library.
 
 ```
 [net]
