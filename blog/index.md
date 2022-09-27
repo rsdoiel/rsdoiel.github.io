@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Rust development Notes](/blog/2022/09/27/rust-development-notes.html), 2022-09-27
 + [7:30 AM, Golang: pttk](/blog/2022/09/26/golang-development-2022-09-26_070730.html), 2022-09-26
 + [12:30 PM, SQL: Postgres](/blog/2022/09/19/rosette-notes-2022-09-19_121230.html), 2022-09-19
 + [PostgreSQL dump and restore](/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html), 2022-09-19

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>rust-development-notes</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link rel="alternative" type="application/markdown" href="/blog/2022/09/27/rust-development-notes.md">
+  <meta name="keywords" content="rust, cargo, M1, macOS, ports">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+<h1 id="rust-development-notes">Rust development notes</h1>
+<p>by R. S. Doiel, 2022-09-27</p>
+<p>I recently wanted to try <a
+href="https://github.com/jansc/ncgopher">ncgopher</a> which is a <a
+href="https://rust-lang.org">rust</a> based application. I was working
+on a an M1 Mac mini. I use <a href="https://www.macports.org">Mac
+Ports</a> for my userland applications and installed <a
+href="https://doc.rust-lang.org/cargo/">cargo</a> to pickup the rust
+compiler and build tool</p>
+<pre class="shell"><code>sudo port install cargo</code></pre>
+<p>All went well until I tried to build ncgopher and got an error as
+follows</p>
+<pre><code>cargo build --release
+    Updating crates.io index
+error: Unable to update registry `crates-io`
+
+Caused by:
+  failed to fetch `https://github.com/rust-lang/crates.io-index`
+
+Caused by:
+  failed to authenticate when downloading repository: git@github.com:rust-lang/crates.io-index
+
+  * attempted ssh-agent authentication, but no usernames succeeded: `git`
+
+  if the git CLI succeeds then `net.git-fetch-with-cli` may help here
+  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli
+
+Caused by:
+  no authentication available
+make: *** [build] Error 101</code></pre>
+<p>This seemed odd as I could run
+<code>git clone git@github.com:rust-lang/crates.io-index</code>
+successfully. Re-reading the error message a dim light went on. I
+checked the cargo docs and the value <code>net.git-fetch-with-cli</code>
+defaults to false. That meant that cargo was using its own embedded git.
+OK, that makes sense but how do I fix it. I had no problem using cargo
+installed via ports on an Intel iMac so what gives? When cargo got
+installed on the M1 there was now <code>.cargo/config.toml</code> file.
+If you create this and set the value of <code>git-fetch-with-cli</code>
+to true then the problem resolves itself.</p>
+<p>It was good that the error message provided a lead. It’s also good
+that cargo has nice documentation. My experience though still left the
+taste of <a
+href="https://www.urbandictionary.com/define.php?term=coik">COIK</a>.
+Not sure how to improve the situation. It’s not really a cargo bug
+(unless config.taml should be always created), it’s not a rust bug and I
+don’t even think it is a ports packaging bug. If I was a new developer
+just getting familiar with git I don’t think I would have known how to
+solve my problem even with the documentation provided. Git is something
+that has always struggled with COIK. While I like it it does make things
+challenging.</p>
+<p>If I wind up playing with rust more then I’ll add somemore notes here
+in the future.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+</body>
+</html>
