@@ -1,5 +1,5 @@
 ---
-title: "Rust development Notes"
+title: "Rust development notes"
 pubDate: 2022-09-27
 author: 'rsdoiel@gmail.com (R. S. Doiel)'
 keywords: [ 'rust', 'cargo', 'M1', 'macOS', 'ports' ]
