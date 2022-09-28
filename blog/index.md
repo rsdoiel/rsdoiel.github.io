@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Thinking about Gopher](/blog/2022/09/28/thinking-about-gopher.html), 2022-09-28
 + [Rust development notes](/blog/2022/09/27/rust-development-notes.html), 2022-09-27
 + [7:30 AM, Golang: pttk](/blog/2022/09/26/golang-development-2022-09-26_070730.html), 2022-09-26
 + [12:30 PM, SQL: Postgres](/blog/2022/09/19/rosette-notes-2022-09-19_121230.html), 2022-09-19
