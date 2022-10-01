@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: blog website blog/index.html redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml
+all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml
 
 
 nav.include: nav.md
@@ -96,10 +96,17 @@ rss.xml: .FORCE
         . >index.xml
 
 
+phlog: .FORCE
+	pttk phlogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
+	bash phlog.bash
+	git add blog/gophermap
+	git add blog/phlog.json
+
 blog: .FORCE
 	pttk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
+	git add blog/blog.json
 	python3 indexer.py
 	git add lunr.json
 
