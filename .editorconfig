@@ -1,0 +1,31 @@
+# See https://editorconfig.org for format details and
+# https://editorconfig.org/#download for editor / IDE integration
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+charset = utf-8
+
+[*.tab,*.tsv]
+indent_style = tab
+#end_of_line = crlf
+
+# Makefiles always use tabs for indentation
+[Makefile, *.mak]
+indent_style = tab
+
+# Gopher maps
+[gophermap, *.gophermap]
+indent_style = tab
+end_of_line = crlf
+
+# We don't want to apply our defaults to third-party code or minified bundles:
+[{**/{external,vendor}/**,**.min.{js,css}}]
+indent_style = ignore
+indent_size = ignore
+
