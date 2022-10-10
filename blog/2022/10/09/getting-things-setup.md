@@ -39,3 +39,8 @@ Things to read and do
 - figure out to access comp.lang.oberon if it is available on sdf.org
 - figure out, after validation, if I can compile OBNC for working on
   Artemis and Oberon-07 code projects
+
+Updates
+-------
+
+7:30 - 7:30; Gopher; Setup; Account verified, Yippee!
