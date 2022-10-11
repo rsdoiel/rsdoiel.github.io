@@ -53,22 +53,25 @@ START_YEAR="2016"
 echo "Building $BLOG/gophermap"
 TITLE="Robert's ramblings"
 
-printf 'i\r\ni%s\r\ni\r\n' "${TITLE}" >gophermap
+printf '\r\n%s\r\n\r\n' "${TITLE}" >gophermap
 
 printf 'Building Prior Years %s to %s\n' "$THIS_YEAR" "$START_YEAR"
-for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
+for Y in $(seq "$THIS_YEAR" "$START_YEAR"); do
     printf 'Building index for year %s\n' "$Y"
-    printf 'i%s\r\n' "$Y" >> gophermap
-    printf 'i\r\n' >> gophermap
+    printf '1%s\t%s\r\n' "$Y" "$Y" >> gophermap
+    printf '\r\n' >> gophermap
     findfile -s .md "$Y" | sort -r | while read FNAME; do
-        POST_FILENAME="${BLOG}/${Y}/${FNAME}"
+        POST_FILENAME="${Y}/${FNAME}"
         ARTICLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE=$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/')
         if [ "${ARTICLE}" != "" ]; then
-          printf '0%s\t%s\t%s\t%s\r\n' "${Y}-${POST_DATE}, ${ARTICLE}" "/${POST_FILENAME}" "localhost" "7000" >> gophermap
+          printf '0%s\t%s\t%s\r\n' "${Y}-${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
         fi
     done
-    printf 'i\r\n' >> gophermap
+    printf '\r\n' >> gophermap
 done
 
 cd "$START_PATH"
+
+zip -r phlog.zip gophermap *.md
+zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
