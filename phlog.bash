@@ -65,7 +65,7 @@ for Y in $(seq "$THIS_YEAR" "$START_YEAR"); do
         ARTICLE=$(titleline -i "${Y}/${FNAME}")
         POST_DATE=$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/')
         if [ "${ARTICLE}" != "" ]; then
-          printf '0%s\t%s\t%s\n' "${Y}-${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
+          printf '0%s\t%s\t%s\n' "${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
         fi
     done
     printf '\n' >> gophermap
