@@ -133,6 +133,8 @@ sitemap.xml: .FORCE
 
 publish: rss.xml all
 	bash blog.bash
+	sitemapper . sitemap.xml http://rsdoiel.sdf.org
+	zip -r blog.zip ** -x .git gophermap *.bash ./*.zip
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin main

@@ -134,3 +134,4 @@ pandoc \
     > index.html
 
 cd "$START_PATH"
+
