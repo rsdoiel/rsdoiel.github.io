@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 10 Oct 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Mon, 10 Oct 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.5</generator>
+        <item>
+            <title>Wish list for Oberon in 2023</title>
+            <link>https://rsdoiel.github.io/blog/2022/10/16/Wishlist-Oberon-in-2023.html</link>
+            <description>Next year will be ten years since Prof. Wirth and Paul Reed released [Project Oberon 2013](https://www.projectoberon.com).  It took me most of that decade to stumble on the project and community.  I am left wondering if Prof. Wirth and Paul Reed sat down today what would they design? I think only minor changes are needed and those mostly around assumptions.&#xA;&#xA;The language of Oberon-07 doesn&#39;t need to change. I do think the assumptions of the compiler are worth revisiting.  A CHAR should not be assumed to be an eight bit byte.  A CHAR should represent a character or symbol in a language. Many if not most of the Oberon community speaks language other than American English and that which is trivially represented in seven or eight bit ASCII.  While changing the representation assumption in Oberon-07 does increase complexity I feel restrict the character presentation of a CHAR to eight bits puts us on the side of &#34;too simple&#34; in the equation of &#34;Simpler but not to simple&#34;.&#xA;&#xA;I am concerned about the assumption of an INTEGER as 32 bits. Increasingly I&#39;ve seen single board computer implementations that are 64 bits.  Today feels allot like when I started in computing where personal computers were shifting from eight or sixteen bits to thirty two.  I suspect increasingly we will find that eight, sixteen and thirty two bit computers are relegated to the realm of specialized computers. While supporting these other widths will remain important I think shifting assumptions to sixty four bit machines makes sense now. Is a 32 bit machine &#34;too simple&#34; in our equation of &#34;simpler but not too simple&#34;?&#xA;&#xA;&#xA;&#xA;The operating system I still find liberating in 2023 as when I first was able to use it.  The challenge in 2023 though is the three button mouse. I think the supporting the historic mouse remains important but that the viewers should also support navigation via the keyboard and easily support touch systems that lack a mouse.  Being backward compatibly while adopting an enhance UI would make things more complex bit if care is taken I think that it can be done while keep the equation balanced as &#34;simpler, but not too simple&#34;. ...</description>
+            <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/10/16/Wishlist-Oberon-in-2023.html</guid>
+        </item>
         <item>
             <title>7:30 AM, Gopher: Setup</title>
             <link>https://rsdoiel.github.io/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html</link>

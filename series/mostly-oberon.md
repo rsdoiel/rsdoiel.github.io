@@ -15,6 +15,7 @@ Project Status
 --------------
 
 - [Artimes Status, Summer 2022](/blog/2022/07/27/Artemis-Status-Summer-2022.html), 2022-07-27
+- [Wishlist, Oberon in 2023](/blog/2022/10/16/Wishlist-Oberon-in-2023.html), 2022-10-16
 
 Getting started 
 ---------------

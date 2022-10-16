@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Wish list for Oberon in 2023](/blog/2022/10/16/Wishlist-Oberon-in-2023.html), 2022-10-16
 + [7:30 AM, Gopher: Setup](/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html), 2022-10-10
 + [Getting things setup](/blog/2022/10/09/getting-things-setup.html), 2022-10-09
 + [Thinking about Gopher](/blog/2022/09/28/thinking-about-gopher.html), 2022-09-28
