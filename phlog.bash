@@ -56,7 +56,7 @@ TITLE="Robert's ramblings"
 printf '\n%s\n\n' "${TITLE}" >gophermap
 
 printf 'Building Prior Years %s to %s\n' "$THIS_YEAR" "$START_YEAR"
-for Y in $(seq "$THIS_YEAR" "$START_YEAR"); do
+for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
     printf 'Building index for year %s\n' "$Y"
     printf '1%s\t%s\n' "$Y" "$Y" >> gophermap
     printf '\n' >> gophermap
