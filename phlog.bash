@@ -82,3 +82,4 @@ done
 
 zip -r phlog.zip gophermap *.md
 zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
+zip -r phlog.zip $(find series -type f | grep -v -E ".html$")
