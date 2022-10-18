@@ -30,4 +30,7 @@ Transforming my assumptions in 2023
 
 I think the Artemis Project should presume that the representation of CHAR and INTEGER may change and probably should change. The portable modules should support compiling Oberon-07 programs on non-Oberon 2014 Systems without change.  I am skeptical that I can create a module system that provides a base line with the historic Oberon implementations. I think the Oakwood modules are just too limited. I think the assumption is I need implementations for Project Oberon 2013 modules as the base line perhaps enhanced with a few additional modules to supporting networking, UTF-8, JSON, and XML. The goal I think is that using Artemis on a non-Oberon System should facilitate bootstrapping an Oberon System 2023 should one come to exist.
 
+Errata
+------
 
+7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.

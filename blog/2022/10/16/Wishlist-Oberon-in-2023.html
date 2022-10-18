@@ -86,6 +86,17 @@ line perhaps enhanced with a few additional modules to supporting
 networking, UTF-8, JSON, and XML. The goal I think is that using Artemis
 on a non-Oberon System should facilitate bootstrapping an Oberon System
 2023 should one come to exist.</p>
+<h2 id="errata">Errata</h2>
+<p>7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to
+me that while the SYSTEM module will need to address the specifics of
+the hardware and host environment it could support a minimum set of
+useful constants. What would be extremely helpful would be able to rely
+on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or
+32 bits), default character encoding used by the compiler (e.g. ASCII,
+UTF-8). Likewise it would be extremely helpful to know the the CPU type
+(e.g. arm64, amd64, x86-32), Operating System/version and name/version
+of the compiler. I think this would allow the modules that depend on
+SYSTEM directly to become slightly more portable.</p>
   </article>
 </section>
 

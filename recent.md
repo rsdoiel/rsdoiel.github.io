@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [7:30 AM, Oberon Language: A minimum SYSTEM module](/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html), 2022-10-18
 + [Wish list for Oberon in 2023](/blog/2022/10/16/Wishlist-Oberon-in-2023.html), 2022-10-16
 + [7:30 AM, Gopher: Setup](/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html), 2022-10-10
 + [Getting things setup](/blog/2022/10/09/getting-things-setup.html), 2022-10-09

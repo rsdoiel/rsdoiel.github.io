@@ -9,13 +9,25 @@ HOST = localhost
 
 PORT = 7000
 
+YEARS="2022,2021,2020,2019,2018,2017,2016"
+
+MARKDOWN_FILES = $(shell find . -type f | grep -E '\.md$' | grep -v 'nav.md')
+
 all: blog/gophermap gophermap
 
-blog/gophermap: phlog.json
-    echo "FIXME: build blog/gophermap"
+blog/gophermap: blog/phlog.json
 
-gophermap: *.md
-    echo "FIXME: build site gophermap"
+blog/phlog.json: blog/_masthead
+	pttk phlogit -prefix=blog -refresh="$(YEARS)" -masthead=blog_masthead
+
+blog_masthead: .FORCE
+	touch blog_masthead
+
+gophermap: site_masthead $(MARKDOWN_FILES)
+	pttk gophermap -refresh="$(MARKDOWN_FILES)" -masthead=site_masthead
+
+site_masthead: .FORCE
+	touch site_masthead
 
 status:
 	git status
