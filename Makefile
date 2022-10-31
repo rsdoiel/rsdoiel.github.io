@@ -98,7 +98,7 @@ rss.xml: .FORCE
 
 phlog: .FORCE
 	bash phlog.bash
-	git add $(find . -name gophermap)
+	git add $(shell find . -name gophermap)
 	git add blog/phlog.json
 
 blog: .FORCE
