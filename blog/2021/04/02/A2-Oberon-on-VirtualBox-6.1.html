@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.md">
-  <meta name="keywords" content="FreeDOS 1.2, VirtualBox 6.1, A2 Oberon">
+  <meta name="keywords" content="FreeDOS 1.2, VirtualBox 6.1, A2
+Oberon">
 </head>
 <body>
 <nav>
@@ -36,7 +37,10 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="a2-oberon-on-virtualbox-6.1">A2 Oberon on VirtualBox 6.1</h1>
 <p>By R. S. Doiel, 2021-04-02</p>
-<p>This is a short article documenting how I install A2 Oberon in VirtualBox using the <a href="https://freedos.org">FreeDOS 1.2</a>, the A2 <a href="https://sourceforge.net/projects/a2oberon/files/">ISO</a> cd image and <a href="https://virtualbox.org">VirtualBox 6.1</a>.</p>
+<p>This is a short article documenting how I install A2 Oberon in
+VirtualBox using the <a href="https://freedos.org">FreeDOS 1.2</a>, the
+A2 <a href="https://sourceforge.net/projects/a2oberon/files/">ISO</a> cd
+image and <a href="https://virtualbox.org">VirtualBox 6.1</a>.</p>
 <h2 id="basic-approach">Basic Approach</h2>
 <ol type="1">
 <li>Download the ISO images for FreeDOS and A2</li>
@@ -44,41 +48,126 @@
 <li>Install FreeDOS 1.2 (Base install) in the virtual machine</li>
 <li>Install A2 from the ISO image over the FreeDOS installation</li>
 </ol>
-<p>From working with Native Oberon 2.3.7 I’ve found it very helpful to have a FreeDOS 1.2. installed in the Virtual machine first. I suspect the reason I have had better luck taking this approach is based on assumptions about the virtual hard disk being setup with an existing known formatted, boot-able partition. In essence making our Virtualbox look like a fresh out of the box vintage PC.</p>
-<h2 id="download-the-iso-images-for-freedos-and-a2">Download the ISO Images for FreeDOS and A2</h2>
-<p>You’ll find FreeDOS 1.2 installation ISO image at <a href="http://freedos.org/download/">FreeDos.org</a>. Download it where you can easily find it from the VirtualBox manager.</p>
-<p>You’ll find the A2 Oberon ISO image at <a href="https://sourceforge.net/projects/a2oberon/files/">SourceForge</a> in the A2 Files section. There is a green download button you can click and it’ll take you to a downloads page and download the ISO. Once again move it to where you can find it from the VirtualBox manager easily.</p>
+<p>From working with Native Oberon 2.3.7 I’ve found it very helpful to
+have a FreeDOS 1.2. installed in the Virtual machine first. I suspect
+the reason I have had better luck taking this approach is based on
+assumptions about the virtual hard disk being setup with an existing
+known formatted, boot-able partition. In essence making our Virtualbox
+look like a fresh out of the box vintage PC.</p>
+<h2 id="download-the-iso-images-for-freedos-and-a2">Download the ISO
+Images for FreeDOS and A2</h2>
+<p>You’ll find FreeDOS 1.2 installation ISO image at <a
+href="http://freedos.org/download/">FreeDos.org</a>. Download it where
+you can easily find it from the VirtualBox manager.</p>
+<p>You’ll find the A2 Oberon ISO image at <a
+href="https://sourceforge.net/projects/a2oberon/files/">SourceForge</a>
+in the A2 Files section. There is a green download button you can click
+and it’ll take you to a downloads page and download the ISO. Once again
+move it to where you can find it from the VirtualBox manager easily.</p>
 <h2 id="create-a-new-virtual-machine">Create a new Virtual Machine</h2>
-<p>Fire up VirtualBox. Click the “New” icon. Given your machine a descriptive name and set the Type to “Other” and version to “DOS”. Click Next.</p>
-<p>On the Memory Size panel select the memory size you want. I picked 2048 MB. A2 like other Oberon are frugal in resource consumption. Click Next.</p>
-<p>On the Hard Disk panel I accepted the default “Create a virtual hard disk now” and clicked “Create” button at the bottom of the panel.</p>
-<p>I accepted the default “VDI (VirtualBox Disk Image)” and clicked Next.</p>
+<p>Fire up VirtualBox. Click the “New” icon. Given your machine a
+descriptive name and set the Type to “Other” and version to “DOS”. Click
+Next.</p>
+<p>On the Memory Size panel select the memory size you want. I picked
+2048 MB. A2 like other Oberon are frugal in resource consumption. Click
+Next.</p>
+<p>On the Hard Disk panel I accepted the default “Create a virtual hard
+disk now” and clicked “Create” button at the bottom of the panel.</p>
+<p>I accepted the default “VDI (VirtualBox Disk Image)” and clicked
+Next.</p>
 <p>I accepted “Dynamically allocated” and clicked Next.</p>
-<p>I accepted the default name and 500 MB disk size and clicked Create.</p>
-<p>This returned me to the main VirtualBox manager panel. I click on the “Settings” icon. This opens the Settings panel. I Clicked on the “Display” label in the left side of the panel. On the “Screen” tab I increased the Video Memory from 6 MB to 128 MB. I also checked the “Enable 3D Acceleration” box.</p>
-<p>Next I clicked “Network” label in the left side of the panel. I changed the Attached to from “NAT” to “Bridged Adapter” before clicking “OK”. This should return you to the manager panel.</p>
-<p>Scroll down the description of your virtual machine so that the “Storage” section is visible. You should see “IDE Secondary Device 0: [Optical Drive] Empty”. Click the the words “Optical Drive”. You be given a context menu, click on “Choose a Disk file”. Navigate to where you saved the FressDOS ISO (e.g. FD12CD.iso). Click Open. This should return you to the manager panel and you should see the “FD12CD.iso” file listed.</p>
+<p>I accepted the default name and 500 MB disk size and clicked
+Create.</p>
+<p>This returned me to the main VirtualBox manager panel. I click on the
+“Settings” icon. This opens the Settings panel. I Clicked on the
+“Display” label in the left side of the panel. On the “Screen” tab I
+increased the Video Memory from 6 MB to 128 MB. I also checked the
+“Enable 3D Acceleration” box.</p>
+<p>Next I clicked “Network” label in the left side of the panel. I
+changed the Attached to from “NAT” to “Bridged Adapter” before clicking
+“OK”. This should return you to the manager panel.</p>
+<p>Scroll down the description of your virtual machine so that the
+“Storage” section is visible. You should see “IDE Secondary Device 0:
+[Optical Drive] Empty”. Click the the words “Optical Drive”. You be
+given a context menu, click on “Choose a Disk file”. Navigate to where
+you saved the FressDOS ISO (e.g. FD12CD.iso). Click Open. This should
+return you to the manager panel and you should see the “FD12CD.iso” file
+listed.</p>
 <h2 id="install-freedos-1.2">Install FreeDOS 1.2</h2>
-<p>Click the “Start” button. This should boot the machine. By default the search order for booting is floppy drive, CD-ROM drive then hard disk. Since we have the FD12CD.iso mounted in the cd ROM drive it’ll boot using it.</p>
-<p>When you see the “Welcome” screen press the tab key. You should see a line describing the image it’ll boot. Click into the Virtual machine’s window and press the space bar then type “raw” (without the quotes). Press the enter key.</p>
-<p>This should return you to the install process, select your language (e.g. English for me). The select “Yes - Continue with the installations”. On the next screen select “Yes - Partition drive C:”. Then select “Yes - Please reboot now”. This will reboot the machine and bring you back to the Welcome page. Once again press the tab key, press the space bar and type in “raw” (without the quotes).</p>
-<p>As before select your language and select “Yes - Continue with the installation”. This time you should see the option “Yes - Please erase and format drive C:”, select it. After formatting it ask you to select your keyboard type. It will then give you the option of installing base or full installations (with our without source). I suggest only selecting “Base packages only”.</p>
-<p>On the next screen select “Yes - Please install FreeDOS 1.2”. After it finishes you can select “Yes - Please reboot now”. When the machine reboots you’ll see the welcome screen again but rather than press tab, select “Boot system from hard disk”. Press enter to select the extended memory manager and you should now be at the DOS “C:&gt;” prompt.</p>
-<p>Switch back to the VirtualBox manager panel and click on “Optical Drive” and click “Remove disk from virtual drive”.</p>
+<p>Click the “Start” button. This should boot the machine. By default
+the search order for booting is floppy drive, CD-ROM drive then hard
+disk. Since we have the FD12CD.iso mounted in the cd ROM drive it’ll
+boot using it.</p>
+<p>When you see the “Welcome” screen press the tab key. You should see a
+line describing the image it’ll boot. Click into the Virtual machine’s
+window and press the space bar then type “raw” (without the quotes).
+Press the enter key.</p>
+<p>This should return you to the install process, select your language
+(e.g. English for me). The select “Yes - Continue with the
+installations”. On the next screen select “Yes - Partition drive C:”.
+Then select “Yes - Please reboot now”. This will reboot the machine and
+bring you back to the Welcome page. Once again press the tab key, press
+the space bar and type in “raw” (without the quotes).</p>
+<p>As before select your language and select “Yes - Continue with the
+installation”. This time you should see the option “Yes - Please erase
+and format drive C:”, select it. After formatting it ask you to select
+your keyboard type. It will then give you the option of installing base
+or full installations (with our without source). I suggest only
+selecting “Base packages only”.</p>
+<p>On the next screen select “Yes - Please install FreeDOS 1.2”. After
+it finishes you can select “Yes - Please reboot now”. When the machine
+reboots you’ll see the welcome screen again but rather than press tab,
+select “Boot system from hard disk”. Press enter to select the extended
+memory manager and you should now be at the DOS “C:&gt;” prompt.</p>
+<p>Switch back to the VirtualBox manager panel and click on “Optical
+Drive” and click “Remove disk from virtual drive”.</p>
 <h2 id="installing-a2-oberon">Installing A2 Oberon</h2>
-<p>We now should have a Virtual Machine ready to receive A2. Click the “Optical Drive” again and select the A2 ISO image you downloaded from SourceForge previously. Your optical drive should show the full filename of the ISO image, e.g. “A2_Rev-6498_serial-trace.iso” We can now click the “Start” icon in the manager panel.</p>
-<p>A2 comes up running like a “live CD”. It’s the full A2 so you can play around with it if you want but we’re going to install it on our virtual hard drive. At the bottom of the A2 desktop you should see a panel of buttons. Click the button labeled “System”. This will change the panel buttons below it. In the lower panel you should see “Installer”, click it. This will bring up a “Welcome to Oberon” installer window. You will see two presentations of drives. The upper one will be the hard drive where we want to install A2 and the lower one is the virtual CD ROM we’re running. Click on the bar for the hard disk. Before click the drive bar was red. After clicking it was yellow. The text label above the var says, “IDE0 (VBOX HARD DISK), Size 500 MB, Open count 0”.</p>
-<p>In the lower part of the panel click “Quickinstall”, then answer Yes to the model dialog that pops up. After a few moments A2 should finish installing itself on the virtual hard disk. The lower panel’s buttons will include one labeled “Done”, press it. This will close the installer window.</p>
-<p>At the bottom of the desktop you should still see the System panel buttons. There is a red one labeled “Shutdown”. Press it.</p>
-<p>The virtual machine’s screen should go black. On my machine I press the right control key (the host key) to release my mouse and keyboard from the virtual machine. Close the window and when it select “Power of the machine” in when VirtualBox prompts how to shut it down.</p>
-<p>Like with the FD12CD.iso we want to unmount our A2 installation CD ROM. Click on the “Optical Drive” in the manager panel and choose “Remove disk from virtual Drive”.</p>
-<p>You can now start the machine again and start exploring A2. I recommend looking at the <a href="https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS">Oberon Wikibook</a> for details about how to use A2 and ideas of what to explore.</p>
-<p>One nice feature of A2 is it includes a full “NativeOberon” or ETH Oberon as an A2 Application.</p>
+<p>We now should have a Virtual Machine ready to receive A2. Click the
+“Optical Drive” again and select the A2 ISO image you downloaded from
+SourceForge previously. Your optical drive should show the full filename
+of the ISO image, e.g. “A2_Rev-6498_serial-trace.iso” We can now click
+the “Start” icon in the manager panel.</p>
+<p>A2 comes up running like a “live CD”. It’s the full A2 so you can
+play around with it if you want but we’re going to install it on our
+virtual hard drive. At the bottom of the A2 desktop you should see a
+panel of buttons. Click the button labeled “System”. This will change
+the panel buttons below it. In the lower panel you should see
+“Installer”, click it. This will bring up a “Welcome to Oberon”
+installer window. You will see two presentations of drives. The upper
+one will be the hard drive where we want to install A2 and the lower one
+is the virtual CD ROM we’re running. Click on the bar for the hard disk.
+Before click the drive bar was red. After clicking it was yellow. The
+text label above the var says, “IDE0 (VBOX HARD DISK), Size 500 MB, Open
+count 0”.</p>
+<p>In the lower part of the panel click “Quickinstall”, then answer Yes
+to the model dialog that pops up. After a few moments A2 should finish
+installing itself on the virtual hard disk. The lower panel’s buttons
+will include one labeled “Done”, press it. This will close the installer
+window.</p>
+<p>At the bottom of the desktop you should still see the System panel
+buttons. There is a red one labeled “Shutdown”. Press it.</p>
+<p>The virtual machine’s screen should go black. On my machine I press
+the right control key (the host key) to release my mouse and keyboard
+from the virtual machine. Close the window and when it select “Power of
+the machine” in when VirtualBox prompts how to shut it down.</p>
+<p>Like with the FD12CD.iso we want to unmount our A2 installation CD
+ROM. Click on the “Optical Drive” in the manager panel and choose
+“Remove disk from virtual Drive”.</p>
+<p>You can now start the machine again and start exploring A2. I
+recommend looking at the <a
+href="https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS">Oberon
+Wikibook</a> for details about how to use A2 and ideas of what to
+explore.</p>
+<p>One nice feature of A2 is it includes a full “NativeOberon” or ETH
+Oberon as an A2 Application.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

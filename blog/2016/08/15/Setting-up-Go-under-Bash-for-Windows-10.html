@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.md">
-  <meta name="keywords" content="Golang, Windows, Bash, Linux Subsystem">
+  <meta name="keywords" content="Golang, Windows, Bash, Linux
+Subsystem">
 </head>
 <body>
 <nav>
@@ -34,21 +35,28 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="exploring-bash-for-windows-10-pro">Exploring Bash for Windows 10 Pro</h1>
+<h1 id="exploring-bash-for-windows-10-pro">Exploring Bash for Windows 10
+Pro</h1>
 <p>By R. S. Doiel 2016-08-15</p>
 <pre><code>UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
 Windows 10 Pro I&#39;ve am getting compile errors when the 
 assembler is being built.  I can compile go1.4.3 but see errors 
 in some of the tests results.</code></pre>
-<h2 id="initial-setup-and-configuration">Initial Setup and configuration</h2>
-<p>I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores. After the upgrade I took the following steps</p>
+<h2 id="initial-setup-and-configuration">Initial Setup and
+configuration</h2>
+<p>I am running Windows 10 Pro (64bit) Anniversary edition under Virtual
+Box. The VM was upgraded from an earlier version of Windows 10 Pro
+(64bit). The VM was allocated 4G or ram, 200G disc and simulating 2
+cores. After the upgrade I took the following steps</p>
 <ul>
 <li>Search with Bing for “Bash for Windows”
 <ul>
-<li>Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/</li>
+<li>Bing returns
+http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/</li>
 </ul></li>
 <li>Switch on developer mode for Windows</li>
-<li>Turned on Linux Subsystem Beta (searched for “Turning on Features”)</li>
+<li>Turned on Linux Subsystem Beta (searched for “Turning on
+Features”)</li>
 <li>Reboot</li>
 <li>Search for “Bash” and clicked on “Run Bash command”</li>
 <li>Answered “y”</li>
@@ -62,8 +70,10 @@ in some of the tests results.</code></pre>
 <li>Launched “Bash on Ubuntu on Windows”</li>
 <li>Authenticate with your username/password</li>
 </ul>
-<h2 id="setting-up-go-under-bash-for-windows-10">Setting up Go under Bash for Windows 10</h2>
-<p>With Bash installed these are the steps I took to compile Go under Bash on Ubuntu on Windows.</p>
+<h2 id="setting-up-go-under-bash-for-windows-10">Setting up Go under
+Bash for Windows 10</h2>
+<p>With Bash installed these are the steps I took to compile Go under
+Bash on Ubuntu on Windows.</p>
 <pre class="shell"><code>    sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
     sudo apt-get autoremove
     sudo apt-get install build-essential clang git-core unzip zip -y
@@ -83,13 +93,19 @@ in some of the tests results.</code></pre>
     cd
     export PATH=$HOME/go/bin:$HOME/bin:$PATH
     export GOPATH=$HOME</code></pre>
-<p>Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed around network sockets. This is probably a result of the limitations in the Linux subsystem under Windows.</p>
-<p>If successful you should be able to run <code>go version</code> as well as install additional Go based software with the usual <code>go get ...</code> syntax.</p>
-<p>In your <code>.bashrc</code> or <code>.profile</code> add the following</p>
+<p>Note some tests failing during compilation in both 1.4.3 and 1.7.
+They mostly failed around network sockets. This is probably a result of
+the limitations in the Linux subsystem under Windows.</p>
+<p>If successful you should be able to run <code>go version</code> as
+well as install additional Go based software with the usual
+<code>go get ...</code> syntax.</p>
+<p>In your <code>.bashrc</code> or <code>.profile</code> add the
+following</p>
 <pre class="shell"><code>    export PATH=$HOME/go/bin:$HOME/bin:$PATH
     export GOPATH=$HOME</code></pre>
 <h2 id="improved-vim-setup">Improved vim setup</h2>
-<p>I like the vim-go packages for editing Go code in vim. They are easy to setup.</p>
+<p>I like the vim-go packages for editing Go code in vim. They are easy
+to setup.</p>
 <pre class="shell"><code>     mkdir -p ~/.vim/autoload ~/.vim/bundle 
      curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
      git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go</code></pre>
@@ -105,18 +121,27 @@ in some of the tests results.</code></pre>
     set expandtab
     let &amp;background = ( &amp;background == &quot;dark&quot;? &quot;light&quot; : &quot;dark&quot; )
     let g:vim_markdown_folding_disabled=1</code></pre>
-<p>Color schemes are browsable at <a href="http://vimcolors.com">vimcolors.com</a>. They can be installed in $HOME/.vim/colors.</p>
+<p>Color schemes are browsable at <a
+href="http://vimcolors.com">vimcolors.com</a>. They can be installed in
+$HOME/.vim/colors.</p>
 <ol type="1">
 <li>git clone and place the colorscheme</li>
-<li>place the *.vim file holding the color scheme into $HOME/.vim/colors</li>
-<li>start vim and at the : do colorscheme NAME where NAME is the scheme you want to try</li>
+<li>place the *.vim file holding the color scheme into
+$HOME/.vim/colors</li>
+<li>start vim and at the : do colorscheme NAME where NAME is the scheme
+you want to try</li>
 </ol>
-<p>You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number e.g. /usr/share/vim/vim74/colors.</p>
+<p>You can find the default shipped color schemes in
+/usr/share/vim/vimNN/colors where vimNN is the version number
+e.g. /usr/share/vim/vim74/colors.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
