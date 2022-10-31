@@ -64,7 +64,7 @@ START_YEAR="2016"
 for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
     echo "Rendering posts for $CUR_YEAR"
     findfile -s ".md" "${Y}" | sort -r | while read FNAME; do
-        TITLE=$(titleline -i "${Y}/${FNAME}")
+        TITLE=$(pttk frontmatter "${Y}/${FNAME}" | jq -r .title)
         POST_DATE="${Y}-"$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         echo "Rendering ${Y}/${FNAME}: \"${TITLE}\", ${POST_DATE}"
         if [ "${title}" = "" ]; then
@@ -99,7 +99,7 @@ echo "Building Index for $THIS_YEAR posts"
 findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
     echo "Processing index.md <-- $THIS_YEAR/$ITEM"
     POST_FILENAME=$THIS_YEAR/$ITEM
-    POST_TITLE=$(titleline -i "$POST_FILENAME")
+    POST_TITLE=$(pttk frontmatter "$POST_FILENAME" | jq -r .title)
     REL_PATH="$THIS_YEAR/$ITEM"
     POST_DATE=$(dirname "$REL_PATH")
     POST_DATE=${POST_DATE//\//-}
@@ -115,7 +115,7 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "" >> index.md
     findfile -s .html "$Y" | sort -r | while read FNAME; do
         POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html")"
-        ARTICLE=$(titleline -i "${Y}/${POST_FILENAME}.md")
+        ARTICLE=$(pttk frontmatter "${Y}/${POST_FILENAME}.md" | jq -r .title)
         POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
         if [ "${ARTICLE}" != "" ]; then
           echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md

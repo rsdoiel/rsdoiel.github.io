@@ -11,8 +11,7 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2022/10/16/Wishlist-Oberon-in-2023.md">
-  <meta name="keywords" content="Oberon, Oberon-07, Oberon
-System, Artemis">
+  <meta name="keywords" content="Oberon, Oberon-07, Oberon System, Artemis">
 </head>
 <body>
 <nav>
@@ -36,75 +35,21 @@ System, Artemis">
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="wish-list-for-oberon-in-2023">Wish list for Oberon in 2023</h1>
-<p>Next year will be ten years since Prof. Wirth and Paul Reed released
-<a href="https://www.projectoberon.com">Project Oberon 2013</a>. It took
-me most of that decade to stumble on the project and community. I am
-left wondering if Prof. Wirth and Paul Reed sat down today what would
-they design? I think only minor changes are needed and those mostly
-around assumptions.</p>
-<h2 id="oberon-07-changing-assumptions">Oberon-07 changing
-assumptions</h2>
-<p>The language of Oberon-07 doesn’t need to change. I do think the
-assumptions of the compiler are worth revisiting. A CHAR should not be
-assumed to be an eight bit byte. A CHAR should represent a character or
-symbol in a language. Many if not most of the Oberon community speaks
-language other than American English and that which is trivially
-represented in seven or eight bit ASCII. While changing the
-representation assumption in Oberon-07 does increase complexity I feel
-restrict the character presentation of a CHAR to eight bits puts us on
-the side of “too simple” in the equation of “Simpler but not to
-simple”.</p>
-<p>I am concerned about the assumption of an INTEGER as 32 bits.
-Increasingly I’ve seen single board computer implementations that are 64
-bits. Today feels allot like when I started in computing where personal
-computers were shifting from eight or sixteen bits to thirty two. I
-suspect increasingly we will find that eight, sixteen and thirty two bit
-computers are relegated to the realm of specialized computers. While
-supporting these other widths will remain important I think shifting
-assumptions to sixty four bit machines makes sense now. Is a 32 bit
-machine “too simple” in our equation of “simpler but not too
-simple”?</p>
+<p>Next year will be ten years since Prof. Wirth and Paul Reed released <a href="https://www.projectoberon.com">Project Oberon 2013</a>. It took me most of that decade to stumble on the project and community. I am left wondering if Prof. Wirth and Paul Reed sat down today what would they design? I think only minor changes are needed and those mostly around assumptions.</p>
+<h2 id="oberon-07-changing-assumptions">Oberon-07 changing assumptions</h2>
+<p>The language of Oberon-07 doesn’t need to change. I do think the assumptions of the compiler are worth revisiting. A CHAR should not be assumed to be an eight bit byte. A CHAR should represent a character or symbol in a language. Many if not most of the Oberon community speaks language other than American English and that which is trivially represented in seven or eight bit ASCII. While changing the representation assumption in Oberon-07 does increase complexity I feel restrict the character presentation of a CHAR to eight bits puts us on the side of “too simple” in the equation of “Simpler but not to simple”.</p>
+<p>I am concerned about the assumption of an INTEGER as 32 bits. Increasingly I’ve seen single board computer implementations that are 64 bits. Today feels allot like when I started in computing where personal computers were shifting from eight or sixteen bits to thirty two. I suspect increasingly we will find that eight, sixteen and thirty two bit computers are relegated to the realm of specialized computers. While supporting these other widths will remain important I think shifting assumptions to sixty four bit machines makes sense now. Is a 32 bit machine “too simple” in our equation of “simpler but not too simple”?</p>
 <h2 id="oberon-as-operating-system">Oberon as Operating System</h2>
-<p>The operating system I still find liberating in 2023 as when I first
-was able to use it. The challenge in 2023 though is the three button
-mouse. I think the supporting the historic mouse remains important but
-that the viewers should also support navigation via the keyboard and
-easily support touch systems that lack a mouse. Being backward
-compatibly while adopting an enhance UI would make things more complex
-bit if care is taken I think that it can be done while keep the equation
-balanced as “simpler, but not too simple”.</p>
-<h2 id="transforming-my-assumptions-in-2023">Transforming my assumptions
-in 2023</h2>
-<p>I think the Artemis Project should presume that the representation of
-CHAR and INTEGER may change and probably should change. The portable
-modules should support compiling Oberon-07 programs on non-Oberon 2014
-Systems without change. I am skeptical that I can create a module system
-that provides a base line with the historic Oberon implementations. I
-think the Oakwood modules are just too limited. I think the assumption
-is I need implementations for Project Oberon 2013 modules as the base
-line perhaps enhanced with a few additional modules to supporting
-networking, UTF-8, JSON, and XML. The goal I think is that using Artemis
-on a non-Oberon System should facilitate bootstrapping an Oberon System
-2023 should one come to exist.</p>
+<p>The operating system I still find liberating in 2023 as when I first was able to use it. The challenge in 2023 though is the three button mouse. I think the supporting the historic mouse remains important but that the viewers should also support navigation via the keyboard and easily support touch systems that lack a mouse. Being backward compatibly while adopting an enhance UI would make things more complex bit if care is taken I think that it can be done while keep the equation balanced as “simpler, but not too simple”.</p>
+<h2 id="transforming-my-assumptions-in-2023">Transforming my assumptions in 2023</h2>
+<p>I think the Artemis Project should presume that the representation of CHAR and INTEGER may change and probably should change. The portable modules should support compiling Oberon-07 programs on non-Oberon 2014 Systems without change. I am skeptical that I can create a module system that provides a base line with the historic Oberon implementations. I think the Oakwood modules are just too limited. I think the assumption is I need implementations for Project Oberon 2013 modules as the base line perhaps enhanced with a few additional modules to supporting networking, UTF-8, JSON, and XML. The goal I think is that using Artemis on a non-Oberon System should facilitate bootstrapping an Oberon System 2023 should one come to exist.</p>
 <h2 id="errata">Errata</h2>
-<p>7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to
-me that while the SYSTEM module will need to address the specifics of
-the hardware and host environment it could support a minimum set of
-useful constants. What would be extremely helpful would be able to rely
-on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or
-32 bits), default character encoding used by the compiler (e.g. ASCII,
-UTF-8). Likewise it would be extremely helpful to know the the CPU type
-(e.g. arm64, amd64, x86-32), Operating System/version and name/version
-of the compiler. I think this would allow the modules that depend on
-SYSTEM directly to become slightly more portable.</p>
+<p>7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler. I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

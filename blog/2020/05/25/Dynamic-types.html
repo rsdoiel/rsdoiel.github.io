@@ -11,8 +11,7 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2020/05/25/Dynamic-types.md">
-  <meta name="keywords" content="Oberon, programming, type
-extension, dynamic data">
+  <meta name="keywords" content="Oberon, programming, type extension, dynamic data">
 </head>
 <body>
 <nav>
@@ -37,56 +36,15 @@ extension, dynamic data">
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="dynamic-types">Dynamic types</h1>
 <p>By R. S. Doiel, 2020-05-25</p>
-<p>This is the eighth post in the <a
-href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
-Oberon documents my exploration of the Oberon Language, Oberon System
-and the various rabbit holes I will inevitably fall into.</p>
+<p>This is the eighth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
 <h2 id="dynamic-types-in-oberon">Dynamic Types in Oberon</h2>
-<p>Oberon-07 is a succinct systems language. It provides a minimal but
-useful set of basic static types. Relying on them addresses many common
-programming needs. The Oberon compiler ensures static types are
-efficiently allocated in memory. One of the strengths of Oberon is this
-ability to extend the type system. This means when the basic types fall
-short you can take advantage of Oberon’s type extension features. This
-includes creating dynamically allocated data structures. In Oberon-07
-combining Oberon’s <code>POINTER TO</code> and <code>RECORD</code> types
-allows us to create complex and dynamic data structures.</p>
+<p>Oberon-07 is a succinct systems language. It provides a minimal but useful set of basic static types. Relying on them addresses many common programming needs. The Oberon compiler ensures static types are efficiently allocated in memory. One of the strengths of Oberon is this ability to extend the type system. This means when the basic types fall short you can take advantage of Oberon’s type extension features. This includes creating dynamically allocated data structures. In Oberon-07 combining Oberon’s <code>POINTER TO</code> and <code>RECORD</code> types allows us to create complex and dynamic data structures.</p>
 <h2 id="an-example-dynamic-strings">An example, dynamic strings</h2>
-<p>Strings in Oberon-07 are typical declared as an
-<code>ARRAY OF CHAR</code> with a specific length. If the length of a
-string is not known a head of time this presents a challenge. One
-approach is to declare a long array but that would allocate allot of
-memory which may not get used. Another approach is to create a dynamic
-data structure. An example is using a linked list of shorter
-<code>ARRAY OF CHAR</code>. The small fixed strings can combine to
-represent much larger strings. When one fills up we add another.</p>
-<h3 id="pointers-and-records-an-oberon-idiom">Pointers and records, an
-Oberon idiom</h3>
-<p>Our data model is a pointer to a record where the record contains an
-<code>ARRAY OF CHAR</code> and a pointer to the next record. A common
-idiom in Oberon for dynamic types is to declare a
-<code>POINTER TO</code> type and declare a <code>RECORD</code> type
-which contains the <code>POINTER TO</code> type as an attribute. If you
-see this idiom you are looking at some sort of dynamic data structure.
-The pointer type is usually named for the dynamic type you want work
-with and the record type is declared using the same name with a “Desc”
-suffix. In our case <code>DynamicString</code> will be the name of our
-<code>POINTER TO</code> type and our record type will be called
-<code>DynamicStringDesc</code> following the convention. In our record
-structure we include a “value” to holding a short fixed length
-<code>ARRAY OF CHAR</code> and a “next” to holding the pointer to our
-next record.</p>
-<p>In our record the value is declared as a static type. We need to know
-how long our “short” string should be? I.e. What length is our
-<code>ARRAY OF CHAR</code>? It’s a question of tuning. If it is too
-short we spend more time allocating new records, too long and we are
-wasting memory in each record. A way to make tuning a little simpler is
-to use a constant value to describe our array length. Then if we decide
-our array is too big or too small we can adjust the constant knowing
-that our record structure and the procedures that use that the length
-information will continue to work correctly.</p>
-<p>Let’s take a look at actual code (NOTE: vSize is our constant
-value).</p>
+<p>Strings in Oberon-07 are typical declared as an <code>ARRAY OF CHAR</code> with a specific length. If the length of a string is not known a head of time this presents a challenge. One approach is to declare a long array but that would allocate allot of memory which may not get used. Another approach is to create a dynamic data structure. An example is using a linked list of shorter <code>ARRAY OF CHAR</code>. The small fixed strings can combine to represent much larger strings. When one fills up we add another.</p>
+<h3 id="pointers-and-records-an-oberon-idiom">Pointers and records, an Oberon idiom</h3>
+<p>Our data model is a pointer to a record where the record contains an <code>ARRAY OF CHAR</code> and a pointer to the next record. A common idiom in Oberon for dynamic types is to declare a <code>POINTER TO</code> type and declare a <code>RECORD</code> type which contains the <code>POINTER TO</code> type as an attribute. If you see this idiom you are looking at some sort of dynamic data structure. The pointer type is usually named for the dynamic type you want work with and the record type is declared using the same name with a “Desc” suffix. In our case <code>DynamicString</code> will be the name of our <code>POINTER TO</code> type and our record type will be called <code>DynamicStringDesc</code> following the convention. In our record structure we include a “value” to holding a short fixed length <code>ARRAY OF CHAR</code> and a “next” to holding the pointer to our next record.</p>
+<p>In our record the value is declared as a static type. We need to know how long our “short” string should be? I.e. What length is our <code>ARRAY OF CHAR</code>? It’s a question of tuning. If it is too short we spend more time allocating new records, too long and we are wasting memory in each record. A way to make tuning a little simpler is to use a constant value to describe our array length. Then if we decide our array is too big or too small we can adjust the constant knowing that our record structure and the procedures that use that the length information will continue to work correctly.</p>
+<p>Let’s take a look at actual code (NOTE: vSize is our constant value).</p>
 <pre><code>
     CONST
       vSize = 128; 
@@ -98,34 +56,14 @@ value).</p>
         next : DymamicString; 
       END;
 </code></pre>
-<p>NOTE: Both <code>DynamicString</code> and
-<code>DynamicStringDesc</code> are defined using an <code>*</code>.
-These are public and will be available to other modules. Inside our
-record <code>DynamicStringDesc</code> we have two private to our module
-attributes, <code>.value</code> and <code>.next</code>. They are private
-so that we can change our implementation in the future without requiring
-changes in modules that use our dynamic strings. Likewise our constant
-<code>vSize</code> is private as that is an internal implementation
-detail. This practice is called information hiding.</p>
-<p>NOTE: The asterisk in Oberon decorates procedures, types, variables
-and constants that are “public” to other modules.</p>
+<p>NOTE: Both <code>DynamicString</code> and <code>DynamicStringDesc</code> are defined using an <code>*</code>. These are public and will be available to other modules. Inside our record <code>DynamicStringDesc</code> we have two private to our module attributes, <code>.value</code> and <code>.next</code>. They are private so that we can change our implementation in the future without requiring changes in modules that use our dynamic strings. Likewise our constant <code>vSize</code> is private as that is an internal implementation detail. This practice is called information hiding.</p>
+<p>NOTE: The asterisk in Oberon decorates procedures, types, variables and constants that are “public” to other modules.</p>
 <p>NOTE: Variables are always exported read only.</p>
-<p>NOTE: With information hiding some details of implementation allow us
-to keep a clean division between implementation inside the module and
-how that implementation might be used. With out information hiding we
-often have “leaky” abstractions that become brittle and hard to maintain
-and rely on.</p>
+<p>NOTE: With information hiding some details of implementation allow us to keep a clean division between implementation inside the module and how that implementation might be used. With out information hiding we often have “leaky” abstractions that become brittle and hard to maintain and rely on.</p>
 <h2 id="working-with-dynamicstring">Working with DynamicString</h2>
-<p>Our type definitions describe to the compiler how to layout our data
-in memory. The type system in Oberon-07 also ensures that access to that
-memory is restricted to assignments, operations and procedures
-compatible with that type. To be useful from other modules we need a few
-procedures to help work with this new data type. What follows is a
-minimal set needed to be useful.</p>
-<h3
-id="newvar-str-dynamicstring"><code>New*(VAR str : DynamicString)</code></h3>
-<p><code>New</code> will initialize a DynamicString object setting
-<code>.value</code> to an empty string.</p>
+<p>Our type definitions describe to the compiler how to layout our data in memory. The type system in Oberon-07 also ensures that access to that memory is restricted to assignments, operations and procedures compatible with that type. To be useful from other modules we need a few procedures to help work with this new data type. What follows is a minimal set needed to be useful.</p>
+<h3 id="newvar-str-dynamicstring"><code>New*(VAR str : DynamicString)</code></h3>
+<p><code>New</code> will initialize a DynamicString object setting <code>.value</code> to an empty string.</p>
 <pre><code>
   PROCEDURE New*(VAR str : DynamicString);
   BEGIN NEW(str);
@@ -133,14 +71,8 @@ id="newvar-str-dynamicstring"><code>New*(VAR str : DynamicString)</code></h3>
     str.next := NIL;
   END New;
 </code></pre>
-<h3
-id="setvar-str-dynamicstring-source-array-of-char"><code>Set*(VAR str : DynamicString; source : ARRAY OF CHAR)</code></h3>
-<p><code>Set</code> copies an <code>ARRAY OF CHAR</code> into an
-existing DynamicString. This requires that we add and link additional
-records if the <code>source</code> is longer than our current dynamic
-string. Set is a bridge procedure between an existing datatype,
-<code>ARRAY OF CHAR</code> and our new data type,
-<code>DynamicString</code>.</p>
+<h3 id="setvar-str-dynamicstring-source-array-of-char"><code>Set*(VAR str : DynamicString; source : ARRAY OF CHAR)</code></h3>
+<p><code>Set</code> copies an <code>ARRAY OF CHAR</code> into an existing DynamicString. This requires that we add and link additional records if the <code>source</code> is longer than our current dynamic string. Set is a bridge procedure between an existing datatype, <code>ARRAY OF CHAR</code> and our new data type, <code>DynamicString</code>.</p>
 <pre><code>
   PROCEDURE Set*(VAR str : DynamicString; source : ARRAY OF CHAR); 
     VAR cur, next : DynamicString; tmp : ARRAY vSize OF CHAR; 
@@ -161,12 +93,8 @@ string. Set is a bridge procedure between an existing datatype,
     END;
   END Set;
 </code></pre>
-<h3
-id="tochararraystr-dynamicstring-var-dest-array-of-char-var-ok-boolean"><code>ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)</code></h3>
-<p><code>ToCharArray</code> copies the contents of our dynamic string
-into an array of char setting <code>ok</code> to TRUE on success or
-FALSE if truncated. Like <code>Set*</code> it is a bridge procedure to
-let us move data output our new dynamic string type.</p>
+<h3 id="tochararraystr-dynamicstring-var-dest-array-of-char-var-ok-boolean"><code>ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)</code></h3>
+<p><code>ToCharArray</code> copies the contents of our dynamic string into an array of char setting <code>ok</code> to TRUE on success or FALSE if truncated. Like <code>Set*</code> it is a bridge procedure to let us move data output our new dynamic string type.</p>
 <pre><code>
   PROCEDURE ToCharArray*(str : DynamicString; 
                          VAR dest : ARRAY OF CHAR; 
@@ -183,29 +111,16 @@ let us move data output our new dynamic string type.</p>
     ok := (i = Strings.Length(dest));
   END ToCharArray;
 </code></pre>
-<p>Two additional procedures will likely be needed– <code>Append</code>
-and <code>AppendCharArray</code>. This first one is trivial, if we want
-to add one dynamic string onto another all we need to do is link the
-last record of the first and point it to a copy of the second string
-we’re appending.</p>
-<h3
-id="appendextra-dynamicstring-var-dest-dynamicstring"><code>Append*(extra : DynamicString; VAR dest : DynamicString);</code></h3>
-<p><code>Append</code> adds the <code>extra</code> dynamic string to
-<code>dest</code> dynamic string. Our “input” is <code>extra</code> and
-our output is a modified dynamic string named <code>dest</code>. This
-parameter order mimics the standard <code>Strings</code> module’s
-<code>Append</code>.</p>
-<p>NOTE: Oberon idiom is often input values, modified value and result
-values. Modified and result values are declared in the parameter
-definition using <code>VAR</code>.</p>
+<p>Two additional procedures will likely be needed– <code>Append</code> and <code>AppendCharArray</code>. This first one is trivial, if we want to add one dynamic string onto another all we need to do is link the last record of the first and point it to a copy of the second string we’re appending.</p>
+<h3 id="appendextra-dynamicstring-var-dest-dynamicstring"><code>Append*(extra : DynamicString; VAR dest : DynamicString);</code></h3>
+<p><code>Append</code> adds the <code>extra</code> dynamic string to <code>dest</code> dynamic string. Our “input” is <code>extra</code> and our output is a modified dynamic string named <code>dest</code>. This parameter order mimics the standard <code>Strings</code> module’s <code>Append</code>.</p>
+<p>NOTE: Oberon idiom is often input values, modified value and result values. Modified and result values are declared in the parameter definition using <code>VAR</code>.</p>
 <p>Algorithm:</p>
 <ol type="1">
 <li>Move to the end of <code>dest</code> dynamic string</li>
 <li>Create a new record at <code>cur.next</code>.</li>
-<li>Copy <code>extra.value</code> info.value
-<code>cur.next.value</code></li>
-<li>Advance <code>extra</code> and <code>cur</code>, repeating steps 2
-to 4 as needed.</li>
+<li>Copy <code>extra.value</code> info.value <code>cur.next.value</code></li>
+<li>Advance <code>extra</code> and <code>cur</code>, repeating steps 2 to 4 as needed.</li>
 </ol>
 <p>Implemented procedure.</p>
 <pre><code>
@@ -230,13 +145,9 @@ to 4 as needed.</li>
     END;
   END Append;
 </code></pre>
-<p>A second procedure for appending an <code>ARRAY OF CHAR</code> also
-becomes trivial. First convert the <code>ARRAY OF CHAR</code> to a
-dynamic string then append it with the previous procedure.</p>
-<h3
-id="appendchararraysrc-array-of-char-var-str-dynamicstring"><code>AppendCharArray*(src : ARRAY OF CHAR; VAR str : DynamicString);</code></h3>
-<p>This procedure appends an ARRAY OF CHAR to an existing dynamic
-string.</p>
+<p>A second procedure for appending an <code>ARRAY OF CHAR</code> also becomes trivial. First convert the <code>ARRAY OF CHAR</code> to a dynamic string then append it with the previous procedure.</p>
+<h3 id="appendchararraysrc-array-of-char-var-str-dynamicstring"><code>AppendCharArray*(src : ARRAY OF CHAR; VAR str : DynamicString);</code></h3>
+<p>This procedure appends an ARRAY OF CHAR to an existing dynamic string.</p>
 <pre><code>
   PROCEDURE AppendCharArray*(extra: ARRAY OF CHAR; VAR dest : DynamicString);
     VAR extraStr : DynamicString;    
@@ -247,14 +158,9 @@ string.</p>
     Append(extraStr, dest);
   END AppendCharArray;
 </code></pre>
-<p>At some point we will want to know the length of our dynamic
-string.</p>
-<h3
-id="lengthstr-dynamicstring-integer"><code>Length(str : DynamicString) : INTEGER</code></h3>
-<p>Our <code>Length</code> needs to go through our linked list and total
-up the length of each value. We will use a variable called
-<code>cur</code> to point at the current record and add up our total
-length as we walk through the list.</p>
+<p>At some point we will want to know the length of our dynamic string.</p>
+<h3 id="lengthstr-dynamicstring-integer"><code>Length(str : DynamicString) : INTEGER</code></h3>
+<p>Our <code>Length</code> needs to go through our linked list and total up the length of each value. We will use a variable called <code>cur</code> to point at the current record and add up our total length as we walk through the list.</p>
 <pre><code>
   PROCEDURE Length*( source : DynamicString) : INTEGER;
     VAR cur : DynamicString; total : INTEGER;
@@ -268,85 +174,26 @@ length as we walk through the list.</p>
     RETURN total
   END Length;
 </code></pre>
-<h2 id="extending-dynamicstrings-module">Extending DynamicStrings
-module</h2>
-<p>With these few procedures we have a basic means of working with
-dynamic strings. Moving beyond this we can look at the standard Oberon
-<code>Strings</code> module for inspiration. If we use similar procedure
-signatures we can create a drop in replacement for <code>Strings</code>
-with <code>DynamicStrings</code>.</p>
-<p>NOTE: Procedure signatures refer to procedures type along with the
-order and types of parameters. A quick review of the procedure
-signatures for the standard module <a
-href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a>
-is provided by the <a href="https://miasap.se/obnc">OBNC</a> compiler
-docs.</p>
-<p>Let’s look at recreating <code>Insert</code> as a potential guide to
-a more fully featured <a
-href="DynamicStrings.Mod">“DynamicStrings.Mod”</a>. In our
-<code>Insert</code> we modify the procedure signature so the source and
-destinations are dynamic strings.</p>
-<h3
-id="insertsource-dynamicstring-pos-integer-var-dest-dynamicstring"><code>Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)</code></h3>
-<p>The <code>Insert</code> procedure inserts a <code>source</code>
-dynamic string at the position provided into our <code>dest</code>
-dynamic string. We are implementing the same signature for our
-<code>DynamicStrings.Insert()</code> as <code>Strings.Insert()</code>.
-Only the parameters for source and destination are changed to
-<code>DynamicString</code>.</p>
-<p>Internally our procedure for <code>Insert</code> is a more
-complicated than the ones we’ve written so far. It needs to do all the
-housing keeping for making sure we add the right content in the correct
-spot. The general idea is to find the record holding the split point.
-Split that record into two records. The first retains the characters
-before the insert position. The second holds the characters after the
-insert position and points to next record in the dynamic string. Once
-the split is accomplished it then is a matter of linking everything up.
-The record before the insert position is set to point at the dynamic
-string to be inserted, the inserted dynamic string is set to point at
-the record that contained the rest of the characters after the
-split.</p>
-<p>It is easy to extract a sub-string from an <code>ARRAY OF CHAR</code>
-using the standard <code>Strings</code> module. We can store the
-characters in the <code>.value</code> of the record after the split in a
-temporary <code>ARRAY OF CHAR</code>. The temporary
-<code>ARRAY OF CHAR</code> can be used to create a new dynamic string
-record which will be linked to the rest of our destination dynamic
-string. The record which held the characters before the insert position
-needs to be truncated and it needs to be linked to the dynamic string we
-want to insert. NOTE: This will leave a small amount of unused
-memory.</p>
-<p>NOTE: If conserving memory is critical then re-packing the dynamic
-string could be implemented as another procedure. The cost would be
-complexity and time to shift characters between later records and
-earlier ones replacing excess NULL values.</p>
-<p>We need to find the record where the split will occur. In the record
-to be split we need to calculate a relative split point. We then can
-copy the excess characters in that split record to a new record and
-truncate the <code>.value</code>’s <code>ARRAY OF CHAR</code> to create
-our split point. Truncating is easy in that we replace the CHAR in the
-<code>.values</code> that are not needed with a NULL character. We can
-do that with a simple loop. Likewise calculating the relative insertion
-position can be done by taking the modulo of the <code>vSize</code> of
-<code>.value</code>.</p>
-<p>NOTE: In Oberon stings are terminated with a NULL character. A NULL
-character holds the ASCII value <code>0X</code>.</p>
+<h2 id="extending-dynamicstrings-module">Extending DynamicStrings module</h2>
+<p>With these few procedures we have a basic means of working with dynamic strings. Moving beyond this we can look at the standard Oberon <code>Strings</code> module for inspiration. If we use similar procedure signatures we can create a drop in replacement for <code>Strings</code> with <code>DynamicStrings</code>.</p>
+<p>NOTE: Procedure signatures refer to procedures type along with the order and types of parameters. A quick review of the procedure signatures for the standard module <a href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a> is provided by the <a href="https://miasap.se/obnc">OBNC</a> compiler docs.</p>
+<p>Let’s look at recreating <code>Insert</code> as a potential guide to a more fully featured <a href="DynamicStrings.Mod">“DynamicStrings.Mod”</a>. In our <code>Insert</code> we modify the procedure signature so the source and destinations are dynamic strings.</p>
+<h3 id="insertsource-dynamicstring-pos-integer-var-dest-dynamicstring"><code>Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)</code></h3>
+<p>The <code>Insert</code> procedure inserts a <code>source</code> dynamic string at the position provided into our <code>dest</code> dynamic string. We are implementing the same signature for our <code>DynamicStrings.Insert()</code> as <code>Strings.Insert()</code>. Only the parameters for source and destination are changed to <code>DynamicString</code>.</p>
+<p>Internally our procedure for <code>Insert</code> is a more complicated than the ones we’ve written so far. It needs to do all the housing keeping for making sure we add the right content in the correct spot. The general idea is to find the record holding the split point. Split that record into two records. The first retains the characters before the insert position. The second holds the characters after the insert position and points to next record in the dynamic string. Once the split is accomplished it then is a matter of linking everything up. The record before the insert position is set to point at the dynamic string to be inserted, the inserted dynamic string is set to point at the record that contained the rest of the characters after the split.</p>
+<p>It is easy to extract a sub-string from an <code>ARRAY OF CHAR</code> using the standard <code>Strings</code> module. We can store the characters in the <code>.value</code> of the record after the split in a temporary <code>ARRAY OF CHAR</code>. The temporary <code>ARRAY OF CHAR</code> can be used to create a new dynamic string record which will be linked to the rest of our destination dynamic string. The record which held the characters before the insert position needs to be truncated and it needs to be linked to the dynamic string we want to insert. NOTE: This will leave a small amount of unused memory.</p>
+<p>NOTE: If conserving memory is critical then re-packing the dynamic string could be implemented as another procedure. The cost would be complexity and time to shift characters between later records and earlier ones replacing excess NULL values.</p>
+<p>We need to find the record where the split will occur. In the record to be split we need to calculate a relative split point. We then can copy the excess characters in that split record to a new record and truncate the <code>.value</code>’s <code>ARRAY OF CHAR</code> to create our split point. Truncating is easy in that we replace the CHAR in the <code>.values</code> that are not needed with a NULL character. We can do that with a simple loop. Likewise calculating the relative insertion position can be done by taking the modulo of the <code>vSize</code> of <code>.value</code>.</p>
+<p>NOTE: In Oberon stings are terminated with a NULL character. A NULL character holds the ASCII value <code>0X</code>.</p>
 <p>Our algorithm:</p>
 <ol type="1">
-<li>Set <code>cur</code> to point to the start of our destination
-dynamic string</li>
-<li>Move <code>cur</code> to the record in the link list where the
-insertion will take place</li>
+<li>Set <code>cur</code> to point to the start of our destination dynamic string</li>
+<li>Move <code>cur</code> to the record in the link list where the insertion will take place</li>
 <li>Calculate the relative split point in <code>cur.value</code></li>
-<li>Copy the characters in <code>cur.value</code> from relative split
-point to end of <code>.value</code> into a temporary
-<code>ARRAY OF CHAR</code></li>
-<li>Make a new record, <code>rest</code>, using the temporary
-<code>ARRAY OF CHAR</code> and update the value of <code>.next</code> to
-match that of <code>cur.next</code></li>
+<li>Copy the characters in <code>cur.value</code> from relative split point to end of <code>.value</code> into a temporary <code>ARRAY OF CHAR</code></li>
+<li>Make a new record, <code>rest</code>, using the temporary <code>ARRAY OF CHAR</code> and update the value of <code>.next</code> to match that of <code>cur.next</code></li>
 <li>Truncate the record (cur) at the relative split point</li>
-<li>Set <code>cur.next</code> to point to our <code>extra</code> dynamic
-string.</li>
+<li>Set <code>cur.next</code> to point to our <code>extra</code> dynamic string.</li>
 <li>Move to the end of extra with <code>cur</code></li>
 <li>Set the <code>cur.next</code> to point at <code>rest</code></li>
 </ol>
@@ -406,12 +253,7 @@ string.</li>
     cur.next := rest;
   END Insert;
 </code></pre>
-<p>While our <code>Insert</code> is the longest procedure so far the
-steps are mostly simple. Additionally we can easily extend this to
-support inserting a more traditional <code>ARRAY OF CHAR</code> using
-our previously established design pattern of converting a basic type
-into our dynamic type before calling the dynamic version of the
-function.</p>
+<p>While our <code>Insert</code> is the longest procedure so far the steps are mostly simple. Additionally we can easily extend this to support inserting a more traditional <code>ARRAY OF CHAR</code> using our previously established design pattern of converting a basic type into our dynamic type before calling the dynamic version of the function.</p>
 <pre><code>
   PROCEDURE InsertCharArray*(source : ARRAY OF CHAR; 
                              pos : INTEGER; 
@@ -423,62 +265,26 @@ function.</p>
   END InsertCharArray;
 </code></pre>
 <h2 id="where-to-go-next">Where to go next</h2>
-<p>It is possible to extend our “DynamicStrings.Mod” into a drop in
-replacement for the standard <code>Strings</code>. I’ve included a
-skeleton of that module as links at the end of this article with stubs
-for the missing implementations such as <code>Extract</code>,
-<code>Replace</code>, <code>Pos</code>, and <code>Cap</code>. I’ve also
-included a “DynamicStringsTest.Mod” for demonstrating how it works.</p>
-<p>The procedure I suggest is to mirror <code>Strings</code> replacing
-the parameters that are <code>ARRAY OF CHAR</code> with
-<code>DynamicString</code>. It will be helpful to include some bridging
-procedures that accept <code>ARRAY OF CHAR</code> as inputs too. These
-will use similar names with a suffix of <code>CharArray</code>.</p>
-<h2 id="parameter-conventions-and-order">Parameter conventions and
-order</h2>
-<p>Oberon is highly composable. The trick to creating a drop in
-replacement module is use the same parameter signatures so you only need
-to make minor changes like updating the <code>IMPORT</code> statement
-and using a module alias to map the old module to the new one. The
-parameter signatures in <code>Strings</code> follow a convention you’ll
-see in other Oberon modules. The parameter order is based on the
-“inputs”, “modify parameters”, and “output parameters”. Inputs are
-non-<code>VAR</code> parameters. The remaining are <code>VAR</code>
-parameters. I think of “modify parameters” as those objects who reflect
-side effects. I think of “output” as values that in other languages
-would be returned by functions. This is only a convention. A variation
-I’ve read in other Oberon modules is “object”, “inputs”, “outputs”.
-“object” and “outputs” are <code>VAR</code> parameters and “inputs” are
-not. This ordering makes sense when we think of records as holding an
-object. In both cases ordering is a convention and not enforced by the
-language. Convention and consistency is helpful but readability is the
-most important. Oberon is a readable language. It does not reward
-obfuscation. Readability is a great virtue in a programming language.
-When creating your own modules choose readability based on the concepts
-you want to emphasize in the module (e.g. procedural, object
-oriented).</p>
+<p>It is possible to extend our “DynamicStrings.Mod” into a drop in replacement for the standard <code>Strings</code>. I’ve included a skeleton of that module as links at the end of this article with stubs for the missing implementations such as <code>Extract</code>, <code>Replace</code>, <code>Pos</code>, and <code>Cap</code>. I’ve also included a “DynamicStringsTest.Mod” for demonstrating how it works.</p>
+<p>The procedure I suggest is to mirror <code>Strings</code> replacing the parameters that are <code>ARRAY OF CHAR</code> with <code>DynamicString</code>. It will be helpful to include some bridging procedures that accept <code>ARRAY OF CHAR</code> as inputs too. These will use similar names with a suffix of <code>CharArray</code>.</p>
+<h2 id="parameter-conventions-and-order">Parameter conventions and order</h2>
+<p>Oberon is highly composable. The trick to creating a drop in replacement module is use the same parameter signatures so you only need to make minor changes like updating the <code>IMPORT</code> statement and using a module alias to map the old module to the new one. The parameter signatures in <code>Strings</code> follow a convention you’ll see in other Oberon modules. The parameter order is based on the “inputs”, “modify parameters”, and “output parameters”. Inputs are non-<code>VAR</code> parameters. The remaining are <code>VAR</code> parameters. I think of “modify parameters” as those objects who reflect side effects. I think of “output” as values that in other languages would be returned by functions. This is only a convention. A variation I’ve read in other Oberon modules is “object”, “inputs”, “outputs”. “object” and “outputs” are <code>VAR</code> parameters and “inputs” are not. This ordering makes sense when we think of records as holding an object. In both cases ordering is a convention and not enforced by the language. Convention and consistency is helpful but readability is the most important. Oberon is a readable language. It does not reward obfuscation. Readability is a great virtue in a programming language. When creating your own modules choose readability based on the concepts you want to emphasize in the module (e.g. procedural, object oriented).</p>
 <h2 id="the-modules-so-far">The modules so far</h2>
-<p>You can read the full source for the module discussed along with a
-test module in the links that follow.</p>
+<p>You can read the full source for the module discussed along with a test module in the links that follow.</p>
 <ul>
 <li><a href="DynamicStrings.Mod">DynamicStrings.Mod</a></li>
 <li><a href="DynamicStringsTest.Mod">DynamicStringsTest.Mod</a></li>
 </ul>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
-<li>Next <a href="../../06/20/Procedures-as-parameters.html">Procedures
-as parameters</a></li>
-<li>Previous <a href="../09/Oberon-07-and-the-filesystem.html">Oberon-07
-and the file system</a></li>
+<li>Next <a href="../../06/20/Procedures-as-parameters.html">Procedures as parameters</a></li>
+<li>Previous <a href="../09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

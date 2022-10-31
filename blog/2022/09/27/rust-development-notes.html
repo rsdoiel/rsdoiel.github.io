@@ -36,16 +36,9 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="rust-development-notes">Rust development notes</h1>
 <p>by R. S. Doiel, 2022-09-27</p>
-<p>I recently wanted to try <a
-href="https://github.com/jansc/ncgopher">ncgopher</a> which is a <a
-href="https://rust-lang.org">rust</a> based application. I was working
-on a an M1 Mac mini. I use <a href="https://www.macports.org">Mac
-Ports</a> for my userland applications and installed <a
-href="https://doc.rust-lang.org/cargo/">cargo</a> to pickup the rust
-compiler and build tool</p>
+<p>I recently wanted to try <a href="https://github.com/jansc/ncgopher">ncgopher</a> which is a <a href="https://rust-lang.org">rust</a> based application. I was working on a an M1 Mac mini. I use <a href="https://www.macports.org">Mac Ports</a> for my userland applications and installed <a href="https://doc.rust-lang.org/cargo/">cargo</a> to pickup the rust compiler and build tool</p>
 <pre class="shell"><code>sudo port install cargo</code></pre>
-<p>All went well until I tried to build ncgopher and got an error as
-follows</p>
+<p>All went well until I tried to build ncgopher and got an error as follows</p>
 <pre><code>cargo build --release
     Updating crates.io index
 error: Unable to update registry `crates-io`
@@ -64,41 +57,17 @@ Caused by:
 Caused by:
   no authentication available
 make: *** [build] Error 101</code></pre>
-<p>This seemed odd as I could run
-<code>git clone git@github.com:rust-lang/crates.io-index</code>
-successfully. Re-reading the error message a dim light went on. I
-checked the cargo docs and the value <code>net.git-fetch-with-cli</code>
-defaults to false. That meant that cargo was using its own embedded git.
-OK, that makes sense but how do I fix it. I had no problem using cargo
-installed via ports on an Intel iMac so what gives? When cargo got
-installed on the M1 there was now <code>.cargo/config.toml</code> file.
-If you create this and set the value of <code>git-fetch-with-cli</code>
-to true then the problem resolves itself.</p>
-<p>It was good that the error message provided a lead. It’s also good
-that cargo has nice documentation. My experience though still left the
-taste of <a
-href="https://www.urbandictionary.com/define.php?term=coik">COIK</a>.
-Not sure how to improve the situation. It’s not really a cargo bug
-(unless config.taml should be always created), it’s not a rust bug and I
-don’t even think it is a ports packaging bug. If I was a new developer
-just getting familiar with git I don’t think I would have known how to
-solve my problem even with the documentation provided. Git is something
-that has always struggled with COIK. While I like it it does make things
-challenging.</p>
-<p>If I wind up playing with rust more then I’ll add somemore notes here
-in the future.</p>
-<p>My <code>$HOME/.cargo/config.toml</code> file looks like to have
-cargo use the git cli instead of the built in rust library.</p>
+<p>This seemed odd as I could run <code>git clone git@github.com:rust-lang/crates.io-index</code> successfully. Re-reading the error message a dim light went on. I checked the cargo docs and the value <code>net.git-fetch-with-cli</code> defaults to false. That meant that cargo was using its own embedded git. OK, that makes sense but how do I fix it. I had no problem using cargo installed via ports on an Intel iMac so what gives? When cargo got installed on the M1 there was now <code>.cargo/config.toml</code> file. If you create this and set the value of <code>git-fetch-with-cli</code> to true then the problem resolves itself.</p>
+<p>It was good that the error message provided a lead. It’s also good that cargo has nice documentation. My experience though still left the taste of <a href="https://www.urbandictionary.com/define.php?term=coik">COIK</a>. Not sure how to improve the situation. It’s not really a cargo bug (unless config.taml should be always created), it’s not a rust bug and I don’t even think it is a ports packaging bug. If I was a new developer just getting familiar with git I don’t think I would have known how to solve my problem even with the documentation provided. Git is something that has always struggled with COIK. While I like it it does make things challenging.</p>
+<p>If I wind up playing with rust more then I’ll add somemore notes here in the future.</p>
+<p>My <code>$HOME/.cargo/config.toml</code> file looks like to have cargo use the git cli instead of the built in rust library.</p>
 <pre><code>[net]
 git-fetch-with-cli = true</code></pre>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

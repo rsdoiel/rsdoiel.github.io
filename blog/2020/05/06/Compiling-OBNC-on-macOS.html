@@ -36,83 +36,54 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="compiling-obnc-on-macos">Compiling OBNC on macOS</h1>
 <p>By R. S. Doiel, 2020-05-06</p>
-<p>This is the sixth post in the <a
-href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
-Oberon documents my exploration of the Oberon Language, Oberon System
-and the various rabbit holes I will inevitably fall into.</p>
-<p>Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is
-straight forward if you have the required dependencies and environment
-setup up. Below are my notes to get everything working.</p>
+<p>This is the sixth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+<p>Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is straight forward if you have the required dependencies and environment setup up. Below are my notes to get everything working.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>OBNC v0.16.1</li>
 <li>SDL v1.2</li>
 <li>Boehm-Demers-Weiser GC</li>
-<li>A C compiler and linker (OBNC uses this to generate machine specific
-code)</li>
+<li>A C compiler and linker (OBNC uses this to generate machine specific code)</li>
 </ul>
 <h3 id="sdl-1.2">SDL 1.2</h3>
-<p>MacPorts has libsdl 1.2 available as a package called “libsdl” (not
-surprisingly). There are other versions of the SDL available in ports
-but this is the one we’re using.</p>
+<p>MacPorts has libsdl 1.2 available as a package called “libsdl” (not surprisingly). There are other versions of the SDL available in ports but this is the one we’re using.</p>
 <pre><code>
    sudo port install libsdl
 </code></pre>
 <h3 id="the-boehm-demers-weiser-gc">The Boehm-Demers-Weiser GC</h3>
-<p>You need to install the Boehm-Demers-Weiser GC installed. Using
-MacPorts it is almost as easy as installing under Debian. The package is
-less obviously named than under Debian. The package you want is
-“beohmgc”.</p>
+<p>You need to install the Boehm-Demers-Weiser GC installed. Using MacPorts it is almost as easy as installing under Debian. The package is less obviously named than under Debian. The package you want is “beohmgc”.</p>
 <pre><code>
     sudo port install boehmgc
 </code></pre>
 <p>More info on the GC.</p>
 <ul>
-<li><a href="https://www.hboehm.info/gc/">The Boehm-Demers-Weiser
-GC</a></li>
-<li><a href="https://ports.macports.org/port/boehmgc/summary">MacPorts
-page</a></li>
+<li><a href="https://www.hboehm.info/gc/">The Boehm-Demers-Weiser GC</a></li>
+<li><a href="https://ports.macports.org/port/boehmgc/summary">MacPorts page</a></li>
 </ul>
 <h3 id="c-compiler-and-linker">C compiler and linker</h3>
-<p>XCode is provides a C compiler and linker. That is what is installed
-on my machine. It can be a bit of a pain at times with obscure errors,
-particularly with regards to the linker. Your milleage may very. I know
-you can install other C compilers (e.g. Clang) but I haven’t tried them
-yet.</p>
+<p>XCode is provides a C compiler and linker. That is what is installed on my machine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can install other C compilers (e.g. Clang) but I haven’t tried them yet.</p>
 <h2 id="setting-up-my-environment">Setting up my environment</h2>
-<p>You need to update your CC variables to find the header and shared
-library files for compilation of obnc with <code>build</code>. (I added
-these to my <code>.bash_profile</code>). New Macs ships with zsh and
-your settings might be in a different location. MacPorts puts its
-libraries under the <code>/opt/local</code> directory.</p>
+<p>You need to update your CC variables to find the header and shared library files for compilation of obnc with <code>build</code>. (I added these to my <code>.bash_profile</code>). New Macs ships with zsh and your settings might be in a different location. MacPorts puts its libraries under the <code>/opt/local</code> directory.</p>
 <pre><code>
     export C_INCLUDE_PATH=&quot;/usr/include:/usr/local/include:/opt/local/include&quot;
     export LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
     export LD_LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
 </code></pre>
 <h2 id="obnc-environment-variables">OBNC environment variables</h2>
-<p>This follows’ Karl’s docs.  Additionally if you install OBNC extlib
-so you can do POSIX shell programs you’ll need to set your
-<code>OBNC_IMPORT_PATH</code> environment. An example of including a
-default install location and local home directory location.</p>
+<p>This follows’ Karl’s docs.  Additionally if you install OBNC extlib so you can do POSIX shell programs you’ll need to set your <code>OBNC_IMPORT_PATH</code> environment. An example of including a default install location and local home directory location.</p>
 <pre><code>
     export OBNC_IMPORT_PATH=&quot;/usr/local/lib/obnc:$HOME/lib/obnc&quot;
 </code></pre>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
-<li>Next <a href="../09/Oberon-07-and-the-filesystem.html">Oberon-07 and
-the file system</a></li>
-<li>Previous <a href="../01/Combining-Oberon-and-C.html">Combining
-Oberon-07 and C</a></li>
+<li>Next <a href="../09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a></li>
+<li>Previous <a href="../01/Combining-Oberon-and-C.html">Combining Oberon-07 and C</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

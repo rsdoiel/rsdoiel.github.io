@@ -8,41 +8,37 @@ BLOG=blog
 # render markdown file in direct directory
 #
 if [[ "$#" = "2" ]]; then
-    POST_PATH=$(echo "${2}" |tr - /)
+    POST_PATH=$(echo "${2}" | tr - /)
     FILENAME="${1}"
-    printf 'Posting markdown file into blog path %s\n' "$POST_PATH"
-    printf 'Generating directory %s' "$POST_PATH"
-    pttk phlogit -verbose -prefix=blog "$FILENAME" "${2}"
-
-    printf 'Resolving %s to basename' "$FILENAME"
-    FILENAME=$(basename "$FILENAME")
-    echo "Adding to git $POST_PATH/$FILENAME"
-    git add "$BLOG/$POST_PATH/$FILENAME"
-    # Make sure we have a place holder stub to keep in the repo
-    # After running clean
-    touch "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
-    git add "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
-    git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
 elif [[ "$1" != "" ]]; then
-    POST_PATH=$(reldate 0 day| tr - /)
-    echo "Posting markdown file into blog path $POST_PATH"
-    echo "Generating directory $POST_PATH"
-    pttk phlogit -verbose -prefix=blog "$FILENAME" "${2}"
-
-    FILENAME=$(basename "$FILENAME")
-    echo "Resolving $FILENAME to basename"
-    FILENAME=$(basename "$FILENAME")
-    echo "Adding to git $POST_PATH/$FILENAME"
-    git add "$BLOG/$POST_PATH/$FILENAME"
-    # Make sure we have a place holder stub to keep in the repo
-    # After running clean
-    touch "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
-    git add "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
-    git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
+    POST_PATH=$(reldate 0 day | tr - /)
+    FILENAME="${1}"
 else
     echo "No post to add"
+    POST_PATH=""
+    FILENAME=""
 fi
 
+if [[ "$POST_PATH" != "" ]]; then
+    printf 'Posting markdown file into blog path %s\n' "$POST_PATH"
+    printf 'Generating directory %s\n' "$POST_PATH"
+    pttk phlogit -verbose -prefix=blog "$FILENAME" "${2}"
+
+    FILENAME=$(basename "$FILENAME")
+    printf 'Resolving %s to basename\n' "$FILENAME"
+    FILENAME=$(basename "$FILENAME")
+    printf 'Adding to git %s\n' "$POST_PATH/$FILENAME"
+    git add "$BLOG/$POST_PATH/$FILENAME"
+    # Make sure we have a place holder stub to keep in the repo
+    # After running clean
+    touch "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
+    git add "$BLOG/$POST_PATH/${FILENAME/.md/.html}"
+    git commit -am "Added $BLOG/$POST_PATH/$FILENAME"
+fi
+
+#
+# Refresh the phlog
+#
 echo "Changing work directory to $BLOG"
 cd "$BLOG"
 echo "Work directory now $(pwd)"
@@ -57,21 +53,24 @@ printf '\n%s\n\n' "${TITLE}" >gophermap
 
 printf 'Building Prior Years %s to %s\n' "$THIS_YEAR" "$START_YEAR"
 for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
+    pttk phlogit -refresh="$Y"
     printf 'Building index for year %s\n' "$Y"
-    printf '1%s\t%s\n' "$Y" "$Y" >> gophermap
-    printf '\n' >> gophermap
-    findfile -s .md "$Y" | sort -r | while read FNAME; do
-        POST_FILENAME="${Y}/${FNAME}"
-        ARTICLE=$(titleline -i "${Y}/${FNAME}")
+    CNT=$(find "$Y" -type f | grep -E '.md$' | wc -l)
+    printf '1%s (%d posts)\t%s\n' "$Y" "$CNT" "$Y" >>gophermap
+
+    find "$Y" -type f | grep -E '.md$' | sort -r | while read FNAME; do
+        POST_FILENAME="${FNAME}"
+        ARTICLE=$(pttk frontmatter "${FNAME}" | jq -r .title)
         POST_DATE=$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/')
         if [ "${ARTICLE}" != "" ]; then
-          printf '0%s\t/users/rsdoiel/blog/%s\tsdf.org\t70\n' "${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
+            printf '0%s\t%s\r\n' "${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
         fi
     done
-    printf '\n' >> gophermap
+    printf '\n' >>gophermap
 done
 
 cd "$START_PATH"
+exit 1 # DEBUG
 
 find blog -type f | grep -v -E ".html$" | while read FNAME; do
     chmod 664 "${FNAME}"

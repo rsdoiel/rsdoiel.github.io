@@ -11,8 +11,7 @@
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
   <link rel="alternative" type="application/markdown" href="/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.md">
-  <meta name="keywords" content="Bash, Markdown, site
-generator, mkpage, pandoc">
+  <meta name="keywords" content="Bash, Markdown, site generator, mkpage, pandoc">
 </head>
 <body>
 <nav>
@@ -35,66 +34,25 @@ generator, mkpage, pandoc">
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="from-markdown-and-bash-to-mkpage">From Markdown and Bash to
-mkpage</h1>
+<h1 id="from-markdown-and-bash-to-mkpage">From Markdown and Bash to mkpage</h1>
 <p>By R. S. Doiel 2016-08-16</p>
-<p>When I started maintaining a website on GitHub a few years ago my
-needs were so simple I hand coded the HTML. Eventually I adopted a
-markdown processor for maintaining the prose. My “theme” was a CSS file
-and some HTML fragments to wrap the markdown output. If I needed
-interactivity I used JavaScript to access content via a web API. Life
-was simple, all I had to learn to get started was Git and how to
-populate a branch called “gh-pages”.</p>
-<h2 id="deconstructing-content-management-systems">Deconstructing
-Content Management Systems</h2>
-<p>Recently my website needs have grown. I started experimenting with
-static site generators thinking an existing system would be the right
-fit. What I found were feature rich systems that varied primarily in
-implementation language and template engine. Even though I wasn’t
-required to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt
-like the static site generators were racing to fill a complexity vacuum.
-In the end they were interesting to explore but far more than I was
-willing to run. I believe modern content management systems can be
-deconstruct into something simpler.</p>
-<p>Some of the core elements of modern content management systems
-are</p>
+<p>When I started maintaining a website on GitHub a few years ago my needs were so simple I hand coded the HTML. Eventually I adopted a markdown processor for maintaining the prose. My “theme” was a CSS file and some HTML fragments to wrap the markdown output. If I needed interactivity I used JavaScript to access content via a web API. Life was simple, all I had to learn to get started was Git and how to populate a branch called “gh-pages”.</p>
+<h2 id="deconstructing-content-management-systems">Deconstructing Content Management Systems</h2>
+<p>Recently my website needs have grown. I started experimenting with static site generators thinking an existing system would be the right fit. What I found were feature rich systems that varied primarily in implementation language and template engine. Even though I wasn’t required to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt like the static site generators were racing to fill a complexity vacuum. In the end they were interesting to explore but far more than I was willing to run. I believe modern content management systems can be deconstruct into something simpler.</p>
+<p>Some of the core elements of modern content management systems are</p>
 <ul>
 <li>creation and curation of data sources (including metadata)</li>
 <li>transforming data sources if needed</li>
 <li>mapping a data source to appropriate template set</li>
 <li>rendering template sets to produce a final website</li>
 </ul>
-<p>Modern static site generators leave creation and curation to your
-text editor and revision control system (e.g. vi and git).</p>
-<p>Most static site generators use a simplified markup. A populate one
-is called <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>.
-This “markup” is predictable enough that you can easily convert the
-results to HTML and other useful formats with tools like <a
-href="http://pandoc.org/">pandoc</a>. In most static site generators
-your content is curated in Markdown and when the pages are built it is
-rendered to HTML for injection into your website’s template and
-theme.</p>
-<p>Mapping the data sources to templates, combining the templates and
-rendering the final website is where most systems introduce a large
-amount of complexity. This is true of static site generators like <a
-href="https://jekyllrb.com">Jekill</a> and <a
-href="https://gohugo.io">Hugo</a>.</p>
-<h2 id="an-experimental-deconstruction">An experimental
-deconstruction</h2>
-<p>I wanted a simple command line tool that would make a single web
-page. It would take a few data sources and formats and run them through
-a template system. The template system needed to be simple but support
-the case where data might not be available. It would be nice if it
-handled the case of repetitious data like that used in tables or lists.
-Ideally I could render many pages from a single template assuming a
-simple website and layout.</p>
+<p>Modern static site generators leave creation and curation to your text editor and revision control system (e.g. vi and git).</p>
+<p>Most static site generators use a simplified markup. A populate one is called <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>. This “markup” is predictable enough that you can easily convert the results to HTML and other useful formats with tools like <a href="http://pandoc.org/">pandoc</a>. In most static site generators your content is curated in Markdown and when the pages are built it is rendered to HTML for injection into your website’s template and theme.</p>
+<p>Mapping the data sources to templates, combining the templates and rendering the final website is where most systems introduce a large amount of complexity. This is true of static site generators like <a href="https://jekyllrb.com">Jekill</a> and <a href="https://gohugo.io">Hugo</a>.</p>
+<h2 id="an-experimental-deconstruction">An experimental deconstruction</h2>
+<p>I wanted a simple command line tool that would make a single web page. It would take a few data sources and formats and run them through a template system. The template system needed to be simple but support the case where data might not be available. It would be nice if it handled the case of repetitious data like that used in tables or lists. Ideally I could render many pages from a single template assuming a simple website and layout.</p>
 <h3 id="a-single-page-generator">A single page generator</h3>
-<p><a href="https://github.com/rsdoiel/mkpage">mkpage</a> started as an
-experiment in building a simple single page generator. It’s
-responsibilities include mapping data sources to the template,
-transforming data if needed and rendering the results. After reviewing
-the websites I’ve setup in the last year or two I realized I had three
-common types of data.</p>
+<p><a href="https://github.com/rsdoiel/mkpage">mkpage</a> started as an experiment in building a simple single page generator. It’s responsibilities include mapping data sources to the template, transforming data if needed and rendering the results. After reviewing the websites I’ve setup in the last year or two I realized I had three common types of data.</p>
 <ol type="1">
 <li>Plain text or content that did not need further processing</li>
 <li>Markdown content (e.g. page content, navigation lists)</li>
@@ -106,35 +64,18 @@ common types of data.</p>
 <li>files</li>
 <li>web resources</li>
 </ol>
-<p>Each of these sources might provide plain text, markdown or JSON data
-formats.</p>
-<p>That poses the question of how to express the data format and the
-data source when mapping the content into a template. The web resources
-are easy in the sense that the web responses include content type
-information. Files can be simple too as the file extension indicates
-their format (e.g. “.md” for Markdown, “.json” for JSON documents). What
-remained was how to identify a text string’s format. I opted for a
-prefix ending in a colon (e.g. “text:” for plain text, “markdown:” for
-markdown and “json:” for JSON). This mapping allows for a simple
-key/value relationship to be expressed easily on the command line.</p>
+<p>Each of these sources might provide plain text, markdown or JSON data formats.</p>
+<p>That poses the question of how to express the data format and the data source when mapping the content into a template. The web resources are easy in the sense that the web responses include content type information. Files can be simple too as the file extension indicates their format (e.g. “.md” for Markdown, “.json” for JSON documents). What remained was how to identify a text string’s format. I opted for a prefix ending in a colon (e.g. “text:” for plain text, “markdown:” for markdown and “json:” for JSON). This mapping allows for a simple key/value relationship to be expressed easily on the command line.</p>
 <h3 id="mkpage-in-action">mkpage in action</h3>
-<p>Describing how to build “mypage.html” from “mypage.md” and “nav.md”
-(containing links for navigating the website) is as easy as typing</p>
+<p>Describing how to build “mypage.html” from “mypage.md” and “nav.md” (containing links for navigating the website) is as easy as typing</p>
 <pre class="shell"><code>    mkpage &quot;content=mypage.md&quot; &quot;navigation=nav.md&quot; page.tmpl &gt; mypage.html</code></pre>
-<p>In this example the template is called “page.tmpl” and we redirect
-the output to “mypage.html”.</p>
+<p>In this example the template is called “page.tmpl” and we redirect the output to “mypage.html”.</p>
 <p>Adding a custom page title is easy too.</p>
 <pre class="shell"><code>    mkpage &quot;title=text:My Page&quot; \
         &quot;content=mypage.md&#39; &quot;navigation=nav.md&quot; 
         page.tmpl \
         &gt; mypage.html</code></pre>
-<p>Likewise integrating some JSON data from weather.gov is relatively
-straight forward. The hardest part is discovering the <a
-href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a>
-that returns JSON! Notice I have added a weather field and the URL. When
-data is received back from weather.gov it is JSON decoded and then
-passed to the template for rendering using the “range” template
-function.</p>
+<p>Likewise integrating some JSON data from weather.gov is relatively straight forward. The hardest part is discovering the <a href="http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json">URL</a> that returns JSON! Notice I have added a weather field and the URL. When data is received back from weather.gov it is JSON decoded and then passed to the template for rendering using the “range” template function.</p>
 <pre class="shell"><code>    mkpage &quot;title=My Page&quot; \
         &quot;content=mypage.md&quot; \
         &quot;navigation=nav.md&quot; \
@@ -148,61 +89,41 @@ function.</p>
 <li>Applying them to the template (e.g. page.tmpl)</li>
 <li>Render the results to stdout</li>
 </ol>
-<p>Building a website then is only a matter of maintaining navigation in
-<em>nav.md</em> and identifying the pages needing to be created. I can
-easily automated that using the Unix find, grep, cut and sort. Also with
-find I can iteratively process each markdown file applying a template
-and rendering the related HTML file. This can be done for a site of a
-few pages (e.g. about, resume and cv) to more complex websites like
-blogs and repository activities.</p>
-<p>Here’s an example template that would be suitable for the previous
-command line example. It’s mostly just HTML and some curly bracket
-notation sprinkled in.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;html&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;head&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        {{with .title}}<span class="kw">&lt;title&gt;</span>{{- . -}}<span class="kw">&lt;/title&gt;</span>{{end}}</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;css/site.css&quot;</span><span class="kw">&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/head&gt;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;body&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;nav&gt;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        {{ .navigation }}</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/nav&gt;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;section&gt;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        {{ .content }}</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/section&gt;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;aside&gt;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        Weather Demo<span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;ul&gt;</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        {{range .weather.data.text}}</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;li&gt;</span>{{ . }}<span class="kw">&lt;/li&gt;</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        {{end}}</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/ul&gt;</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/aside&gt;</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/body&gt;</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/html&gt;</span></span></code></pre></div>
-<p>You can find out more about <a
-href="https://github.com/rsdoiel/mkpage">mkpage</a> <a
-href="https://rsdoiel.github.io/mkpage">rsdoiel.github.io/mkpage</a>.</p>
-<p>To learn more about Go’s text templates see <a
-href="https://golang.org/pkg/text/template/">golang.org/pkg/text/template</a>.</p>
-<p>If your site generator needs are more than <em>mkpage</em> I suggest
-<a href="https://gohugo.io">Hugo</a>. It’s what I would probably reach
-for if I was building a large complex organizational site or news
-site.</p>
-<p>If you’re looking for an innovative and rich author centric content
-system I suggest Dave Winer’s <a href="http://fargo.io">Fargo</a>
-outliner and <a href="https://1999.io">1999.io</a>.</p>
+<p>Building a website then is only a matter of maintaining navigation in <em>nav.md</em> and identifying the pages needing to be created. I can easily automated that using the Unix find, grep, cut and sort. Also with find I can iteratively process each markdown file applying a template and rendering the related HTML file. This can be done for a site of a few pages (e.g. about, resume and cv) to more complex websites like blogs and repository activities.</p>
+<p>Here’s an example template that would be suitable for the previous command line example. It’s mostly just HTML and some curly bracket notation sprinkled in.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">&lt;html&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="kw">&lt;head&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>        {{with .title}}<span class="kw">&lt;title&gt;</span>{{- . -}}<span class="kw">&lt;/title&gt;</span>{{end}}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>        <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;css/site.css&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="kw">&lt;body&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>        <span class="kw">&lt;nav&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>        {{ .navigation }}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>        <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>        <span class="kw">&lt;section&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>        {{ .content }}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>        <span class="kw">&lt;/section&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>        <span class="kw">&lt;aside&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>        Weather Demo<span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>        <span class="kw">&lt;ul&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>        {{range .weather.data.text}}</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>            <span class="kw">&lt;li&gt;</span>{{ . }}<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>        {{end}}</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>        <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a>        <span class="kw">&lt;/aside&gt;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>    <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>    <span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<p>You can find out more about <a href="https://github.com/rsdoiel/mkpage">mkpage</a> <a href="https://rsdoiel.github.io/mkpage">rsdoiel.github.io/mkpage</a>.</p>
+<p>To learn more about Go’s text templates see <a href="https://golang.org/pkg/text/template/">golang.org/pkg/text/template</a>.</p>
+<p>If your site generator needs are more than <em>mkpage</em> I suggest <a href="https://gohugo.io">Hugo</a>. It’s what I would probably reach for if I was building a large complex organizational site or news site.</p>
+<p>If you’re looking for an innovative and rich author centric content system I suggest Dave Winer’s <a href="http://fargo.io">Fargo</a> outliner and <a href="https://1999.io">1999.io</a>.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
