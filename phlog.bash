@@ -70,15 +70,4 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
 done
 
 cd "$START_PATH"
-exit 1 # DEBUG
 
-find blog -type f | grep -v -E ".html$" | while read FNAME; do
-    chmod 664 "${FNAME}"
-done
-find blog -type d | while read DNAME; do
-    chmod 775 "${DNAME}"
-done
-
-zip -r phlog.zip gophermap *.md
-zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
-zip -r phlog.zip $(find series -type f | grep -v -E ".html$")

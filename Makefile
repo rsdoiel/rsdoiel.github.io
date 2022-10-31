@@ -97,9 +97,8 @@ rss.xml: .FORCE
 
 
 phlog: .FORCE
-	pttk phlogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
 	bash phlog.bash
-	git add blog/gophermap
+	git add $(find . -name gophermap)
 	git add blog/phlog.json
 
 blog: .FORCE
@@ -117,6 +116,20 @@ lunr.json: .FORCE
 rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
 	git add rssfeed.html
+
+site.zip : .FORCE
+	zip -r site.zip * --exclude ".git"
+
+blog.zip: .FORCE
+	zip -r blog.zip *.md *.html twtxt.txt
+	zip -r blog.zip $(find blog -type f)
+	zip -r blog.zip $(find series -type f)
+
+phlog.zip: .FORCE
+	zip -r phlog.zip gophermap *.md twtxt.txt
+	zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
+	zip -r phlog.zip $(find series -type f | grep -v -E ".html$")
+
 
 status:
 	git status
