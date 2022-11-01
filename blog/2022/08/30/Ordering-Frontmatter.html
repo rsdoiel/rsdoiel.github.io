@@ -36,11 +36,7 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="ordering-front-matter">Ordering Front Matter</h1>
 <p>By R. S. Doiel, 2022-08-30</p>
-<p>A colleague of mine ran into an interesting Pandoc behavior. He was
-combining a JSON metadata document and a converted word document and
-wanted the YAML front matter to have a specific order of fields (makes
-it easier for us humans to quickly scan it and see what the document was
-about).</p>
+<p>A colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).</p>
 <p>The order he wanted in the front matter was</p>
 <ul>
 <li>title</li>
@@ -48,46 +44,30 @@ about).</p>
 <li>interviewee</li>
 <li>abstract</li>
 </ul>
-<p>This was for a collection of oral histories. When my friend use
-Pandoc’s <code>--metadata-json</code> to read the JSON metadata it
-rendered the YAML fine except the attributes were listed in alphabetical
-order.</p>
-<p>We found a solution by getting Pandoc to treat the output not as
-Markdown plain text so that we could template the desired order of
-attributes.</p>
+<p>This was for a collection of oral histories. When my friend use Pandoc’s <code>--metadata-json</code> to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.</p>
+<p>We found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes.</p>
 <p>Here’s the steps we used.</p>
 <ol type="1">
-<li>create an empty file called “empty.txt” (this is just so you pandoc
-doesn’t try to read standard input and processes you metadata.json file
-with the template supplied)</li>
+<li>create an empty file called “empty.txt” (this is just so you pandoc doesn’t try to read standard input and processes you metadata.json file with the template supplied)</li>
 <li>Create a template with the order you want (see below)</li>
-<li>Use pandoc to process your “.txt” file and your JSON metadata file
-using the template (it makes it tread it as plain text even though we’re
-going to treat it as markdown later)</li>
-<li>Append the content of the word file and run pandoc over your
-combined file as you would normally to generate your HTML</li>
+<li>Use pandoc to process your “.txt” file and your JSON metadata file using the template (it makes it tread it as plain text even though we’re going to treat it as markdown later)</li>
+<li>Append the content of the word file and run pandoc over your combined file as you would normally to generate your HTML</li>
 </ol>
-<p>This is the contents of our <a href="metadata.json">metadata.json</a>
-file.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Interview with Mojo Sam&quot;</span><span class="fu">,</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;interviewee&quot;</span><span class="fu">:</span> <span class="st">&quot;Mojo Sam&quot;</span><span class="fu">,</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;interviewer&quot;</span><span class="fu">:</span> <span class="st">&quot;Tom Lopez&quot;</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;abstract&quot;</span><span class="fu">:</span> <span class="st">&quot;Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal&quot;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
-<p><a href="frontmatter.tmpl">frontmatter.tmpl</a> is the template we
-used to render ordered front matter.</p>
+<p>This is the contents of our <a href="metadata.json">metadata.json</a> file.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Interview with Mojo Sam&quot;</span><span class="fu">,</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        <span class="dt">&quot;interviewee&quot;</span><span class="fu">:</span> <span class="st">&quot;Mojo Sam&quot;</span><span class="fu">,</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="dt">&quot;interviewer&quot;</span><span class="fu">:</span> <span class="st">&quot;Tom Lopez&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="dt">&quot;abstract&quot;</span><span class="fu">:</span> <span class="st">&quot;Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre></div>
+<p><a href="frontmatter.tmpl">frontmatter.tmpl</a> is the template we used to render ordered front matter.</p>
 <pre><code>    ---
     $if(title)$title: &quot;$title$&quot;$endif$
     $if(interviewee)$interviewee: &quot;$interviewee$&quot;$endif$
     $if(interviewer)$interviewer: &quot;$interviewer$&quot;$endif$
     $if(abstract)$abstract: &quot;$abstract$&quot;$endif$
     ---</code></pre>
-<p>Here’s the commands we used to generate a “doc.txt” file with the
-front matter in the desired order. Not “empty.txt” is just an empty file
-so Pandoc will not read from standard input and just work with the JSON
-metadata and our template.</p>
+<p>Here’s the commands we used to generate a “doc.txt” file with the front matter in the desired order. Not “empty.txt” is just an empty file so Pandoc will not read from standard input and just work with the JSON metadata and our template.</p>
 <pre><code>touch empty.txt
 pandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt</code></pre>
 <p>The output of the pandoc command looks like this.</p>
@@ -103,10 +83,7 @@ pandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt</code
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

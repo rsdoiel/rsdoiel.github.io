@@ -35,63 +35,25 @@
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="pandoc-metadata">Pandoc &amp; Metadata</h1>
-<p>Pandoc supports three ways of providing metadata to its template
-engine.</p>
+<p>Pandoc supports three ways of providing metadata to its template engine.</p>
 <ol type="1">
 <li>Front matter</li>
 <li>Command line optional metadata</li>
 <li>A JSON metadata file.</li>
 </ol>
 <h2 id="front-matter">Front matter</h2>
-<p>Front matter is a community term that comes from physical world of
-paper books and articles. It is the information that comes before the
-primary content. This information might be things like title, author,
-publisher and publication date. These days it’ll also include things
-like identifiers like ISSN, ISBN possibly newer identifiers like DOI or
-ORCID. In the library and programming community we refer to this type of
-structured information as metadata. Data about the publication or
-article.</p>
-<p>Many publication systems like TeX/LaTeX support provided means of
-incorporating metadata into the document. When simple markup formats
-like Markdown, Textile and Asciidoc became popular the practice was
-continued by including the metadata in some sort of structured encoding
-at the beginning of the document. The community adopted the term from
-the print world, “front matter”.</p>
-<p>Pandoc provides for several ways of working with metadata and
-supports one format of front matter encoding called <a
-href="https://yaml.org/">YAML</a>. Other markup processors support other
-encoding of front matter. Two popular alternatives of encoding are <a
-href="https://toml.io/en/">TOML</a> and <a
-href="https://json.org">JSON</a>. If you use one of the alternative
-encoding for your front matter then you’ll need to split the front
-matter out of your document before processing with Pandoc<a href="#fn1"
-class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>.</p>
-<p>If you provide YAML formatted front matter Pandoc will pass this
-metadata on and make it available to it’s template engine and the
-templates you create to render content with Pandoc. See the Pandoc User
-Guide section <a
-href="https://pandoc.org/MANUAL.html#extension-yaml_metadata_block">YAML
-metadata blocks</a> for more details. If you’ve used another encoding of
-front matter then the metadata file approach is probably the ticket.</p>
-<h2 id="metadata-passed-by-command-line">Metadata passed by command
-line</h2>
-<p>If you only have a metadata elements you would like to make available
-to the template (e.g. title, pub date) you can easily add them using the
-<code>--metadata</code> command line option. This is documented in the
-Pandoc User Guide under the heading <a
-href="https://pandoc.org/MANUAL.html">Reader Options</a>. Here’s a
-simple example where we have a title, “U. S. Constitution” and a
-publication date of “September 28, 1787”.</p>
+<p>Front matter is a community term that comes from physical world of paper books and articles. It is the information that comes before the primary content. This information might be things like title, author, publisher and publication date. These days it’ll also include things like identifiers like ISSN, ISBN possibly newer identifiers like DOI or ORCID. In the library and programming community we refer to this type of structured information as metadata. Data about the publication or article.</p>
+<p>Many publication systems like TeX/LaTeX support provided means of incorporating metadata into the document. When simple markup formats like Markdown, Textile and Asciidoc became popular the practice was continued by including the metadata in some sort of structured encoding at the beginning of the document. The community adopted the term from the print world, “front matter”.</p>
+<p>Pandoc provides for several ways of working with metadata and supports one format of front matter encoding called <a href="https://yaml.org/">YAML</a>. Other markup processors support other encoding of front matter. Two popular alternatives of encoding are <a href="https://toml.io/en/">TOML</a> and <a href="https://json.org">JSON</a>. If you use one of the alternative encoding for your front matter then you’ll need to split the front matter out of your document before processing with Pandoc<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>If you provide YAML formatted front matter Pandoc will pass this metadata on and make it available to it’s template engine and the templates you create to render content with Pandoc. See the Pandoc User Guide section <a href="https://pandoc.org/MANUAL.html#extension-yaml_metadata_block">YAML metadata blocks</a> for more details. If you’ve used another encoding of front matter then the metadata file approach is probably the ticket.</p>
+<h2 id="metadata-passed-by-command-line">Metadata passed by command line</h2>
+<p>If you only have a metadata elements you would like to make available to the template (e.g. title, pub date) you can easily add them using the <code>--metadata</code> command line option. This is documented in the Pandoc User Guide under the heading <a href="https://pandoc.org/MANUAL.html">Reader Options</a>. Here’s a simple example where we have a title, “U. S. Constitution” and a publication date of “September 28, 1787”.</p>
 <pre class="shell"><code>    pandoc --metadata \
         title=&quot;U. S. Constitution&quot; \
         pubdate=&quot;September 28, 1787&quot; \
         --from markdown --to html --template doc1.tmpl \
         constitution.txt</code></pre>
-<p>The template now has two additional values available as metadata in
-addition to <code>body</code>, namely <code>pubdate</code> and
-<code>title</code>. Here’s an example template <a
-href="doc1.tmpl">doc1.tmpl</a>.</p>
+<p>The template now has two additional values available as metadata in addition to <code>body</code>, namely <code>pubdate</code> and <code>title</code>. Here’s an example template <a href="doc1.tmpl">doc1.tmpl</a>.</p>
 <pre><code>
    &lt;!DOCTYPE html&gt;
    &lt;html&gt;
@@ -107,36 +69,21 @@ href="doc1.tmpl">doc1.tmpl</a>.</p>
    &lt;/body&gt;
    &lt;/html&gt;
 </code></pre>
-<p>More complex metadata is better suited to creating a JSON document
-with the structure you need to render your template.</p>
+<p>More complex metadata is better suited to creating a JSON document with the structure you need to render your template.</p>
 <h2 id="metadata-file">Metadata file</h2>
-<p>Metadata files can be included with the option
-<code>--metadata-file</code>. This like the <code>--metadata</code>
-option are discussed in the Pandoc User Guide under the [Read
-Options(https://pandoc.org/MANUAL.html) heading. The JSON document
-should contain an Object where each attribute corresponds to the
-variable you wish to referenced in template. Pandoc’s template engine
-support both single values but also objects and arrays. In this way you
-can structure the elements you wish to include even elements which are
-iterative (e.g. a list of links or topics). Below is a JSON data
-structure that includes the page title as well as links for the
-navigation. The nav attribute holds a list of objects with attributes of
-href and label containing data that will be used to render a list of
-anchor elements in the template.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;pubdate&quot;</span><span class="fu">:</span> <span class="st">&quot;September 28, 1787&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Metadata&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Metadata.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Magnacarta&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;magnacarta.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Declaration of Independence&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;independence.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;constitution.html&quot;</span><span class="fu">}</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
-<p>Here’s a revised template to include the navigation, see <a
-href="doc2.tmpl">doc2.tmpl</a>.</p>
+<p>Metadata files can be included with the option <code>--metadata-file</code>. This like the <code>--metadata</code> option are discussed in the Pandoc User Guide under the [Read Options(https://pandoc.org/MANUAL.html) heading. The JSON document should contain an Object where each attribute corresponds to the variable you wish to referenced in template. Pandoc’s template engine support both single values but also objects and arrays. In this way you can structure the elements you wish to include even elements which are iterative (e.g. a list of links or topics). Below is a JSON data structure that includes the page title as well as links for the navigation. The nav attribute holds a list of objects with attributes of href and label containing data that will be used to render a list of anchor elements in the template.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;pubdate&quot;</span><span class="fu">:</span> <span class="st">&quot;September 28, 1787&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="dt">&quot;nav&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc Metadata&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;Pandoc-Metadata.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Magnacarta&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;magnacarta.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;Declaration of Independence&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;independence.html&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>            <span class="fu">{</span><span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;U. S. Constitution&quot;</span><span class="fu">,</span> <span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;constitution.html&quot;</span><span class="fu">}</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        <span class="ot">]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre></div>
+<p>Here’s a revised template to include the navigation, see <a href="doc2.tmpl">doc2.tmpl</a>.</p>
 <pre><code>
    &lt;!DOCTYPE html&gt;
    &lt;html&gt;
@@ -156,14 +103,7 @@ href="doc2.tmpl">doc2.tmpl</a>.</p>
    &lt;/html&gt;
 </code></pre>
 <h2 id="combining-techniques">Combining Techniques</h2>
-<p>It is worth noting that these approaches can be mixed and matched. In
-the following example I use the same <a
-href="metadata.json">metadata.json</a> file which has title and pubdate
-attributes but override them using the command line
-<code>--metadata</code> option. In this way I can use that file along
-with <a href="doc2.tmpl">doc2.tmpl</a> and render each To render the
-constitution page from a Markdown version of the U. S. Constitution you
-could use the following Pandoc command:</p>
+<p>It is worth noting that these approaches can be mixed and matched. In the following example I use the same <a href="metadata.json">metadata.json</a> file which has title and pubdate attributes but override them using the command line <code>--metadata</code> option. In this way I can use that file along with <a href="doc2.tmpl">doc2.tmpl</a> and render each To render the constitution page from a Markdown version of the U. S. Constitution you could use the following Pandoc command:</p>
 <pre class="shell"><code>
     pandoc --from markdown --to html --template doc2.tmpl \
         --metadata-file metadata.json \
@@ -186,30 +126,18 @@ could use the following Pandoc command:</p>
         -o constitution.html \
         constitution.txt
 </code></pre>
-<p>See <a href="magnacarta.html">Magna Carta</a>, <a
-href="independence.html">The Declaration of Independence</a>, <a
-href="constitution.html">U. S. Constitution</a></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<p>See <a href="magnacarta.html">Magna Carta</a>, <a href="independence.html">The Declaration of Independence</a>, <a href="constitution.html">U. S. Constitution</a></p>
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The <a
-href="https://caltechlibrary.github.io/mkpage/">MkPage Project</a>
-provides a tool called <a
-href="https://caltechlibrary.github.io/mkpage/docs/frontmatter/">frontmatter</a>
-that can be easy or your can easily roll your own in Python or other
-favorite language.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>The <a href="https://caltechlibrary.github.io/mkpage/">MkPage Project</a> provides a tool called <a href="https://caltechlibrary.github.io/mkpage/docs/frontmatter/">frontmatter</a> that can be easy or your can easily roll your own in Python or other favorite language.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

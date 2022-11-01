@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 18 Oct 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Tue, 18 Oct 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Tue, 01 Nov 2022 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.7</generator>
+        <item>
+            <title>Installing Cargo/Rust on Raspberry Pi 400</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/01/installing-cargo-rust-r400.html</link>
+            <description>On my Raspberry Pi 400 I&#39;m running the 64bit Raspberry Pi OS.&#xA;The version of Cargo and Rustc are not recent enough to install&#xA;[ncgopher](https://github.com/jansc/ncgopher). What worked for&#xA;me was to first install cargo via the instructions in the [The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html).&#xA;&#xA;~~~shell&#xA;curl https://sh.rustup.rs -sSf | sh&#xA;~~~&#xA;&#xA;An important note is if you previously installed a version of Cargo/Rust&#xA;via the debian package system you should uninstall it before running the&#xA;instructions above from the Cargo Book.&#xA;&#xA;With this version I was able to install __ncgopher__ using the simple&#xA;recipe of&#xA;&#xA;~~~shell&#xA;cargo install ncgopher&#xA;~~~ ...</description>
+            <pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/01/installing-cargo-rust-r400.html</guid>
+        </item>
         <item>
             <title>7:30 AM, Oberon Language: A minimum SYSTEM module</title>
             <link>https://rsdoiel.github.io/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html</link>

@@ -21,7 +21,7 @@ def normalize_text(src):
 
 def document_as_object(key, fname):
     obj = {}
-    cmd = ['frontmatter', '-j', '-i', fname]
+    cmd = ['pttk', 'frontmatter', fname]
     with Popen(cmd, stdout = PIPE, encoding = 'utf-8') as proc:
         src = proc.stdout.read()
         if src.startswith('{'):
