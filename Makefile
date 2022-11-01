@@ -132,11 +132,14 @@ phlog.zip: .FORCE
 
 
 status:
-	git status
+	-git status
 
+refresh:
+	-git fetch origin
+	-git pull origin main
 save:
-	git commit -am "Quick Save"
-	git push origin main
+	-git commit -am "Quick Save"
+	-git push origin main
 
 # NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pttk
 website: all .FORCE
