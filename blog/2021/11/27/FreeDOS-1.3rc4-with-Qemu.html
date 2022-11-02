@@ -34,38 +34,87 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h2 id="setting-up-freedos-1.3rc4-with-qemu">Setting up FreeDOS 1.3rc4 with Qemu</h2>
+<h2 id="setting-up-freedos-1.3rc4-with-qemu">Setting up FreeDOS 1.3rc4
+with Qemu</h2>
 <p>By R. S. Doiel, 2021-11-27</p>
-<p>In this article I’m going explore setting up FreeDOS with Qemu on my venerable Dell 4319 running Raspberry Pi Desktop OS (Debian GNU/Linux). First step is to download FreeDOS “Live CD” in the 1.3 RC4 release. See http://freedos.org/download/ for that.</p>
+<p>In this article I’m going explore setting up FreeDOS with Qemu on my
+venerable Dell 4319 running Raspberry Pi Desktop OS (Debian GNU/Linux).
+First step is to download FreeDOS “Live CD” in the 1.3 RC4 release. See
+http://freedos.org/download/ for that.</p>
 <h2 id="installing-qemu">Installing Qemu</h2>
-<p>I needed to install Qemu in my laptop. It runs the Raspberry Pi Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install the “qemu-system” package since I will likely use qemu for other things besides FreeDOS. The qemu-system package contains all the various systems I might want to emulate in other projects as well as several qemu utilities that are handy. Here’s the full sequence of <code>apt</code> commands I ran (NOTE: these included making sure my laptop was up to date before I installed qemu-system).</p>
+<p>I needed to install Qemu in my laptop. It runs the Raspberry Pi
+Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install the
+“qemu-system” package since I will likely use qemu for other things
+besides FreeDOS. The qemu-system package contains all the various
+systems I might want to emulate in other projects as well as several
+qemu utilities that are handy. Here’s the full sequence of
+<code>apt</code> commands I ran (NOTE: these included making sure my
+laptop was up to date before I installed qemu-system).</p>
 <pre><code>sudo apt update
 sudo apt upgrade
 sudo apt install qemu-system</code></pre>
-<p>Now that I had the software available it was time to figure out how to actually knit things together and run FreeDOS.</p>
+<p>Now that I had the software available it was time to figure out how
+to actually knit things together and run FreeDOS.</p>
 <h2 id="obtaining-freedos-1.3rc4">Obtaining FreeDOS 1.3rc4</h2>
-<p>Before I get started I create a folder in my home directory for running everything. You can name it what you want but I called mine <code>FreeDOS_13</code> and changed into that folder for the work in this article.</p>
+<p>Before I get started I create a folder in my home directory for
+running everything. You can name it what you want but I called mine
+<code>FreeDOS_13</code> and changed into that folder for the work in
+this article.</p>
 <pre><code>mkdir FreeDOS_13
 cd FreeDOS_13</code></pre>
-<p>I initially tried the CD images but ran into odd problems with qemu (possibly due to my lack of experience with qemu). After looking at that various options the USB Full release seemed like a good choice. It comes both as an image you can “burn” to your USB drive both also as a “vmdk” file used with emulators.</p>
+<p>I initially tried the CD images but ran into odd problems with qemu
+(possibly due to my lack of experience with qemu). After looking at that
+various options the USB Full release seemed like a good choice. It comes
+both as an image you can “burn” to your USB drive both also as a “vmdk”
+file used with emulators.</p>
 <pre><code>curl -L -O https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.3/previews/1.3-rc4/FD13-FullUSB.zip
 unzip FD13-FullUSB.zip</code></pre>
-<p>At this point you should see the FreeDOS “vmdk” file, and “img” file and readme files if you list the directory out. I’m going to use the “vmdk” file to install FreeDOS on my virtual harddrive freedos.img.</p>
+<p>At this point you should see the FreeDOS “vmdk” file, and “img” file
+and readme files if you list the directory out. I’m going to use the
+“vmdk” file to install FreeDOS on my virtual harddrive freedos.img.</p>
 <pre><code>ls -l </code></pre>
 <h2 id="prepping-my-virtual-machine">Prepping my virtual machine</h2>
-<p>A virtual machine is not just a CPU and some random access memory. A machine can include storage devices. For the retro “DOS” experience you might looking virtual devices for a “harddrive”, “floppy drive” and “CD-ROM drive”. Qemu provides a tool called <code>qemu-img</code> for creating these types of virtual devices.</p>
-<p>The basic command is <code>qemu-img</code> using the “create” option with some parameters. The parameter are filename and size (see <code>man qemu-img</code> for gory details). I am calling my virtual harddrive “freedos.img”. With <code>qemu-img</code> the size can be specified with a suffix like “K” for kilobytes, “M” for megabytes and “G” for gigabytes. DOS is a minimal requirements a small (by today’s standards) 750 megabyte harddrive seems appropriate.</p>
+<p>A virtual machine is not just a CPU and some random access memory. A
+machine can include storage devices. For the retro “DOS” experience you
+might looking virtual devices for a “harddrive”, “floppy drive” and
+“CD-ROM drive”. Qemu provides a tool called <code>qemu-img</code> for
+creating these types of virtual devices.</p>
+<p>The basic command is <code>qemu-img</code> using the “create” option
+with some parameters. The parameter are filename and size (see
+<code>man qemu-img</code> for gory details). I am calling my virtual
+harddrive “freedos.img”. With <code>qemu-img</code> the size can be
+specified with a suffix like “K” for kilobytes, “M” for megabytes and
+“G” for gigabytes. DOS is a minimal requirements a small (by today’s
+standards) 750 megabyte harddrive seems appropriate.</p>
 <pre><code>qemu-img create freedos.img 750M</code></pre>
-<p>For my purposes I need a harddrive so I stopped there. You can always create other drives and then restart your virtual machine with the appropriate options.</p>
+<p>For my purposes I need a harddrive so I stopped there. You can always
+create other drives and then restart your virtual machine with the
+appropriate options.</p>
 <h2 id="bring-up-my-freedos-box">Bring up my FreeDOS box</h2>
-<p>Now I was ready to boot from installation media and install FreeDOS 1.3rc4 on my virtual harddrive. For that I use a “qemu” command for the system I want to emulate. I picked <code>qemu-system-i386</code> (see can see the gory details of that command using <code>man qemu-system-i386</code>). To install FreeDOS I’m going to boot from the vmdk file provided for the purpose of installation. I then use the FreeDOS installer to make my freedos.img file bootable with all the DOS software I want to play with.</p>
+<p>Now I was ready to boot from installation media and install FreeDOS
+1.3rc4 on my virtual harddrive. For that I use a “qemu” command for the
+system I want to emulate. I picked <code>qemu-system-i386</code> (see
+can see the gory details of that command using
+<code>man qemu-system-i386</code>). To install FreeDOS I’m going to boot
+from the vmdk file provided for the purpose of installation. I then use
+the FreeDOS installer to make my freedos.img file bootable with all the
+DOS software I want to play with.</p>
 <pre><code>qemu-system-i386 \
    -m 8 \
    -boot menu=on,strict=on \
    -hda freedos.img \
    -hdb FD13FULL.vmdk</code></pre>
-<p>At this point you should see the machine start to boot, press Esc when prompted and select the second hard drive to boot from (that’s our vmdk drive). The drive is then treated like the CD-ROM, follow the programs instructions for installation. You will need to reboot several times during the process. Until your full installation is complete you’ll need to select the second harddrive as the boot drive and continue the installation.</p>
-<p>The first time I successfully installed FreeDOS 1.3rc4 I just installed the plain dos. When I re-did the process I install everything. It fills up my 750M virtual harddrive but rc4 includes development tools like a C compiler. That I think made it worth it.</p>
+<p>At this point you should see the machine start to boot, press Esc
+when prompted and select the second hard drive to boot from (that’s our
+vmdk drive). The drive is then treated like the CD-ROM, follow the
+programs instructions for installation. You will need to reboot several
+times during the process. Until your full installation is complete
+you’ll need to select the second harddrive as the boot drive and
+continue the installation.</p>
+<p>The first time I successfully installed FreeDOS 1.3rc4 I just
+installed the plain dos. When I re-did the process I install everything.
+It fills up my 750M virtual harddrive but rc4 includes development tools
+like a C compiler. That I think made it worth it.</p>
 <p>Here’s a Bash script you can use to build your FreeDOS machine.</p>
 <pre><code>#!/bin/bash
 
@@ -89,7 +138,8 @@ qemu-system-i386 \
     -hda freedos.img</code></pre>
 <p>Next step, explore FreeDOS and see what I can build.</p>
 <h2 id="putting-everything-together">Putting everything together</h2>
-<p>Below is a <a href="run-freedos-1.3rc4.bash">script</a> I developed automating either building or running your FreeDOS setup.</p>
+<p>Below is a <a href="run-freedos-1.3rc4.bash">script</a> I developed
+automating either building or running your FreeDOS setup.</p>
 <pre><code>#!/bin/bash
 
 if [ ! -f FD13FULL.vmdk ]; then
@@ -129,12 +179,18 @@ else
       -display gtk
 fi</code></pre>
 <h2 id="reference-material">Reference material</h2>
-<p>My inspiration for this was the description of manual install in the FreeDOS book section of the website, <a href="https://www.freedos.org/books/get-started/june14-manual-install.html">Manual Install</a>.</p>
+<p>My inspiration for this was the description of manual install in the
+FreeDOS book section of the website, <a
+href="https://www.freedos.org/books/get-started/june14-manual-install.html">Manual
+Install</a>.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

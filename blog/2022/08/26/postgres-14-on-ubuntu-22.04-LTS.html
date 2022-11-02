@@ -34,14 +34,19 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="postgres-14-on-ubuntu-22.04-lts">Postgres 14 on Ubuntu 22.04 LTS</h1>
+<h1 id="postgres-14-on-ubuntu-22.04-lts">Postgres 14 on Ubuntu 22.04
+LTS</h1>
 <p>by R. S. Doiel, 2022-08-26</p>
-<p>This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine. The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe).</p>
+<p>This is just a quick set of notes for working with Postgres 14 on an
+Ubuntu 22.04 LTS machine. The goal is to setup Postgres 14 and have it
+available for personal work under a user account (e.g. jane.doe).</p>
 <p>Assumptions</p>
 <ul>
 <li>include <code>jane.doe</code> is in the sudo group</li>
-<li><code>jane.doe</code> is the one logged in and installing Postgres for machine wide use</li>
-<li><code>jane.doe</code> will want to work with her own database by default</li>
+<li><code>jane.doe</code> is the one logged in and installing Postgres
+for machine wide use</li>
+<li><code>jane.doe</code> will want to work with her own database by
+default</li>
 </ul>
 <p>Steps</p>
 <ol type="1">
@@ -54,17 +59,30 @@
 sudo -u createuser --interactive
 jane.doe
 y</code></pre>
-<p>What we’ve accomplished is installing Postgres, we’ve create a user in Postgres DB environment called “jane.doe” and given “jane.doe” superuser permissions, i.e. the permissions to manage Postgres databases.</p>
-<p>At this point we have a <code>jane.doe</code> Postgres admin user. This means we can run the <code>psql</code> shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available</p>
+<p>What we’ve accomplished is installing Postgres, we’ve create a user
+in Postgres DB environment called “jane.doe” and given “jane.doe”
+superuser permissions, i.e. the permissions to manage Postgres
+databases.</p>
+<p>At this point we have a <code>jane.doe</code> Postgres admin user.
+This means we can run the <code>psql</code> shell from the Jane Doe
+account to do any database manager tasks. To confirm I want to list the
+databases available</p>
 <pre class="shell"><code>psql 
 SELECT datname FROM pg_database;
 \quit</code></pre>
-<p>NOTE: This post is a distilation of what I learned from reading Digital Ocean’s <a href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">How To Install PostgreSQL on Ubuntu 22.04 [Quickstart]</a>, April 25, 2022 by Alex Garnett.</p>
+<p>NOTE: This post is a distilation of what I learned from reading
+Digital Ocean’s <a
+href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">How
+To Install PostgreSQL on Ubuntu 22.04 [Quickstart]</a>, April 25, 2022
+by Alex Garnett.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

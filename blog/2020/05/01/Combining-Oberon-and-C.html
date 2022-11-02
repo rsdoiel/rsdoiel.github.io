@@ -34,25 +34,50 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="combining-oberon-07-and-c-with-obnc">Combining Oberon-07 and C with OBNC</h1>
+<h1 id="combining-oberon-07-and-c-with-obnc">Combining Oberon-07 and C
+with OBNC</h1>
 <p>By R. S. Doiel, 2020-05-01</p>
-<p>This is the fifth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-<p>In my day job I write allot of code in Go and orchestration code in Python. It’s nice having the convenience of combining code written one language with an another. You can do the same with <a href="https://miasap.se/obnc/">OBNC</a>. The OBNC compiler supports inclusion of C code in a straight forward manner. In fact Karl’s compiler will generate the C file for you!</p>
-<p>In learning how to combine C code and Oberon-07 I started by reviewing Karl’s <a href="https://miasap.se/obnc/man/obnc.txt">manual page</a>. The bottom part of that manual page describes the steps I will repeat below. The description sounds more complicated but when you walk through the steps it turns out to be pretty easy.</p>
+<p>This is the fifth post in the <a
+href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
+Oberon documents my exploration of the Oberon Language, Oberon System
+and the various rabbit holes I will inevitably fall into.</p>
+<p>In my day job I write allot of code in Go and orchestration code in
+Python. It’s nice having the convenience of combining code written one
+language with an another. You can do the same with <a
+href="https://miasap.se/obnc/">OBNC</a>. The OBNC compiler supports
+inclusion of C code in a straight forward manner. In fact Karl’s
+compiler will generate the C file for you!</p>
+<p>In learning how to combine C code and Oberon-07 I started by
+reviewing Karl’s <a href="https://miasap.se/obnc/man/obnc.txt">manual
+page</a>. The bottom part of that manual page describes the steps I will
+repeat below. The description sounds more complicated but when you walk
+through the steps it turns out to be pretty easy.</p>
 <h2 id="basic-process">Basic Process</h2>
-<p>Creating a C extension for use with OBNC is very straight forward.</p>
+<p>Creating a C extension for use with OBNC is very straight
+forward.</p>
 <ol type="1">
 <li>Create a Oberon module with empty exported procedures</li>
 <li>Create a Oberon test module that uses your module</li>
 <li>Compile your test module with OBNC</li>
-<li>Copy the generated module <code>.c</code> file to the same directory as your Oberon module source</li>
+<li>Copy the generated module <code>.c</code> file to the same directory
+as your Oberon module source</li>
 <li>Edit the skeleton <code>.c</code>, re-compile and test</li>
 </ol>
-<p>Five steps may sound complicated but in practice is straight forward.</p>
+<p>Five steps may sound complicated but in practice is straight
+forward.</p>
 <h2 id="fmt-an-example">Fmt, an example</h2>
-<p>In my demonstration of Karl’s instructions I will be creating a module named <code>Fmt</code> that includes two procedures <code>Int()</code> and <code>Real()</code> that let you use a C-style format string to format an INTEGER or REAL as an ARRAY OF CHAR. We retain the idiomatic way Oberon works with types but allow a little more flexibility in how the numbers are converted and rendered as strings.</p>
+<p>In my demonstration of Karl’s instructions I will be creating a
+module named <code>Fmt</code> that includes two procedures
+<code>Int()</code> and <code>Real()</code> that let you use a C-style
+format string to format an INTEGER or REAL as an ARRAY OF CHAR. We
+retain the idiomatic way Oberon works with types but allow a little more
+flexibility in how the numbers are converted and rendered as
+strings.</p>
 <h3 id="step-1">Step 1</h3>
-<p>Create <a href="Fmt.Mod">Fmt.Mod</a> defining two exported procedures <code>Int*()</code> and <code>Real*()</code>. The procedures body should be empty. Karl’s practice is to use exported comments to explain the procedures.</p>
+<p>Create <a href="Fmt.Mod">Fmt.Mod</a> defining two exported procedures
+<code>Int*()</code> and <code>Real*()</code>. The procedures body should
+be empty. Karl’s practice is to use exported comments to explain the
+procedures.</p>
 <pre class="oberon"><code>
     MODULE Fmt;
 
@@ -68,7 +93,8 @@
     END Fmt.
 </code></pre>
 <h3 id="step-2">Step 2</h3>
-<p>Create a test module, <a href="FmtTest.Mod">FmtTest.Mod</a>, for <a href="Fmt.Mod">Fmt.Mod</a>.</p>
+<p>Create a test module, <a href="FmtTest.Mod">FmtTest.Mod</a>, for <a
+href="Fmt.Mod">Fmt.Mod</a>.</p>
 <pre class="oberon"><code>
     MODULE FmtTest;
       IMPORT Out, Fmt;
@@ -106,67 +132,77 @@
     END FmtTest.
 </code></pre>
 <h3 id="step-3">Step 3</h3>
-<p>Generate a new <a href="Fmt.c">Fmt.c</a> by using the OBNC compiler.</p>
+<p>Generate a new <a href="Fmt.c">Fmt.c</a> by using the OBNC
+compiler.</p>
 <pre class="shell"><code>
     obnc FmtTest.Mod
     mv .obnc/Fmt.c ./
 </code></pre>
-<p>the file <code>.obnc/Fmt.c</code> is your C template file. Copy it to the directory where Fmt.Mod is.</p>
+<p>the file <code>.obnc/Fmt.c</code> is your C template file. Copy it to
+the directory where Fmt.Mod is.</p>
 <h3 id="step-4">Step 4</h3>
-<p>Update the skeleton <code>Fmt.c</code> with the necessary C code. Here’s what OBNC generated version.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="co">/*GENERATED BY OBNC 0.16.1*/</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    <span class="pp">#include </span><span class="im">&quot;Fmt.h&quot;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    <span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="pp">#define OBERON_SOURCE_FILENAME &quot;Fmt.Mod&quot;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Int_(OBNC_INTEGER value_, <span class="dt">const</span> <span class="dt">char</span> fmt_[], </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>                   OBNC_INTEGER fmt_len, <span class="dt">char</span> dest_[], </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>                   OBNC_INTEGER dest_len)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>    {</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>    }</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Real_(OBNC_REAL value_, <span class="dt">const</span> <span class="dt">char</span> fmt_[],</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>                    OBNC_INTEGER fmt_len, <span class="dt">char</span> dest_[],</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>                    OBNC_INTEGER dest_len)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>    {</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>    }</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Init(<span class="dt">void</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>    {</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a>    }</span></code></pre></div>
+<p>Update the skeleton <code>Fmt.c</code> with the necessary C code.
+Here’s what OBNC generated version.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*GENERATED BY OBNC 0.16.1*/</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&quot;Fmt.h&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define OBERON_SOURCE_FILENAME &quot;Fmt.Mod&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Int_<span class="op">(</span>OBNC_INTEGER value_<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> fmt_<span class="op">[],</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                   OBNC_INTEGER fmt_len<span class="op">,</span> <span class="dt">char</span> dest_<span class="op">[],</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                   OBNC_INTEGER dest_len<span class="op">)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Real_<span class="op">(</span>OBNC_REAL value_<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> fmt_<span class="op">[],</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                    OBNC_INTEGER fmt_len<span class="op">,</span> <span class="dt">char</span> dest_<span class="op">[],</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    OBNC_INTEGER dest_len<span class="op">)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Here’s the skeleton revised with do what we need to be done.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    <span class="pp">#include </span><span class="im">&quot;.obnc/Fmt.h&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="pp">#define OBERON_SOURCE_FILENAME &quot;Fmt.Mod&quot;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Int_(OBNC_INTEGER value_, </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>                   <span class="dt">const</span> <span class="dt">char</span> fmt_[], OBNC_INTEGER fmt_len,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>                   <span class="dt">char</span> dest_[], OBNC_INTEGER dest_len)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    {</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>        sprintf(dest_, fmt_, value_);</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    }</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Real_(OBNC_REAL value_, <span class="dt">const</span> <span class="dt">char</span> fmt_[],</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>                    OBNC_INTEGER fmt_len, <span class="dt">char</span> dest_[],</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>                    OBNC_INTEGER dest_len)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    {</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>        sprintf(dest_, fmt_, value_);</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a>    }</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>    <span class="dt">void</span> Fmt__Init(<span class="dt">void</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>    {</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>    }</span></code></pre></div>
-<p>NOTE: You need to change the path for the <code>Fmt.h</code> file reference. I also add the <code>stdio.h</code> include so I have access to the C function I wish to use. Also notice how OBNC the signature for the functions use the <code>_</code> character to identify mapped values as well as the char arrays being provided with a length parameter. If you are doing more extensive string work you’ll want to take advantage of these additional parameters so insure that the as strings are terminated properly for Oberon’s reuse.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&quot;.obnc/Fmt.h&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define OBERON_SOURCE_FILENAME &quot;Fmt.Mod&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Int_<span class="op">(</span>OBNC_INTEGER value_<span class="op">,</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                   <span class="dt">const</span> <span class="dt">char</span> fmt_<span class="op">[],</span> OBNC_INTEGER fmt_len<span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                   <span class="dt">char</span> dest_<span class="op">[],</span> OBNC_INTEGER dest_len<span class="op">)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        sprintf<span class="op">(</span>dest_<span class="op">,</span> fmt_<span class="op">,</span> value_<span class="op">);</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Real_<span class="op">(</span>OBNC_REAL value_<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> fmt_<span class="op">[],</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                    OBNC_INTEGER fmt_len<span class="op">,</span> <span class="dt">char</span> dest_<span class="op">[],</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    OBNC_INTEGER dest_len<span class="op">)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        sprintf<span class="op">(</span>dest_<span class="op">,</span> fmt_<span class="op">,</span> value_<span class="op">);</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Fmt__Init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>NOTE: You need to change the path for the <code>Fmt.h</code> file
+reference. I also add the <code>stdio.h</code> include so I have access
+to the C function I wish to use. Also notice how OBNC the signature for
+the functions use the <code>_</code> character to identify mapped values
+as well as the char arrays being provided with a length parameter. If
+you are doing more extensive string work you’ll want to take advantage
+of these additional parameters so insure that the as strings are
+terminated properly for Oberon’s reuse.</p>
 <h3 id="step-5">Step 5</h3>
 <p>Recompile and test.</p>
 <pre class="shell"><code>
@@ -175,14 +211,20 @@
 </code></pre>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
-<li>Next <a href="../06/Compiling-OBNC-on-macOS.html">Compiling OBNC on macOS</a></li>
-<li>Previously <a href="../../04/19/Mostly-Oberon-Loops-and-Conditions.html">Oberon Loops and Conditions</a></li>
+<li>Next <a href="../06/Compiling-OBNC-on-macOS.html">Compiling OBNC on
+macOS</a></li>
+<li>Previously <a
+href="../../04/19/Mostly-Oberon-Loops-and-Conditions.html">Oberon Loops
+and Conditions</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

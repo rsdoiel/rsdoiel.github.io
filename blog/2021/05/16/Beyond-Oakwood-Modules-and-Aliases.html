@@ -34,25 +34,82 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="beyond-oakwood-modules-and-aliases">Beyond Oakwood, Modules and Aliases</h1>
+<h1 id="beyond-oakwood-modules-and-aliases">Beyond Oakwood, Modules and
+Aliases</h1>
 <p>By R. S. Doiel, 2021-05-16</p>
-<p>Oakwood is the name used to refer to an early Oberon language standardization effort in the late 20th century. It’s the name of a hotel where compiler developers and the creators of Oberon and the Oberon System met to discuss compatibility. The lasting influence on the 21st century Oberon-07 language can be seen in the standard set of modules shipped with POSIX based Oberon-07 compilers like <a href="https://miasap.se/obnc/">OBNC</a>, <a href="https://github.com/vishaps/voc">Vishap Oberon Compiler</a> and the <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a>.</p>
-<p>The Oakwood guidelines described a minimum expectation for a standard set of modules to be shipped with compilers. The modules themselves are minimalist in implementation. Minimalism can assist in easing the learning curve and encouraging a deeper understanding of how things work.</p>
-<p>The Oberon-07 language is smaller than the original Oberon language and the many dialects that followed. I think of Oberon-07 as the distillation of all previous innovation. It embodies the spirit of “Simple but not simpler than necessary”. Minimalism is a fit description of the adaptions of the Oakwood modules for Oberon-07 in the POSIX environment.</p>
+<p>Oakwood is the name used to refer to an early Oberon language
+standardization effort in the late 20th century. It’s the name of a
+hotel where compiler developers and the creators of Oberon and the
+Oberon System met to discuss compatibility. The lasting influence on the
+21st century Oberon-07 language can be seen in the standard set of
+modules shipped with POSIX based Oberon-07 compilers like <a
+href="https://miasap.se/obnc/">OBNC</a>, <a
+href="https://github.com/vishaps/voc">Vishap Oberon Compiler</a> and the
+<a
+href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford
+Oberon Compiler</a>.</p>
+<p>The Oakwood guidelines described a minimum expectation for a standard
+set of modules to be shipped with compilers. The modules themselves are
+minimalist in implementation. Minimalism can assist in easing the
+learning curve and encouraging a deeper understanding of how things
+work.</p>
+<p>The Oberon-07 language is smaller than the original Oberon language
+and the many dialects that followed. I think of Oberon-07 as the
+distillation of all previous innovation. It embodies the spirit of
+“Simple but not simpler than necessary”. Minimalism is a fit description
+of the adaptions of the Oakwood modules for Oberon-07 in the POSIX
+environment.</p>
 <h2 id="when-simple-is-too-simple">When simple is too simple</h2>
-<p>Sometimes I want more than the minimalist module. A good example is standard <a href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a> module. Thankfully you can augment the standard modules with your own. If you are creative you can even create a drop in replacement. This is what I wound up doing with my “Chars” module.</p>
-<p>In the spirit of “Simple but no simpler” I originally kept Chars very minimal. I only implemented what I missed most from Strings. I got down to a handful of functions for testing characters, testing prefixes and suffixes as well as trim procedures. It was all I included in <code>Chars</code> was until recently.</p>
-<p>Over the last couple of weeks I have been reviewing my own Oberon-07 code in my personal projects. I came to understand that in my quest for minimalism I had fallen for “too simple”. This was evidenced by two observations. Everywhere I had used the <code>Strings</code> module I also included <code>Chars</code>. It was boiler plate. The IMPORT sequence was invariably a form of –</p>
+<p>Sometimes I want more than the minimalist module. A good example is
+standard <a
+href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a>
+module. Thankfully you can augment the standard modules with your own.
+If you are creative you can even create a drop in replacement. This is
+what I wound up doing with my “Chars” module.</p>
+<p>In the spirit of “Simple but no simpler” I originally kept Chars very
+minimal. I only implemented what I missed most from Strings. I got down
+to a handful of functions for testing characters, testing prefixes and
+suffixes as well as trim procedures. It was all I included in
+<code>Chars</code> was until recently.</p>
+<p>Over the last couple of weeks I have been reviewing my own Oberon-07
+code in my personal projects. I came to understand that in my quest for
+minimalism I had fallen for “too simple”. This was evidenced by two
+observations. Everywhere I had used the <code>Strings</code> module I
+also included <code>Chars</code>. It was boiler plate. The IMPORT
+sequence was invariably a form of –</p>
 <pre><code>    IMPORT Strings, Chars, ....</code></pre>
-<p>On top of that I found it distracting to see <code>Chars.*</code> and <code>Strings.*</code> comingled and operating on the same data. If felt sub optimal. It felt baroque. That got me thinking.</p>
+<p>On top of that I found it distracting to see <code>Chars.*</code> and
+<code>Strings.*</code> comingled and operating on the same data. If felt
+sub optimal. It felt baroque. That got me thinking.</p>
 <blockquote>
 <p>What if Chars included the functionality of Strings?</p>
 </blockquote>
-<p>I see two advantages to merging Chars and Strings. First I only need to include one module instead of two. The second is my code becomes more readable. I think that is because expanding Strings to include new procedures and constants allows for both the familiar and for evolution. The problem is renaming <code>Chars.Mod</code> to <code>Strings.Mod</code> implies I’m supplying the standard <code>Strings</code> module. Fortunately Oberon provides a mechanism for solving this problem. The solution Oberon provides is to allow module names to be aliased. Look at my new import statement.</p>
+<p>I see two advantages to merging Chars and Strings. First I only need
+to include one module instead of two. The second is my code becomes more
+readable. I think that is because expanding Strings to include new
+procedures and constants allows for both the familiar and for evolution.
+The problem is renaming <code>Chars.Mod</code> to
+<code>Strings.Mod</code> implies I’m supplying the standard
+<code>Strings</code> module. Fortunately Oberon provides a mechanism for
+solving this problem. The solution Oberon provides is to allow module
+names to be aliased. Look at my new import statement.</p>
 <pre><code>    IMPORT Strings := Chars, ...</code></pre>
-<p>It is still minimal but at the same time shows <code>Chars</code> is going to be referenced as <code>Strings</code>. By implication <code>Chars</code> provides the functionality <code>Strings</code> but is not the same as <code>Strings</code>. My code reads nicely. I don’t loose the provenance of what is being referred to by <code>Strings</code> because it is clearly provided in the IMPORT statement.</p>
-<p>In my new <a href="Chars.Mod">implementation</a> I support all the standard procedures you’d find in an Oakwood compliant <code>Strings</code>. I’ve included additional additional constants and functional procedures like <code>StartsWith()</code> and <code>EndsWith()</code> and a complement of trim procedures like <code>TrimLeft()</code>, <code>TrimRight()</code>, <code>Trim()</code>. <code>TrimPrefix()</code>, and <code>TrimSuffix()</code>.</p>
-<p>Here’s how <code>Chars</code> definition stacks up as rendered by the obncdoc tool.</p>
+<p>It is still minimal but at the same time shows <code>Chars</code> is
+going to be referenced as <code>Strings</code>. By implication
+<code>Chars</code> provides the functionality <code>Strings</code> but
+is not the same as <code>Strings</code>. My code reads nicely. I don’t
+loose the provenance of what is being referred to by
+<code>Strings</code> because it is clearly provided in the IMPORT
+statement.</p>
+<p>In my new <a href="Chars.Mod">implementation</a> I support all the
+standard procedures you’d find in an Oakwood compliant
+<code>Strings</code>. I’ve included additional additional constants and
+functional procedures like <code>StartsWith()</code> and
+<code>EndsWith()</code> and a complement of trim procedures like
+<code>TrimLeft()</code>, <code>TrimRight()</code>, <code>Trim()</code>.
+<code>TrimPrefix()</code>, and <code>TrimSuffix()</code>.</p>
+<p>Here’s how <code>Chars</code> definition stacks up as rendered by the
+obncdoc tool.</p>
 <pre><code>(* Chars.Mod - A module for working with CHAR and 
    ARRAY OF CHAR data types.
 
@@ -238,21 +295,34 @@ PROCEDURE TrimSuffix(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
 PROCEDURE TrimString(cutString : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
 
 END Chars.</code></pre>
-<p>My new <code>Chars</code> module has proven to be both more readable and more focused in my projects. I get all the functionality of <code>Strings</code> and the additional functionality I need in my own projects. This improved the focus in my other modules and I think maintained the spirit of “Simple but not simpler”.</p>
+<p>My new <code>Chars</code> module has proven to be both more readable
+and more focused in my projects. I get all the functionality of
+<code>Strings</code> and the additional functionality I need in my own
+projects. This improved the focus in my other modules and I think
+maintained the spirit of “Simple but not simpler”.</p>
 <ul>
 <li><a href="Chars.Mod">Chars.Mod</a></li>
 </ul>
-<p>UPDATE: The current version of my <code>Chars</code> module can be found in my <a href="https://github.com/rsdoiel/Artemis">Artemis</a> repository. The repository includes additional code and modules suitable to working with Oberon-07 in a POSIX envinronment.</p>
+<p>UPDATE: The current version of my <code>Chars</code> module can be
+found in my <a href="https://github.com/rsdoiel/Artemis">Artemis</a>
+repository. The repository includes additional code and modules suitable
+to working with Oberon-07 in a POSIX envinronment.</p>
 <h3 id="next-previous">Next, Previous</h3>
 <ul>
-<li>Next <a href="/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining Oberon-07 with C using Obc-3</a></li>
-<li>Prev <a href="/blog/2020/11/27/Dates-and-Clock.html">Dates &amp; Clocks</a></li>
+<li>Next <a
+href="/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining
+Oberon-07 with C using Obc-3</a></li>
+<li>Prev <a href="/blog/2020/11/27/Dates-and-Clock.html">Dates &amp;
+Clocks</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

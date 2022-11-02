@@ -6,6 +6,7 @@ Recent Posts
 ------------
 
 + [Installing Cargo/Rust on Raspberry Pi 400](/blog/2022/11/01/installing-cargo-rust-r400.html), 2022-11-01
++ [feeds, formats and plain text](/blog/2022/11/01/Feeds-formats-and-plain-text.html), 2022-11-01
 + [7:30 AM, Oberon Language: A minimum SYSTEM module](/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html), 2022-10-18
 + [Wish list for Oberon in 2023](/blog/2022/10/16/Wishlist-Oberon-in-2023.html), 2022-10-16
 + [7:30 AM, Gopher: Setup](/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html), 2022-10-10

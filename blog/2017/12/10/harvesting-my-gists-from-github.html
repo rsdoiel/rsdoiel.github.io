@@ -34,12 +34,23 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="harvesting-my-gists-from-github">Harvesting my Gists from GitHub</h1>
+<h1 id="harvesting-my-gists-from-github">Harvesting my Gists from
+GitHub</h1>
 <p>By R. S. Doiel 2017-12-10</p>
-<p>This is a just quick set of notes on harvesting my Gists on GitHub so I have an independent copy for my own website.</p>
+<p>This is a just quick set of notes on harvesting my Gists on GitHub so
+I have an independent copy for my own website.</p>
 <h2 id="assumptions">Assumptions</h2>
-<p>In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, sed, curl). I also use Stephen Dolan’s <a href="https://github.com/stedolan/jq">jq</a> as well as Caltech Library’s <a href="https://github.com/caltechlibrary/datatools">datatools</a>. See the respective GitHub repositories for installation instructions. The gist harvest process was developed against GitHub’s v3 API (see developer.github.com).</p>
-<p>In the following examples “USER” is assumed to hold your GitHub user id (e.g. rsdoiel for https://github.com/rsdoiel).</p>
+<p>In this gist I assume you are using Bash on a POSIX system
+(e.g. Raspbian on a Raspberry Pi) with the standard compliment of Unix
+utilities (e.g. cut, sed, curl). I also use Stephen Dolan’s <a
+href="https://github.com/stedolan/jq">jq</a> as well as Caltech
+Library’s <a
+href="https://github.com/caltechlibrary/datatools">datatools</a>. See
+the respective GitHub repositories for installation instructions. The
+gist harvest process was developed against GitHub’s v3 API (see
+developer.github.com).</p>
+<p>In the following examples “USER” is assumed to hold your GitHub user
+id (e.g. rsdoiel for https://github.com/rsdoiel).</p>
 <h2 id="getting-my-basic-profile">Getting my basic profile</h2>
 <p>This retrieves the public view of your profile.</p>
 <pre class="shell"><code>    curl -o USER &quot;https://api.github.com/users/USER&quot;</code></pre>
@@ -47,20 +58,30 @@
 <p>Get the gists url from `USER.json.</p>
 <pre class="shell"><code>    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;USER.json&quot; | sed -E &#39;s/&quot;//g&#39; | cut -d &#39;{&#39; -f 1)
     curl -o gists.json &quot;${GISTS_URL}&quot;</code></pre>
-<p>Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.</p>
-<h2 id="harvesting-the-individual-gists.">Harvesting the individual Gists.</h2>
-<p>When you look at <em>gists.json</em> you’ll see a multi-level JSON structure. It has been formatted by the API so be easy to scrape. But since this data is JSON and Caltech Library has some nice utilities for working with JSON I’ll use <em>jsonrange</em> and <em>jq</em> to pull out a list of individual Gists URLS.</p>
+<p>Now <code>gists.json</code> should hold a JSON array of objects
+representing your Gists.</p>
+<h2 id="harvesting-the-individual-gists.">Harvesting the individual
+Gists.</h2>
+<p>When you look at <em>gists.json</em> you’ll see a multi-level JSON
+structure. It has been formatted by the API so be easy to scrape. But
+since this data is JSON and Caltech Library has some nice utilities for
+working with JSON I’ll use <em>jsonrange</em> and <em>jq</em> to pull
+out a list of individual Gists URLS.</p>
 <pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
         jq &quot;.[$I].files&quot; gists.json | sed -E &#39;s/&quot;//g&#39;
     done</code></pre>
-<p>Expanding this we can now curl each individual gist metadata to find URL to the raw file.</p>
+<p>Expanding this we can now curl each individual gist metadata to find
+URL to the raw file.</p>
 <pre class="shell"><code>    jsonrange -i gists.json | while read I; do 
         jq &quot;.[$I].files&quot; gists.json | jsonrange -i - | while read FNAME; do
             jq &quot;.[$I].files[\&quot;$FNAME\&quot;].raw_url&quot; gists.json | sed -E &#39;s/&quot;//g&#39;; 
         done;
     done</code></pre>
-<p>Now that we have URLs to the raw gist files we can use curl again to fetch each.</p>
-<p>What do we want to store with our harvested gists? The raw files, metadata about the Gist (e.g. when it was created), the Gist ID. Putting it all together we have the following script.</p>
+<p>Now that we have URLs to the raw gist files we can use curl again to
+fetch each.</p>
+<p>What do we want to store with our harvested gists? The raw files,
+metadata about the Gist (e.g. when it was created), the Gist ID. Putting
+it all together we have the following script.</p>
 <pre class="shell"><code>    #!/bin/bash
     if [[ &quot;$1&quot; = &quot;&quot; ]]; then
         echo &quot;USAGE: $(basename &quot;$0&quot;) GITHUB_USERNAME&quot;
@@ -97,7 +118,10 @@
 </section>
 
 <footer>
-<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
