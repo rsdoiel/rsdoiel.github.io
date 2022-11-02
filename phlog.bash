@@ -61,7 +61,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
     find "$Y" -type f | grep -E '.md$' | sort -r | while read FNAME; do
         POST_FILENAME="${FNAME}"
         ARTICLE=$(pttk frontmatter "${FNAME}" | jq -r .title)
-        POST_DATE=$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/')
+        POST_DATE=$(dirname "${FNAME}" | sed -e 's/blog\///g;s/\//-/g')
         if [ "${ARTICLE}" != "" ]; then
             printf '0%s\t%s\r\n' "${POST_DATE}, ${ARTICLE}" "${POST_FILENAME}" >>gophermap
         fi
