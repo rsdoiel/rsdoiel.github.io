@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Compiling Pandoc from source](/blog/2022/11/07/compiling-pandoc-from-source.html), 2022-11-07
 + [Installing Cargo/Rust on Raspberry Pi 400](/blog/2022/11/01/installing-cargo-rust-r400.html), 2022-11-01
 + [feeds, formats and plain text](/blog/2022/11/01/Feeds-formats-and-plain-text.html), 2022-11-01
 + [7:30 AM, Oberon Language: A minimum SYSTEM module](/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html), 2022-10-18

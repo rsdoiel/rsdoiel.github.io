@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Tue, 01 Nov 2022 00:00:00 +0000</lastBuildDate>
-        <generator>pttk rss 0.0.8</generator>
+        <pubDate>Mon, 07 Nov 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 07 Nov 2022 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.9</generator>
+        <item>
+            <title>Compiling Pandoc from source</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html</link>
+            <description>I started playing around with Pandoc&#39;s __pandoc-server__ last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400&#39;s SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don&#39;t know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc&#39;s [INSTALL.md](https://github.com/jgm/pandoc/blob/master/INSTALL.md)&#xA;&#xA;I&#39;m running this first on an Intel Ubuntu box because I have the disk space available there. If it works then I&#39;ll try it directly on my Raspberry Pi 400 with an upgrade SD card and running the 64bit version of Raspberry Pi OS.&#xA;&#xA;I did not have Haskell or Cabal installed when I started this process.&#xA;&#xA;1. Install __stack__ (it will install GHC)&#xA;2. Clone the GitHub repo for [Pandoc](https://github.com/jgm/pandoc)&#xA;3. Setup __stack__ for Pandoc&#xA;4. Build and test with __stack__&#xA;5. Install __stack__ install&#xA;6. Make a symbolic link from __pandoc__ to __pandoc-server__&#xA;&#xA;```&#xA;sudo apt update&#xA;sudo apt search &#34;haskell-stack&#34;&#xA;sudo apt install &#34;haskell-stack&#34;&#xA;stack upgrade&#xA;git clone git@github.com:jgm/pandoc src/github.com/jgm/pandoc&#xA;cd src/github.com/jgm/pandoc&#xA;stack setup &#xA;stack build&#xA;stack test&#xA;stack install&#xA;ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server&#xA;``` ...</description>
+            <pubDate>Mon, 07 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html</guid>
+        </item>
         <item>
             <title>feeds, formats and plain text</title>
             <link>https://rsdoiel.github.io/blog/2022/11/01/Feeds-formats-and-plain-text.html</link>
