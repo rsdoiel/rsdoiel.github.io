@@ -50,7 +50,7 @@ I also wanted to try the latest of __pandoc-server__.  This was not automaticall
 I decided to try compiling Pandoc on my M1 mac.  First I needed to get __stack__ installed. I use Mac Ports but it wasn't in the list of available packages.  Fortunately the Haskell Stack website provides a shell script for installation on Unixes. I wanted to install __stack__ in my home `bin` directory not `/usr/bin/slack`. So after reviewing the downloaded install script I found the `-d` option for changing where it installs to. It indicated I need to additional work with __xcode__.
 
 ```
-curl -sSL -O https://get.haskellstack.org/ > stack-install.sh
+curl -sSL https://get.haskellstack.org/ > stack-install.sh
 more stack-install.sh
 sh stack-install.sh -d $HOME/bin
 ```
