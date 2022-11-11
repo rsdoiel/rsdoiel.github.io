@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
++ [Twitter's pending implosion](/blog/2022/11/11/Twitter-implosion.html), 2022-11-11
 + [Compiling Pandoc from source](/blog/2022/11/07/compiling-pandoc-from-source.html), 2022-11-07
 + [Installing Cargo/Rust on Raspberry Pi 400](/blog/2022/11/01/installing-cargo-rust-r400.html), 2022-11-01
 + [feeds, formats and plain text](/blog/2022/11/01/Feeds-formats-and-plain-text.html), 2022-11-01
