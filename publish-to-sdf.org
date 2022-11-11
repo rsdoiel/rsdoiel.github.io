@@ -1,0 +1,6 @@
+#!/bin/bash
+
+make site.zip
+scp site.zip tty.sdf.org:./
+ssh tty.sdf.org 'cd gopher && unzip ~/site.zip && bash ./fix-perms.bash'
+ssh tty.sdf.org 'cd html && unzip ~/site.zip && bash ./fix-perms.bash'

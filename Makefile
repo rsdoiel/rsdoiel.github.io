@@ -147,10 +147,9 @@ website: all .FORCE
 sitemap.xml: .FORCE
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: rss.xml all
+publish: rss.xml all site.zip
 	bash blog.bash
 	sitemapper . sitemap.xml http://rsdoiel.sdf.org
-	zip -r blog.zip ** -x .git gophermap *.bash ./*.zip *.py Makefile
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin main
