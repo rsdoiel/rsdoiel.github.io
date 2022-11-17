@@ -1,0 +1,38 @@
+
+Project Documentation Index
+===========================
+
+Below is repositories documentation for various experiments.
+
+- [Artemis](./Artemis/)
+- [archivesspace-api-workshop](./archivesspace-api-workshop/)
+- [bash-curl-and-jq-presentation](./bash-curl-and-jq-presentation/)
+- [bibtex](./bibtex/)
+- [fdx](./fdx/)
+- [fmt](./fmt/)
+- [fountain](./fountain/)
+- [ifs](./ifs/)
+- [immersive](./immersive/)
+- [jsontools](./jsontools/)
+- [mkpage](./mkpage/)
+- [mkpage-themes](./mkpage-themes/)
+- [mkslides](./mkslides/)
+- [mweave](./mweave/)
+- [nuts](./nuts/)
+- [obc-3-libext](./obc-3-libext/)
+- [opml](./opml/)
+- [osf](./osf/)
+- [pdtmpl](./pdtmpl/)
+- [prettyxml](./prettyxml/)
+- [pttk](./pttk/)
+- [r-tags](./r-tags/)
+- [range](./range/)
+- [reldate](./reldate/)
+- [scripttool](./scripttool/)
+- [shelltools](./shelltools/)
+- [shorthand](./shorthand/)
+- [stngo](./stngo/)
+- [timefmt](./timefmt/)
+- [urlparse](./urlparse/)
+- [widgets](./widgets/)
+- [ws](./ws/)
