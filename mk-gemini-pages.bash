@@ -2,7 +2,7 @@
 
 find . -type f | grep -E '\.md$' | while read -r FNAME; do
     printf "Coverting %s\n" "${FNAME}"
-    md2gemini -w -m -f -i tab --plain -l at-end \
+    md2gemini -w -f -i tab --plain -l at-end \
         -b gemini://sdf.org/rsdoiel/ \
         "${FNAME}"
 done
