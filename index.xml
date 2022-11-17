@@ -5,8 +5,8 @@
         <title>R. S. Doiel Website</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s Website</description>
-        <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
-        <lastBuildDate>Wed, 16 Nov 2022 18:16:50 -0800</lastBuildDate>
+        <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
+        <lastBuildDate>Wed, 16 Nov 2022 18:22:38 -0800</lastBuildDate>
         <generator>pttk rss 0.0.9</generator>
         <item>
             <title>OPML to Markdown and back</title>
@@ -133,7 +133,7 @@
             <link>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;**Mostly Oberon** is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon-07 language based on [Project Oberon 2013](http://www.projectoberon.com/).&#xA;&#xA;NOTE: Oberon grew from Wirth&#39;s Modula, which grew from Pascal, which grew from his experiences with Algol.&#xA;&#xA;I am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal).  Oberon&#39;s language shape is more Pascal than C. For that reason I think it has largely been overlooked. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</guid>
         </item>
         <item>
@@ -181,7 +181,7 @@
             <link>https://rsdoiel.github.io/blog/2020/05/09/Oberon-07-and-the-filesystem.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;By R. S. Doiel, 2020-05-09 (updated: 2021-10-29)&#xA;&#xA;This is the seventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;In a POSIX system we often talk of opening files,&#xA;writing and reading files and close files. The Oberon&#xA;language reflects a more Oberon System point of view.&#xA;&#xA;The Oberon System generally avoids modality in favor&#xA;of action. Modality is where a context must be set&#xA;before a set of actions are possible. The `vi` &#xA;text editor is a &#34;modal&#34; editor. You are in either&#xA;edit (typing) mode or command mode. At the function&#xA;level POSIX&#39;s `open()`, is also modal. You can &#xA;open a file for reading, open a file for writing,&#xA;you can open a file for appending, etc. The Oberon&#xA;language and base modules avoids modality. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/05/09/Oberon-07-and-the-filesystem.html</guid>
         </item>
         <item>
@@ -221,7 +221,7 @@
             <link>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-07.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the&#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)&#xA;&#xA;Karl Landström&#39;s [OBNC](https://miasap.se/obnc/), Oberon-07 compiler,&#xA;comes with an Oberon-2 inspired set of modules&#xA;described in the Oakwood Guidelines as well as&#xA;several very useful additions making Oberon-07 suitable for&#xA;writing programs in a POSIX environment.  We&#39;re going to&#xA;explore three of the Oakwood modules and two of Karl&#39;s own additions&#xA;in this post as we create a program called [SlowCat](SlowCat.Mod).&#xA;I am using the term &#34;portable&#34; to mean the code can be compiled&#xA;using OBNC on macOS, Linux, and Raspberry Pi OS and Windows 10&#xA;(i.e. wherever OBNC is available). The Oakwood Guideline modules&#xA;focus on portability between an Oberon System and other systems.&#xA;I&#39;ll leave that discussion along with&#xA;[POW!](http://www.fim.uni-linz.ac.at/pow/pow.htm)&#xA;to the end of this post.&#xA;&#xA;Recently while I was reviewing logs at work using [cat](https://en.wikipedia.org/wiki/Cat_(Unix)), [grep](https://en.wikipedia.org/wiki/Grep)&#xA;and [more](https://en.wikipedia.org/wiki/More_(command)) it&#xA;struck me that it would have been nice if **cat**&#xA;or **more** came with a time delay so you could use them like a&#xA;teleprompter. This would let you casually watch the file scroll&#xA;by while still being able to read the lines. The program we&#39;ll build&#xA;in this post is &#34;SlowCat&#34; which accepts a command line parameter&#xA;indicating the delay in seconds between display each line read from&#xA;standard input. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-07.html</guid>
         </item>
         <item>
@@ -229,7 +229,7 @@
             <link>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;This post is the first in a series revisiting the&#xA;programs described in the 1981 book by Brian W. Kernighan and&#xA;P. J. Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern).&#xA;The book is available from the [Open Library](https://openlibrary.org/)&#xA;and physical copies are still (2020) commonly available from used book&#xA;sellers.  The book was an early text on creating portable command&#xA;line programs.&#xA;&#xA;In this series I present the K &amp; P (i.e. Software Tools in Pascal)&#xA;programs re-implemented in Oberon-07. I have testing my implementations&#xA;using Karl Landström&#39;s [OBNC](http://miasap.se/obnc/)&#xA;compiler and his implementation of the Oakwood Guide&#39;s modules&#xA;for portable Oberon programs. Karl also provides a few additional&#xA;modules for working in a POSIX environment (e.g. BSD, macOS, Linux,&#xA;Windows 10 with Linux subsystem). I have also tested these&#xA;programs with Mike Spivey&#39;s [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler) an aside&#xA;from the differences file extensions that both compilers use&#xA;the source code works the same.&#xA;&#xA;NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.&#xA;&#xA;NOTE: POSIX defines a standard of compatibility inspired by [UNIX](https://en.wikipedia.org/wiki/Unix), see &lt;https://en.wikipedia.org/wiki/POSIX&gt; ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.html</guid>
         </item>
         <item>
@@ -237,7 +237,7 @@
             <link>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;This is the twelfth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon source code has a very nice property in that anything&#xA;after the closing end statement is ignored by the compiler.&#xA;This makes it a nice place to write documentation, program&#xA;notes and other ideas.&#xA;&#xA;I&#39;ve gotten in the habit of writing up program docs and&#xA;notes there. When I prep to make a web document I used to&#xA;copy the source file, doing a cut and paste to re-order&#xA;the module code to the bottom of the document. I&#39;d follow&#xA;that with adding headers and code fences. Not hard but&#xA;tedious. Of course if I changed the source code I&#39;d also&#xA;have to do another cut and paste edit. This program,&#xA;`ObnToMd.Mod` automates that process.&#xA;&#xA;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.html</guid>
         </item>
         <item>
@@ -245,7 +245,7 @@
             <link>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;This is the thirteenth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;I use [Pandoc](https://pandoc.org) to process Markdown documents. I like to keep my&#xA;front matter in JSON rather than Pandoc&#39;s YAML. Fortunately Pandoc&#xA;does support working with JSON as a metadata file include. Normally I would&#xA;manually split the JSON front matter and the rest of the markup into two&#xA;separate files, then process with Pandoc and other tooling like&#xA;[LunrJS](https://lunrjs.com). [AssemblePage](AssemblePage.Mod) automates this&#xA;process.&#xA;&#xA;Example shell usage:&#xA;&#xA;~~~ ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.html</guid>
         </item>
         <item>
@@ -253,7 +253,7 @@
             <link>https://rsdoiel.github.io/blog/2020/10/31/Filters.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;This post is the second in a series revisiting the programs&#xA;described in the 1981 book by Brian W. Kernighan and P. J.&#xA;Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is available from the&#xA;[Open Library](https://openlibrary.org/) and physical copies&#xA;are still (2020) commonly available from used book sellers.&#xA;The book was an late 20th century text on creating portable&#xA;command line programs using ISO standard Pascal of the era.&#xA;&#xA;In this chapter K &amp; P focuses on developing the idea of filters.&#xA;Filters are programs which typically process standard input, do&#xA;some sort of transformation or calculation and write to standard&#xA;output.  They are intended to work either standalone or in a pipeline&#xA;to solve more complex problems. I like to think of filters as&#xA;software [LEGO](https://en.wikipedia.org/wiki/Lego).&#xA;Filter programs can be &#34;snapped&#34; together creating simple shapes&#xA;data shapes or combined to for complex compositions.&#xA;&#xA;The programs from this chapter include:&#xA;&#xA;+ **entab**, respecting tabstops, convert strings of spaces to tabs&#xA;+ **overstrike**, this is probably not useful anymore, it would allow &#34;overstriking&#34; characters on devices that supported it. From [wikipedia](https://en.wikipedia.org/wiki/Overstrike), &#34;In typography, overstrike is a method of printing characters that are missing from the printer&#39;s character set. The character was created by placing one character on another one — for example, overstriking &#34;L&#34; with &#34;-&#34; resulted in printing a &#34;Ł&#34; (L with stroke) character.&#34;&#xA;+ **compress**, an early UNIX style compress for plain text files&#xA;+ **expand**, an early UNIX style expand for plain text files, previously run through with **compress**&#xA;+ **echo**, write echo&#39;s command line parameters to standard output, introduces working with command line parameters&#xA;+ **translit**, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K &amp; P ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/10/31/Filters.html</guid>
         </item>
         <item>
@@ -261,7 +261,7 @@
             <link>https://rsdoiel.github.io/blog/2020/11/09/Pandoc-Partials.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;Most people know about [Pandoc](https://pandoc.org/) from its&#xA;fantastic ability to convert various markup formats from one to&#xA;another. A little less obvious is Pandoc can be a template engine&#xA;for rendering static websites allowing you full control over the&#xA;rendered content.&#xA;&#xA;The main Pandoc documentation of the template engine can be found&#xA;in the [User Guide](https://pandoc.org/MANUAL.html#templates).&#xA;The documentation is complete in terms of describing the template&#xA;capabilities but lacks a tutorial for using as a replacement for more&#xA;ambitious rendering systems like [Jekyll](https://jekyllrb.com/) or&#xA;[Hugo](https://gohugo.io/). Pandoc takes a vary direct approach and&#xA;can be deceptively simple to implement.&#xA;&#xA;First thing in this tutorial is to use our own template with Pandoc&#xA;when rendering a single webpage. You use the `–-template` option to&#xA;provide your a template name. I think of this as the page level template.&#xA;This template, as I will show later, can then call other partial&#xA;templates as needed.&#xA;&#xA;Example, render the [Pandoc-Partials.txt](Pandoc-Partials.txt) file using the&#xA;template named [index1.tmpl](index1.tmpl): ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/09/Pandoc-Partials.html</guid>
         </item>
         <item>
@@ -269,21 +269,21 @@
             <link>https://rsdoiel.github.io/blog/2020/11/11/Pandoc-Metadata.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>&#xA;&#xA;Pandoc supports three ways of providing metadata to its template&#xA;engine.&#xA;&#xA;1. Front matter&#xA;2. Command line optional metadata&#xA;3. A JSON metadata file.&#xA;&#xA;Front matter is a community term that comes from physical world&#xA;of paper books and articles.  It is the information that comes &#xA;before the primary content.  This information might be things &#xA;like title, author, publisher and publication date. These days &#xA;it&#39;ll also include things like identifiers like ISSN, ISBN possibly &#xA;newer identifiers like DOI or ORCID. In the library and programming&#xA;community we refer to this type of structured information as&#xA;metadata.  Data about the publication or article.&#xA;&#xA;Many publication systems like TeX/LaTeX support provided means of &#xA;incorporating metadata into the document.  When simple markup formats &#xA;like Markdown, Textile and Asciidoc became popular the practice was &#xA;continued by including the metadata in some sort of structured encoding&#xA;at the beginning of the document. The community adopted the term from&#xA;the print world, &#34;front matter&#34;. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/11/Pandoc-Metadata.html</guid>
         </item>
         <item>
             <title>Chars</title>
             <link>https://rsdoiel.github.io/blog/2020/11/27/Chars.html</link>
             <description>&#xA;&#xA;This module provides common character oriented tests.&#xA;&#xA;InRange&#xA;: Check to see if a character, c, is in an inclusive range from a lower to upper character.&#xA;&#xA;IsUpper&#xA;: Check to see if a character is upper case&#xA;&#xA;IsLower&#xA;: Check to see if a character is lower case ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/27/Chars.html</guid>
         </item>
         <item>
             <title>Clock</title>
             <link>https://rsdoiel.github.io/blog/2020/11/27/Clock.html</link>
             <description>This is a C time library wrapper for getting system time&#xA;to support Dates.Mod. The procedures are read only as&#xA;setting time is non-standard on many Unix-like systems[^1].&#xA;The two procedures follow the A2 style procedure signatures&#xA;adjusted for Oberon-07.&#xA;&#xA;[^1]: Eric Raymond discusses time functions, http://www.catb.org/esr/time-programming/&#xA;&#xA;&#xA;&#xA;~~~&#xA;MODULE Clock;&#xA;&#xA;PROCEDURE GetRtcTime*(VAR second, minute, hour, day, month, year : INTEGER);&#xA;BEGIN&#xA;END GetRtcTime; ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/27/Clock.html</guid>
         </item>
         <item>
@@ -298,7 +298,7 @@
             <title>Dates</title>
             <link>https://rsdoiel.github.io/blog/2020/11/27/Dates.html</link>
             <description>This module provides minimal date time records and procedures&#xA;for working with dates in YYYY-MM-DD and MM/DD/YYYY format and&#xA;times in H:MM, HH:MM and HH:MM:SS formats.&#xA;&#xA;Set&#xA;: Set a DateTime record providing year, month, day, hour, minute and second as integers and the DateTime record to be populated.&#xA;&#xA;SetDate&#xA;: Set the date portion of a DateTime record, leaves the hour, minute and second attributes unmodified.&#xA;&#xA;SetTime&#xA;: Set the time portion of a DateTime record, leaves the year, month, date attributes unmodified.&#xA;&#xA;Copy&#xA;: Copy the attributes of one DateTime record into another DateTime record ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2020/11/27/Dates.html</guid>
         </item>
         <item>
@@ -402,7 +402,7 @@
             <link>https://rsdoiel.github.io/blog/2022/07/27/Artemis-Status-Summer-2022.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>It&#39;s been a while since I wrote an Oberon-07 post and even longer since I&#39;ve worked on Artemis. Am I done with Oberon-07 and abandoning Artemis?  No. Life happens and free time to just hasn&#39;t been available. I don&#39;t know when that will change.&#xA;&#xA;Since I plan to continue working Artemis I need to find a way forward in much less available time. Time to understand some of my constraints.&#xA;&#xA;1. I work on a variety of machines, OBNC is the only compiler I&#39;ve consistently been able to use across all my machines&#xA;2. Porting between compilers takes energy and time, and those compilers don&#39;t work across all my machines&#xA;3. When I write Oberon-07 code I quickly hit a wall for the things I want to do, this is what original inspired Artemis, so there is still a need for a collection of modules&#xA;4. Oberon/Oberon-07 on Wirth RISC virtual machine is not sufficient for my development needs&#xA;5. A2, while very impressive, isn&#39;t working for me either (mostly because I need to work on ARM CPUs)&#xA;&#xA;These constraints imply Artemis is currently too broadly scoped. I think I need to focus on what works in OBNC for now. Once I have a clear set of modules then I can revisit portability to other compilers.&#xA;&#xA;What modules do I think I need? If I look at my person projects I tend to work allot with text, often structured text (e.g. XML, JSON, CSV). I also tend to be working with network services. Occasionally I need to interact with database (e.g. SQLite3, MySQL, Postgres).  Artemis should provide modules to make it easy to write code in Oberon-07 that works in those areas. Some of that I can do by wrapping existing C libraries. Some I can simply write from scratch in Oberon-07 (e.g. a JSON encoder/decoder). That&#39;s going to me my focus as my hobby time becomes available and then. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2022/07/27/Artemis-Status-Summer-2022.html</guid>
         </item>
         <item>
@@ -410,7 +410,7 @@
             <link>https://rsdoiel.github.io/blog/2022/07/30/Turbo-Oberon.html</link>
             <author>rsdoiel@gmail.com (R. S. Doiel)</author>
             <description>Sometimes I have odd dreams and that was true last night through early this morning. The dream was set in the future. I was already retired. It was a dream about &#34;Turbo Oberon&#34;.&#xA;&#xA;&#34;Turbo Oberon&#34; was an Oberon language. The language compiler was named &#34;TO&#34; in my dream. A module&#39;s file extension was &#34;.tom&#34;, in honor of Tom Lopez (Meatball Fulton) of ZBS. There were allot of ZBS references in the dream.&#xA;&#xA;&#34;TO&#34; was very much a language in the Oberon-07 tradition with minor extensions when it came to bringing in modules. It allowed for a multi path search for module names. You could also express a Module import as a string allowing providing paths to the imported module.&#xA;&#xA;Compilation was similar to Go. Cross compilation was available out of the box by setting a few environment variables. I remember answering questions about the language and its evolution. I remember mentioning in the conversation about how I thought Go felling into the trap of complexity like Rust or C/C++ before it. The turning point for Go was generics. Complexity was the siren song to be resisted in &#34;Turbo Oberon&#34;. Complexity is seductive to language designers and implementers. I was only an implementer.&#xA;&#xA;Evolution wise &#34;TO&#34; was built initially on the Go tool chain. As a result it featured easily cross-compiled binaries and had a rich standard set of Modules like Go but also included portable libraries for implementing graphic user interfaces. &#34;Turbo Oberon&#34; evolved as a conversation between Go and the clean simplicity of Oberon-07. Two example applications &#34;shipped&#34; with the &#34;TO&#34; compiler. They were an Oberon like Operating System (stand alone and hosted) and a Turbo Pascal like IDE. The IDE was called &#34;toe&#34; for Turbo Oberon Editor. I don&#39;t remember the name of the OS implementation but it might have been &#34;toos&#34;. I remember &#34;TO&#34; caused problems for search engines and catalog systems. ...</description>
-            <pubDate>Wed, 16 Nov 2022 18:16:50 -0800</pubDate>
+            <pubDate>Wed, 16 Nov 2022 18:22:38 -0800</pubDate>
             <guid>https://rsdoiel.github.io/blog/2022/07/30/Turbo-Oberon.html</guid>
         </item>
     </channel>

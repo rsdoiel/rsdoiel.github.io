@@ -114,7 +114,7 @@ Below is a list of experiments and project documentation.
 
 ''']
         for repo_name in projects:
-            page.append(f'- [{repo_name}](./{repo_name}/)')
+            page.append(f'- [{repo_name}]({url_prefix}{repo_name}/)')
         with open(out_name, 'w') as f:
             f.write('\n'.join(page))
         return None
