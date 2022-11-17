@@ -23,6 +23,8 @@ you metadata.json file with the template supplied) 2. Create a template with the
 
 This is the contents of our metadata.json[1] file.
 
+=> metadata.json 1: metadata.json
+
 ```json
     {
         "title": "Interview with Mojo Sam", 
@@ -33,6 +35,8 @@ This is the contents of our metadata.json[1] file.
 ```
 
 frontmatter.tmpl[2] is the template we used to render ordered front matter.
+
+=> frontmatter.tmpl 2: frontmatter.tmpl
 
 ```
     ---
@@ -62,6 +66,3 @@ The output of the pandoc command looks like this.
     Old Montreal"
     ---
 ```
-
-=> metadata.json 1: metadata.json
-=> frontmatter.tmpl 2: frontmatter.tmpl

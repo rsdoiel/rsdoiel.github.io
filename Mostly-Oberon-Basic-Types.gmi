@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-04-18
 
 This is the third post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
+=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
+
 ## Simple Types
 
 Oberon is a small systems language. It provides a useful but  limited umber of basic types. These can be be thought of as simple types mapping to specific memory locations and more complex types composed of multiple memory locations.
@@ -140,6 +142,8 @@ Records are also used to create dynamic memory structures such as lists, trees a
 
 NOTE: AD, Prof. Wirth wrote an excellent text on Algorithms and Data structures[2] available in PDF format.
 
+=> https://inf.ethz.ch/personal/wirth/AD.pdf 2: https://inf.ethz.ch/personal/wirth/AD.pdf
+
 ### POINTER TO
 
 Oberon is a type safe language. To keep things safe in a type safe language you need to place constraints around random memory access. Memory can be thought of a list of locations and we can go to those locations if we know their address. A pointer in most languages holds an address. Oberon has pointers but they must point at specific data types. So like array you have to indicate the type of the thing you are pointing at in a declaration.  E.g. VAR a : POINTER TO CHAR; would declare a variable 'a'  that points to a memory location that holds a CHAR. The more common  case is we use "POINTER TO" in records to create dynamic data  structures such as linked lists.
@@ -224,6 +228,8 @@ At this stage we have the basics of data organization. Modules allow us to group
 ## Putting it all together
 
 Here is a module demoing our basic type[3]. In it we can define procedures to demo our assignments, display their results all called from inside the module's initialization block.
+
+=> BasicTypeDemo.Mod 3: BasicTypeDemo.Mod
 
 ```{.oberon}
 
@@ -359,14 +365,12 @@ There are some nuances in Oberon syntax that can creep up on you. First while mo
 
 In creating our DString data structure the Oberon idiom is to first create a description record, DStringDesc then create a pointer to the descriptive type, i.e. DString. This is a very common idiom in building out complex data structures. A good place to learn about implementing algorithms and data structures in Oberon-07 is  Prof. Wirth's 2004 edition of Algorithms and Data Structures[4] which is available from his personal website in PDF.
 
+=> https://inf.ethz.ch/personal/wirth/AD.pdf 4: https://inf.ethz.ch/personal/wirth/AD.pdf
+
 ### Next and Previous
 
 * Next Loops and Conditions[5]
 * Previous Modules and Procedures[6]
 
-=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
-=> https://inf.ethz.ch/personal/wirth/AD.pdf 2: https://inf.ethz.ch/personal/wirth/AD.pdf
-=> BasicTypeDemo.Mod 3: BasicTypeDemo.Mod
-=> https://inf.ethz.ch/personal/wirth/AD.pdf 4: https://inf.ethz.ch/personal/wirth/AD.pdf
 => ../19/Mostly-Oberon-Loops-and-Conditions.html 5: ../19/Mostly-Oberon-Loops-and-Conditions.html
 => ../12/Mostly-Oberon-Modules.html 6: ../12/Mostly-Oberon-Modules.html

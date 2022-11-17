@@ -4,6 +4,8 @@ PL/pgSQL is a procedure language extended from SQL. It adds flow control and loc
 
 The Postgres documentation defines and explains the PL/pgSQL[1] and how it works.  This document is just a quick orientation with specific examples to provide context.
 
+=> https://www.postgresql.org/docs/14/plpgsql.html 1: https://www.postgresql.org/docs/14/plpgsql.html
+
 ## Hello World
 
 Here is a "helloworld" procedure definition.
@@ -48,7 +50,11 @@ SQL procedures are generally stored in the RDBMs in database environment. You ca
 
 To turn these steps into a look I use a "CREATE OR REPLACE" statement and be able to reload the updated procedure easier see 43.12. Tips for Developing in PL/pgSQL[2].  Note in the revised example the "-- " lines are comments.
 
+=> https://www.postgresql.org/docs/14/plpgsql-development-tips.html 2: https://www.postgresql.org/docs/14/plpgsql-development-tips.html
+
 Our revised helloworld[3].
+
+=> helloworld.plpgsql 3: helloworld.plpgsql
 
 ```sql
     --
@@ -66,6 +72,8 @@ Our revised helloworld[3].
 ## Hi There
 
 hithere[4] is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a "VARCHAR", so this should work as part of a select statement.
+
+=> hithere.plpgsql 4: hithere.plpgsql
 
 ```sql
     --
@@ -99,10 +107,6 @@ Giving it a try.
 * Calling a procedure[7]
 * Early return from a procedure[8]
 
-=> https://www.postgresql.org/docs/14/plpgsql.html 1: https://www.postgresql.org/docs/14/plpgsql.html
-=> https://www.postgresql.org/docs/14/plpgsql-development-tips.html 2: https://www.postgresql.org/docs/14/plpgsql-development-tips.html
-=> helloworld.plpgsql 3: helloworld.plpgsql
-=> hithere.plpgsql 4: hithere.plpgsql
 => https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS 5: https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS
 => https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS 6: https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS
 => https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE 7: https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE

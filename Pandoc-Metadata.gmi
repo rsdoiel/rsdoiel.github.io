@@ -14,13 +14,24 @@ Many publication systems like TeX/LaTeX support provided means of  incorporating
 
 Pandoc provides for several ways of working with metadata and supports one format of front matter encoding called YAML[1].  Other markup processors support other encoding of front matter. Two popular alternatives of encoding are TOML[2] and  JSON[3].  If you use one of the alternative encoding for your front matter then you'll need to split the front matter out of your document before processing with Pandoc[^1].
 
+=> https://yaml.org/ 1: https://yaml.org/
+=> https://toml.io/en/ 2: https://toml.io/en/
+=> https://json.org 3: https://json.org
+
 [^1]: The MkPage Project[4] provides a tool called frontmatter[5] that can be easy or your can easily roll your own in Python or other favorite language.
 
+=> https://caltechlibrary.github.io/mkpage/ 4: https://caltechlibrary.github.io/mkpage/
+=> https://caltechlibrary.github.io/mkpage/docs/frontmatter/ 5: https://caltechlibrary.github.io/mkpage/docs/frontmatter/
+
 If you provide YAML formatted front matter Pandoc will pass this metadata on and make it available to it's template engine and the templates you create to render content with Pandoc. See the Pandoc User Guide section YAML metadata blocks[6] for more details. If you've used another encoding of front matter then the metadata file approach is probably the ticket.
+
+=> https://pandoc.org/MANUAL.html#extension-yaml_metadata_block 6: https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
 
 ## Metadata passed by command line
 
 If you only have a metadata elements you would like to make available to the template (e.g. title, pub date) you can easily add them using the --metadata command line option. This is documented in the Pandoc User Guide under the heading Reader Options[7]. Here's a simple example where we have a title, "U. S. Constitution" and a publication date of "September 28, 1787".
+
+=> https://pandoc.org/MANUAL.html 7: https://pandoc.org/MANUAL.html
 
 ```{.shell}
     pandoc --metadata \
@@ -31,6 +42,8 @@ If you only have a metadata elements you would like to make available to the tem
 ```
 
 The template now has two additional values available as metadata in addition to body, namely pubdate and title. Here's an example template doc1.tmpl[8].
+
+=> doc1.tmpl 8: doc1.tmpl
 
 ```
 
@@ -55,6 +68,8 @@ More complex metadata is better suited to creating a JSON document with the stru
 
 Metadata files can be included with the option --metadata-file. This like the --metadata option are discussed in the Pandoc User Guide under the [Read Options(https://pandoc.org/MANUAL.html[9]) heading.  The JSON  document should contain an Object where each attribute corresponds to the variable you wish to referenced in template.  Pandoc's template engine support both single values but also objects and arrays. In this way you can structure the elements you wish to include even elements which are iterative (e.g. a list of links or topics). Below is a JSON data structure that includes the page title as well as links for the navigation.  The nav attribute holds a list of objects  with attributes of href and label containing data that will be used to render a list of anchor elements in the template.
 
+=> https://pandoc.org/MANUAL.html 9: https://pandoc.org/MANUAL.html
+
 ```{.json}
 
     {
@@ -70,6 +85,8 @@ Metadata files can be included with the option --metadata-file. This like the --
 ```
 
 Here's a revised template to include the navigation, see doc2.tmpl[10].
+
+=> doc2.tmpl 10: doc2.tmpl
 
 ```
 
@@ -94,6 +111,9 @@ Here's a revised template to include the navigation, see doc2.tmpl[10].
 ## Combining Techniques
 
 It is worth noting that these approaches can be mixed and matched. In the following example I use the same metadata.json[11] file which has title and pubdate attributes but override them using the command line --metadata option. In this way I can use that  file along with doc2.tmpl[12] and render each  To render the constitution page from a Markdown version of the  U. S. Constitution you could use the following Pandoc command:
+
+=> metadata.json 11: metadata.json
+=> doc2.tmpl 12: doc2.tmpl
 
 ```{.shell}
 
@@ -121,18 +141,6 @@ It is worth noting that these approaches can be mixed and matched. In the follow
 
 See Magna Carta[13], The Declaration of Independence[14], U. S. Constitution[15]
 
-=> https://yaml.org/ 1: https://yaml.org/
-=> https://toml.io/en/ 2: https://toml.io/en/
-=> https://json.org 3: https://json.org
-=> https://caltechlibrary.github.io/mkpage/ 4: https://caltechlibrary.github.io/mkpage/
-=> https://caltechlibrary.github.io/mkpage/docs/frontmatter/ 5: https://caltechlibrary.github.io/mkpage/docs/frontmatter/
-=> https://pandoc.org/MANUAL.html#extension-yaml_metadata_block 6: https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
-=> https://pandoc.org/MANUAL.html 7: https://pandoc.org/MANUAL.html
-=> doc1.tmpl 8: doc1.tmpl
-=> https://pandoc.org/MANUAL.html 9: https://pandoc.org/MANUAL.html
-=> doc2.tmpl 10: doc2.tmpl
-=> metadata.json 11: metadata.json
-=> doc2.tmpl 12: doc2.tmpl
 => magnacarta.html 13: magnacarta.html
 => independence.html 14: independence.html
 => constitution.html 15: constitution.html

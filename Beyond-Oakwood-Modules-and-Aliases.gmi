@@ -4,6 +4,10 @@ By R. S. Doiel, 2021-05-16
 
 Oakwood is the name used to refer to an early Oberon language standardization effort in the late 20th century.  It's the name of a hotel where compiler developers and the creators of Oberon and the Oberon System met to discuss compatibility. The lasting influence on the 21st century Oberon-07 language can be seen in the standard set of modules shipped with POSIX based Oberon-07 compilers like OBNC[1], Vishap Oberon Compiler[2] and the  Oxford Oberon Compiler[3].
 
+=> https://miasap.se/obnc/ 1: https://miasap.se/obnc/
+=> https://github.com/vishaps/voc 2: https://github.com/vishaps/voc
+=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 3: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
+
 The Oakwood guidelines described a minimum expectation for a standard set of modules to be shipped with compilers. The modules themselves are minimalist in implementation. Minimalism can assist in easing the learning curve and encouraging a deeper understanding of how things work.
 
 The Oberon-07 language is smaller than the original Oberon language and the many dialects that followed.  I think of Oberon-07 as the distillation of all previous innovation.  It embodies the spirit of "Simple but not simpler than necessary". Minimalism is a fit description of the adaptions of the Oakwood modules for  Oberon-07 in the POSIX environment.
@@ -11,6 +15,8 @@ The Oberon-07 language is smaller than the original Oberon language and the many
 ## When simple is too simple
 
 Sometimes I want more than the minimalist module.  A good example is standard Strings[4] module.  Thankfully you can augment the standard modules with your own. If you are creative you can even create a drop in replacement. This is what I wound up doing with my "Chars" module.
+
+=> https://miasap.se/obnc/obncdoc/basic/Strings.def.html 4: https://miasap.se/obnc/obncdoc/basic/Strings.def.html
 
 In the spirit of "Simple but no simpler" I originally kept Chars  very minimal. I only implemented what I missed most from Strings. I got down to a handful of functions for testing characters, testing prefixes and suffixes as well as trim procedures. It was all I included in Chars was until recently.
 
@@ -33,6 +39,8 @@ I see two advantages to merging Chars and Strings. First I only need to include 
 It is still minimal but at the same time shows Chars is going to be referenced as Strings. By implication Chars provides the functionality Strings but is not the same as Strings. My code reads nicely.  I don't loose the provenance of what is being referred to by Strings because it is clearly  provided in the IMPORT statement.
 
 In my new implementation[5] I support all the standard procedures you'd find in an Oakwood compliant Strings.  I've included additional additional constants and functional procedures like StartsWith() and EndsWith() and a complement of trim procedures like TrimLeft(), TrimRight(), Trim(). TrimPrefix(), and TrimSuffix().
+
+=> Chars.Mod 5: Chars.Mod
 
 Here's how Chars definition stacks up as rendered by the obncdoc tool.
 
@@ -230,17 +238,13 @@ My new Chars module has proven to be both more readable and more focused in my p
 
 UPDATE: The current version of my Chars module can be found in  my Artemis[7] repository. The repository includes additional code and modules suitable to working with Oberon-07 in a POSIX envinronment.
 
+=> Chars.Mod 6: Chars.Mod
+=> https://github.com/rsdoiel/Artemis 7: https://github.com/rsdoiel/Artemis
+
 ### Next, Previous
 
 * Next Combining Oberon-07 with C using Obc-3[8]
 * Prev Dates & Clocks[9]
 
-=> https://miasap.se/obnc/ 1: https://miasap.se/obnc/
-=> https://github.com/vishaps/voc 2: https://github.com/vishaps/voc
-=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 3: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
-=> https://miasap.se/obnc/obncdoc/basic/Strings.def.html 4: https://miasap.se/obnc/obncdoc/basic/Strings.def.html
-=> Chars.Mod 5: Chars.Mod
-=> Chars.Mod 6: Chars.Mod
-=> https://github.com/rsdoiel/Artemis 7: https://github.com/rsdoiel/Artemis
 => gemini://sdf.org/rsdoiel/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html 8: /blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html
 => gemini://sdf.org/rsdoiel/blog/2020/11/27/Dates-and-Clock.html 9: /blog/2020/11/27/Dates-and-Clock.html

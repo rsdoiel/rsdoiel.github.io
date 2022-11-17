@@ -4,9 +4,15 @@ By R. S. Doiel, 2020-05-01
 
 This is the fifth post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
+
 In my day job I write allot of code in Go and orchestration code in Python.  It's nice having the convenience of combining code written one language with an another.  You can do the same with OBNC[2].  The OBNC compiler supports inclusion of C code in a straight forward manner. In fact Karl's compiler will generate the C file for you!
 
+=> https://miasap.se/obnc/ 2: https://miasap.se/obnc/
+
 In learning how to combine C code and Oberon-07 I started by reviewing Karl's manual page[3]. The bottom part of that manual page describes the steps I will repeat below. The description sounds more complicated but when you walk through the steps it turns out to be pretty easy.
+
+=> https://miasap.se/obnc/man/obnc.txt 3: https://miasap.se/obnc/man/obnc.txt
 
 ## Basic Process
 
@@ -28,6 +34,8 @@ In my demonstration of Karl's instructions I will be creating a module named Fmt
 
 Create Fmt.Mod[4] defining two exported procedures Int*() and Real*(). The procedures body should be empty. Karl's practice is to use exported comments to explain the procedures.
 
+=> Fmt.Mod 4: Fmt.Mod
+
 ``` {.oberon}
 
     MODULE Fmt;
@@ -47,6 +55,9 @@ Create Fmt.Mod[4] defining two exported procedures Int*() and Real*(). The proce
 ### Step 2
 
 Create a test module, FmtTest.Mod[5], for Fmt.Mod[6].
+
+=> FmtTest.Mod 5: FmtTest.Mod
+=> Fmt.Mod 6: Fmt.Mod
 
 ``` {.oberon}
 
@@ -89,6 +100,8 @@ Create a test module, FmtTest.Mod[5], for Fmt.Mod[6].
 ### Step 3
 
 Generate a new Fmt.c[7] by using the OBNC compiler.
+
+=> Fmt.c 7: Fmt.c
 
 ``` {.shell}
 
@@ -174,12 +187,5 @@ Recompile and test.
 * Next Compiling OBNC on macOS[8]
 * Previously Oberon Loops and Conditions[9]
 
-=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
-=> https://miasap.se/obnc/ 2: https://miasap.se/obnc/
-=> https://miasap.se/obnc/man/obnc.txt 3: https://miasap.se/obnc/man/obnc.txt
-=> Fmt.Mod 4: Fmt.Mod
-=> FmtTest.Mod 5: FmtTest.Mod
-=> Fmt.Mod 6: Fmt.Mod
-=> Fmt.c 7: Fmt.c
 => ../06/Compiling-OBNC-on-macOS.html 8: ../06/Compiling-OBNC-on-macOS.html
 => ../../04/19/Mostly-Oberon-Loops-and-Conditions.html 9: ../../04/19/Mostly-Oberon-Loops-and-Conditions.html

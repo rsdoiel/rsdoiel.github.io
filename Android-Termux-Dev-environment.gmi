@@ -15,7 +15,11 @@ Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboa
 
 After searching with Duck Duck Go and Google I came across the termux[1]. Termux provides a minimal Bash shell environment with support for adding packages with apt and dpkg.  The repositories visible to termux include most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites curl, grep, sed, gawk and a new addition to my toolkit jq.  Additionally you'll find recent versions (as of Sept. 2016) versions of Golang, PHP, python, and Ruby.
 
+=> https://termux.com 1: https://termux.com
+
 This quickly brought me through step 3.  Installing go, git, and openssh completed what I needed to test static site development with some of the tools in our incubator at Caltech Library[2].
+
+=> https://caltechlibrary.github.io 2: https://caltechlibrary.github.io
 
 ## Setting up for static site development
 
@@ -57,6 +61,4 @@ Finally pulled down some content to test.
 
 This started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000[3] and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.
 
-=> https://termux.com 1: https://termux.com
-=> https://caltechlibrary.github.io 2: https://caltechlibrary.github.io
 => http://localhost:8000 3: http://localhost:8000

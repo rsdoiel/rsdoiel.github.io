@@ -4,11 +4,20 @@
 
 This post is the first in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger's called Software Tools in Pascal[1]. The book is available from the Open Library[2] and physical copies are still (2020) commonly available from used book sellers.  The book was an early text on creating portable command line programs.
 
+=> https://archive.org/details/softwaretoolsinp00kern 1: https://archive.org/details/softwaretoolsinp00kern
+=> https://openlibrary.org/ 2: https://openlibrary.org/
+
 In this series I present the K & P (i.e. Software Tools in Pascal) programs re-implemented in Oberon-07. I have testing my implementations using Karl Landström's OBNC[3] compiler and his implementation of the Oakwood Guide's modules for portable Oberon programs. Karl also provides a few additional modules for working in a POSIX environment (e.g. BSD, macOS, Linux, Windows 10 with Linux subsystem). I have also tested these programs with Mike Spivey's Oxford Oberon Compiler[4] an aside from the differences file extensions that both compilers use the source code works the same.
+
+=> http://miasap.se/obnc/ 3: http://miasap.se/obnc/
+=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 4: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
 
 NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.
 
 NOTE: POSIX defines a standard of compatibility inspired by UNIX[5], see https://en.wikipedia.org/wiki/POSIX[6]
+
+=> https://en.wikipedia.org/wiki/Unix 5: https://en.wikipedia.org/wiki/Unix
+=> https://en.wikipedia.org/wiki/POSIX 6: https://en.wikipedia.org/wiki/POSIX
 
 ## Getting Started.
 
@@ -25,6 +34,8 @@ Programs from this chapter include:
 5. detab, converts tabs to spaces using tab stops every four characters in a line
 
 All programs in this chapter rely solely on standard input and output. Today's reader will notice an absence to common concepts in today's command line programs.  First is the lack of interaction with command line parameters, the second is no example take advantage of environment variables. These operating system features were not always available across operating systems of the early 1980s. Finally I'd like to point out a really nice feature included in the book. It is often left out as a topic in programming books.  K & P provide example documentation. It's structure like an early UNIX man page. It very clear and short. This is something I wish all programming texts at least mentioned. Documentation is important to the program author because it clarifies scope of the problem being tackled and to the program user so they understand what they are using.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up 7: https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up
 
 ### 1.1. File Copying[7]
 
@@ -61,7 +72,11 @@ EXAMPLE
 
 The source code for "copyprog.pas" is shown on page 9[8] of K & P.  First the authors introduce the copy procedure then a complete the section introducing it in context of the complete Pascal program. After this first example K & P leave implementation of the full program up to the reader.
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up 8: https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up
+
 The body of the Pascal program invokes a procedure called copy[9] which reads from standard input character by character and writes to standard output character by character without modification.  Two supporting procedures are introduced, "getc" and "putc". These are shown in the complete program listing on page 9. They are repeatedly used through out the book. One of the really good aspects of this simple program is relying on the idea of standard input and output. This makes "copyprog.pas" a simple filter and template for writing many of the programs that follow. K & P provide a good explanation for this simple approach. Also note K & P's rational for working character by character versus line by line.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up 9: https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up
 
 My Oberon-07 version takes a similar approach. The module looks remarkably similar to the Pascal but is shorter because reading and writing characters are provided for by Oberon's standard modules "In" and "Out". I have chosen to use a "REPEAT/UNTIL" loop over the "WHILE" loop used by K & P is the attempt to read from standard input needs to happen at least once. Note in my "REPEAT/UNTIL" loop's terminating condition. The value of In.Done is true on successful read and false otherwise (e.g. you hit an end of the file). That means our loop must terminate on In.Done # TRUE rather than In.Done = TRUE. This appears counter intuitive unless you keep in mind our loop stops when we having nothing more to read, rather than when we can continue to read. It In.Done means the read was successful and does not mean "I'm done and can exit now". Likewise before writing out the character we read, it is good practice to check the In.Done value. If In.Done is TRUE, I know can safely display the character using Out.Char(c);.
 
@@ -91,6 +106,8 @@ END CopyProg.
 
 This program only works with standard input and output. A more generalized version would work with named files.
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up 10: https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up
+
 ### 1.2 Counting Characters[10]
 
 ```
@@ -119,6 +136,8 @@ EXAMPLE
 ```
 
 On page 13[11] K & P introduces their second program, charcount. It is based on a single procedure that reads from standard input and counts up the number of characters encountered then writes the total number found to standard out followed by a newline. In the text only the procedure is shown, it is assumed you'll write the outer wrapper of the program yourself as was done with the copyprog program. My Oberon-07 version is very similar to the Pascal. Like in the our first "CopyProg" we will make use of the "In" and "Out" modules. Since we will need to write an INTEGER value we'll also use "Out.Int()" procedure which is very similar to K & P's "putdec()". Aside from the counting this is very simple  like our first program.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up 11: https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up
 
 ```
 
@@ -151,6 +170,8 @@ END CharCount.
 
 The primary limitation in counting characters is most readers are interested in visible character count. In our implementation even non-printed characters are counted. Like our first program this only works on standard input and output. Ideally this should be written so it works on any file including standard input and output. If the reader implements that it could become part of a package on statistical analysis of plain text files.
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up 12: https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up
+
 ### 1.3 Counting Lines[12]
 
 ```
@@ -177,6 +198,8 @@ EXAMPLE
 ```
 
 linecount, from page 15[13] is very similar to charcount except adding a conditional count in the loop for processing the file. In our Oberon-07 implementation we'll check if the In.Char(c) call was successful but we'll add a second condition to see if the character read was a NEWLINE. If it was I increment our counter variable.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up 13: https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up
 
 ```
 
@@ -211,6 +234,8 @@ END LineCount.
 
 This program assumes that NEWLINE is ASCII value 10. Line delimiters vary between operating systems.  If your OS used carriage returns without a NEWLINE then this program would not count lines correctly. The reader could extend the checking to support carriage returns, new lines, and carriage return with new lines and cover most versions of line endings.
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up 14: https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up
+
 ### 1.4 Counting Words[14]
 
 ```
@@ -242,6 +267,8 @@ BUGS
 ```
 
 Page 17[15] brings us to the wordcount program. Counting words can be very nuanced but here K & P have chosen a simple definition which most of the time is "good enough" for languages like English. A word is defined simply as an run of characters separated by a space, tab or newline characters.  In practice most documents will work with this minimal definition. It also makes the code straight forward.  This is a good example of taking the simple road if you can. It keeps this program short and sweet.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up 15: https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up
 
 If you follow along in the K & P book note their rational and choices in arriving at there solutions. There solutions will often balance readability and clarity over machine efficiency. While the code has progressed from "if then" to "if then else if" logical sequence, the solution's modeled remains clear. This means the person reading the source code can easily verify if the approach chosen was too simple to meet their needs or it was "good enough".
 
@@ -285,6 +312,8 @@ BEGIN
 END WordCount.
 ```
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up 16: https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up
+
 ## 1.5 Removing Tabs[16]
 
 ```
@@ -321,9 +350,15 @@ BUGS
 
 The source code for "detab" can be found on page 24[17] in the last section of chapter 1. detab removes tabs and replaces them with spaces. Rather than a simple "tab" replaced with four spaces detab preserves a concept found on typewriters called "tab stops". In 1981 typewrites were still widely used though word processing software would become common. Supporting the "tab stop" model means the program works with what office workers would expect from older tools like the typewriter or even the computer's teletype machine. I think this shows an important aspect of writing programs. Write the program for people, support existing common concepts they will likely know.
 
+=> https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up 17: https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up
+
 K & P implementation includes separate source files for setting tab stops and checking a tab stop.  The Pascal K & P wrote for didn't support separate source files or program modules. Recent Pascal versions did support the concept of modularization (e.g. UCSD Pascal). Since and significant goal of K & P was portability they needed to come up with a solution that worked on the "standard" Pascal compilers available on minicomputers and mainframes and not write their solution to a specific Pascal system like UCSD Pascal (see Appendix, "IMPLEMENTATION PRIMITIVES page 315[18]). Modularization facilitates code reuse and like information hiding is an import software technique. Unfortunately the preprocessor approach doesn't support information hiding.
 
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up 18: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up
+
 To facilitate code reuse the K & P book includes a preprocessor as part of the Pascal development tools (see page 71[19] for implementation). The preprocessor written in Pascal was based on the early versions of the "C" preprocessor they had available in the early UNIX systems. Not terribly Pascal like but it worked and allowed the two files to be shared between this program and one in the next chapter.
+
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up 19: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up
 
 Oberon-07 of course benefits from all of Wirth's language improvements that came after Pascal. Oberon-07 supports modules and as such there is no need for a preprocessor.  Because of Oberon-07's module support I've implemented the Oberon version using two files rather than three. My main program file is "Detab.Mod", the supporting library module is "Tabs.Mod". "Tabs" is where I define our tab stop data structure as well as the procedures that operating on that data structure.
 
@@ -430,6 +465,8 @@ This post briefly highlighted ports of the programs presented in Chapter 1 of "S
 
 If you happen to be using The Oxford Oberon Compiler[20] you need to rename the files ending in ".Mod" to ".m"  and you can compiler with the following command.
 
+=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 20: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
+
 ```
     obc -07 -o copyprog CopyProg.m
     obc -07 -o charcount CharCount.m
@@ -446,34 +483,15 @@ Note the line for compiling "Detab" with obc, your local modules need to become 
 * WordCount[24]
 * Detab[25] * Tabs[26], this one we'll revisit in next installment.
 
-# Next
-
-* Filters[27]
-
-=> https://archive.org/details/softwaretoolsinp00kern 1: https://archive.org/details/softwaretoolsinp00kern
-=> https://openlibrary.org/ 2: https://openlibrary.org/
-=> http://miasap.se/obnc/ 3: http://miasap.se/obnc/
-=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 4: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
-=> https://en.wikipedia.org/wiki/Unix 5: https://en.wikipedia.org/wiki/Unix
-=> https://en.wikipedia.org/wiki/POSIX 6: https://en.wikipedia.org/wiki/POSIX
-=> https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up 7: https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up 8: https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up 9: https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up 10: https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up 11: https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up 12: https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up 13: https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up 14: https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up 15: https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up 16: https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up 17: https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up 18: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up 19: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up
-=> http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 20: http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
 => CopyProg.Mod 21: CopyProg.Mod
 => CharCount.Mod 22: CharCount.Mod
 => LineCount.Mod 23: LineCount.Mod
 => WordCount.Mod 24: WordCount.Mod
 => Detab.Mod 25: Detab.Mod
 => Tabs.Mod 26: Tabs.Mod
+
+# Next
+
+* Filters[27]
+
 => ../../10/31/Filters.html 27: ../../10/31/Filters.html

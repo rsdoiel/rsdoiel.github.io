@@ -4,7 +4,12 @@
 
 This post is the second in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger's called Software Tools in Pascal[1]. The book is available from the Open Library[2] and physical copies are still (2020) commonly available from used book sellers. The book was an late 20th century text on creating portable command line programs using ISO standard Pascal of the era.
 
+=> https://archive.org/details/softwaretoolsinp00kern 1: https://archive.org/details/softwaretoolsinp00kern
+=> https://openlibrary.org/ 2: https://openlibrary.org/
+
 In this chapter K & P focuses on developing the idea of filters. Filters are programs which typically process standard input, do some sort of transformation or calculation and write to standard output.  They are intended to work either standalone or in a pipeline to solve more complex problems. I like to think of filters as software LEGO[3]. Filter programs can be "snapped" together creating simple shapes data shapes or combined to for complex compositions.
+
+=> https://en.wikipedia.org/wiki/Lego 3: https://en.wikipedia.org/wiki/Lego
 
 The programs from this chapter include:
 
@@ -14,6 +19,8 @@ The programs from this chapter include:
 * expand, an early UNIX style expand for plain text files, previously run through with compress
 * echo, write echo's command line parameters to standard output, introduces working with command line parameters
 * translit, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K & P
+
+=> https://en.wikipedia.org/wiki/Overstrike 4: https://en.wikipedia.org/wiki/Overstrike
 
 ## Implementing in Oberon-07
 
@@ -25,13 +32,16 @@ In translit the notation let's us describe what we want to translate. At the sim
 
 # 2.1 Putting Tabs Back
 
-Page 31[5]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up Page 31
 
-Implementing entab in Oberon-07 is straight forward. Like my Detab[6] implementation I am using a second modules called Tabs[7]. This removes the need for the #include macros used in the K & P version. I have used the same loop structure as K & P this time. There is a difference in my WHILE loop. I separate the character read from the WHILE conditional test.  Combining the two is common in "C" and is consistent with the programming style other books by Kernighan.  In Oberon-07 doesn't make sense at all. Oberon's In.Char() is not a function returning as in the Pascal primitives implemented for the K & P book or indeed like in the "C" language. In Oberon's "In" module the status of a read operation is exposed by In.Done. I've chosen to put the next call to In.Char() at the bottom of my WHILE loop because it is clear that it is the last think done before ether iterating again or exiting the loop. Other than that the Oberon version looks much like K & P's Pascal.
+Implementing entab in Oberon-07 is straight forward. Like my Detab[5] implementation I am using a second modules called Tabs[6]. This removes the need for the #include macros used in the K & P version. I have used the same loop structure as K & P this time. There is a difference in my WHILE loop. I separate the character read from the WHILE conditional test.  Combining the two is common in "C" and is consistent with the programming style other books by Kernighan.  In Oberon-07 doesn't make sense at all. Oberon's In.Char() is not a function returning as in the Pascal primitives implemented for the K & P book or indeed like in the "C" language. In Oberon's "In" module the status of a read operation is exposed by In.Done. I've chosen to put the next call to In.Char() at the bottom of my WHILE loop because it is clear that it is the last think done before ether iterating again or exiting the loop. Other than that the Oberon version looks much like K & P's Pascal.
+
+=> Detab.Mod 5: Detab.Mod
+=> Tabs.Mod 6: Tabs.Mod
 
 ## Program Documentation
 
-Page 32[8]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up Page 32
 
 ```
 
@@ -127,13 +137,15 @@ END Entab.
 
 # 2.2 Overstrikes
 
-Page 34[9]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up Page 34
 
 Overstrike isn't a tool that is useful today but I've included it simply to be follow along the flow of the K & P book. It very much reflects an error where teletype like devices where still common and printers printed much like typewriters did. On a 20th century manual type writer you could underline a word or letter by backing up the carriage then typing the underscore character. Striking out a word was accomplished by a similar technique. The mid to late 20th century computers device retained this mechanism though by 1980's it was beginning to disappear along with manual typewriters. This program relies on the the nature of ASCII character set and reflects some of the non-print character's functionality. I found it did not work on today's terminal emulators reliably. Your mileage may very nor do I have a vintage printer to test it on.
 
 Our module follows K & P design almost verbatim. The differences are those suggested by differences between Pascal and Oberon-07. Like in previous examples we don't need to use an ENDFILE constant as we can simply check the value of In.Done to determine if the last read was successful. This simplifies some of the IF/ELSE logic and the termination of the REPEAT/UNTIL loop.  It makes the WHILE/DO loop a little more verbose.
 
-One thing I would like to point out in the original Pascal of the book is a problem often referred to as the "dangling else" problem. While this is usually discussed in the context of compiler implementation I feel like it is a bigger issue for the person reading the source code. It is particularly problematic when you have complex "IF/ELSE" sequences that are nested.  This is not limited to the 1980's era Pascal. You see it in other languages like C.  It is a convenience for the person typing the source code but a problem for those who maintain it. We see this ambiguity in the Pascal procedure overstrike inside the repeat loop on page 35[10]. It is made worse by the fact that K & P have taken advantage of omitting the semi-colons where optional. If you type in this procedure and remove the indication if quickly becomes ambiguous about where on "IF/ELSE" begins and the next ends. In Oberon-07 it is clear when you have a dangling "IF" statement. This vintage Pascal, not so much.
+One thing I would like to point out in the original Pascal of the book is a problem often referred to as the "dangling else" problem. While this is usually discussed in the context of compiler implementation I feel like it is a bigger issue for the person reading the source code. It is particularly problematic when you have complex "IF/ELSE" sequences that are nested.  This is not limited to the 1980's era Pascal. You see it in other languages like C.  It is a convenience for the person typing the source code but a problem for those who maintain it. We see this ambiguity in the Pascal procedure overstrike inside the repeat loop on page 35[7]. It is made worse by the fact that K & P have taken advantage of omitting the semi-colons where optional. If you type in this procedure and remove the indication if quickly becomes ambiguous about where on "IF/ELSE" begins and the next ends. In Oberon-07 it is clear when you have a dangling "IF" statement. This vintage Pascal, not so much.
+
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up 7: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up
 
 K & P do mention the dangling "ELSE" problem later in the text. Their recommend practice was include the explicit final "ELSE" at a comment to avoid confusion. But you can see how easy an omitting the comment is in the overstrike program.
 
@@ -143,7 +155,7 @@ This is documented "BUG" section describes the limitations well, "overstrike is 
 
 ## Program Documentation
 
-Page 36[11]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up Page 36
 
 ```
 
@@ -257,13 +269,13 @@ END Overstrike.
 
 # 2.3 Text Compression
 
-Page 37[12]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up Page 37
 
 In 20th century computing everything is expensive, memory, persistent storage computational ability in CPU.  If you were primarily working with text you still worried about running out of space in your storage medium. You see it in the units of measurement used in that era such as bytes, kilobytes, hertz and kilohertz. To day we talk about megabytes, gigabytes, terabytes and petabytes. Plain text files are a tiny size compared to must digital objects today but in the late 20th century their size in storage was still a concern.  One way to solve this problem was to encode your plain text to use less storage space. Early attempts at file compression took advantage of repetition to save space. Many text documents have repeated characters whether spaces or punctuation or other formatting. This is what inspired the K & P implementation of compress and expand. Today we'd use other approaches to save space whether we were storing text or a digital photograph.
 
 ## Program Documentation
 
-Page [13]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up Page
 
 ```
 
@@ -376,13 +388,13 @@ END Compress.
 
 # 2.4 Text Expansion
 
-Page 41[14]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up Page 41
 
 Our procedures map closely to the original Pascal with a few significant differences.  As previously I've chosen a REPEAT ... UNTIL loop structure because we are always attempting to read at least once. The IF THEN ELSIF ELSE logic is a little different. In the K & P version they combine retrieving a character and testing its value.  This is a style common in languages like C. As previous mentioned I split the read of the character from the test.  Aside from the choices imposed by the "In" module I also feel that retrieving the value, then testing is a simpler statement to read. There is little need to worry about a side effect when you separate the action from the test. It does change the structure of the inner and outer IF statements.
 
 ## Program Documentation
 
-Page 43[15]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up Page 43
 
 ```
 
@@ -480,11 +492,11 @@ END Expand.
 
 # 2.5 Command Arguments
 
-Page 44[16]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up Page 44
 
 ## Program Documentation
 
-Page 45[17]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up Page 45
 
 ```
 
@@ -548,7 +560,7 @@ END Echo.
 
 # 2.6 Character Transliteration
 
-Page 47[18]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up Page 47
 
 translit is the most complicated program so far in the book. Most of the translation process from Pascal to Oberon-07 has remained similar to the previous examples.
 
@@ -560,11 +572,13 @@ I have included an additional procedure not included in the K & P Pascal of this
 
 Translit suggested the "Chars" module because of the repetition in previous programs. In K & P the approach to code reuse is to create a separate source file and to included via a pre-processor. In Oberon we have the module concept.
 
-My Chars[19] module provides a useful set of test procedures like IsAlpha(c), IsUpper(c), IsLower() in addition to the CharInRange() and IsAlphaNum().  It also includes AppendChar() which can be used to append a single character value to an end of an array of char.
+My Chars[8] module provides a useful set of test procedures like IsAlpha(c), IsUpper(c), IsLower() in addition to the CharInRange() and IsAlphaNum().  It also includes AppendChar() which can be used to append a single character value to an end of an array of char.
+
+=> Chars.Mod 8: Chars.Mod
 
 ## Program Documentation
 
-Page 56[20]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up Page 56
 
 ```
 
@@ -615,19 +629,19 @@ EXAMPLE
 
 ## Pascal Source
 
-translit.p, Page 48[21]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up translit.p, Page 48
 
-makeset.p, Page 52[22]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up makeset.p, Page 52
 
-addstr.p, Page 53[23]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up addstr.p, Page 53
 
-dodash.p, Page 53[24]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up dodash.p, Page 53
 
-isalphanum.p, Page 54[25]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up isalphanum.p, Page 54
 
-esc.p, Page 55[26]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up esc.p, Page 55
 
-length.p, Page 46[27]
+=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up length.p, Page 46
 
 The impacts of having a richer language than 1980s ISO Pascal and evolution in practice suggest a revision in the K & P approach. I have attempted to keep the spirit of their example program while reflecting changes in practice that have occurred in the last four decades.
 
@@ -858,7 +872,11 @@ END Translit.
 
 In this chapter we interact with some of the most common features of command line programs available on POSIX systems. K & P have given us a solid foundation on which to build more complex and ambitious programs. In the following chapters the read will find an accelerated level of complexity bit also programs that are significantly more powerful.
 
-Oberon language evolved with the Oberon System which had a very different rich text user interface when compared with POSIX. Fortunately Karl's OBNC comes with a set of modules that make Oberon-07 friendly for building programs for POSIX operating systems. I've taken advantage of his extArgs module much in the way that K & P relied on a set of primitive tools to provide a common programming environment. K & P's version of implementation of primitives[28] listed in their appendix. Karl's OBNC extensions modules are described on website[29]. Other Oberon compilers provide similar modules though implementation specific. A good example is Spivey's Oxford Oberon-2 Compiler[30]. K & P chose to target multiple Pascal implementations, I have the luxury of targeting one Oberon-07 implementation. That said if you added a pre-processor like K & P did you could also take their approach to allow you Oberon-07 code to work across many Oberon compiler implementations. I leave that as an exercise for the reader.
+Oberon language evolved with the Oberon System which had a very different rich text user interface when compared with POSIX. Fortunately Karl's OBNC comes with a set of modules that make Oberon-07 friendly for building programs for POSIX operating systems. I've taken advantage of his extArgs module much in the way that K & P relied on a set of primitive tools to provide a common programming environment. K & P's version of implementation of primitives[9] listed in their appendix. Karl's OBNC extensions modules are described on website[10]. Other Oberon compilers provide similar modules though implementation specific. A good example is Spivey's Oxford Oberon-2 Compiler[11]. K & P chose to target multiple Pascal implementations, I have the luxury of targeting one Oberon-07 implementation. That said if you added a pre-processor like K & P did you could also take their approach to allow you Oberon-07 code to work across many Oberon compiler implementations. I leave that as an exercise for the reader.
+
+=> https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up 9: https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up
+=> https://miasap.se/obnc/obncdoc/ext/ 10: https://miasap.se/obnc/obncdoc/ext/
+=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 11: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
 
 I've chosen to revise some of the code presented in K & P's book. I believe the K & P implementations still contains wisdom in their implementations. They had different constraints and thus made different choices in implementation. Understand the trade offs and challenges to writing portable code capable of running in very divergent set of early 1980's operating systems remains useful today.
 
@@ -874,12 +892,12 @@ Compiling with OBNC:
     obnc -o translit Translit.Mod
 ```
 
-* Entab[31] * Tabs[32], this one visited this one in last installment.
-* Overstrike[33]
-* Compress[34]
-* Expand[35]
-* Echo[36]
-* Translit[37] * Chars[38]
+* Entab[12] * Tabs[13], this one visited this one in last installment.
+* Overstrike[14]
+* Compress[15]
+* Expand[16]
+* Echo[17]
+* Translit[18] * Chars[19]
 
 ```html
 <!--
@@ -890,46 +908,17 @@ Next and Previous
 -->
 ```
 
+=> Entab.Mod 12: Entab.Mod
+=> Tabs.Mod 13: Tabs.Mod
+=> Overstrike.Mod 14: Overstrike.Mod
+=> Compress.Mod 15: Compress.Mod
+=> Expand.Mod 16: Expand.Mod
+=> Echo.Mod 17: Echo.Mod
+=> Translit.Mod 18: Translit.Mod
+=> Chars.Mod 19: Chars.Mod
+
 ## Previous
 
-* Previous: Getting Started[39]
+* Previous: Getting Started[20]
 
-=> https://archive.org/details/softwaretoolsinp00kern 1: https://archive.org/details/softwaretoolsinp00kern
-=> https://openlibrary.org/ 2: https://openlibrary.org/
-=> https://en.wikipedia.org/wiki/Lego 3: https://en.wikipedia.org/wiki/Lego
-=> https://en.wikipedia.org/wiki/Overstrike 4: https://en.wikipedia.org/wiki/Overstrike
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up 5: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up
-=> Detab.Mod 6: Detab.Mod
-=> Tabs.Mod 7: Tabs.Mod
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up 8: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up 9: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up 10: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up 11: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up 12: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up 13: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up 14: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up 15: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up 16: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up 17: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up 18: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up
-=> Chars.Mod 19: Chars.Mod
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up 20: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up 21: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up 22: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up 23: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up 24: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up 25: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up 26: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up
-=> https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up 27: https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up
-=> https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up 28: https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up
-=> https://miasap.se/obnc/obncdoc/ext/ 29: https://miasap.se/obnc/obncdoc/ext/
-=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 30: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
-=> Entab.Mod 31: Entab.Mod
-=> Tabs.Mod 32: Tabs.Mod
-=> Overstrike.Mod 33: Overstrike.Mod
-=> Compress.Mod 34: Compress.Mod
-=> Expand.Mod 35: Expand.Mod
-=> Echo.Mod 36: Echo.Mod
-=> Translit.Mod 37: Translit.Mod
-=> Chars.Mod 38: Chars.Mod
-=> ../../09/29/Software-Tools-1.html 39: ../../09/29/Software-Tools-1.html
+=> ../../09/29/Software-Tools-1.html 20: ../../09/29/Software-Tools-1.html

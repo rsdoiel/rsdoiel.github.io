@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-04-12
 
 This is the second post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
+=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
+
 ## Modules
 
 The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions. A module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon the statement separator in Oberon. Our simple "Hello World" example  shows the basic code shape.
@@ -175,7 +177,13 @@ HelloWorld2.Mod is responsible for the general management of our program namely 
 
 HelloWorld2.Mod[2] doesn't have any of its own  procedures and like our original HelloWorld.Mod[3] relies on the module's initialization block to run our two public  procedures from SayingHi. It calls first SayingHi.HelloWorld;  then SayingHi.Greetings' before existing. Other than using the  SayingHi module it is similar in spirit to our first  HelloWorld.Mod[4].
 
+=> HelloWorld2.Mod 2: HelloWorld2.Mod
+=> HelloWorld.Mod 3: HelloWorld.Mod
+=> HelloWorld.Mod 4: HelloWorld.Mod
+
 Our second module SayingHi.Mod[5] does the heavy lifting. It contains both public and private procedures.  If you tried to use GetName from SayingHi in HelloWorld2.Mod you would get a compiler error. As far as HelloWorld2.Mod is concerned GetName does not exist. This is called information hiding and is an important capability provided by Oberon's Modules system.
+
+=> SayingHi.Mod 5: SayingHi.Mod
 
 ### explore SayingHi more deeply
 
@@ -254,6 +262,8 @@ The memory for ourName will be populated when we pass the variable to GetName ba
 
 Oberon is a typed language meaning that  variables are declared, allocated and checked during compile time for specific characteristics. The one variable we created ourName in the Greetings procedure reserves the space for 256  ASCII[6] characters.  In Oberon we call a single ASCII character a CHAR.  Since it would be useful to work with more than one CHAR in relationship to others Oberon also supports a variable type called ARRAY.  An ARRAY is represented as a block of memory that is allocated by the Oberon run time. Because it is allocated ahead of time we need to know its size (i.e. how many CHAR are we storing). In our case we have declared ARRAY 256 OF CHAR. That means we can hold names up to 256 ASCII characters.
 
+=> https://en.wikipedia.org/wiki/ASCII 6: https://en.wikipedia.org/wiki/ASCII
+
 Greetings* does three things and the second thing, GetName  receives the characters typed at the keyboard.  GetName has a parameter list. In this case the only one parameter is declared VAR ourName : ARRAY OF CHAR. Notice the similarity and difference between the VAR statement in Greetings versions the parameter list.  Our GetName can accept any length of ARRAY OF CHAR and it only can accept an ARRAY OF CHAR. If you try to pass another type of variable to GetName the compiler will stop with an error message.
 
 Why is this important?
@@ -271,11 +281,5 @@ We've minimized the memory we've used in our program.  Memory is  typically allo
 * Next Basic Types[7]
 * Previous Mostly Oberon[8]
 
-=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
-=> HelloWorld2.Mod 2: HelloWorld2.Mod
-=> HelloWorld.Mod 3: HelloWorld.Mod
-=> HelloWorld.Mod 4: HelloWorld.Mod
-=> SayingHi.Mod 5: SayingHi.Mod
-=> https://en.wikipedia.org/wiki/ASCII 6: https://en.wikipedia.org/wiki/ASCII
 => ../18/Mostly-Oberon-Basic-Types.html 7: ../18/Mostly-Oberon-Basic-Types.html
 => ../11/Mostly-Oberon.html 8: ../11/Mostly-Oberon.html

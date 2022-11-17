@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-05-09 (updated: 2021-10-29)
 
 This is the seventh post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
+
 ## Working with files in Oberon-07
 
 In a POSIX system we often talk of opening files, writing and reading files and close files. The Oberon language reflects a more Oberon System point of view.
@@ -46,6 +48,8 @@ The behavior of files and riders in Oberon creates interesting nuances around de
 
 The Files module provides a number of methods to read and write basic Oberon types. These use the rider rather than the file handle. Calling them automatically updates the riders position. The procedures themselves map to what we've seen in the modules In and Out.
 There are a few additional commands for file system house  keeping such as Length, GetDate, Base. See the OBNC documentation for the Files module for details https://miasap.se/obnc/obncdoc/basic/Files.def.html[2].
+
+=> https://miasap.se/obnc/obncdoc/basic/Files.def.html 2: https://miasap.se/obnc/obncdoc/basic/Files.def.html
 
 In the following examples we'll be using the Files module to create, update and delete a file called  HelloWorld.txt.
 
@@ -215,7 +219,5 @@ On October 29, 2021 I had an email conversation with Jules. It pointed out a pro
 * Next Dynamic Types[3]
 * Previous Compiling OBNC on macOS[4]
 
-=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
-=> https://miasap.se/obnc/obncdoc/basic/Files.def.html 2: https://miasap.se/obnc/obncdoc/basic/Files.def.html
 => ../25/Dynamic-types.html 3: ../25/Dynamic-types.html
 => ../06/Compiling-OBNC-on-macOS.html 4: ../06/Compiling-OBNC-on-macOS.html

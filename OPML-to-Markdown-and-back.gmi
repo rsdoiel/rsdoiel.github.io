@@ -6,11 +6,18 @@ By R. S. Doiel 2016-05-28
 
 I wrote a Go language package to sort OPML[1] outlines.  I wrote this because my preferred feed reader [2] supports manual  sorting but not automatic alpha sorting by the outline element's text attribute.
 
+=> http://dev.opml.org/spec2.html 1: http://dev.opml.org/spec2.html
+=> http://goread.io 2: http://goread.io
+
 ## Observations
 
 Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files, scripts, basic metadata (create, modified, authorship), and even directory structures.
 
 Fargo[3] allows user defined attributes to be applied to the outline  element in OPML. This could be used in support some of the  Scrivener[4] features I miss such as describing how to render a project to various formats such as rtf, pdf, ePub, web pages or even Final Draft fdx[5] files.
+
+=> http://fargo.io 3: http://fargo.io
+=> https://www.literatureandlatte.com/scrivener.php 4: https://www.literatureandlatte.com/scrivener.php
+=> https://www.finaldraft.com/ 5: https://www.finaldraft.com/
 
 I write allot of Markdown formatted text.  Markdown is simple to index,  search and convert into useful formats. Markdown is not good at expressing more complex structures such as metadata. Website generators that use markdown often require a preamble or front matter in the markdown to provide any metadata. This leaves your document head cluttered and less human readable.
 
@@ -49,7 +56,7 @@ Making a round trip could be done by
 
 So far so good. What about something more complex?
 
-Here's an outline element example from http://hosting.opml.org/dave/spec/directory.opml[6]
+=> http://hosting.opml.org/dave/spec/directory.opml Here's an outline element example from http://hosting.opml.org/dave/spec/directory.opml
 
 ```OPML
     <outline text="Scripting News sites" created="Sun, 16 Oct 2005 05:56:10 GMT" type="link" url="http://hosting.opml.org/dave/mySites.opml"/>
@@ -99,10 +106,3 @@ Coming back to OPML from Markdown then becomes
 * For each li element inspect anchors, * if anchors contain data URI then map outline element * else URL encode and embed in outline text attribute
 
 Is this viable? Does it have any advantages?
-
-=> http://dev.opml.org/spec2.html 1: http://dev.opml.org/spec2.html
-=> http://goread.io 2: http://goread.io
-=> http://fargo.io 3: http://fargo.io
-=> https://www.literatureandlatte.com/scrivener.php 4: https://www.literatureandlatte.com/scrivener.php
-=> https://www.finaldraft.com/ 5: https://www.finaldraft.com/
-=> http://hosting.opml.org/dave/spec/directory.opml 6: http://hosting.opml.org/dave/spec/directory.opml

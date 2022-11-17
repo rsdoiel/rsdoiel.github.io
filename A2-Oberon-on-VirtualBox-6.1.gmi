@@ -4,6 +4,10 @@ By R. S. Doiel, 2021-04-02
 
 This is a short article documenting how I install A2 Oberon in VirtualBox using the FreeDOS 1.2[1], the A2 ISO[2] cd image and VirtualBox 6.1[3].
 
+=> https://freedos.org 1: https://freedos.org
+=> https://sourceforge.net/projects/a2oberon/files/ 2: https://sourceforge.net/projects/a2oberon/files/
+=> https://virtualbox.org 3: https://virtualbox.org
+
 ## Basic Approach
 
 1. Download the ISO images for FreeDOS and A2
@@ -17,7 +21,11 @@ From working with Native Oberon 2.3.7 I've found it very helpful to have a FreeD
 
 You'll find FreeDOS 1.2 installation ISO image at  FreeDos.org[4]. Download it where you can easily find it from the VirtualBox manager.
 
+=> http://freedos.org/download/ 4: http://freedos.org/download/
+
 You'll find the A2 Oberon ISO image at SourceForge[5] in the A2 Files section. There is a green download button you can click and it'll take you to a downloads page and download the ISO.  Once again move it to where you can find it from  the VirtualBox manager easily.
+
+=> https://sourceforge.net/projects/a2oberon/files/ 5: https://sourceforge.net/projects/a2oberon/files/
 
 ## Create a new Virtual Machine
 
@@ -69,11 +77,6 @@ Like with the FD12CD.iso we want to unmount our A2 installation CD ROM. Click on
 
 You can now start the machine again and start exploring A2. I recommend looking at the Oberon Wikibook[6]  for details about how to use A2 and ideas of what to explore.
 
-One nice feature of A2 is it includes a full "NativeOberon" or ETH Oberon as an A2 Application.
-
-=> https://freedos.org 1: https://freedos.org
-=> https://sourceforge.net/projects/a2oberon/files/ 2: https://sourceforge.net/projects/a2oberon/files/
-=> https://virtualbox.org 3: https://virtualbox.org
-=> http://freedos.org/download/ 4: http://freedos.org/download/
-=> https://sourceforge.net/projects/a2oberon/files/ 5: https://sourceforge.net/projects/a2oberon/files/
 => https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS 6: https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS
+
+One nice feature of A2 is it includes a full "NativeOberon" or ETH Oberon as an A2 Application.

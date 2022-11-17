@@ -2,9 +2,15 @@
 
 This is the thirteenth post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html 1: https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html
+
 ## Pandoc and JSON
 
 I use Pandoc[2] to process Markdown documents. I like to keep my front matter in JSON rather than Pandoc's YAML. Fortunately Pandoc does support working with JSON as a metadata file include. Normally I would manually split the JSON front matter and the rest of the markup into two separate files, then process with Pandoc and other tooling like LunrJS[3]. AssemblePage[4] automates this process.
+
+=> https://pandoc.org 2: https://pandoc.org
+=> https://lunrjs.com 3: https://lunrjs.com
+=> AssemblePage.Mod 4: AssemblePage.Mod
 
 Example shell usage:
 
@@ -127,9 +133,5 @@ END AssemblePage.
 * Next Dates & Clock[5]
 * Previous Oberon To Markdown[6]
 
-=> https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html 1: https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html
-=> https://pandoc.org 2: https://pandoc.org
-=> https://lunrjs.com 3: https://lunrjs.com
-=> AssemblePage.Mod 4: AssemblePage.Mod
 => ../../11/27/Dates-and-Clock.html 5: ../../11/27/Dates-and-Clock.html
 => ../../10/03/Oberon-to-markdown.html 6: ../../10/03/Oberon-to-markdown.html

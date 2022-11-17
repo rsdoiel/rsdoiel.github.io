@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-04-19
 
 This is the four post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
+
 ## Data Flow
 
 Oberon is a small systems language and while it is minimalist. It provides you with the necessary primitives to get things done. I've touched on code organization, basic types and basic type extensions in the previous articles.  I have shown the basic control statements but have not talked about them yet.
@@ -95,6 +97,8 @@ Using a BY clause incrementing i by 2.
 
 The following module[2] demonstrates the conditional and loop syntax.
 
+=> LoopsAndConditions.Mod 2: LoopsAndConditions.Mod
+
 ```Oberon
     MODULE LoopsAndConditions;
       IMPORT In, Out;
@@ -174,7 +178,5 @@ The following module[2] demonstrates the conditional and loop syntax.
 * Next Combining Oberon-07 and C with OBNC[3]
 * Previous Basic Types[4]
 
-=> ../11/Mostly-Oberon.html 1: ../11/Mostly-Oberon.html
-=> LoopsAndConditions.Mod 2: LoopsAndConditions.Mod
 => ../../05/01/Combining-Oberon-and-C.html 3: ../../05/01/Combining-Oberon-and-C.html
 => ../18/Mostly-Oberon-Basic-Types.html 4: ../18/Mostly-Oberon-Basic-Types.html

@@ -2,7 +2,7 @@
 
 By R. S. Doiel, 2022-11-07
 
-I started playing around with Pandoc's pandoc-server last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400's SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don't know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc's INSTALL.md[1]
+=> https://github.com/jgm/pandoc/blob/master/INSTALL.md I started playing around with Pandoc's pandoc-server last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400's SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don't know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc's INSTALL.md
 
 I'm running this first on an Intel Ubuntu box because I have the disk space available there. If it works then I'll try it directly on my Raspberry Pi 400 with an upgrade SD card and running the 64bit version of Raspberry Pi OS.
 
@@ -11,7 +11,7 @@ I did not have Haskell or Cabal installed when I started this process.
 ## Steps
 
 1. Install stack (it will install GHC)
-2. Clone the GitHub repo for Pandoc[2]
+2. Clone the GitHub repo for Pandoc[1]
 3. Setup stack for Pandoc
 4. Build and test with stack
 5. Install stack install
@@ -32,6 +32,8 @@ ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server
 ```
 
 This step takes a long time and on the Raspberry Pi it'll take allot longer.
+
+=> https://github.com/jgm/pandoc 1: https://github.com/jgm/pandoc
 
 The final installation of Pandoc was in my $HOME/.local/bin directory. Assuming this is early in your path this can allow you to experiment with a different version of Pandoc from the one installed on your system.
 
@@ -77,15 +79,15 @@ Now when I have a chance to update my Raspberry Pi 400 to a suitable sized SD Ca
 
 ## Additional notes
 
-stack[3] is a Haskell build tool. It setups up an Haskell environment per project. If a project requires a specific version of the Haskell compiler it'll be installed and made accessible for the project. In this way it's a bit like having a specific environment for Python. The stack website indicates that it targets cross platform development in Haskell which is nice.  Other features of stack remind me of Go "go" command in that it can build things or Rust's "cargo" command. Like cargo it can update itself which is nice. That is what I did after installing the Debian package version used by Ubuntu. Configuration of a "stack" project uses YAML files. Stack uses cabal, Haskell's older build tool but subsumes cabal-install for setting up cabal and ghc. It appears from my reading that stack addresses some of the short falls cabal originally had and specifically focusing on reproducible compiles. This is important in sharing code as well as if you want to integrate automated compilation and testing. It maintains a project with "cabal files" so there is the ability to work with older non-stack code if I read the documentation correctly. Both cabal and stack seem to be evolving in parallel taking different approaches but influencing one another. Both systems use "cabal files" for describing projects and dependencies as of 2022. The short version of Why Stack[4] can be found the stack website.
+stack[2] is a Haskell build tool. It setups up an Haskell environment per project. If a project requires a specific version of the Haskell compiler it'll be installed and made accessible for the project. In this way it's a bit like having a specific environment for Python. The stack website indicates that it targets cross platform development in Haskell which is nice.  Other features of stack remind me of Go "go" command in that it can build things or Rust's "cargo" command. Like cargo it can update itself which is nice. That is what I did after installing the Debian package version used by Ubuntu. Configuration of a "stack" project uses YAML files. Stack uses cabal, Haskell's older build tool but subsumes cabal-install for setting up cabal and ghc. It appears from my reading that stack addresses some of the short falls cabal originally had and specifically focusing on reproducible compiles. This is important in sharing code as well as if you want to integrate automated compilation and testing. It maintains a project with "cabal files" so there is the ability to work with older non-stack code if I read the documentation correctly. Both cabal and stack seem to be evolving in parallel taking different approaches but influencing one another. Both systems use "cabal files" for describing projects and dependencies as of 2022. The short version of Why Stack[3] can be found the stack website.
 
-Hackage[5] is a central repository of Haskell packages.
+=> https://docs.haskellstack.org/en/stable/ 2: https://docs.haskellstack.org/en/stable/
+=> https://docs.haskellstack.org/en/stable/#why-stack 3: https://docs.haskellstack.org/en/stable/#why-stack
 
-Stackage[6] is a curated subset of Hackage packages. It appears to be the preferred place for stack to pull from.
+Hackage[4] is a central repository of Haskell packages.
 
-=> https://github.com/jgm/pandoc/blob/master/INSTALL.md 1: https://github.com/jgm/pandoc/blob/master/INSTALL.md
-=> https://github.com/jgm/pandoc 2: https://github.com/jgm/pandoc
-=> https://docs.haskellstack.org/en/stable/ 3: https://docs.haskellstack.org/en/stable/
-=> https://docs.haskellstack.org/en/stable/#why-stack 4: https://docs.haskellstack.org/en/stable/#why-stack
-=> https://hackage.haskell.org/ 5: https://hackage.haskell.org/
-=> https://www.stackage.org/ 6: https://www.stackage.org/
+=> https://hackage.haskell.org/ 4: https://hackage.haskell.org/
+
+Stackage[5] is a curated subset of Hackage packages. It appears to be the preferred place for stack to pull from.
+
+=> https://www.stackage.org/ 5: https://www.stackage.org/

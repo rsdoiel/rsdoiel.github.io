@@ -2,6 +2,8 @@
 
 Next year will be ten years since Prof. Wirth and Paul Reed released Project Oberon 2013[1].  It took me most of that decade to stumble on the project and community.  I am left wondering if Prof. Wirth and Paul Reed sat down today what would they design? I think only minor changes are needed and those mostly around assumptions.
 
+=> https://www.projectoberon.com 1: https://www.projectoberon.com
+
 ## Oberon-07 changing assumptions
 
 The language of Oberon-07 doesn't need to change. I do think the assumptions of the compiler are worth revisiting.  A CHAR should not be assumed to be an eight bit byte.  A CHAR should represent a character or symbol in a language. Many if not most of the Oberon community speaks language other than American English and that which is trivially represented in seven or eight bit ASCII.  While changing the representation assumption in Oberon-07 does increase complexity I feel restrict the character presentation of a CHAR to eight bits puts us on the side of "too simple" in the equation of "Simpler but not to simple".
@@ -19,5 +21,3 @@ I think the Artemis Project should presume that the representation of CHAR and I
 ## Errata
 
 7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.
-
-=> https://www.projectoberon.com 1: https://www.projectoberon.com

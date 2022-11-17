@@ -4,7 +4,14 @@ By R. S. Doiel, 2021-06-14
 
 This post explores integrating C code with an Oberon-07 module use Mike Spivey's Obc-3 Oberon Compiler.  Last year I wrote a similar post for Karl Landström's OBNC[1]. This goal of this post is to document how I created a version of Karl's Extension Library that would work with Mike's Obc-3 compiler. If you want to take a shortcut you can see the results on GitHub in my obc-3-libext[2] repository.
 
+=> gemini://sdf.org/rsdoiel/blog/2020/05/01/Combining-Oberon-and-C.html 1: /blog/2020/05/01/Combining-Oberon-and-C.html
+=> https://github.com/rsdoiel/obc-3-libext 2: https://github.com/rsdoiel/obc-3-libext
+
 From my time with OBNC I've come to rely on three modules from Karl's extension library. When trying to port some of my code to use with Mike's compiler. That's where I ran into a problem with that dependency. Karl's modules aren't available. I needed an extArgs[3], an extEnv[4] and extConvert[5].
+
+=> http://miasap.se/obnc/obncdoc/ext/extArgs.def.html 3: http://miasap.se/obnc/obncdoc/ext/extArgs.def.html
+=> http://miasap.se/obnc/obncdoc/ext/extEnv.def.html 4: http://miasap.se/obnc/obncdoc/ext/extEnv.def.html
+=> http://miasap.se/obnc/obncdoc/ext/extConvert.def.html 5: http://miasap.se/obnc/obncdoc/ext/extConvert.def.html
 
 Mike's own modules that ship with Obc-3 cover allot of common ground with Karl's. They are organized differently. The trivial solution is to implement wrapping modules using Mike's modules for implementation. That takes case of extArgs and extEnv.
 
@@ -14,6 +21,12 @@ The module extConvert is in a another category. Mike's Conv module is significan
 
 * Obc-3 website[6] * Installing Obc-3[7] * Adding primitives to Obc-3[8], this is how you extend Obc-3 with C * Obc-3.1 Manual[9]
 * Obc-3 at GitHub[10]
+
+=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 6: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
+=> https://spivey.oriel.ox.ac.uk/corner/Installing_OBC_release_3.1 7: https://spivey.oriel.ox.ac.uk/corner/Installing_OBC_release_3.1
+=> https://spivey.oriel.ox.ac.uk/corner/How_to_add_primitives_to_OBC 8: https://spivey.oriel.ox.ac.uk/corner/How_to_add_primitives_to_OBC
+=> https://spivey.oriel.ox.ac.uk/wiki/images-corner/c/ce/Obcman-3.1.pdf 9: https://spivey.oriel.ox.ac.uk/wiki/images-corner/c/ce/Obcman-3.1.pdf
+=> http://github.com/Spivoxity/obc-3 10: http://github.com/Spivoxity/obc-3
 
 ## Differences: OBNC and Obc-3
 
@@ -304,23 +317,12 @@ obc -07 -o converttest extConvert.m Tests.m ConvertTest.m
 ./converttest
 ```
 
-Source code for these modules is available on GitHub at github.com/rsdoiel/obc-3-libest[11]
+=> https://github.com/rsdoiel/obc-3-libext Source code for these modules is available on GitHub at github.com/rsdoiel/obc-3-libest
 
 ## Next & Previous
 
-* Next Revisiting Files[12]
-* Previous Beyond Oakwood, Modules and Aliases[13]
+* Next Revisiting Files[11]
+* Previous Beyond Oakwood, Modules and Aliases[12]
 
-=> gemini://sdf.org/rsdoiel/blog/2020/05/01/Combining-Oberon-and-C.html 1: /blog/2020/05/01/Combining-Oberon-and-C.html
-=> https://github.com/rsdoiel/obc-3-libext 2: https://github.com/rsdoiel/obc-3-libext
-=> http://miasap.se/obnc/obncdoc/ext/extArgs.def.html 3: http://miasap.se/obnc/obncdoc/ext/extArgs.def.html
-=> http://miasap.se/obnc/obncdoc/ext/extEnv.def.html 4: http://miasap.se/obnc/obncdoc/ext/extEnv.def.html
-=> http://miasap.se/obnc/obncdoc/ext/extConvert.def.html 5: http://miasap.se/obnc/obncdoc/ext/extConvert.def.html
-=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 6: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
-=> https://spivey.oriel.ox.ac.uk/corner/Installing_OBC_release_3.1 7: https://spivey.oriel.ox.ac.uk/corner/Installing_OBC_release_3.1
-=> https://spivey.oriel.ox.ac.uk/corner/How_to_add_primitives_to_OBC 8: https://spivey.oriel.ox.ac.uk/corner/How_to_add_primitives_to_OBC
-=> https://spivey.oriel.ox.ac.uk/wiki/images-corner/c/ce/Obcman-3.1.pdf 9: https://spivey.oriel.ox.ac.uk/wiki/images-corner/c/ce/Obcman-3.1.pdf
-=> http://github.com/Spivoxity/obc-3 10: http://github.com/Spivoxity/obc-3
-=> https://github.com/rsdoiel/obc-3-libext 11: https://github.com/rsdoiel/obc-3-libext
-=> ../../11/22/Revisiting-Files.html 12: ../../11/22/Revisiting-Files.html
-=> ../../05/16/Beyond-Oakwood-Modules-and-Aliases.html 13: ../../05/16/Beyond-Oakwood-Modules-and-Aliases.html
+=> ../../11/22/Revisiting-Files.html 11: ../../11/22/Revisiting-Files.html
+=> ../../05/16/Beyond-Oakwood-Modules-and-Aliases.html 12: ../../05/16/Beyond-Oakwood-Modules-and-Aliases.html

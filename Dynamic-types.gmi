@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-05-25
 
 This is the eighth post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language,  Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
+
 ## Dynamic Types in Oberon
 
 Oberon-07 is a succinct systems language. It provides a minimal but useful set of basic static types. Relying on them addresses  many common programming needs. The Oberon compiler ensures  static types are efficiently allocated in memory. One of the  strengths of Oberon is this ability to extend the type system.  This means when the basic types fall short you can take  advantage of Oberon's type  extension features. This includes  creating dynamically allocated data structures. In Oberon-07  combining Oberon's POINTER TO and RECORD types allows us to create complex and dynamic data structures.
@@ -192,7 +194,12 @@ With these few procedures we have a basic means of working with  dynamic strings
 
 NOTE: Procedure signatures refer to procedures type along  with the order and types of parameters. A quick review of the  procedure signatures for the standard module Strings[2] is  provided by the OBNC[3] compiler docs.
 
+=> https://miasap.se/obnc/obncdoc/basic/Strings.def.html 2: https://miasap.se/obnc/obncdoc/basic/Strings.def.html
+=> https://miasap.se/obnc 3: https://miasap.se/obnc
+
 Let's look at recreating Insert as a potential guide to a more fully featured "DynamicStrings.Mod"[4].  In our Insert we modify the procedure signature so the  source and destinations are dynamic strings.
+
+=> DynamicStrings.Mod 4: DynamicStrings.Mod
 
 ### Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)
 
@@ -310,16 +317,13 @@ You can read the full source for the module discussed along with a test module i
 * DynamicStrings.Mod[5]
 * DynamicStringsTest.Mod[6]
 
+=> DynamicStrings.Mod 5: DynamicStrings.Mod
+=> DynamicStringsTest.Mod 6: DynamicStringsTest.Mod
+
 ### Next and Previous
 
 * Next Procedures as parameters[7]
 * Previous Oberon-07 and the file system[8]
 
-=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
-=> https://miasap.se/obnc/obncdoc/basic/Strings.def.html 2: https://miasap.se/obnc/obncdoc/basic/Strings.def.html
-=> https://miasap.se/obnc 3: https://miasap.se/obnc
-=> DynamicStrings.Mod 4: DynamicStrings.Mod
-=> DynamicStrings.Mod 5: DynamicStrings.Mod
-=> DynamicStringsTest.Mod 6: DynamicStringsTest.Mod
 => ../../06/20/Procedures-as-parameters.html 7: ../../06/20/Procedures-as-parameters.html
 => ../09/Oberon-07-and-the-filesystem.html 8: ../09/Oberon-07-and-the-filesystem.html

@@ -4,7 +4,11 @@ By R. S. Doiel, 2020-06-20
 
 This is the ninth post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the  various rabbit holes I will inevitably fall into.
 
+=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
+
 Oberon-07 supports the passing of procedures as parameters in a procedure.  Let's create a module name Noises.Mod[2] to explore this.
+
+=> Noises.Mod 2: Noises.Mod
 
 The key to supporting this is Oberon's type system.  We need to decide what our  generic procedure will look like first. In our case our procedures that will display  an animal noise will include the name of the animal speaking.  We'll call this type  of procedure "Noise". It'll accept an ARRAY OF CHAR for the name as a parameter  then use the standard Out module to display the animal name and noise they make.
 
@@ -85,7 +89,5 @@ Note when we pass the procedures we include their name without parenthesis. Our 
 * Next Procedures in Records[3]
 * Previous Dynamic types[4]
 
-=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
-=> Noises.Mod 2: Noises.Mod
 => ../../07/07/Procedures-in-records.html 3: ../../07/07/Procedures-in-records.html
 => ../../05/25/Dynamic-types.html 4: ../../05/25/Dynamic-types.html

@@ -4,6 +4,8 @@ By R. S. Doiel, 2020-05-06
 
 This is the sixth post in the Mostly Oberon[1] series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
+=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
+
 Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2)  is straight forward if you have the required dependencies and  environment setup up. Below are my notes to get everything working.
 
 ## Prerequisites
@@ -36,6 +38,9 @@ More info on the GC.
 * The Boehm-Demers-Weiser GC[2]
 * MacPorts page[3]
 
+=> https://www.hboehm.info/gc/ 2: https://www.hboehm.info/gc/
+=> https://ports.macports.org/port/boehmgc/summary 3: https://ports.macports.org/port/boehmgc/summary
+
 ### C compiler and linker
 
 XCode is provides a C compiler and linker. That is what is installed on my machine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can install other C compilers (e.g. Clang) but I haven't tried them yet.
@@ -65,8 +70,5 @@ This follows' Karl's docs.  Additionally if you install OBNC extlib so you can 
 * Next Oberon-07 and the file system[4]
 * Previous Combining Oberon-07 and C[5]
 
-=> ../../04/11/Mostly-Oberon.html 1: ../../04/11/Mostly-Oberon.html
-=> https://www.hboehm.info/gc/ 2: https://www.hboehm.info/gc/
-=> https://ports.macports.org/port/boehmgc/summary 3: https://ports.macports.org/port/boehmgc/summary
 => ../09/Oberon-07-and-the-filesystem.html 4: ../09/Oberon-07-and-the-filesystem.html
 => ../01/Combining-Oberon-and-C.html 5: ../01/Combining-Oberon-and-C.html

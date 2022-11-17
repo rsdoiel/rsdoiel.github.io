@@ -8,27 +8,47 @@ Mostly Oberon is a series of blog posts documenting my exploration of the Oberon
 
 Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at ETH[1] circa 1987.  It was inspired by their experiences in California at the Xerox Palo Alto Research Center[2].  This series of blog posts are my meandering exploration of Oberon-07 language based on Project Oberon 2013[3].
 
+=> https://en.wikipedia.org/wiki/ETH_Zurich 1: https://en.wikipedia.org/wiki/ETH_Zurich
+=> https://en.wikipedia.org/wiki/PARC_(company) 2: https://en.wikipedia.org/wiki/PARC_(company)
+=> http://www.projectoberon.com/ 3: http://www.projectoberon.com/
+
 NOTE: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol.
 
 ### My Voyage
 
 I am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language Turbo Pascal[4].  Oberon's language shape is more Pascal than C. For that reason I think it has largely been overlooked.
 
+=> https://en.wikipedia.org/wiki/Turbo_Pascal 4: https://en.wikipedia.org/wiki/Turbo_Pascal
+
 Oberon-07 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like Go[5].
 
+=> https://golang.org 5: https://golang.org
+
 While Wirth conceived of Oberon in the context of a whole system it's use in research and instruction means it is also well suited POSIX[6] based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.
+
+=> https://en.wikipedia.org/wiki/POSIX 6: https://en.wikipedia.org/wiki/POSIX
 
 NOTE: Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations.
 
 The latest Oberon is Prof. Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's emulator[7]. Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.
 
+=> https://github.com/pdewacht/oberon-risc-emu 7: https://github.com/pdewacht/oberon-risc-emu
+
 ## A starting point
 
 I am starting my exploration with Karl Landström's OBNC[8] compiler. I am focusing on getting comfortable using and writing in the Oberon language.
 
+=> https://miasap.se/obnc/ 8: https://miasap.se/obnc/
+
 Here's an example of a simple "Hello World" program in Oberon written for a POSIX system. I've named the source code[9] HelloWorld.Mod.
 
+=> HelloWorld.Mod 9: HelloWorld.Mod
+
 NOTE: In 2020 common POSIX systems include Linux[10], BSD[11] and macOS[12].
+
+=> https://en.wikipedia.org/wiki/Linux 10: https://en.wikipedia.org/wiki/Linux
+=> https://en.wikipedia.org/wiki/Berkeley_Software_Distribution 11: https://en.wikipedia.org/wiki/Berkeley_Software_Distribution
+=> https://en.wikipedia.org/wiki/MacOS 12: https://en.wikipedia.org/wiki/MacOS
 
 ```
 
@@ -49,9 +69,17 @@ Modules in Oberon can include a module wide initialization block. The BEGIN thro
 
 If you want to run my "Hello World" you need to compile it.  I have found that OBNC[13] compiler runs well on Linux, macOS and Raspberry Pi[14]. Karl has also made a precompiled version that runs on Windows available too. It is the Oberon compiler I plan to use in this series of posts.
 
+=> https://miasap.se/obnc/ 13: https://miasap.se/obnc/
+=> https://www.raspberrypi.org 14: https://www.raspberrypi.org
+
 OBNC compiles Oberon source into C then into machine code for the computer system you are running on. Because it is compiling to C it can function as a cross compiler[15]. This opens the door to bare metal programming[16].
 
+=> https://en.wikipedia.org/wiki/Cross_compiler 15: https://en.wikipedia.org/wiki/Cross_compiler
+=> https://en.wikipedia.org/wiki/Bare_machine 16: https://en.wikipedia.org/wiki/Bare_machine
+
 If you're following along please install OBNC on your computer.  Instructions are found at https://maisap.se/obnc[17]. Karl also has excellent documentation and is responsive to questions about his implementation. His contact methods are included on his website.
+
+=> https://maisap.se/obnc 17: https://maisap.se/obnc
 
 ### Running OBNC
 
@@ -70,37 +98,23 @@ I have faced two challenges in my exploration of Oberon, finding a compiler I wa
 
 Oberon has a rich history though it was not well known in Southern California in 2020. Oberon's history is primarily academic and European. It was commonly used in college level instruction in Europe from it's inception at ETH in the late 80's through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era.  They covered the Oberon language and system of their time.  From a historical computing perspective they remain very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Paul Reed brought things up to date in 2013. I recommend Reed's www.projectoberon.com[18] as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth's website[19] is still maintained and he features links to most of his major publications. His is the canonical source of information on Oberon.
 
+=> http://www.projectoberon.com 18: http://www.projectoberon.com
+=> https://inf.ethz.ch/personal/wirth/ 19: https://inf.ethz.ch/personal/wirth/
+
 NOTE: Prof. Wirth's personal website at ETH was available as of 2020-04-11.
 
 I have found the ACM Digital Library[20] and the ETH Research Collection[21] very helpful.  While much of the material is now historic it remains useful for both techniques and inspiration.  Today's hardware, even a Raspberry Pi Zero, is more resource rich than the original systems Oberon ran on.
 
+=> https://dl.acm.org/ 20: https://dl.acm.org/
+=> https://www.research-collection.ethz.ch/?locale-attribute=en 21: https://www.research-collection.ethz.ch/?locale-attribute=en
+
 The online community for Oberon and Oberon System seems mostly centered around a mail list[22] at ETH and net news group comp.lang.oberon[23]
+
+=> https://lists.inf.ethz.ch/mailman/listinfo/oberon 22: https://lists.inf.ethz.ch/mailman/listinfo/oberon
+=> https://groups.google.com/forum/#!forum/comp.lang.oberon 23: https://groups.google.com/forum/#!forum/comp.lang.oberon
 
 ### Next
 
 * Next Modules and Procedures[24]
 
-=> https://en.wikipedia.org/wiki/ETH_Zurich 1: https://en.wikipedia.org/wiki/ETH_Zurich
-=> https://en.wikipedia.org/wiki/PARC_(company) 2: https://en.wikipedia.org/wiki/PARC_(company)
-=> http://www.projectoberon.com/ 3: http://www.projectoberon.com/
-=> https://en.wikipedia.org/wiki/Turbo_Pascal 4: https://en.wikipedia.org/wiki/Turbo_Pascal
-=> https://golang.org 5: https://golang.org
-=> https://en.wikipedia.org/wiki/POSIX 6: https://en.wikipedia.org/wiki/POSIX
-=> https://github.com/pdewacht/oberon-risc-emu 7: https://github.com/pdewacht/oberon-risc-emu
-=> https://miasap.se/obnc/ 8: https://miasap.se/obnc/
-=> HelloWorld.Mod 9: HelloWorld.Mod
-=> https://en.wikipedia.org/wiki/Linux 10: https://en.wikipedia.org/wiki/Linux
-=> https://en.wikipedia.org/wiki/Berkeley_Software_Distribution 11: https://en.wikipedia.org/wiki/Berkeley_Software_Distribution
-=> https://en.wikipedia.org/wiki/MacOS 12: https://en.wikipedia.org/wiki/MacOS
-=> https://miasap.se/obnc/ 13: https://miasap.se/obnc/
-=> https://www.raspberrypi.org 14: https://www.raspberrypi.org
-=> https://en.wikipedia.org/wiki/Cross_compiler 15: https://en.wikipedia.org/wiki/Cross_compiler
-=> https://en.wikipedia.org/wiki/Bare_machine 16: https://en.wikipedia.org/wiki/Bare_machine
-=> https://maisap.se/obnc 17: https://maisap.se/obnc
-=> http://www.projectoberon.com 18: http://www.projectoberon.com
-=> https://inf.ethz.ch/personal/wirth/ 19: https://inf.ethz.ch/personal/wirth/
-=> https://dl.acm.org/ 20: https://dl.acm.org/
-=> https://www.research-collection.ethz.ch/?locale-attribute=en 21: https://www.research-collection.ethz.ch/?locale-attribute=en
-=> https://lists.inf.ethz.ch/mailman/listinfo/oberon 22: https://lists.inf.ethz.ch/mailman/listinfo/oberon
-=> https://groups.google.com/forum/#!forum/comp.lang.oberon 23: https://groups.google.com/forum/#!forum/comp.lang.oberon
 => ../12/Mostly-Oberon-Modules.html 24: ../12/Mostly-Oberon-Modules.html

@@ -4,6 +4,9 @@ By R. S. Doiel, 2021-11-22
 
 In October I had an Email exchange with Algojack regarding a buggy example in Oberon-07 and the file system[1]. The serious bug was extraneous non-printable characters appearing a plain text file containing the string "Hello World". The trouble with the example was a result of my misreading the Oakwood guidelines and how Files.WriteString() is required to work. The Files.WriteString() procedure is supposed to write every element of a string to a file. This includes the trailing Null character. The problem for me is Files.WriteString() litters plain text files with tailing nulls. What I should have done was write my own WriteString() and WriteLn(). The program HelloworldFile[2] below is a more appropriate solution to writing strings and line endings than relying directly on Files. In a future post I will explorer making this more generalized in a revised "Fmt" module.
 
+=> ../../../2020/05/09/Oberon-07-and-the-filesystem.html 1: ../../../2020/05/09/Oberon-07-and-the-filesystem.html
+=> ./HelloworldFile.Mod 2: ./HelloworldFile.Mod
+
 ```
 MODULE HelloworldFile;
 
@@ -88,15 +91,14 @@ Aside from our file setup and picking an appropriate end of line marker the shap
 
 You can see a definition of the Files[3] at Karl Landström's documentation for his compiler along with the definitions for In[4] and Out[5].
 
+=> https://miasap.se/obnc/obncdoc/basic/Files.def.html 3: https://miasap.se/obnc/obncdoc/basic/Files.def.html
+=> https://miasap.se/obnc/obncdoc/basic/In.def.html 4: https://miasap.se/obnc/obncdoc/basic/In.def.html
+=> https://miasap.se/obnc/obncdoc/basic/Out.def.html 5: https://miasap.se/obnc/obncdoc/basic/Out.def.html
+
 ## Next & Previous
 
 * Next Portable Conversions (Integers)[6]
 * Prev Combining Oberon-07 with C using Obc-3[7]
 
-=> ../../../2020/05/09/Oberon-07-and-the-filesystem.html 1: ../../../2020/05/09/Oberon-07-and-the-filesystem.html
-=> ./HelloworldFile.Mod 2: ./HelloworldFile.Mod
-=> https://miasap.se/obnc/obncdoc/basic/Files.def.html 3: https://miasap.se/obnc/obncdoc/basic/Files.def.html
-=> https://miasap.se/obnc/obncdoc/basic/In.def.html 4: https://miasap.se/obnc/obncdoc/basic/In.def.html
-=> https://miasap.se/obnc/obncdoc/basic/Out.def.html 5: https://miasap.se/obnc/obncdoc/basic/Out.def.html
 => ../../11/26/Portable-Conversions-Integers.html 6: ../../11/26/Portable-Conversions-Integers.html
 => ../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html 7: ../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html

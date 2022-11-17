@@ -4,11 +4,16 @@ By R. S. Doiel, 2018-03-11
 
 The problem: I've started exploring Julia and I would like to leverage existing code I've written in Go. Essentially this is a revisit to the problem in my last post Go based Python Modules[1]  but with the language pairing of Go and Julia.
 
+=> https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html 1: https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html
+
 ## Example 1, libtwice.go, libtwice.jl and libtwice_test.jl
 
 In out first example we send an integer value from Julia to Go and back via a C shared library (written in Go). While Julia doesn't require type declarations I will be using those for clarity. Like in my previous post I think this implementation this is a good starting point to see how Julia interacts with C shared libraries. Like before I will present our Go code, an explanation  followed by the Julia code and commentary.
 
 On the Go side we create a libtwice.go file with an empty main()  function.  Notice that we also import the C package and use  a comment decoration to indicate the function we are exporting (see https://github.com/golang/go/wiki/cgo[2] and  https://golang.org/cmd/cgo/[3] for full story about Go's C package and cgo). Part of the what cgo and the C package does is use the  comment decoration to build the signatures for the function calls in the shared C library.  The Go toolchain does all the heavy  lifting in making a C shared library based on comment  directives like "//export". We don't need much for our twice function.
+
+=> https://github.com/golang/go/wiki/cgo 2: https://github.com/golang/go/wiki/cgo
+=> https://golang.org/cmd/cgo/ 3: https://golang.org/cmd/cgo/
 
 ```Go
     package main
@@ -257,7 +262,3 @@ Our Julia test code
 As before you can run your tests with julia libjsonpretty_test.jl.
 
 In closing I would like to note that to use these examples I am assuming your Julia code is in the same directory as your shared C library. Julia, like Python3, has a feature rich module and Package system. If you are creating a serious Julia project then you need to be familiar with how Julia's package and module system works and place your code and shared libraries appropriately.
-
-=> https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html 1: https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html
-=> https://github.com/golang/go/wiki/cgo 2: https://github.com/golang/go/wiki/cgo
-=> https://golang.org/cmd/cgo/ 3: https://golang.org/cmd/cgo/

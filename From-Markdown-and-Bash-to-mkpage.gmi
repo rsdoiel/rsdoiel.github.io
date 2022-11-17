@@ -19,7 +19,13 @@ Modern static site generators leave creation and curation to your  text editor a
 
 Most static site generators use a simplified markup. A populate one is called Markdown[1]. This "markup" is predictable enough that you can easily convert the results to HTML and other useful formats with tools like pandoc[2]. In most  static site generators your content is curated in Markdown and when the  pages are built it is rendered to HTML for injection into your website's  template and theme.
 
+=> https://en.wikipedia.org/wiki/Markdown 1: https://en.wikipedia.org/wiki/Markdown
+=> http://pandoc.org/ 2: http://pandoc.org/
+
 Mapping the data sources to templates, combining the templates and rendering  the final website is where most systems introduce a large amount of complexity. This is true of static site generators like Jekill[3] and  Hugo[4].
+
+=> https://jekyllrb.com 3: https://jekyllrb.com
+=> https://gohugo.io 4: https://gohugo.io
 
 ## An experimental deconstruction
 
@@ -28,6 +34,8 @@ I wanted a simple command line tool that would make a single web page. It would 
 ### A single page generator
 
 mkpage[5] started as an experiment in building a simple single page generator. It's responsibilities include mapping data sources to the template, transforming data if needed and rendering the results. After reviewing the websites I've setup in the last year or two I realized I had three common types of data.
+
+=> https://github.com/rsdoiel/mkpage 5: https://github.com/rsdoiel/mkpage
 
 1. Plain text or content that did not need further processing
 2. Markdown content (e.g. page content, navigation lists)
@@ -63,6 +71,8 @@ Adding a custom page title is easy too.
 ```
 
 Likewise integrating some JSON data from weather.gov is relatively straight forward. The hardest part is discovering the URL[6]  that returns JSON!  Notice I have added a weather field and the URL. When data is received back from weather.gov it is JSON decoded and then passed to the template for rendering using the "range" template function.
+
+=> http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json 6: http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json
 
 ```shell
     mkpage "title=My Page" \
@@ -113,21 +123,18 @@ Here's an example template that would be suitable for the previous command line 
 
 You can find out more about mkpage[7] rsdoiel.github.io/mkpage[8].
 
+=> https://github.com/rsdoiel/mkpage 7: https://github.com/rsdoiel/mkpage
+=> https://rsdoiel.github.io/mkpage 8: https://rsdoiel.github.io/mkpage
+
 To learn more about Go's text templates see  golang.org/pkg/text/template[9].
+
+=> https://golang.org/pkg/text/template/ 9: https://golang.org/pkg/text/template/
 
 If your site generator needs are more than mkpage I suggest Hugo[10].  It's what I would probably reach for if I was building a large complex organizational site or news site.
 
+=> https://gohugo.io 10: https://gohugo.io
+
 If you're looking for an innovative and rich author centric content system I suggest Dave Winer's Fargo[11] outliner and 1999.io[12].
 
-=> https://en.wikipedia.org/wiki/Markdown 1: https://en.wikipedia.org/wiki/Markdown
-=> http://pandoc.org/ 2: http://pandoc.org/
-=> https://jekyllrb.com 3: https://jekyllrb.com
-=> https://gohugo.io 4: https://gohugo.io
-=> https://github.com/rsdoiel/mkpage 5: https://github.com/rsdoiel/mkpage
-=> http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json 6: http://forecast.weather.gov/MapClick.php?lat=34.0522&amp;lon=118.2437&amp;DFcstType=json
-=> https://github.com/rsdoiel/mkpage 7: https://github.com/rsdoiel/mkpage
-=> https://rsdoiel.github.io/mkpage 8: https://rsdoiel.github.io/mkpage
-=> https://golang.org/pkg/text/template/ 9: https://golang.org/pkg/text/template/
-=> https://gohugo.io 10: https://gohugo.io
 => http://fargo.io 11: http://fargo.io
 => https://1999.io 12: https://1999.io

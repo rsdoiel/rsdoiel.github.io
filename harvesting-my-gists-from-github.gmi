@@ -8,7 +8,12 @@ This is a just quick set of notes on harvesting my Gists on GitHub so I have an 
 
 In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian  on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,  sed, curl). I also use Stephen Dolan's jq[1] as well as Caltech Library's datatools[2]. See the respective GitHub repositories for installation instructions. The gist harvest process was developed against GitHub's v3 API (see developer.github.com).
 
+=> https://github.com/stedolan/jq 1: https://github.com/stedolan/jq
+=> https://github.com/caltechlibrary/datatools 2: https://github.com/caltechlibrary/datatools
+
 In the following examples "USER" is assumed to hold your GitHub user id  (e.g. rsdoiel for https://github.com/rsdoiel[3]).
+
+=> https://github.com/rsdoiel 3: https://github.com/rsdoiel
 
 ## Getting my basic profile
 
@@ -87,7 +92,3 @@ What do we want to store with our harvested gists?  The raw files, metadata abou
         done;
     done
 ```
-
-=> https://github.com/stedolan/jq 1: https://github.com/stedolan/jq
-=> https://github.com/caltechlibrary/datatools 2: https://github.com/caltechlibrary/datatools
-=> https://github.com/rsdoiel 3: https://github.com/rsdoiel

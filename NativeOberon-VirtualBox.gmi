@@ -4,6 +4,8 @@ By R. S. Doiel, 2021-03-17
 
 In this post I am walking through installing Native Oberon 2.3.7 (aka ETH Oberon System 3) on a virtual machine running under VirtualBox 6.1. It is a follow up to my 2019 post  FreeDOS to Oberon System 3[1]. To facilitate the install I will first prepare my virtual machine as a FreeDOS 1.2 box. This simplifies getting the virtual machines' hard disk partitioned and formatted correctly. When Native Oberon was released back in 1990's most Intel flavored machines shipped with some sort Microsoft OS on them.  I believe that is why the tools and instructions for Native Oberon assume you're installing over or along side a DOS partition.
 
+=> gemini://sdf.org/rsdoiel/blog/2019/07/28/freedos-to-oberon-system-3.html 1: /blog/2019/07/28/freedos-to-oberon-system-3.html
+
 ## Building our machine
 
 ## Requirements
@@ -22,6 +24,8 @@ Before you boot "Oberon0.Dsk" on your virtual machine make sure you've looked at
 
 VirtualBox 6.1 can be obtained from virtualbox.org[2].  This involves downloading the installer for your particular host operating system (e.g. Linux, macOS or Windows) and follow the instructions on the VirtualBox website to complete the installation.
 
+=> https://www.virtualbox.org/ 2: https://www.virtualbox.org/
+
 Once VirtualBox is installed, launch VirtualBox.
 
 Click the "New" button and name your machine (e.g. "Native Oberon 2.3.7 Alpha") and choose type of "Other" and version "DOS". Click continue. I accepted the default memory size of 32 MB. This is plenty for Oberon.  I clicked on create disk and accepted the default VDI (VirtualBox Disk Image). Press continue. I think accepted "Dynamically allocated", press continue. I chose a "disk size" of 100.00 MB. Oberon System is tiny. Press create button.
@@ -33,6 +37,9 @@ Your VirtualBox is now ready, before pressing "Start" we need to install FreeDOS
 ## Make a FreeDOS 1.2 machine
 
 Download the FD12CD.iso[3] file from the  FreeDOS project[4].
+
+=> https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/FD12CD.iso 3: https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/FD12CD.iso
+=> https://freedos.org/download 4: https://freedos.org/download
 
 "Insert" the "FD12CD.ISO" file into our VirtualBox 6.1 CD-ROM drive. Go to the VirtualBox management panel.  In the area that summarizes storage click the word "Empty" in the line with "[Optical Drive]". Find the "FD12CD.ISO" you downloaded and select it.
 
@@ -54,11 +61,18 @@ Native Oberon used to be hosted at ETH where Oberon and the Oberon System was fi
 
 SourceForge has a mirror of the original sources and some of the remaining community has put at a "new" release of 2.3.7 Alpha  bringing Native Oberon a little closer to the present. It's this version we'll use. You can read more at the SourceForge[5] as well as at the Oberon Wikibook[6]. ETH also still maintains an email list for Oberon and it is active. It can be found at https://lists.inf.ethz.ch/mailman/listinfo/oberon[7]. I recommend browsing the archives of the Email list if you run into problems. I've found very helpful information there and the people on the list seem happy to answer a novices question.
 
+=> https://sourceforge.net/projects/nativeoberon/ 5: https://sourceforge.net/projects/nativeoberon/
+=> https://en.wikibooks.org/wiki/Oberon 6: https://en.wikibooks.org/wiki/Oberon
+=> https://lists.inf.ethz.ch/mailman/listinfo/oberon 7: https://lists.inf.ethz.ch/mailman/listinfo/oberon
+
 We are going to be downloading files from the Native Oberon Project's Files page at SourceForge.
 
-> https://sourceforge.net/projects/nativeoberon/files/nativeoberon/[8]
+> 
+=> https://sourceforge.net/projects/nativeoberon/files/nativeoberon/ https://sourceforge.net/projects/nativeoberon/files/nativeoberon/
 
-In the Files page download the instructions  NativeOberonInstall.pdf[9]  or or the text version. This document by Pieter Muller (May 1999) explains the installation process. It is good for its overview though I found the actual process simpler than what was described for May 1999.
+In the Files page download the instructions  NativeOberonInstall.pdf[8]  or or the text version. This document by Pieter Muller (May 1999) explains the installation process. It is good for its overview though I found the actual process simpler than what was described for May 1999.
+
+=> https://sourceforge.net/projects/nativeoberon/files/NativeOberonInstall.pdf/download 8: https://sourceforge.net/projects/nativeoberon/files/NativeOberonInstall.pdf/download
 
 On the Files page you'll also see a green button to "Download Latest Version", NativeOberon_2.3.7.tar.gz. Click the button and download it.
 
@@ -86,7 +100,9 @@ Oberon System uses all three buttons of a three button mouse. On most mice I've 
 
 The left mount button sets the pointer, the middle button (our scroll wheel if your mouse is like mine) is used to execute commands and the right mouse button is used to select text. In our installation instructions displayed on our virtual  machine we generally be middle clicking the blue colored text.
 
-In Native Oberon all text is potentially actionable.  Unlike in Unix where you type a command press enter then have to retype (or use the command history) to execute the next command we're going to click on the text and sometimes select text to execute commands.  Before we proceed I highly recommend readying and trying a tutorial out before attempting to install Oberon on your virtual hard drive. There is an Oberon System 3 - Main Tutorial[10] available at the Internet Archive's Wayback machine.
+In Native Oberon all text is potentially actionable.  Unlike in Unix where you type a command press enter then have to retype (or use the command history) to execute the next command we're going to click on the text and sometimes select text to execute commands.  Before we proceed I highly recommend readying and trying a tutorial out before attempting to install Oberon on your virtual hard drive. There is an Oberon System 3 - Main Tutorial[9] available at the Internet Archive's Wayback machine.
+
+=> https://web.archive.org/web/20171226183816/http://www.ethoberon.ethz.ch/ethoberon/tutorial/ 9: https://web.archive.org/web/20171226183816/http://www.ethoberon.ethz.ch/ethoberon/tutorial/
 
 ## Installing to our Virtual Hard disk
 
@@ -296,14 +312,3 @@ is where we'll find the CD-ROM.
 ```
 
 You should now have a full installed Native Oberon 2.3.7 system running under VirtualBox 6.1. Enjoy your explorations.
-
-=> gemini://sdf.org/rsdoiel/blog/2019/07/28/freedos-to-oberon-system-3.html 1: /blog/2019/07/28/freedos-to-oberon-system-3.html
-=> https://www.virtualbox.org/ 2: https://www.virtualbox.org/
-=> https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/FD12CD.iso 3: https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/FD12CD.iso
-=> https://freedos.org/download 4: https://freedos.org/download
-=> https://sourceforge.net/projects/nativeoberon/ 5: https://sourceforge.net/projects/nativeoberon/
-=> https://en.wikibooks.org/wiki/Oberon 6: https://en.wikibooks.org/wiki/Oberon
-=> https://lists.inf.ethz.ch/mailman/listinfo/oberon 7: https://lists.inf.ethz.ch/mailman/listinfo/oberon
-=> https://sourceforge.net/projects/nativeoberon/files/nativeoberon/ 8: https://sourceforge.net/projects/nativeoberon/files/nativeoberon/
-=> https://sourceforge.net/projects/nativeoberon/files/NativeOberonInstall.pdf/download 9: https://sourceforge.net/projects/nativeoberon/files/NativeOberonInstall.pdf/download
-=> https://web.archive.org/web/20171226183816/http://www.ethoberon.ethz.ch/ethoberon/tutorial/ 10: https://web.archive.org/web/20171226183816/http://www.ethoberon.ethz.ch/ethoberon/tutorial/

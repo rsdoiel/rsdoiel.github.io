@@ -74,6 +74,9 @@ NOTE: These instructions work for a database dumped with pg_dump for the Postgre
 
 8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is "REPLACE" is a none standard extension I picked up from MySQL it wraps a DELETE and INSERT together[1], should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be db implementation specific[2]. I've used "?" with SQLite and MySQL but with Postgres I need to use "$1", "$2", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.
 
+=> https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html 1: https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html
+=> http://go-database-sql.org/prepared.html 2: http://go-database-sql.org/prepared.html
+
 2022-08-24
 
 11:00 - 12:00; SQL; Postgres; I miss SHOW TABLES it's just muscle memory from MySQL, the SQL to show tables is SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's "SHOW TABLES". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.
@@ -82,12 +85,11 @@ NOTE: These instructions work for a database dumped with pg_dump for the Postgre
 
 9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean How To Install PostgreSQL on Ubuntu 22.04 [Quickstart][3], April 25, 2022 by Alex Garnett helpful.
 
+=> https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart 3: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart
+
 2022-09-19
 
 10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see https://www.postgresql.org/download/linux/ubuntu/[4], see https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart[5] for setting up initial database and users
 
-=> https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html 1: https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html
-=> http://go-database-sql.org/prepared.html 2: http://go-database-sql.org/prepared.html
-=> https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart 3: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart
 => https://www.postgresql.org/download/linux/ubuntu/ 4: https://www.postgresql.org/download/linux/ubuntu/
 => https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart 5: https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart

@@ -4,11 +4,13 @@ By R. S. Doiel, 2021-04-25
 
 This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2]. Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3] development environment. There are additional clever tools like ocat that are helpful working with the differences in text file formats between Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of POSIX with minimal compromises that distract from the Oberon experience.
 
-[^1]: Ofront was developed by Joseph Templ, see http://www.software-templ.com/[1]
+=> http://www.software-templ.com/ [^1]: Ofront was developed by Joseph Templ, see http://www.software-templ.com/
 
-[^2]: see https://www.raspberrypi.org/software/[2] (a 32 bit Debian based Linux for both i386 and ARM)
+[^2]: see https://www.raspberrypi.org/software/[1] (a 32 bit Debian based Linux for both i386 and ARM)
 
-[^3]: see https://ssw.jku.at/Research/Projects/Oberon.html[3]
+=> https://www.raspberrypi.org/software/ 1: https://www.raspberrypi.org/software/
+
+=> https://ssw.jku.at/Research/Projects/Oberon.html [^3]: see https://ssw.jku.at/Research/Projects/Oberon.html
 
 ## An Initial Impression
 
@@ -20,7 +22,7 @@ xset +fp $HOME/ofront_1.4/fonts
 
 Running "oberon.bash" after that immediately improved things. Since I didn't need the Oberon fonts outside of V4 I added the xset command to the "oberon.bash" script just before it invokes the oberon command.
 
-[^4]: See Hans Klaver's message: http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html[4]
+=> http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html [^4]: See Hans Klaver's message: http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html
 
 ## Goals in my setup
 
@@ -34,7 +36,9 @@ Ofront address all three once you get the X Window side setup correctly.
 
 ## Setting up Ofront and V4
 
-First we need to boot up a Raspberry Pi OS device (or an i386 Linux with X11). We need to retrieve the software from Joseph Templ's software-templ.com[5]. Two 1.4 versions are available precompiled. The first is for ARM running Raspberry Pi OS and the second is for generic Linux i386 with X11. I initially tested this on an old laptop where running the i386 version of Raspberry Pi OS.
+First we need to boot up a Raspberry Pi OS device (or an i386 Linux with X11). We need to retrieve the software from Joseph Templ's software-templ.com[2]. Two 1.4 versions are available precompiled. The first is for ARM running Raspberry Pi OS and the second is for generic Linux i386 with X11. I initially tested this on an old laptop where running the i386 version of Raspberry Pi OS.
+
+=> https://software-templ.com 2: https://software-templ.com
 
 ## What we need
 
@@ -48,11 +52,14 @@ The following software is usually already installed on your  Raspberry Pi OS.
 
 ## What we do
 
-1. Download the appropriate tar file a. ARM: http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz[6] b. Intel i386: http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz[7]
+1. Download the appropriate tar file a. ARM: http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz[3] b. Intel i386: http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz[4]
 2. Make sure we can read the compressed archive file
 3. Gunzip and untar the file
 
 Here's the commands I used for the Raspberry Pi hardware.
+
+=> http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz 3: http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz
+=> http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz 4: http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz
 
 ```bash
     curl -O http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz
@@ -159,13 +166,4 @@ Things that come to mind after initial exploration include--
 
 Not sure I'll get the time or have the energy to do these things but they are certainly seem feasible with Ofront as it stands now.
 
-[^8]: See https://brailleinstitute.org/freefont[8]
-
-=> http://www.software-templ.com/ 1: http://www.software-templ.com/
-=> https://www.raspberrypi.org/software/ 2: https://www.raspberrypi.org/software/
-=> https://ssw.jku.at/Research/Projects/Oberon.html 3: https://ssw.jku.at/Research/Projects/Oberon.html
-=> http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html 4: http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html
-=> https://software-templ.com 5: https://software-templ.com
-=> http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz 6: http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz
-=> http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz 7: http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz
-=> https://brailleinstitute.org/freefont 8: https://brailleinstitute.org/freefont
+=> https://brailleinstitute.org/freefont [^8]: See https://brailleinstitute.org/freefont
