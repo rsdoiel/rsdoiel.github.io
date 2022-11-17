@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include
 
-all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml
+all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml gemini
 
 
 nav.include: nav.md
@@ -98,6 +98,8 @@ rss.xml: .FORCE
         -channel-link="https://rsdoiel.github.io" \
         . >index.xml
 
+gemini: .FORCE
+	bash mk-gemini-pages.bash
 
 phlog: .FORCE
 	bash phlog.bash

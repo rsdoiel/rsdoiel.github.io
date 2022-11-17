@@ -1,0 +1,8 @@
+# 11:30 AM, SQL: Postgres
+
+Post: Monday, August 22, 2022, 11:30 AM
+
+Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is "REPLACE" is a none standard extension I picked up from MySQL it wraps a DELETE and INSERT together[1], should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be db implementation specific[2]. I've used "?" with SQLite and MySQL but with Postgres I need to use "$1", "$2", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.
+
+=> https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html 1: https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html
+=> http://go-database-sql.org/prepared.html 2: http://go-database-sql.org/prepared.html

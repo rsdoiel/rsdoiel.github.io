@@ -1,0 +1,18 @@
+# Installing Cargo/Rest on Raspberry Pi 400
+
+On my Raspberry Pi 400 I'm running the 64bit Raspberry Pi OS. The version of Cargo and Rustc are not recent enough to install ncgopher[1]. What worked for me was to first install cargo via the instructions in the The Cargo Book[2].
+
+```shell
+curl https://sh.rustup.rs -sSf | sh
+```
+
+An important note is if you previously installed a version of Cargo/Rust via the debian package system you should uninstall it before running the instructions above from the Cargo Book.
+
+With this version I was able to install ncgopher using the simple recipe of
+
+```shell
+cargo install ncgopher
+```
+
+=> https://github.com/jansc/ncgopher 1: https://github.com/jansc/ncgopher
+=> https://doc.rust-lang.org/cargo/getting-started/installation.html 2: https://doc.rust-lang.org/cargo/getting-started/installation.html

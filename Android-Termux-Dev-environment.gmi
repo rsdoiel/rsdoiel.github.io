@@ -1,0 +1,62 @@
+# Android, Termux and Dev Environment
+
+By R. S. Doiel 2016-09-20
+
+Recently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a development device when on the road. So this is my diary of that test.
+
+## Challenges
+
+1. Find a way to run Bash without rooting my device
+2. See if I could use my normal web toolkit * curl * jq * sed * grep
+3. See if I could compile or add my own custom Golang programs
+4. Test setup by running a local static file server, mkpage and update my website
+
+## Searching for Android packages and tools of my toolbox
+
+After searching with Duck Duck Go and Google I came across the termux[1]. Termux provides a minimal Bash shell environment with support for adding packages with apt and dpkg.  The repositories visible to termux include most of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites curl, grep, sed, gawk and a new addition to my toolkit jq.  Additionally you'll find recent versions (as of Sept. 2016) versions of Golang, PHP, python, and Ruby.
+
+This quickly brought me through step 3.  Installing go, git, and openssh completed what I needed to test static site development with some of the tools in our incubator at Caltech Library[2].
+
+## Setting up for static site development
+
+After configuring git, adding my public key to GitHub and running go get on my custom static site tools I confirmed I could build and test static websites from my Android tablet using Termux.
+
+Here's the list of packages I installed under Termux to provide a suitable shell environment for writing and website constructions.
+
+```shell
+    apt install autoconf automake bash-completion bc binutils-dev bison \
+        bzip2 clang cmake coreutils ctags curl dialog diffutils dos2unix \
+        expect ffmpeg findutils gawk git gnutls golang grep gzip \
+    imagemagick jq less lynx m4 make-dev man-dev nano nodejs \
+        openssh patch php-dev python readline-dev rlwrap rsync ruby-dev \
+        sed sensible-utils sharutils sqlite tar texinfo tree unzip vim \
+        w3m wget zip
+```
+
+This then allowed me to setup my golang environment variables and install my typical custom written tools
+
+```shell
+    export PATH=$HOME/bin:$PATH
+    export GOPATH=$HOME
+    export GOBIN=$HOME/bin
+    go get github.com/rsdoiel/shelltools/...
+    go get github.com/caltechlibrary/mkpage/...
+    go get github.com/caltechlibrary/md2slides/...
+    go get github.com/caltechlibrary/ws/...
+```
+
+Finally pulled down some content to test.
+
+```shell
+    cd
+    mkdir Sites
+    git clone https://github.com/rsdoiel/rsdoiel.github.io.git Sites/rsdoiel.github.io
+    cd  Sites/rsdoiel.github.io
+    ws
+```
+
+This started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000[3] and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.
+
+=> https://termux.com 1: https://termux.com
+=> https://caltechlibrary.github.io 2: https://caltechlibrary.github.io
+=> http://localhost:8000 3: http://localhost:8000

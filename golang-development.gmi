@@ -1,0 +1,30 @@
+# Pttk and STN
+
+By R. S. Doiel, started 2022-08-15 (updated: 2022-09-26, pdtk was renamed pttk)
+
+This log is a proof of concept in using simple timesheet notation[1] as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation combines two of my personal projects, stngo[2] and my experimental writing tool pttk[3]. Updating the pttk cli I added a function to the "blogit" action that will translates the simple timesheet notation (aka STN) to a short blog post.  My "short post" interest is a response to my limited writing time. What follows is the STN markup. See the Markdown[4] source for the unprocessed text.
+
+2022-08-15
+
+16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a "post" from an simple timesheet notation file should look like. One thing occurred to me is that the entry's "end" time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the BlogSTN() function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog's homepage and that "title" is what I use for other posts. Maybe I should just use a command line option to provide a title?
+
+2022-08-14
+
+14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I cleaned up stngo a little today, still need to implement a general Parse() method that works on a io.Reader. After a few initial false starts I realized the "right" place for rendering simple timesheet notation as blog posts is in the the "blogit" action of pdtk[5]. I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.
+
+2022-08-12
+
+16:00 - 16:30; Golang; stngo; A work slack exchange has perked my interest in using simple timesheet notation[6] for very short blog posts. This could be similar to Dave Winer title less posts on scripting[7]. How would this actually map? Should it be a tool in the stngo[8] project?
+
+2022-09-26
+
+6:30 - 7:30; Golang; pttk; renamed "pandoc toolkit" (pdtk) to "plain text toolkit" (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.
+
+=> https://rsdoiel.github.io/stngo/docs/stn.html 1: https://rsdoiel.github.io/stngo/docs/stn.html
+=> https://github.com/rsdoiel/stngo 2: https://github.com/rsdoiel/stngo
+=> https://github.com/rsdoiel/pttk 3: https://github.com/rsdoiel/pttk
+=> https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md 4: https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md
+=> https://rsdoiel.github.io/pttk 5: https://rsdoiel.github.io/pttk
+=> https://rsdoiel.github.io/stngo/docs/stn.html 6: https://rsdoiel.github.io/stngo/docs/stn.html
+=> http://scripting.com 7: http://scripting.com
+=> https://rsdoiel.githubio/stngo 8: https://rsdoiel.githubio/stngo
