@@ -9,7 +9,7 @@
 ### Additional text rendering/formatting tools
 
 + [pttk](https://rsdoiel.github.io/pttk/) - a deconstructed content manage system for managing this site
-+ [shorthand](/shorthand/) - a text label expander with markdown support
-+ [stngo](/stngo/) - Standard Timesheet Notation processor for my personal project time logs
-+ [opml](/opml/) - A minimal OPML package that features a OPML sort, cat and to json utility
++ [shorthand](https://rsdoiel.github.com/shorthand/) - a text label expander with markdown support
++ [stngo](https://rsdoiel.github.com/stngo/) - Standard Timesheet Notation processor for my personal project time logs
++ [opml](https://rsdoiel.github.com/opml/) - A minimal OPML package that features a OPML sort, cat and to json utility
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #
 # indexer.py, index my website and generate a LunrJS style JSON
 # index for use by LunrJS in for website search.

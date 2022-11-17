@@ -5,16 +5,16 @@ TODAY = $(shell date "+%Y-%m-%d")
 
 TITLE = R. S. Doiel Software Engineer/Analyst
 
-PANDOC=pandoc -B nav.include -A footer.include
+PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
 
 all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml gemini
 
 
 nav.include: nav.md
-	pandoc nav.md > nav.include
+	pandoc --from=markdown --to=html5 nav.md > nav.include
 
 footer.include: footer.md
-	pandoc footer.md > footer.include
+	pandoc --from=markdown --to=html5 footer.md > footer.include
 
 index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md
 	pttk include index.txt >index.md
@@ -111,7 +111,7 @@ blog: .FORCE
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
-	python3 indexer.py
+	python indexer.py
 	git add lunr.json
 
 lunr.json: .FORCE

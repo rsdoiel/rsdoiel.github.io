@@ -14,7 +14,7 @@ Presentations
 Interests/Projects
 ------------------
 
-+ [Oberon](series/Mostly-Oberon.html) programming language and system
++ [Oberon](series/Mostly-Oberon.md) programming language and system
 + [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
     + Go, Lisp, Oberon, Standard ML and bare metal programming
 + [Golang](http://golang.org) based Unix utilities

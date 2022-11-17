@@ -75,6 +75,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
             -M "title:${TITLE}" \
             -B ../nav.include \
             -A ../footer.include \
+			--lua-filter=../links-to-html.lua \
             --template ../post.tmpl \
             "${Y}/${FNAME}" \
             > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"
@@ -103,7 +104,7 @@ findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
     REL_PATH="$THIS_YEAR/$ITEM"
     POST_DATE=$(dirname "$REL_PATH")
     POST_DATE=${POST_DATE//\//-}
-    echo "+ [$POST_TITLE](/blog/$THIS_YEAR/${ITEM/.md/.html}), $POST_DATE" >> index.md
+    echo "- [$POST_TITLE](/blog/$THIS_YEAR/${ITEM}), $POST_DATE" >> index.md
 done
 echo "" >> index.md
 cp -vp index.md ../recent.md
@@ -114,11 +115,11 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "----" >> index.md
     echo "" >> index.md
     findfile -s .html "$Y" | sort -r | while read FNAME; do
-        POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html")"
-        ARTICLE=$(pttk frontmatter "${Y}/${POST_FILENAME}.md" | jq -r .title)
+        POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html").md"
+        ARTICLE=$(pttk frontmatter "${Y}/${POST_FILENAME}" | jq -r .title)
         POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
         if [ "${ARTICLE}" != "" ]; then
-          echo " + $POST_DATE, [$ARTICLE](/blog/$Y/$FNAME)" >> index.md
+          echo " - $POST_DATE, [$ARTICLE](/blog/$Y/${POST_FILENAME})" >> index.md
         fi
     done
     echo "" >> index.md
@@ -129,6 +130,7 @@ pandoc \
     -M "title:$TITLE" \
     -B ../nav.include \
     -A ../footer.include \
+	--lua-filter=../links-to-html.lua \
     --template ../page.tmpl \
     index.md \
     > index.html
