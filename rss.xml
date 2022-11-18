@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Fri, 11 Nov 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Thu, 17 Nov 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Thu, 17 Nov 2022 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.9</generator>
+        <item>
+            <title>Revealing the Pandoc AST</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html</link>
+            <description>I&#39;ve used Pandoc for a number of years, probably a decade. It&#39;s been wonderful&#xA;watching it grow in capability. When Pandoc started accepting JSON documents as&#xA;a support metadata file things really started to click for me. Pandoc became&#xA;my go to tool for rendering content in my writing and documentation projects.&#xA;&#xA;Recently I&#39;ve decided I want a little bit more from Pandoc. I&#39;ve become curious&#xA;about prototyping some document conversion via Pandoc&#39;s filter mechanism. To do&#xA;that you need to understand the AST, aka abstract syntax tree. &#xA;How is the AST structure?&#xA;&#xA;It turns out I just wasn&#39;t thinking simply enough (or maybe just not paying&#xA;enough attention while I skimmed Pandoc&#39;s documentation). Pandoc&#39;s processing&#xA;model looks like&#xA;&#xA;```&#xA;&#x9;INPUT --reader--&gt; AST --filter AST --writer--&gt; OUTPUT&#xA;```&#xA;&#xA;I&#39;ve &#34;known&#34; this for every. The missing piece for me to understand&#xA;the AST was not realizing that the AST itself can be an output format.&#xA;If you use the `--to` option with the value &#34;native&#34; you get the Haskell&#xA;representation of the AST. ...</description>
+            <pubDate>Thu, 17 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html</guid>
+        </item>
         <item>
             <title>Twitter&#39;s pending implosion</title>
             <link>https://rsdoiel.github.io/blog/2022/11/11/Twitter-implosion.html</link>
