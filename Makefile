@@ -11,10 +11,10 @@ all: blog website phlog redirects nav.include footer.include about.html cv.html 
 
 
 nav.include: nav.md
-	pandoc --from=markdown --to=html5 nav.md > nav.include
+	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua nav.md > nav.include
 
 footer.include: footer.md
-	pandoc --from=markdown --to=html5 footer.md > footer.include
+	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua footer.md > footer.include
 
 index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md
 	pttk include index.txt >index.md
