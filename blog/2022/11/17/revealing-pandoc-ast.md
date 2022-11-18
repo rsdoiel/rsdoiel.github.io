@@ -28,10 +28,9 @@ model looks like
 	INPUT --reader--> AST --filter AST --writer--> OUTPUT
 ```
 
-I've "known" this forever. The missing piece for me to understand
-the AST was not realizing that the AST itself can be an output format.
-If you use the `--to` option with the value "native" you get the Haskell
-representation of the AST.
+I've "known" this forever. The missing piece for me was understanding 
+the AST can be an output format.  Use the `--to` option with the value
+"native" you get the Haskell representation of the AST. It's that simple.
 
 ```
 	pandoc --from=markdown --to=native \
@@ -64,7 +63,7 @@ Output
     , Space
 ```
 
-If you prefer to can also convert it to JSON for similar effect. Here's
+If you prefer JSON over Haskell use `--to=json` for similar effect. Here's
 an example piping through [jq](https://stedolan.github.io/jq/).
 
 ```
@@ -72,6 +71,6 @@ an example piping through [jq](https://stedolan.github.io/jq/).
 	   learning-to-write-a-pandoc-filter.md | jq .
 ```
 
-Writing filters makes much sense to me now but that'll be addressed in
-another post. 
+Writing filters makes much sense to me now. I can see the AST and see
+how the documentation describes writing hooks in Lua to process it.
 

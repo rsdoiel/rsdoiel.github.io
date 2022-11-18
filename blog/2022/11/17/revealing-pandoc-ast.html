@@ -48,10 +48,10 @@ abstract syntax tree. How is the AST structure?</p>
 paying enough attention while I skimmed Pandoc’s documentation).
 Pandoc’s processing model looks like</p>
 <pre><code>    INPUT --reader--&gt; AST --filter AST --writer--&gt; OUTPUT</code></pre>
-<p>I’ve “known” this forever. The missing piece for me to understand the
-AST was not realizing that the AST itself can be an output format. If
-you use the <code>--to</code> option with the value “native” you get the
-Haskell representation of the AST.</p>
+<p>I’ve “known” this forever. The missing piece for me was understanding
+the AST can be an output format. Use the <code>--to</code> option with
+the value “native” you get the Haskell representation of the AST. It’s
+that simple.</p>
 <pre><code>    pandoc --from=markdown --to=native \
        learning-to-write-a-pandoc-filter.md | \
        head -n 20</code></pre>
@@ -76,13 +76,13 @@ Haskell representation of the AST.</p>
     , Space
     , Str &quot;used&quot;
     , Space</code></pre>
-<p>If you prefer to can also convert it to JSON for similar effect.
-Here’s an example piping through <a
+<p>If you prefer JSON over Haskell use <code>--to=json</code> for
+similar effect. Here’s an example piping through <a
 href="https://stedolan.github.io/jq/">jq</a>.</p>
 <pre><code>    pandoc --from=markdown --to=json \
        learning-to-write-a-pandoc-filter.md | jq .</code></pre>
-<p>Writing filters makes much sense to me now but that’ll be addressed
-in another post.</p>
+<p>Writing filters makes much sense to me now. I can see the AST and see
+how the documentation describes writing hooks in Lua to process it.</p>
   </article>
 </section>
 
