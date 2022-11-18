@@ -28,7 +28,7 @@ model looks like
 	INPUT --reader--> AST --filter AST --writer--> OUTPUT
 ```
 
-I've "known" this for every. The missing piece for me to understand
+I've "known" this forever. The missing piece for me to understand
 the AST was not realizing that the AST itself can be an output format.
 If you use the `--to` option with the value "native" you get the Haskell
 representation of the AST.

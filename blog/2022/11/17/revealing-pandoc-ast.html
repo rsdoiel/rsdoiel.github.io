@@ -48,10 +48,10 @@ abstract syntax tree. How is the AST structure?</p>
 paying enough attention while I skimmed Pandoc’s documentation).
 Pandoc’s processing model looks like</p>
 <pre><code>    INPUT --reader--&gt; AST --filter AST --writer--&gt; OUTPUT</code></pre>
-<p>I’ve “known” this for every. The missing piece for me to understand
-the AST was not realizing that the AST itself can be an output format.
-If you use the <code>--to</code> option with the value “native” you get
-the Haskell representation of the AST.</p>
+<p>I’ve “known” this forever. The missing piece for me to understand the
+AST was not realizing that the AST itself can be an output format. If
+you use the <code>--to</code> option with the value “native” you get the
+Haskell representation of the AST.</p>
 <pre><code>    pandoc --from=markdown --to=native \
        learning-to-write-a-pandoc-filter.md | \
        head -n 20</code></pre>
