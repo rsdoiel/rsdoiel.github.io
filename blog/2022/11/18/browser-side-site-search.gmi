@@ -1,0 +1,61 @@
+# Browser based site search
+
+By R. S. Doiel, 2022-11-18
+
+I recently read Brewster Kahle’s 2015 post about his vision for a distributed web[1]. Many of his ideas have carried over into DWeb[2], Indie Web[3], Small Web[4], Small Internet[5] and the like. A point he touches on is site search running in the web browser.
+
+=> https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/ 1: https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/
+=> https://wiki.mozilla.org/Dweb 2: https://wiki.mozilla.org/Dweb
+=> https://indieweb.org/ 3: https://indieweb.org/
+=> https://benhoyt.com/writings/the-small-web-is-beautiful/ 4: https://benhoyt.com/writings/the-small-web-is-beautiful/
+=> https://cafebedouin.org/2021/07/28/the-small-internet/ 5: https://cafebedouin.org/2021/07/28/the-small-internet/
+
+I've use this approach in my own website relying on LunrJS[6] by Oliver Nightingale. It is a common approach for small sites built using Markdown and Pandoc[7].  In the Brewster article he mentions js-search[8], an implementation I was not familiar with. Like LunrJS the query engine runs in the browser via JavaScript but unlike LunrJS the indexes are built using PHP rather than JavaScript. The last couple of years I've used Lunr.py[9] to generating indexes for my own website site while using LunrJS for the browser side query engine. Today I check to see what the Hugo[10] community is using and found Pagefind[11]. Pagefind looks impressive. There was a presentation on at Hugo Conference 2022[12]. It takes building a Lucene-like index several steps further. I appears to handle much larger indexes without requiring the full indexes to be downloaded into the browser.  It seems like a good candidate for prototyping personal search engine.
+
+=> https://lunrjs.com 6: https://lunrjs.com
+=> https://pandoc.org 7: https://pandoc.org
+=> https://github.com/cebe/js-search 8: https://github.com/cebe/js-search
+=> https://github.com/yeraydiazdiaz/lunr.py 9: https://github.com/yeraydiazdiaz/lunr.py
+=> https://gohugo.io/tools/search/ 10: https://gohugo.io/tools/search/
+=> https://github.com/cloudcannon/pagefind 11: https://github.com/cloudcannon/pagefind
+=> https://hugoconf.io/ 12: https://hugoconf.io/
+
+How long have been has browser side search been around? I do not remember when I started using. I explored seven projects on GitHub that implemented browser side site search. This is an arbitrary selection projects but even then I had no idea that this approach dates back a over decade!
+
+```table
+┌───────────────┬───────────────┬───────────────┬───────────────┬──────────────┐
+│    Project    │    Indexer    │ query engine  │   earliest    │    recent    │
+│               │               │               │  commit[^1]   │  commit[^2]  │
+╞═══════════════╪═══════════════╪═══════════════╪═══════════════╪══════════════╡
+│ LunrJS[13]    │ JavaScript    │ JavaScript    │     2011      │     2020     │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ Fuse.io[14]   │ JavaScript/Ty │ JavaScript/Ty │     2012      │     2022     │
+│               │ pescript      │ pescript      │               │              │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ search-       │ JavaScript    │ JavaScript    │     2013      │     2016     │
+│ index[15]     │               │               │               │              │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ js-search[16] │ PHP           │ JavaScript    │     2014      │     2022     │
+│ (cebe)        │               │               │               │              │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ js-search[17] │ JavaScript    │ JavaScript    │     2015      │     2022     │
+│ (bvaughn)     │               │               │               │              │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ Lunr.py[18]   │ Python        │ Python or     │     2018      │     2022     │
+│               │               │ JavaScript    │               │              │
+├───────────────┼───────────────┼───────────────┼───────────────┼──────────────┤
+│ Pagefind[19]  │ Rust          │ WASM and      │     2022      │     2022     │
+│               │               │ JavaScript    │               │              │
+└───────────────┴───────────────┴───────────────┴───────────────┴──────────────┘
+```
+[^1]: Years are based on checking reviewing the commit history on GitHub as of 2022-11-18.
+
+=> https://github.com/olivernn/lunr.js 13: https://github.com/olivernn/lunr.js
+=> https://github.com/krisk/Fuse 14: https://github.com/krisk/Fuse
+=> https://github.com/fergiemcdowall/search-index 15: https://github.com/fergiemcdowall/search-index
+=> https://github.com/cebe/js-search 16: https://github.com/cebe/js-search
+=> https://github.com/bvaughn/js-search 17: https://github.com/bvaughn/js-search
+=> https://github.com/yeraydiazdiaz/lunr.py 18: https://github.com/yeraydiazdiaz/lunr.py
+=> https://github.com/cloudcannon/pagefind 19: https://github.com/cloudcannon/pagefind
+
+[^2]: Years are based on checking reviewing the commit history on GitHub as of 2022-11-18.

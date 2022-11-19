@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 Recent Posts
 ------------
 
+- [Browser based site search](/blog/2022/11/18/browser-side-site-search.md), 2022-11-18
 - [Revealing the Pandoc AST](/blog/2022/11/17/revealing-pandoc-ast.md), 2022-11-17
 - [Twitter's pending implosion](/blog/2022/11/11/Twitter-implosion.md), 2022-11-11
 - [Compiling Pandoc from source](/blog/2022/11/07/compiling-pandoc-from-source.md), 2022-11-07
