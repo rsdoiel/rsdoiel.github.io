@@ -29,20 +29,15 @@
 </nav>
 
 <section>
-<noscript>
-JavaScript must be enabled for search to work
-</noscript>
-<div>
-Search Robert’s blog posts
-</div>
-<div id="searchbox">
-<input id="query" type="text" value="" size="60" placeholder="search blog">
-<input id="search" type="submit" value="Search">
-</div>
-<hr>
-<div id="results">
-
-</div>
+<h1>Site Search</h1>
+<link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/_pagefind/pagefind-ui.js" type="text/javascript"></script>
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search" });
+    });
+</script>
 </section>
 
 <footer>
@@ -51,52 +46,6 @@ href="/rssfeed.html">RSS</a> feeds and website built with <a
 href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
 href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
-
-<script src="https://unpkg.com/lunr/lunr.js"></script>
-<script>
-    (function(window, document) {
-        var request = new XMLHttpRequest();
-
-        request.addEventListener("load", function() {
-           var data = this.responseText;
-                idx = lunr.Index.load(JSON.parse(data));
-                query_elem = document.getElementById('query'),
-                search_button = document.getElementById('search');
-
-            function runQuery(query) {
-                 var results = document.getElementById('results');
-                 if (query !== '') {
-                     res = idx.search(query);
-                     if (res.length > 0) {
-                         results.innerHTML = '';
-                         res.forEach(function(data) {
-                             var div = document.createElement('div'),
-                                 parts, label;
-                             if (data.ref != undefined) {
-                                 parts = data.ref.split('\/');
-                                 label = parts[parts.length-1].replaceAll('-', ' ');
-                                div.innerHTML = '<a href="/' + data.ref.slice(0, data.ref.length - 3) + '.html">' + label.slice(0, label.length - 3) + '</a>';
-                                results.appendChild(div);
-                             }
-                         });
-                     } else {
-                         results.innerHTML = '"' + query + '" not found';
-                     }
-                 }
-             }
-
-            query_elem.addEventListener('change', function(evt) {
-                runQuery(query_elem.value);
-            });
-            search_button.addEventListener('click', function(evt) {
-                runQuery(query_elem.value);
-            });
-        });
-        /* request.open("GET", "https://rsdoiel.github.io/lunr.json"); */
-        request.open("GET", "/lunr.json");
-        request.send();
-    })(window, document);
-</script>
 
 </body>
 </html>
