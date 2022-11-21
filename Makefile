@@ -7,7 +7,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
 
-all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml _pagefind gemini
+all: blog website phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind gemini
 
 
 nav.include: nav.md
@@ -39,9 +39,9 @@ search.html: nav.include footer.include search.md search.tmpl
 	$(PANDOC) --template search.tmpl search.md > search.html
 	git add search.html
 
-_pagefind: .FORCE
-	pagefind --source . --verbose 
-	git add _pagefind
+pagefind: .FORCE
+	pagefind --verbose --bundle-dir ./pagefind --source .
+	git add pagefind
 
 cv.html: nav.include footer.include cv.md page.tmpl
 	$(PANDOC) --template page.tmpl cv.md > cv.html
