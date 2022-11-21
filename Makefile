@@ -48,11 +48,11 @@ cv.html: nav.include footer.include cv.md page.tmpl
 	git add cv.html
 
 resume.html: nav.include footer.include resume.md page.tmpl
-	$(PANDOC) --template page.tmpl resume.md> resume.html
+	$(PANDOC) --template page.tmpl resume.md > resume.html
 	git add resume.html
 
 project-index.html: nav.include footer.include project-index.md page.tmpl
-	$(PANDOC) --template page.tmpl project-index.md> project-index.html
+	$(PANDOC) --template page.tmpl project-index.md > project-index.html
 	git add project-index.html
 
 library-terminology.html: nav.include footer.include library-terminology.md index.tmpl
