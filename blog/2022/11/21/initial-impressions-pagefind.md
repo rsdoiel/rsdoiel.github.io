@@ -8,6 +8,8 @@ keywords: [ "site search", "pagefind", "rust", "cargo", "rustup", "M1", "macOS" 
 
 # Initial Impression of Pagefind
 
+By R. S. Doiel, 2022-11-21
+
 I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used [LunrJS](https://lunrjs.com) on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. [Pagefind](https://pagefind.app) addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.
 
 Pagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).

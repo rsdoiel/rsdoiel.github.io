@@ -1,5 +1,7 @@
 # Initial Impression of Pagefind
 
+By R. S. Doiel, 2022-11-21
+
 I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used LunrJS[1] on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. Pagefind[2] addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.
 
 => https://lunrjs.com 1: https://lunrjs.com
