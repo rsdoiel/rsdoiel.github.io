@@ -91,8 +91,7 @@ cat <<EOT> index.md
 title: "${TITLE}"
 ---
 
-Recent Posts
-------------
+### Recent Posts
 
 EOT
 

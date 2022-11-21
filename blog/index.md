@@ -2,8 +2,7 @@
 title: "Robert's ramblings"
 ---
 
-Recent Posts
-------------
+### Recent Posts
 
 - [Browser based site search](/blog/2022/11/18/browser-side-site-search.md), 2022-11-18
 - [Revealing the Pandoc AST](/blog/2022/11/17/revealing-pandoc-ast.md), 2022-11-17
