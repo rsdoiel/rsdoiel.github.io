@@ -10,7 +10,7 @@ function mk_redirect_page() {
     DEST="$3"
     cat <<EOT >"${BASE}/${PAGE}"
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
   <!-- Redirect page after 3 seconds -->
