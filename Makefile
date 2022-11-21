@@ -115,8 +115,8 @@ blog: .FORCE
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
-	python indexer.py
-	git add lunr.json
+	#python indexer.py
+	#git add lunr.json
 
 lunr.json: .FORCE
 	python3 indexer.py
