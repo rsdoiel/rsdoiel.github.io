@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Initial Impressions of Pagefind](/blog/2022/11/21/initial-impressions-pagefind.md), 2022-11-21
 - [Browser based site search](/blog/2022/11/18/browser-side-site-search.md), 2022-11-18
 - [Revealing the Pandoc AST](/blog/2022/11/17/revealing-pandoc-ast.md), 2022-11-17
 - [Twitter's pending implosion](/blog/2022/11/11/Twitter-implosion.md), 2022-11-11

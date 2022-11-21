@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.10</generator>
+        <item>
+            <title>Initial Impressions of Pagefind</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html</link>
+            <description>I&#39;m interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I&#39;ve used [LunrJS](https://lunrjs.com) on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. [Pagefind](https://pagefind.app) addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you&#39;re targeting older web browsers.&#xA;&#xA;Pagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).&#xA;&#xA;Here&#39;s the steps I took to bring Pagefind up on my M1 Mac.&#xA;&#xA;1. Install cargo/rust using rustup&#xA;2. Make sure `$HOME/.cargo/bin` is in my PATH&#xA;3. Clone the Pagefind Git repository&#xA;4. Change to the repository directory&#xA;5. Build and install pagefind&#xA;&#xA;```&#xA;curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&#xA;export PATH=&#34;$HOME/.cargo/bin:$PATH&#34;&#xA;git clone git@github.com git@github.com:CloudCannon/pagefind.git src/github.com/CloudCannon/pagefind&#xA;cd src/github.com/CloudCannon/pagefind&#xA;cargo install pagefind --features extended&#xA;``` ...</description>
+            <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html</guid>
+        </item>
         <item>
             <title>Browser based site search</title>
             <link>https://rsdoiel.github.io/blog/2022/11/18/browser-side-site-search.html</link>
