@@ -40,7 +40,7 @@ search.html: nav.include footer.include search.md search.tmpl
 	git add search.html
 
 pagefind: .FORCE
-	pagefind --verbose --bundle-dir ./pagefind --source .
+	pagefind --verbose --exclude-selectors="nav,header,footer" --bundle-dir ./pagefind --source .
 	git add pagefind
 
 cv.html: nav.include footer.include cv.md page.tmpl
