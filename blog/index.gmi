@@ -1,183 +1,185 @@
 ### Recent Posts
 
-* Initial Impressions of Pagefind[1], 2022-11-21
-* Browser based site search[2], 2022-11-18
-* Revealing the Pandoc AST[3], 2022-11-17
-* Twitter's pending implosion[4], 2022-11-11
-* Compiling Pandoc from source[5], 2022-11-07
-* Installing Cargo/Rust on Raspberry Pi 400[6], 2022-11-01
-* feeds, formats and plain text[7], 2022-11-01
-* 7:30 AM, Oberon Language: A minimum SYSTEM module[8], 2022-10-18
-* Wish list for Oberon in 2023[9], 2022-10-16
-* 7:30 AM, Gopher: Setup[10], 2022-10-10
-* Getting things setup[11], 2022-10-09
-* Thinking about Gopher[12], 2022-09-28
-* Rust development notes[13], 2022-09-27
-* 7:30 AM, Golang: pttk[14], 2022-09-26
-* 12:30 PM, SQL: Postgres[15], 2022-09-19
-* PostgreSQL dump and restore[16], 2022-09-19
-* Ordering front matter[17], 2022-08-30
-* 10:30 AM, SQL: Postgres[18], 2022-08-26
-* Postgres 14 on Ubuntu 22.04 LTS[19], 2022-08-26
-* 12:00 PM, SQL: Postgres[20], 2022-08-24
-* A Quick into to PL/pgSQL[21], 2022-08-24
-* 11:30 AM, SQL: Postgres[22], 2022-08-22
-* Rosette Notes: Postgres and MySQL[23], 2022-08-19
-* PTTK and STN[24], 2022-08-15
-* 5:45 PM, Golang: ptdk,  stngo[25], 2022-08-15
-* 5:00 PM, Golang: pdtk,  stngo[26], 2022-08-14
-* 4:30 PM, Golang: stngo[27], 2022-08-12
-* Turbo Oberon, the dream[28], 2022-07-30
-* Artemis Project Status, 2022[29], 2022-07-27
-* Installing Golang from source on RPi-OS for arm64[30], 2022-02-18
+* Pandoc, Pagefind and Make[1], 2022-11-28
+* Initial Impressions of Pagefind[2], 2022-11-21
+* Browser based site search[3], 2022-11-18
+* Revealing the Pandoc AST[4], 2022-11-17
+* Twitter's pending implosion[5], 2022-11-11
+* Compiling Pandoc from source[6], 2022-11-07
+* Installing Cargo/Rust on Raspberry Pi 400[7], 2022-11-01
+* feeds, formats and plain text[8], 2022-11-01
+* 7:30 AM, Oberon Language: A minimum SYSTEM module[9], 2022-10-18
+* Wish list for Oberon in 2023[10], 2022-10-16
+* 7:30 AM, Gopher: Setup[11], 2022-10-10
+* Getting things setup[12], 2022-10-09
+* Thinking about Gopher[13], 2022-09-28
+* Rust development notes[14], 2022-09-27
+* 7:30 AM, Golang: pttk[15], 2022-09-26
+* 12:30 PM, SQL: Postgres[16], 2022-09-19
+* PostgreSQL dump and restore[17], 2022-09-19
+* Ordering front matter[18], 2022-08-30
+* 10:30 AM, SQL: Postgres[19], 2022-08-26
+* Postgres 14 on Ubuntu 22.04 LTS[20], 2022-08-26
+* 12:00 PM, SQL: Postgres[21], 2022-08-24
+* A Quick into to PL/pgSQL[22], 2022-08-24
+* 11:30 AM, SQL: Postgres[23], 2022-08-22
+* Rosette Notes: Postgres and MySQL[24], 2022-08-19
+* PTTK and STN[25], 2022-08-15
+* 5:45 PM, Golang: ptdk,  stngo[26], 2022-08-15
+* 5:00 PM, Golang: pdtk,  stngo[27], 2022-08-14
+* 4:30 PM, Golang: stngo[28], 2022-08-12
+* Turbo Oberon, the dream[29], 2022-07-30
+* Artemis Project Status, 2022[30], 2022-07-27
+* Installing Golang from source on RPi-OS for arm64[31], 2022-02-18
 
-=> gemini://sdf.org/rsdoiel/blog/2022/11/21/initial-impressions-pagefind.gmi 1: /blog/2022/11/21/initial-impressions-pagefind.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/18/browser-side-site-search.gmi 2: /blog/2022/11/18/browser-side-site-search.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/17/revealing-pandoc-ast.gmi 3: /blog/2022/11/17/revealing-pandoc-ast.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/11/Twitter-implosion.gmi 4: /blog/2022/11/11/Twitter-implosion.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/07/compiling-pandoc-from-source.gmi 5: /blog/2022/11/07/compiling-pandoc-from-source.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/01/installing-cargo-rust-r400.gmi 6: /blog/2022/11/01/installing-cargo-rust-r400.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/11/01/Feeds-formats-and-plain-text.gmi 7: /blog/2022/11/01/Feeds-formats-and-plain-text.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.gmi 8: /blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/10/16/Wishlist-Oberon-in-2023.gmi 9: /blog/2022/10/16/Wishlist-Oberon-in-2023.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/10/10/getting-things-setup-2022-10-10_070730.gmi 10: /blog/2022/10/10/getting-things-setup-2022-10-10_070730.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/10/09/getting-things-setup.gmi 11: /blog/2022/10/09/getting-things-setup.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/09/28/thinking-about-gopher.gmi 12: /blog/2022/09/28/thinking-about-gopher.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/09/27/rust-development-notes.gmi 13: /blog/2022/09/27/rust-development-notes.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/09/26/golang-development-2022-09-26_070730.gmi 14: /blog/2022/09/26/golang-development-2022-09-26_070730.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/09/19/rosette-notes-2022-09-19_121230.gmi 15: /blog/2022/09/19/rosette-notes-2022-09-19_121230.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/09/19/PostgreSQL-Dump-and-Restore.gmi 16: /blog/2022/09/19/PostgreSQL-Dump-and-Restore.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/30/Ordering-Frontmatter.gmi 17: /blog/2022/08/30/Ordering-Frontmatter.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/26/rosette-notes-2022-08-26_101030.gmi 18: /blog/2022/08/26/rosette-notes-2022-08-26_101030.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.gmi 19: /blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/24/rosette-notes-2022-08-24_121200.gmi 20: /blog/2022/08/24/rosette-notes-2022-08-24_121200.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/24/plpgsql-quick-intro.gmi 21: /blog/2022/08/24/plpgsql-quick-intro.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/22/rosette-notes-2022-08-22_111130.gmi 22: /blog/2022/08/22/rosette-notes-2022-08-22_111130.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/19/rosette-notes.gmi 23: /blog/2022/08/19/rosette-notes.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/15/golang-development.gmi 24: /blog/2022/08/15/golang-development.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/15/golang-development-2022-08-15_170545.gmi 25: /blog/2022/08/15/golang-development-2022-08-15_170545.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/14/golang-development-2022-08-14_170500.gmi 26: /blog/2022/08/14/golang-development-2022-08-14_170500.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/08/12/golang-development-2022-08-12_160430.gmi 27: /blog/2022/08/12/golang-development-2022-08-12_160430.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/07/30/Turbo-Oberon.gmi 28: /blog/2022/07/30/Turbo-Oberon.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/07/27/Artemis-Status-Summer-2022.gmi 29: /blog/2022/07/27/Artemis-Status-Summer-2022.gmi
-=> gemini://sdf.org/rsdoiel/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.gmi 30: /blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/28/pandoc-pagefind-and-make.gmi 1: /blog/2022/11/28/pandoc-pagefind-and-make.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/21/initial-impressions-pagefind.gmi 2: /blog/2022/11/21/initial-impressions-pagefind.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/18/browser-side-site-search.gmi 3: /blog/2022/11/18/browser-side-site-search.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/17/revealing-pandoc-ast.gmi 4: /blog/2022/11/17/revealing-pandoc-ast.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/11/Twitter-implosion.gmi 5: /blog/2022/11/11/Twitter-implosion.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/07/compiling-pandoc-from-source.gmi 6: /blog/2022/11/07/compiling-pandoc-from-source.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/01/installing-cargo-rust-r400.gmi 7: /blog/2022/11/01/installing-cargo-rust-r400.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/11/01/Feeds-formats-and-plain-text.gmi 8: /blog/2022/11/01/Feeds-formats-and-plain-text.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.gmi 9: /blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/10/16/Wishlist-Oberon-in-2023.gmi 10: /blog/2022/10/16/Wishlist-Oberon-in-2023.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/10/10/getting-things-setup-2022-10-10_070730.gmi 11: /blog/2022/10/10/getting-things-setup-2022-10-10_070730.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/10/09/getting-things-setup.gmi 12: /blog/2022/10/09/getting-things-setup.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/09/28/thinking-about-gopher.gmi 13: /blog/2022/09/28/thinking-about-gopher.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/09/27/rust-development-notes.gmi 14: /blog/2022/09/27/rust-development-notes.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/09/26/golang-development-2022-09-26_070730.gmi 15: /blog/2022/09/26/golang-development-2022-09-26_070730.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/09/19/rosette-notes-2022-09-19_121230.gmi 16: /blog/2022/09/19/rosette-notes-2022-09-19_121230.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/09/19/PostgreSQL-Dump-and-Restore.gmi 17: /blog/2022/09/19/PostgreSQL-Dump-and-Restore.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/30/Ordering-Frontmatter.gmi 18: /blog/2022/08/30/Ordering-Frontmatter.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/26/rosette-notes-2022-08-26_101030.gmi 19: /blog/2022/08/26/rosette-notes-2022-08-26_101030.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.gmi 20: /blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/24/rosette-notes-2022-08-24_121200.gmi 21: /blog/2022/08/24/rosette-notes-2022-08-24_121200.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/24/plpgsql-quick-intro.gmi 22: /blog/2022/08/24/plpgsql-quick-intro.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/22/rosette-notes-2022-08-22_111130.gmi 23: /blog/2022/08/22/rosette-notes-2022-08-22_111130.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/19/rosette-notes.gmi 24: /blog/2022/08/19/rosette-notes.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/15/golang-development.gmi 25: /blog/2022/08/15/golang-development.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/15/golang-development-2022-08-15_170545.gmi 26: /blog/2022/08/15/golang-development-2022-08-15_170545.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/14/golang-development-2022-08-14_170500.gmi 27: /blog/2022/08/14/golang-development-2022-08-14_170500.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/08/12/golang-development-2022-08-12_160430.gmi 28: /blog/2022/08/12/golang-development-2022-08-12_160430.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/07/30/Turbo-Oberon.gmi 29: /blog/2022/07/30/Turbo-Oberon.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/07/27/Artemis-Status-Summer-2022.gmi 30: /blog/2022/07/27/Artemis-Status-Summer-2022.gmi
+=> gemini://sdf.org/rsdoiel/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.gmi 31: /blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.gmi
 
 ## 2021
 
-* 12-18, Notes on setting up a Mid-2010 Mac Mini[31]
-* 11-27, Setting up FreeDOS 1.3rc4 with Qemu[32]
-* 11-26, Portable Conversions (Integers)[33]
-* 11-22, Revisiting Files[34]
-* 06-14, Combining Oberon-07 with C using Obc-3[35]
-* 05-16, Beyond Oakwood, Modules and Aliases[36]
-* 04-25, Ofront on Raspberry Pi OS[37]
-* 04-16, Updating Schema in SQLite3[38]
-* 04-02, A2 Oberon on VirtualBox 6.1[39]
-* 03-17, ETH Oberon System 3 on VirtualBox 6.1[40]
+* 12-18, Notes on setting up a Mid-2010 Mac Mini[32]
+* 11-27, Setting up FreeDOS 1.3rc4 with Qemu[33]
+* 11-26, Portable Conversions (Integers)[34]
+* 11-22, Revisiting Files[35]
+* 06-14, Combining Oberon-07 with C using Obc-3[36]
+* 05-16, Beyond Oakwood, Modules and Aliases[37]
+* 04-25, Ofront on Raspberry Pi OS[38]
+* 04-16, Updating Schema in SQLite3[39]
+* 04-02, A2 Oberon on VirtualBox 6.1[40]
+* 03-17, ETH Oberon System 3 on VirtualBox 6.1[41]
 
-=> gemini://sdf.org/rsdoiel/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.gmi 31: /blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.gmi 32: /blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/11/26/Portable-Conversions-Integers.gmi 33: /blog/2021/11/26/Portable-Conversions-Integers.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/11/22/Revisiting-Files.gmi 34: /blog/2021/11/22/Revisiting-Files.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.gmi 35: /blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.gmi 36: /blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.gmi 37: /blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/04/16/Updating-Schema-in-SQLite3.gmi 38: /blog/2021/04/16/Updating-Schema-in-SQLite3.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.gmi 39: /blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.gmi
-=> gemini://sdf.org/rsdoiel/blog/2021/03/17/NativeOberon-VirtualBox.gmi 40: /blog/2021/03/17/NativeOberon-VirtualBox.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.gmi 32: /blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.gmi 33: /blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/11/26/Portable-Conversions-Integers.gmi 34: /blog/2021/11/26/Portable-Conversions-Integers.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/11/22/Revisiting-Files.gmi 35: /blog/2021/11/22/Revisiting-Files.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.gmi 36: /blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.gmi 37: /blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.gmi 38: /blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/04/16/Updating-Schema-in-SQLite3.gmi 39: /blog/2021/04/16/Updating-Schema-in-SQLite3.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.gmi 40: /blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.gmi
+=> gemini://sdf.org/rsdoiel/blog/2021/03/17/NativeOberon-VirtualBox.gmi 41: /blog/2021/03/17/NativeOberon-VirtualBox.gmi
 
 ## 2020
 
-* 12-24, RetroFlag GPi Case Setup[41]
-* 11-27, Dates[42]
-* 11-27, Dates & Clock[43]
-* 11-27, Clock[44]
-* 11-27, Chars[45]
-* 11-11, Pandoc & Metadata[46]
-* 11-09, Pandoc Partials[47]
-* 10-31, Software Tools, Filters[48]
-* 10-19, Assembling Pages[49]
-* 10-03, Oberon to Markdown[50]
-* 09-29, Software Tools, Getting Started[51]
-* 08-15, Portable Oberon-07[52]
-* 07-08, Words Matter[53]
-* 07-07, Procedures in records[54]
-* 06-20, Procedures as parameters[55]
-* 05-25, Dynamic types[56]
-* 05-09, Oberon-07 and the file system[57]
-* 05-06, Compiling OBNC on macOS[58]
-* 05-01, Combining Oberon-07 and C with OBNC[59]
-* 04-19, Oberon Loops and Conditions[60]
-* 04-18, Oberon Basic Types[61]
-* 04-12, Oberon Modules and Procedures[62]
-* 04-11, Mostly Oberon[63]
+* 12-24, RetroFlag GPi Case Setup[42]
+* 11-27, Dates[43]
+* 11-27, Dates & Clock[44]
+* 11-27, Clock[45]
+* 11-27, Chars[46]
+* 11-11, Pandoc & Metadata[47]
+* 11-09, Pandoc Partials[48]
+* 10-31, Software Tools, Filters[49]
+* 10-19, Assembling Pages[50]
+* 10-03, Oberon to Markdown[51]
+* 09-29, Software Tools, Getting Started[52]
+* 08-15, Portable Oberon-07[53]
+* 07-08, Words Matter[54]
+* 07-07, Procedures in records[55]
+* 06-20, Procedures as parameters[56]
+* 05-25, Dynamic types[57]
+* 05-09, Oberon-07 and the file system[58]
+* 05-06, Compiling OBNC on macOS[59]
+* 05-01, Combining Oberon-07 and C with OBNC[60]
+* 04-19, Oberon Loops and Conditions[61]
+* 04-18, Oberon Basic Types[62]
+* 04-12, Oberon Modules and Procedures[63]
+* 04-11, Mostly Oberon[64]
 
-=> gemini://sdf.org/rsdoiel/blog/2020/12/24/gpi-case-setup.gmi 41: /blog/2020/12/24/gpi-case-setup.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Dates.gmi 42: /blog/2020/11/27/Dates.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Dates-and-Clock.gmi 43: /blog/2020/11/27/Dates-and-Clock.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Clock.gmi 44: /blog/2020/11/27/Clock.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Chars.gmi 45: /blog/2020/11/27/Chars.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/11/Pandoc-Metadata.gmi 46: /blog/2020/11/11/Pandoc-Metadata.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/11/09/Pandoc-Partials.gmi 47: /blog/2020/11/09/Pandoc-Partials.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/10/31/Filters.gmi 48: /blog/2020/10/31/Filters.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/10/19/Assemble-pages.gmi 49: /blog/2020/10/19/Assemble-pages.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/10/03/Oberon-to-markdown.gmi 50: /blog/2020/10/03/Oberon-to-markdown.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/09/29/Software-Tools-1.gmi 51: /blog/2020/09/29/Software-Tools-1.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/08/15/Portable-Oberon-07.gmi 52: /blog/2020/08/15/Portable-Oberon-07.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/07/08/words-matter.gmi 53: /blog/2020/07/08/words-matter.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/07/07/Procedures-in-records.gmi 54: /blog/2020/07/07/Procedures-in-records.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/06/20/Procedures-as-parameters.gmi 55: /blog/2020/06/20/Procedures-as-parameters.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/05/25/Dynamic-types.gmi 56: /blog/2020/05/25/Dynamic-types.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/05/09/Oberon-07-and-the-filesystem.gmi 57: /blog/2020/05/09/Oberon-07-and-the-filesystem.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/05/06/Compiling-OBNC-on-macOS.gmi 58: /blog/2020/05/06/Compiling-OBNC-on-macOS.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/05/01/Combining-Oberon-and-C.gmi 59: /blog/2020/05/01/Combining-Oberon-and-C.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.gmi 60: /blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/04/18/Mostly-Oberon-Basic-Types.gmi 61: /blog/2020/04/18/Mostly-Oberon-Basic-Types.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/04/12/Mostly-Oberon-Modules.gmi 62: /blog/2020/04/12/Mostly-Oberon-Modules.gmi
-=> gemini://sdf.org/rsdoiel/blog/2020/04/11/Mostly-Oberon.gmi 63: /blog/2020/04/11/Mostly-Oberon.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/12/24/gpi-case-setup.gmi 42: /blog/2020/12/24/gpi-case-setup.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Dates.gmi 43: /blog/2020/11/27/Dates.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Dates-and-Clock.gmi 44: /blog/2020/11/27/Dates-and-Clock.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Clock.gmi 45: /blog/2020/11/27/Clock.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/27/Chars.gmi 46: /blog/2020/11/27/Chars.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/11/Pandoc-Metadata.gmi 47: /blog/2020/11/11/Pandoc-Metadata.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/11/09/Pandoc-Partials.gmi 48: /blog/2020/11/09/Pandoc-Partials.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/10/31/Filters.gmi 49: /blog/2020/10/31/Filters.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/10/19/Assemble-pages.gmi 50: /blog/2020/10/19/Assemble-pages.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/10/03/Oberon-to-markdown.gmi 51: /blog/2020/10/03/Oberon-to-markdown.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/09/29/Software-Tools-1.gmi 52: /blog/2020/09/29/Software-Tools-1.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/08/15/Portable-Oberon-07.gmi 53: /blog/2020/08/15/Portable-Oberon-07.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/07/08/words-matter.gmi 54: /blog/2020/07/08/words-matter.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/07/07/Procedures-in-records.gmi 55: /blog/2020/07/07/Procedures-in-records.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/06/20/Procedures-as-parameters.gmi 56: /blog/2020/06/20/Procedures-as-parameters.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/05/25/Dynamic-types.gmi 57: /blog/2020/05/25/Dynamic-types.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/05/09/Oberon-07-and-the-filesystem.gmi 58: /blog/2020/05/09/Oberon-07-and-the-filesystem.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/05/06/Compiling-OBNC-on-macOS.gmi 59: /blog/2020/05/06/Compiling-OBNC-on-macOS.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/05/01/Combining-Oberon-and-C.gmi 60: /blog/2020/05/01/Combining-Oberon-and-C.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.gmi 61: /blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/04/18/Mostly-Oberon-Basic-Types.gmi 62: /blog/2020/04/18/Mostly-Oberon-Basic-Types.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/04/12/Mostly-Oberon-Modules.gmi 63: /blog/2020/04/12/Mostly-Oberon-Modules.gmi
+=> gemini://sdf.org/rsdoiel/blog/2020/04/11/Mostly-Oberon.gmi 64: /blog/2020/04/11/Mostly-Oberon.gmi
 
 ## 2019
 
-* 07-28, FreeDOS 1.2 to Oberon System 3[64]
+* 07-28, FreeDOS 1.2 to Oberon System 3[65]
 
-=> gemini://sdf.org/rsdoiel/blog/2019/07/28/freedos-to-oberon-system-3.gmi 64: /blog/2019/07/28/freedos-to-oberon-system-3.gmi
+=> gemini://sdf.org/rsdoiel/blog/2019/07/28/freedos-to-oberon-system-3.gmi 65: /blog/2019/07/28/freedos-to-oberon-system-3.gmi
 
 ## 2018
 
-* 07-22, Review: Software Tools in Pascal[65]
-* 03-11, Accessing Go from Julia[66]
-* 02-24, Go based Python modules[67]
-* 02-19, Go, Bleve and Library oriented software[68]
+* 07-22, Review: Software Tools in Pascal[66]
+* 03-11, Accessing Go from Julia[67]
+* 02-24, Go based Python modules[68]
+* 02-19, Go, Bleve and Library oriented software[69]
 
-=> gemini://sdf.org/rsdoiel/blog/2018/07/22/software-tools-in-pascal.gmi 65: /blog/2018/07/22/software-tools-in-pascal.gmi
-=> gemini://sdf.org/rsdoiel/blog/2018/03/11/accessing-go-from-julia.gmi 66: /blog/2018/03/11/accessing-go-from-julia.gmi
-=> gemini://sdf.org/rsdoiel/blog/2018/02/24/go-based-python-modules.gmi 67: /blog/2018/02/24/go-based-python-modules.gmi
-=> gemini://sdf.org/rsdoiel/blog/2018/02/19/go-bleve-and-libraries.gmi 68: /blog/2018/02/19/go-bleve-and-libraries.gmi
+=> gemini://sdf.org/rsdoiel/blog/2018/07/22/software-tools-in-pascal.gmi 66: /blog/2018/07/22/software-tools-in-pascal.gmi
+=> gemini://sdf.org/rsdoiel/blog/2018/03/11/accessing-go-from-julia.gmi 67: /blog/2018/03/11/accessing-go-from-julia.gmi
+=> gemini://sdf.org/rsdoiel/blog/2018/02/24/go-based-python-modules.gmi 68: /blog/2018/02/24/go-based-python-modules.gmi
+=> gemini://sdf.org/rsdoiel/blog/2018/02/19/go-bleve-and-libraries.gmi 69: /blog/2018/02/19/go-bleve-and-libraries.gmi
 
 ## 2017
 
-* 12-18, Raspbian Stretch on DELL E4310 Laptop[69]
-* 12-10, Harvesting my Gists from GitHub[70]
-* 10-20, NodeJS, NPM, Electron[71]
-* 06-16, Cross compiling Go 1.8.3 for Pine64 Pinebook[72]
+* 12-18, Raspbian Stretch on DELL E4310 Laptop[70]
+* 12-10, Harvesting my Gists from GitHub[71]
+* 10-20, NodeJS, NPM, Electron[72]
+* 06-16, Cross compiling Go 1.8.3 for Pine64 Pinebook[73]
 
-=> gemini://sdf.org/rsdoiel/blog/2017/12/18/raspbian-stretch-on-amd64.gmi 69: /blog/2017/12/18/raspbian-stretch-on-amd64.gmi
-=> gemini://sdf.org/rsdoiel/blog/2017/12/10/harvesting-my-gists-from-github.gmi 70: /blog/2017/12/10/harvesting-my-gists-from-github.gmi
-=> gemini://sdf.org/rsdoiel/blog/2017/10/20/node-npm-electron.gmi 71: /blog/2017/10/20/node-npm-electron.gmi
-=> gemini://sdf.org/rsdoiel/blog/2017/06/16/cross-compiling-go.gmi 72: /blog/2017/06/16/cross-compiling-go.gmi
+=> gemini://sdf.org/rsdoiel/blog/2017/12/18/raspbian-stretch-on-amd64.gmi 70: /blog/2017/12/18/raspbian-stretch-on-amd64.gmi
+=> gemini://sdf.org/rsdoiel/blog/2017/12/10/harvesting-my-gists-from-github.gmi 71: /blog/2017/12/10/harvesting-my-gists-from-github.gmi
+=> gemini://sdf.org/rsdoiel/blog/2017/10/20/node-npm-electron.gmi 72: /blog/2017/10/20/node-npm-electron.gmi
+=> gemini://sdf.org/rsdoiel/blog/2017/06/16/cross-compiling-go.gmi 73: /blog/2017/06/16/cross-compiling-go.gmi
 
 ## 2016
 
-* 09-20, Android, Termux and Dev Environment[73]
-* 08-16, From Markdown and Bash to mkpage[74]
-* 08-15, Exploring Bash for Windows 10 Pro[75]
-* 07-04, How to make a Pi-Top more Raspbian[76]
-* 05-30, Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph[77]
-* 05-28, OPML to Markdown and back[78]
+* 09-20, Android, Termux and Dev Environment[74]
+* 08-16, From Markdown and Bash to mkpage[75]
+* 08-15, Exploring Bash for Windows 10 Pro[76]
+* 07-04, How to make a Pi-Top more Raspbian[77]
+* 05-30, Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph[78]
+* 05-28, OPML to Markdown and back[79]
 
-=> gemini://sdf.org/rsdoiel/blog/2016/09/20/Android-Termux-Dev-environment.gmi 73: /blog/2016/09/20/Android-Termux-Dev-environment.gmi
-=> gemini://sdf.org/rsdoiel/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.gmi 74: /blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.gmi
-=> gemini://sdf.org/rsdoiel/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.gmi 75: /blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.gmi
-=> gemini://sdf.org/rsdoiel/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.gmi 76: /blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.gmi
-=> gemini://sdf.org/rsdoiel/blog/2016/05/30/amp-cards-and-open-graph.gmi 77: /blog/2016/05/30/amp-cards-and-open-graph.gmi
-=> gemini://sdf.org/rsdoiel/blog/2016/05/28/OPML-to-Markdown-and-back.gmi 78: /blog/2016/05/28/OPML-to-Markdown-and-back.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/09/20/Android-Termux-Dev-environment.gmi 74: /blog/2016/09/20/Android-Termux-Dev-environment.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.gmi 75: /blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.gmi 76: /blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.gmi 77: /blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/05/30/amp-cards-and-open-graph.gmi 78: /blog/2016/05/30/amp-cards-and-open-graph.gmi
+=> gemini://sdf.org/rsdoiel/blog/2016/05/28/OPML-to-Markdown-and-back.gmi 79: /blog/2016/05/28/OPML-to-Markdown-and-back.gmi
