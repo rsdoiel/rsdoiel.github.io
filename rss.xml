@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Mon, 28 Nov 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 05 Dec 2022 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.10</generator>
+        <item>
+            <title>Progress and time remaining</title>
+            <link>https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html</link>
+            <description>I often find myself logging output when I&#39;m developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I&#39;ve come to realize I really want a few specific pieces of information for non-error logging (e.g. `-verbose` which monitors progress as well as errors).&#xA;&#xA;- percentage completed&#xA;- estimated time allocated (i.e. time remaining)&#xA;&#xA;To do that I need three pieces of information.&#xA;&#xA;1. the count of the current iteration(e.g. `i`)&#xA;2. the total number of iterations required (e.g. `tot`)&#xA;3. The time just before I started iterating(e.g. `t0`)&#xA;&#xA;The values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`. ...</description>
+            <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html</guid>
+        </item>
         <item>
             <title>Pandoc, Pagefind and Make</title>
             <link>https://rsdoiel.github.io/blog/2022/11/28/pandoc-pagefind-and-make.html</link>
