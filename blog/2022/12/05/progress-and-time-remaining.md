@@ -72,5 +72,6 @@ func progress(t0 time.Time, i int, tot int) string {
     // estimated time allocation - running time = time remaining
     eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
     return fmt.Sprintf("%.2f%% ETR %v", percent, eta.Truncate(time.Second))
+}
 ```
 
