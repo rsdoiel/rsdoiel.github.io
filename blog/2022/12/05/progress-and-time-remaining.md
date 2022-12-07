@@ -20,7 +20,7 @@ To do that I need three pieces of information.
 2. the total number of iterations required (e.g. `tot`)
 3. The time just before I started iterating(e.g. `t0`)
 
-The values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`.
+The values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`. Note on the first pass (i.e. `i == 0`) you can skip the percentage calculation.
 
 
 ```golang
@@ -36,8 +36,8 @@ func progress(t0 time.Time, i int, tot int) string {
     }
 	percent := (float64(i) / float64(tot)) * 100.0
 	t1 := time.Now()
-	// NOTE: Truncating the duration to milliseconds
-	return fmt.Sprintf("%.2f%% %v", percent, t1.Sub(t0).Truncate(time.Millisecond))
+	// NOTE: Truncating the duration to seconds
+	return fmt.Sprintf("%.2f%% %v", percent, t1.Sub(t0).Truncate(time.Second))
 }
 ```
 
@@ -54,20 +54,23 @@ Here's how you might use it.
 	}
 ```
 
-An improvement on this is to include an time remaining (i.e. ETA). Knowing `t0` I can estimate the remaining time with `estimated time allocation = (((delta of t0)/i) * tot)`. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula.
+An improvement on this is to include an time remaining. I need to calculated the estimated time allocation (i.e. ETA). I know `t0` so I can estimate that with this formula `estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)`[^1]. ETA adjusted for time running gives us time remaining[^2]. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula.
+
+[^1]: In code `(rt/i)*tot` is estimated time allocation
+
+[^2]: Estimated Time Remaining, in code `((rt/i)*tot) - rt`
 
 ```golang
 func progress(t0 time.Time, i int, tot int) string {
 	if i == 0 {
-		return "0.00 ETA Unknown"
+		return "0.00 ETR Unknown"
 	}
 	// percent completed
 	percent := (float64(i) / float64(tot)) * 100.0
 	// running time
     rt := time.Now().Sub(t0)
-    // estimated time allocation (time remaining)
-    eta := time.Duration((float64(rt)/float64(i)*float64(tot)))
-    return fmt.Sprintf("%.2f%% ETA %v", percent, eta.Truncate(time.Millisecond))
-}
+    // estimated time allocation - running time = time remaining
+    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
+    return fmt.Sprintf("%.2f%% ETR %v", percent, eta.Truncate(time.Second))
 ```
 

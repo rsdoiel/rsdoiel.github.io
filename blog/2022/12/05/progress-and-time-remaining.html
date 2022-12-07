@@ -53,7 +53,8 @@ monitors progress as well as errors).</p>
 </ol>
 <p>The values for <code>i</code> and <code>tot</code> let me compute the
 percent completed. The percent completed is trivial
-<code>(i/tot) * 100.0</code>.</p>
+<code>(i/tot) * 100.0</code>. Note on the first pass
+(i.e. <code>i == 0</code>) you can skip the percentage calculation.</p>
 <pre class="golang"><code>import (
     &quot;time&quot;
     &quot;fmt&quot;
@@ -66,8 +67,8 @@ func progress(t0 time.Time, i int, tot int) string {
     }
     percent := (float64(i) / float64(tot)) * 100.0
     t1 := time.Now()
-    // NOTE: Truncating the duration to milliseconds
-    return fmt.Sprintf(&quot;%.2f%% %v&quot;, percent, t1.Sub(t0).Truncate(time.Millisecond))
+    // NOTE: Truncating the duration to seconds
+    return fmt.Sprintf(&quot;%.2f%% %v&quot;, percent, t1.Sub(t0).Truncate(time.Second))
 }</code></pre>
 <p>Here’s how you might use it.</p>
 <pre class="golang"><code>    tot := len(ids)
@@ -78,24 +79,40 @@ func progress(t0 time.Time, i int, tot int) string {
             log.Printf(&quot;%s records processed&quot;, progress(t0, i, tot))
         }
     }</code></pre>
-<p>An improvement on this is to include an time remaining (i.e. ETA).
-Knowing <code>t0</code> I can estimate the remaining time with
-<code>estimated time allocation = (((delta of t0)/i) * tot)</code>. The
-first pass of the function progress has a trivial optimization since we
-don’t have enough delta t0 to compute an estimate. Calls after that are
-computed using our formula.</p>
+<p>An improvement on this is to include an time remaining. I need to
+calculated the estimated time allocation (i.e. ETA). I know
+<code>t0</code> so I can estimate that with this formula
+<code>estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)</code><a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. ETA adjusted for time running gives
+us time remaining<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>. The first pass of the function
+progress has a trivial optimization since we don’t have enough delta t0
+to compute an estimate. Calls after that are computed using our
+formula.</p>
 <pre class="golang"><code>func progress(t0 time.Time, i int, tot int) string {
     if i == 0 {
-        return &quot;0.00 ETA Unknown&quot;
+        return &quot;0.00 ETR Unknown&quot;
     }
     // percent completed
     percent := (float64(i) / float64(tot)) * 100.0
     // running time
     rt := time.Now().Sub(t0)
-    // estimated time allocation (time remaining)
-    eta := time.Duration((float64(rt)/float64(i)*float64(tot)))
-    return fmt.Sprintf(&quot;%.2f%% ETA %v&quot;, percent, eta.Truncate(time.Millisecond))
-}</code></pre>
+    // estimated time allocation - running time = time remaining
+    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
+    return fmt.Sprintf(&quot;%.2f%% ETR %v&quot;, percent, eta.Truncate(time.Second))</code></pre>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In code <code>(rt/i)*tot</code> is estimated time
+allocation<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Estimated Time Remaining, in code
+<code>((rt/i)*tot) - rt</code><a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
   </article>
 </section>
 
