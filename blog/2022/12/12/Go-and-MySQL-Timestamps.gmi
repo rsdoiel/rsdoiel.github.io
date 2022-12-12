@@ -10,6 +10,8 @@ The Go sql[1] package provides a nice abstraction for working with SQL databases
 => https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format 4: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
 
 ```
+// Format used by MySQL strings representing date/times
+const MySQLTimestamp = "2006-01-02 15:04:05"
 
 // GetRecordUpdate takes a configuration with a db attribute previously
 // opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's

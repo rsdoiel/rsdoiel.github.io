@@ -54,7 +54,9 @@ title="DATE_FORMAT is a MySQL date/time function returning a string value">DATE_
 and from the Go side convert the formatted string into a
 <code>time.Time</code> using <code>time.Parse()</code>. Below is some
 Golang pseudo code showing this approach.</p>
-<pre><code>
+<pre><code>// Format used by MySQL strings representing date/times
+const MySQLTimestamp = &quot;2006-01-02 15:04:05&quot;
+
 // GetRecordUpdate takes a configuration with a db attribute previously
 // opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL&#39;s
 // `DATE_FORMAT()` function to convert the timestamp into a string and
