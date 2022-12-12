@@ -2,11 +2,12 @@
 
 By R. S. Doiel, 2022-12-12
 
-The Go sql[1] package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific.  Sometimes that is not a big deal. MySQL[2] can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the int64 used in Go's time.Time. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using DATE_FORMAT[3] and from the Go side convert the formatted string into a time.Time using time.Parse(). Below is some Golang pseudo code showing this approach.
+The Go sql[1] package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the MySQL driver[2].  Sometimes that is not a big deal. MySQL[3] can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the int64 used in Go's time.Time. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using DATE_FORMAT[4] and from the Go side convert the formatted string into a time.Time using time.Parse(). Below is some Golang pseudo code showing this approach.
 
-=> database/sql 1: database/sql
-=> https://dev.mysql.com 2: https://dev.mysql.com
-=> https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format 3: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+=> https://pkg.go.dev/database/sql 1: https://pkg.go.dev/database/sql
+=> github.com/go-sql-driver/mysql 2: github.com/go-sql-driver/mysql
+=> https://dev.mysql.com 3: https://dev.mysql.com
+=> https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format 4: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
 
 ```
 
