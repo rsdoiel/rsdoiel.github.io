@@ -1,6 +1,8 @@
 # Go and MySQL timestamps
 
-The Go sql[1] package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and drive specific.  When I've worked with Postgres I've been able to treat a Go time.Time as the same in Postgres' timestamp. This is convenient as Postgres like MySQL[2] can maintain a creation timestamp as well as a modified timestamp easily. If you need to work with the MySQL timestamp at a Go level the int64 mapping doesn't map to a time.Time as it would in Postgres.  To work around this I've found (as of December 2022) it necessary to convert the MySQL timestamp to a formatted string[3] and from the Go side convert the formatted string into a time.Time using time.Parse(). Below is some Golang pseudo code showing this approach.
+By R. S. Doiel, 2022-12-12
+
+The Go sql[1] package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific.  Sometimes that is not a big deal. MySQL[2] can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the int64 used in Go's time.Time. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using DATE_FORMAT[3] and from the Go side convert the formatted string into a time.Time using time.Parse(). Below is some Golang pseudo code showing this approach.
 
 => database/sql 1: database/sql
 => https://dev.mysql.com 2: https://dev.mysql.com

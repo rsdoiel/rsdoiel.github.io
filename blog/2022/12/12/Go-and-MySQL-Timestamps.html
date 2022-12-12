@@ -35,20 +35,22 @@
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="go-and-mysql-timestamps">Go and MySQL timestamps</h1>
+<p>By R. S. Doiel, 2022-12-12</p>
 <p>The Go <a href="database/sql">sql</a> package provides a nice
 abstraction for working with SQL databases. The underlying drivers and
-DBMS can present some quirks that are SQL dialect and drive specific.
-When I’ve worked with Postgres I’ve been able to treat a Go
-<code>time.Time</code> as the same in Postgres’ timestamp. This is
-convenient as Postgres like <a href="https://dev.mysql.com">MySQL</a>
-can maintain a creation timestamp as well as a modified timestamp
-easily. If you need to work with the MySQL timestamp at a Go level the
-int64 mapping doesn’t map to a <code>time.Time</code> as it would in
-Postgres. To work around this I’ve found (as of December 2022) it
-necessary to convert the MySQL timestamp to a <a
+DBMS can present some quirks that are SQL dialect and driver specific.
+Sometimes that is not a big deal. <a
+href="https://dev.mysql.com">MySQL</a> can maintain a creation timestamp
+as well as a modified timestamp easily via the SQL schema definition for
+the field. Unfortunately if you need to work with the MySQL timestamp at
+a Go level (e.g. display the timestamp in a useful way) the int64
+provided via the driver isn’t compatible with the <code>int64</code>
+used in Go’s <code>time.Time</code>. To work around this limitation I’ve
+found it necessary to convert the MySQL timestamp to a formatted string
+using <a
 href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format"
-title="date_format is a MySQL function for this conversion">formatted
-string</a> and from the Go side convert the formatted string into a
+title="DATE_FORMAT is a MySQL date/time function returning a string value">DATE_FORMAT</a>
+and from the Go side convert the formatted string into a
 <code>time.Time</code> using <code>time.Parse()</code>. Below is some
 Golang pseudo code showing this approach.</p>
 <pre><code>
