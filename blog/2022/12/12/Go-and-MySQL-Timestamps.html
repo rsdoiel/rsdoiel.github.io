@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>Go-and-MySQL-Timestamps</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="golang, sql, timestamps">
+  <link rel="alternative" type="application/markdown" href="/blog/2022/12/12/Go-and-MySQL-Timestamps.md">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+<h1 id="go-and-mysql-timestamps">Go and MySQL timestamps</h1>
+<p>The Go <a href="database/sql">sql</a> package provides a nice
+abstraction for working with SQL databases. The underlying drivers and
+DBMS can present some quirks that are SQL dialect and drive specific.
+When I’ve worked with Postgres I’ve been able to treat a Go
+<code>time.Time</code> as the same in Postgres’ timestamp. This is
+convenient as Postgres like <a href="https://dev.mysql.com">MySQL</a>
+can maintain a creation timestamp as well as a modified timestamp
+easily. If you need to work with the MySQL timestamp at a Go level the
+int64 mapping doesn’t map to a <code>time.Time</code> as it would in
+Postgres. To work around this I’ve found (as of December 2022) it
+necessary to convert the MySQL timestamp to a <a
+href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format"
+title="date_format is a MySQL function for this conversion">formatted
+string</a> and from the Go side convert the formatted string into a
+<code>time.Time</code> using <code>time.Parse()</code>. Below is some
+Golang pseudo code showing this approach.</p>
+<pre><code>
+// GetRecordUpdate takes a configuration with a db attribute previously
+// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL&#39;s
+// `DATE_FORMAT()` function to convert the timestamp into a string and
+// Go&#39;s `time.Parse()` to convert the string into a `time.Time` value.
+func GetRecordUpdate(cfg, id string) {
+    stmt := `SELECT id, DATE_FORMAT(updated, &quot;%Y-%m-%d %H:%i:%s&quot;) FROM some_tabl WHERE id = ?`
+    row, err := cfg.db.Query(stmt, id)
+    if err != nil {
+        return nil, err
+    }
+    defer row.Close()
+    record := new(Record)
+    if row.Next() {
+        var updated string
+        if err := row.Scan(&amp;record.ID, &amp;updated); err != nil {
+            return nil, err
+        }
+        record.Updated, err = time.Parse(MySQLTimestamp, updated)
+        if err != nil {
+            return nil, err
+        }
+    }
+    err = row.Err()
+    return record, err
+}</code></pre>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2022 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+</body>
+</html>

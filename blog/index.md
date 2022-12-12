@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Go and MySQL timestamps](/blog/2022/12/12/Go-and-MySQL-Timestamps.md), 2022-12-12
 - [Progress and time remaining](/blog/2022/12/05/progress-and-time-remaining.md), 2022-12-05
 - [Pandoc, Pagefind and Make](/blog/2022/11/28/pandoc-pagefind-and-make.md), 2022-11-28
 - [Initial Impressions of Pagefind](/blog/2022/11/21/initial-impressions-pagefind.md), 2022-11-21

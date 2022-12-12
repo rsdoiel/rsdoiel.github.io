@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate>
-        <generator>pttk rss 0.0.10</generator>
+        <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>Go and MySQL timestamps</title>
+            <link>https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html</link>
+            <description>The Go [sql](database/sql) package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and drive specific.  When I&#39;ve worked with Postgres I&#39;ve been able to treat a Go `time.Time` as the same in Postgres&#39; timestamp. This is convenient as Postgres like [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well as a modified timestamp easily. If you need to work with the MySQL timestamp at a Go level the int64 mapping doesn&#39;t map to a `time.Time` as it would in Postgres.  To work around this I&#39;ve found (as of December 2022) it necessary to convert the MySQL timestamp to a [formatted string](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format &#34;date_format is a MySQL function for this conversion&#34;) and from the Go side convert the formatted string into a `time.Time` using `time.Parse()`. Below is some Golang pseudo code showing this approach.&#xA;&#xA;```&#xA;&#xA;// GetRecordUpdate takes a configuration with a db attribute previously&#xA;// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL&#39;s&#xA;// `DATE_FORMAT()` function to convert the timestamp into a string and&#xA;// Go&#39;s `time.Parse()` to convert the string into a `time.Time` value.&#xA;func GetRecordUpdate(cfg, id string) {&#xA;&#x9;stmt := `SELECT id, DATE_FORMAT(updated, &#34;%Y-%m-%d %H:%i:%s&#34;) FROM some_tabl WHERE id = ?`&#xA;&#x9;row, err := cfg.db.Query(stmt, id)&#xA;&#x9;if err != nil {&#xA;&#x9;&#x9;return nil, err&#xA;&#x9;}&#xA;&#x9;defer row.Close()&#xA;&#x9;record := new(Record)&#xA;&#x9;if row.Next() {&#xA;&#x9;&#x9;var updated string&#xA;&#x9;&#x9;if err := row.Scan(&amp;record.ID, &amp;updated); err != nil {&#xA;&#x9;&#x9;&#x9;return nil, err&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;record.Updated, err = time.Parse(MySQLTimestamp, updated)&#xA;&#x9;&#x9;if err != nil {&#xA;&#x9;&#x9;&#x9;return nil, err&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;err = row.Err()&#xA;&#x9;return record, err&#xA;}&#xA;``` ...</description>
+            <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html</guid>
+        </item>
         <item>
             <title>Progress and time remaining</title>
             <link>https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html</link>

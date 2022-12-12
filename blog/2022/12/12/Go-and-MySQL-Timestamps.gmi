@@ -1,0 +1,36 @@
+# Go and MySQL timestamps
+
+The Go sql[1] package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and drive specific.  When I've worked with Postgres I've been able to treat a Go time.Time as the same in Postgres' timestamp. This is convenient as Postgres like MySQL[2] can maintain a creation timestamp as well as a modified timestamp easily. If you need to work with the MySQL timestamp at a Go level the int64 mapping doesn't map to a time.Time as it would in Postgres.  To work around this I've found (as of December 2022) it necessary to convert the MySQL timestamp to a formatted string[3] and from the Go side convert the formatted string into a time.Time using time.Parse(). Below is some Golang pseudo code showing this approach.
+
+=> database/sql 1: database/sql
+=> https://dev.mysql.com 2: https://dev.mysql.com
+=> https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format 3: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+
+```
+
+// GetRecordUpdate takes a configuration with a db attribute previously
+// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's
+// `DATE_FORMAT()` function to convert the timestamp into a string and
+// Go's `time.Parse()` to convert the string into a `time.Time` value.
+func GetRecordUpdate(cfg, id string) {
+    stmt := `SELECT id, DATE_FORMAT(updated, "%Y-%m-%d %H:%i:%s") FROM some_tabl WHERE id = ?`
+    row, err := cfg.db.Query(stmt, id)
+    if err != nil {
+    	return nil, err
+    }
+    defer row.Close()
+    record := new(Record)
+    if row.Next() {
+    	var updated string
+    	if err := row.Scan(&record.ID, &updated); err != nil {
+    		return nil, err
+    	}
+    	record.Updated, err = time.Parse(MySQLTimestamp, updated)
+    	if err != nil {
+    		return nil, err
+    	}
+    }
+    err = row.Err()
+    return record, err
+}
+```
