@@ -2,8 +2,7 @@
 title: "SQL query to CSV, a missing datatool"
 author: "rsdoiel@sdf.org (R. S. Doiel)"
 pubDate: 2023-01-03
-byline: "R. S. Doiel, 2023-01-13"
-keywords: [ "golang", "sql", "csv" ]
+keywords: [ "sql", "csv", "tab delimited" ]
 ---
 
 # SQL query to CSV, a missing datatool
