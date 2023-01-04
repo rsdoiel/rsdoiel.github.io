@@ -110,17 +110,12 @@ phlog: .FORCE
 	git add $(shell find . -name gophermap)
 	git add blog/phlog.json
 
+# NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
-	pttk blogit -prefix=blog -refresh=2022,2021,2020,2019,2018,2017,2016
+	pttk blogit -prefix=blog -refresh=2023,2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
-	#python indexer.py
-	#git add lunr.json
-
-lunr.json: .FORCE
-	python3 indexer.py
-	git add lunr.json
 
 rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html

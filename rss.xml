@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
-        <lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate>
+        <pubDate>Tue, 03 Jan 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Tue, 03 Jan 2023 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>SQL query to CSV, a missing datatool</title>
+            <link>https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html</link>
+            <description>At work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.&#xA;&#xA;In the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).&#xA;&#xA;This got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.&#xA;&#xA;```&#xA;    sql2csv -o eprint_status_report.csv -config=$HOME/.my.cnf \&#xA;&#x9;    &#39;SELECT eprintid, title, eprint_status FROM eprint&#39; &#xA;```&#xA;&#xA;The `sql2csv` would take the results of the query and write to the CSV file. ...</description>
+            <pubDate>Tue, 03 Jan 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html</guid>
+        </item>
         <item>
             <title>Go and MySQL timestamps</title>
             <link>https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html</link>
