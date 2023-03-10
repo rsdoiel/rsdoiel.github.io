@@ -29,66 +29,70 @@ Robert's current Pachyderm
 
 ### Recent Posts
 
-* Prototyping a personal search engine[5], 2023-03-07
-* SQL query to CSV, a missing datatool[6], 2023-01-03
+* First Personal Search Engine Prototype[5], 2023-03-10
+* Prototyping a personal search engine[6], 2023-03-07
+* SQL query to CSV, a missing datatool[7], 2023-01-03
 
-=> gemini://sdf.org/rsdoiel/blog/2023/03/07/prototyping-a-personal-search-engine.gmi 5: /blog/2023/03/07/prototyping-a-personal-search-engine.gmi
-=> gemini://sdf.org/rsdoiel/blog/2023/01/03/sql-to-csv-a-missing-datatool.gmi 6: /blog/2023/01/03/sql-to-csv-a-missing-datatool.gmi
+=> gemini://sdf.org/rsdoiel/blog/2023/03/10/first-prototype-pse.gmi 5: /blog/2023/03/10/first-prototype-pse.gmi
+=> gemini://sdf.org/rsdoiel/blog/2023/03/07/prototyping-a-personal-search-engine.gmi 6: /blog/2023/03/07/prototyping-a-personal-search-engine.gmi
+=> gemini://sdf.org/rsdoiel/blog/2023/01/03/sql-to-csv-a-missing-datatool.gmi 7: /blog/2023/01/03/sql-to-csv-a-missing-datatool.gmi
 
 ## Series
 
 Series start as blog posts but continue as collections that explore an idea, topic or theme.
 
-* Mostly Oberon[7], Oberon-07 on POSIX systems
-* Software Tools[8], Oberon-07 implementations of classic command line programs
-* Pandoc Techniques[9], using Pandoc as your site generator
-* Exploring FreeDOS[10], installation, exploration and development
-* SQL reflections[11], notes regarding SQL in the context of MySQL 8, SQLite 3 and Postgres 14
+* Mostly Oberon[8], Oberon-07 on POSIX systems
+* Software Tools[9], Oberon-07 implementations of classic command line programs
+* Pandoc Techniques[10], using Pandoc as your site generator
+* Exploring FreeDOS[11], installation, exploration and development
+* SQL reflections[12], notes regarding SQL in the context of MySQL 8, SQLite 3 and Postgres 14
+* A Personal Search Engine[13], notes regarding my exploration of the viability of a personal search engine
 
-=> gemini://sdf.org/rsdoiel/series/mostly-oberon.gmi 7: /series/mostly-oberon.gmi
-=> gemini://sdf.org/rsdoiel/series/software-tools.gmi 8: /series/software-tools.gmi
-=> gemini://sdf.org/rsdoiel/series/pandoc-techniques.gmi 9: /series/pandoc-techniques.gmi
-=> gemini://sdf.org/rsdoiel/series/freedos.gmi 10: /series/freedos.gmi
-=> gemini://sdf.org/rsdoiel/series/sql-reflections.gmi 11: /series/sql-reflections.gmi
+=> gemini://sdf.org/rsdoiel/series/mostly-oberon.gmi 8: /series/mostly-oberon.gmi
+=> gemini://sdf.org/rsdoiel/series/software-tools.gmi 9: /series/software-tools.gmi
+=> gemini://sdf.org/rsdoiel/series/pandoc-techniques.gmi 10: /series/pandoc-techniques.gmi
+=> gemini://sdf.org/rsdoiel/series/freedos.gmi 11: /series/freedos.gmi
+=> gemini://sdf.org/rsdoiel/series/sql-reflections.gmi 12: /series/sql-reflections.gmi
+=> gemini://sdf.org/rsdoiel/series/pse.gmi 13: /series/pse.gmi
 
 ## Projects
 
-* Artemis[12] - Oberon-07 module collection for OBNC[13], Oxford[14] and Ofront+[15] compilers.
-* pttk[16], a tool kit for Pandoc generated websites. It includes a proof-of-concept Pandoc Pre-processor called "prep". "prep" will take a JSON document, transform it into to YAML front matter suitable for processing with Pandoc. It also includes "blogit" a blog site generator and manager used to prepare this website's blog
-* obc-3-libext[17] - exploring compatibility in Karl Landström's Extension Library modules with Mike Spivey's Oxford Oberon Compiler
+* Artemis[14] - Oberon-07 module collection for OBNC[15], Oxford[16] and Ofront+[17] compilers.
+* pttk[18], a tool kit for Pandoc generated websites. It includes a proof-of-concept Pandoc Pre-processor called "prep". "prep" will take a JSON document, transform it into to YAML front matter suitable for processing with Pandoc. It also includes "blogit" a blog site generator and manager used to prepare this website's blog
+* obc-3-libext[19] - exploring compatibility in Karl Landström's Extension Library modules with Mike Spivey's Oxford Oberon Compiler
 
-=> https://rsdoiel.github.io/Artemis 12: https://rsdoiel.github.io/Artemis
-=> https://miasap.se/obnc/ 13: https://miasap.se/obnc/
-=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 14: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
-=> https://github.com/Oleg-N-Cher/OfrontPlus 15: https://github.com/Oleg-N-Cher/OfrontPlus
-=> https://rsdoiel.github.io/pttk/ 16: https://rsdoiel.github.io/pttk/
-=> https://github.com/rsdoiel/obc-3-libext 17: https://github.com/rsdoiel/obc-3-libext
+=> https://rsdoiel.github.io/Artemis 14: https://rsdoiel.github.io/Artemis
+=> https://miasap.se/obnc/ 15: https://miasap.se/obnc/
+=> https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler 16: https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler
+=> https://github.com/Oleg-N-Cher/OfrontPlus 17: https://github.com/Oleg-N-Cher/OfrontPlus
+=> https://rsdoiel.github.io/pttk/ 18: https://rsdoiel.github.io/pttk/
+=> https://github.com/rsdoiel/obc-3-libext 19: https://github.com/rsdoiel/obc-3-libext
 
 ## Command line tools
 
 ### Screen Play and writing tools
 
-* scripttool[18] - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. .fdx, .osf, .fadein and .fountain)
-* fountain[19] - A Go package for working with Fountain markup. Includes three example programs fountainfmt which is a pretty printer for fountain documents, fountain2json which converts fountain files to JSON  and fountain2html an experimental HTML renderer for fountain documents
-* fdx[20] - A Go package for working with Final Draft XML files (.fdx)
-* osf[21] - A Go package for working with Open Screen Play formatted files
+* scripttool[20] - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. .fdx, .osf, .fadein and .fountain)
+* fountain[21] - A Go package for working with Fountain markup. Includes three example programs fountainfmt which is a pretty printer for fountain documents, fountain2json which converts fountain files to JSON  and fountain2html an experimental HTML renderer for fountain documents
+* fdx[22] - A Go package for working with Final Draft XML files (.fdx)
+* osf[23] - A Go package for working with Open Screen Play formatted files
 
-=> https://rsdoiel.github.io/scripttool/ 18: https://rsdoiel.github.io/scripttool/
-=> https://rsdoiel.github.io/fountain/ 19: https://rsdoiel.github.io/fountain/
-=> https://rsdoiel.github.io/fdx/ 20: https://rsdoiel.github.io/fdx/
-=> https://rsdoiel.github.io/osf/ 21: https://rsdoiel.github.io/osf/
+=> https://rsdoiel.github.io/scripttool/ 20: https://rsdoiel.github.io/scripttool/
+=> https://rsdoiel.github.io/fountain/ 21: https://rsdoiel.github.io/fountain/
+=> https://rsdoiel.github.io/fdx/ 22: https://rsdoiel.github.io/fdx/
+=> https://rsdoiel.github.io/osf/ 23: https://rsdoiel.github.io/osf/
 
 ### Additional text rendering/formatting tools
 
-* pttk[22] - a deconstructed content manage system for managing this site
-* shorthand[23] - a text label expander with markdown support
-* stngo[24] - Standard Timesheet Notation processor for my personal project time logs
-* opml[25] - A minimal OPML package that features a OPML sort, cat and to json utility
+* pttk[24] - a deconstructed content manage system for managing this site
+* shorthand[25] - a text label expander with markdown support
+* stngo[26] - Standard Timesheet Notation processor for my personal project time logs
+* opml[27] - A minimal OPML package that features a OPML sort, cat and to json utility
 
-=> https://rsdoiel.github.io/pttk/ 22: https://rsdoiel.github.io/pttk/
-=> https://rsdoiel.github.com/shorthand/ 23: https://rsdoiel.github.com/shorthand/
-=> https://rsdoiel.github.com/stngo/ 24: https://rsdoiel.github.com/stngo/
-=> https://rsdoiel.github.com/opml/ 25: https://rsdoiel.github.com/opml/
+=> https://rsdoiel.github.io/pttk/ 24: https://rsdoiel.github.io/pttk/
+=> https://rsdoiel.github.com/shorthand/ 25: https://rsdoiel.github.com/shorthand/
+=> https://rsdoiel.github.com/stngo/ 26: https://rsdoiel.github.com/stngo/
+=> https://rsdoiel.github.com/opml/ 27: https://rsdoiel.github.com/opml/
 
 ## Appendix
 
@@ -96,10 +100,10 @@ Series start as blog posts but continue as collections that explore an idea, top
 
 ## North L. A. County
 
-* Public Safety Agencies List[26]
-* LA County Emergency website[27]
-* City of Santa Clarita Emergency website[28]
+* Public Safety Agencies List[28]
+* LA County Emergency website[29]
+* City of Santa Clarita Emergency website[30]
 
-=> https://twitter.com/rsdoiel/lists/safety-agencies-nola-co 26: https://twitter.com/rsdoiel/lists/safety-agencies-nola-co
-=> https://www.lacounty.gov/emergency/ 27: https://www.lacounty.gov/emergency/
-=> https://santaclaritaemergency.com/ 28: https://santaclaritaemergency.com/
+=> https://twitter.com/rsdoiel/lists/safety-agencies-nola-co 28: https://twitter.com/rsdoiel/lists/safety-agencies-nola-co
+=> https://www.lacounty.gov/emergency/ 29: https://www.lacounty.gov/emergency/
+=> https://santaclaritaemergency.com/ 30: https://santaclaritaemergency.com/

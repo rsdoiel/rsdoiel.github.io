@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate>
-        <lastBuildDate>Tue, 07 Mar 2023 00:00:00 +0000</lastBuildDate>
+        <pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Fri, 10 Mar 2023 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>First Personal Search Engine Prototype</title>
+            <link>https://rsdoiel.github.io/blog/2023/03/10/first-prototype-pse.html</link>
+            <description>I&#39;ve implemented a first prototype of my personal search engine which&#xA;I will abbreviate as &#34;pse&#34; from here on out. I implemented it using &#xA;three [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) scripts&#xA;relying on [sqlite3](https://sqlite.org), [wget](https://en.wikipedia.org/wiki/Wget) and [PageFind](https://pagefind.app) to do the heavy lifting.&#xA;&#xA;Both Firefox and newsboat store useful information in sqlite databases.&#xA;Firefox&#39;s `moz_places.sqlite` holds both all the URLs visited as well as those that are associated with bookmarks (i.e. the SQLite database `moz_bookmarks.sqlite`).  I had about 2000 bookmarks, less than I thought with many being stale. Stale page URLs (pages that no longer exist on the web) really slow down the harvest process because of the need for wget to wait on various timeouts (e.g. DNS, server response, download times).  The &#34;history&#34; URLs would make an interesting collection to spider but you&#39;d probably want to have an exclude list (e.g. there&#39;s not point in saving queries to search engines, web mail, shopping sites). Exploring that will wait for another prototype.&#xA;&#xA;The `cache.db` associated with Newsboat actually provided a rich source of content and much fewer stale links (not surprising because I maintain that URL list more much activity then reviewing my bookmarks).  Between the two I had 16,000 pages. I used SQLite 3 to query the url values from the various DB into sorting for unique URLs into a single text file one URL per line.&#xA;&#xA;The next thing after creating a list of pages I wanted to search was to download them into a directory using wget.  Wget has many options, I choose to enable timestamping, create a protocol directory and then a domain and path directory for each item. This has the advantage of being able to transform the Path into a URL later.&#xA;&#xA;Once the content was harvested I then used PageFind to index the all the harvested content. Since I started using PageFind originally the tool has gained an option called `--serve` which provides a localhost web service on port 1414.  All I needed to do was add an index.html file to the directory where I harvested the content and saved the PageFind indexes. Then I used PageFind to again to provide a localhost based personal search engine. ...</description>
+            <pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/03/10/first-prototype-pse.html</guid>
+        </item>
         <item>
             <title>Prototyping a personal search engine</title>
             <link>https://rsdoiel.github.io/blog/2023/03/07/prototyping-a-personal-search-engine.html</link>

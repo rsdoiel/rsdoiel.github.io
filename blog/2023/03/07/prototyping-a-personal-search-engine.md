@@ -1,6 +1,8 @@
 ---
 title: "Prototyping a personal search engine"
 pubDate: 2023-03-07
+series: "Personal Search Engine"
+number: 1
 author: "R. S. Doiel"
 keywords: [ "personal search engine", "search", "indexing", "web", "pagefind" ]
 ---
