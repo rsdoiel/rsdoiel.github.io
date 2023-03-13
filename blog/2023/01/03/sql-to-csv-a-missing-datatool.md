@@ -2,12 +2,15 @@
 title: "SQL query to CSV, a missing datatool"
 author: "rsdoiel@sdf.org (R. S. Doiel)"
 pubDate: 2023-01-03
+updateDate: 2023-03-13
 keywords: [ "sql", "csv", "tab delimited" ]
 ---
 
 # SQL query to CSV, a missing datatool
 
 By R. S. Doiel, 2023-01-13
+
+Update: 2023-03-13
 
 At work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.
 
@@ -26,3 +29,6 @@ The nice thing about this approach is that I could support the three relational 
 
 I hope to experiment with this approach in the next release of [datatools](https://github.com/caltechlibrary/datatools), an open source project maintained at work.
 
+## update
+
+Jon Woodring pointed out to me today that both SQLite3 and PostgreSQL clients can output to CSV without need of an external tool. Wish MySQL client did that! Instead MySQL client supports tab delimited output. I'm still concidering sql2csv due to the ammount work I do with MySQL database but I'm not sure if it will make it into to the datatools project or now since I suspect our MySQL usage will decline overtime as more projects are built with PostgreSQL and SQLite3.
