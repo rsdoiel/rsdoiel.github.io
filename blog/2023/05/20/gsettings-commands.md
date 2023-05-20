@@ -2,6 +2,7 @@
 title: "gsettings command"
 author: "R. S. Doiel"
 pubDate: 2023-05-20
+keywords: [ "Ubuntu Desktop", "Gnome", "gsettings" ]
 ---
 
 # gsettings command
