@@ -1,11 +1,20 @@
 #!/bin/bash
 
+
 find . -type f | grep -E '\.md$' | while read -r FNAME; do
     printf "Coverting %s\n" "${FNAME}"
 	DNAME=$(dirname "${FNAME}")
-    md2gemini -m -w -d "${DNAME}" -f -i tab --plain -l paragraph \
+    if ! python3 -m md2gemini -m -w -d "${DNAME}" -f -i tab --plain -l paragraph \
         -b gemini://sdf.org/rsdoiel/ \
-        "${FNAME}"
+        "${FNAME}"; then
+	cat <<EOT
+ Can't find md2gemini. Try installing with pip
+
+ 	python3 -m pip install mg2gemini
+
+EOT
+	exit 1
+    fi
 done
 
 find . -type f | grep -E '\.gmi' | while read -r FNAME; do
