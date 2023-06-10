@@ -97,6 +97,7 @@ Terminology, Acronyms, Concepts
     - GLAM is Galleries, Libraries, Archives, and Museums
 - [GOKB](gobk.kuali.org/gokb/)
     - Global Open Knowledge base
+- [Grey literature](https://guides.library.cornell.edu/public-health/what-gray-literature-is)
 - [IFLA](http://ifla.org)
     - International Federation of Library Associations and Institutions
 - ILS
@@ -120,6 +121,8 @@ Terminology, Acronyms, Concepts
     - an open source Integrated Library System
 - [Kuali OLE](http://www.kuali.org/ole/partners)
     - Kuali (Software Solutions for Higher Ed.) OLE (Open Library Environment)
+- [LSA](https://en.wikipedia.org/wiki/Latent_semantic_analysis), Latent semantic analysis
+- [LSI](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing), Latent semantic indexing
 - LMS
     - Library Management System
 - LSP
@@ -181,6 +184,7 @@ Terminology, Acronyms, Concepts
         - A set of TIFF images of each page of the article
         - A content owner-provided HTML file of the article
         - An HTML file that is created on the fly from full-text XML provided by the content owner
+- [Semantic hashing](https://en.wikipedia.org/wiki/Latent_semantic_analysis#Semantic_hashing) In semantic hashing [18] documents are mapped to memory addresses by means of a neural network in such a way that semantically similar documents are located at nearby addresses. 
 - serial
     - A continuing resource issued in a succession of discrete issues or parts, usually bearing numbering, that has no
 predetermined conclusion.
