@@ -80,6 +80,7 @@ Terminology, Acronyms, Concepts
     - [Wikipedia entry](https://en.wikipedia.org/wiki/Encoded_Archival_Description)
     - [Kerstin Arnold: EAD3 and the consequences of the new version](http://www.apex-project.eu/index.php/en/articles/149-ead3-and-the-consequences-of-the-new-version)
     - [Yale Plugin](https://github.com/hudmol/container_profiles) - and Yale website [http://campuspress.yale.edu/yalearchivesspace/](http://campuspress.yale.edu/yalearchivesspace/)
+- EBA, Evidence based acquisition (books)
 - [EBSCO](https://www.ebsco.com/)
     - is a vendor for libraries providing of Journals, e-Journals, e-Journal Packages, Magazines Subscriptions, Subscriptions Management Tools, etc.
 - [EDS](https://www.ebscohost.com/discovery)
