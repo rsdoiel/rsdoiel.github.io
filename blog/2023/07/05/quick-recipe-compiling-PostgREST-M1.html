@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>quick-recipe-compiling-PostgREST-M1</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="PostgREST, M1">
+  <link rel="alternative" type="application/markdown" href="/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+<h1 id="quick-recipe-compile-postgrest-m1">Quick recipe, compile
+PostgREST (M1)</h1>
+<p>These are my quick notes for compiling PostgREST on a M1 Mac Mini. I
+use a similar recipe for building PostgREST on Linux.</p>
+<ol type="1">
+<li>Install <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a
+good Haskell setup (I accept all the default choices)
+<ol type="a">
+<li>Use the curl example command to install it</li>
+<li>Make sure the environment is active (e.g. source
+<code>$HOME/.ghcup/env</code>)</li>
+</ol></li>
+<li>Make sure GHCup is pointing at the “recommended” versions of GHC,
+Cabal, etc. (others may work but I prefer the stable releases)</li>
+<li>Clone <a href="https://github.com/PostgREST/postgrest"
+class="uri">https://github.com/PostgREST/postgrest</a> to your local
+machine</li>
+<li>Check out the version you want to build (e.g. v11.1.0)</li>
+<li>Run the “usual” Haskell build sequence with cabal
+<ol type="a">
+<li><code>cabal clean</code></li>
+<li><code>cabal update</code></li>
+<li><code>cabal build</code></li>
+<li><code>cabal install</code></li>
+</ol></li>
+</ol>
+<p>Here’s an example of the shell commands I run (I’m assuming you’re
+installing GHCup for the first time).</p>
+<pre><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+source $HOME/.gchup/env
+ghcup tui
+mkdir -p src/github.com/PostgREST
+cd src/github.com/PostgREST
+git clone git@github.com:PostgREST/postgrest
+cd postgrest
+cabal clean
+cabal update
+cabal build
+cabal install</code></pre>
+<p>This will install PostgREST in your <code>$HOME/.cabal/bin</code>
+directory. Make sure it is in your path (it should be if you’ve sourced
+the GHCup environment after you installed GHCup).</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+
+</body>
+</html>

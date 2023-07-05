@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
-        <lastBuildDate>Sat, 20 May 2023 00:00:00 +0000</lastBuildDate>
+        <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>Quick recipe, compiling PostgREST (M1)</title>
+            <link>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.html</link>
+            <description>These are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.&#xA;&#xA;1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)&#xA;    a. Use the curl example command to install it&#xA;    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)&#xA;2. Make sure GHCup is pointing at the &#34;recommended&#34; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)&#xA;3. Clone &lt;https://github.com/PostgREST/postgrest&gt; to your local machine&#xA;4. Check out the version you want to build (e.g. v11.1.0)&#xA;5. Run the &#34;usual&#34; Haskell build sequence with cabal&#xA;    a. `cabal clean`&#xA;    b. `cabal update`&#xA;    c. `cabal build`&#xA;    d. `cabal install`&#xA;&#xA;Here&#39;s an example of the shell commands I run (I&#39;m assuming you&#39;re installing GHCup for the first time).&#xA;&#xA;~~~&#xA;curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh&#xA;source $HOME/.gchup/env&#xA;ghcup tui&#xA;mkdir -p src/github.com/PostgREST&#xA;cd src/github.com/PostgREST&#xA;git clone git@github.com:PostgREST/postgrest&#xA;cd postgrest&#xA;cabal clean&#xA;cabal update&#xA;cabal build&#xA;cabal install&#xA;~~~&#xA;&#xA;This will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure&#xA;it is in your path (it should be if you&#39;ve sourced the GHCup environment after you installed GHCup). ...</description>
+            <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.html</guid>
+        </item>
         <item>
             <title>gsettings command</title>
             <link>https://rsdoiel.github.io/blog/2023/05/20/gsettings-commands.html</link>
