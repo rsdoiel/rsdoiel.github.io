@@ -8,8 +8,8 @@ Bugs
 Next
 ----
 
-+ [x] Convert JSON frontmatter to YAML for pandoc 2.2 compatibility
-+ [x] Convert Makefile, blog.bash to use pandoc 2.2 for Raspbian OS
++ [x] Convert JSON frontmatter to YAML for Pandoc 2.2 compatibility
++ [x] Convert Makefile, blog.bash to use Pandoc 2.2 for Raspberry Pi OS
 + [ ] consolidate templates
 + [ ] Add save to pocket links to blog post listing pages, see https://getpocket.com/publisher/button
 

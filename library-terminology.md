@@ -18,7 +18,7 @@ Terminology, Acronyms, Concepts
 - [AIP](https://www.iasa-web.org/tc04/archival-information-package-aip) Archival Information Package
 - [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)
     - [Archival Resource Key](http://n2t.net/e/ark_ids.html)
-    - Is a unique identifier used in archives analogus to a DOI used in a digital library repository
+    - Is a unique identifier used in archives analogous to a DOI used in a digital library repository
     - IFLA's [best practice](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793) description
 - [AS](https://archivesspace.org/) ArchiveSpace
     - ArchivesSpace is an archival collection manager software system
@@ -27,7 +27,7 @@ Terminology, Acronyms, Concepts
 - BagIt
     - A hierarchical file packaging format designed to support disk-based or network-based storage and transfer of arbitrary digital content.
     - Source: BagIt specification at: http://tools.ietf.org/html/draftkunze-bagit-10
-- [BIBFRAME](http://bibframe.org) - the [libraary of congress](http://www.loc.gov/bibframe/) new catelog record format
+- [BIBFRAME](http://bibframe.org) - the [library of congress](http://www.loc.gov/bibframe/) new catalog record format
     - Hierarchical instead of flat
     - Evolving with a linked data representation
     - Replacing MARC 21
@@ -46,10 +46,10 @@ Terminology, Acronyms, Concepts
     - Note: Conformance is defined at different levels.
 - [COAR](https://www.coar-repositories.org/) confederation of open access repositories
 - [CrossRef](http://crossref.org)
-    - A service returning JSON metadata records based on title, issn, etc.
+    - A service returning JSON metadata records based on title, ISSN, etc.
 - Crosswalk 
-    - A translational relationship between two metadata schema or ontologies
-- [CUFTS](http://lib-code.lib.sfu.ca/projects/CUFTS/)
+    - A translation of relationship between two metadata schema or ontology's
+- [t piece of text that is algorithmically derived from a file and allows the determination of whether the file has been corrupted.](http://lib-code.lib.sfu.ca/projects/CUFTS/)
     - a free, open source (GPL) OpenURL link resolver and electronic resource management system designed for use by library consortia. It supports multiple sites from one server, online management tools, usage statistics, and an advanced journal list system.
 - DAMS
     - Digital Access Management System
@@ -133,11 +133,11 @@ Terminology, Acronyms, Concepts
 - [MARC](http://www.loc.gov/marc/uma/pt1-7.html)
     - "MAchine-Readable Cataloging"
     - A record format used by libraries to interchange information about collection items
-    - Being superceded by BibFrame
+    - Being superseded by BIBFRAME
 - metadata
     - A set of data that describes and gives information about other data; for example, data describing the full text of an article.
 - [MODS](http://www.loc.gov/standards/mods/) - Metadata Object Description Schema
-- [NDLTD](http://www.ndltd.org/) - Networked Digital Library of Theses and Dissertations, an organization that collections these in eletronic form
+- [NDLTD](http://www.ndltd.org/) - Networked Digital Library of Theses and Dissertations, an organization that collections these in electronic form
 - [NISO](http://www.niso.org/home/)
     - website blurb: "NISO is where content publishers, libraries, and software developers turn for information industry standards that allow them to work together.""
 - [OA](https://oa-library.com)
@@ -147,9 +147,9 @@ Terminology, Acronyms, Concepts
     - Open Archives Initiatives
 - [OAIS](https://en.wikipedia.org/wiki/Open_Archival_Information_System) Open Archival Information System
 - [OAI-PMH](http://www.openarchives.org/OAI/openarchivesprotocol.html)
-    - Open Airchives Initial - Protocol for Metadata Harvesting
+    - Open Archives Initial - Protocol for Metadata Harvesting
 - [OAI-DC](http://www.openarchives.org/OAI/openarchivesprotocol.html#dublincore)
-    - Open Archives Initiatives - Dublic Core
+    - Open Archives Initiatives - Dublin Core
 - [ONIX-PL](http://www.niso.org/workrooms/onixpl)
   + Workgroup for publication licenses
   + Note: This appears to a standard that lacks actual adoption.
@@ -171,7 +171,7 @@ Terminology, Acronyms, Concepts
     - is the international standard for metadata to support the preservation of digital objects and ensure their long-term usability.  
 - [ProQuest](https://en.wikipedia.org/wiki/ProQuest) - ProQuest LLC is an Ann Arbor, Michigan-based global information-content and technology company[1] founded in 1938 as University Microfilms. 
 - [PROV](https://en.wikipedia.org/wiki/PROV_(Provenance)) standard defines a data model that serializes provenance metadata. It is a [W3C](https://www.w3.org/TR/prov-overview/) standard.
-- [PURR](http://authors.library.caltech.edu/25887) - Persistant URL Resource Resolver
+- [PURR](http://authors.library.caltech.edu/25887) - Persistent URL Resource Resolver
     - Used by Caltech library for maintaining a persistent connection to web resources
     - [Detailed documentation](http://authors.library.caltech.edu/25887/1/purr.pdf)
 - [RDA](http://www.rda-jsc.org/rda.html)
@@ -189,7 +189,7 @@ Terminology, Acronyms, Concepts
 - serial
     - A continuing resource issued in a succession of discrete issues or parts, usually bearing numbering, that has no
 predetermined conclusion.
-    - Examples: Journals, magazines, electronic journals, ongoing directories, annual reports, newspapers, monographic series, and also those journals, magazines, and newsletters of limited duration that otherwise bear all the characteristics of serials (e.g., newsletter of an event). Source: ISO 3297
+    - Examples: Journals, magazines, electronic journals, ongoing directories, annual reports, newspapers, monograph series, and also those journals, magazines, and newsletters of limited duration that otherwise bear all the characteristics of serials (e.g., newsletter of an event). Source: ISO 3297
 - serial item
     - The smallest self-contained portion of a serial.
     - Examples: Articles, letters, reviews, case studies, front matter (in contrast to volumes or issues)
@@ -211,7 +211,7 @@ predetermined conclusion.
         - Z39-7
             + Information Services and Use Metrics & Statistics for Libraries and Information Providers – Data Dictionary
         - Z39.50
-            + UseZ39.50 to look for records in a catalogue or union database allows for better retrieval of records than simply constructing a title or ISBN/ISSN based URL.
+            + UseZ39.50 to look for records in a catalog or union database allows for better retrieval of records than simply constructing a title or ISBN/ISSN based URL.
 
 
 
@@ -240,5 +240,5 @@ predetermined conclusion.
 - [KBART registry](https://sites.google.com/site/kbartregistry/) lists various sources of KBART data
 - [OCLC collection manager FAQ](https://www.oclc.org/support/services/collection-manager/faq.en.html) provides some helpful context (e.g. explains OCLC numbers for titles)
 - [Z39-7 standard](http://z39-7.niso.org/standard.html)
-- [COAR resource types vocabular](http://vocabularies.coar-repositories.org/documentation/resource_types)
+- [COAR resource types vocabulary](http://vocabularies.coar-repositories.org/documentation/resource_types)
 

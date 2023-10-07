@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Skimmer](/blog/2023/10/06/concept.md), 2023-10-06
 - [Quick recipe, compiling PostgREST (M1)](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md), 2023-07-05
 - [Quick recipe, compiling Pandoc (M1)](/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.md), 2023-07-05
 - [gsettings command](/blog/2023/05/20/gsettings-commands.md), 2023-05-20

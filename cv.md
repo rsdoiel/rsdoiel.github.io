@@ -18,7 +18,7 @@ Current responsibilities
     + Aggregation and search related [projects](https://caltechlibrary.github.io)
     + Content integration with [ArchivesSpace](http://archivesspace.org/), [EPrints](http://eprints.org), [Invenio RDM](https://inveniosoftware.org/products/rdm/)
     + Content Migration from EPrints to Invenio RDM
-    + Applications for crosswalking data between systems
+    + Applications for cross-walking data between systems
 
 Technical Skills
 ----------------
@@ -77,7 +77,7 @@ Past Projects
 -------------
 
 + Infrastructure research and planning
-+ 4th generation USC Event Calandar system (legacy, LAMP)
++ 4th generation USC Event Calendar system (legacy, LAMP)
 + [Safely-php](https://github.com/uscwebservices/safely-php) - a PHP micro-library for creating RESTful services and sites (maintenance, PHP)
 + Developed DOM aware general purpose content migration tools between websites, legacy CMS and new CMS (completed, NodeJS+jsDom)
 + High performance JSON API, single blog search engine and news.usc.edu (retired, PHP+NodeJS+MongoDB)
@@ -86,7 +86,7 @@ Past Projects
 + emergency.usc.edu infrastructure improvements (legacy, Blogger+NodeJS+UltraDNS)
 + 3rd generation USC Event Calendar API (retired, LAMP)
 + USC Map data API - (retired, LAMP)
-+ WSCORE3, 3rd generation common PHP and JavaScript libraries used by Web Services for data access, API construction and data sanitization (retired, PHP)
++ WSCORE3, 3rd generation common PHP and JavaScript libraries used by Web Services for data access, API construction and data sanitizing (retired, PHP)
 + Feed Management API for USC Reader (retired, LAMP)
 + Design, implement and deploy public webcam API (retired, LAMP)
 + Evaluating infrastructure options for replacing our legacy content management system and events calendar system (completed)

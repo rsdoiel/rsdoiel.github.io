@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
-        <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate>
+        <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Fri, 06 Oct 2023 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>Skimmer</title>
+            <link>https://rsdoiel.github.io/blog/2023/10/06/concept.html</link>
+            <description>I have a problem. I like to read my feeds in newsboat but I can&#39;t seem to get it working on a few machines I use.&#xA;I miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way&#xA;I read twtxt feeds using `yarnc timeline | less -R`. Just get a list of all items in reverse chronological order.&#xA;&#xA;I am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn&#39;t&#xA;available or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer&#xA;. Something that works with RSS, Atom and jsonfeeds in the same way I use `yarnc timeline | less -R`.  &#xA;I&#39;m also inspired by Dave Winer&#39;s a river of news site and his outline tooling. But in this case I don&#39;t want&#xA;an output style output, just a simple list of items in reverse chronological order. I&#39;m thinking of a more&#xA;ephemeral experience in reading.&#xA;&#xA;This has left me with some questions.&#xA;&#xA;- How simple is would it be to write skimmer?&#xA;- How much effort would be required to maintain it?&#xA;- Could this tool incorporate support for other feed types, e.g. twtxt, Gopher, Gemini?&#xA;&#xA;There is a Go package called [gofeed](https://github.com/mmcdole/gofeed). The README describes it&#xA;as a &#34;universal&#34; feed reading parser. That seems like a good starting point and picking a very narrowly&#xA;focus task seems like a way to keep the experiment simple to implement. ...</description>
+            <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/10/06/concept.html</guid>
+        </item>
         <item>
             <title>Quick recipe, compiling Pandoc (M1)</title>
             <link>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.html</link>

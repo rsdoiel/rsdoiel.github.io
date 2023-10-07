@@ -39,12 +39,12 @@ Experience
 
 ### Senior Application Developer, California Institute of Technology, April 2015 - current
 
-I work for the Caltech Library developing and maintaining library focused software solutions including integrations with ArchivesSpace, EPrints, Invenio RDM as well as custom aggregation and search software.
+I work for the Caltech Library developing and maintaining library focused software solutions including integration's with ArchivesSpace, EPrints, Invenio RDM as well as custom aggregation and search software.
 
 
 ### Programmer/Analyst, USC, January 1992 - April 2015
 
-I was hired in a staff position at USC initially working for the Student Affairs Division eventually transfering to Center for Scholarly Technology. I finished my time at USC as a Senior Software Engineer for the Web Services group in the Technology Enhanced Learning Division of Information Technology Services at the University of Southern California.
+I was hired in a staff position at USC initially working for the Student Affairs Division eventually transferring to Center for Scholarly Technology. I finished my time at USC as a Senior Software Engineer for the Web Services group in the Technology Enhanced Learning Division of Information Technology Services at the University of Southern California.
 
 Prior to 1992 I worked freelance and in student positions. As a student employee of the University I maintained and improved custom administrative systems built on Prime Information (a variant of the Pick database environment).
 
