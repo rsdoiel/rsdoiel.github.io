@@ -23,6 +23,9 @@ index.html: nav.include footer.include index.md page.tmpl
 	$(PANDOC) --template index.tmpl index.md > index.html
 	git add index.html
 
+reading_list: .FORCE
+	pandoc --metadata title="Readings from the web" --from=markdown --to=html5 --template page.tmpl reading_list.md > reading_list.html
+
 presentations.html: presentations.md footer.include nav.include page.tmpl
 	$(PANDOC) --template page.tmpl presentations.md > presentations.html
 	git add presentations.html
