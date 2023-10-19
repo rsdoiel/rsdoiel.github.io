@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
-        <lastBuildDate>Fri, 06 Oct 2023 00:00:00 +0000</lastBuildDate>
+        <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>Building A to Z list pages in Pandoc</title>
+            <link>https://rsdoiel.github.io/blog/2023/10/18/A-to-Z-lists.html</link>
+            <description>Pandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page.  It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file.  One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them.  In JSON the typical data presentation would look something like&#xA;&#xA;```json&#xA;{&#xA;  &#34;a_to_z&#34;: [ &#34;A&#34;, &#34;B&#34;],&#xA;  &#34;content&#34;: {&#xA;    &#34;A&#34;: [&#xA;      &#34;After a beautiful day&#34;,&#xA;      &#34;Afterlife&#34;&#xA;    ],&#xA;    &#34;B&#34;: [&#xA;      &#34;Better day after&#34;,&#xA;      &#34;Better Life&#34;&#xA;    ]&#xA;  }&#xA;}&#xA;```&#xA;&#xA;The trouble is that while YAML’s outer dictionary (key/value map) works fine in Pandoc templates there is no way for the the for loop to handle maps of maps like we have above.  Pandoc templates really want to iterate over arrays of objects . That’s nice thing! It gives us more ways to transform the data to provide more flexibility in our template implementation. Here’s how I would restructure the previous JSON to make it easy to process via Pandoc’s template engine.  Note how I’ve taken our simple array of letters and turned them into an object with an “href” and “label” attribute. Similarly I’ve enhanced the “content” objects.&#xA;&#xA;```json&#xA;{&#xA;  &#34;a_to_z&#34;: [ {&#34;href&#34;: &#34;A&#34;, &#34;label&#34;: &#34;A&#34;}, {&#34;href&#34;: &#34;B&#34;, &#34;label&#34;: &#34;B&#34;} ],&#xA;  &#34;content&#34;: [&#xA;      {&#34;letter&#34;: &#34;A&#34;, &#34;title&#34;: &#34;After a beautiful day&#34;, &#34;id&#34;: &#34;after-a-beautiful-day&#34;},&#xA;      {&#34;title&#34;: &#34;Afterlife&#34;, &#34;id&#34;: &#34;afterlife&#34;},&#xA;      {&#34;letter&#34;: &#34;B&#34;, &#34;title&#34;: &#34;Better day after&#34;, &#34;id&#34;: &#34;better-day-after&#34;},&#xA;      {&#34;title&#34;: &#34;Better Life&#34;, &#34;id&#34;: &#34;better-life&#34;}&#xA;  ]&#xA;}&#xA;```&#xA;&#xA;Then the template can be structure something like ...</description>
+            <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/10/18/A-to-Z-lists.html</guid>
+        </item>
         <item>
             <title>Skimmer</title>
             <link>https://rsdoiel.github.io/blog/2023/10/06/concept.html</link>
