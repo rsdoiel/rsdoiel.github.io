@@ -13,4 +13,5 @@ MySQL 8, SQLite 3 and Postgres 14 in my day job.
 2. [Rosette](/blog/2022/08/19/rosette-notes.md), notes on moving from MySQL 8 to Postgres 14.5 in a project
 3. [PL/pgSQL, a Quick Intro](/blog/2022/08/24/plpgsql-quick-intro.md), notes on starting to write functions and procedures in Postgres 14.5
 4. [Postgres 14 on Ubuntu 22.04 LTS](/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.md), quick distillation of setting up Postgres 14 on Ubuntu 22.04 LTS
+5. [Postgres Quick Notes, take two](/blog/2023/11/17/PostgreSQL-Quick-Notes.md), Revised notes on setting up my Postgres instances with macOS extras
 

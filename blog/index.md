@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Postgres Quick Notes, take two](/blog/2023/11/17/PostgreSQL-Quick-Notes.md), 2023-11-17
 - [Building A to Z list pages in Pandoc](/blog/2023/10/18/A-to-Z-lists.md), 2023-10-18
 - [Skimmer](/blog/2023/10/06/concept.md), 2023-10-06
 - [Quick recipe, compiling PostgREST (M1)](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md), 2023-07-05
