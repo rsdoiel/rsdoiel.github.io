@@ -69,16 +69,16 @@ sudo -u postgres psql
 
 When in the psql shell you should be able to use the slash commands like
 
-\l
+\\l
 : list the databases
 
-\dt
+\\dt
 : list the tables in the database
 
-\d TABLE_NAME
-: list the schema for TABLE_NAME
+\\d TABLE\_NAME
+: list the schema for TABLE\_NAME
 
-\q
+\\q
 : quit the psql shell
 
 Assuming we have a working Postgres I now create superuser accounts for
