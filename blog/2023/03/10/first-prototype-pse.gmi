@@ -9,9 +9,9 @@ I've implemented a first prototype of my personal search engine which I will abb
 => https://en.wikipedia.org/wiki/Wget 3: https://en.wikipedia.org/wiki/Wget
 => https://pagefind.app 4: https://pagefind.app
 
-Both Firefox and newsboat store useful information in sqlite databases. Firefox's moz_places.sqlite holds both all the URLs visited as well as those that are associated with bookmarks (i.e. the SQLite database moz_bookmarks.sqlite).  I had about 2000 bookmarks, less than I thought with many being stale. Stale page URLs (pages that no longer exist on the web) really slow down the harvest process because of the need for wget to wait on various timeouts (e.g. DNS, server response, download times).  The "history" URLs would make an interesting collection to spider but you'd probably want to have an exclude list (e.g. there's not point in saving queries to search engines, web mail, shopping sites). Exploring that will wait for another prototype.
+Both Firefox and newsboat store useful information in sqlite databases.  Firefox's moz_places.sqlite holds both all the URLs visited as well as those that are associated with bookmarks (i.e. the SQLite database moz_bookmarks.sqlite).  I had about 2000 bookmarks, less than I thought with many being stale from link rot. Stale page URLs really slow down the harvest process because of the need for wget to wait on various timeouts (e.g. DNS, server response, download times).  The "history" URLs would make an interesting collection to spider but you'd probably want to have an exclude list (e.g. there's no point in saving queries to search engines, web mail, shopping sites). Exploring that will wait for another prototype.
 
-The cache.db associated with Newsboat actually provided a rich source of content and much fewer stale links (not surprising because I maintain that URL list more much activity then reviewing my bookmarks).  Between the two I had 16,000 pages. I used SQLite 3 to query the url values from the various DB into sorting for unique URLs into a single text file one URL per line.
+The cache.db associated with Newsboat provided a rich resource of content and much fewer stale links (not surprising because I maintain that URL list more much activity then reviewing my bookmarks).  Between the two I had 16,000 pages. I used SQLite 3 to query the url values from the various DB into sorting for unique URLs into a single text file one URL per line.
 
 The next thing after creating a list of pages I wanted to search was to download them into a directory using wget.  Wget has many options, I choose to enable timestamping, create a protocol directory and then a domain and path directory for each item. This has the advantage of being able to transform the Path into a URL later.
 
@@ -25,7 +25,7 @@ I have simple Bash script that gets the URLs from both Firefox bookmarks and New
 
 I then use the "pages.txt" file to harvest content with wget into a tree structure like
 
-* htdocs * http (all the http based URLs I harvest go in here) * https (all the https based URLs I harvest go in here) * _pagefind (this holds the PageFind indexes and JavaScript to implement the search UI) * index.html (this holds the webpage for the search UI using the libraries in _pagefind)
+* htdocs * http (all the http based URLs I harvest go in here) * https (all the https based URLs I harvest go in here) * pagefind (this holds the PageFind indexes and JavaScript to implement the search UI) * index.html (this holds the webpage for the search UI using the libraries in pagefind)
 
 Since I'm only downloaded the HTML the 16k pages does not take up significant disk space yet.
 
@@ -105,12 +105,12 @@ cat <<HTML >htdocs/index.html
   type="application/opensearchdescription+xml"
   title="A Personal Search Engine"
   href="http://localhost:1414/pse.osdx" />
-<link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 </head>
 <body>
 <h1>A personal search engine</h1>
 <div id="search"></div>
-<script src="/_pagefind/pagefind-ui.js" type="text/javascript"></script>
+<script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
 <script>
     window.addEventListener('DOMContentLoaded', function(event) {
     	let page_url = new URL(window.location.href),

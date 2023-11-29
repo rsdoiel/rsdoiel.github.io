@@ -51,20 +51,19 @@ href="https://pagefind.app">PageFind</a> to do the heavy lifting.</p>
 databases. Firefox’s <code>moz_places.sqlite</code> holds both all the
 URLs visited as well as those that are associated with bookmarks
 (i.e. the SQLite database <code>moz_bookmarks.sqlite</code>). I had
-about 2000 bookmarks, less than I thought with many being stale. Stale
-page URLs (pages that no longer exist on the web) really slow down the
-harvest process because of the need for wget to wait on various timeouts
-(e.g. DNS, server response, download times). The “history” URLs would
-make an interesting collection to spider but you’d probably want to have
-an exclude list (e.g. there’s not point in saving queries to search
-engines, web mail, shopping sites). Exploring that will wait for another
-prototype.</p>
-<p>The <code>cache.db</code> associated with Newsboat actually provided
-a rich source of content and much fewer stale links (not surprising
-because I maintain that URL list more much activity then reviewing my
-bookmarks). Between the two I had 16,000 pages. I used SQLite 3 to query
-the url values from the various DB into sorting for unique URLs into a
-single text file one URL per line.</p>
+about 2000 bookmarks, less than I thought with many being stale from
+link rot. Stale page URLs really slow down the harvest process because
+of the need for wget to wait on various timeouts (e.g. DNS, server
+response, download times). The “history” URLs would make an interesting
+collection to spider but you’d probably want to have an exclude list
+(e.g. there’s no point in saving queries to search engines, web mail,
+shopping sites). Exploring that will wait for another prototype.</p>
+<p>The <code>cache.db</code> associated with Newsboat provided a rich
+resource of content and much fewer stale links (not surprising because I
+maintain that URL list more much activity then reviewing my bookmarks).
+Between the two I had 16,000 pages. I used SQLite 3 to query the url
+values from the various DB into sorting for unique URLs into a single
+text file one URL per line.</p>
 <p>The next thing after creating a list of pages I wanted to search was
 to download them into a directory using wget. Wget has many options, I
 choose to enable timestamping, create a protocol directory and then a
@@ -91,10 +90,10 @@ tree structure like</p>
 <ul>
 <li>http (all the http based URLs I harvest go in here)</li>
 <li>https (all the https based URLs I harvest go in here)</li>
-<li>_pagefind (this holds the PageFind indexes and JavaScript to
+<li>pagefind (this holds the PageFind indexes and JavaScript to
 implement the search UI)</li>
 <li>index.html (this holds the webpage for the search UI using the
-libraries in _pagefind)</li>
+libraries in <code>pagefind</code>)</li>
 </ul></li>
 </ul>
 <p>Since I’m only downloaded the HTML the 16k pages does not take up
@@ -168,12 +167,12 @@ cat &lt;&lt;HTML &gt;htdocs/index.html
   type=&quot;application/opensearchdescription+xml&quot;
   title=&quot;A Personal Search Engine&quot;
   href=&quot;http://localhost:1414/pse.osdx&quot; /&gt;
-&lt;link href=&quot;/_pagefind/pagefind-ui.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;/pagefind/pagefind-ui.css&quot; rel=&quot;stylesheet&quot;&gt;
 &lt;/head&gt;
 &lt;body&gt;
 &lt;h1&gt;A personal search engine&lt;/h1&gt;
 &lt;div id=&quot;search&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;/_pagefind/pagefind-ui.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/pagefind/pagefind-ui.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
     window.addEventListener(&#39;DOMContentLoaded&#39;, function(event) {
         let page_url = new URL(window.location.href),
