@@ -8,13 +8,13 @@ Alex Schreoder's post A Vision for Search[1] prompted me to write up an idea I c
 
 => https://alexschroeder.ch/wiki/2023-03-07_A_vision_for_search 1: https://alexschroeder.ch/wiki/2023-03-07_A_vision_for_search
 
-With the current state of brokenness in commercial search engines, especially with the implosion of the commercial social media platforms we have an opportunity to re-think search on a more personal level.
+With the current state of brokenness in commercial search engines, especially with the implosion of the commercial social media platforms, we have an opportunity to re-think search on a more personal level.
 
 The tooling around static site generation where a personal search is an extension of your own website suggests a path out of the quagmire of commercial search engines.  Can techniques I use for my own site search, be extended into a personal search engine?
 
 ## A Broken Cycle
 
-Search engines happened pretty early on in the web. If my memory is correct they showed with the arrival of support for CGI[2] in early web server software. Remember back through the decades I see a pattern.
+Search engines happened pretty early on in the web. If my memory is correct they showed up with the arrival of support for CGI[2] in early web server software. Remembering back through the decades I see a pattern.
 
 => https://en.wikipedia.org/wiki/Common_Gateway_Interface 2: https://en.wikipedia.org/wiki/Common_Gateway_Interface
 
@@ -24,7 +24,7 @@ Search engines happened pretty early on in the web. If my memory is correct they
 4. They index an ever larger portion of the web, the results from the search engine starts to degrade
 5. The business model becomes the primary focus of the company, the indexing gets exploited (e.g. content farms, page hijacking), the search results degrade.
 
-Stage four and five can be summed up as the "bad search engine stage". When things get bad enough a new search engine comes on the scene and the early adopters jump ship and the cycle repeats. This was well established by the time some graduate students at Stanford invented page rank. I think is happening now with search integrated ChatGPT.
+Stage four and five can be summed up as the "bad search engine stage". When things get bad enough a new search engine comes on the scene and the early adopters jump ship and the cycle repeats. This was well established by the time some graduate students at Stanford invented page rank. I think it is happening now with search integrated ChatGPT.
 
 I think we're at the point in the cycle where there is an opportunity for something new. Maybe even break the loop entirely.
 
@@ -45,7 +45,7 @@ A personal search engine for me would address these four types of searches befor
 
 > As commercial search engines degrade I rely on a given website's own search more
 
-I've noticed the follow search behavior practice changes in my own web usage.  For shopping I tend to go to the vendors I trust and use their searches on their websites.  To learn about a place, it's Wikipedia and if I trying to get a sense of going there I'll probably rely on an Open Street Map to avoid the ad-tech in commercial services. I dread using the commercial maps because usage correlates so strongly with the spam I encounter the next time I use the commercial web.
+I've noticed the follow search behavior practice changes in my own web usage.  For shopping I tend to go to the vendors I trust and use their searches on their websites.  To learn about a place, it's Wikipedia and if I trying to get a sense of going there I'll probably rely on an Open Street Map to avoid the ad-tech in commercial services. I dread using the commercial maps because usage correlates so strongly with the spam I encounter the next time I use an internet connected device.
 
 For spelling and dictionary I can use Wiktionary. Location information I use Wikipedia and Open Street Maps. Weather info I have links into NOAA[3] website. Do I really need to use the commercial services?
 
@@ -63,7 +63,7 @@ I think a personal (or even small group) search engine is plausible and desirabl
 2. The audience of the search engine is me and possibly some friends
 3. There are a huge number of existing standards, protocols and structured data formats and practices I could leverage to mange building a search corpus and for indexing.
 4. Static site generators have moved site search from services (often outsourced to commercial search engines) to browser based solutions (e.g. PageFind[4], LunrJS[5])
-5. A localhost site could stage pages for indexing and I could leverage my personal website to expose my indexes to my web devices like phone.
+5. A localhost site could stage pages for indexing and I could leverage my personal website to expose my indexes to my web devices (e.g. my phone).
 6. Tools like wget can mirror websites and that could also be used to stage content for a personal search engine
 7. There is a growing body of Open Access data, journal articles and books, these could be indexed and made available in a personal search engine with some effort
 
@@ -75,12 +75,12 @@ I think a personal (or even small group) search engine is plausible and desirabl
 When I've brought up the idea of "a personal search engine" over the years with colleagues I've been consistently surprise at the opposition I encounter.  There are so many of reasons not to build something, including a personal search engine. That has left me thinking more deeply about the problem, a good thing in my experience.  I've synthesized that resistance into three general questions. Keeping those questions in mind will be helpful in evaluating the costs in time for prototyping a personal search engine and ultimately if the prototype should turn into an open source project.
 
 1. How would a personal search engine know/discover "new" content to include?
-2. Search engines are hard to setup and maintain (e.g. Solr, Opensearch), why would I want to spend time of that?
+2. Search engines are hard to setup and maintain (e.g. Solr, Opensearch), why would I want to spend time doing that?
 3. Indexing and search engines are resource intensive, isn't that going to bog down my computer?
 
 Constraints can be a good thing to consider as well. Here's some constraints I think will be helpful when considering a prototype implementation.
 
-* I'd maintain my personal website using a Raspberry Pi 400. The personal search engine needs to respect the limitations of that device.
+* I maintain my personal website using a Raspberry Pi 400. The personal search engine needs to respect the limitations of that device.
 * I'd like to be able to access my personal search engine from all my networked devices (e.g. my phone when I am away from home)
 * I have little time to prototype or code anything
 * I need to explain the prototype easily if I want others to help expand on the ideas
@@ -104,7 +104,7 @@ Most "new" content I find isn't from using a commercial search engine. When I lo
 
 This link discovery approach is different from how commercial search engines work.  Commercial engines rely on crawlers that retrieve a web page, analyze the content, find new links in the page then recursively follows those to scan whole domains and websites.  Recursive crawlers aren't automatic. It's easy for them to get trapped in link loops and often they can be a burden to the sites they are crawling (hence robot.txt files suggesting to crawlers what needs to be avoided).  I don't need to index the whole web, usually not even whole websites.  I'm interested in page level content and I can get a list of web pages from by bookmarks and the feeds I follow.
 
-A Quick digressing:
+A Quick digression:
 
 Blogs, in spite of media hype, haven't "gone away".  Presently we're seeing a bit of a renaissance with projects like Micro.blog[8] and FeedLand[9]. The "big services" like WordPress[10], Medium[11], Substack[12] and Mailchimp[13] provide RSS feeds for their content. RSS/Atom/JSON feed syndication all are alive and well at least for the sites I track and content I read. I suspect this is the case for others.  What is a challenge is knowing how to find the feed URL.  But even that I've notice is becoming increasingly predictable. I suspect given a list of blog sites I could come up with a way of guessing the feed URL in many cases even without an advertised URL in the HTML head or RSS link in the footer.
 
@@ -136,20 +136,20 @@ Here's a sketch of a prototype of "a personal search engine" built on PageFind.
 1. Generate a list of URLs pointing at pages I want to index (this can be done by mining my bookmarks and feed reader content).
 2. Harvest and stage the pages on my local file system, maintaining a way to associated their actual URL with the staged copy
 3. Index with PageFind and save the resulting indexes my local copy of my personal website
-4. Have a page on my personal website uses these indexes to implement a search and results page
+4. Have a page on my personal website use these indexes to implement a search and results page
 
 The code that I would need to be implemented is mostly around extracting URL from my browser's bookmark file and my the feeds managed in my feed reader. Since newsboat is open source and it stores it cached feeds in a SQLite3 database in principle I could use the tables in that database to generate a list of content to harvest for indexing. I could write a script that combines the content from my bookmarks file and newsboat database rendering a flat list to harvest, stage and then index with PageFind. A prototype could be done in Bash or Python without too much of an effort.
 
-One challenge remains after harvesting and staging is solved. It would be nice to use my personal search engine as my default search engine. After all I am already curating the content. I think this can be done by supporting the Open Search Description[16] to make my personal search engine a first class citizen in my browser URL bar. Similarly I could turn the personal search engine page into a PWA so I can have it on my phone's desktop long the other apps I commonly use.
+One challenge remains after harvesting and staging is solved. It would be nice to use my personal search engine as my default search engine. After all I am already curating the content. I think this can be done by supporting the Open Search Description[16] to make my personal search engine a first class citizen in my browser URL bar. Similarly I could turn the personal search engine page into a PWA so I can have it on my phone's desktop along the other apps I commonly use.
 
 => https://developer.mozilla.org/en-US/docs/Web/OpenSearch 16: https://developer.mozilla.org/en-US/docs/Web/OpenSearch
 
-Observations that make helpful for a successful prototype
+Observations that maybe helpful for a successful prototype
 
-1. I don't need to crawl the whole web just the pages I'm interested.
+1. I don't need to crawl the whole web just the pages that interest me
 2. I don't need to create or monitor a recursive web crawler
 3. I avoid junk because I'm curating the sources through my existing web reading practices
-4. I am targeting a small search corpus, approximately 100,000 pages or so.
-5. I am only indexing HTML and plain text
+4. I am targeting a small search corpus, approximately 100,000 pages or so
+5. I am only indexing HTML, Pagefind can limit the elements it indexes
 
 A prototype of a personal search engine seems possible. The challenge will be finding the time to implement it.

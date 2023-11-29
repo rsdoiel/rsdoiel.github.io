@@ -51,7 +51,7 @@ Vision for Search</a> prompted me to write up an idea I call a “personal
 search engine”. I’ve been thinking about a “a personal search engine”
 for years, maybe a decade.</p>
 <p>With the current state of brokenness in commercial search engines,
-especially with the implosion of the commercial social media platforms
+especially with the implosion of the commercial social media platforms,
 we have an opportunity to re-think search on a more personal level.</p>
 <p>The tooling around static site generation where a personal search is
 an extension of your own website suggests a path out of the quagmire of
@@ -59,10 +59,10 @@ commercial search engines. Can techniques I use for my own site search,
 be extended into a personal search engine?</p>
 <h2 id="a-broken-cycle">A Broken Cycle</h2>
 <p>Search engines happened pretty early on in the web. If my memory is
-correct they showed with the arrival of support for <a
+correct they showed up with the arrival of support for <a
 href="https://en.wikipedia.org/wiki/Common_Gateway_Interface"
 title="Common Gateway Interface">CGI</a> in early web server software.
-Remember back through the decades I see a pattern.</p>
+Remembering back through the decades I see a pattern.</p>
 <ol type="1">
 <li>Someone comes up with a clever way to index web content and
 determine relevancy</li>
@@ -80,7 +80,8 @@ results degrade.</li>
 stage”. When things get bad enough a new search engine comes on the
 scene and the early adopters jump ship and the cycle repeats. This was
 well established by the time some graduate students at Stanford invented
-page rank. I think is happening now with search integrated ChatGPT.</p>
+page rank. I think it is happening now with search integrated
+ChatGPT.</p>
 <p>I think we’re at the point in the cycle where there is an opportunity
 for something new. Maybe even break the loop entirely.</p>
 <h2 id="how-do-i-use-search">How do I use search?</h2>
@@ -132,7 +133,7 @@ their searches on their websites. To learn about a place, it’s Wikipedia
 and if I trying to get a sense of going there I’ll probably rely on an
 Open Street Map to avoid the ad-tech in commercial services. I dread
 using the commercial maps because usage correlates so strongly with the
-spam I encounter the next time I use the commercial web.</p>
+spam I encounter the next time I use an internet connected device.</p>
 <p>For spelling and dictionary I can use Wiktionary. Location
 information I use Wikipedia and Open Street Maps. Weather info I have
 links into <a href="https://www.weather.gov/">NOAA</a> website. Do I
@@ -163,8 +164,8 @@ outsourced to commercial search engines) to browser based solutions
 (e.g. <a href="https://pagefind.app">PageFind</a>, <a
 href="https://lunrjs.com">LunrJS</a>)</li>
 <li>A localhost site could stage pages for indexing and I could leverage
-my personal website to expose my indexes to my web devices like
-phone.</li>
+my personal website to expose my indexes to my web devices (e.g. my
+phone).</li>
 <li>Tools like wget can mirror websites and that could also be used to
 stage content for a personal search engine</li>
 <li>There is a growing body of Open Access data, journal articles and
@@ -186,7 +187,7 @@ should turn into an open source project.</p>
 <li>How would a personal search engine know/discover “new” content to
 include?</li>
 <li>Search engines are hard to setup and maintain (e.g. Solr,
-Opensearch), why would I want to spend time of that?</li>
+Opensearch), why would I want to spend time doing that?</li>
 <li>Indexing and search engines are resource intensive, isn’t that going
 to bog down my computer?</li>
 </ol>
@@ -194,7 +195,7 @@ to bog down my computer?</li>
 constraints I think will be helpful when considering a prototype
 implementation.</p>
 <ul>
-<li>I’d maintain my personal website using a Raspberry Pi 400. The
+<li>I maintain my personal website using a Raspberry Pi 400. The
 personal search engine needs to respect the limitations of that
 device.</li>
 <li>I’d like to be able to access my personal search engine from all my
@@ -254,7 +255,7 @@ robot.txt files suggesting to crawlers what needs to be avoided). I
 don’t need to index the whole web, usually not even whole websites. I’m
 interested in page level content and I can get a list of web pages from
 by bookmarks and the feeds I follow.</p>
-<p>A Quick digressing:</p>
+<p>A Quick digression:</p>
 <p>Blogs, in spite of media hype, haven’t “gone away”. Presently we’re
 seeing a bit of a renaissance with projects like <a
 href="https://micro.blog">Micro.blog</a> and <a
@@ -325,7 +326,7 @@ be done by mining my bookmarks and feed reader content).</li>
 way to associated their actual URL with the staged copy</li>
 <li>Index with PageFind and save the resulting indexes my local copy of
 my personal website</li>
-<li>Have a page on my personal website uses these indexes to implement a
+<li>Have a page on my personal website use these indexes to implement a
 search and results page</li>
 </ol>
 <p>The code that I would need to be implemented is mostly around
@@ -345,17 +346,18 @@ href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">Open
 Search Description</a> to make my personal search engine a first class
 citizen in my browser URL bar. Similarly I could turn the personal
 search engine page into a PWA so I can have it on my phone’s desktop
-long the other apps I commonly use.</p>
-<p>Observations that make helpful for a successful prototype</p>
+along the other apps I commonly use.</p>
+<p>Observations that maybe helpful for a successful prototype</p>
 <ol type="1">
-<li>I don’t need to crawl the whole web just the pages I’m
-interested.</li>
+<li>I don’t need to crawl the whole web just the pages that interest
+me</li>
 <li>I don’t need to create or monitor a recursive web crawler</li>
 <li>I avoid junk because I’m curating the sources through my existing
 web reading practices</li>
 <li>I am targeting a small search corpus, approximately 100,000 pages or
-so.</li>
-<li>I am only indexing HTML and plain text</li>
+so</li>
+<li>I am only indexing HTML, Pagefind can limit the elements it
+indexes</li>
 </ol>
 <p>A prototype of a personal search engine seems possible. The challenge
 will be finding the time to implement it.</p>
