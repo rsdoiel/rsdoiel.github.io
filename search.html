@@ -39,7 +39,11 @@
 <div id="search"></div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        let pse = new PagefindUI({ element: "#search" }),
+        let pse = new PagefindUI({ 
+				element: "#search",
+				showSubResults: true,
+				highlightParam: "highlight"
+			}),
 			page_url = new URL(window.location.href),
  			query_string = page_url.searchParams.get('q');
  		if (query_string !== null) {

@@ -35,7 +35,7 @@
 
 <section>
   <article>
-  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="setting-up-a-retroflag-gpi-case">Setting up a RetroFlag GPi
 Case</h1>
@@ -147,6 +147,9 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
 prettify.js"></script>
 <!--  END: PrettyFi from https://github.com/google/code-prettify -->
-
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
 </body>
 </html>
