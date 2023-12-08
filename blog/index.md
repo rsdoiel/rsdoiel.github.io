@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [RSS and my web experience](/blog/2023/12/07/rss-and-my-web-experience.md), 2023-12-07
 - [Postgres Quick Notes, take two](/blog/2023/11/17/PostgreSQL-Quick-Notes.md), 2023-11-17
 - [Building A to Z list pages in Pandoc](/blog/2023/10/18/A-to-Z-lists.md), 2023-10-18
 - [Skimmer](/blog/2023/10/06/concept.md), 2023-10-06

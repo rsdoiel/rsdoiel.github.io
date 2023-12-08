@@ -1,0 +1,44 @@
+# RSS and my web experience
+
+by R. S. Doiel, 2023-12-07
+
+I agree with Dave Winer[1], Blue Sky should support RSS. Most web systems benefit from supporting RSS. RSS is a base level inter-opt for web software like HTML and JSON can be. While I may not be typical I am an example of a web user who experiences much of the web via RSS. I read blog and site content via RSS. I "follow" my friends and colleagues via RSS. This is true when they blog or when they post in a Mastodon community.  I track academic repositories content for ETH Zurich Research[2] and Caltech[3] via RSS feeds. I check the weather via NOAA's RSS feed[4].  News sites often syndicate still via RSS and then Podcasts, if they are actual Podcasts are distributed via RSS.  All this is to say I think RSS is not dead. It remains easy to render can can be easy to consume.  If a website doesn't provide it it is possible to generate it yourself[1] or find a service to use that does[2]. RSS remains key to how I experience and use the web in 2023.
+
+=> http://scripting.com/2023/12/07/140505.html?title=whyWeWantFeedsInBluesky 1: http://scripting.com/2023/12/07/140505.html?title=whyWeWantFeedsInBluesky
+=> https://www.rc-blog.ethz.ch/en/feed 2: https://www.rc-blog.ethz.ch/en/feed
+=> https://feeds.library.caltech.edu/recent/combined.html 3: https://feeds.library.caltech.edu/recent/combined.html
+=> https://www.weather.gov/rss 4: https://www.weather.gov/rss
+
+[1]: Go libraries like Colly[5] and Gofeeds[6] make it possible to roll your own like the one in skimmer
+
+=> https://go-colly.org/ 5: https://go-colly.org/
+=> https://github.com/mmcdole/gofeed 6: https://github.com/mmcdole/gofeed
+
+[2]: https://firesky.tv/[7] is an example of a service that provides RSS for Bluesky via its raw API, html2rss[8] is service that producing RSS feeds for popular sites that don't include them
+
+=> https://firesky.tv/ 7: https://firesky.tv/
+=> https://html2rss.github.io/ 8: https://html2rss.github.io/
+
+My personal approach to feeds is very much tailored to me. It's probably overkill for most people but it works with my vision and cognitive limitations. He's the steps I take in feed reading. They essentially decompose a traditional feed reader and allow for more flexibility for my reading pleasure.
+
+1. Maintain a list of feeds in a simple text file
+2. Harvest those feeds with skimmer[9], Skimmer stores the items in an SQLite3[10]
+3. I filter the items using SQL and SQLite3 or via an interactive mode provided by Skimmer
+4. Render saved items to Markdown with skim2md[11]
+5. Use Pandoc[12] to render the Markdown and view Firefox
+
+The nice thing about this approach is that I can easily script it with Bash or even a Windows bat. I can easily maintain separate lists and separate databases for personal and work related material.  A bonus is the database items can also serve as a corpus for a personal search engine too. If you want to save maintain a public reading list this setup is ideal too. Of course the list of curated items can be transformed into their own RSS feed as well.
+
+=> https://rsdoiel.github.io/skimmer 9: https://rsdoiel.github.io/skimmer
+=> https://sqlite.org 10: https://sqlite.org
+=> https://rsdoiel.github.io/skimmer/skim2md.1.html 11: https://rsdoiel.github.io/skimmer/skim2md.1.html
+=> https://pandoc.org 12: https://pandoc.org
+
+Skimmer[13] is a deconstructed feed reader. Does that make it post modern feed reader?  Skimmer processes a list of feeds I follow and saves the results in an SQLite 3 database. That database can be used to filter the feeds and flag items as "saved". Typically I filter by timestamps. Saved items can be processed with skim2md to render a markdown document. skim2md has an option to include a "save to pocket" button for each item in the output. I use Pandoc to render the page then view that result in Firefox. At my leisure I read the web page and press the "Save to pocket" button any item I want to read later. It's a very comfortable experience.
+
+=> https://rsdoiel.github.io/skimmer/skimmer.1.html 13: https://rsdoiel.github.io/skimmer/skimmer.1.html
+
+Skimmer lead me to think about a personal news page for myself and family. Skimmer lets me curate separate lists organized around themes. These can then be rendered to individual pages like pages of a newspaper. This has been captured in an experimental project I call Antenna[14]. It even includes a feed search feature thanks to PageFind[15]
+
+=> https://rsdoiel.github.io/antenna 14: https://rsdoiel.github.io/antenna
+=> https://pagefind.app 15: https://pagefind.app
