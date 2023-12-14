@@ -72,7 +72,10 @@ What about the created attribute? Could we render this case as an additional set
 
 This suggest a rule like
 
-* if the text attribute contains HTML markup * URL decode into HTML * Convert HTML to Markdown
+* if the text attribute contains HTML markup
+
+ * URL decode into HTML
+	* Convert HTML to Markdown
 * else render attributes as additional anchors using data URI
 
 This might work as follows.
@@ -103,6 +106,9 @@ In HTML this would look like
 Coming back to OPML from Markdown then becomes
 
 * Convert Markdown to HTML
-* For each li element inspect anchors, * if anchors contain data URI then map outline element * else URL encode and embed in outline text attribute
+* For each li element inspect anchors,
+
+ * if anchors contain data URI then map outline element
+	* else URL encode and embed in outline text attribute
 
 Is this viable? Does it have any advantages?

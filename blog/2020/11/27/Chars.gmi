@@ -86,6 +86,7 @@ BEGIN
     RETURN isupper
 END IsUpper;
 
+
 (* IsLower return true if the character is a lower case letter *)
 PROCEDURE IsLower*(c : CHAR) : BOOLEAN;
 VAR islower : BOOLEAN;
@@ -200,6 +201,7 @@ BEGIN
   RETURN isSame
 END Equal;
 
+
 (* StartsWith - check to see of a prefix starts an ARRAY OF CHAR *)
 PROCEDURE StartsWith*(prefix : ARRAY OF CHAR; VAR src : ARRAY OF CHAR) : BOOLEAN;
 VAR startsWith : BOOLEAN; i: INTEGER;
@@ -237,6 +239,7 @@ BEGIN
     END;
     RETURN endsWith
 END EndsWith;
+
 
 (* Clear - resets all cells of an ARRAY OF CHAR to 0X *)
 PROCEDURE Clear*(VAR a : ARRAY OF CHAR);
@@ -323,6 +326,7 @@ BEGIN
     TrimRightSpace(src);    
 END TrimSpace;    
 
+
 (* TrimPrefix - remove a prefix ARRAY OF CHAR from a target ARRAY OF CHAR *)
 PROCEDURE TrimPrefix*(prefix : ARRAY OF CHAR; VAR src : ARRAY OF CHAR);
 VAR l : INTEGER;
@@ -344,6 +348,7 @@ BEGIN
     	END;
     END;
 END TrimSuffix;
+
 
 END Chars.
 ```

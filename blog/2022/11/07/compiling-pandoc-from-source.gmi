@@ -17,6 +17,8 @@ I did not have Haskell or Cabal installed when I started this process.
 5. Install stack install
 6. Make a symbolic link from pandoc to pandoc-server
 
+=> https://github.com/jgm/pandoc 1: https://github.com/jgm/pandoc
+
 ```
 sudo apt update
 sudo apt search "haskell-stack"
@@ -32,8 +34,6 @@ ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server
 ```
 
 This step takes a long time and on the Raspberry Pi it'll take allot longer.
-
-=> https://github.com/jgm/pandoc 1: https://github.com/jgm/pandoc
 
 The final installation of Pandoc was in my $HOME/.local/bin directory. Assuming this is early in your path this can allow you to experiment with a different version of Pandoc from the one installed on your system.
 

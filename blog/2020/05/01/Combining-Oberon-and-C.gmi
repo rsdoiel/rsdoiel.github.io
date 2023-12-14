@@ -130,11 +130,13 @@ Update the skeleton Fmt.c with the necessary C code. Here's what OBNC generated 
     {
     }
 
+
     void Fmt__Real_(OBNC_REAL value_, const char fmt_[],
                     OBNC_INTEGER fmt_len, char dest_[],
                     OBNC_INTEGER dest_len)
     {
     }
+
 
     void Fmt__Init(void)
     {
@@ -158,12 +160,14 @@ Here's the skeleton revised with do what we need to be done.
         sprintf(dest_, fmt_, value_);
     }
 
+
     void Fmt__Real_(OBNC_REAL value_, const char fmt_[],
                     OBNC_INTEGER fmt_len, char dest_[],
                     OBNC_INTEGER dest_len)
     {
         sprintf(dest_, fmt_, value_);
     }
+
 
     void Fmt__Init(void)
     {

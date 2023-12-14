@@ -25,7 +25,12 @@ I have simple Bash script that gets the URLs from both Firefox bookmarks and New
 
 I then use the "pages.txt" file to harvest content with wget into a tree structure like
 
-* htdocs * http (all the http based URLs I harvest go in here) * https (all the https based URLs I harvest go in here) * pagefind (this holds the PageFind indexes and JavaScript to implement the search UI) * index.html (this holds the webpage for the search UI using the libraries in pagefind)
+* htdocs
+
+ * http (all the http based URLs I harvest go in here)
+	* https (all the https based URLs I harvest go in here)
+	* pagefind (this holds the PageFind indexes and JavaScript to implement the search UI)
+	* index.html (this holds the webpage for the search UI using the libraries in pagefind)
 
 Since I'm only downloaded the HTML the 16k pages does not take up significant disk space yet.
 

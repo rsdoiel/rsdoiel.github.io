@@ -261,6 +261,7 @@ Here is a module demoing our basic type[3]. In it we can define procedures to de
         scoreboard : TopThreeScoreboard;
         s : DString;
 
+
       PROCEDURE SimpleTypes;
       BEGIN
         i := 7;
@@ -274,6 +275,7 @@ Here is a module demoing our basic type[3]. In it we can define procedures to de
         Out.String(" a: ");Out.Real(a, 1);Out.Ln;
         Out.String(" c: ");Out.Char(c);Out.Ln;
       END DisplaySimpleTypes;
+
 
       PROCEDURE MoreComplexTypes;
       BEGIN

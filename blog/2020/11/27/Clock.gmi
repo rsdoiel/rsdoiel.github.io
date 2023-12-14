@@ -45,6 +45,7 @@ void Clock__GetRtcTime_(OBNC_INTEGER *second_, OBNC_INTEGER *minute_, OBNC_INTEG
     *year_ = (time_info->tm_year) + 1900;
 }
 
+
 void Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)
 {
     OBNC_INTEGER second_, minute_, hour_, day_, month_, year_;
@@ -53,6 +54,7 @@ void Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)
     (*time_) = ((hour_ * 4096) + (minute_ * 64)) + second_;
     (*date_) = ((year_ * 512) + (month_ * 32)) + day_;
 }
+
 
 void Clock__Init(void)
 {

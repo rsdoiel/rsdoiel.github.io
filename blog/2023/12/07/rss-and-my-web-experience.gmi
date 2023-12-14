@@ -27,12 +27,12 @@ My personal approach to feeds is very much tailored to me. It's probably overkil
 4. Render saved items to Markdown with skim2md[11]
 5. Use Pandoc[12] to render the Markdown and view Firefox
 
-The nice thing about this approach is that I can easily script it with Bash or even a Windows bat. I can easily maintain separate lists and separate databases for personal and work related material.  A bonus is the database items can also serve as a corpus for a personal search engine too. If you want to save maintain a public reading list this setup is ideal too. Of course the list of curated items can be transformed into their own RSS feed as well.
-
 => https://rsdoiel.github.io/skimmer 9: https://rsdoiel.github.io/skimmer
 => https://sqlite.org 10: https://sqlite.org
 => https://rsdoiel.github.io/skimmer/skim2md.1.html 11: https://rsdoiel.github.io/skimmer/skim2md.1.html
 => https://pandoc.org 12: https://pandoc.org
+
+The nice thing about this approach is that I can easily script it with Bash or even a Windows bat. I can easily maintain separate lists and separate databases for personal and work related material.  A bonus is the database items can also serve as a corpus for a personal search engine too. If you want to save maintain a public reading list this setup is ideal too. Of course the list of curated items can be transformed into their own RSS feed as well.
 
 Skimmer[13] is a deconstructed feed reader. Does that make it post modern feed reader?  Skimmer processes a list of feeds I follow and saves the results in an SQLite 3 database. That database can be used to filter the feeds and flag items as "saved". Typically I filter by timestamps. Saved items can be processed with skim2md to render a markdown document. skim2md has an option to include a "save to pocket" button for each item in the output. I use Pandoc to render the page then view that result in Firefox. At my leisure I read the web page and press the "Save to pocket" button any item I want to read later. It's a very comfortable experience.
 

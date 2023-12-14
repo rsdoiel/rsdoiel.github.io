@@ -79,6 +79,7 @@ BEGIN
     expected := TRUE;
     Clock.GetRtcTime(second, minute, hour, day, month, year);
 
+
     result := (year > 1900);
     Tests.ExpectedBool(expected, result, 
           "year should be greater than 1900", test);
@@ -173,6 +174,7 @@ void Clock__GetRtcTime_(OBNC_INTEGER *second_, OBNC_INTEGER *minute_,
     *year_ = (time_info->tm_year) + 1900;
 }
 
+
 void Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)
 {
     OBNC_INTEGER second_, minute_, hour_, day_, month_, year_;
@@ -182,6 +184,7 @@ void Clock__Get_(OBNC_INTEGER *time_, OBNC_INTEGER *date_)
     (*time_) = ((hour_ * 4096) + (minute_ * 64)) + second_;
     (*date_) = ((year_ * 512) + (month_ * 32)) + day_;
 }
+
 
 void Clock__Init(void)
 {
@@ -244,6 +247,7 @@ VAR
     (* Days of week, Monday = 0, Sunday = 6 *)
     Days*: ARRAY 7 OF ARRAY 10 OF CHAR;
     DaysInMonth: ARRAY 12 OF INTEGER;
+
 
 (* Set -- initialize a date record year, month and day values *)
 PROCEDURE Set*(year, month, day, hour, minute, second : INTEGER; 
@@ -377,6 +381,7 @@ BEGIN
            (dt.second >= 0) & (dt.second < 60)
 END IsValidTime;
 
+
 (* OberonToDateTime -- convert an Oberon date/time 
 to a DateTime structure *)
 PROCEDURE OberonToDateTime*(Date, Time: INTEGER; 
@@ -412,6 +417,7 @@ BEGIN
     Clock.Get(t, d);
     OberonToDateTime(d, t, dt);
 END Now;
+
 
 (* WeekDate -- returns the ISO 8601 year number,
 week number & week day (Monday=1, ....Sunday=7)
@@ -547,6 +553,8 @@ BEGIN
     END;
     RETURN result
 END CompareTime;
+
+
 
 (* TimeDifferences -- returns the absolute time
 difference between
@@ -749,6 +757,7 @@ BEGIN
     IF (minutes # 0) THEN AddMinutes(dt, minutes); END;
     ASSERT(IsValid(dt));
 END AddSeconds;
+
 
 (* IsDateString -- return TRUE if the ARRAY OF CHAR is 10 characters
 long and is either in the form of YYYY-MM-DD or MM/DD/YYYY where
@@ -967,6 +976,7 @@ BEGIN
     END;
     RETURN ok
 END ParseTime;
+
 
 (* Parse accepts a date array of chars in either dates, times
 or dates and times separate by spaces. Date formats supported

@@ -223,6 +223,7 @@ In the python code below the conversion process is much more detailed. Python is
             value = value.encode('utf-8')
         return value.decode()
 
+
     if __name__ == '__main__':
         import sys
         if len(sys.argv) > 1:

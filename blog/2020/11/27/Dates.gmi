@@ -90,6 +90,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 @Author R. S. Doiel, <rsdoiel@gmail.com>
 copyright (c) 2020, all rights reserved.
 This software is released under the GNU AGPL
@@ -117,6 +118,7 @@ VAR
     (* Days of week, Monday = 0, Sunday = 6 *)
     Days*: ARRAY 7 OF ARRAY 10 OF CHAR;
     DaysInMonth: ARRAY 12 OF INTEGER;
+
 
 (* Set -- initialize a date record year, month and day values *)
 PROCEDURE Set*(year, month, day, hour, minute, second : INTEGER; VAR dt: DateTime);
@@ -236,6 +238,7 @@ BEGIN
     RETURN (dt.hour >= 0) & (dt.hour < 24) & (dt.minute >= 0) & (dt.minute < 60) & (dt.second >= 0) & (dt.second < 60)
 END IsValidTime;
 
+
 (* OberonToDateTime -- convert an Oberon date/time to a DateTime 
 structure *)
 PROCEDURE OberonToDateTime*(Date, Time: INTEGER; VAR dt : DateTime);
@@ -268,6 +271,7 @@ BEGIN
     Clock.Get(t, d);
     OberonToDateTime(d, t, dt);
 END Now;
+
 
 (* WeekDate -- returns the ISO 8601 year number, week number &
 week day (Monday=1, ....Sunday=7) 
@@ -394,6 +398,8 @@ BEGIN
     END;
     RETURN result
 END CompareTime;
+
+
 
 (* TimeDifferences -- returns the absolute time difference between 
 t1 and t2.
@@ -570,6 +576,7 @@ BEGIN
     IF (minutes # 0) THEN AddMinutes(dt, minutes); END;
     ASSERT(IsValid(dt));
 END AddSeconds;
+
 
 (* IsDateString -- return TRUE if the ARRAY OF CHAR is 10 characters
 long and is either in the form of YYYY-MM-DD or MM/DD/YYYY where
@@ -785,6 +792,7 @@ BEGIN
     END;
     RETURN ok
 END ParseTime;
+
 
 (* Parse accepts a date array of chars in either dates, times
 or dates and times separate by spaces. Date formats supported

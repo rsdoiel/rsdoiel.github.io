@@ -381,6 +381,7 @@ BEGIN
     END;
 END Compress;
 
+
 BEGIN
     Compress();
 END Compress.
@@ -730,6 +731,7 @@ BEGIN
   RETURN res
 END ExpandSequence;
 
+
 (* makeset -- make sets based on src expanded into destination *)
 PROCEDURE MakeSet* (src : ARRAY OF CHAR; start : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;
 VAR i : INTEGER; makeset : BOOLEAN;
@@ -750,6 +752,7 @@ BEGIN
     END;
     RETURN makeset
 END MakeSet;
+
 
 (* Index -- find position of character c in string s *)
 PROCEDURE Index* (VAR s : ARRAY OF CHAR; c : CHAR) : INTEGER;
@@ -892,12 +895,28 @@ Compiling with OBNC:
     obnc -o translit Translit.Mod
 ```
 
-* Entab[12] * Tabs[13], this one visited this one in last installment.
+* Entab[12]
+
+ * Tabs[13], this one visited this one in last installment.
+=> Entab.Mod 12: Entab.Mod
+=> Tabs.Mod 13: Tabs.Mod
+
+ 
 * Overstrike[14]
 * Compress[15]
 * Expand[16]
 * Echo[17]
-* Translit[18] * Chars[19]
+* Translit[18]
+
+ * Chars[19]
+=> Overstrike.Mod 14: Overstrike.Mod
+=> Compress.Mod 15: Compress.Mod
+=> Expand.Mod 16: Expand.Mod
+=> Echo.Mod 17: Echo.Mod
+=> Translit.Mod 18: Translit.Mod
+=> Chars.Mod 19: Chars.Mod
+
+ 
 
 ```html
 <!--
@@ -907,15 +926,6 @@ Next and Previous
 + Next: [Files]()
 -->
 ```
-
-=> Entab.Mod 12: Entab.Mod
-=> Tabs.Mod 13: Tabs.Mod
-=> Overstrike.Mod 14: Overstrike.Mod
-=> Compress.Mod 15: Compress.Mod
-=> Expand.Mod 16: Expand.Mod
-=> Echo.Mod 17: Echo.Mod
-=> Translit.Mod 18: Translit.Mod
-=> Chars.Mod 19: Chars.Mod
 
 ## Previous
 

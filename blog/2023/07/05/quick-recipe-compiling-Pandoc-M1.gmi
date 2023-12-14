@@ -8,10 +8,10 @@ These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar 
 4. Check out the version you want to build (e.g. 3.1.4)
 5. Run the "usual" Haskell build sequence with cabal per Pandoc's installation documentation for building from source a. cabal clean b. cabal update c. cabal install pandoc-cli
 
-Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).
-
 => https://www.haskell.org/ghcup/ 1: https://www.haskell.org/ghcup/
 => https://github.com/jgm/pandoc 2: https://github.com/jgm/pandoc
+
+Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).
 
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh

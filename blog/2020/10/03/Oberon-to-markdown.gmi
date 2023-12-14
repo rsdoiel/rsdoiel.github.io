@@ -92,6 +92,7 @@ BEGIN
   Files.Set(r, f, 0);
 END GenTempFile;
 
+
 PROCEDURE StartsWith(target, source : ARRAY OF CHAR) : BOOLEAN;
   VAR res : BOOLEAN;
 BEGIN
@@ -110,6 +111,7 @@ BEGIN
     s[i] := 0X;
   END;
 END ClearString;
+
 
 PROCEDURE ProcessModuleDef(VAR r : Files.Rider; VAR modName : ARRAY OF CHAR);
   VAR
@@ -161,6 +163,7 @@ BEGIN
   Files.Close(f);
   Files.Delete(name, res);
 END WriteModuleDef;
+
 
 PROCEDURE OberonToMarkdown();
 VAR

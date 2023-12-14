@@ -45,7 +45,7 @@ NOTE: If you want to change the procedure you can "DROP" it first otherwise you'
 SQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system's database. Procedures and functions are created and can be dropped. While they can be manually typed in the database's shell it is easier to maintain them in plain text files outside the RDBM environment.
 
 1. Write the procedure in a text file.
-2. Load the text file (e.g. FILENAME) into Postgres a. outside the Postgres shell use psql -f FILENAME b. inside the Postgres shell used \i FILENAME
+2. Load the text file (e.g. FILENAME) into Postgres  a. outside the Postgres shell use psql -f FILENAME  b. inside the Postgres shell used \i FILENAME
 3. Call the procedure to test it
 
 To turn these steps into a look I use a "CREATE OR REPLACE" statement and be able to reload the updated procedure easier see 43.12. Tips for Developing in PL/pgSQL[2].  Note in the revised example the "-- " lines are comments.
