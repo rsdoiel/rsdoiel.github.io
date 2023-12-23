@@ -36,11 +36,23 @@
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="revealing-the-pandoc-ast">Revealing the Pandoc AST</h1>
-<p>I’ve used Pandoc for a number of years, probably a decade. It’s been wonderful watching it grow in capability. When Pandoc started accepting JSON documents as a support metadata file things really started to click for me. Pandoc became my go to tool for rendering content in my writing and documentation projects.</p>
-<p>Recently I’ve decided I want a little bit more from Pandoc. I’ve become curious about prototyping some document conversion via Pandoc’s filter mechanism. To do that you need to understand the AST, aka abstract syntax tree. How is the AST structure?</p>
-<p>It turns out I just wasn’t thinking simply enough (or maybe just not paying enough attention while I skimmed Pandoc’s documentation). Pandoc’s processing model looks like</p>
+<p>I’ve used Pandoc for a number of years, probably a decade. It’s been
+wonderful watching it grow in capability. When Pandoc started accepting
+JSON documents as a support metadata file things really started to click
+for me. Pandoc became my go to tool for rendering content in my writing
+and documentation projects.</p>
+<p>Recently I’ve decided I want a little bit more from Pandoc. I’ve
+become curious about prototyping some document conversion via Pandoc’s
+filter mechanism. To do that you need to understand the AST, aka
+abstract syntax tree. How is the AST structure?</p>
+<p>It turns out I just wasn’t thinking simply enough (or maybe just not
+paying enough attention while I skimmed Pandoc’s documentation).
+Pandoc’s processing model looks like</p>
 <pre><code>    INPUT --reader--&gt; AST --filter AST --writer--&gt; OUTPUT</code></pre>
-<p>I’ve “known” this forever. The missing piece for me was understanding the AST can be an output format. Use the <code>--to</code> option with the value “native” you get the Haskell representation of the AST. It’s that simple.</p>
+<p>I’ve “known” this forever. The missing piece for me was understanding
+the AST can be an output format. Use the <code>--to</code> option with
+the value “native” you get the Haskell representation of the AST. It’s
+that simple.</p>
 <pre><code>    pandoc --from=markdown --to=native \
        learning-to-write-a-pandoc-filter.md | \
        head -n 20</code></pre>
@@ -65,15 +77,21 @@
     , Space
     , Str &quot;used&quot;
     , Space</code></pre>
-<p>If you prefer JSON over Haskell use <code>--to=json</code> for similar effect. Here’s an example piping through <a href="https://stedolan.github.io/jq/">jq</a>.</p>
+<p>If you prefer JSON over Haskell use <code>--to=json</code> for
+similar effect. Here’s an example piping through <a
+href="https://stedolan.github.io/jq/">jq</a>.</p>
 <pre><code>    pandoc --from=markdown --to=json \
        learning-to-write-a-pandoc-filter.md | jq .</code></pre>
-<p>Writing filters makes much sense to me now. I can see the AST and see how the documentation describes writing hooks in Lua to process it.</p>
+<p>Writing filters makes much sense to me now. I can see the AST and see
+how the documentation describes writing hooks in Lua to process it.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

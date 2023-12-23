@@ -8,7 +8,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <meta name="keywords" content="Oberon, procedures, record procedures, programming">
+  <meta name="keywords" content="Oberon, procedures, record
+procedures, programming">
   <link rel="alternative" type="application/markdown" href="/blog/2020/07/07/Procedures-in-records.md">
   <link rel="search" type="application/opensearchdescription+xml"
         title="Robert's Rambling Search Engine"
@@ -37,9 +38,17 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="procedures-in-records">Procedures in records</h1>
 <p>By R. S. Doiel, 2020-07-07</p>
-<p>This is the tenth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-<p>In my last post I looked at how Oberon-07 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can include procedures as a part of an Oberon RECORD.</p>
-<p>Let’s modify our module name <a href="Noises.Mod">Noises.Mod</a> to explore this. Copy “Noises.Mod” to “Creatures.Mod”. Replace the “MODULE Noises;” line with “MODULE Creatures;” and the final “END Noises.” statement with “END Creatures.”.</p>
+<p>This is the tenth post in the <a
+href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
+Oberon documents my exploration of the Oberon Language, Oberon System
+and the various rabbit holes I will inevitably fall into.</p>
+<p>In my last post I looked at how Oberon-07 supports the passing of
+procedures as parameters in a procedure. In this one I am looking at how
+we can include procedures as a part of an Oberon RECORD.</p>
+<p>Let’s modify our module name <a href="Noises.Mod">Noises.Mod</a> to
+explore this. Copy “Noises.Mod” to “Creatures.Mod”. Replace the “MODULE
+Noises;” line with “MODULE Creatures;” and the final “END Noises.”
+statement with “END Creatures.”.</p>
 <pre><code>
     MODULE Creatures;
     
@@ -47,8 +56,15 @@
 
     END Creatures.
 </code></pre>
-<p>The key to supporting records with procedures as record attributes is once again Oberon’s type system. The type <code>Noise</code> we created in the previous post can also be used to declare a record attribute similar to how we use this new type to pass the procedure. In this exploration will create a linked list of “Creature” types which include a “MakeNoise” attribute.</p>
-<p>First let’s define our “Creature” as a type as well as a <code>CreatureList</code>. Add the following under our <code>TYPE</code> definition in <a href="Creatures.Mod">Creatures.Mod</a>.</p>
+<p>The key to supporting records with procedures as record attributes is
+once again Oberon’s type system. The type <code>Noise</code> we created
+in the previous post can also be used to declare a record attribute
+similar to how we use this new type to pass the procedure. In this
+exploration will create a linked list of “Creature” types which include
+a “MakeNoise” attribute.</p>
+<p>First let’s define our “Creature” as a type as well as a
+<code>CreatureList</code>. Add the following under our <code>TYPE</code>
+definition in <a href="Creatures.Mod">Creatures.Mod</a>.</p>
 <pre><code>
     Creature = POINTER TO CreatureDesc;
     CreatureDesc = RECORD
@@ -56,7 +72,8 @@
                      noises : Noises;
                    END;
 </code></pre>
-<p>Let’s create a new <code>MakeCreature</code> procedure that will create a populate a single <code>Creature</code> type record.</p>
+<p>Let’s create a new <code>MakeCreature</code> procedure that will
+create a populate a single <code>Creature</code> type record.</p>
 <pre><code>
     PROCEDURE MakeCreature(name : ARRAY OF CHAR; noise : Noise; VAR creature : Creature);
     BEGIN
@@ -65,14 +82,21 @@
       creature.noise := noise;
     END MakeCreature;
 </code></pre>
-<p>Now lets modify <code>MakeNoise</code> to accept the <code>Creature</code> type RECORD rather than a name and a noise procedure parameter.</p>
+<p>Now lets modify <code>MakeNoise</code> to accept the
+<code>Creature</code> type RECORD rather than a name and a noise
+procedure parameter.</p>
 <pre><code>
     PROCEDURE MakeNoise(creature : Creator);
     BEGIN
       creature.noise(creature.name);
     END MakeNoise;
 </code></pre>
-<p>How does this all work? The two “Noise” procedures “BarkBark” and “ChirpChirp” remain as in our original “Noises” module. But our new <code>MakeNoise</code> procedure looks takes a <code>Creature</code> record rather than accepting a name and procedure as parameters. This makes the code a little more concise as well as lets you evolve the creature record type using an object oriented approach.</p>
+<p>How does this all work? The two “Noise” procedures “BarkBark” and
+“ChirpChirp” remain as in our original “Noises” module. But our new
+<code>MakeNoise</code> procedure looks takes a <code>Creature</code>
+record rather than accepting a name and procedure as parameters. This
+makes the code a little more concise as well as lets you evolve the
+creature record type using an object oriented approach.</p>
 <p>Our revised module should look like this.</p>
 <pre><code>
     MODULE Noises;
@@ -121,17 +145,27 @@
       MakeNoise(bird);
     END Noises.
 </code></pre>
-<p>Where to go from here? Think about evolving <a href="Creatures.Mod">Creatures</a> so that you can create a dynamic set of creatures that mix and match their behaviors. Another idea would be to add a “MutateCreature” procedure that would let you change the noise procedure to something new.</p>
+<p>Where to go from here? Think about evolving <a
+href="Creatures.Mod">Creatures</a> so that you can create a dynamic set
+of creatures that mix and match their behaviors. Another idea would be
+to add a “MutateCreature” procedure that would let you change the noise
+procedure to something new.</p>
 <h3 id="next-and-previous">Next and Previous</h3>
 <ul>
-<li>Next <a href="../../08/15/Portable-Oberon-07.html">Portable Oberon-07</a></li>
-<li>Previous <a href="../../06/20/Procedures-as-parameters.html">Procedures as parameters</a></li>
+<li>Next <a href="../../08/15/Portable-Oberon-07.html">Portable
+Oberon-07</a></li>
+<li>Previous <a
+href="../../06/20/Procedures-as-parameters.html">Procedures as
+parameters</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

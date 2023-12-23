@@ -37,7 +37,23 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="revisiting-files">Revisiting Files</h1>
 <p>By R. S. Doiel, 2021-11-22</p>
-<p>In October I had an Email exchange with Algojack regarding a buggy example in <a href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a>. The serious bug was extraneous non-printable characters appearing a plain text file containing the string “Hello World”. The trouble with the example was a result of my misreading the Oakwood guidelines and how <strong>Files.WriteString()</strong> is required to work. The <strong>Files.WriteString()</strong> procedure is supposed to write every element of a string to a file. This <strong>includes the trailing Null character</strong>. The problem for me is <strong>Files.WriteString()</strong> litters plain text files with tailing nulls. What I should have done was write my own <strong>WriteString()</strong> and <strong>WriteLn()</strong>. The program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a more appropriate solution to writing strings and line endings than relying directly on <strong>Files</strong>. In a future post I will explorer making this more generalized in a revised “Fmt” module.</p>
+<p>In October I had an Email exchange with Algojack regarding a buggy
+example in <a
+href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07
+and the file system</a>. The serious bug was extraneous non-printable
+characters appearing a plain text file containing the string “Hello
+World”. The trouble with the example was a result of my misreading the
+Oakwood guidelines and how <strong>Files.WriteString()</strong> is
+required to work. The <strong>Files.WriteString()</strong> procedure is
+supposed to write every element of a string to a file. This
+<strong>includes the trailing Null character</strong>. The problem for
+me is <strong>Files.WriteString()</strong> litters plain text files with
+tailing nulls. What I should have done was write my own
+<strong>WriteString()</strong> and <strong>WriteLn()</strong>. The
+program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a
+more appropriate solution to writing strings and line endings than
+relying directly on <strong>Files</strong>. In a future post I will
+explorer making this more generalized in a revised “Fmt” module.</p>
 <pre><code>MODULE HelloworldFile;
 
 IMPORT Files, Strings;
@@ -92,8 +108,11 @@ BEGIN
   (* Close our modified file *)
   Files.Close(f);
 END HelloworldFile.</code></pre>
-<p>I have two new procedures “WriteString” and “WriteLn”. These mimic the parameters found in the Files module. The module body is a bit longer.</p>
-<p>Compare this to a simple example of “Hello World” using the <strong>Out</strong> module.</p>
+<p>I have two new procedures “WriteString” and “WriteLn”. These mimic
+the parameters found in the Files module. The module body is a bit
+longer.</p>
+<p>Compare this to a simple example of “Hello World” using the
+<strong>Out</strong> module.</p>
 <pre><code>MODULE HelloWorld;
 
 IMPORT Out;
@@ -102,22 +121,51 @@ BEGIN
   Out.String(&quot;Hello World&quot;);
   Out.Ln;
 END HelloWorld.</code></pre>
-<p>Look at the difference is in the module body. I need to setup our file and rider as well as pick the type of line ending to use in “WriteLn”. The procedures doing the actual work look very similar, “String” versus “WriteString” and “Ln” versus “WriteLn”.</p>
-<p>Line ends vary between operating systems. Unix-like systems usually use a line feed. DOS/Windows systems use a carriage return and line feed. Oberon Systems use only a carriage return. If we’re going to the trouble of re-creating our “WriteString” and “WriteLn” procedures it also makes sense to handle the different line ending options. In this case I’ve chosen to use an INTEGER variable global to the module called “eolType”. I have a small set of constants to indicate which line ending is needed. In “WriteLn” I use that value as a guide to which line ending to use with the rider writing to the file.</p>
-<p>The reason I chose this approach is because I want my writing procedures to use the same procedure signatures as the “Files” module. In a future post I will explore type conversion and a revised implementation of my “Fmt” module focusing on working with plain text files.</p>
-<p>Aside from our file setup and picking an appropriate end of line marker the shape of the two programs look very similar.</p>
+<p>Look at the difference is in the module body. I need to setup our
+file and rider as well as pick the type of line ending to use in
+“WriteLn”. The procedures doing the actual work look very similar,
+“String” versus “WriteString” and “Ln” versus “WriteLn”.</p>
+<p>Line ends vary between operating systems. Unix-like systems usually
+use a line feed. DOS/Windows systems use a carriage return and line
+feed. Oberon Systems use only a carriage return. If we’re going to the
+trouble of re-creating our “WriteString” and “WriteLn” procedures it
+also makes sense to handle the different line ending options. In this
+case I’ve chosen to use an INTEGER variable global to the module called
+“eolType”. I have a small set of constants to indicate which line ending
+is needed. In “WriteLn” I use that value as a guide to which line ending
+to use with the rider writing to the file.</p>
+<p>The reason I chose this approach is because I want my writing
+procedures to use the same procedure signatures as the “Files” module.
+In a future post I will explore type conversion and a revised
+implementation of my “Fmt” module focusing on working with plain text
+files.</p>
+<p>Aside from our file setup and picking an appropriate end of line
+marker the shape of the two programs look very similar.</p>
 <h2 id="references-and-resources">References and resources</h2>
-<p>You can see a definition of the <a href="https://miasap.se/obnc/obncdoc/basic/Files.def.html" title="My example module definition is based on the on Karl created in OBNC">Files</a> at Karl Landström’s documentation for his compiler along with the definitions for <a href="https://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> and <a href="https://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>.</p>
+<p>You can see a definition of the <a
+href="https://miasap.se/obnc/obncdoc/basic/Files.def.html"
+title="My example module definition is based on the on Karl created in OBNC">Files</a>
+at Karl Landström’s documentation for his compiler along with the
+definitions for <a
+href="https://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> and <a
+href="https://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>.</p>
 <h2 id="next-previous">Next &amp; Previous</h2>
 <ul>
-<li>Next <a href="../../11/26/Portable-Conversions-Integers.html">Portable Conversions (Integers)</a></li>
-<li>Prev <a href="../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining Oberon-07 with C using Obc-3</a></li>
+<li>Next <a
+href="../../11/26/Portable-Conversions-Integers.html">Portable
+Conversions (Integers)</a></li>
+<li>Prev <a
+href="../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining
+Oberon-07 with C using Obc-3</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

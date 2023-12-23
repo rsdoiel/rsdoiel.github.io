@@ -36,21 +36,69 @@
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="pttk-and-stn">Pttk and STN</h1>
-<p>By R. S. Doiel, started 2022-08-15 (updated: 2022-09-26, pdtk was renamed pttk)</p>
-<p>This log is a proof of concept in using <a href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet notation</a> as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07). The implementation combines two of my personal projects, <a href="https://github.com/rsdoiel/stngo">stngo</a> and my experimental writing tool <a href="https://github.com/rsdoiel/pttk">pttk</a>. Updating the <strong>pttk</strong> cli I added a function to the “blogit” action that will translates the simple timesheet notation (aka STN) to a short blog post. My “short post” interest is a response to my limited writing time. What follows is the STN markup. See the <a href="https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.html">Markdown</a> source for the unprocessed text.</p>
+<p>By R. S. Doiel, started 2022-08-15 (updated: 2022-09-26, pdtk was
+renamed pttk)</p>
+<p>This log is a proof of concept in using <a
+href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet
+notation</a> as a source for very short blog posts. The tooling is
+written in Golang (though eventually I hope to port it to Oberon-07).
+The implementation combines two of my personal projects, <a
+href="https://github.com/rsdoiel/stngo">stngo</a> and my experimental
+writing tool <a href="https://github.com/rsdoiel/pttk">pttk</a>.
+Updating the <strong>pttk</strong> cli I added a function to the
+“blogit” action that will translates the simple timesheet notation (aka
+STN) to a short blog post. My “short post” interest is a response to my
+limited writing time. What follows is the STN markup. See the <a
+href="https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.html">Markdown</a>
+source for the unprocessed text.</p>
 <p>2022-08-15</p>
-<p>16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a “post” from an simple timesheet notation file should look like. One thing occurred to me is that the entry’s “end” time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the <code>BlogSTN()</code> function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog’s homepage and that “title” is what I use for other posts. Maybe I should just use a command line option to provide a title?</p>
+<p>16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a “post”
+from an simple timesheet notation file should look like. One thing
+occurred to me is that the entry’s “end” time is the publication date,
+not the start time. That way the post is based on when it was completed
+not when it was started. There is an edge case of where two entries end
+at the same time on the same date. The calculated filename will collide.
+In the <code>BlogSTN()</code> function I could check for potential file
+collision and either issue a warning or append. Not sure of the right
+action. Since I write sequentially this might not be a big problem, not
+sure yet. Still playing with formatting before I add this type of post
+to my blog. Still not settled on the title question but I need something
+to link to from my blog’s homepage and that “title” is what I use for
+other posts. Maybe I should just use a command line option to provide a
+title?</p>
 <p>2022-08-14</p>
-<p>14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I cleaned up stngo a little today, still need to implement a general <code>Parse()</code> method that works on a <code>io.Reader</code>. After a few initial false starts I realized the “right” place for rendering simple timesheet notation as blog posts is in the the “blogit” action of <a href="https://rsdoiel.github.io/pttk">pdtk</a>. I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.</p>
+<p>14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I
+cleaned up stngo a little today, still need to implement a general
+<code>Parse()</code> method that works on a <code>io.Reader</code>.
+After a few initial false starts I realized the “right” place for
+rendering simple timesheet notation as blog posts is in the the “blogit”
+action of <a href="https://rsdoiel.github.io/pttk">pdtk</a>. I think
+this form might be useful for both release notes in projects as well as
+a series aggregated from single paragraphs. The limitation of the single
+paragraph used in simple timesheet notation is intriguing. Proof of
+concept is working in v0.0.3 of pdtk. Still sorting out if I need a
+title and if so what it should be.</p>
 <p>2022-08-12</p>
-<p>16:00 - 16:30; Golang; stngo; A work slack exchange has perked my interest in using <a href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet notation</a> for very short blog posts. This could be similar to Dave Winer title less posts on <a href="http://scripting.com">scripting</a>. How would this actually map? Should it be a tool in the <a href="https://rsdoiel.githubio/stngo">stngo</a> project?</p>
+<p>16:00 - 16:30; Golang; stngo; A work slack exchange has perked my
+interest in using <a
+href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet
+notation</a> for very short blog posts. This could be similar to Dave
+Winer title less posts on <a href="http://scripting.com">scripting</a>.
+How would this actually map? Should it be a tool in the <a
+href="https://rsdoiel.githubio/stngo">stngo</a> project?</p>
 <p>2022-09-26</p>
-<p>6:30 - 7:30; Golang; pttk; renamed “pandoc toolkit” (pdtk) to “plain text toolkit” (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.</p>
+<p>6:30 - 7:30; Golang; pttk; renamed “pandoc toolkit” (pdtk) to “plain
+text toolkit” (pttk) after adding gopher support to cli. This project is
+less about writing tools specific to Pandoc and more about writing tools
+oriented around plain text.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

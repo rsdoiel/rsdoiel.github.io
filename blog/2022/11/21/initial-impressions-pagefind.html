@@ -8,7 +8,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <meta name="keywords" content="site search, pagefind, rust, cargo, rustup, M1, macOS">
+  <meta name="keywords" content="site
+search, pagefind, rust, cargo, rustup, M1, macOS">
   <link rel="alternative" type="application/markdown" href="/blog/2022/11/21/initial-impressions-pagefind.md">
   <link rel="search" type="application/opensearchdescription+xml"
         title="Robert's Rambling Search Engine"
@@ -35,10 +36,29 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="initial-impression-of-pagefind">Initial Impression of Pagefind</h1>
+<h1 id="initial-impression-of-pagefind">Initial Impression of
+Pagefind</h1>
 <p>By R. S. Doiel, 2022-11-21</p>
-<p>I’m interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I’ve used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years. The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you’re targeting older web browsers.</p>
-<p>Pagefind is a <a href="https://www.rust-lang.org/">rust</a> application build using <code>cargo</code> and <code>rustc</code>. Unlike the documentation on the <a href="https://pagefind.app">Pagefind</a> website which suggests installing via <code>npm</code> and <code>npx</code> I recommend installing it from sources using the latest release of cargo/rustic. For me I found getting the latest cargo/rustc is easiest using <a href="https://rustup.rs/">rustup</a>. Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).</p>
+<p>I’m interested in site search that does not require using server side
+services (e.g. Solr/Elasticsearch/Opensearch). I’ve used <a
+href="https://lunrjs.com">LunrJS</a> on my person blog site for several
+years. The challenge with LunrJS is indexes become large and that limits
+how much your can index and still have a quick loading page. <a
+href="https://pagefind.app">Pagefind</a> addresses the large index
+problem. The search page only downloads the portion of the indexes it
+needs. The index and search functionality are compiled down to WASM
+files. This does raise challenges if you’re targeting older web
+browsers.</p>
+<p>Pagefind is a <a href="https://www.rust-lang.org/">rust</a>
+application build using <code>cargo</code> and <code>rustc</code>.
+Unlike the documentation on the <a
+href="https://pagefind.app">Pagefind</a> website which suggests
+installing via <code>npm</code> and <code>npx</code> I recommend
+installing it from sources using the latest release of cargo/rustic. For
+me I found getting the latest cargo/rustc is easiest using <a
+href="https://rustup.rs/">rustup</a>. Pagefind will not compile using
+older versions of cargo/rustc (e.g. the example currently available from
+Mac Ports for M1 Macs).</p>
 <p>Here’s the steps I took to bring Pagefind up on my M1 Mac.</p>
 <ol type="1">
 <li>Install cargo/rust using rustup</li>
@@ -60,20 +80,37 @@ cargo install pagefind --features extended</code></pre>
 <li>Index my site using pagefind</li>
 <li>Test my a local web server</li>
 </ol>
-<p>To get the HTML/JavaScript needed to embed pagefind in your search page see <a href="https://pagefind.app/docs/">Getting Started</a>. The HTML/JavaScript fragment is at the top of the page. After updating <code>search.html</code> I ran the pagefind command<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>To get the HTML/JavaScript needed to embed pagefind in your search
+page see <a href="https://pagefind.app/docs/">Getting Started</a>. The
+HTML/JavaScript fragment is at the top of the page. After updating
+<code>search.html</code> I ran the pagefind command<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
 <pre><code>pagefind --verbose --bundle-dir ./pagefind --source .</code></pre>
-<p>The indexing is wicked fast and it gives you nice details. I verified everything worked as expected using <code>pttk ws</code> static site web server. I then published my website. You can see the results at <a href="http://rsdoiel.sdf.org/search.html" class="uri">http://rsdoiel.sdf.org/search.html</a> and <a href="https://rsdoiel.github.io/search.html" class="uri">https://rsdoiel.github.io/search.html</a></p>
-<section class="footnotes" role="doc-endnotes">
+<p>The indexing is wicked fast and it gives you nice details. I verified
+everything worked as expected using <code>pttk ws</code> static site web
+server. I then published my website. You can see the results at <a
+href="http://rsdoiel.sdf.org/search.html"
+class="uri">http://rsdoiel.sdf.org/search.html</a> and <a
+href="https://rsdoiel.github.io/search.html"
+class="uri">https://rsdoiel.github.io/search.html</a></p>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>I specified the bundle directory because GitHub pages had a problem with the default <code>_pagefind</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>I specified the bundle directory because GitHub pages
+had a problem with the default <code>_pagefind</code>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

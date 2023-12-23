@@ -35,32 +35,52 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="building-a-to-z-lists-pages-in-pandoc">Building A to Z lists pages in Pandoc</h1>
+<h1 id="building-a-to-z-lists-pages-in-pandoc">Building A to Z lists
+pages in Pandoc</h1>
 <p>By R. S. Doiel, 2023-10-18</p>
-<p>Pandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page. It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file. One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them. In JSON the typical data presentation would look something like</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="dt">&quot;a_to_z&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;B&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="dt">&quot;A&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>      <span class="st">&quot;After a beautiful day&quot;</span><span class="ot">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>      <span class="st">&quot;Afterlife&quot;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="dt">&quot;B&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>      <span class="st">&quot;Better day after&quot;</span><span class="ot">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>      <span class="st">&quot;Better Life&quot;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="ot">]</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>  <span class="fu">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
-<p>The trouble is that while YAML’s outer dictionary (key/value map) works fine in Pandoc templates there is no way for the the for loop to handle maps of maps like we have above. Pandoc templates really want to iterate over arrays of objects . That’s nice thing! It gives us more ways to transform the data to provide more flexibility in our template implementation. Here’s how I would restructure the previous JSON to make it easy to process via Pandoc’s template engine. Note how I’ve taken our simple array of letters and turned them into an object with an “href” and “label” attribute. Similarly I’ve enhanced the “content” objects.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  <span class="dt">&quot;a_to_z&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span><span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span> <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">,</span> <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">}</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;letter&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;After a beautiful day&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;after-a-beautiful-day&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Afterlife&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;afterlife&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;letter&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Better day after&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;better-day-after&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>      <span class="fu">{</span><span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Better Life&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;better-life&quot;</span><span class="fu">}</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  <span class="ot">]</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
+<p>Pandoc offers a very good template system. It avoids elaborate
+features in favor of a few simple ways to bring content into the page.
+It knows how to use data specified in “front matter” (a YAML header to a
+Markdown document) as well as how to merge in JSON or YAML from a
+metadata file. One use case that is common in libraries and archives
+that less obvious of how to handle is building A to Z lists or year/date
+oriented listings where you have a set of navigation links at the top of
+the page followed by a set of H2 headers with UL lists between them. In
+JSON the typical data presentation would look something like</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;a_to_z&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;B&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;A&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;After a beautiful day&quot;</span><span class="ot">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Afterlife&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;B&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Better day after&quot;</span><span class="ot">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Better Life&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The trouble is that while YAML’s outer dictionary (key/value map)
+works fine in Pandoc templates there is no way for the the for loop to
+handle maps of maps like we have above. Pandoc templates really want to
+iterate over arrays of objects . That’s nice thing! It gives us more
+ways to transform the data to provide more flexibility in our template
+implementation. Here’s how I would restructure the previous JSON to make
+it easy to process via Pandoc’s template engine. Note how I’ve taken our
+simple array of letters and turned them into an object with an “href”
+and “label” attribute. Similarly I’ve enhanced the “content”
+objects.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;a_to_z&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span><span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span> <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span><span class="dt">&quot;href&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">,</span> <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">}</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span><span class="dt">&quot;letter&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;After a beautiful day&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;after-a-beautiful-day&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span><span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Afterlife&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;afterlife&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span><span class="dt">&quot;letter&quot;</span><span class="fu">:</span> <span class="st">&quot;B&quot;</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Better day after&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;better-day-after&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span><span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Better Life&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;better-life&quot;</span><span class="fu">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Then the template can be structure something like</p>
 <pre><code>&lt;menu&gt;
 ${for(a_to_z)}
@@ -77,13 +97,23 @@ ${endif}
 - [${it.name}](${it.id})
 ${endfor}
 </code></pre>
-<p>There is one gotcha in A to Z list generation. A YAML parser may convert a bare “N” to “false” (and presumable “Y” will become “true”). This is really annoying. The way to avoid this is to add a space to the letter in your JSON output. This will insure that the “N” or “Y” aren’t converted to the boolean values “true” and “false”. Pandoc’s template engine is smart enough to trim leading and trailing spaces.</p>
-<p>Finally this technique can be used to produce lists and navigation that are based around years, months, or other iterative types but that is left as an exercise to the reader.</p>
+<p>There is one gotcha in A to Z list generation. A YAML parser may
+convert a bare “N” to “false” (and presumable “Y” will become “true”).
+This is really annoying. The way to avoid this is to add a space to the
+letter in your JSON output. This will insure that the “N” or “Y” aren’t
+converted to the boolean values “true” and “false”. Pandoc’s template
+engine is smart enough to trim leading and trailing spaces.</p>
+<p>Finally this technique can be used to produce lists and navigation
+that are based around years, months, or other iterative types but that
+is left as an exercise to the reader.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
