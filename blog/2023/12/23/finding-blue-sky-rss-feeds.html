@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>finding-blue-sky-rss-feeds</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="bluesky, rss">
+  <link rel="alternative" type="application/markdown" href="/blog/2023/12/23/finding-blue-sky-rss-feeds.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+<h1 id="find-bluesky-rss-feeds">Find Bluesky RSS Feeds</h1>
+<p>With the update to <a href="https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i">1.60</a> of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me. The RSS feed is visible via the HTML markup on a person’s profile page (which are now public). E.g. My Bluesky profile page is at <a href="https://bsky.app/profile/rsdoiel.bsky.social" class="uri">https://bsky.app/profile/rsdoiel.bsky.social</a> and if you look at that pages HTML markup you’ll see a link element in the head</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a> <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;alternate&quot;</span><span class="ot"> type=</span><span class="st">&quot;application/rss+xml&quot;</span><span class="ot"> href=</span><span class="st">&quot;/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss&quot;</span><span class="kw">&gt;</span></span></code></pre></div>
+<p>That’s the RSS feed. So now if you want to follow you can expand the URL to</p>
+<pre><code>https://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss</code></pre>
+<p>And use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website to getting updates via my feed reader.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>

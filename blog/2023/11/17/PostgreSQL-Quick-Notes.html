@@ -35,35 +35,19 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="postgres-quick-notes-take-two">Postgres Quick Notes, take
-two</h1>
+<h1 id="postgres-quick-notes-take-two">Postgres Quick Notes, take two</h1>
 <p>By R. S. Doiel, 2023-11-17</p>
-<p>What follows is some quick notes to remind me of the things I do when
-I setup a new instance of PostgreSQL on the various machines I work
-with.</p>
+<p>What follows is some quick notes to remind me of the things I do when I setup a new instance of PostgreSQL on the various machines I work with.</p>
 <h2 id="installation-approach">Installation approach</h2>
-<p>If possible I install Postgres with the system’s package manager or
-follow the directions suggested for installation on the <a
-href="https://postgres.org">Postgres website</a>.</p>
+<p>If possible I install Postgres with the system’s package manager or follow the directions suggested for installation on the <a href="https://postgres.org">Postgres website</a>.</p>
 <h3 id="macos-and-postgres">macOS and Postgres</h3>
-<p>For macOS that’s not the route I take if possible is to install via
-<a href="https://postgresapp.com/">Postgres App</a>. This provides a
-very nice setup of developing with Postgres on macOS and also allows you
-to easily test multiple versions of Postgres. It is not as convenient in
-the Mac Mini headless configuration I also use Postgres on macOS in. In
-that case I use Mac Ports’ package manager to install Postgres.
-Unfortunately just using ports command isn’t enough to get running. What
-follows is my notes on the additional steps I’ve taken to get things
-working.</p>
-<p>Install the version of Postgres you want (e.g. PostgreSQL 16) via
-ports</p>
+<p>For macOS that’s not the route I take if possible is to install via <a href="https://postgresapp.com/">Postgres App</a>. This provides a very nice setup of developing with Postgres on macOS and also allows you to easily test multiple versions of Postgres. It is not as convenient in the Mac Mini headless configuration I also use Postgres on macOS in. In that case I use Mac Ports’ package manager to install Postgres. Unfortunately just using ports command isn’t enough to get running. What follows is my notes on the additional steps I’ve taken to get things working.</p>
+<p>Install the version of Postgres you want (e.g. PostgreSQL 16) via ports</p>
 <ol type="1">
 <li>install postgresql16, postgresql16-server, postgres_select</li>
-<li>make sure the postgres version is selected using the ports
-command</li>
+<li>make sure the postgres version is selected using the ports command</li>
 <li>make a directory for the default postgres db</li>
-<li>make sure the default db directory is owned by the postgres
-user</li>
+<li>make sure the default db directory is owned by the postgres user</li>
 <li>run the initialization scripts provided by the posts installer</li>
 <li>use the ports command to load the plist</li>
 <li>start up the server, make sure the log file is writable</li>
@@ -79,55 +63,42 @@ sudo -u postgres /bin/sh -c &#39;cd /opt/local/var/db/postgresql16 &amp;&amp; /o
 sudo port load postgresql16-server
 sudo -u postgres /bin/sh -c &#39;/opt/local/lib/postgresql16/bin/pg_ctl -D /opt/local/var/db/postgresql16/defaultdb -l /opt/local/var/log/postgresql16/postgres.log start&#39;</code></pre>
 <h2 id="database-users-setup">Database users setup</h2>
-<p>This applies to most Postgres installations I do because I am using
-them to develop software solutions. In a production setting you’d want a
-more conservative security approach.</p>
+<p>This applies to most Postgres installations I do because I am using them to develop software solutions. In a production setting you’d want a more conservative security approach.</p>
 <ol type="1">
 <li>Make sure you can connect as the postgres user</li>
 <li>For each developer
 <ol type="a">
 <li>Use the Postgres createuser tool to create superuser account(s)</li>
-<li>Use the Postgres createdb tool to create databases for those
-account(s)</li>
+<li>Use the Postgres createdb tool to create databases for those account(s)</li>
 </ol></li>
 </ol>
 <p>Here’s the commands I type in the shell</p>
 <pre class="shell"><code>sudo -u postgres psql</code></pre>
-<p>When in the psql shell you should be able to use the slash commands
-like</p>
+<p>When in the psql shell you should be able to use the slash commands like</p>
 <dl>
 <dt>\l</dt>
-<dd>
-list the databases
+<dd>list the databases
 </dd>
 <dt>\dt</dt>
-<dd>
-list the tables in the database
+<dd>list the tables in the database
 </dd>
 <dt>\d TABLE_NAME</dt>
-<dd>
-list the schema for TABLE_NAME
+<dd>list the schema for TABLE_NAME
 </dd>
 <dt>\q</dt>
-<dd>
-quit the psql shell
+<dd>quit the psql shell
 </dd>
 </dl>
-<p>Assuming we have a working Postgres I now create superuser accounts
-for development and databases that match the username.</p>
+<p>Assuming we have a working Postgres I now create superuser accounts for development and databases that match the username.</p>
 <pre class="shell"><code>sudo -u postgres createuser --interactive $USER
 createdb $USER</code></pre>
-<p>I should now be able to run the psql shell without specifying the
-postgres username.</p>
+<p>I should now be able to run the psql shell without specifying the postgres username.</p>
 <pre class="shell"><code>psql</code></pre>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

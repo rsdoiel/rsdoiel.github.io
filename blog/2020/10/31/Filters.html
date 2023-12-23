@@ -37,102 +37,26 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="software-tools-filters">Software Tools, Filters</h1>
 <h2 id="overview">Overview</h2>
-<p>This post is the second in a series revisiting the programs described
-in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a
-href="https://archive.org/details/softwaretoolsinp00kern">Software Tools
-in Pascal</a>. The book is available from the <a
-href="https://openlibrary.org/">Open Library</a> and physical copies are
-still (2020) commonly available from used book sellers. The book was an
-late 20th century text on creating portable command line programs using
-ISO standard Pascal of the era.</p>
-<p>In this chapter K &amp; P focuses on developing the idea of filters.
-Filters are programs which typically process standard input, do some
-sort of transformation or calculation and write to standard output. They
-are intended to work either standalone or in a pipeline to solve more
-complex problems. I like to think of filters as software <a
-href="https://en.wikipedia.org/wiki/Lego">LEGO</a>. Filter programs can
-be “snapped” together creating simple shapes data shapes or combined to
-for complex compositions.</p>
+<p>This post is the second in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a href="https://archive.org/details/softwaretoolsinp00kern">Software Tools in Pascal</a>. The book is available from the <a href="https://openlibrary.org/">Open Library</a> and physical copies are still (2020) commonly available from used book sellers. The book was an late 20th century text on creating portable command line programs using ISO standard Pascal of the era.</p>
+<p>In this chapter K &amp; P focuses on developing the idea of filters. Filters are programs which typically process standard input, do some sort of transformation or calculation and write to standard output. They are intended to work either standalone or in a pipeline to solve more complex problems. I like to think of filters as software <a href="https://en.wikipedia.org/wiki/Lego">LEGO</a>. Filter programs can be “snapped” together creating simple shapes data shapes or combined to for complex compositions.</p>
 <p>The programs from this chapter include:</p>
 <ul>
-<li><strong>entab</strong>, respecting tabstops, convert strings of
-spaces to tabs</li>
-<li><strong>overstrike</strong>, this is probably not useful anymore, it
-would allow “overstriking” characters on devices that supported it. From
-<a href="https://en.wikipedia.org/wiki/Overstrike">wikipedia</a>, “In
-typography, overstrike is a method of printing characters that are
-missing from the printer’s character set. The character was created by
-placing one character on another one — for example, overstriking”L” with
-“-” resulted in printing a “Ł” (L with stroke) character.”</li>
-<li><strong>compress</strong>, an early UNIX style compress for plain
-text files</li>
-<li><strong>expand</strong>, an early UNIX style expand for plain text
-files, previously run through with <strong>compress</strong></li>
-<li><strong>echo</strong>, write echo’s command line parameters to
-standard output, introduces working with command line parameters</li>
-<li><strong>translit</strong>, transliterate characters using a simple
-from/to substitution with a simple notation to describe character
-sequences and negation. My implementation diverges from K &amp; P</li>
+<li><strong>entab</strong>, respecting tabstops, convert strings of spaces to tabs</li>
+<li><strong>overstrike</strong>, this is probably not useful anymore, it would allow “overstriking” characters on devices that supported it. From <a href="https://en.wikipedia.org/wiki/Overstrike">wikipedia</a>, “In typography, overstrike is a method of printing characters that are missing from the printer’s character set. The character was created by placing one character on another one — for example, overstriking”L" with “-” resulted in printing a “Ł” (L with stroke) character."</li>
+<li><strong>compress</strong>, an early UNIX style compress for plain text files</li>
+<li><strong>expand</strong>, an early UNIX style expand for plain text files, previously run through with <strong>compress</strong></li>
+<li><strong>echo</strong>, write echo’s command line parameters to standard output, introduces working with command line parameters</li>
+<li><strong>translit</strong>, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K &amp; P</li>
 </ul>
 <h2 id="implementing-in-oberon-07">Implementing in Oberon-07</h2>
-<p>With the exception of <strong>echo</strong> (used to introduce
-command line parameter processing) each program increases in complexity.
-The last program <strong>translit</strong>is the most complex in this
-chapter. It introducing what we a “domain specific language” or “DSL”. A
-DSL is a notation allowing us to describe something implicitly rather
-than explicitly. All the programs except <strong>translit</strong>
-follow closely the original Pascal translated to Oberon-07.
-<strong>translit</strong> book implementation is very much a result of
-the constraints of Pascal of the early 1980s as well as the minimalist
-assumption that could be made about the host operating system. I will
-focus on revising that program in particular bring the code up to
-current practice as well as offering insights I’ve learned.</p>
-<p>The program <strong>translit</strong> introduces what is called a
-“Domain Specific Language”.Domain specific languages or DSL for short
-are often simple notations to describe how to solve vary narrow
-problems. If you’ve used any of the popular spreadsheet programs where
-you’ve entered a formula to compute something you’ve used a domain
-specific language. If you’ve ever search for text in a document using a
-regular expression you’ve used a domain specific language. By focusing a
-notation on a small problem space you can often come up with simple ways
-of expressing or composing programmatic solutions to get a job done.</p>
-<p>In <strong>translit</strong> the notation let’s us describe what we
-want to translate. At the simplest level the <strong>translit</strong>
-program takes a character and replaces it with another character. What
-make increases <strong>translit</strong> utility is that it can take a
-set of characters and replace it with another. If you want to change all
-lower cases letters and replace them with uppercase letters. This “from
-set” and “to set” are easy to describe as two ranges, “a” to “z” and “A”
-to “Z”. Our domain notation allows us to express this as “a-z” and
-“A-Z”. K &amp; P include several of features in there notation including
-characters to exclude from a translation as well as an “escape notation”
-for describing characters like new lines, tabs, or the characters that
-describe a range and exclusion (i.e. dash and caret).</p>
+<p>With the exception of <strong>echo</strong> (used to introduce command line parameter processing) each program increases in complexity. The last program <strong>translit</strong>is the most complex in this chapter. It introducing what we a “domain specific language” or “DSL”. A DSL is a notation allowing us to describe something implicitly rather than explicitly. All the programs except <strong>translit</strong> follow closely the original Pascal translated to Oberon-07. <strong>translit</strong> book implementation is very much a result of the constraints of Pascal of the early 1980s as well as the minimalist assumption that could be made about the host operating system. I will focus on revising that program in particular bring the code up to current practice as well as offering insights I’ve learned.</p>
+<p>The program <strong>translit</strong> introduces what is called a “Domain Specific Language”.Domain specific languages or DSL for short are often simple notations to describe how to solve vary narrow problems. If you’ve used any of the popular spreadsheet programs where you’ve entered a formula to compute something you’ve used a domain specific language. If you’ve ever search for text in a document using a regular expression you’ve used a domain specific language. By focusing a notation on a small problem space you can often come up with simple ways of expressing or composing programmatic solutions to get a job done.</p>
+<p>In <strong>translit</strong> the notation let’s us describe what we want to translate. At the simplest level the <strong>translit</strong> program takes a character and replaces it with another character. What make increases <strong>translit</strong> utility is that it can take a set of characters and replace it with another. If you want to change all lower cases letters and replace them with uppercase letters. This “from set” and “to set” are easy to describe as two ranges, “a” to “z” and “A” to “Z”. Our domain notation allows us to express this as “a-z” and “A-Z”. K &amp; P include several of features in there notation including characters to exclude from a translation as well as an “escape notation” for describing characters like new lines, tabs, or the characters that describe a range and exclusion (i.e. dash and caret).</p>
 <h1 id="putting-tabs-back">2.1 Putting Tabs Back</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up">Page
-31</a></p>
-<p>Implementing <strong>entab</strong> in Oberon-07 is straight forward.
-Like my <a href="Detab.Mod">Detab</a> implementation I am using a second
-modules called <a href="Tabs.Mod">Tabs</a>. This removes the need for
-the <code>#include</code> macros used in the K &amp; P version. I have
-used the same loop structure as K &amp; P this time. There is a
-difference in my <code>WHILE</code> loop. I separate the character read
-from the <code>WHILE</code> conditional test. Combining the two is
-common in “C” and is consistent with the programming style other books
-by Kernighan. In Oberon-07 doesn’t make sense at all. Oberon’s
-<code>In.Char()</code> is not a function returning as in the Pascal
-primitives implemented for the K &amp; P book or indeed like in the “C”
-language. In Oberon’s “In” module the status of a read operation is
-exposed by <code>In.Done</code>. I’ve chosen to put the next call to
-<code>In.Char()</code> at the bottom of my <code>WHILE</code> loop
-because it is clear that it is the last think done before ether
-iterating again or exiting the loop. Other than that the Oberon version
-looks much like K &amp; P’s Pascal.</p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up">Page 31</a></p>
+<p>Implementing <strong>entab</strong> in Oberon-07 is straight forward. Like my <a href="Detab.Mod">Detab</a> implementation I am using a second modules called <a href="Tabs.Mod">Tabs</a>. This removes the need for the <code>#include</code> macros used in the K &amp; P version. I have used the same loop structure as K &amp; P this time. There is a difference in my <code>WHILE</code> loop. I separate the character read from the <code>WHILE</code> conditional test. Combining the two is common in “C” and is consistent with the programming style other books by Kernighan. In Oberon-07 doesn’t make sense at all. Oberon’s <code>In.Char()</code> is not a function returning as in the Pascal primitives implemented for the K &amp; P book or indeed like in the “C” language. In Oberon’s “In” module the status of a read operation is exposed by <code>In.Done</code>. I’ve chosen to put the next call to <code>In.Char()</code> at the bottom of my <code>WHILE</code> loop because it is clear that it is the last think done before ether iterating again or exiting the loop. Other than that the Oberon version looks much like K &amp; P’s Pascal.</p>
 <h2 id="program-documentation">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up">Page
-32</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up">Page 32</a></p>
 <pre><code>
 PROGRAM
 
@@ -166,8 +90,7 @@ BUGS
   to a tab if it occurs at a tab stop. The entab is not an
   exact inverse of detab.
 </code></pre>
-<h2 id="source-code-for-entab.mod">Source code for
-<strong>Entab.Mod</strong></h2>
+<h2 id="source-code-for-entab.mod">Source code for <strong>Entab.Mod</strong></h2>
 <pre><code>
 MODULE Entab;
   IMPORT In, Out, Tabs;
@@ -222,64 +145,15 @@ BEGIN
 END Entab.
 </code></pre>
 <h1 id="overstrikes">2.2 Overstrikes</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up">Page
-34</a></p>
-<p>Overstrike isn’t a tool that is useful today but I’ve included it
-simply to be follow along the flow of the K &amp; P book. It very much
-reflects an error where teletype like devices where still common and
-printers printed much like typewriters did. On a 20th century manual
-type writer you could underline a word or letter by backing up the
-carriage then typing the underscore character. Striking out a word was
-accomplished by a similar technique. The mid to late 20th century
-computers device retained this mechanism though by 1980’s it was
-beginning to disappear along with manual typewriters. This program
-relies on the the nature of ASCII character set and reflects some of the
-non-print character’s functionality. I found it did not work on today’s
-terminal emulators reliably. Your mileage may very nor do I have a
-vintage printer to test it on.</p>
-<p>Our module follows K &amp; P design almost verbatim. The differences
-are those suggested by differences between Pascal and Oberon-07. Like in
-previous examples we don’t need to use an ENDFILE constant as we can
-simply check the value of <code>In.Done</code> to determine if the last
-read was successful. This simplifies some of the <code>IF/ELSE</code>
-logic and the termination of the <code>REPEAT/UNTIL</code> loop. It
-makes the <code>WHILE/DO</code> loop a little more verbose.</p>
-<p>One thing I would like to point out in the original Pascal of the
-book is a problem often referred to as the “dangling else” problem.
-While this is usually discussed in the context of compiler
-implementation I feel like it is a bigger issue for the person reading
-the source code. It is particularly problematic when you have complex
-“IF/ELSE” sequences that are nested. This is not limited to the 1980’s
-era Pascal. You see it in other languages like C. It is a convenience
-for the person typing the source code but a problem for those who
-maintain it. We see this ambiguity in the Pascal procedure
-<strong>overstrike</strong> inside the repeat loop on <a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up">page
-35</a>. It is made worse by the fact that K &amp; P have taken advantage
-of omitting the semi-colons where optional. If you type in this
-procedure and remove the indication if quickly becomes ambiguous about
-where on “IF/ELSE” begins and the next ends. In Oberon-07 it is clear
-when you have a dangling “IF” statement. This vintage Pascal, not so
-much.</p>
-<p>K &amp; P do mention the dangling “ELSE” problem later in the text.
-Their recommend practice was include the explicit final “ELSE” at a
-comment to avoid confusion. But you can see how easy an omitting the
-comment is in the <strong>overstrike</strong> program.</p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up">Page 34</a></p>
+<p>Overstrike isn’t a tool that is useful today but I’ve included it simply to be follow along the flow of the K &amp; P book. It very much reflects an error where teletype like devices where still common and printers printed much like typewriters did. On a 20th century manual type writer you could underline a word or letter by backing up the carriage then typing the underscore character. Striking out a word was accomplished by a similar technique. The mid to late 20th century computers device retained this mechanism though by 1980’s it was beginning to disappear along with manual typewriters. This program relies on the the nature of ASCII character set and reflects some of the non-print character’s functionality. I found it did not work on today’s terminal emulators reliably. Your mileage may very nor do I have a vintage printer to test it on.</p>
+<p>Our module follows K &amp; P design almost verbatim. The differences are those suggested by differences between Pascal and Oberon-07. Like in previous examples we don’t need to use an ENDFILE constant as we can simply check the value of <code>In.Done</code> to determine if the last read was successful. This simplifies some of the <code>IF/ELSE</code> logic and the termination of the <code>REPEAT/UNTIL</code> loop. It makes the <code>WHILE/DO</code> loop a little more verbose.</p>
+<p>One thing I would like to point out in the original Pascal of the book is a problem often referred to as the “dangling else” problem. While this is usually discussed in the context of compiler implementation I feel like it is a bigger issue for the person reading the source code. It is particularly problematic when you have complex “IF/ELSE” sequences that are nested. This is not limited to the 1980’s era Pascal. You see it in other languages like C. It is a convenience for the person typing the source code but a problem for those who maintain it. We see this ambiguity in the Pascal procedure <strong>overstrike</strong> inside the repeat loop on <a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up">page 35</a>. It is made worse by the fact that K &amp; P have taken advantage of omitting the semi-colons where optional. If you type in this procedure and remove the indication if quickly becomes ambiguous about where on “IF/ELSE” begins and the next ends. In Oberon-07 it is clear when you have a dangling “IF” statement. This vintage Pascal, not so much.</p>
+<p>K &amp; P do mention the dangling “ELSE” problem later in the text. Their recommend practice was include the explicit final “ELSE” at a comment to avoid confusion. But you can see how easy an omitting the comment is in the <strong>overstrike</strong> program.</p>
 <h2 id="limitations">Limitations</h2>
-<p>This is documented “BUG” section describes the limitations well,
-“<strong>overstrike</strong> is naive about vertical motions and non-
-printing characters. It produces one over struck line for each sequence
-of backspaces”. But in addition to that most printing devices these days
-either have their own drivers or expect to work with a standard like
-Postscript. This limited the usefulness of this program today though
-controlling character movement in a “vt100” emulation using old fashion
-ASCII control codes is still interesting if only for historical
-reasons.</p>
+<p>This is documented “BUG” section describes the limitations well, “<strong>overstrike</strong> is naive about vertical motions and non- printing characters. It produces one over struck line for each sequence of backspaces”. But in addition to that most printing devices these days either have their own drivers or expect to work with a standard like Postscript. This limited the usefulness of this program today though controlling character movement in a “vt100” emulation using old fashion ASCII control codes is still interesting if only for historical reasons.</p>
 <h2 id="program-documentation-1">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up">Page
-36</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up">Page 36</a></p>
 <pre><code>
 PROGRAM
 
@@ -316,8 +190,7 @@ BUGS
   characters. It produces one over struck line for each sequence
   of backspaces.
 </code></pre>
-<h2 id="source-code-for-overstrike.mod">Source code for
-<strong>Overstrike.Mod</strong></h2>
+<h2 id="source-code-for-overstrike.mod">Source code for <strong>Overstrike.Mod</strong></h2>
 <pre><code>
 MODULE Overstrike;
 IMPORT In, Out;
@@ -387,27 +260,10 @@ BEGIN
 END Overstrike.
 </code></pre>
 <h1 id="text-compression">2.3 Text Compression</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up">Page
-37</a></p>
-<p>In 20th century computing everything is expensive, memory, persistent
-storage computational ability in CPU. If you were primarily working with
-text you still worried about running out of space in your storage
-medium. You see it in the units of measurement used in that era such as
-bytes, kilobytes, hertz and kilohertz. To day we talk about megabytes,
-gigabytes, terabytes and petabytes. Plain text files are a tiny size
-compared to must digital objects today but in the late 20th century
-their size in storage was still a concern. One way to solve this problem
-was to encode your plain text to use less storage space. Early attempts
-at file compression took advantage of repetition to save space. Many
-text documents have repeated characters whether spaces or punctuation or
-other formatting. This is what inspired the K &amp; P implementation of
-<strong>compress</strong> and <strong>expand</strong>. Today we’d use
-other approaches to save space whether we were storing text or a digital
-photograph.</p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up">Page 37</a></p>
+<p>In 20th century computing everything is expensive, memory, persistent storage computational ability in CPU. If you were primarily working with text you still worried about running out of space in your storage medium. You see it in the units of measurement used in that era such as bytes, kilobytes, hertz and kilohertz. To day we talk about megabytes, gigabytes, terabytes and petabytes. Plain text files are a tiny size compared to must digital objects today but in the late 20th century their size in storage was still a concern. One way to solve this problem was to encode your plain text to use less storage space. Early attempts at file compression took advantage of repetition to save space. Many text documents have repeated characters whether spaces or punctuation or other formatting. This is what inspired the K &amp; P implementation of <strong>compress</strong> and <strong>expand</strong>. Today we’d use other approaches to save space whether we were storing text or a digital photograph.</p>
 <h2 id="program-documentation-2">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up">Page</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up">Page</a></p>
 <pre><code>
 PROGRAM
 
@@ -441,8 +297,7 @@ BUGS
 
     The implementation assumes 26 legal characters beginning with A.
 </code></pre>
-<h2 id="source-code-for-compress.mod">Source code for
-<strong>Compress.Mod</strong></h2>
+<h2 id="source-code-for-compress.mod">Source code for <strong>Compress.Mod</strong></h2>
 <pre><code>
 MODULE Compress;
 IMPORT In, Out;
@@ -515,25 +370,10 @@ BEGIN
 END Compress.
 </code></pre>
 <h1 id="text-expansion">2.4 Text Expansion</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up">Page
-41</a></p>
-<p>Our procedures map closely to the original Pascal with a few
-significant differences. As previously I’ve chosen a
-<code>REPEAT ... UNTIL</code> loop structure because we are always
-attempting to read at least once. The <code>IF THEN ELSIF ELSE</code>
-logic is a little different. In the K &amp; P version they combine
-retrieving a character and testing its value. This is a style common in
-languages like C. As previous mentioned I split the read of the
-character from the test. Aside from the choices imposed by the “In”
-module I also feel that retrieving the value, then testing is a simpler
-statement to read. There is little need to worry about a side effect
-when you separate the action from the test. It does change the structure
-of the inner and outer <code>IF</code> statements.</p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up">Page 41</a></p>
+<p>Our procedures map closely to the original Pascal with a few significant differences. As previously I’ve chosen a <code>REPEAT ... UNTIL</code> loop structure because we are always attempting to read at least once. The <code>IF THEN ELSIF ELSE</code> logic is a little different. In the K &amp; P version they combine retrieving a character and testing its value. This is a style common in languages like C. As previous mentioned I split the read of the character from the test. Aside from the choices imposed by the “In” module I also feel that retrieving the value, then testing is a simpler statement to read. There is little need to worry about a side effect when you separate the action from the test. It does change the structure of the inner and outer <code>IF</code> statements.</p>
 <h2 id="program-documentation-3">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up">Page
-43</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up">Page 43</a></p>
 <pre><code>
 PROGRAM
 
@@ -564,8 +404,7 @@ EXAMPLE
     1       car         -$7,000.00
     &lt;ENDFILE&gt;
 </code></pre>
-<h2 id="source-code-for-expand.mod">Source code for
-<strong>Expand.Mod</strong></h2>
+<h2 id="source-code-for-expand.mod">Source code for <strong>Expand.Mod</strong></h2>
 <pre><code>MODULE Expand;
 IMPORT In, Out;
 
@@ -625,13 +464,9 @@ BEGIN
 END Expand.
 </code></pre>
 <h1 id="command-arguments">2.5 Command Arguments</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up">Page
-44</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up">Page 44</a></p>
 <h2 id="program-documentation-4">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up">Page
-45</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up">Page 45</a></p>
 <pre><code>
 PROGRAM
 
@@ -655,8 +490,7 @@ EXAMPLE
         echo hello world!
         hello world!
 </code></pre>
-<h2 id="source-code-for-echo.mod">Source code for
-<strong>Echo.Mod</strong></h2>
+<h2 id="source-code-for-echo.mod">Source code for <strong>Echo.Mod</strong></h2>
 <pre><code>
 MODULE Echo;
 IMPORT Out, Args := extArgs;
@@ -689,60 +523,15 @@ BEGIN
 END Echo.
 </code></pre>
 <h1 id="character-transliteration">2.6 Character Transliteration</h1>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up">Page
-47</a></p>
-<p><strong>translit</strong> is the most complicated program so far in
-the book. Most of the translation process from Pascal to Oberon-07 has
-remained similar to the previous examples.</p>
-<p>My implementation of <strong>translit</strong> diverges from the K
-&amp; P implementation at several points. Much of this is a result of
-Oberon evolution beyond Pascal. First Oberon counts arrays from zero
-instead of one so I have opted to use -1 as a value to indicate the
-index of a character in a string was not found. Equally I have
-simplified the logic in <code>xindex()</code> to make it clear how I am
-handling the index lookup described in <code>index()</code> of the
-Pascal implementation. K &amp; P implemented <code>makeset()</code> and
-<code>dodash()</code>. <code>dodash()</code> particularly looked
-troublesome. If you came across the function name <code>dodash()</code>
-without seeing the code comments “doing a dash” seems a little obscure.
-I have chosen to name that process “Expand Sequence” for clarity. I have
-simplified the task of making sets of characters for translation into
-three cases by splitting the test conditions from the actions. First
-check to see if we have an escape sequence and if so handle it. Second
-check to see if we have an expansion sequence and if so handle it else
-append the char found to the end of the set being assembled. This
-resulted in <code>dodash()</code> being replaced by
-<code>IsSequence()</code> and <code>ExpandSequence()</code>. Likewise
-<code>esc()</code> was replaced with <code>IsEscape()</code> and
-<code>ExpandEscape()</code>. I renamed <code>addchar()</code> to
-<code>AppendChar()</code> in the “Chars” module as that seemed more
-specific and clearer.</p>
-<p>I choose to advance the value used when expanding a set description
-in the loop inside of my <code>MakeSet()</code>. I minimized the side
-effects of the expand functions to the target destination. It is clearer
-while in the <code>MakeSet()</code> loop to see the relationship of the
-test and transformation and how to advance through the string. This also
-allowed me to use fewer parameters to procedures which tends to make
-things more readable as well as simpler.</p>
-<p>I have included an additional procedure not included in the K &amp; P
-Pascal of this program. <code>Error()</code> displays a string and
-halts. K &amp; P provide this as part of their Pascal environment. I
-have chosen to embed it here because it is short and trivial.</p>
-<p>Translit suggested the “Chars” module because of the repetition in
-previous programs. In K &amp; P the approach to code reuse is to create
-a separate source file and to included via a pre-processor. In Oberon we
-have the module concept.</p>
-<p>My <a href="Chars.Mod">Chars</a> module provides a useful set of test
-procedures like <code>IsAlpha(c)</code>, <code>IsUpper(c)</code>,
-<code>IsLower()</code> in addition to the <code>CharInRange()</code> and
-<code>IsAlphaNum()</code>. It also includes <code>AppendChar()</code>
-which can be used to append a single character value to an end of an
-array of char.</p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up">Page 47</a></p>
+<p><strong>translit</strong> is the most complicated program so far in the book. Most of the translation process from Pascal to Oberon-07 has remained similar to the previous examples.</p>
+<p>My implementation of <strong>translit</strong> diverges from the K &amp; P implementation at several points. Much of this is a result of Oberon evolution beyond Pascal. First Oberon counts arrays from zero instead of one so I have opted to use -1 as a value to indicate the index of a character in a string was not found. Equally I have simplified the logic in <code>xindex()</code> to make it clear how I am handling the index lookup described in <code>index()</code> of the Pascal implementation. K &amp; P implemented <code>makeset()</code> and <code>dodash()</code>. <code>dodash()</code> particularly looked troublesome. If you came across the function name <code>dodash()</code> without seeing the code comments “doing a dash” seems a little obscure. I have chosen to name that process “Expand Sequence” for clarity. I have simplified the task of making sets of characters for translation into three cases by splitting the test conditions from the actions. First check to see if we have an escape sequence and if so handle it. Second check to see if we have an expansion sequence and if so handle it else append the char found to the end of the set being assembled. This resulted in <code>dodash()</code> being replaced by <code>IsSequence()</code> and <code>ExpandSequence()</code>. Likewise <code>esc()</code> was replaced with <code>IsEscape()</code> and <code>ExpandEscape()</code>. I renamed <code>addchar()</code> to <code>AppendChar()</code> in the “Chars” module as that seemed more specific and clearer.</p>
+<p>I choose to advance the value used when expanding a set description in the loop inside of my <code>MakeSet()</code>. I minimized the side effects of the expand functions to the target destination. It is clearer while in the <code>MakeSet()</code> loop to see the relationship of the test and transformation and how to advance through the string. This also allowed me to use fewer parameters to procedures which tends to make things more readable as well as simpler.</p>
+<p>I have included an additional procedure not included in the K &amp; P Pascal of this program. <code>Error()</code> displays a string and halts. K &amp; P provide this as part of their Pascal environment. I have chosen to embed it here because it is short and trivial.</p>
+<p>Translit suggested the “Chars” module because of the repetition in previous programs. In K &amp; P the approach to code reuse is to create a separate source file and to included via a pre-processor. In Oberon we have the module concept.</p>
+<p>My <a href="Chars.Mod">Chars</a> module provides a useful set of test procedures like <code>IsAlpha(c)</code>, <code>IsUpper(c)</code>, <code>IsLower()</code> in addition to the <code>CharInRange()</code> and <code>IsAlphaNum()</code>. It also includes <code>AppendChar()</code> which can be used to append a single character value to an end of an array of char.</p>
 <h2 id="program-documentation-5">Program Documentation</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up">Page
-56</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up">Page 56</a></p>
 <pre><code>
 PROGRAM
 
@@ -789,34 +578,15 @@ EXAMPLE
         This is a simple minded test i e a test of translit
 </code></pre>
 <h2 id="pascal-source">Pascal Source</h2>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up">translit.p,
-Page 48</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up">makeset.p,
-Page 52</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up">addstr.p,
-Page 53</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up">dodash.p,
-Page 53</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up">isalphanum.p,
-Page 54</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up">esc.p,
-Page 55</a></p>
-<p><a
-href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up">length.p,
-Page 46</a></p>
-<p>The impacts of having a richer language than 1980s ISO Pascal and
-evolution in practice suggest a revision in the K &amp; P approach. I
-have attempted to keep the spirit of their example program while
-reflecting changes in practice that have occurred in the last four
-decades.</p>
-<h2 id="source-code-for-translit.mod">Source code for
-<strong>Translit.Mod</strong></h2>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up">translit.p, Page 48</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up">makeset.p, Page 52</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up">addstr.p, Page 53</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up">dodash.p, Page 53</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up">isalphanum.p, Page 54</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up">esc.p, Page 55</a></p>
+<p><a href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up">length.p, Page 46</a></p>
+<p>The impacts of having a richer language than 1980s ISO Pascal and evolution in practice suggest a revision in the K &amp; P approach. I have attempted to keep the spirit of their example program while reflecting changes in practice that have occurred in the last four decades.</p>
+<h2 id="source-code-for-translit.mod">Source code for <strong>Translit.Mod</strong></h2>
 <pre><code>MODULE Translit;
 IMPORT In, Out, Args := extArgs, Strings, Chars;
 
@@ -1039,38 +809,9 @@ BEGIN
 END Translit.
 </code></pre>
 <h1 id="in-closing">In closing</h1>
-<p>In this chapter we interact with some of the most common features of
-command line programs available on POSIX systems. K &amp; P have given
-us a solid foundation on which to build more complex and ambitious
-programs. In the following chapters the read will find an accelerated
-level of complexity bit also programs that are significantly more
-powerful.</p>
-<p>Oberon language evolved with the Oberon System which had a very
-different rich text user interface when compared with POSIX. Fortunately
-Karl’s OBNC comes with a set of modules that make Oberon-07 friendly for
-building programs for POSIX operating systems. I’ve taken advantage of
-his <code>extArgs</code> module much in the way that K &amp; P relied on
-a set of primitive tools to provide a common programming environment. K
-&amp; P’s version of <a
-href="https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up">implementation
-of primitives</a> listed in their appendix. Karl’s OBNC extensions
-modules are described on <a
-href="https://miasap.se/obnc/obncdoc/ext/">website</a>. Other Oberon
-compilers provide similar modules though implementation specific. A good
-example is Spivey’s <a
-href="https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford
-Oberon-2 Compiler</a>. K &amp; P chose to target multiple Pascal
-implementations, I have the luxury of targeting one Oberon-07
-implementation. That said if you added a pre-processor like K &amp; P
-did you could also take their approach to allow you Oberon-07 code to
-work across many Oberon compiler implementations. I leave that as an
-exercise for the reader.</p>
-<p>I’ve chosen to revise some of the code presented in K &amp; P’s book.
-I believe the K &amp; P implementations still contains wisdom in their
-implementations. They had different constraints and thus made different
-choices in implementation. Understand the trade offs and challenges to
-writing portable code capable of running in very divergent set of early
-1980’s operating systems remains useful today.</p>
+<p>In this chapter we interact with some of the most common features of command line programs available on POSIX systems. K &amp; P have given us a solid foundation on which to build more complex and ambitious programs. In the following chapters the read will find an accelerated level of complexity bit also programs that are significantly more powerful.</p>
+<p>Oberon language evolved with the Oberon System which had a very different rich text user interface when compared with POSIX. Fortunately Karl’s OBNC comes with a set of modules that make Oberon-07 friendly for building programs for POSIX operating systems. I’ve taken advantage of his <code>extArgs</code> module much in the way that K &amp; P relied on a set of primitive tools to provide a common programming environment. K &amp; P’s version of <a href="https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up">implementation of primitives</a> listed in their appendix. Karl’s OBNC extensions modules are described on <a href="https://miasap.se/obnc/obncdoc/ext/">website</a>. Other Oberon compilers provide similar modules though implementation specific. A good example is Spivey’s <a href="https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon-2 Compiler</a>. K &amp; P chose to target multiple Pascal implementations, I have the luxury of targeting one Oberon-07 implementation. That said if you added a pre-processor like K &amp; P did you could also take their approach to allow you Oberon-07 code to work across many Oberon compiler implementations. I leave that as an exercise for the reader.</p>
+<p>I’ve chosen to revise some of the code presented in K &amp; P’s book. I believe the K &amp; P implementations still contains wisdom in their implementations. They had different constraints and thus made different choices in implementation. Understand the trade offs and challenges to writing portable code capable of running in very divergent set of early 1980’s operating systems remains useful today.</p>
 <p>Compiling with OBNC:</p>
 <pre><code>
     obnc -o entab Entab.Mod
@@ -1083,8 +824,7 @@ writing portable code capable of running in very divergent set of early
 <ul>
 <li><a href="Entab.Mod">Entab</a>
 <ul>
-<li><a href="Tabs.Mod">Tabs</a>, this one visited this one in last
-installment.</li>
+<li><a href="Tabs.Mod">Tabs</a>, this one visited this one in last installment.</li>
 </ul></li>
 <li><a href="Overstrike.Mod">Overstrike</a></li>
 <li><a href="Compress.Mod">Compress</a></li>
@@ -1103,17 +843,13 @@ Next and Previous
 -->
 <h2 id="previous">Previous</h2>
 <ul>
-<li>Previous: <a href="../../09/29/Software-Tools-1.html">Getting
-Started</a></li>
+<li>Previous: <a href="../../09/29/Software-Tools-1.html">Getting Started</a></li>
 </ul>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

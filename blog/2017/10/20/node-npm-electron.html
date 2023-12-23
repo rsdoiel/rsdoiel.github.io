@@ -37,44 +37,25 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="nodejs-npm-electron">NodeJS, NPM, Electron</h1>
 <p>By R. S. Doiel 2017-10-20</p>
-<p>Electron is an app platform leveraging web technologies. Conceptually
-it is a mashup of NodeJS and Chrome browser. <a
-href="https://electron.atom.io/">Electron</a> site has a nice starter
-app. It displays a window with Electron version info and ‘hello
-world’.</p>
-<p>Before you can get going with <em>Electron</em> you need to have a
-working <em>NodeJS</em> and <em>NPM</em>. I usually compile from source
-and this was my old recipe (adjusted for v8.7.0).</p>
+<p>Electron is an app platform leveraging web technologies. Conceptually it is a mashup of NodeJS and Chrome browser. <a href="https://electron.atom.io/">Electron</a> site has a nice starter app. It displays a window with Electron version info and ‘hello world’.</p>
+<p>Before you can get going with <em>Electron</em> you need to have a working <em>NodeJS</em> and <em>NPM</em>. I usually compile from source and this was my old recipe (adjusted for v8.7.0).</p>
 <pre class="shell"><code>    cd
     git clone https://github.com/nodejs/node.git
     cd node
     git checkout v8.7.0
     ./configure --prefix=$HOME
     make &amp;&amp; make install</code></pre>
-<p>To install an <em>Electron Quick Start</em> I added the additional
-steps.</p>
+<p>To install an <em>Electron Quick Start</em> I added the additional steps.</p>
 <pre class="shell"><code>    cd
     git clone https://github.com/electron/electron-quick-start
     cd electron-quick-start
     npm install
     npm start</code></pre>
-<p>Notice <em>Electron</em> depends on a working <em>node</em> and
-<em>npm</em>. When I tried this recipe it failed on
-<code>npm install</code> with errors regarding internal missing node
-modules.</p>
-<p>After some fiddling I confirmed my node/npm install failed because I
-had install the new version of over a partially installed previous
-version. This causes the node_modules to be populated with various
-conflicting versions of internal modules.</p>
-<p>Sorting that out allowed me to test the current version of
-<em>electron-quick-start</em> cloned on 2017-10-20 under <em>NodeJS</em>
-v8.7.0.</p>
-<h2 id="avoiding-setup-issues-in-the-future">Avoiding Setup Issues in
-the future</h2>
-<p>The <em>Makefile</em> for <em>NodeJS</em> includes an ‘uninstall’
-option. Revising my <em>NodeJS</em> install recipe above I now do the
-following to setup a machine to work with <em>NodeJS</em> or
-<em>Electron</em>.</p>
+<p>Notice <em>Electron</em> depends on a working <em>node</em> and <em>npm</em>. When I tried this recipe it failed on <code>npm install</code> with errors regarding internal missing node modules.</p>
+<p>After some fiddling I confirmed my node/npm install failed because I had install the new version of over a partially installed previous version. This causes the node_modules to be populated with various conflicting versions of internal modules.</p>
+<p>Sorting that out allowed me to test the current version of <em>electron-quick-start</em> cloned on 2017-10-20 under <em>NodeJS</em> v8.7.0.</p>
+<h2 id="avoiding-setup-issues-in-the-future">Avoiding Setup Issues in the future</h2>
+<p>The <em>Makefile</em> for <em>NodeJS</em> includes an ‘uninstall’ option. Revising my <em>NodeJS</em> install recipe above I now do the following to setup a machine to work with <em>NodeJS</em> or <em>Electron</em>.</p>
 <pre class="shell"><code>    git clone git@github.com:nodejs/node.git
     cd node
     ./configure --prefix=$HOME
@@ -82,26 +63,15 @@ following to setup a machine to work with <em>NodeJS</em> or
     make clean
     make -j 5
     make install</code></pre>
-<p>If I am on a device with a multi-core CPU (most of the time) you can
-speed up the make process using a
-<code>-j CPU_CORE_COUNT_PLUS_ONE</code> option (e.g. <code>-j 5</code>
-for my 4 core x86 laptop).</p>
-<p>Once <em>node</em> and <em>npm</em> were working normally the
-instructions in the <em>electron-quick-start</em> worked flawlessly on
-my x86.</p>
-<p>I have tested the node install recipe change on my Pine64 Pinebook,
-on several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.</p>
-<p>I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi’s
-yet. <code>npm install</code> outputs errors suggesting that it is
-expecting an x86 architecture.</p>
+<p>If I am on a device with a multi-core CPU (most of the time) you can speed up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option (e.g. <code>-j 5</code> for my 4 core x86 laptop).</p>
+<p>Once <em>node</em> and <em>npm</em> were working normally the instructions in the <em>electron-quick-start</em> worked flawlessly on my x86.</p>
+<p>I have tested the node install recipe change on my Pine64 Pinebook, on several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.</p>
+<p>I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi’s yet. <code>npm install</code> outputs errors suggesting that it is expecting an x86 architecture.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

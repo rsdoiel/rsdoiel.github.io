@@ -37,26 +37,12 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="am-sql-postgres">11:30 AM, SQL: Postgres</h1>
 <p>Post: Monday, August 22, 2022, 11:30 AM</p>
-<p>Three things have turned out to be challenges in the SQL I write,
-first back ticks is a MySQL-ism for literal quoting of table and column
-names, causes problems in Postgres. Second issue is “REPLACE” is a none
-standard extension I picked up from MySQL <a
-href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it
-wraps a DELETE and INSERT together</a>, should be using UPDATE more than
-I have done in the past. The third is parameter replacement in SQL
-statement. This appears to be <a
-href="http://go-database-sql.org/prepared.html">db implementation
-specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I
-need to use “$1”, “$2”, etc. Challenging to write SQL once and have it
-work everywhere. Beginning to understand why GORM has traction.</p>
+<p>Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is “REPLACE” is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I need to use “$1”, “$2”, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

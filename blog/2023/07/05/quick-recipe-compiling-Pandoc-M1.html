@@ -35,34 +35,25 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="quick-recipe-compile-pandoc-m1">Quick recipe, compile Pandoc
-(M1)</h1>
-<p>These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use
-a similar recipe for building Pandoc on Linux (NOTE: the challenges with
-libiconv and Mac Ports’ libiconv below if you get a build error).</p>
+<h1 id="quick-recipe-compile-pandoc-m1">Quick recipe, compile Pandoc (M1)</h1>
+<p>These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports’ libiconv below if you get a build error).</p>
 <ol type="1">
-<li>Install <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a
-good Haskell setup (I accept all the default choices)
+<li>Install <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a good Haskell setup (I accept all the default choices)
 <ol type="a">
 <li>Use the curl example command to install it</li>
-<li>Make sure the environment is active (e.g. source
-<code>$HOME/.ghcup/env</code>)</li>
+<li>Make sure the environment is active (e.g. source <code>$HOME/.ghcup/env</code>)</li>
 </ol></li>
-<li>Make sure GHCup is pointing at the “recommended” versions of GHC,
-Cabal, etc. (others may work but I prefer the stable releases)</li>
-<li>Clone <a href="https://github.com/jgm/pandoc"
-class="uri">https://github.com/jgm/pandoc</a> to your local machine</li>
+<li>Make sure GHCup is pointing at the “recommended” versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)</li>
+<li>Clone <a href="https://github.com/jgm/pandoc" class="uri">https://github.com/jgm/pandoc</a> to your local machine</li>
 <li>Check out the version you want to build (e.g. 3.1.4)</li>
-<li>Run the “usual” Haskell build sequence with cabal per Pandoc’s
-installation documentation for building from source
+<li>Run the “usual” Haskell build sequence with cabal per Pandoc’s installation documentation for building from source
 <ol type="a">
 <li><code>cabal clean</code></li>
 <li><code>cabal update</code></li>
 <li><code>cabal install pandoc-cli</code></li>
 </ol></li>
 </ol>
-<p>Here’s an example of the shell commands I run (I’m assuming you’re
-installing GHCup for the first time).</p>
+<p>Here’s an example of the shell commands I run (I’m assuming you’re installing GHCup for the first time).</p>
 <pre><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 source $HOME/.gchup/env
 ghcup tui
@@ -74,27 +65,14 @@ git checkout 3.1.4
 cabal clean
 cabal update
 cabal install pandoc-cli</code></pre>
-<p>This will install Pandoc in your <code>$HOME/.cabal/bin</code>
-directory. Make sure it is in your path (it should be if you’ve sourced
-the GHCup environment after you installed GHCup).</p>
+<p>This will install Pandoc in your <code>$HOME/.cabal/bin</code> directory. Make sure it is in your path (it should be if you’ve sourced the GHCup environment after you installed GHCup).</p>
 <h2 id="libiconv-compile-issues">libiconv compile issues</h2>
-<p>If you use Mac Ports it can confuse Cabal/Haskell which one to link
-to. You’ll get an error talking about undefined symbols and iconv. To
-get a clean compile I’ve typically worked around this issue by removing
-the Mac Ports installed libiconv temporarily
-(e.g. <code>sudo port uninstall libiconv</code>, an using the “all”
-option when prompted). After I’ve got a clean install of Pandoc then I
-re-install libiconv for those Ports based applications that need it.
-Putting libiconv back is important, as Mac Ports version of Git expects
-it.</p>
+<p>If you use Mac Ports it can confuse Cabal/Haskell which one to link to. You’ll get an error talking about undefined symbols and iconv. To get a clean compile I’ve typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. <code>sudo port uninstall libiconv</code>, an using the “all” option when prompted). After I’ve got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

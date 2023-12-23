@@ -36,26 +36,15 @@
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="postgresql-dump-and-restore">PostgreSQL dump and restore</h1>
-<p>This is a quick note on easily dumping and restoring a specific
-database in Postgres 14.5. This example has PostgreSQL running on
-localhost and <a
-href="https://www.postgresql.org/docs/current/app-psql.html">psql</a>
-and <a
-href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a>
-are both available. Our database administrator username is “admin”, the
-database to dump is called “collections”. The SQL dump file will be
-named “collections-dump-2022-09-19.sql”.</p>
+<p>This is a quick note on easily dumping and restoring a specific database in Postgres 14.5. This example has PostgreSQL running on localhost and <a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and <a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available. Our database administrator username is “admin”, the database to dump is called “collections”. The SQL dump file will be named “collections-dump-2022-09-19.sql”.</p>
 <pre class="shell"><code>    pg_dump --username=admin --column-inserts \
         collections &gt;collections-dump-2022-09-19.sql</code></pre>
 <p>For the restore process I follow these steps</p>
 <ol type="1">
-<li>Using <code>psql</code> create an empty database to restore
-into</li>
-<li>Using <code>psql</code> replay (import) the dump file in the new
-database to restoring the data</li>
+<li>Using <code>psql</code> create an empty database to restore into</li>
+<li>Using <code>psql</code> replay (import) the dump file in the new database to restoring the data</li>
 </ol>
-<p>The database we want to restore our content into is called
-“collections_snapshot”</p>
+<p>The database we want to restore our content into is called “collections_snapshot”</p>
 <pre class="shell"><code>    psql -U dbadmin
     \c postgres
     DROP DATABASE IF EXISTS collections_snapshot;
@@ -67,23 +56,15 @@ database to restoring the data</li>
 <pre class="shell"><code>    dropdb collections_snapshot
     createdb collections_snapshot
     psql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql</code></pre>
-<p>NOTE: During this restore process <code>psql</code> will display some
-output. This is normal. The two types of lines output are shown
-below.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INSERT</span> <span class="dv">0</span> <span class="dv">1</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ALTER</span> <span class="kw">TABLE</span></span></code></pre></div>
-<p>If you want to stop the input on error you can use the
-<code>--set</code> option to set the error behavior to abort the reload
-if an error is encountered.</p>
+<p>NOTE: During this restore process <code>psql</code> will display some output. This is normal. The two types of lines output are shown below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>    <span class="kw">INSERT</span> <span class="dv">0</span> <span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">ALTER</span> <span class="kw">TABLE</span></span></code></pre></div>
+<p>If you want to stop the input on error you can use the <code>--set</code> option to set the error behavior to abort the reload if an error is encountered.</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
