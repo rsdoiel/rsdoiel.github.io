@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>updated-recipe-compiling-postgrest_v12.0.2</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="PostgREST, M1">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
+<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+<h1 id="updated-recipe-compile-postgrest-12.0.2-m1">Updated recipe,
+compile PostgREST 12.0.2 (M1)</h1>
+<p>by R. S. Doiel, 2024-01-04</p>
+<p>These are my updated “quick notes” for compiling PostgREST v12.0.2 on
+a M1 Mac Mini using the current recommended versions of ghc, cabal and
+stack supplied <a href="https://www.haskell.org/ghcup">GHCup</a>. When I
+recently tried to use my previous <a href="">quick recipe</a> I was
+disappointed it failed with errors like</p>
+<pre><code>Resolving dependencies...
+Error: cabal: Could not resolve dependencies:
+[__0] trying: postgrest-9.0.1 (user goal)
+[__1] next goal: optparse-applicative (dependency of postgrest)
+[__1] rejecting: optparse-applicative-0.18.1.0 (conflict: postgrest =&gt;
+optparse-applicative&gt;=0.13 &amp;&amp; &lt;0.17)
+[__1] skipping: optparse-applicative-0.17.1.0, optparse-applicative-0.17.0.0
+(has the same characteristics that caused the previous version to fail:
+excluded by constraint &#39;&gt;=0.13 &amp;&amp; &lt;0.17&#39; from &#39;postgrest&#39;)
+[__1] trying: optparse-applicative-0.16.1.0
+[__2] next goal: directory (dependency of postgrest)
+[__2] rejecting: directory-1.3.7.1/installed-1.3.7.1 (conflict: postgrest =&gt;
+base&gt;=4.9 &amp;&amp; &lt;4.16, directory =&gt; base==4.17.2.1/installed-4.17.2.1)
+[__2] trying: directory-1.3.8.2
+[__3] next goal: base (dependency of postgrest)
+[__3] rejecting: base-4.17.2.1/installed-4.17.2.1 (conflict: postgrest =&gt;
+base&gt;=4.9 &amp;&amp; &lt;4.16)
+
+...
+</code></pre>
+<p>So this type of output means GHC and Cabal are not finding the
+versions of things they need to compile PostgREST. I then tried picking
+ghc 9.2.8 since the default.nix file indicated a minimum of ghc 9.2.4.
+The <code>ghcup tui</code> makes it easy to grab a listed version then
+set it as the active one.</p>
+<p>I made sure I was working in the v12.0.2 tagged release version of
+the Git repo for PostgREST. Then ran the usual suspects for compiling
+the project. I really wish PostgREST came with install from source
+documentation. It took me a while to think about looking in the
+default.nix file for a minimum GHC version. That’s why I am writing this
+update.</p>
+<p>A similar recipe can be used for building PostgREST on Linux.</p>
+<ol type="1">
+<li>Upgrade <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a
+good Haskell setup (I accept all the default choices)
+<ol type="a">
+<li>Use the curl example command to install it or
+<code>gchup upgrade</code></li>
+<li>Make sure the environment is active (e.g. source
+<code>$HOME/.ghcup/env</code>)</li>
+</ol></li>
+<li>Make sure GHCup is pointing at the version PostgREST v12.0.2 needs,
+i.e. ghc v9.2.8. I chose to keep “recommended” versions of Cabal and
+Stack</li>
+<li>Clone <a href="https://github.com/PostgREST/postgrest"
+class="uri">https://github.com/PostgREST/postgrest</a> to my local
+machine</li>
+<li>Check out the version you want to build, i.e. v12.0.2</li>
+<li>Run the “usual” Haskell build sequence with cabal
+<ol type="a">
+<li><code>cabal clean</code></li>
+<li><code>cabal update</code></li>
+<li><code>cabal build</code></li>
+<li><code>cabal install</code> (I use the
+<code>--overwrite-policy=always</code> option to overwrite my old v11
+postgrest install)</li>
+</ol></li>
+</ol>
+<p>Here’s an example of the shell commands I run (I’m assuming you’re
+installing GHCup for the first time).</p>
+<pre><code>ghcup upgrade
+ghcup tui
+mkdir -p src/github.com/PostgREST
+cd src/github.com/PostgREST
+git clone git@github.com:PostgREST/postgrest
+cd postgrest
+git checkout v12.0.2
+cabal clean
+cabal update
+cabal build
+cabal install --overwrite-policy=always</code></pre>
+<p>This will install PostgREST in your <code>$HOME/.cabal/bin</code>
+directory. Make sure it is in your path (it should be if you’ve sourced
+the GHCup environment after you installed GHCup).</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
