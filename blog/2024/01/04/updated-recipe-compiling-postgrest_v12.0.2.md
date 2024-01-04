@@ -11,7 +11,7 @@ by R. S. Doiel, 2024-01-04
 
 These are my updated "quick notes" for compiling PostgREST v12.0.2 on a M1 Mac Mini using the current recommended
 versions of ghc, cabal and stack supplied [GHCup](https://www.haskell.org/ghcup).  When I recently tried to use
-my previous [quick recipe]() I was disappointed it failed with errors like 
+my previous [quick recipe](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md) I was disappointed it failed with errors like 
 
 ~~~
 Resolving dependencies...
