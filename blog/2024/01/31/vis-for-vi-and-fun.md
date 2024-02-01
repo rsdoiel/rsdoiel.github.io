@@ -2,13 +2,18 @@
 title: vis for vi and fun
 byline: R. S. Doiel, 2024-01-31
 keywords: [ "editors", "vi" ]
+created: 2024-01-31
+updated: 2024-02-01
 ---
 
 # vis for vi and fun
 
+By R. S. Doiel, 2024-01-31 (updated: 2024-02-01)
+
+
 I've been looking for a `vi` editor that my fingers would be happy with. I learned `vi` when I first encountered Unix in University (1980s). I was a transfer student so didn't get the "introduction to Unix and Emacs" lecture. Everyone used Emacs to edit programs but Emacs to me was not intuitive. I recall having a heck of a time figuring out how to exit the editor! I knew I needed to learn an editor and Unix fast to do my school work. I head to my college bookstore and found two spiral bound books [Unix in a Nutshell](https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M) and "Vi/Ed in a Nutshell". They helped remedy my ignorance. I spent the afternoon getting comfortable with Unix and learning the basics in Vi. It became my go to text editor. Somewhere along the line `nvi` came along I used that. Eventually `vim` replaced `nvi` as the default "vi" for most Linux system and adapted again.  I like one featured about `vim` over `nvi`. `vim` does syntax highlighting. I routinely get frustrate with `vim` (my old muscle memory throws me into the help systems, very annoying) so I tend to bounce between `nvi` and `vim` depending on how my eyes feel and frustration level. 
 
-## vis, the vi I wished I had
+## vis, the vi I wished for
 
 Recently I stumbled on `vis`. I find it a  very interesting `vi` implementation. Like `vim` it mostly conforms to the classic mappings of a modal editor built on top of `ed`. But `vis` has some nice twists. First it doesn't try to be a monolithic systems like Emacs or `vim`. Rather then used an application specific scripting language (e.g. Emacs-lisp, vim-script) it uses Lua 5.2 as its configuration language. For me starting up `vis` feels like starting up `nvi`. It is quick and responsive where my typical `vim` setup feels allot like Visual Studio Code in that it's loading a whole bunch of things I don't use. 
 
@@ -42,3 +47,11 @@ A challenge in making the switch to `vis` is learning a new approach to search a
 ## A few "thank you" or "how did I stumble on vis?"
 
 I'd like to say thank you to [Marc André Tanner](https://github.com/martanne) for writing `vis`, [Glendix](https://www.glendix.org/) for highlighting it and to OS News contributor [pablo_marx](https://www.osnews.com/submissions/?user=pablo_marx) for the story [Glendix: Bringing the Beauty of Plan 9 to Linux](https://www.osnews.com/story/20588/glendix-bringing-the-beauty-of-plan-9-to-linux/). With this I find my fingers are happier.
+
+## Additional resources
+
+- [GitHub Topic](https://github.com/topics/vis-editor)
+- [Plugin collection](https://erf.github.io/vis-plugins/)
+- [Vis Wiki](https://github.com/martanne/vis/wiki)
+
+
