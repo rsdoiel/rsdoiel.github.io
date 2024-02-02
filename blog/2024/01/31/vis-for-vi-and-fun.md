@@ -2,6 +2,7 @@
 title: vis for vi and fun
 byline: R. S. Doiel, 2024-01-31
 keywords: [ "editors", "vi" ]
+pubDate: 2024-01-31
 created: 2024-01-31
 updated: 2024-02-01
 ---
