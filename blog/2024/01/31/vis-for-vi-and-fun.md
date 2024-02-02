@@ -53,6 +53,7 @@ I'd like to say thank you to [Marc André Tanner](https://github.com/martanne) f
 
 - [Marc André Tanner](https://www.brain-dump.org/projects/vis/)'s vis project page
 - [vis on GitHub](https://github.com/martanne/vis/)
+- [vis @ readthedocs](https://vis.readthedocs.io/en/master/vis.html)
 - [Vis Wiki](https://github.com/martanne/vis/wiki)
 - [GitHub Topic](https://github.com/topics/vis-editor)
 - [Plugin collection](https://erf.github.io/vis-plugins/)
