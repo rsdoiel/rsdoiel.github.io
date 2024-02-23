@@ -25,11 +25,12 @@ Technical Skills
 + Make
 + Oberon
 + Pascal
-+ Perl
 + PHP
 + Python
 + SQL/PSM
 + Various SQL/NoSQL database platforms
+    + Postgres+PostgREST
+    + SQLite3
     + MySQL/MariaDB
     + MongoDB/CouchDB/BoltDB
 

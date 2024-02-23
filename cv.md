@@ -27,18 +27,17 @@ Technical Skills
 + C
 + Git
 + Go
-+ JavaScript (NodeJS)
++ JavaScript (NodeJS/Deno)
 + Make
 + Oberon
 + Pascal
-+ Perl
 + PHP
 + Python
 + SQL/PSM
 + Various SQL/NoSQL database platforms
     + SQLite3
+    + Postgres+PostgREST
     + MySQL/MariaDB
-    + MongoDB/CouchDB
 + Design and implementation of
     + Web API and middleware
     + content management systems
@@ -49,6 +48,7 @@ Current Projects
 ----------------
 
 + Build [cool things](https://caltechlibrary.github.io) for Caltech Library
+    + [irdmtools](https://caltechlibrary.github.io/irdmtools) - a collection of tools for migrating, managing and interacting with Invenio-RDM and EPrints repository software and metadata
     + [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or as a localhost web service
     + [datatools](https://caltechlibrary.github.io/datatools) - a collection of command line utilities for working with CSV, JSON and Excel Workbooks
     + [mkpage](https://caltechlibrary.github.io/mkpage) - A experimental deconstructed content management system implemented as a pre-processor for [Pandoc](https://pandoc.org)
