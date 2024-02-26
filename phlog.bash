@@ -46,6 +46,7 @@ THIS_YEAR="$(reldate 0 day | cut -d '-' -f 1)"
 START_YEAR="2016"
 
 # Build index
+touch "$BLOG/phlog.json"
 echo "Building $BLOG/gophermap"
 TITLE="Robert's ramblings"
 

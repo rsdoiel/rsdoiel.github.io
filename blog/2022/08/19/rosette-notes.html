@@ -38,11 +38,18 @@
 <h1 id="rosette-notes">Rosette Notes</h1>
 <p>By R. S. Doiel, 2022-08-19</p>
 <blockquote>
-<p>A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar’s rosette</p>
+<p>A dance around two relational databases, piecing together
+similarities as with the tiny mosaic tiles of a guitar’s rosette</p>
 </blockquote>
-<p>What follows are my preliminary notes learning Postgres 12 and 14.</p>
+<p>What follows are my preliminary notes learning Postgres 12 and
+14.</p>
 <h2 id="postgres-mysql">Postgres &amp; MySQL</h2>
-<p>This is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you’re using <code>psql</code> to access Postgres and <code>mysql</code> to access MySQL. Values between <code>&lt;</code> and <code>&gt;</code> should be replaced with an appropriate value.</p>
+<p>This is a short comparison of some administrative commands I commonly
+use. The first column describes the task followed by the SQL to execute
+for Postgres 14.5 and then MySQL 8. The presumption is you’re using
+<code>psql</code> to access Postgres and <code>mysql</code> to access
+MySQL. Values between <code>&lt;</code> and <code>&gt;</code> should be
+replaced with an appropriate value.</p>
 <table>
 <colgroup>
 <col style="width: 31%" />
@@ -80,12 +87,48 @@
 </tbody>
 </table>
 <h2 id="reflections">Reflections</h2>
-<p>The Postgres shell, <code>psql</code>, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the <code>SHOW TABLES</code> query. For me <code>SHOW ...</code> feels like SQL where as <code>\d</code> or <code>\dt</code> takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. <code>\dt</code> quickly becomes second nature and is shorter to type than <code>SHOW TABLES</code>.</p>
-<p>Connecting to a database with <code>\c</code> in <code>psql</code> is like calling an “open” in programming language. The “connection” in <code>psql</code> is open until explicitly closed or the shell is terminated. Like <code>USE ...</code> in the MySQL shell it make working with multiple database easy. The difference are apparent when you execute a <code>DROP DATABASE ...</code> command. In <code>psql</code> you need to <code>CLOSE</code> the database first or the <code>DROP</code> will fail. The MySQL shell will happily let you drop the current database you are currently using.</p>
-<p>The challenge I’ve experienced learning <code>psql</code> after knowing MySQL is my lack of familiarity with the metadata Postgres maintains about databases and structures. On the other hand everything I’ve learned about standards base SQL applies to managing Postgres once remember the database/table I need to work with. A steeper learning curve from MySQL’s <code>SHOW</code> but it also means writing external programs for managing Postgres databases and tables is far easier because everything is visible because that is how you manage Postgres. MySQL’s <code>SHOW</code> is very convenient but at the cost of hiding some of its internal structures.</p>
-<p>Both MySQL and Postgres support writing programs in SQL. They also support stored procedures, views and triggers. They’ve converged in the degree in which they have both implemented SQL language standards. The differences are mostly in approach to managing databases. There are some differences, necessitated by implementation choices, in the <code>CREATE DATABASE</code>, <code>CREATE TABLE</code> or <code>ALTER</code> statements but you can often use the basic form described in ANSI SQL and get the results you need. When doing performance tuning the dialect differences are more important.</p>
+<p>The Postgres shell, <code>psql</code>, provides the functionality of
+showing a list of tables via a short cut while MySQL choose to add the
+<code>SHOW TABLES</code> query. For me <code>SHOW ...</code> feels like
+SQL where as <code>\d</code> or <code>\dt</code> takes me out of SQL
+space. On the other hand given Postgres metadata structure the shortcut
+is appreciated and I often query for table names as I forget them.
+<code>\dt</code> quickly becomes second nature and is shorter to type
+than <code>SHOW TABLES</code>.</p>
+<p>Connecting to a database with <code>\c</code> in <code>psql</code> is
+like calling an “open” in programming language. The “connection” in
+<code>psql</code> is open until explicitly closed or the shell is
+terminated. Like <code>USE ...</code> in the MySQL shell it make working
+with multiple database easy. The difference are apparent when you
+execute a <code>DROP DATABASE ...</code> command. In <code>psql</code>
+you need to <code>CLOSE</code> the database first or the
+<code>DROP</code> will fail. The MySQL shell will happily let you drop
+the current database you are currently using.</p>
+<p>The challenge I’ve experienced learning <code>psql</code> after
+knowing MySQL is my lack of familiarity with the metadata Postgres
+maintains about databases and structures. On the other hand everything
+I’ve learned about standards base SQL applies to managing Postgres once
+remember the database/table I need to work with. A steeper learning
+curve from MySQL’s <code>SHOW</code> but it also means writing external
+programs for managing Postgres databases and tables is far easier
+because everything is visible because that is how you manage Postgres.
+MySQL’s <code>SHOW</code> is very convenient but at the cost of hiding
+some of its internal structures.</p>
+<p>Both MySQL and Postgres support writing programs in SQL. They also
+support stored procedures, views and triggers. They’ve converged in the
+degree in which they have both implemented SQL language standards. The
+differences are mostly in approach to managing databases. There are some
+differences, necessitated by implementation choices, in the
+<code>CREATE DATABASE</code>, <code>CREATE TABLE</code> or
+<code>ALTER</code> statements but you can often use the basic form
+described in ANSI SQL and get the results you need. When doing
+performance tuning the dialect differences are more important.</p>
 <h2 id="dump-restore">Dump &amp; Restore</h2>
-<p>Both Postgres and MySQL provide command line programs for dumping a database. MySQL provides a single program where as Postgres splits it in two. Check the man pages (or website docs) for details in their options. Both sets of programs are highly configurable allowing you to dump just schema, just data or both with different expectations.</p>
+<p>Both Postgres and MySQL provide command line programs for dumping a
+database. MySQL provides a single program where as Postgres splits it in
+two. Check the man pages (or website docs) for details in their options.
+Both sets of programs are highly configurable allowing you to dump just
+schema, just data or both with different expectations.</p>
 <table>
 <thead>
 <tr class="header">
@@ -104,9 +147,20 @@
 </tr>
 </tbody>
 </table>
-<p>The <code>pg_dumpall</code> tool is designed to restore an entire database instance. It includes account and ownership information. <code>pg_dump</code> just focuses on the database itself. If you are taking a snapshot production data to use in a test <code>pg_dump</code> output is easier to work with. It captures the specific database with out entangling things like the <code>template1</code> database or database user accounts and ownership.</p>
-<p>You can restore a database dump in both Postgres and MySQL. The tooling is a little different.</p>
+<p>The <code>pg_dumpall</code> tool is designed to restore an entire
+database instance. It includes account and ownership information.
+<code>pg_dump</code> just focuses on the database itself. If you are
+taking a snapshot production data to use in a test <code>pg_dump</code>
+output is easier to work with. It captures the specific database with
+out entangling things like the <code>template1</code> database or
+database user accounts and ownership.</p>
+<p>You can restore a database dump in both Postgres and MySQL. The
+tooling is a little different.</p>
 <table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Postgres 14.5</th>
@@ -128,21 +182,55 @@
 </tr>
 </tbody>
 </table>
-<p>NOTE: These instructions work for a database dumped with <code>pg_dump</code> for the Postgres example. In principle it is the same way you can restore from <code>pg_dumpall</code> but if you Postgres instance already exists then you’re going to run into various problems, e.g. errors about <code>template1</code> db.</p>
-<h2 id="lessons-learned-along-the-way">Lessons learned along the way</h2>
+<p>NOTE: These instructions work for a database dumped with
+<code>pg_dump</code> for the Postgres example. In principle it is the
+same way you can restore from <code>pg_dumpall</code> but if you
+Postgres instance already exists then you’re going to run into various
+problems, e.g. errors about <code>template1</code> db.</p>
+<h2 id="lessons-learned-along-the-way">Lessons learned along the
+way</h2>
 <p>2022-08-22</p>
-<p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is “REPLACE” is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I need to use “$1”, “$2”, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
+<p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be
+challenges in the SQL I write, first back ticks is a MySQL-ism for
+literal quoting of table and column names, causes problems in Postgres.
+Second issue is “REPLACE” is a none standard extension I picked up from
+MySQL <a
+href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it
+wraps a DELETE and INSERT together</a>, should be using UPDATE more than
+I have done in the past. The third is parameter replacement in SQL
+statement. This appears to be <a
+href="http://go-database-sql.org/prepared.html">db implementation
+specific</a>. I’ve used “?” with SQLite and MySQL but with Postgres I
+need to use “$1”, “$2”, etc. Challenging to write SQL once and have it
+work everywhere. Beginning to understand why GORM has traction.</p>
 <p>2022-08-24</p>
-<p>11:00 - 12:00; SQL; Postgres; I miss <code>SHOW TABLES</code> it’s just muscle memory from MySQL, the SQL to show tables is <code>SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';</code>. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL’s “SHOW TABLES”. Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.</p>
+<p>11:00 - 12:00; SQL; Postgres; I miss <code>SHOW TABLES</code> it’s
+just muscle memory from MySQL, the SQL to show tables is
+<code>SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';</code>.
+I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL’s
+“SHOW TABLES”. Might be a good way to learn PL/pgSQL. I could then do
+one for MySQL and compare the PL/SQL language implementations.</p>
 <p>2022-08-26</p>
-<p>9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean <a href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">How To Install PostgreSQL on Ubuntu 22.04 [Quickstart]</a>, April 25, 2022 by Alex Garnett helpful.</p>
+<p>9:30 - 10:30; SQL; Postgres; If you are looking for instructions on
+installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean <a
+href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">How
+To Install PostgreSQL on Ubuntu 22.04 [Quickstart]</a>, April 25, 2022
+by Alex Garnett helpful.</p>
 <p>2022-09-19</p>
-<p>10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see <a href="https://www.postgresql.org/download/linux/ubuntu/">https://www.postgresql.org/download/linux/ubuntu/</a>, see <a href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart</a> for setting up initial database and users</p>
+<p>10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell
+script, see <a
+href="https://www.postgresql.org/download/linux/ubuntu/">https://www.postgresql.org/download/linux/ubuntu/</a>,
+see <a
+href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart</a>
+for setting up initial database and users</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>

@@ -8,7 +8,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <meta name="keywords" content="search, web browser, dweb, static site, lunrjs, pagefind">
+  <meta name="keywords" content="search, web browser, dweb, static
+site, lunrjs, pagefind">
   <link rel="alternative" type="application/markdown" href="/blog/2022/11/18/browser-side-site-search.md">
   <link rel="search" type="application/opensearchdescription+xml"
         title="Robert's Rambling Search Engine"
@@ -37,17 +38,59 @@
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="browser-based-site-search">Browser based site search</h1>
 <p>By R. S. Doiel, 2022-11-18</p>
-<p>I recently read Brewster Kahle’s 2015 post about his vision for a <a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">distributed web</a>. Many of his ideas have carried over into <a href="https://wiki.mozilla.org/Dweb">DWeb</a>, <a href="https://indieweb.org/">Indie Web</a>, <a href="https://benhoyt.com/writings/the-small-web-is-beautiful/">Small Web</a>, <a href="https://cafebedouin.org/2021/07/28/the-small-internet/">Small Internet</a> and the like. A point he touches on is site search running in the web browser.</p>
-<p>I’ve use this approach in my own website relying on <a href="https://lunrjs.com">LunrJS</a> by Oliver Nightingale. It is a common approach for small sites built using Markdown and <a href="https://pandoc.org">Pandoc</a>. In the Brewster article he mentions <a href="https://github.com/cebe/js-search">js-search</a>, an implementation I was not familiar with. Like LunrJS the query engine runs in the browser via JavaScript but unlike LunrJS the indexes are built using PHP rather than JavaScript. The last couple of years I’ve used <a href="https://github.com/yeraydiazdiaz/lunr.py">Lunr.py</a> to generating indexes for my own website site while using LunrJS for the browser side query engine. Today I check to see what the <a href="https://gohugo.io/tools/search/">Hugo</a> community is using and found <a href="https://github.com/cloudcannon/pagefind">Pagefind</a>. Pagefind looks impressive. There was a presentation on at <a href="https://hugoconf.io/">Hugo Conference 2022</a>. It takes building a Lucene-like index several steps further. I appears to handle much larger indexes without requiring the full indexes to be downloaded into the browser. It seems like a good candidate for prototyping personal search engine.</p>
-<p>How long have been has browser side search been around? I do not remember when I started using. I explored seven projects on GitHub that implemented browser side site search. This is an arbitrary selection projects but even then I had no idea that this approach dates back a over decade!</p>
+<p>I recently read Brewster Kahle’s 2015 post about his vision for a <a
+href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">distributed
+web</a>. Many of his ideas have carried over into <a
+href="https://wiki.mozilla.org/Dweb">DWeb</a>, <a
+href="https://indieweb.org/">Indie Web</a>, <a
+href="https://benhoyt.com/writings/the-small-web-is-beautiful/">Small
+Web</a>, <a
+href="https://cafebedouin.org/2021/07/28/the-small-internet/">Small
+Internet</a> and the like. A point he touches on is site search running
+in the web browser.</p>
+<p>I’ve use this approach in my own website relying on <a
+href="https://lunrjs.com">LunrJS</a> by Oliver Nightingale. It is a
+common approach for small sites built using Markdown and <a
+href="https://pandoc.org">Pandoc</a>. In the Brewster article he
+mentions <a href="https://github.com/cebe/js-search">js-search</a>, an
+implementation I was not familiar with. Like LunrJS the query engine
+runs in the browser via JavaScript but unlike LunrJS the indexes are
+built using PHP rather than JavaScript. The last couple of years I’ve
+used <a href="https://github.com/yeraydiazdiaz/lunr.py">Lunr.py</a> to
+generating indexes for my own website site while using LunrJS for the
+browser side query engine. Today I check to see what the <a
+href="https://gohugo.io/tools/search/">Hugo</a> community is using and
+found <a href="https://github.com/cloudcannon/pagefind">Pagefind</a>.
+Pagefind looks impressive. There was a presentation on at <a
+href="https://hugoconf.io/">Hugo Conference 2022</a>. It takes building
+a Lucene-like index several steps further. I appears to handle much
+larger indexes without requiring the full indexes to be downloaded into
+the browser. It seems like a good candidate for prototyping personal
+search engine.</p>
+<p>How long have been has browser side search been around? I do not
+remember when I started using. I explored seven projects on GitHub that
+implemented browser side site search. This is an arbitrary selection
+projects but even then I had no idea that this approach dates back a
+over decade!</p>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 29%" />
+<col style="width: 26%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Project</th>
 <th>Indexer</th>
 <th>query engine</th>
-<th style="text-align: center;">earliest commit<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></th>
-<th style="text-align: center;">recent commit<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></th>
+<th style="text-align: center;">earliest commit<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></th>
+<th style="text-align: center;">recent commit<a href="#fn2"
+class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></th>
 </tr>
 </thead>
 <tbody>
@@ -66,21 +109,24 @@
 <td style="text-align: center;">2022</td>
 </tr>
 <tr class="odd">
-<td><a href="https://github.com/fergiemcdowall/search-index">search-index</a></td>
+<td><a
+href="https://github.com/fergiemcdowall/search-index">search-index</a></td>
 <td>JavaScript</td>
 <td>JavaScript</td>
 <td style="text-align: center;">2013</td>
 <td style="text-align: center;">2016</td>
 </tr>
 <tr class="even">
-<td><a href="https://github.com/cebe/js-search">js-search</a> (cebe)</td>
+<td><a href="https://github.com/cebe/js-search">js-search</a>
+(cebe)</td>
 <td>PHP</td>
 <td>JavaScript</td>
 <td style="text-align: center;">2014</td>
 <td style="text-align: center;">2022</td>
 </tr>
 <tr class="odd">
-<td><a href="https://github.com/bvaughn/js-search">js-search</a> (bvaughn)</td>
+<td><a href="https://github.com/bvaughn/js-search">js-search</a>
+(bvaughn)</td>
 <td>JavaScript</td>
 <td>JavaScript</td>
 <td style="text-align: center;">2015</td>
@@ -102,18 +148,26 @@
 </tr>
 </tbody>
 </table>
-<section class="footnotes" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Years are based on checking reviewing the commit history on GitHub as of 2022-11-18.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Years are based on checking reviewing the commit history on GitHub as of 2022-11-18.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Years are based on checking reviewing the commit history
+on GitHub as of 2022-11-18.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Years are based on checking reviewing the commit history
+on GitHub as of 2022-11-18.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
