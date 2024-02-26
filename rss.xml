@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Fri, 02 Feb 2024 00:00:00 +0000</pubDate>
-        <lastBuildDate>Fri, 02 Feb 2024 00:00:00 +0000</lastBuildDate>
-        <generator>pttk rss 0.0.13</generator>
+        <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sun, 25 Feb 2024 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.12</generator>
+        <item>
+            <title>A Text Oriented Web</title>
+            <link>https://rsdoiel.github.io/blog/2024/02/25/text_oriented_web.html</link>
+            <description>The web is a busy place. There seems to be a gestalt resonant at the moment on the web that can be summarized by two phrases, &#34;back to basics&#34; and &#34;simplification&#34;. It is not the first time I&#39;ve seen this nor is it likely the last. This blog post describes a thought experiment about a simplification with minimal invention and focus on feature elimination. It&#39;s a way to think about the web status quo a little differently. My intention is to explore the implications of a more text centered web experience that could coexist as a subset of today&#39;s web.&#xA;&#xA;I think the following could form the &#34;good stuff&#34; in a Crockford[^1] sense of pairing things down to the essential.&#xA;&#xA;- the transport layer should remain HTTP but be limited to a few methods (GET, POST and HEAD) and the common header elements (e.g. length, content-type come to mind)&#xA;- The trio of HTML, CSS and JavaScript is really complex, swap this out for Markdown augmented with YAML (Markdown and YAML already have a synergy in Markdown processors like Pandoc)&#xA;- A Web form is expressed using GHYITS[^2], it is delimited in the Markdown document by the familiar &#34;`^---$`&#34; block element, web form content would be encoded as YAML in the body of the POST using the content type &#34;`application/x-yaml`&#34;.&#xA;- Content would be served using the `text/markdown; charset: utf-8` content type already commonly used to identify Markdown content distinct from `plain/text`&#xA;&#xA;I need a nice name for describing the arrangement of Markdown+YAML over HTTP arrangement. Is the descriptive acronym for &#34;text oriented web&#34;, i.e. &#34;tow&#34;, enough? Does it already have a meaning in software or the web? Would the protocol be &#34;tow://&#34;? I really need something a bit more clever and catchy if this is going to proceed beyond a thought experiment.&#xA;&#xA;[^1]: Douglas Crockford &#34;discovered&#34; JSON, see &lt;https://en.wikipedia.org/wiki/Douglas_Crockford&gt; ...</description>
+            <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/02/25/text_oriented_web.html</guid>
+        </item>
         <item>
             <title>Installing pgloader from source</title>
             <link>https://rsdoiel.github.io/blog/2024/02/01/installing-pgloader-from-source.html</link>

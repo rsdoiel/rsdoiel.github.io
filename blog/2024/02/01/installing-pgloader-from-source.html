@@ -35,44 +35,26 @@
   <article>
   <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
 <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
-<h1 id="installing-pgloader-from-source">Installing pgloader from
-source</h1>
+<h1 id="installing-pgloader-from-source">Installing pgloader from source</h1>
 <p>By R. S. Doiel, 2024-02-01</p>
-<p>I’m working on macOS at the moment but I don’t use Home Brew so the
-instructions to install pgloader are problematic for me. Except I know
-pgloader is a Lisp program and once upon a time I had three different
-Lisps running on a previous Mac. So what follows is my modified
-instructions for bringing pgloader up on my current Mac Mini running
-macOS Sonoma 14.3 with Xcode already installed.</p>
+<p>I’m working on macOS at the moment but I don’t use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac. So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.</p>
 <h2 id="getting-your-lisps-in-order">Getting your Lisps in order</h2>
-<p>pgloader is written in common list but the instructions at
-https://pgloader.readthedocs.io/en/latest/install.html specifically
-mention compiling with <a href="https://sbcl.org">SBCL</a> which is one
-of the Lisps I’ve used in the past. But SBCL isn’t (yet) installed on my
-machine and SBCL is usually compiled using SBCL but can be compiled
-using other common lists. Enter <a
-href="https://ecl.common-lisp.dev/">ECL</a>, aka Embedded Common-Lisp.
-ECL compiles via a C compiler including the funky setup that macOS has.
-This means the prep for my machine should look something like</p>
+<p>pgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with <a href="https://sbcl.org">SBCL</a> which is one of the Lisps I’ve used in the past. But SBCL isn’t (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists. Enter <a href="https://ecl.common-lisp.dev/">ECL</a>, aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like</p>
 <ol type="1">
 <li>Compile then install ECL</li>
 <li>Use ECL to compile SBCL</li>
 <li>Install SBCL</li>
-<li>Now that we have a working SBCL, follow the instructions to compile
-pgloader and install</li>
+<li>Now that we have a working SBCL, follow the instructions to compile pgloader and install</li>
 </ol>
-<p>NOTE: pgloader requires some specific configuration of SBCL when SBCL
-is compiled</p>
+<p>NOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled</p>
 <h2 id="getting-ecl-up-and-running">Getting ECL up and running</h2>
 <p>This recipe is straight forward.</p>
 <ol type="1">
 <li>Review ECL’s current website, find latest releases</li>
 <li>Clone the Git repository from GitLab for ECL</li>
-<li>Follow the install documentation and compile ECL then install
-it</li>
+<li>Follow the install documentation and compile ECL then install it</li>
 </ol>
-<p>Here’s the steps I took in the shell (I’m installing ECL, SBCL in my
-home directory)</p>
+<p>Here’s the steps I took in the shell (I’m installing ECL, SBCL in my home directory)</p>
 <pre><code>cd
 git clone https://gitlab.com/embeddable-common-lisp/ecl.git \
           src/gitlab.com/embeddable-common-lisp/ecl
@@ -81,10 +63,7 @@ cd src/gitlab.com/embeddable-common-lisp/ecl
 make
 make install</code></pre>
 <h2 id="getting-sbcl-up-and-running">Getting SBCL up and running</h2>
-<p>To get SBCL up and running I grab the sources using Git then compile
-it with the options recommended by pgloader as well as the options to
-compile SBCL with another common lisp, i.e. ECL. (note: the
-<code>--xc-host='ecl'</code>)</p>
+<p>To get SBCL up and running I grab the sources using Git then compile it with the options recommended by pgloader as well as the options to compile SBCL with another common lisp, i.e. ECL. (note: the <code>--xc-host='ecl'</code>)</p>
 <pre><code>cd
 git clone git://git.code.sf.net/p/sbcl/sbcl src/git.code.sf.net/p/sbcl/sbcl
 cd git clone git://git.code.sf.net/p/sbcl/sbcl
@@ -96,17 +75,10 @@ cd ..
 env INSTALL_ROOT=$HOME sh install.sh</code></pre>
 <p>At this time SBCL should be available to compile pgloader.</p>
 <h2 id="install-quicklisp">Install Quicklisp</h2>
-<p>Quicklisp is a package manager for Lisp. It is used by pgloader so
-also needs to be installed. We have two lisp on our system but since
-SBCL is the one I need to work for pgloader I install Quicklisp for
-SBCL.</p>
+<p>Quicklisp is a package manager for Lisp. It is used by pgloader so also needs to be installed. We have two lisp on our system but since SBCL is the one I need to work for pgloader I install Quicklisp for SBCL.</p>
 <ol type="1">
-<li>Check the <a href="https://www.quicklisp.org/beta/">Quicklisp
-website</a> and see how things are done (it has been a long time since I
-did some lisp work)</li>
-<li>Follow the <a
-href="https://www.quicklisp.org/beta/#installation">instructions</a> on
-the website to install Quicklisp for SBCL</li>
+<li>Check the <a href="https://www.quicklisp.org/beta/">Quicklisp website</a> and see how things are done (it has been a long time since I did some lisp work)</li>
+<li>Follow the <a href="https://www.quicklisp.org/beta/#installation">instructions</a> on the website to install Quicklisp for SBCL</li>
 </ol>
 <p>This leaves me with the specific steps</p>
 <ol type="1">
@@ -120,14 +92,11 @@ the website to install Quicklisp for SBCL</li>
 curl -O https://beta.quicklisp.org/quicklisp.lisp.asc
 gpg --verify quicklisp.lisp.asc quicklisp.lisp
 sbcl --load quicklisp.lisp</code></pre>
-<p>At this point you’re in SBCL repl. You need to issue the follow
-command</p>
+<p>At this point you’re in SBCL repl. You need to issue the follow command</p>
 <pre><code>(quicklisp-quickstart:install)
 (quit)</code></pre>
 <h2 id="compiling-pgloader">Compiling pgloader</h2>
-<p>Once you have SBCL and Quicklisp working you’re now ready to look at
-the rest of the dependencies. Based on the what other Linux systems
-required I figure I need to have the following available</p>
+<p>Once you have SBCL and Quicklisp working you’re now ready to look at the rest of the dependencies. Based on the what other Linux systems required I figure I need to have the following available</p>
 <ul>
 <li>SQLite 3, libsqlite shared library (already installed)</li>
 <li>unzip (already installed)</li>
@@ -137,13 +106,11 @@ required I figure I need to have the following available</p>
 <li>freetds-dev (not installed)</li>
 <li>libzip-dev (not installed)</li>
 </ul>
-<p>Two libraries aren’t installed on my system. I use Mac Ports so doing
-a quick search both appear to be available.</p>
+<p>Two libraries aren’t installed on my system. I use Mac Ports so doing a quick search both appear to be available.</p>
 <pre><code>sudo port search freetds
 sudo port search libzip
 sudo port install freetds libzip</code></pre>
-<p>OK, now I think I am ready to build pgloader. Here’s what I need to
-do.</p>
+<p>OK, now I think I am ready to build pgloader. Here’s what I need to do.</p>
 <ol type="1">
 <li>Clone the git repo for pgloader</li>
 <li>Invoke make with the right options</li>
@@ -154,19 +121,14 @@ git git@github.com:dimitri/pgloader.git src/github.com/dimitri/pgloader
 cd src/github.com/dimitri/pgloader
 make save
 ./build/bin/pgloader -h</code></pre>
-<p>If all works well I should see the help/usage text for pgloader. The
-binary executable is located in <code>./build/bin</code> so I can copy
-this into place in <code>$HOME/bin/</code> directory.</p>
+<p>If all works well I should see the help/usage text for pgloader. The binary executable is located in <code>./build/bin</code> so I can copy this into place in <code>$HOME/bin/</code> directory.</p>
 <pre><code>cp ./build/bin/pgloader $HOME/bin/</code></pre>
 <p>Happy Loading. , “PostgreSQL”</p>
   </article>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
+<p>copyright © 2016 - 2023 R. S. Doiel<br /> <a href="/rssfeed.html">RSS</a> feeds and website built with <a href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a href="https://pandoc.org">Pandoc</a>.</p>
 </footer>
 <!-- START: PrettyFi from https://github.com/google/code-prettify -->
 <script>
