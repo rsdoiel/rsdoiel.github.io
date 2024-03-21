@@ -10,7 +10,7 @@ find . -type f | grep -E '\.md$' | while read -r FNAME; do
 	cat <<EOT
  Can't find md2gemini. Try installing with pip
 
- 	python3 -m pip install mg2gemini
+ 	python3 -m pip install md2gemini
 
 EOT
 	exit 1
