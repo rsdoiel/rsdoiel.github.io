@@ -17,22 +17,22 @@ I am currently a Senior Applications Developer in the Digital Library Developmen
 Technical Skills
 ----------------
 
-+ Bash
-+ C
-+ Git
-+ Go
-+ JavaScript (NodeJS)
-+ Make
-+ Oberon
-+ Pascal
-+ PHP
-+ Python
-+ SQL/PSM
-+ Various SQL/NoSQL database platforms
-    + Postgres+PostgREST
-    + SQLite3
-    + MySQL/MariaDB
-    + MongoDB/CouchDB/BoltDB
+- Bash
+- C
+- Git
+- Go
+- JavaScript (NodeJS)
+- Make
+- Oberon
+- Pascal
+- PHP
+- Python
+- SQL/PSM
+- Various SQL/NoSQL database platforms
+  - Postgres+PostgREST
+  - SQLite3
+  - MySQL/MariaDB
+  - MongoDB/CouchDB/BoltDB
 
 
 Experience
@@ -55,39 +55,40 @@ Earlier employment did not involve engineering though it did include working for
 Responsibilities
 ----------------
 
-+ Software architecture and implementation for applications, APIs and data services
-+ Technology evaluation
-+ Code audits
-+ Integration of security practices and tools into developer workflow
-+ Specialties
-    + Back end content delivery systems
-    + RESTful API implementations
-    + Data migration and transformation
-    + Automating content analysis
+- Software architecture and implementation for applications, APIs and data services
+- Technology evaluation
+- Code audits
+- Integration of security practices and tools into developer workflow
+- Specialties
+  - Back end content delivery systems
+  - RESTful API implementations
+  - Data migration and transformation
+  - Automating content analysis
 
 
 Education
 ---------
 
-+ Master of Arts in the Humanities, [Mount Saint Mary's University](http://www.msmu.edu), 2010
-+ Bachelor of Science in Computer Science, [University of Southern California](http://www.usc.edu), 2004
-+ Associate of Arts in the Humanities, [College of the Canyons](https://www.canyons.edu), 1989
-
+- Master of Arts in the Humanities, [Mount Saint Mary's University](http://www.msmu.edu), 2010
+- Bachelor of Science in Computer Science, [University of Southern California](http://www.usc.edu), 2004
+- Associate of Arts in the Humanities, [College of the Canyons](https://www.canyons.edu), 1989
 
 Code samples
 ------------
 
 Projects at Caltech Library
 
-+ [dataset](https://github.com/caltechlibrary/dataset) - a JSON document store
-+ [datatools](https://github.com/caltechlibrary/datatools) - a collection of command line utilities for scripting batch processing of large datasets in JSON, CSV and Excel Workbook formats
-+ [mkpage](https://caltechlibrary.github.io/mkpage) - a light weight go template and markdown processor and related tools for building content system in Bash
+- [newt](https://github.com/caltechlibrary/newt) - tooling for rapid development of gallary, library, archive and museam metadata tools
+- [irdmtools](https://github.com/caltechlibrary/irdmtools) - Institutional Repository Management Tools
+- [dataset](https://github.com/caltechlibrary/dataset) - a JSON document store
+- [datatools](https://github.com/caltechlibrary/datatools) - a collection of command line utilities for scripting batch processing of large datasets in JSON, CSV and Excel Workbook formats
+- [mkpage](https://caltechlibrary.github.io/mkpage) - a light weight go template and markdown processor and related tools for building content system in Bash
 
 Personal projects
 
-+ [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
-+ [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
-+ [scripttool](https://rsdoiel.github.io/scripttool/) - A command line program for converting various screen play formats, e.g. [Final Draft XML](https://www.finaldraft.com/) to/from [Fountain](https://fountain.io)) or [FadeIn](https://www.fadeinpro.com/) or Open Screenplay Format
-    + [fountain](https://rsdoiel.github.io/fountain) - A go package for working with the [Fountain](https://fountain.io) format
-    + [osf](https://rsdoiel.github.io/osf) - A go package for working with Open Screenplay and FadeIn formats
-    + [fdx](https://rsdoiel.github.io/fdx) - A go package for working with Final Draft XML format
+- [shorthand](https://rsdoiel.github.io/shorthand) - a text label expander with markdown processor support
+- [stngo](https://rsdoiel.github.io/stngo) - Standard Timesheet Notation processor for my personal project time logs
+- [scripttool](https://rsdoiel.github.io/scripttool/) - A command line program for converting various screen play formats, e.g. [Final Draft XML](https://www.finaldraft.com/) to/from [Fountain](https://fountain.io)) or [FadeIn](https://www.fadeinpro.com/) or Open Screenplay Format
+  - [fountain](https://rsdoiel.github.io/fountain) - A go package for working with the [Fountain](https://fountain.io) format
+  - [osf](https://rsdoiel.github.io/osf) - A go package for working with Open Screenplay and FadeIn formats
+  - [fdx](https://rsdoiel.github.io/fdx) - A go package for working with Final Draft XML format
