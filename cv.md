@@ -48,11 +48,10 @@ Current Projects
 ----------------
 
 - Build [cool things](https://caltechlibrary.github.io) for Caltech Library
+  - [newt](https://caltechlibrary.github.io/newt) - a rapid development platform for metadata application used by galleries, libraries, archives and museums
   - [irdmtools](https://caltechlibrary.github.io/irdmtools) - a collection of tools for migrating, managing and interacting with Invenio-RDM and EPrints repository software and metadata
   - [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or as a localhost web service
   - [datatools](https://caltechlibrary.github.io/datatools) - a collection of command line utilities for working with CSV, JSON and Excel Workbooks
-  - [mkpage](https://caltechlibrary.github.io/mkpage) - A experimental deconstructed content management system implemented as a pre-processor for [Pandoc](https://pandoc.org)
-    - [eprinttools](https://caltechlibrary.github.io/eprinttools) - a collection of tools for migrating, managing and interacting with EPrints repository software and metadata
 
 
 Past responsibilities

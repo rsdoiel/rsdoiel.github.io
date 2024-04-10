@@ -82,7 +82,6 @@ Projects at Caltech Library
 - [irdmtools](https://github.com/caltechlibrary/irdmtools) - Institutional Repository Management Tools
 - [dataset](https://github.com/caltechlibrary/dataset) - a JSON document store
 - [datatools](https://github.com/caltechlibrary/datatools) - a collection of command line utilities for scripting batch processing of large datasets in JSON, CSV and Excel Workbook formats
-- [mkpage](https://caltechlibrary.github.io/mkpage) - a light weight go template and markdown processor and related tools for building content system in Bash
 
 Personal projects
 
