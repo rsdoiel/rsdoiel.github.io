@@ -38,7 +38,7 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
 I'm using clang and the website mentioned it should compile with clang for other platforms.  I reviewed the data.c file and notice other similar lines that invoked `mkrel(hd[x])` had a `(char *)` cast in front of `hd[x]`. This tells me that being explicit with the compiler might solve my problem. I edited line 666 of data.c to look like
 
 ~~~C
-                     else fprintf(f,"%c%s",HERE_X,mkrel((char *)hd[x]));
+    else fprintf(f,"%c%s",HERE_X,mkrel((char *)hd[x]));
 ~~~
 
 Save the file and then ran Make again. It compile cleanly. I gave at quick test run of the `mira` command creating an simple function called `addone`
@@ -50,6 +50,7 @@ addone a = a + 1
 :wq
 addone (addone (addone 3))
 6
+/q
 ~~~
 
 Miranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into `/usr`).
@@ -62,6 +63,6 @@ LIB=$(HOME)/lib#beware no spaces after LIB
 MAN=$(HOME)/man/man1
 ~~~
 
-In my `.profile` I set the `MIRALIB` variable to point at `$HOME/lib/miralib`. Then I ran `mira` and the interpreter was up and running.
+In my `.profile` I set the `MIRALIB` variable to point at `$HOME/lib/miralib`. I opened a new terminal session and ran `mira` and the interpreter was up and running.
 
 
