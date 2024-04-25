@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
-        <lastBuildDate>Sun, 25 Feb 2024 00:00:00 +0000</lastBuildDate>
+        <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+        <lastBuildDate>Thu, 25 Apr 2024 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.14</generator>
+        <item>
+            <title>Getting Started with Miranda</title>
+            <link>https://rsdoiel.github.io/blog/2024/04/25/getting-started.html</link>
+            <description>I&#39;ve been interested in exploring the Miranda programming language. It&#39;s a language influenced Haskell which has been used for programs I use almost daily such as [Pandoc](https://pandoc.org) and [shellcheck](https://www.shellcheck.net/). I&#39;ve given a quick review of [miranda.org.uk](https://miranda.org.uk) to get a sense of the language but to follow along with the [Miranda: The Craft of Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/) it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.&#xA;&#xA;First down load Miranda source code at &lt;http://miranda.org.uk/downloads&gt;. The version 2.066 is the most recent release I saw linked (2024-04-25), &lt;http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11&gt;. The [COPYING](https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING) link shows the terms under which this source release is made available.&#xA;&#xA;Next you need to untar/gzip the tarball you downloaded. Try running `make` to see if it compiles. On my Mac Mini I got a compile error that looks like&#xA;&#xA;~~~shell&#xA;make&#xA;gcc -w    -c -o data.o data.c&#xA;data.c:666:43: error: incompatible integer to pointer conversion passing &#39;word&#39; (aka &#39;long&#39;) to parameter of type &#39;char *&#39; [-Wint-conversion]&#xA;                     else fprintf(f,&#34;%c%s&#34;,HERE_X,mkrel(hd[x]));&#xA;                                                        ^~~~~&#xA;1 error generated.&#xA;make: *** [data.o] Error 1&#xA;~~~&#xA;&#xA;While I&#39;m rusty on C I read this as the C compiler being more strict today then it was back in the 1990s. That&#39;s a good thing generally.  Next I checked the compiler version. ...</description>
+            <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/04/25/getting-started.html</guid>
+        </item>
         <item>
             <title>A Text Oriented Web</title>
             <link>https://rsdoiel.github.io/blog/2024/02/25/text_oriented_web.html</link>
