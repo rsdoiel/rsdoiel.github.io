@@ -9,7 +9,7 @@ HOST = localhost
 
 PORT = 7000
 
-YEARS="2022,2021,2020,2019,2018,2017,2016"
+YEARS="2024,2023,2022,2021,2020,2019,2018,2017,2016"
 
 MARKDOWN_FILES = $(shell find . -type f | grep -E '\.md$' | grep -v 'nav.md')
 
@@ -17,8 +17,8 @@ all: blog/gophermap gophermap
 
 blog/gophermap: blog/phlog.json
 
-blog/phlog.json: blog/_masthead
-	pttk phlogit -prefix=blog -refresh="$(YEARS)" -masthead=blog_masthead
+blog/phlog.json: blog/blog_masthead
+	pttk phlogit -prefix=blog -refresh="$(YEARS)" -masthead=blog/blog_masthead
 
 blog_masthead: .FORCE
 	touch blog_masthead
