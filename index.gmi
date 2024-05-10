@@ -27,77 +27,79 @@
 ### Recent Posts
 
 * A quick review of Raspberry Pi Connect[4], 2024-05-10
-* Getting Started with Miranda[5], 2024-04-25
-* A Text Oriented Web[6], 2024-02-25
-* Two missing features from HTML5, an enhanced form.enctype and a list input type[7], 2024-02-23
-* Installing pgloader from source[8], 2024-02-01
-* vis for vi and fun[9], 2024-01-31
-* Updated recipe, compiling PostgREST 12.0.2 (M1)[10], 2024-01-04
+* Building Lagrange on Raspberry Pi OS[5], 2024-05-10
+* Getting Started with Miranda[6], 2024-04-25
+* A Text Oriented Web[7], 2024-02-25
+* Two missing features from HTML5, an enhanced form.enctype and a list input type[8], 2024-02-23
+* Installing pgloader from source[9], 2024-02-01
+* vis for vi and fun[10], 2024-01-31
+* Updated recipe, compiling PostgREST 12.0.2 (M1)[11], 2024-01-04
 
 => gemini://sdf.org/rsdoiel/blog/2024/05/10/quick-review-rpi-connect.gmi 4: /blog/2024/05/10/quick-review-rpi-connect.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/04/25/getting-started.gmi 5: /blog/2024/04/25/getting-started.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/02/25/text_oriented_web.gmi 6: /blog/2024/02/25/text_oriented_web.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/02/23/enhanced_form_handling.gmi 7: /blog/2024/02/23/enhanced_form_handling.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/02/01/installing-pgloader-from-source.gmi 8: /blog/2024/02/01/installing-pgloader-from-source.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/01/31/vis-for-vi-and-fun.gmi 9: /blog/2024/01/31/vis-for-vi-and-fun.gmi
-=> gemini://sdf.org/rsdoiel/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.gmi 10: /blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/05/10/building-lagrange-on-pi-os.gmi 5: /blog/2024/05/10/building-lagrange-on-pi-os.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/04/25/getting-started.gmi 6: /blog/2024/04/25/getting-started.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/02/25/text_oriented_web.gmi 7: /blog/2024/02/25/text_oriented_web.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/02/23/enhanced_form_handling.gmi 8: /blog/2024/02/23/enhanced_form_handling.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/02/01/installing-pgloader-from-source.gmi 9: /blog/2024/02/01/installing-pgloader-from-source.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/01/31/vis-for-vi-and-fun.gmi 10: /blog/2024/01/31/vis-for-vi-and-fun.gmi
+=> gemini://sdf.org/rsdoiel/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.gmi 11: /blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.gmi
 
 ## Series
 
 Series start as blog posts but continue as collections that explore an idea, topic or theme.
 
-* Mostly Oberon[11], Oberon-07 on POSIX systems
-* Software Tools[12], Oberon-07 implementations of classic command line programs
-* Pandoc Techniques[13], using Pandoc as your site generator
-* Exploring FreeDOS[14], installation, exploration and development
-* SQL reflections[15], notes regarding SQL in the context of MySQL 8, SQLite 3 and PostgreSQL >= 14
-* A Personal Search Engine[16], notes regarding my exploration of the viability of a personal search engine
+* Mostly Oberon[12], Oberon-07 on POSIX systems
+* Software Tools[13], Oberon-07 implementations of classic command line programs
+* Pandoc Techniques[14], using Pandoc as your site generator
+* Exploring FreeDOS[15], installation, exploration and development
+* SQL reflections[16], notes regarding SQL in the context of MySQL 8, SQLite 3 and PostgreSQL >= 14
+* A Personal Search Engine[17], notes regarding my exploration of the viability of a personal search engine
 
-=> gemini://sdf.org/rsdoiel/series/mostly-oberon.gmi 11: /series/mostly-oberon.gmi
-=> gemini://sdf.org/rsdoiel/series/software-tools.gmi 12: /series/software-tools.gmi
-=> gemini://sdf.org/rsdoiel/series/pandoc-techniques.gmi 13: /series/pandoc-techniques.gmi
-=> gemini://sdf.org/rsdoiel/series/freedos.gmi 14: /series/freedos.gmi
-=> gemini://sdf.org/rsdoiel/series/sql-reflections.gmi 15: /series/sql-reflections.gmi
-=> gemini://sdf.org/rsdoiel/series/pse.gmi 16: /series/pse.gmi
+=> gemini://sdf.org/rsdoiel/series/mostly-oberon.gmi 12: /series/mostly-oberon.gmi
+=> gemini://sdf.org/rsdoiel/series/software-tools.gmi 13: /series/software-tools.gmi
+=> gemini://sdf.org/rsdoiel/series/pandoc-techniques.gmi 14: /series/pandoc-techniques.gmi
+=> gemini://sdf.org/rsdoiel/series/freedos.gmi 15: /series/freedos.gmi
+=> gemini://sdf.org/rsdoiel/series/sql-reflections.gmi 16: /series/sql-reflections.gmi
+=> gemini://sdf.org/rsdoiel/series/pse.gmi 17: /series/pse.gmi
 
 ## The toolbox
 
 ### Screen Play and writing tools
 
-* scripttool[17] - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. .fdx, .osf, .fadein and .fountain)
-* fountain[18] - A Go package for working with Fountain markup. Includes three example programs fountainfmt which is a pretty printer for fountain documents, fountain2json which converts fountain files to JSON  and fountain2html an experimental HTML renderer for fountain documents
-* fdx[19] - A Go package for working with Final Draft XML files (.fdx)
-* osf[20] - A Go package for working with Open Screen Play formatted files
+* scripttool[18] - a tool for working with screenplay formats such as Final Draft, FadeIn, Fountain and Open Screenplay Format (e.g. .fdx, .osf, .fadein and .fountain)
+* fountain[19] - A Go package for working with Fountain markup. Includes three example programs fountainfmt which is a pretty printer for fountain documents, fountain2json which converts fountain files to JSON  and fountain2html an experimental HTML renderer for fountain documents
+* fdx[20] - A Go package for working with Final Draft XML files (.fdx)
+* osf[21] - A Go package for working with Open Screen Play formatted files
 
-=> https://rsdoiel.github.io/scripttool/ 17: https://rsdoiel.github.io/scripttool/
-=> https://rsdoiel.github.io/fountain/ 18: https://rsdoiel.github.io/fountain/
-=> https://rsdoiel.github.io/fdx/ 19: https://rsdoiel.github.io/fdx/
-=> https://rsdoiel.github.io/osf/ 20: https://rsdoiel.github.io/osf/
+=> https://rsdoiel.github.io/scripttool/ 18: https://rsdoiel.github.io/scripttool/
+=> https://rsdoiel.github.io/fountain/ 19: https://rsdoiel.github.io/fountain/
+=> https://rsdoiel.github.io/fdx/ 20: https://rsdoiel.github.io/fdx/
+=> https://rsdoiel.github.io/osf/ 21: https://rsdoiel.github.io/osf/
 
 ### Reading tools
 
-* skimmer[21] - A extremely minimal feed reader
+* skimmer[22] - A extremely minimal feed reader
 
-=> https://rsdoiel.github.io/skimmer/ 21: https://rsdoiel.github.io/skimmer/
+=> https://rsdoiel.github.io/skimmer/ 22: https://rsdoiel.github.io/skimmer/
 
 ### Additional text rendering/formatting tools
 
-* pttk[22] - a deconstructed content manage system for managing this site
-* shorthand[23] - a text label expander with markdown support
-* stngo[24] - Standard Timesheet Notation processor for my personal project time logs
-* opml[25] - A minimal OPML package that features a OPML sort, cat and to json utility
+* pttk[23] - a deconstructed content manage system for managing this site
+* shorthand[24] - a text label expander with markdown support
+* stngo[25] - Standard Timesheet Notation processor for my personal project time logs
+* opml[26] - A minimal OPML package that features a OPML sort, cat and to json utility
 
-=> https://rsdoiel.github.io/pttk/ 22: https://rsdoiel.github.io/pttk/
-=> https://rsdoiel.github.io/shorthand/ 23: https://rsdoiel.github.io/shorthand/
-=> https://rsdoiel.github.io/stngo/ 24: https://rsdoiel.github.io/stngo/
-=> https://rsdoiel.github.io/opml/ 25: https://rsdoiel.github.io/opml/
+=> https://rsdoiel.github.io/pttk/ 23: https://rsdoiel.github.io/pttk/
+=> https://rsdoiel.github.io/shorthand/ 24: https://rsdoiel.github.io/shorthand/
+=> https://rsdoiel.github.io/stngo/ 25: https://rsdoiel.github.io/stngo/
+=> https://rsdoiel.github.io/opml/ 26: https://rsdoiel.github.io/opml/
 
 ## North L. A. County
 
-* Public Safety Agencies List[26]
-* LA County Emergency website[27]
-* City of Santa Clarita Emergency website[28]
+* Public Safety Agencies List[27]
+* LA County Emergency website[28]
+* City of Santa Clarita Emergency website[29]
 
-=> https://twitter.com/rsdoiel/lists/safety-agencies-nola-co 26: https://twitter.com/rsdoiel/lists/safety-agencies-nola-co
-=> https://www.lacounty.gov/emergency/ 27: https://www.lacounty.gov/emergency/
-=> https://santaclaritaemergency.com/ 28: https://santaclaritaemergency.com/
+=> https://twitter.com/rsdoiel/lists/safety-agencies-nola-co 27: https://twitter.com/rsdoiel/lists/safety-agencies-nola-co
+=> https://www.lacounty.gov/emergency/ 28: https://www.lacounty.gov/emergency/
+=> https://santaclaritaemergency.com/ 29: https://santaclaritaemergency.com/

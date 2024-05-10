@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 ### Recent Posts
 
 - [A quick review of Raspberry Pi Connect](/blog/2024/05/10/quick-review-rpi-connect.md), 2024-05-10
+- [Building Lagrange on Raspberry Pi OS](/blog/2024/05/10/building-lagrange-on-pi-os.md), 2024-05-10
 - [Getting Started with Miranda](/blog/2024/04/25/getting-started.md), 2024-04-25
 - [A Text Oriented Web](/blog/2024/02/25/text_oriented_web.md), 2024-02-25
 - [Two missing features from HTML5, an enhanced form.enctype and a list input type](/blog/2024/02/23/enhanced_form_handling.md), 2024-02-23
