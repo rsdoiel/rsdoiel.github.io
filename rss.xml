@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
-        <lastBuildDate>Thu, 25 Apr 2024 00:00:00 +0000</lastBuildDate>
+        <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
+        <lastBuildDate>Fri, 10 May 2024 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.15</generator>
+        <item>
+            <title>A quick review of Raspberry Pi Connect</title>
+            <link>https://rsdoiel.github.io/blog/2024/05/10/quick-review-rpi-connect.html</link>
+            <description>The Raspberry Pi company has created a nice way to share a Pi Desktop. It is called Raspberry Pi Connect. It is built on the peer-to-peer capability of modern web browsers using [WebRTC](https://en.wikipedia.org/wiki/WebRTC). The connect service requires a Raspberry Pi 4, Raspberry Pi 400 or Raspberry Pi 5 running the [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) display server and Bookworm release of Raspberry Pi OS.&#xA;&#xA;When I read the [announcement](https://www.raspberrypi.com/news/raspberry-pi-connect/) I wondered, why create Raspberry Pi Connect? RealVNC has works fine.  RealVNC even has a service to manage your RealVNC setups.&#xA;&#xA;I think the answer has three parts. First it gives us another option for sharing a Pi Desktop. Second it is a chance to make things easier to use. Third if you can share a desktop using WebRTC then you can also provide additional services.&#xA;&#xA;For me the real motivator is ease of use. In the past when I&#39;ve used RealVNC between two private networks I&#39;ve had to setup SSH tunneling. Not unmanageable but certainly not trivial.  I think this is where Raspberry Pi Connect shines. Setting up sharing is a three step process.&#xA;&#xA;1. Start up your Pi desktop, install the software&#xA;2. Create a Raspberry Pi Connect account and register your Pi with the service&#xA;3. On another machine point your web browser at the URL for Raspberry Pi connect and press the connect button ...</description>
+            <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/05/10/quick-review-rpi-connect.html</guid>
+        </item>
         <item>
             <title>Getting Started with Miranda</title>
             <link>https://rsdoiel.github.io/blog/2024/04/25/getting-started.html</link>
