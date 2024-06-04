@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Exploring RISC OS 5.30 on a Raspberry Pi Zero W](/blog/2024/06/04/exploring_riscos.md), 2024-06-04
 - [A quick review of Raspberry Pi Connect](/blog/2024/05/10/quick-review-rpi-connect.md), 2024-05-10
 - [Building Lagrange on Raspberry Pi OS](/blog/2024/05/10/building-lagrange-on-pi-os.md), 2024-05-10
 - [Getting Started with Miranda](/blog/2024/04/25/getting-started.md), 2024-04-25

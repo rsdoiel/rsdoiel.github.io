@@ -100,14 +100,12 @@ rss.xml: .FORCE
 		-atom-link="https://rsdoiel.github.io/rss.xml" \
 		-base-url="https://rsdoiel.github.io" \
         -channel-description="Robert's ramblings and wonderigs" \
-        -channel-link="https://rsdoiel.github.io/blog" \
-        blog >rss.xml
+        -channel-link="https://rsdoiel.github.io/blog" blog >rss.xml
 	pttk rss -channel-title="R. S. Doiel Website" \
 		-atom-link="https://rsdoiel.github.io/index.xml" \
 		-base-url="https://rsdoiel.github.io" \
         -channel-description="Robert's Website" \
-        -channel-link="https://rsdoiel.github.io" \
-        . >index.xml
+        -channel-link="https://rsdoiel.github.io" . >index.xml
 
 gemini: .FORCE
 	bash mk-gemini-pages.bash
