@@ -84,7 +84,7 @@ similar lines that invoked <code>mkrel(hd[x])</code> had a
 <code>(char *)</code> cast in front of <code>hd[x]</code>. This tells me
 that being explicit with the compiler might solve my problem. I edited
 line 666 of data.c to look like</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> fprintf<span class="op">(</span>f<span class="op">,</span><span class="st">&quot;</span><span class="sc">%c%s</span><span class="st">&quot;</span><span class="op">,</span>HERE_X<span class="op">,</span>mkrel<span class="op">((</span><span class="dt">char</span> <span class="op">*)</span>hd<span class="op">[</span>x<span class="op">]));</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> fprintf<span class="op">(</span>f<span class="op">,</span><span class="st">&quot;%c%s&quot;</span><span class="op">,</span>HERE_X<span class="op">,</span>mkrel<span class="op">((</span><span class="dt">char</span> <span class="op">*)</span>hd<span class="op">[</span>x<span class="op">]));</span></span></code></pre></div>
 <p>Save the file and then ran Make again. It compile cleanly. I gave at
 quick test run of the <code>mira</code> command creating an simple
 function called <code>addone</code></p>
@@ -103,7 +103,7 @@ setting <code>BIN</code>, <code>LIB</code> and <code>MAN</code> to the
 following lines.</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">BIN</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/bin</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LIB</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/lib</span><span class="co">#beware no spaces after LIB</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LIB</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/lib#beware no spaces after LIB</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">MAN</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/man/man1</span></span></code></pre></div>
 <p>In my <code>.profile</code> I set the <code>MIRALIB</code> variable
 to point at <code>$HOME/lib/miralib</code>. I opened a new terminal
