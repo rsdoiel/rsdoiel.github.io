@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -f "pyvenv.cfg" ]; then
+   export PATH="./bin:$PATH"
+fi
+
 
 find . -type f | grep -E '\.md$' | while read -r FNAME; do
     printf "Coverting %s\n" "${FNAME}"
