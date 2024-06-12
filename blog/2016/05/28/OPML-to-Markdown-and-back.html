@@ -33,8 +33,6 @@
 
 <section>
   <article>
-  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
-<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="opml-to-markdown-and-back">OPML to Markdown and back</h1>
 <p>By R. S. Doiel 2016-05-28</p>
 <h2 id="overview">Overview</h2>
@@ -111,9 +109,9 @@ as an additional set of anchors using data uri?</p>
 class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)</span></span></code></pre></div>
 <p>In HTML this would look like</p>
 <div class="sourceCode" id="cb8"><pre
-class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;li&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;http://histing.opml.org/dave/mySites.opml&quot;</span><span class="kw">&gt;</span>Scripting News Sites<span class="kw">&lt;/a&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;data:text/plain;link&quot;</span><span class="kw">&gt;</span>type<span class="kw">&lt;/a&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;</span><span class="kw">&gt;</span>created<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span></code></pre></div>
+class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;http://histing.opml.org/dave/mySites.opml&quot;</span><span class="dt">&gt;</span>Scripting News Sites<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;data:text/plain;link&quot;</span><span class="dt">&gt;</span>type<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;</span><span class="dt">&gt;</span>created<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span></code></pre></div>
 <h3 id="markdown-to-opml">Markdown to OPML</h3>
 <p>Coming back to OPML from Markdown then becomes</p>
 <ul>

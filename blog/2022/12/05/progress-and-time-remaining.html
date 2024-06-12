@@ -33,8 +33,6 @@
 
 <section>
   <article>
-  <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en" alt="save article to Pocket"></a>
-<script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 <h1 id="progress-and-time-remaining">Progress and time remaining</h1>
 <p>By R. S. Doiel, 2022-11-05</p>
 <p>I often find myself logging output when I’m developing tools. This is
@@ -103,14 +101,14 @@ formula.</p>
     eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
     return fmt.Sprintf(&quot;%.2f%% ETR %v&quot;, percent, eta.Truncate(time.Second))
 }</code></pre>
-<section class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>In code <code>(rt/i)*tot</code> is
-estimated time allocation<a href="#fnref1" class="footnote-back"
+<li id="fn1"><p>In code <code>(rt/i)*tot</code> is estimated time
+allocation<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Estimated Time Remaining, in code
+<li id="fn2"><p>Estimated Time Remaining, in code
 <code>((rt/i)*tot) - rt</code><a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
