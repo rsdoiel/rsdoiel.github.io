@@ -117,7 +117,7 @@ phlog: .FORCE
 
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
-	pttk blogit -prefix=blog -refresh=2023,2022,2021,2020,2019,2018,2017,2016
+	pttk blogit -prefix=blog -refresh=2024,2023,2022,2021,2020,2019,2018,2017,2016
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
