@@ -27,13 +27,13 @@ Technical Skills
 - C
 - Git
 - Go
-- JavaScript (NodeJS/Deno)
+- JavaScript/Typescript (Deno)
 - Make
 - Oberon
 - Pascal
 - PHP
 - Python
-- SQL/PSM
+- [SQL/PSM](https://en.wikipedia.org/wiki/SQL/PSM)
 - Various SQL/NoSQL database platforms
   - SQLite3
   - Postgres+PostgREST

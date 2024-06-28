@@ -1,6 +1,7 @@
 ---
 title: RISC OS 5.30, GCC 4.7 and Hello World
 created: 2024-06-08
+pubDate: 2024-06-08
 abstract: |
   These are my notes on learning to program a Raspberry Pi Zero W
   under RISC OS using GCC 4.7 and RISC OS 5.30
@@ -15,6 +16,8 @@ references:
 ---
 
 # RISC OS 5.30, GCC 4.7 and Hello World
+
+By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)
 
 Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.
 
@@ -138,4 +141,29 @@ I'd really like to change the editor colors as my eyes have trouble with white b
 
 1. How do I have the GCC compiled "app" so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?
 2. Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?
+
+## Updates
+
+I got a chance to read more about [Obey files](https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics) and also clicked through the examples in the `SDSF::RISCOSPi.$.Apps.Development.!GCC` directory (shift double click to open the GCC directory. In that directory is an examples
+folder which contains a Makefile for compile C programs in various forms.
+From there it was an easy stop to see how a simple Obey file could be used
+to create a `!Build` and `!Cleanup` scripts.
+where all the GCC setup lives). What follows are the two Obey files in the directory holding the "c" folder of HelloWorld.
+
+Here's `!build`
+
+~~~riscos
+| !Build will run GCC on c.HelloWorld to create !HelloWorld
+Set HelloWord$Dir <Obey$Dir>
+WimpSlot -min 16k
+gcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld
+~~~
+
+and `!Cleanup`
+
+~~~riscos
+| !Cleanup removes the binaries created with !Build
+Set HelloWorld$Dir <Obey$Dir>
+Delete !HelloWorld
+~~~
 

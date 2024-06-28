@@ -36,6 +36,7 @@ Programming">
   <article>
 <h1 id="risc-os-5.30-gcc-4.7-and-hello-world">RISC OS 5.30, GCC 4.7 and
 Hello World</h1>
+<p>By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)</p>
 <p>Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I
 want to write some programs and I learned C back in University. I am
 familiar with C on POSIX systems but not on RISC OS. These are my notes
@@ -222,6 +223,26 @@ an Obey file?</li>
 ePic to arrive so that I can write a graphical version of Hello
 World?</li>
 </ol>
+<h2 id="updates">Updates</h2>
+<p>I got a chance to read more about <a
+href="https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics">Obey
+files</a> and also clicked through the examples in the
+<code>SDSF::RISCOSPi.$.Apps.Development.!GCC</code> directory (shift
+double click to open the GCC directory. In that directory is an examples
+folder which contains a Makefile for compile C programs in various
+forms. From there it was an easy stop to see how a simple Obey file
+could be used to create a <code>!Build</code> and <code>!Cleanup</code>
+scripts. where all the GCC setup lives). What follows are the two Obey
+files in the directory holding the “c” folder of HelloWorld.</p>
+<p>Here’s <code>!build</code></p>
+<pre class="riscos"><code>| !Build will run GCC on c.HelloWorld to create !HelloWorld
+Set HelloWord$Dir &lt;Obey$Dir&gt;
+WimpSlot -min 16k
+gcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld</code></pre>
+<p>and <code>!Cleanup</code></p>
+<pre class="riscos"><code>| !Cleanup removes the binaries created with !Build
+Set HelloWorld$Dir &lt;Obey$Dir&gt;
+Delete !HelloWorld</code></pre>
   </article>
 </section>
 

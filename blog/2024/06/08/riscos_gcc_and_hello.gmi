@@ -1,5 +1,7 @@
 # RISC OS 5.30, GCC 4.7 and Hello World
 
+By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)
+
 Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.
 
 I found two resources helpful. First James Hobson had a YouTUBE series on RISC OS and C programming. From this I learned about allocating more space in the Task Window via the Tasks window display of Next and Free memory. Very handy to know. Watching his presentation it became apparent he was walking through some one's tutorial. This lead to some more DuckDuckGo searches and that is when I stumbled on Steve Fryatt's Wimp Programming In C[1]. James Hobson's series (showing visually) help and the detail of Steve Fryatt's tutorial helped me better understanding how things work on RISC OS.
@@ -114,3 +116,26 @@ I'd really like to change the editor colors as my eyes have trouble with white b
 
 1. How do I have the GCC compiled "app" so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?
 2. Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?
+
+## Updates
+
+I got a chance to read more about Obey files[2] and also clicked through the examples in the SDSF::RISCOSPi.$.Apps.Development.!GCC directory (shift double click to open the GCC directory. In that directory is an examples folder which contains a Makefile for compile C programs in various forms. From there it was an easy stop to see how a simple Obey file could be used to create a !Build and !Cleanup scripts. where all the GCC setup lives). What follows are the two Obey files in the directory holding the "c" folder of HelloWorld.
+
+=> https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics 2: https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics
+
+Here's !build
+
+```riscos
+| !Build will run GCC on c.HelloWorld to create !HelloWorld
+Set HelloWord$Dir <Obey$Dir>
+WimpSlot -min 16k
+gcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld
+```
+
+and !Cleanup
+
+```riscos
+| !Cleanup removes the binaries created with !Build
+Set HelloWorld$Dir <Obey$Dir>
+Delete !HelloWorld
+```
