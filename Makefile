@@ -126,8 +126,11 @@ rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
 	git add rssfeed.html
 
-site.zip : .FORCE
-	zip -r site.zip * --exclude ".git"
+gopher_site.zip : .FORCE
+	zip -r gopher_site.zip * --exclude=@gopher_exclude.lst
+
+html_site.zip : .FORCE
+	zip -r html_site.zip * --exclude=@html_exclude.lst
 
 blog.zip: .FORCE
 	zip -r blog.zip *.md *.html twtxt.txt

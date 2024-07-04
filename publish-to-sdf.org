@@ -1,6 +1,10 @@
 #!/bin/bash
-
-make site.zip
-scp site.zip tty.sdf.org:./
-ssh tty.sdf.org 'cd gopher && unzip -u ~/site.zip && bash ./fix-perms.bash'
-ssh tty.sdf.org 'cd html && unzip -u ~/site.zip && bash ./fix-perms.bash'
+rm gopher_site.zip html_site.zip
+make gopher_site.zip
+make html_site.zip
+scp *_site.zip tty.sdf.org:./
+ssh tty.sdf.org 'rm -fR ~/gopher/*'
+ssh tty.sdf.org 'cd gopher && unzip -u ~/gopher_site.zip && bash ~/fix-perms.bash'
+ssh tty.sdf.org 'rm -fR ~/html/*'
+ssh tty.sdf.org 'cd html && unzip -u ~/html_site.zip && bash ~/fix-perms.bash'
+ssh tty.sdf.org 'rm gopher_site.zip html_site.zip'
