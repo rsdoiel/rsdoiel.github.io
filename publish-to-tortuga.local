@@ -2,8 +2,7 @@
 CWD=$(pwd)
 if [ -f gopher.zip ]; then rm gopher.zip; fi
 zip -r gopher.zip . --exclude=@gopher_exclude.lst
-cp gopher.zip ../gopher/
+rm -fR ../gopher/*
 cd ../gopher 
-unzip -u gopher.zip
-$CWD/fix-perms.bash
+unzip -u $CWD/gopher.zip
 cd $CMD
