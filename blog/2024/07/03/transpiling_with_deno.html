@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>transpiling_with_deno</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="TypeScript, JavaScript, Deno">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/07/03/transpiling_with_deno.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="transpiling-with-deno">Transpiling with Deno</h1>
+<p><a href="https://deno.land">Deno</a> is a fun environment to work in
+for learning TypeScript. As I have become comfortable writing server
+side TypeScript code I know I want to also be able to use some modules
+in JavaScript form browser side. The question is then how to you go from
+TypeScript to JavaScript easily with getting involved with a bunch-o-npm
+packages? Turns the solution in deno is to use the <a
+href="https://github.com/denoland/deno_emit/blob/main/js/README.html">deno_emit</a>
+module. Let’s say I have a TypeScript module called
+<code>hithere.ts</code>. I want to make it available as JavaScript so I
+can run it in a web browser. How do I use the <code>deno_emit</code>
+module to accomplish that?</p>
+<ul>
+<li>Write a short TypeScript program
+<ul>
+<li>include the transpiler module provided with emit</li>
+<li>use the transpiler to generate the JavaScript code</li>
+<li>output the JavaScript code</li>
+</ul></li>
+</ul>
+<p>Here’s what <code>transpile.ts</code> might look like:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Get the transpiler module from deno&#39;s emit */</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { transpile } <span class="im">from</span> <span class="st">&quot;https://deno.land/x/emit/mod.ts&quot;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* Get the python to my CL.ts as a URL */</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> url <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(<span class="st">&quot;./hithere.ts&quot;</span><span class="op">,</span> import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">url</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* Transpile the code returning a result */</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> <span class="fu">transpile</span>(url)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">/* Get the resulting code and write it to standard out */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> code <span class="op">=</span> result<span class="op">.</span><span class="fu">get</span>(url<span class="op">.</span><span class="at">href</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(code)<span class="op">;</span></span></code></pre></div>
+<p>Here’s the <code>hithere.ts</code> module:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * hithere takes a name and returns a string of &quot;hi there &quot;, a name and &quot;!&quot;. If the name is null</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * it returns &quot;Hello World!&quot;.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">{string</span><span class="co"> | null} name</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@returns</span><span class="co"> {string}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">hithere</span>(name<span class="op">:</span> <span class="dt">string</span> <span class="op">|</span> <span class="dt">null</span>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (name <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;Hello World!&quot;</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`hi there </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!`</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>To compile the module I need to give transpile.ts some
+permissions.</p>
+<ul>
+<li>–allow-read (so I can read my local module</li>
+<li>–allow-env (the transpiler needs the environment)</li>
+<li>–allow-net (the deno emit module is not hosted locally)</li>
+</ul>
+<p>The command line could look like this.</p>
+<pre class="shell"><code>deno run --allow-read --allow-env --allow-net \
+  transpile.ts</code></pre>
+<p>The result is JavaScript. It still has my comments in the code but
+doesn’t have the TypeScript specific annotations.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * hithere takes a name and returns a string of &quot;hi there &quot;, a name and &quot;!&quot;. If the name is null</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * it returns &quot;Hello World!&quot;.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">{string</span><span class="co"> | null} name</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@returns</span><span class="co"> {string}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span> <span class="kw">function</span> <span class="fu">hithere</span>(name) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;Hello World!&quot;</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="vs">`hi there </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!`</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
