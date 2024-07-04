@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sun, 16 Jun 2024 00:00:00 +0000</pubDate>
-        <lastBuildDate>Sun, 16 Jun 2024 00:00:00 +0000</lastBuildDate>
+        <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
+        <lastBuildDate>Wed, 03 Jul 2024 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.16</generator>
+        <item>
+            <title>Transpiling with Deno</title>
+            <link>https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html</link>
+            <description>[Deno](https://deno.land) is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the [deno_emit](https://github.com/denoland/deno_emit/blob/main/js/README.md) module.  Let&#39;s say I have a TypeScript module called `hithere.ts`. I want to make it available as JavaScript so I can run it in a web browser. How do I use the `deno_emit` module to accomplish that?&#xA;&#xA;- Write a short TypeScript program&#xA;  - include the transpiler module provided with emit&#xA;  - use the transpiler to generate the JavaScript code&#xA;  - output the JavaScript code&#xA;&#xA;Here&#39;s what `transpile.ts` might look like:&#xA;&#xA;~~~typescript&#xA;/* Get the transpiler module from deno&#39;s emit */&#xA;import { transpile } from &#34;https://deno.land/x/emit/mod.ts&#34;;&#xA;&#xA;/* Get the python to my CL.ts as a URL */&#xA;const url = new URL(&#34;./hithere.ts&#34;, import.meta.url);&#xA;/* Transpile the code returning a result */&#xA;const result = await transpile(url); ...</description>
+            <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html</guid>
+        </item>
         <item>
             <title>Bootstrapping a Text Oriented Web</title>
             <link>https://rsdoiel.github.io/blog/2024/06/14/tow_bootstraping.html</link>
