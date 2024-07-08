@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Web GUI and Deno](/blog/2024/07/08/webgui_and_deno.md), 2024-07-08
 - [Transpiling with Deno](/blog/2024/07/03/transpiling_with_deno.md), 2024-07-03
 - [Bootstrapping a Text Oriented Web](/blog/2024/06/14/tow_bootstraping.md), 2024-06-14
 - [RISC OS 5.30, GCC 4.7 and Hello World](/blog/2024/06/08/riscos_gcc_and_hello.md), 2024-06-08

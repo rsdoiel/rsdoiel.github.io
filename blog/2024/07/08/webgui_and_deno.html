@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>webgui_and_deno</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="Deno, TypeScript, webui, webview">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/07/08/webgui_and_deno.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="web-gui-and-deno">Web GUI and Deno</h1>
+<p>By R. S. Doiel, 2024-07-08</p>
+<p>I’ve been looking at various approaches to implement graphical
+interfaces for both Deno and other languages. I had been looking
+primarily at webview bindings but then stumbled on <a
+href="https://webui.me">webui</a>. Both could be a viable way to
+implement a local first human user interface.</p>
+<p>Here’s an example of the webview implementation of hello world.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Webview } <span class="im">from</span> <span class="st">&quot;@webview/webview&quot;</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> html <span class="op">=</span> <span class="vs">`</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;html&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;head&gt;&lt;/head&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;body&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;h1&gt;Hello from deno v</span><span class="sc">${</span>Deno<span class="op">.</span><span class="at">version</span><span class="op">.</span><span class="at">deno</span><span class="sc">}</span><span class="vs">&lt;/h1&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;script&gt;console.log(&quot;Hi There!&quot;);&lt;/script&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/body&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/html&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> webview <span class="op">=</span> <span class="kw">new</span> <span class="fu">Webview</span>()<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>webview<span class="op">.</span><span class="fu">navigate</span>(<span class="vs">`data:text/html,</span><span class="sc">${</span><span class="pp">encodeURIComponent</span>(html)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>webview<span class="op">.</span><span class="fu">run</span>()<span class="op">;</span></span></code></pre></div>
+<p>Now here is a functionally equivalent version implemented using
+webui.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { WebUI } <span class="im">from</span> <span class="st">&quot;https://deno.land/x/webui/mod.ts&quot;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> myWindow <span class="op">=</span> <span class="kw">new</span> <span class="fu">WebUI</span>()<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>myWindow<span class="op">.</span><span class="fu">show</span>(<span class="vs">`</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;html&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;head&gt;&lt;script src=&quot;webui.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;body&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;h1&gt;Hello from deno v</span><span class="sc">${</span>Deno<span class="op">.</span><span class="at">version</span><span class="op">.</span><span class="at">deno</span><span class="sc">}</span><span class="vs">&lt;/h1&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;script&gt;console.log(&quot;Hi There!&quot;);&lt;/script&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/body&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/html&gt;`</span>)<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> WebUI<span class="op">.</span><span class="fu">wait</span>()<span class="op">;</span></span></code></pre></div>
+<p>Let’s call these <a href="thing1.ts">thing1.ts</a> and <a
+href="thing2.ts">thing2.ts</a>. To run thing1 I need a little prep since
+I’ve used an <code>@</code> import. The command I need to map the
+<code>webview/webview</code> module is the <code>deno add</code>
+command.</p>
+<pre class="shell"><code>deno add @webview/webview</code></pre>
+<p>Here’s how I check and run thing1.</p>
+<pre class="shell"><code>deno check thing1.ts
+deno run -Ar --unstable-ffi thing1.ts</code></pre>
+<p>Since I didn’t use an <code>@</code> import in the webui version I
+don’t need to “add” it to Deno. I check and run thing2 similar to
+thing1.</p>
+<pre class="shell"><code>deno check thing2.ts
+deno run -Ar --unstable-ffi thing2.ts</code></pre>
+<p>Both will launch a window with our hello world message. Conceptually
+the code is similar but the details differ. In the case of webview you
+are binding the interaction from the webview browser implementation. You
+populate your “page” using a data URL call (see
+<code>webview.navigate()</code>. Webview is a minimal web browser. It is
+similar to but not the same as evergreen web browsers like Firefox,
+Chrome, or Edge. Depending how var you want to push your CSS, JavaScript
+and HTML this may or may not be a problem.</p>
+<p>Webui uses a lighter weight approach. It focuses on a web socket
+connection between your running code and the user interface. It leaves
+the browser implementation to your installed browser (e.g. Chrome, Edge
+or Firefox). There is a difference in how I need to markup the HTML
+compared to the webview version. In the webui version I have a script
+element in the head. It loads “webui.js”. This script is supplied by
+webui C level code. It “dials home” to connect your program code with
+the web browser handling the display. Webui at the C library level is
+functioning as a web socket server.</p>
+<p>Conceptually I like the webui approach. My program code is a
+“service”, webui manages the web socket layer and the web browser runs
+the UI. Web browsers are complex. In the web UI approach my
+application’s binary isn’t implementing one. In the webview approach I’m
+embedding one. Feels heavy. At a practical level of writing TypeScript
+it may not make much differences. When I compiled both thing1 and thing2
+to binaries thing2 was approximately 1M smaller. Is that difference
+important? Not really sure.</p>
+<p>What about using webview or webui from other languages? Webview has
+been around a while. There are many bindings for the C++ code of webview
+and other languages. Webui currently supports Rust, Go, Python,
+TypeScript/JavaScript (via Deno), Pascal as well as a few exotic ones.
+TypeScript was easy to use either. I haven’t tried either out with
+Python or Go. I’ll leave that for another day.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
