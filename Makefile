@@ -159,7 +159,7 @@ website: all .FORCE
 sitemap.xml: .FORCE
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: rss.xml all site.zip
+publish: rss.xml all gopher_site.zip html_site.zip phlog.zip
 	bash blog.bash
 	sitemapper . sitemap.xml http://rsdoiel.sdf.org
 	sitemapper . sitemap.xml https://rsdoiel.github.io

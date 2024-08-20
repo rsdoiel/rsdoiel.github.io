@@ -91,6 +91,7 @@ Terminology, Acronyms, Concepts
     - EBSCO Discovery Service
 - [ERM](http://en.wikipedia.org/wiki/Electronic_resource_management)
 - [ETD](https://en.wikipedia.org/wiki/Institutional_repository) - Electronic Theses and Dissertations, usually part of an Institutional Repository
+- [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) - Extract, Transform and Load
 - [EZID](http://ezid.cdlib.org/) - long term identifiers made easy
     - [EZID Developer Docs](http://ezid.cdlib.org/doc/apidoc.html)
 - full-text
