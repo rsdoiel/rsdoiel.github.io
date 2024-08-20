@@ -16,6 +16,8 @@ Terminology, Acronyms, Concepts
 - actors
     - Sending and receiving parties
 - [AIP](https://www.iasa-web.org/tc04/archival-information-package-aip) Archival Information Package
+- [ALTO](https://www.loc.gov/standards/alto/)
+    - Technical Metadata for Layout and Text Objects
 - [ARK](https://en.wikipedia.org/wiki/Archival_Resource_Key)
     - [Archival Resource Key](http://n2t.net/e/ark_ids.html)
     - Is a unique identifier used in archives analogous to a DOI used in a digital library repository
@@ -55,6 +57,8 @@ Terminology, Acronyms, Concepts
     - Digital Access Management System
 - descriptive metadata
     - Metadata that describes the intellectual content of a file, as opposed to the physical or structural characteristics of the file.
+- DIDL
+    - Digital Item Description Language
 - Discovery
     - First phase in a research project (followed by validation)
     - A discovery product consists of an interface directed toward the users of a library to find materials in its collections and subsequently to gain access to items of interest through the appropriate mechanisms. Discovery products tend to be independent from the specific applications that libraries implement to manage resources, such as integrated library systems, library services platforms, repository platforms, or electronic resource management systems. In most cases they provide access to multiple types of materials, independently of the management platform involved. Discovery products provide an interface with search and retrieval capabilities, often with features such as relevancy-based ordering of search results, facets presented that can be selected to narrow results according to specific categories, contributors, or date ranges, and tools to identify related materials or to refine search queries. Discovery products will use mechanisms appropriate to location, content type and license arrangement to provide access to materials. These mechanisms might include identifying the current location and status of a physical item with service options to request the item be held or delivered, to provide linking or direct viewing or download of articles, chapters, e-books, or other textual items available electronically, and presentation of digital images or multi-media content. Discovery products may also have social features that enable library patrons to comment, review, rate, or recommend content items or to interact dynamically with other patrons.
