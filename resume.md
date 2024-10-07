@@ -32,7 +32,6 @@ Technical Skills
   - Postgres+PostgREST
   - SQLite3
   - MySQL/MariaDB
-  - MongoDB/CouchDB/BoltDB
 
 
 Experience
