@@ -1,0 +1,12 @@
+{
+  "content": "\n# 7:30 AM, Oberon Language: A minimum SYSTEM module\n\nPost: Tuesday, October 18, 2022, 7:30 AM\n\nIt occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.\n\n",
+  "data": {
+    "keywords": [
+      "A minimum SYSTEM module"
+    ],
+    "no": 1,
+    "pubDate": "2022-10-18",
+    "series": "Oberon Language",
+    "title": "7:30 AM, Oberon Language: A minimum SYSTEM module"
+  }
+}

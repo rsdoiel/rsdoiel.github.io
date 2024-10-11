@@ -1,0 +1,17 @@
+{
+  "content": "\n\nInstalling Golang from Source on RPi-OS for arm64\n==========================================\n\nBy R. S. Doiel, 2022-02-18\n\nThis are my quick notes on installing Golang from source on the Raspberry Pi OS 64 bit.\n\n1. Get a working compiler\n\ta. go to https://go.dev/dl/ and download go1.17.7.linux-arm64.tar.gz\n\tb. untar the tarball in your home directory (it'll unpack to $HOME/go)\n\tc. `cd go/src` and `make.bash`\n2. Move go directory to go1.17\n3. Clone go from GitHub\n4. Compile with the downloaded compiler\n\ta. `cd go/src`\n\tb. `env GOROOT_BOOTSTRAP=$HOME/go1.17 ./make.bash`\n\tc. Make sure `$HOME/go/bin` is in the path\n\td. `go version`\n\n",
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2022, R. S. Doiel",
+    "date": "2022-02-18",
+    "keywords": [
+      "raspberry pi",
+      "Raspberry Pi OS",
+      "arm64"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 1,
+    "series": "Raspberry Pi",
+    "title": "Installing Golang from source on RPi-OS for arm64"
+  }
+}

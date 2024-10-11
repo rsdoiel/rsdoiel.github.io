@@ -1,0 +1,14 @@
+{
+  "content": "\nRevealing the Pandoc AST\n========================\n\nI've used Pandoc for a number of years, probably a decade. It's been wonderful\nwatching it grow in capability. When Pandoc started accepting JSON documents as\na support metadata file things really started to click for me. Pandoc became\nmy go to tool for rendering content in my writing and documentation projects.\n\nRecently I've decided I want a little bit more from Pandoc. I've become curious\nabout prototyping some document conversion via Pandoc's filter mechanism. To do\nthat you need to understand the AST, aka abstract syntax tree. \nHow is the AST structure? \n\nIt turns out I just wasn't thinking simply enough (or maybe just not paying\nenough attention while I skimmed Pandoc's documentation). Pandoc's processing\nmodel looks like\n\n```\n\tINPUT --reader--> AST --filter AST --writer--> OUTPUT\n```\n\nI've \"known\" this forever. The missing piece for me was understanding \nthe AST can be an output format.  Use the `--to` option with the value\n\"native\" you get the Haskell representation of the AST. It's that simple.\n\n```\n\tpandoc --from=markdown --to=native \\\n\t   learning-to-write-a-pandoc-filter.md | \\\n\t   head -n 20\n```\n\nOutput\n\n```\n[ Header\n    1\n    ( \"learning-to-write-a-pandoc-filter\" , [] , [] )\n    [ Str \"Learning\"\n    , Space\n    , Str \"to\"\n    , Space\n    , Str \"write\"\n    , Space\n    , Str \"a\"\n    , Space\n    , Str \"Pandoc\"\n    , Space\n    , Str \"filter\"\n    ]\n, Para\n    [ Str \"I\\8217ve\"\n    , Space\n    , Str \"used\"\n    , Space\n```\n\nIf you prefer JSON over Haskell use `--to=json` for similar effect. Here's\nan example piping through [jq](https://stedolan.github.io/jq/).\n\n```\n\tpandoc --from=markdown --to=json \\\n\t   learning-to-write-a-pandoc-filter.md | jq .\n```\n\nWriting filters makes much sense to me now. I can see the AST and see\nhow the documentation describes writing hooks in Lua to process it.\n\n",
+  "data": {
+    "copyright": "copyright (c) 2022, R. S. Doiel",
+    "keywords": [
+      "Pandoc",
+      "filter"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 4,
+    "series": "Pandoc Techniques",
+    "title": "Revealing the Pandoc AST"
+  }
+}

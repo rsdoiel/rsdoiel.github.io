@@ -1,0 +1,15 @@
+{
+  "content": "\n\n# Cross compiling Go 1.8.3 for Pine64 Pinebook\n\nBy R. S. Doiel 2017-06-16\n\nPine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is \nnot the same ARM processor found on a Raspberry Pi 3. As a \nresult it needs its own compiled version of Go. Fortunately cross \ncompiling Go is very straight forward. I found two helpful Gists\non GitHub discussing compiling Go for a 64-Bit ARM processor. \n\n+ [conoro's gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)\n+ [truedat101's gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802)\n\nI am using a Raspberry Pi 3, raspberrypi.local, as my cross compile \nhost. Go 1.8.3 is already compiled and available.  Inspired by the \ngists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.\n\n```shell\n    cd\n    mkdir -p gobuild\n    cd gobuild\n    git clone https://github.com/golang/go.git go1.8.3\n    cd go1.8.3\n    git checkout go1.8.3\n    export GOHOSTARCH=arm\n    export GOARCH=arm64\n    export GOOS=linux\n    cd src\n    ./bootstrap.bash\n```\n\nAfter the bootstrap compile is finished I switch to my Pinebook,\ncopy the bootstrap compiler to my Pinebook and use it to compile\na new go1.8.3 for Pine64.\n\n```shell\n    cd\n    scp -r raspberrypi.local:gobuild/*.tbz ./\n    tar jxvf go-linux-arm64-bootstrap.tbz\n    export GOROOT=go-linux-arm64-bootstrap\n    go-linux-arm64-bootstrap/bin/go version\n    unset GOROOT\n    git clone https://github.com/golang/go\n    cd go\n    git checkout go1.8.3\n    export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap\n    cd src\n    ./all.bash\n```\n\n_all.bash_ will successfully compile _go_ and _gofmt_ but fail on \nthe tests. It's not perfect but appears to work as I explore\nbuilding Go applications on my Pinebook. Upcoming Go releases should\nprovide better support for 64 bit ARM.\n",
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "date": "2016-06-16",
+    "keywords": [
+      "Golang",
+      "Pine64",
+      "ARM"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "title": "Cross compiling Go 1.8.3 for Pine64 Pinebook"
+  }
+}

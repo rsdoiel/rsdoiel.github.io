@@ -1,0 +1,16 @@
+{
+  "content": "\n# Transpiling with Deno\n\n[Deno](https://deno.land) is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the [deno_emit](https://github.com/denoland/deno_emit/blob/main/js/README.md) module.  Let's say I have a TypeScript module called `hithere.ts`. I want to make it available as JavaScript so I can run it in a web browser. How do I use the `deno_emit` module to accomplish that?\n\n- Write a short TypeScript program\n  - include the transpiler module provided with emit\n  - use the transpiler to generate the JavaScript code\n  - output the JavaScript code\n\nHere's what `transpile.ts` might look like:\n\n~~~typescript\n/* Get the transpiler module from deno's emit */\nimport { transpile } from \"https://deno.land/x/emit/mod.ts\";\n\n/* Get the python to my CL.ts as a URL */\nconst url = new URL(\"./hithere.ts\", import.meta.url);\n/* Transpile the code returning a result */\nconst result = await transpile(url);\n\n/* Get the resulting code and write it to standard out */\nconst code = result.get(url.href);\nconsole.log(code);\n~~~\n\nHere's the `hithere.ts` module:\n\n~~~typescript\n/**\n * hithere takes a name and returns a string of \"hi there \", a name and \"!\". If the name is null\n * it returns \"Hello World!\".\n *\n * @param {string | null} name\n * @returns {string}\n */\nfunction hithere(name: string | null): string {\n\tif (name === null) {\n\t\treturn \"Hello World!\";\n\t}\n\treturn `hi there ${name}!`;\n}\n~~~\n\nTo compile the module I need to give transpile.ts some permissions.\n\n- --allow-read (so I can read my local module\n- --allow-env (the transpiler needs the environment)\n- --allow-net (the deno emit module is not hosted locally)\n\nThe command line could look like this.\n\n~~~shell\ndeno run --allow-read --allow-env --allow-net \\\n  transpile.ts\n~~~\n\nThe result is JavaScript. It still has my comments in the code but doesn't have the TypeScript specific\nannotations.\n\n~~~javascript\n/**\n * hithere takes a name and returns a string of \"hi there \", a name and \"!\". If the name is null\n * it returns \"Hello World!\".\n *\n * @param {string | null} name\n * @returns {string}\n */ function hithere(name) {\n  if (name === null) {\n    return \"Hello World!\";\n  }\n  return `hi there ${name}!`;\n}\n~~~\n",
+  "data": {
+    "created": "2024-07-03",
+    "keywords": [
+      "TypeScript",
+      "JavaScript",
+      "Deno"
+    ],
+    "pubDate": "2024-07-03",
+    "software": [
+      "Deno >= v1.44"
+    ],
+    "title": "Transpiling with Deno"
+  }
+}
