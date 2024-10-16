@@ -5,21 +5,47 @@
   "next_page": null,
   "values": [
     {
+      "content": "\nFeeds, formats, and plain text\n==============================\n\nBy R. S. Doiel, 2022-11-01\n\nThere has been a proliferation of feed formats. My personal preferred format is RSS 2.0. It's stable and proven the test of type. Atom feeds always felt a little like, \"not invented here so we're inventing it again\", type of thing. The claim was they could support read/write but so can RSS 2.0 specially with the namespace possibilities. The innovative work [Dave Winer](https://scripting.com) has done in the past and is doing today with [Feedland](https://feedland.org) is remarkably impressive.\n\nIn my experience the format of the feed is less critical than the how to author the metadata.  Over the last several years I've moved to static hosting as my preferred way of hosting a website. My writing is typically in Markdown or Fountain formats and frontmatter like used in RMarkdown has proven very convenient. The \"blogit\" command that started out from an idea in [mkpage](https://github.com/caltechlibrary/mkpage \"Make Page, a Pandoc preprocessor and tool set\") has been implemented in [pttk](https://github.com/rsdoiel/pttk \"Plain Text Toolkit\"). So for me metadata authoring makes sense in the front matter. That has the advantage that Pandoc can leverage the information in its templates (that is what I use to render HTML, man pages and the occasional PDF). It also is a food source for data to include in a feed.\n\nI've recently become aware of a really simple text format called [twtxt](https://twtxt.readthedocs.io/en/latest/). This simple format is meant for micro blogging but is also useful as a feed source and format. Especially in terms of rendering content for Gopherspace which I've re-engaged in recently. [Yarn.social](https://yarn.social) has built an entire ecosystem around it. Very impressive. The format is so simple it can be done with a pipe and the \"echo\" command in the shell.  It looks promising in terms for personal search ingest as well.\n\nOne of the formats that Dave Winer supports in Feedland and is used in the micro blogging community he has connected with is [jsonfeeds](https://www.jsonfeed.org/). It is lightweight and to me feels allot like RSS 2.0 without the XML-isms that go along with it.  I'm playing with the idea that in pttk it'll be the standard feed format and that from it I can then render our traditional feed friends of RSS 2.0 and Atom.\n\nI've looked at the ActivityPub from the Mastodon community but like [James Mill](https://prologic.github.io/prologic/ \"aka prologic\") I find it too complex. What is needed is something simple, really simple.  That's why I've been looking closely at Gopherspace again. The Gophermap can function as a bookmark file, a \"home page\" a list of feeds. A little archaic but practical in its simplicity. The only challenges I've run into has been figuring out that expectations of the Gopher server software. Currently I've settled on [gophernicus](https://gophernicus.org) as that is was it supported at [sdf.org](https://sdf.org) where I have a gopher \"hole\".\n\nAs pttk grows and I explore where I can take simple text processing I'm not targeting Gopherspace, twtxt and static websites. I've looked at [Gemini](https://gemini.circumlunar.space/docs/specification.gmi) but haven't grokked the point yet.  Their choice of yet another markup for content seems problematic at best. For me gopher solves the problems that would make me look at Gemini and I can use most any structured text I want. The text just needs to be readable easily by humans. The Gophermap provides can be enhanced menus much like \"index.html\" pages have become (a trunk that branches and eventually leads to a leaf). \n\n[OPML](http://home.opml.org/) remains a really nice outline data format.  It's something I'd like to eventually integrate with pttk. It can be easily represented as JSON. Just need to figure what problem I am trying to solve by using it.  Share a list of feeds is the classic case but looking at twtxt as well as the [newsboat](https://newsboat.org/) URL list makes me think it is more than I need. We'll see.  It is certainly reasonable to generate from a simpler source. If I ever write a personal search engine (something I've been thinking about to nearly a decade) it'd be a good way to share curated indexes sources as well as sources to crawl.  I just need to think that through more.\n\n\n",
       "data": {
-        "abstract": "RSS is alive and kicking and Bluesky should support it too. Explore my recipe for reading web news.",
-        "byline": "R. S. Doiel, 2023-12-07",
-        "created": "2023-12-07",
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
         "keywords": [
-          "RSS",
-          "Feeds",
-          "Social Media",
-          "news"
+          "plain text",
+          "small internet",
+          "rss",
+          "jsonfeed",
+          "gopher"
         ],
-        "numnber": 1,
-        "series": "Simplification and the Web",
-        "title": "RSS and my web experience"
+        "pubDate": "2022-11-01",
+        "title": "feeds, formats and plain text"
       },
-      "url": "posts/2023/12/07/rss-and-my-web-experience.json"
+      "url": "posts/2022/11/01/Feeds-formats-and-plain-text.json"
+    },
+    {
+      "content": "# skimmer\n\nBy R. S. Doiel, 2023-10-06\n\nI have a problem. I like to read my feeds in newsboat but I can't seem to get it working on a few machines I use.\nI miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way\nI read twtxt feeds using `yarnc timeline | less -R`. Just get a list of all items in reverse chronological order.\n\nI am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn't\navailable or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer\n. Something that works with RSS, Atom and jsonfeeds in the same way I use `yarnc timeline | less -R`.  \nI'm also inspired by Dave Winer's a river of news site and his outline tooling. But in this case I don't want\nan output style output, just a simple list of items in reverse chronological order. I'm thinking of a more\nephemeral experience in reading.\n\nThis has left me with some questions.\n\n- How simple is would it be to write skimmer?\n- How much effort would be required to maintain it?\n- Could this tool incorporate support for other feed types, e.g. twtxt, Gopher, Gemini?\n\nThere is a Go package called [gofeed](https://github.com/mmcdole/gofeed). The README describes it\nas a \"universal\" feed reading parser. That seems like a good starting point and picking a very narrowly\nfocus task seems like a way to keep the experiment simple to implement.\n\n## Design issues\n\nThe reader tool needs to output to standard out in the same manner as `yarnc timeline` does. The goal isn't\nto be newsboat, or river of news, drummer, or Lynx but to present a stream of items usefully formatted to read\nfrom standard output.\n\nSome design ideas\n\n1. Feeds should be fetched by the same tool as the reader but that should be done explicitly (downloads can take a while)\n2. I want to honor that RSS does not require titles! I need to handle that case gracefully\n3. For a given list of feed URLs I want to save the content in a SQLite3 database (useful down the road)\n4. I'd like the simplicity of newsboat's URL list but I want to eventually support OPML import/export\n\n# Skimmer, a thin wrapper around gofeed\n\nIn terms of working with RSS, Atom and JSON feeds the [gofeed](https://github.com/mmcdole/gofeed) takes care of\nall the heavy lifting in parsing that content. The go http package provides a reliable client.\nThere is a pure Go package, [go-sqlite](), for integrating with SQLite 3 database. The real task is knitting this\ntogether and a convenient package.\n\nHere's some ideas about behavior.\n\nTo configure skimmer you just run the command. It'll create a directory at `$HOME/.skimmer` to store configuration\nmuch like newsboat does with `$HOME/.newsboat`.\n\n~~~\nskimmer\n~~~\n\nA default URL list to be created so when running the command you have something to fetch and read.\n\nSince fetching feed content can be slow (this is true of all news readers I've used) I think you should have to\nexplicitly say fetch.\n\n~~~\nskimmer -fetch\n~~~\n\nThis would read the URLs in the URL list and populate a simple SQLite 3 database table. Then running skimmer again \nwould display any harvested content (or running skimmer in another terminal session).\n\nSince we're accumulating data in a database there are some house keep chores like prune that need to be supported.\nInitial this can be very simple and if the experiment move forward I can improve them over time. I want something\nlike saying prune everything up to today.\n\n~~~\nskimmer -prune today\n~~~\n\nThere are times I just want to limit the number of items displayed so a limit options makes sense\n\n~~~\nskimmer -limit 10\n~~~\n\nSince I am displaying to standard out I should be able to output via Pandoc to pretty print the content.\n\n~~~\nskimmer -limit 50 | pandoc -t markdown -f plain | less -R\n~~~\n\nThat seems a like a good set of design features for an initial experiment.\n\n## Proof of concept implementation\n\nSpending a little time this evening. I've release a proof of concept on GitHub\nat <https://github.com/rsdoiel/skimmer>, you can read the initial documentation\nat [skimmer](https://rsdoiel.github.io/skimmer).\n\n",
+      "data": {
+        "keywords": [
+          "feeds",
+          "reader",
+          "rss",
+          "atom",
+          "jsonfeed"
+        ],
+        "pubDate": "2023-10-06",
+        "title": "Skimmer"
+      },
+      "url": "posts/2023/10/06/concept.json"
+    },
+    {
+      "content": "\n# Find Bluesky RSS Feeds\n\nWith the update to [1.60](https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i) of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me. \nThe RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is\nat <https://bsky.app/profile/rsdoiel.bsky.social> and if you look at that pages HTML markup you'll see a link element in the head\n\n```html\n <link rel=\"alternate\" type=\"application/rss+xml\" href=\"/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss\">\n```\n\nThat's the RSS feed. So now if you want to follow you can expand the URL to \n\n```\nhttps://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss\n```\n\nAnd use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website\nto getting updates via my feed reader.\n\n\n",
+      "data": {
+        "byline": "R. S. Doiel, 2023-12-23",
+        "keywords": [
+          "bluesky",
+          "rss"
+        ],
+        "title": "Finding Bluesky RSS feeds"
+      },
+      "url": "posts/2023/12/23/finding-blue-sky-rss-feeds.json"
     }
   ]
 }

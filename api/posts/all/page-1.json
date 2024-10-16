@@ -1,421 +1,114 @@
 {
   "page": 1,
-  "total_pages": 2,
+  "total_pages": 5,
   "has_more": true,
   "next_page": "posts/all/page-2.json",
   "values": [
     {
-      "data": {},
-      "url": "posts/footer.json"
-    },
-    {
+      "content": "\n# Web GUI and Deno\n\nBy R. S. Doiel, 2024-07-08\n\nI've been looking at various approaches to implement graphical interfaces for both Deno and other languages.  I had been looking primarily at webview bindings but then stumbled on [webui](https://webui.me). Both could be a viable way to implement a local first human user interface.\n\nHere's an example of the webview implementation of hello world.\n\n~~~typescript\nimport { Webview } from \"@webview/webview\";\n\nconst html = `\n<html>\n  <head></head>\n  <body>\n    <h1>Hello from deno v${Deno.version.deno}</h1>\n    <script>console.log(\"Hi There!\");</script>\n  </body>\n</html>\n`;\n\nconst webview = new Webview();\n\nwebview.navigate(`data:text/html,${encodeURIComponent(html)}`);\nwebview.run();\n~~~\n\nNow here is a functionally equivalent version implemented using webui.\n\n~~~typescript\nimport { WebUI } from \"https://deno.land/x/webui/mod.ts\";\n\nconst myWindow = new WebUI();\n\nmyWindow.show(`\n<html>\n  <head><script src=\"webui.js\"></script></head>\n  <body>\n    <h1>Hello from deno v${Deno.version.deno}</h1>\n    <script>console.log(\"Hi There!\");</script>\n    </body>\n</html>`);\n\nawait WebUI.wait();\n~~~\n\nLet's call these [thing1.ts](thing1.ts) and [thing2.ts](thing2.ts).  To run thing1 I need a little prep since I've used an `@` import. The command I need to map the `webview/webview` module is the `deno add` command.\n\n~~~shell\ndeno add @webview/webview\n~~~\n\nHere's how I check and run thing1.\n\n~~~shell\ndeno check thing1.ts\ndeno run -Ar --unstable-ffi thing1.ts\n~~~\n\nSince I didn't use an `@` import in the webui version I don't need to \"add\" it to Deno. I check and run thing2 similar to thing1.\n\n~~~shell\ndeno check thing2.ts\ndeno run -Ar --unstable-ffi thing2.ts\n~~~\n\nBoth will launch a window with our hello world message. Conceptually the code is similar but the details differ.  In the case of webview you are binding the interaction from the webview browser implementation. You populate your \"page\" using a data URL call (see `webview.navigate()`. Webview is a minimal web browser. It is similar to but not the same as evergreen web browsers like Firefox, Chrome, or Edge. Depending how var you want to push your CSS, JavaScript and HTML this may or may not be a problem.\n\nWebui uses a lighter weight approach. It focuses on a web socket connection between your running code and the user interface. It leaves the browser implementation to your installed browser (e.g. Chrome, Edge or Firefox). There is a difference in how I need to markup the HTML compared to the webview version. In the webui version I have a script element in the head. It loads \"webui.js\". This script is supplied by webui C level code. It \"dials home\" to connect your program code with the web browser handling the display. Webui at the C library level is functioning as a web socket server.\n\nConceptually I like the webui approach. My program code is a \"service\", webui manages the web socket layer and the web browser runs the UI. Web browsers are complex. In the web UI approach my application's binary isn't implementing one. In the webview approach I'm embedding one. Feels heavy. At a practical level of writing TypeScript it may not make much differences. When I compiled both thing1 and thing2 to binaries thing2 was approximately 1M smaller. Is that difference important? Not really sure.\n\nWhat about using webview or webui from other languages? Webview has been around a while. There are many bindings for the C++ code of webview and other languages.  Webui currently supports Rust, Go, Python, TypeScript/JavaScript (via Deno), Pascal as well as a few exotic ones. TypeScript was easy to use either. I haven't tried either out with Python or Go. I'll leave that for another day.\n",
       "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-11-18",
+        "abstract": "My notes on two Web GUI modules available for Deno.\n",
+        "created": "2024-07-07",
         "keywords": [
-          "search",
-          "web browser",
-          "dweb",
-          "static site",
-          "lunrjs",
-          "pagefind"
+          "Deno",
+          "TypeScript",
+          "webui",
+          "webview"
         ],
-        "pubDate": "2022-11-18",
-        "title": "Browser based site search"
+        "pubDate": "2024-07-08",
+        "title": "Web GUI and Deno"
       },
-      "url": "posts/2022/11/18/browser-side-site-search.json"
+      "url": "posts/2024/07/08/webgui_and_deno.json"
     },
     {
+      "content": "\n# Transpiling with Deno\n\n[Deno](https://deno.land) is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the [deno_emit](https://github.com/denoland/deno_emit/blob/main/js/README.md) module.  Let's say I have a TypeScript module called `hithere.ts`. I want to make it available as JavaScript so I can run it in a web browser. How do I use the `deno_emit` module to accomplish that?\n\n- Write a short TypeScript program\n  - include the transpiler module provided with emit\n  - use the transpiler to generate the JavaScript code\n  - output the JavaScript code\n\nHere's what `transpile.ts` might look like:\n\n~~~typescript\n/* Get the transpiler module from deno's emit */\nimport { transpile } from \"https://deno.land/x/emit/mod.ts\";\n\n/* Get the python to my CL.ts as a URL */\nconst url = new URL(\"./hithere.ts\", import.meta.url);\n/* Transpile the code returning a result */\nconst result = await transpile(url);\n\n/* Get the resulting code and write it to standard out */\nconst code = result.get(url.href);\nconsole.log(code);\n~~~\n\nHere's the `hithere.ts` module:\n\n~~~typescript\n/**\n * hithere takes a name and returns a string of \"hi there \", a name and \"!\". If the name is null\n * it returns \"Hello World!\".\n *\n * @param {string | null} name\n * @returns {string}\n */\nfunction hithere(name: string | null): string {\n\tif (name === null) {\n\t\treturn \"Hello World!\";\n\t}\n\treturn `hi there ${name}!`;\n}\n~~~\n\nTo compile the module I need to give transpile.ts some permissions.\n\n- --allow-read (so I can read my local module\n- --allow-env (the transpiler needs the environment)\n- --allow-net (the deno emit module is not hosted locally)\n\nThe command line could look like this.\n\n~~~shell\ndeno run --allow-read --allow-env --allow-net \\\n  transpile.ts\n~~~\n\nThe result is JavaScript. It still has my comments in the code but doesn't have the TypeScript specific\nannotations.\n\n~~~javascript\n/**\n * hithere takes a name and returns a string of \"hi there \", a name and \"!\". If the name is null\n * it returns \"Hello World!\".\n *\n * @param {string | null} name\n * @returns {string}\n */ function hithere(name) {\n  if (name === null) {\n    return \"Hello World!\";\n  }\n  return `hi there ${name}!`;\n}\n~~~\n",
       "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "byline": "R. S. Doiel",
+        "created": "2024-07-03",
         "keywords": [
-          "small web",
-          "twtxt",
-          "micro blogging",
-          "social networks"
+          "TypeScript",
+          "JavaScript",
+          "Deno"
         ],
-        "pubDate": "2022-11-11",
-        "title": "Twitter's pending implosion"
+        "pubDate": "2024-07-03",
+        "software": [
+          "Deno >= v1.44"
+        ],
+        "title": "Transpiling with Deno"
       },
-      "url": "posts/2022/11/11/Twitter-implosion.json"
+      "url": "posts/2024/07/03/transpiling_with_deno.json"
     },
     {
+      "content": "\n# Bootstrapping a Text Oriented Web\n\nBy R. S. Doiel, 2024-06-14\n\nFirst order of business is to shorten \"text oriented web\" to TOW.  It's easier to type and say.  I'm considering the bootstrapping process from three vantage points. \n\n1. content author\n2. the server software\n3. client software \n\nThe TOW approach is avoids invention in favor of reuse. HTTP protocol is well specified and proven. [Common Mark](https://commonmark.org) has a specification as does [YAML](https://yaml.org/). TOW documents are UTF-8 encoded. A TOW document is a composite of Common Mark with YAML blocks. TOW documents combined with HTTP provide a simplified hypertext platform. \n\n\n## Authoring TOW documents\n\nTOW seeks to simplify the content author experience. TOW removes most of the complexity of content management systems rendering processes. A TOW document only needs to be place in a directory supported by a TOW server. In that way it is as simple as [Gopher](https://en.wikipedia.org/wiki/Gopher_(protocol)). The content author should only need to know [Markdown](https://en.wikipedia.org/wiki/Markdown), specifically the [Common Markdown](https://commonmark.org/) syntax. If they want to create interactive documents or distribute metadata about their documents they will need to be comfortable creating and managing YAML blocks embedded in their Common Mark document. Use of YAML blocks is already a common practice in the Markdown community.\n\nDescribing content forms using YAML has several advantages. First it is much easier to read than HTML source. YAML blocks are not typically rendered by Markdown processor libraries. I can write a simple preprocessor which tenders the YAML content form as HTML. Since HTML is allowed in Markdown documents these could then be run through a standard Markdown to HTML converter.  In the specific case of Pandoc a filter could be written to perform the pre-processor step. It should be possible to always render a TOW document as an HTML5 document. This is deliberate, it should be possible to use the TOW documents to extrapolate a traditional website.\n\n## Server and client software\n\nTOW piggy backs on the HTTP protocol. A TOW document is a composite of Common Mark with embedded YAML blocks when needed. It differs from the existing WWW content only in its insistence that Common Mark and YAML be first class citizens forming a viable representation of a hypertext document. A TOW document URL looks the same as a WWW URL. The way TOW documents distinguish themselves from ordinary web content is via their content type, \"text/tow\" or \"text/x-tow\".  Content forms are sent to a TOW service using the content type \"application/yaml\" content type instead of the various urlencoded content types used by WWW forms. \n\nTOW browsers eschew client side programming. I have several reasons for specifying this. First the TOW concept is a response to current problems and practices in the WWW. I don't want to contribute to the surveillance economy. It also means that's what the client receives avoids on vector if hijacking that the WWW has battled over the years. Importantly this also keeps the TOW browser model very simple. The TOW browser renders TOW content once per load. TOW is following the path that [Gemini protocol](https://geminiprotocol.net/) and [Gemtext](https://hexdocs.pm/gemtext/Gemtext.html). Unlike Gemini it does not require a new protocol and leverages an existing markup. Like Gemini TOW is not replacing anything but only supplying an alternative.\n\nMy vision for implementing TOW is to use existing HTTP protocol. That means a TOW URL looks just like a WWW URL. How do I distinguish between WWW and TOW?  HTTP protocol supports headers. TOW native interaction should use the content type \"text/tow\" or \"text/x-tow\". Content forms submitted to a TOW native server should submit their content encoded as YAML and use the content type \"text/tow\" or \"text/x-tow\". This lets the server know that the reply should remain in \"text/tow\" or \"text/x-tow\".  A TOW enabled browser can be described as a browser that knows how to render TOW documents and submit YAML responses.\n\n## How to proceed?\n\nA TOW document needs to be render-able as HTML+CSS+JavaScript because that is what is available today to bootstrap TOW. The simplest TOW server just needs to be able to send TOW content to a requester with the correct content type header, e.g. \"text/tow\".  That means a server can be easily built in Go using the standard [net/http](https://gopkg.in/net/html) package. That same package could then be combined with a web server package to adapt it into a TOW server supporting translation to HTML+CSS+JavaScript during the bootstrap period.  If the TOW web server received a request where \"text/tow\" wasn't in the acceptable response list then it would return the TOW document translated to HTML+CSS+JavaScript.\n\nA TOW native browser could be built initially as a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). It just needs to render TOW native documents as HTML5+CSS+JavaScript and be able to send TOW content forms back as YAML using the \"text/tow\" content type. Other client approaches could be taken, e.g. write plugin for the [Dillo browser](https://dillo-browser.github.io/), build something on [Gecko](https://developer.mozilla.org/en-US/docs/Glossary/Gecko), build something on [WebKit](https://webkit.org/), or use [Electron](https://www.electronjs.org/). A PWA is probably good enough for proof of concept.\n\nA minimal TOW proof of concept would be the web service that can handle the translation of TOW documents to HTML+CSS+JavaScript. A complete proof of concept could be implemented TOW native support via [PWA](https://en.wikipedia.org/wiki/Progressive_web_app). \n\n1. tow2html5\n2. towtruck (built using tow2html5)\n3. towby (initially built as tow2html5 WASM module as PWA)\n\n## Proposed programs\n\ntow2html5\n: This can be implemented in Go as both a package and command line interface. The command line interface could function either in preprocessor mode (just translating the YAML forms into HTML5) or as a full processor using an existing Common Mark package. It could also be compiled to a WASM module to support implementing a TOW browser as PWA.\n\ntowtruck\n: This would be a simple web service that performed tow2html5 translation for tow document requests from non-TOW native browsers. If the accepted content type requested includes TOW native then it'd just hand back the TOW file untranslated. I would implemented this as a simple static HTTP web service running on localhost then use Lighttpd, Apache 2 or NginX for a front end web server. This simplifies the TOW native server.\n\ntowby\n: A [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) based TOW browser proof of concept\n\n",
       "data": {
+        "byline": "R. S. Doiel, 2024-06-14",
+        "created": "2024-06-14",
         "keywords": [
-          "Pandoc",
-          "Pagefind",
-          "make",
-          "static site"
+          "text oriented web",
+          "tow"
         ],
-        "pubDate": "2022-11-30",
-        "title": "Pandoc, Pagefind and Make"
+        "pubDate": "2024-06-14",
+        "title": "Bootstrapping a Text Oriented Web"
       },
-      "url": "posts/2022/11/28/pandoc-pagefind-and-make.json"
+      "url": "posts/2024/06/14/tow_bootstraping.json"
     },
     {
+      "content": "\n# RISC OS 5.30, GCC 4.7 and Hello World\n\nBy R. S. Doiel, 2024-06-08 (updated: 2024-06-16)\n\nPresently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.\n\nI found two resources helpful. First James Hobson had a YouTUBE series on RISC OS and C programming. From this I learned about allocating more space in the Task Window via the Tasks window display of Next and Free memory. Very handy to know. Watching his presentation it became apparent he was walking through some\none's tutorial. This lead to some more DuckDuckGo searches and that is when I stumbled on Steve Fryatt's [Wimp Programming In C](https://www.stevefryatt.org.uk/risc-os/wimp-prog). James Hobson's series (showing visually) help and the detail of Steve Fryatt's tutorial helped me better understanding how things work on RISC OS.\n\nI think these both probably date from around 2016. Things have been evolving in RISC OS since then. I'm not certain that OSLib today plays the same role it played in 2016. Also in the case of Steve Fryatt's tutorial I'm not certain that the DDE and Norcroft compilers are essential in the say way. Since I am waiting on the arrival of the ePic SD Card I figured I'd get started using the\nGCC and tools available via Packman and see how far I can get.\n\n## Getting oriented\n\nWhat I think I need.\n\n1. Editor\n2. C compiler\n3. Probably some libraries\n\nYou need an editor fortunately RISC OS comes with two, `!Edit` and `!StrongED`. You can use both to create C files since they are general purpose text edits.\n\nYou need a C compiler, GCC 4.7.4 is available via Packman. That is a click,\nand download away so I installed that.\n\nI had some libraries already installed so I skipped installing additional ones since I wasn't sure what was currently required.\n\n## Pick a simple goal\n\nWhen learning a new system I find it helpful to set simple goals. It helps from feeling overwhelmed.\n\nMy initial goal is to understand how I can compile a program and run it in the Task Window of RISC OS. The Task Window is a command line environment for RISC OS much like a DOS Window was for MS Windows or the Terminal is for modern macOS.  My initial program will only use standard in and out. Those come with the standard library that ships with the compiler. Minimal dependencies simplifies things. That goes my a good simple intial goal.\n\n> I want to understand the most minimal requirements to compile a C program and run it in Task Window\n\n## Getting started\n\nThe program below is a simple C variation on the \"Hello World\"  program tought to beginner C programers.  I've added a minimal amount of parameter handlnig to se how that works in the Task Window environment. This program will say \"Hello World!\" but if you include parameters it will say \"Hi\" to those too.\n\nThe code looks like this.\n\n~~~C\n#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n  int i = 0;\n  printf(\"Hello World!\\n\");\n  for (i = 1; i < argc; i++)  { \n       printf(\"Hi %s\\n\", argv[i]);\n  }\n  return 0;\n}\n~~~\n\nIn a POSIX system I would name this \"HelloWorld.c\". On RISC OS the \".\" (dot)\nis a directory delimiter. There seems to be two approaches to translating POSIX paths to RISC OS. Samba mounted resources seem to have a simple substitution translatio. A dot used for file extensions in POSIX becomes a slash. The slash directory delimiter becomes a dot. Looking at it from the POSIX side the translation is flipped. A POSIX path like \"Project/HelloWorld/HelloWorld.c\" becomes \"Project.HelloWorld.HelloWorld/c\" in RISC OS.\n\nIn reading of the RISC OS Open forums I heard discussions about a different approach that is more RISC OS centric. It looks like the convention in RISC OS is to put the C files in a directory called \"c\" and the header files in a directory called \"h\". Taking that approach I should instead setup my directory paths like \"Project.HelloWorld.c\" which in POSIX would be \"Project/HelloWorld/c\". It seems to make sense to follow the RISC OS convensions in this case as I am not planning to port my RISC OS C code to POSIX anytime soon and if I did I could easily write a mappnig program to do that. My path to \"HelloWorld\" C source should look like `$.Projects.C_Programming.c.HelloWorld`.\n\nAfter storting this bit out it is time to see if I can compile a simple program with GCC and run it in a Task Window. This is a summary of my initial efforts.\n\nFirst attempt steps\n\n1. Open Task Window\n2. run `gcc --version`\n\nThis failed. GCC wasn't visible to the task window. Without understanding what I was doing I decided maybe I need to launch `!GCC` in `$.Apps.Development` directory. I then tried `gcc --version` again in the Task Window and this time\nthe error was about not enough memory available. I looked the \"Tasks\" window and saw plenty of memory was free. I did NOT realise you could drag the red bar for \"next\" and increase the memory allocation for the next time you opened a Task Window. I didn't find that out until I did some searching and stumbled on James Hobson's videos after watching the recent WROCC Wakefield Show held in Bedford (2024).\n\n> A clever thing about RISC OS is the graphical elements are not strictly informational. Often they are actionable. Dragging is not limited to icons.\n\nSecond attempt steps\n\n1. Open the Tasks window, drag the memory (red bar) allocation to be more than 16K\n2. Open a new Task Window\n3. Find and Click on `!GCC`\n4. In the task window check the GCC version number\n5. Change the directory in the Task Window to where I saved \"HelloWorld\"\n6. Check the directory with \"cat\"\n7. Try to compile with `gcc HelloWorld -o app`, fails\n8. Check GCC options with `--help`\n9. Try to compiled with `gcc -x c HelloWorld -o app`, works\n\nThis sequence was more successful. I did a \"cat\" on the task window and saw I was not in the right folder where my \"HelloWorld\" was saved.  Fortunately James Hobson video shows any easy way of setting the working directory. I brought the window forward that held \"HelloWorld\". Then I used the middle mouse button (context menu) to \"set directory\". I then switched back to the Task Window and low and behold when I did a \"cat\" I could see my HelloWorld file.\n\nI  tried to compile \"HelloWorld\". In James Hobson video he shows how to do this but I couldn't really see what he typed.  When I tried this I got an error\nabout the file type not being determined.  Doing `gcc --help` listed the options\nand I spotted `-x` can be used to explicitly set the type from the GCC point of view. This is something to remember when using GCC. It's a POSIX program running\non RISC OS which is not a POSIX system.  GCC will expect files to have a POSIX references in some case and not others. There's a bit of trial and error around\nthis for me.\n\nNext I tried using the `-x c` option. I try recompiling and after a few moments\nGCC creates a \"app\" file in the current directory. On initial creation it is a Textfile but then the icon quickly switches to a \"App/ELF\" icon.  Double clicking the App icon displays hex code in the Task Window. Not what I was expected. Back in the Task Window I type the following.\n\n~~~shell\napp Henry Mable\n~~~\n\nAnd I get out put of\n\n~~~shell\nHello World!\nHi Henry\nHi Mable\n~~~\n\nMy program works at the CLI level in a Task Window. My initial goal has been met.\n\n## What I learned\n\n1. Remember that RISC OS is a fully GUI system, things you do in windows can change what happens in the whole environment\n2. Remember that the display elements in the GUI maybe actionable\n3. When I double clicked on `!GCC` what it did is add itself to the search path.\n\nI remember something from the Hobson video about setting that in `!Configure`, `!Boot` and picking the right boot configuration action.  I'll leave that for next time. I should also be able to script this in an Obey file and that might be a better approach.\n\nThere are some things I learned about StrongED that were surprising. StrongED's C mode functions like a \"folding\" editor. I saw a red arrow next to my \"main\" functions. If I click it the function folds up except for the function signature and opening curly bracket. Click it again the the arrow changes direction and the full function is visible again.\n\nThe \"build\" icon in StrongED doesn't invoke GCC at the moment. I think the build icon in the ribbon bar maybe looking for a Makefile. If so I need to install Make from Packman. This can be left for next time.\n\nI'd really like to change the editor colors as my eyes have trouble with white background. This too can be left for another day to figure out.\n\n## Next Questions\n\n1. How do I have the GCC compiled \"app\" so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?\n2. Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?\n\n## Updates\n\nI got a chance to read more about [Obey files](https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics) and also clicked through the examples in the `SDSF::RISCOSPi.$.Apps.Development.!GCC` directory (shift double click to open the GCC directory. In that directory is an examples\nfolder which contains a Makefile for compile C programs in various forms.\nFrom there it was an easy stop to see how a simple Obey file could be used\nto create a `!Build` and `!Cleanup` scripts.\nwhere all the GCC setup lives). What follows are the two Obey files in the directory holding the \"c\" folder of HelloWorld.\n\nHere's `!build`\n\n~~~riscos\n| !Build will run GCC on c.HelloWorld to create !HelloWorld\nSet HelloWord$Dir <Obey$Dir>\nWimpSlot -min 16k\ngcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld\n~~~\n\nand `!Cleanup`\n\n~~~riscos\n| !Cleanup removes the binaries created with !Build\nSet HelloWorld$Dir <Obey$Dir>\nDelete !HelloWorld\n~~~\n\n",
       "data": {
-        "copyright": "copyright (c) 2022, R. S. Doiel",
+        "abstract": "These are my notes on learning to program a Raspberry Pi Zero W\nunder RISC OS using GCC 4.7 and RISC OS 5.30\n",
+        "created": "2024-06-08",
         "keywords": [
-          "Pandoc",
-          "filter"
+          "RISC OS",
+          "Raspberry Pi",
+          "GCC",
+          "C Programming"
         ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 4,
-        "series": "Pandoc Techniques",
-        "title": "Revealing the Pandoc AST"
+        "pubDate": "2024-06-08",
+        "references": [
+          "Steve Fryatt's tutorial <https://www.stevefryatt.org.uk/risc-os/wimp-prog>",
+          "James Hobson's YouTUBE Video showing a summary of Steve Fryatt's tutorial"
+        ],
+        "title": "RISC OS 5.30, GCC 4.7 and Hello World"
       },
-      "url": "posts/2022/11/17/revealing-pandoc-ast.json"
+      "url": "posts/2024/06/08/riscos_gcc_and_hello.json"
     },
     {
+      "content": "\n# Exploring RISC OS 5.30 on a Raspberry Pi Zero W\n\nBy R. S. Doiel, 2024-06-04\n\nBack on April, 27, 2024 [RISC OS Open](https://riscosopen.org) [announced](https://www.riscosopen.org/news/articles/2024/04/27/risc-os-5-30-now-available) the release of RISC OS 5.30. This release includes WiFi support for the Raspberry Pi Zero W. This may sound like a small thing. WiFi is taken for granted on many other operating systems.  This is the news I've been waiting for before diving into RISC OS. My Pi Zero W running RISC OS **just works** with my wireless network. That is wonderful.\n\n## RISC OS and Pi Zero W gives you a personal networked computer\n\nHere's my setup.\n\n- First generation Raspberry Pi Zero W (running RISC OS 5.30 with Pinboard2)\n- Raspberry Pi Keyboard and Mouse (the keyboard provides a nice USB hub for the Zero)\n- A powered portable monitory (the monitor provides power to the Pi Zero)\n\nFor additional disk storage I have a old Pi 3B+ with a 3.14G Western Digital hard drive. It is configured as a Samba file server running the bookworm release of Raspberry Pi OS[^1].\n\n[^1]: RISC OS 5.3 only supports SMB with LANMAN1. LANMAN1 is turned off by default for Samba on R-Pi OS bookworm.\n\n## Quick summary\n\nI've been playing around with RISC OS 5.30  on my Pi Zero for a couple weeks now. I've really come to enjoy using it. RISC OS is different from macOS and Windows in its approach to the graphical user interface. Like with the Oberon Operating System you need to accept that difference and shed your assumptions about how things should and do work. I've found the difference invigorating. My Pi Zero with RISC OS has become my \"fun desktop\" for recreational computing.\n\n## Diving in\n\nRISC OS is a small single user operating system. It requires minimal resources. It provides a rich graphical environment. Currently RISC OS 5.30 only runs on one core of an ARM CPU. The Raspberry Pi Zero has only one core so that's a nice fit.\n\nThere is a fair amount of information regarding RISC OS online. There are active user groups and communities too.\nSome of the documentation is quite good. One of the things to keep in mind if you search for \"RISC OS\" on the Internet is that RISC OS has forked. This is a little like the old Unix fork of BSD versus System V. They come from the same origins but have taken different paths and approaches.\n\n>RISC OS's closed fork runs on vintage hardware and emulators only. It does not appear to be actively developed and the version numbers associated include version four and six.\n>\n> The [RISC OS Open](https://www.riscosopen.org) (i.e. RISC OS 5.x) fork is Open Source. It is being actively developed. It is licensed using the Apache 2 Open Source license. It runs on most versions of the Raspberry Pi. It actually runs on many single board computers. See <https://www.riscosopen.org> for details. Today it seems to be a well run Open Source project.\n\nThe reasons for the fork are complicated. From what I've read they are due to how Acorn was broken up when the company ceased to operate as Acorn.  RISC OS as intellectual property wound up in two different companies. They had two different business models and were driven by maximizing profit in the diminished Acorn market. The net resulted was a divided RISC OS community. The division included a level of acrimony. Somehow RISC OS survived this. RISC OS 5 branch even survived a bumpy road to becoming a true Open Source operating system. Today RISC OS 5.30 is licensed under the widely used Apache 2.0 Open Source license. RISC OS 5 even have a small community of commercial software developers writing and updating software for it!\n\nIf, like me, you're starting your RISC OS 5.30 on a Raspberry Pi then you're in luck. The dust seems to have settled. I highly recommend first reading the User Guide found at the bottom of the [common](https://www.riscosopen.org/content/downloads/common) page in the downloads section of the RISC OS Open website. You can also buy a printed version of the User Guide. From there head over and explore RISC OS Open community forums at <https://www.riscosopen.org/forum/>. There is also a more general Acorn enthusiast community at [stardot.co.uk](https://www.stardot.org.uk/forums/). I found this particularly helpful in understanding the historical evolution of RISC OS. Stardot even has a presence of [GitHub](https://github.com/stardot).\n\nWhat follows are a semi-random set of points that I had to wrap my head around in getting oriented on RISC OS 5.30 on the Raspberry Pi Zero W.\n\n## Visibly different\n\nWhen I search for RISC OS on the [Raspberry Pi Forums](https://forums.raspberrypi.com/search.php?keywords=RISC+OS) many of the questions seemed to have more to do with user assumptions about how RISC OS works than about things actually not working. RISC OS is different. It comes from a different era. It was designed with a vastly different set of assumptions than POSIX systems like macOS, Linux, BSD, or Windows. Check your assumptions at the door.\n\n### The mouse and its pointer\n\nRISC OS is a three button mouse oriented system. The left and middle mouse buttons play very specific roles.  The left button is for \"action\" and the middle button provides a \"context menu\". RISC OS does not use \"application menu\" at the top of the screen or top of the window frame like macOS, Windows or Raspberry Pi OS. The \"context menu\" provides that functionality.\n\nWhen you point your mouse at a screen element and press the middle button you get the context menu for that thing.  If you single or double click on an item with the left button you are taking an action.\n\n- The left mouse button takes a action. Sometimes you use a single click and at others a double click\n- The middle mouse button brings up the context menu, on RISC OS this is replaces the need for an application menu\n\n### The Iconbar and Pinboard\n\nWhen you start RISC OS you will see two main visual elements. The desktop is called the \"Pinboard\". This is analogous to desktops on Windows, macOS and Raspberry Pi OS.  It contains a background image and icons.\n\nThe Iconbar is the other big visible element. It is found at the bottom of the screen. The Iconbar predates Window's task bar and may have inspired it.  The Iconbar is responsibly for allowing you to access system resources and the loaded applications and modules.\n\nOn the left side of the Iconbar are icons representing system resources. This includes the SD card holding RISC OS. On the right side of the Iconbar you'll find icons that represent running applications or modules.\n\nRISC OS is a single user operating system and relies on cooperative multitasking. An application or module can be loaded into memory and left in memory for fast reuse.  When you \"launch\" an application it loads into memory. To use the application you can either left double click on the icon in the Iconbar or open a file associated with the application. If you do the later then the application will automatically get added to the Iconbar if it was not already present. When you close an application's window you're not removing the application. To close an application you need to go to the Iconbar and use the context menu (remember that middle mouse button) to \"quit\" it.\n\nOn the left, system resources side, data storage is manipulated via the filer windows. You open a filer window by left double clicking on the resource in the Iconbar. The filer window on RISC OS plays a role similar to the file manager on Windows or a finder window on macOS.\n\n### Iconbar and file resources\n\nThe filer maintains metadata about files. This includes the file type and the last application used to save the file. The file type is explicit with RISC OS and is NOT based on a file extension like with macOS, Windows and Raspberry Pi OS. The file path notation is also significantly different from the POSIX path syntax.\n\nDouble click on a storage resource in the Iconbar opening a filer window. The window will list files, folders and applications. The file system is hierarchical.  An icon will indicate the file type. Some icons are folders, these are sub directories of the current filer window. Most files will have other icons associated based on file type. There are special \"files\" that begin with an exclamation symbol, \"!\". In POSIX this is referred as a \"bang\" symbol but in RISC OS it is called a \"pling\".  Filenames starting with the pling hold applications. Applications are implemented as a directory containing resources. Resources might be application's visual assets, configuration, scripts or executable binaries. Directories as application will be familiar to people running modern versions of macOS or who have used NeXTStep. RISC OS usage predated both those systems. As an end user you just click on the pling name to launch the application. It will then show up in the Iconbar ready for use.\n\nOn the right side of the Iconbar are your running applications. When you first startup RISC OS you'll see two running. First, on the far right is an icon representing the hardware you're running on. If you're on a Raspberry Pi it'll be raspberry icon.  If you're running on a Pine64 Pinebook it'll be a pine cone. Since I'm on a Raspberry Pi Zero I will called it a Raspberry icon. Use your mouse and move the mouse pointer over the Raspberry icon. Left double click on the icon. This starts up a dialog box containing information about system resources. If you single click the middle button on the Raspberry icon you will get a operating system context menu. In the context menu you'll see items for \"Configure\" and \"Task Window\". The Task window provides a command line interface for RISC OS. The configure menu lets you configure how RISC OS runs. This includes things like setting the desktop theme and configuring network services.\n\nPointing your mouse to the left of the Raspberry will place the cursor over an icon that looks like a computer monitor.  Double left clicking on this icon will open a dialog that lets you set the resolution of your monitory. Similarly a single middle click on the icon will open a context menu.  This is a major pattern in interacting with RISC OS on the Iconbar. In fact this is the general pattern of using the mouse through out the system. It's take an action (left) or select an action to take (middle).\n\nThe Now you should see it in the Iconbar towards the right.  Note it is only visible in the Iconbar right now. This is very different than double clicking on macOS Or Windows. If you move your mouse over the icon in the Iconbar and Left double click it'll open your applications main dialog or window (just like what happened when we click on the monitor or Raspberry icons). It's a two step process.\n\nHow do you get more applications on the Iconbar?\n\nUse the filer. The default applications are in the \"Apps\" icon visible on the Iconbar. Left double click on it. It'll open a filer window with an abbreviate list of applications. In that filer window look for an application called \"!Alarm\" (pling alarm). Double left click on that application's icon will cause it to appear in the Iconbar towards the right side. Congratulation you've loaded your first RISC OS application.\n\nYou will find more applications by looking at the contents of the SD Card. To do that double left click on the SD Card icon in the Iconbar. It'll open a filer window. You'll see a folder icon labeled \"Apps\". This is an actual directory on the file system. It is where applications are usually installed on RISC OS. Open that folder by double left clicking on it. You can low launch additional application by left double clicking on their pling names. These like Alarm will show up on the right side of the Iconbar.\n\nHaving things running on the Iconbar is convenient.  If you want to start a new document associated with one of the running application you just left double the icon on the Iconbar.  If you want an application to be processed by something running in the Iconbar you can draft the document from the filer window to the icon on the Iconbar. If you want to save that new document start the application from the Iconbar then use the context menu in the application window or press F3 to get the save dialog box. In the dialog box give your document a name and drag the icon of the file from the dialog box to a filer window where you want to store the document. That last step is important to note. Icons are actionable even when they appear in a dialog box! This is very unlike Windows, macOS or Raspberry Pi OS. The dragging the icon is what links data storage with the application. The next time you want to edit the file you just fine the file and left double click on it to open it. If the application isn't running then it'll be launched and added to the Iconbar automatically.\n\nRemember when you close your application's main window or dialog box it doesn't close the application. It only close the file you were working on. To actually unload the application (and free up additional memory) point your mouse at the icon in the Iconbar and middle click to see the context menu. One of the context menu items will be \"Quit\", this is how you fully shutdown the application.\n\n### Context menus\n\nWhat's all this about context menus? On other operating systems the context menu is called an application menu. It might be at the top of the application window (e.g. Windows) or at the top of the screen (e.g. macOS). On Windows and macOS the words \"context menu\" usually mean a special sub-menu in the application (e.g. like when you use a context menu to copy a link in your web browser). In RISC OS the context menu is the application menu. It is always accessed via the middle mouse button just as we saw in introduction to the Iconbar.\n\nSome applications like the \"!StrongEd\" editor do include a ribbon of icons that will make it easy to do various things. That's just a convenience. Other applications like \"!Edit\" don't provide this convenience. Personally I'm ambivalent to ribbon bars. I think they are most useful where you'd have to navigate down a level or two from the context menu to reach a common action you wanted to perform. There are things I don't like about the ribbon button approach. You loose window space to the ribbon. The second you are increasing the distance of mouse travel to take the action. On the other hand it beats traveling down three levels of nesting in the context menu. It's a trade off.\n\nWhat ever the case remember the middle button as picking an action and the left mouse button as taking the action.\n\n### Window frames\n\nWhen you open an application from the Iconbar it'll become a window (a square on the screen containing a dialog or application content). Looking at the top of of the window frame there is are some buttons and application title area. In the upper left of the window frame you see two buttons. From left to right, the first button you see will look like two squares overlaid. Reminds me of the symbols often used when copying text.  That button is not a copy button. The two overlapping squares indicate that the current window can be sent to the bottom (furthest behind) of the stack of overlapping windows. If you think of a bunch of paper loosely stack and being read it's like taking the top paper and putting it at the back of the stack as you finish reading it. I found this very intuitive and a better experience than how you would take similar actions on macOS and Windows.\n\nNext to the back window button is an button with an \"X\" on it. This button closes the window.\n\nTo the right of the close window button is the title bar. This usually shows the path to the document or data you the application is managing. You'll notice the path doesn't resemble a POSIX path or even a path as you'd find on DOS or CP/M.  I'll circle back to the RISC OS path notation in a bit. The path maybe followed by an asterisk. If the asterisk is present it indicates the data has been modified. If you try to close the window without saving a filer dialog will pop up giving a choice to discard changes, cancel closing or saving the changes. A heads up is saving is approach differently in RISC OS than on macOS or Windows.\n\nTo the right of the title bar you'll see minimize button which looks like a dash and a maximize button that looks like a square. These work similar to what you'd expect on macOS or Windows.\n\nA scroll bar is visible on the right side and bottom. These are nice and wide. Very easy to hit using the mouse unlike modern macOS and Windows scroll bars which are fickle. There is one on the bottom the lower right of the window. The lower right that you can use to stretch or squeeze the window easily.\n\nAlong with the middle mouse button presenting the context menu you'll also notice that RISC OS makes extensive use of dialog boxes to complete actions. If you see an Icon in the dialog it's not there as a branding statement. That icon can be dragged to another window such as the Filer window to save a document. This is a significant difference between RISC OS and other operating systems. The Icon has a purpose beyond identification and branding. Moving the Icon and dropping it usually tells the OS to link two things.\n\n### Some historical context and web browsing\n\nRISC OS has a design philosophy and historical implementation. As I understand it the original RISC OS was written in ARM assembly language with BBC BASIC used to orchestrate the pieces written in assembly. That was how it achieved a responsive fluid system running on minimal resources. Looking back at it historically I kinda of think of BBC BASIC as a scripting language for a visual interface built from assembly language modules. The fast stuff was done in assembly but the high level bits were BBC BASIC. Today C has largely taken over the assembly language duties. It even has taken over some of the UI work too (e.g. Pinboard2 is written in C). The nice thing is BBC BASIC remains integrated and available.\n\n> BBC BASIC isn't the BASIC I remember seeing in college.  BBC BASIC appears more thorough. It includes an inline ARM assembly language support. Check out Bruce Smith's books on ARM Assembly Language on RISC OS if you want to explore that.\n\nEven through RISC OS was originally developed with BBC BASIC and assembler it wasn't developed in a haphazard fashion. A very modular approach was taken. Extending the operating system often means writing a module.  The clarity of the approach as much as the tenacity of the community has enable RISC OS to survive long past the demise of Acorn itself. It has also meant that as things have shifted from assembly to C that the modularity has remained strong aspect of RISC OS design and implementation.\n\nRISC OS in spite of its over 30 years of evolution has a remarkably consistent feel. This is in part a historical accident but also a technical one in how the original system was conceived. That consistency is also one is one of its strengths. Humans tend to prefer consistency when they can get it. It is also the reasons you don't see allot of direct ports of applications from Unix, macOS (even single user system 7) or Windows. When I work on a Linux machine I expect the GUI to be inconsistent. The X Window systems was designed for flexibility and experimentation. The graphical experience only becomes consistent within the specific Linux distribution (e.g. Raspberry Pi OS). Windows also has a history of being pretty lose about it user interface. Windows user seem much happier to accept a Mac ported application then Mac users using a Windows ported one.\n\nWhy do I bring this up? Well like WiFi many people presume availability of evergreen browsers. Unlike WiFi I think I can live without Chrome and friends.  There is a browser called NetSurf that comes with RISC OS 5.30. You can view forums and community website with targeting RISC OS with it. If you're a follower of the Tidleverse you'll find NetSurf sufficient too. It's nice not running JavaScript. If you visit GitHub though it'll look very different. Some of it will not work.  Fortunately there is a new browser on the horizon called Iris. I suspect like the addition of native WiFi support you'll see a bump in usability for RISC OS when it lands.\n\n### Access external storage\n\nRISC OS supports access to external storage services. There are several file server types supported but I found SMB the easiest to get setup. I have a Raspberry Pi 3B+ file server running Samba on Raspberry Pi OS (bookworm). The main configuration change I needed to support talking to RISC OS was to enable LANMAN1 protocol. By default the current Samba shipping with bookworm has LANMAN1 protocol turned off (they are good reasons for this). This is added in the global section of the smb.conf file. I added the following line to turn on the protocol.\n\n~~~shell\nserver min protocol = LANMAN1\n~~~\n\nBecause of the vintage nature of the network calls supported and problems of WiFi being easy to sniff I opted to remove my personal directory from Samba services. I also used a different password to access Samba from my user account (see the smbpasswd manual page for how to do that).\n\nI don't store secret or sensitive stuff on RISC OS nor do I access it from RISC OS. Like running an DOS machine security on RISC OS isn't a feature of the operating system. For casual writing, playing retro games, not a big problem but I would not do my banking on it.\n\n### Connecting to my Raspberry Pi File Server\n\nOnce I had Samba configured to support LANMAN1 I was able to connect to it from RISC OS on the Pi Zero but it was tricky to figure out how at first.  The key was to remember to use the context menu and to use the `!OMNI` application found in the \"Apps\" folder on the Iconbar.\n\nFirst open the Apps folder, then right double click on `!OMNI`.  This will create what looks like a file server on the left side of the Iconbar (where other disk resources are listed).  If you place your mouse pointer over it and middle click the context menu will pop up. Then navigate to the protocol menu, followed by LanMan. Clicking on LanMan should bring up a dialog box that will let you set the connection name, the name of the file server as well as the login credentials for that server.  There is no OK button. When you press enter after entering your password the dialog box knows you're done and OMNI will try to make the connection. You'll see the mouse pointer turn into an hour glass as it negotiates the connection. If the connection is successful you'll see a new window open with the resource's available from that service.\n\nYou can save yourself time by \"saving\" the protocol setup via the context menu. To do that you point to the OMNI icon, pull up the context menu, select protocol then select save protocol.\n\n### RISC OS Paths\n\nThe RISC OS path semantics are NOT the same as POSIX.  The RISC OS file system is hierarchical but does not have a common root like POSIX. Today RISC OS supports several types of file systems and protocols. As a result the path has a vague resemblance to a URI.\n\nThe path starts with the protocol. This is followed by a double colon then the resource name. The resource name is followed by a period (a.k.a. dot) and then the dollar sign. The dot and dollar sign represents the root of the file system resource. The dot (period) is used as a path delimiter. It appears to be a practice to use a slash to indicate a file extension. This is important to remember. A path like `myfile.txt` on RISC OS means there is a folder called \"myfile\" and a file called \"txt\" in side it. On the other hand `myfile/txt` would translate to the POSIX form of `myfile.txt`. Fortunately the SMB client provided by OMNI handles this translation for us.\n\n## first impressions\n\nI find working on RISC OS refreshing. It is proving to be a good writing platform for me. I do have a short wish list. RISC OS seems like a really good platform for exploring the text oriented internet.  I would like to see both a gopher client and server implemented on RISC OS. Similarly I think Gemini protocol makes sense too.  I miss not having Pandoc available as I use that to render my writing to various formats on POSIX systems (e.g. html, pdf, ePub).\n\nWhat might I build in RISC OS?  I'm not sure yet though I have some ideas. I really like RISC OS as a writing platform. The OS itself reminds me of some of the features I like in Scrivener. I wonder if Scrivener's Pinboard got its inspiration from RISC OS?\n\nI've written Fountain, Open Screen Play, Final Draft conversion tools in Go. I'd like to have similar tools available along with a nice editor available on RISC OS. Not sure what the easiest approach to doing that is. I've ordered the [ePic](https://www.riscosopen.org/content/sales/risc-os-epic/epic-overview) SD card and that'll have the [DDE](https://www.riscosopen.org/content/sales/dde) for Raspberry Pi. It might be interesting to port OBNC Oberon-07 compiler to RISC OS and see if I could port my Go code to Oberon-07 in a sensible way.\n",
       "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-11-21",
+        "abstract": "In this post I talk about my exploration of using a Raspberry Pi Zero W\nas a desktop computer. This was made possible by the efficiency of \nRISC OS 5.30 which includes native WiFi support for Raspberry Pi computers.\n",
+        "byline": "R. S. Doiel, 2024-06-04",
         "keywords": [
-          "site search",
-          "pagefind",
-          "rust",
-          "cargo",
-          "rustup",
-          "M1",
-          "macOS"
+          "RISC OS",
+          "Raspberry Pi"
         ],
-        "pubDate": "2022-11-21",
-        "title": "Initial Impressions of Pagefind"
+        "pubDate": "2024-06-04",
+        "title": "Exploring RISC OS 5.30 on a Raspberry Pi Zero W"
       },
-      "url": "posts/2022/11/21/initial-impressions-pagefind.json"
+      "url": "posts/2024/06/04/exploring_riscos.json"
     },
     {
+      "content": "\n# A quick review of Raspberry Pi Connect\n\nThe Raspberry Pi company has created a nice way to share a Pi Desktop. It is called Raspberry Pi Connect. It is built on the peer-to-peer capability of modern web browsers using [WebRTC](https://en.wikipedia.org/wiki/WebRTC). The connect service requires a Raspberry Pi 4, Raspberry Pi 400 or Raspberry Pi 5 running the [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) display server and Bookworm release of Raspberry Pi OS.\n\nWhen I read the [announcement](https://www.raspberrypi.com/news/raspberry-pi-connect/) I wondered, why create Raspberry Pi Connect? RealVNC has works fine.  RealVNC even has a service to manage your RealVNC setups.\n\nI think the answer has three parts. First it gives us another option for sharing a Pi Desktop. Second it is a chance to make things easier to use. Third if you can share a desktop using WebRTC then you can also provide additional services.\n\nFor me the real motivator is ease of use. In the past when I've used RealVNC between two private networks I've had to setup SSH tunneling. Not unmanageable but certainly not trivial.  I think this is where Raspberry Pi Connect shines. Setting up sharing is a three step process.\n\n1. Start up your Pi desktop, install the software\n2. Create a Raspberry Pi Connect account and register your Pi with the service\n3. On another machine point your web browser at the URL for Raspberry Pi connect and press the connect button\n\nThe next time you want to connect you just turn on your Pi and login. If I have my Pi desktop to auto login then I just turn the Pi on and when it finishes booting it is ready and waiting. On my other machine I point my web browser at the connect website, login and press the connection button.\n\nWhen I change computers I don't have to install VNC viewers. I don't have to worry about setting secure ssh tunnels. I point my web browser at the Raspberry Pi Connect site, login and press the connect button. The \"one less thing to worry about\" can make it feel much less cumbersome.\n\n## How does it work?\n\nThe Raspberry Pi Connect architecture is intriguing. It leverages [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API). WebRTC supports peer to peer real time connection between two web browsers running in separate locations across the internet. Making a WebRTC requires the two sites to use a URL to establish contact. From that location perform some handshaking and see if the peer connection can be establish a directly between the two locations. If the direct connection can't be established then a relay or proxy can be provided as a fallback. \n\nThe Raspberry Pi Connect site provides the common URL to contact. On the Pi desktop side a Wayland based service provides access to the Pi's desktop. On the other side you use a Web Browser to display and interact with the desktop. Ideally the two locations can establish a direct connection. If that is not possible then Raspberry Pi Connect hosts [TURN](https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT) in London as a fallback. A direct connection gives you a responsive shared desktop experience but if you're on the Pacific edge of North America or on a remote Pacific island then traffic being relayed via London can be a painfully slow experience.\n\nThe forum for the Raspberry Pi Connect has a [topic](https://forums.raspberrypi.com/viewtopic.php?t=370591&sid=61d7cdf3c03a7ead49e3da837b0d4f06) discussing the routing algorithm and choices. The short version is exerted below.\n\n> Essentially, when the connection was being established both sides provided their internet addresses (local, and WAN) - and when both sides tested their ability to talk to the other side, they failed. Only after this failure is the TURN server used.\n\n## Questions\n\nCan I replace RealVNC with Raspberry Pi Connect?\n\nIt depends. I still use Raspberry Pi 2, 3 and some Zeros. I'm out of luck using Pi Connect since these devices aren't supported. If you've already installed RealVNC and it's working well for you then sharing via Pi connect is less compelling.\n\nIf I was setting up a new set of Raspberry Pi 4/400 or 5s then I'd probably skip RealVNC and use Pi connect. It's feels much easier and unless the network situation forces you to route traffic through London is reasonably responsive.\n\nIs screen sharing the only thing Raspberry Pi Connect provides?\n\nI expect if Raspberry Pi Connect proves successful we'll see other enhancements. One of the ones mentioned in the forums was SSH services without the hassle of dealing with setting up tunnels. The folks in the Raspberry Pi company, foundation and community are pretty creative. It'll be interesting to see where this leads.\n\n",
       "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-11-07",
+        "byline": "R. S. Doiel, 2024-05-10",
         "keywords": [
-          "pandoc",
-          "pandoc-server",
-          "pandoc-citeproc",
-          "haskell-stack",
-          "cabal",
-          "ghc"
+          "raspberry pi"
         ],
-        "pubDate": "2022-11-07",
-        "title": "Compiling Pandoc from source"
+        "pubDate": "2024-05-10",
+        "title": "A quick review of Raspberry Pi Connect"
       },
-      "url": "posts/2022/11/07/compiling-pandoc-from-source.json"
+      "url": "posts/2024/05/10/quick-review-rpi-connect.json"
     },
     {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "keywords": [
-          "plain text",
-          "small internet",
-          "rss",
-          "jsonfeed",
-          "gopher"
-        ],
-        "pubDate": "2022-11-01",
-        "title": "feeds, formats and plain text"
-      },
-      "url": "posts/2022/11/01/Feeds-formats-and-plain-text.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel",
-        "keywords": [
-          "64bit",
-          "Rapsberry Pi OS",
-          "Cargo",
-          "rustc"
-        ],
-        "pubDate": "2022-10-31",
-        "title": "Installing Cargo/Rust on Raspberry Pi 400"
-      },
-      "url": "posts/2022/11/01/installing-cargo-rust-r400.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "A minimum SYSTEM module"
-        ],
-        "no": 1,
-        "pubDate": "2022-10-18",
-        "series": "Oberon Language",
-        "title": "7:30 AM, Oberon Language: A minimum SYSTEM module"
-      },
-      "url": "posts/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-10-16",
-        "keywords": [
-          "Oberon",
-          "Oberon-07",
-          "Oberon System",
-          "Artemis"
-        ],
-        "pubDate": "2022-10-16",
-        "title": "Wish list for Oberon in 2023"
-      },
-      "url": "posts/2022/10/16/Wishlist-Oberon-in-2023.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Setup"
-        ],
-        "no": 1,
-        "pubDate": "2022-10-10",
-        "series": "Gopher",
-        "title": "7:30 AM, Gopher: Setup"
-      },
-      "url": "posts/2022/10/10/getting-things-setup-2022-10-10_070730.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-10-09",
-        "keywords": [
-          "gopher",
-          "public unix"
-        ],
-        "pubDate": "2022-10-09",
-        "title": "Getting things setup"
-      },
-      "url": "posts/2022/10/09/getting-things-setup.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "keywords": [
-          "rust",
-          "cargo",
-          "M1",
-          "macOS",
-          "ports"
-        ],
-        "pubDate": "2022-09-27",
-        "title": "Rust development notes"
-      },
-      "url": "posts/2022/09/27/rust-development-notes.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "draft": true,
-        "pubDate": "2022-09-28",
-        "title": "Thinking about Gopher"
-      },
-      "url": "posts/2022/09/28/thinking-about-gopher.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-09-19",
-        "draft": true,
-        "keywords": [
-          "PostgreSQL"
-        ],
-        "pubDate": "2022-09-19",
-        "title": "PostgreSQL dump and restore"
-      },
-      "url": "posts/2022/09/19/PostgreSQL-Dump-and-Restore.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 1,
-        "pubDate": "2022-09-19",
-        "series": "SQL",
-        "title": "12:30 PM, SQL: Postgres"
-      },
-      "url": "posts/2022/09/19/rosette-notes-2022-09-19_121230.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "pttk"
-        ],
-        "no": 1,
-        "pubDate": "2022-09-26",
-        "series": "Golang",
-        "title": "7:30 AM, Golang: pttk"
-      },
-      "url": "posts/2022/09/26/golang-development-2022-09-26_070730.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-08-19",
-        "keywords": [
-          "postgres",
-          "mysql",
-          "sql",
-          "psql"
-        ],
-        "number": 2,
-        "pubDate": "2022-08-19",
-        "series": "SQL Reflections",
-        "title": "Rosette Notes: Postgres and MySQL",
-        "updated": "2022-09-19"
-      },
-      "url": "posts/2022/08/19/rosette-notes.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel",
-        "byline": "R. S. Doiel",
-        "daft": true,
-        "number": 4,
-        "pubDate": "2022-08-26",
-        "series": "SQL Reflections",
-        "title": "Postgres 14 on Ubuntu 22.04 LTS"
-      },
-      "url": "posts/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 2,
-        "pubDate": "2022-08-26",
-        "series": "SQL",
-        "title": "10:30 AM, SQL: Postgres"
-      },
-      "url": "posts/2022/08/26/rosette-notes-2022-08-26_101030.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "keywords": [
-          "pandoc",
-          "front matter"
-        ],
-        "pubDate": "2022-08-30",
-        "title": "Ordering front matter"
-      },
-      "url": "posts/2022/08/30/Ordering-Frontmatter.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 3,
-        "pubDate": "2022-08-24",
-        "series": "SQL",
-        "title": "12:00 PM, SQL: Postgres"
-      },
-      "url": "posts/2022/08/24/rosette-notes-2022-08-24_121200.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-08-24",
-        "keywords": [
-          "postgres",
-          "sql",
-          "psql",
-          "plsql",
-          "plpgsql"
-        ],
-        "number": 3,
-        "pubDate": "2022-08-24",
-        "series": "SQL Reflections",
-        "title": "A Quick into to PL/pgSQL"
-      },
-      "url": "posts/2022/08/24/plpgsql-quick-intro.json"
-    },
-    {
+      "content": "\n# Building Lagrange on Raspberry Pi OS\n\nThese are my quick notes on building the Lagrange Gemini browser on Raspberry Pi OS. They are based on instructions I found at <gemini://home.gegeweb.org/install_lagrange_linux.gmi>. These are in French and I don't speak or read French. My loss. The author kindly provided the specific command sequence in shell that I could read those. That was all I needed. When I read the site today I had to click through an expired certificate. That's why I think it is a good idea to capture the instructions here for the next time I need them.  I made single change to his instructions. I have cloned the repository from <https://github.com/skyjake/lagrange>.\n\n## Steps to build\n\n1. Install the programs and libraries in Raspberry Pi OS to build Lagrange\n2. Create a directory to hold the repository, then change into it\n3. Clone the repository\n4. Add a \"build\" directory to the repository and change into it\n5. Run \"cmake\" to build the release\n6. Run \"make\" in the build directory and install\n7. Test it out.\n\nWhen you clone the repository you want to clone recursively and get the release branch. Below is a transcript of the commands I typed in my shell to build Lagrange on my Raspberry Pi 4.\n\n~~~shell\nsudo apt install build-essential cmake \\\n     libsdl2-dev libssl-dev libpcre3-dev \\\n     zlib1g-dev libunistring-dev git\nmkdir -p src/github.com/skyjake && cd src/github.com/skyjake \ngit clone --recursive --branch release git@github.com:skyjake/lagrange.git\nmkdir -p lagrange/build && lagrange/build\ncmake ../ -DCMAKE_BUILD_TYPE=Release\nsudo make install\nlagrange &\n~~~\n\nThat's about it. It worked without a hitch. I'd like to thank Gérald Niel who I think created the page on gegeweb.org. I attempted to leave a thank you via the web form but couldn't get past the spam screener since I didn't understand the instructions. C'est la vie.\n\n",
       "data": {
         "author": "R. S. Doiel",
-        "byline": "R. S. Doiel, 2022-08-15",
-        "pubDate": "2022-08-15",
-        "title": "PTTK and STN",
-        "updated": "2022-09-26"
+        "byline": "R. S. Doiel, 2024-05-10",
+        "pubDate": "2024-05-10",
+        "title": "Building Lagrange on Raspberry Pi OS"
       },
-      "url": "posts/2022/08/15/golang-development.json"
+      "url": "posts/2024/05/10/building-lagrange-on-pi-os.json"
     },
     {
-      "data": {
-        "keywords": [
-          "ptdk",
-          "stngo"
-        ],
-        "no": 4,
-        "pubDate": "2022-08-15",
-        "series": "Golang",
-        "title": "5:45 PM, Golang: ptdk,  stngo"
-      },
-      "url": "posts/2022/08/15/golang-development-2022-08-15_170545.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "stngo"
-        ],
-        "no": 2,
-        "pubDate": "2022-08-12",
-        "series": "Golang",
-        "title": "4:30 PM, Golang: stngo"
-      },
-      "url": "posts/2022/08/12/golang-development-2022-08-12_160430.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "pdtk",
-          "stngo"
-        ],
-        "no": 3,
-        "pubDate": "2022-08-14",
-        "series": "Golang",
-        "title": "5:00 PM, Golang: pdtk,  stngo"
-      },
-      "url": "posts/2022/08/14/golang-development-2022-08-14_170500.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 4,
-        "pubDate": "2022-08-22",
-        "series": "SQL",
-        "title": "11:30 AM, SQL: Postgres"
-      },
-      "url": "posts/2022/08/22/rosette-notes-2022-08-22_111130.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "keywords": [
-          "programming",
-          "golang",
-          "log info"
-        ],
-        "pubDate": "2022-12-05",
-        "title": "Progress and time remaining"
-      },
-      "url": "posts/2022/12/05/progress-and-time-remaining.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@sdf.org (R. S. Doiel)",
-        "keywords": [
-          "golang",
-          "sql",
-          "timestamps"
-        ],
-        "pubDate": "2022-12-12",
-        "title": "Go and MySQL timestamps"
-      },
-      "url": "posts/2022/12/12/Go-and-MySQL-Timestamps.json"
-    },
-    {
+      "content": "\n# Getting Started with Miranda\n\nI've been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as [Pandoc](https://pandoc.org) and [shellcheck](https://www.shellcheck.net/). I've given a quick review of [miranda.org.uk](https://miranda.org.uk) to get a sense of the language but to follow along with the [Miranda: The Craft of Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/) it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.\n\n## Compilation\n\nFirst down load Miranda source code at <http://miranda.org.uk/downloads>. The version 2.066 is the most recent release I saw linked (2024-04-25), <http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11>. The [COPYING](https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING) link shows the terms under which this source release is made available.\n\nNext you need to untar/gzip the tarball you downloaded. Try running `make` to see if it compiles. On my Mac Mini I got a compile error that looks like\n\n~~~shell\nmake\ngcc -w    -c -o data.o data.c\ndata.c:666:43: error: incompatible integer to pointer conversion passing 'word' (aka 'long') to parameter of type 'char *' [-Wint-conversion]\n                     else fprintf(f,\"%c%s\",HERE_X,mkrel(hd[x]));\n                                                        ^~~~~\n1 error generated.\nmake: *** [data.o] Error 1\n~~~\n\nWhile I'm rusty on C I read this as the C compiler being more strict today then it was back in the 1990s. That's a good thing generally.  Next I checked the compiler version. \n\n~~~shell\ngcc --version\nApple clang version 15.0.0 (clang-1500.3.9.4)\nTarget: arm64-apple-darwin23.4.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n~~~\n\nI'm using clang and the website mentioned it should compile with clang for other platforms.  I reviewed the data.c file and notice other similar lines that invoked `mkrel(hd[x])` had a `(char *)` cast in front of `hd[x]`. This tells me that being explicit with the compiler might solve my problem. I edited line 666 of data.c to look like\n\n~~~C\n    else fprintf(f,\"%c%s\",HERE_X,mkrel((char *)hd[x]));\n~~~\n\nSave the file and then ran Make again. It compile cleanly. I gave at quick test run of the `mira` command creating an simple function called `addone`\n\n~~~miranda\nmira\n/edit\naddone a = a + 1\n:wq\naddone (addone (addone 3))\n6\n/q\n~~~\n\nMiranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into `/usr`).\nI'd rather it install into my home directory so I copied the Makefile to `miranda.mak` and change the lines setting `BIN`, `LIB` and `MAN` to the following\nlines.\n\n~~~Makefile\nBIN=$(HOME)/bin\nLIB=$(HOME)/lib#beware no spaces after LIB\nMAN=$(HOME)/man/man1\n~~~\n\nIn my `.profile` I set the `MIRALIB` variable to point at `$HOME/lib/miralib`. I opened a new terminal session and ran `mira` and the interpreter was up and running.\n\n\n",
       "data": {
         "byline": "R. S. Doiel, 2024-04-25",
         "keywords": [
@@ -428,26 +121,22 @@
       "url": "posts/2024/04/25/getting-started.json"
     },
     {
-      "data": {
-        "byline": "R. S. Doiel, 2024-05-10",
-        "keywords": [
-          "raspberry pi"
-        ],
-        "pubDate": "2024-05-10",
-        "title": "A quick review of Raspberry Pi Connect"
-      },
-      "url": "posts/2024/05/10/quick-review-rpi-connect.json"
-    },
-    {
+      "content": "\n# A Text oriented web\n\nBy R. S. Doiel, 2024-02-25\n\nThe web is a busy place. There seems to be a gestalt resonant at the moment on the web that can be summarized by two phrases, \"back to basics\" and \"simplification\". It is not the first time I've seen this nor is it likely the last. This blog post describes a thought experiment about a simplification with minimal invention and focus on feature elimination. It's a way to think about the web status quo a little differently. My intention is to explore the implications of a more text centered web experience that could coexist as a subset of today's web.\n\n## The web's \"good stuff\"\n\nI think the following could form the \"good stuff\" in a Crockford[^1] sense of pairing things down to the essential.\n\n- the transport layer should remain HTTP but be limited to a few methods (GET, POST and HEAD) and the common header elements (e.g. length, content-type come to mind)\n- The trio of HTML, CSS and JavaScript is really complex, swap this out for Markdown augmented with YAML (Markdown and YAML already have a synergy in Markdown processors like Pandoc)\n- A Web form is expressed using GHYITS[^2], it is delimited in the Markdown document by the familiar \"`^---$`\" block element, web form content would be encoded as YAML in the body of the POST using the content type \"`application/x-yaml`\".\n- Content would be served using the `text/markdown; charset: utf-8` content type already commonly used to identify Markdown content distinct from `plain/text`\n\nI need a nice name for describing the arrangement of Markdown+YAML over HTTP arrangement. Is the descriptive acronym for \"text oriented web\", i.e. \"tow\", enough? Does it already have a meaning in software or the web? Would the protocol be \"tow://\"? I really need something a bit more clever and catchy if this is going to proceed beyond a thought experiment.\n\n[^1]: Douglas Crockford \"discovered\" JSON, see <https://en.wikipedia.org/wiki/Douglas_Crockford>\n\n[^2]: GHYITS, acronym, GitHub YAML Issue Template Syntax, see <https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms>\n\n## Prototyping Options\n\nA proof of concept could be possible using off the self web server and web browser. The missing parts would be setting up the web server to add the `text/markdown; charset: utf-8` header for \"`.md`\" files and to handle processing POST with a content type of `application/x-yaml`. Client side could be implemented in a static web page via JavaScript or WASM module. The JS/WASM could convert the Markdown+YAML into HTML rendering the \"tow\" content. The web form on submit would be intercepted by the JavaScript event handler and reformulated as a POST with a content type of `application/x-yaml`.\n\nBuilding a \"tow\" server and client should be straight forward in Go (probably many languages). The the standard \"http\" package can be used to implement the specialized http server. The `yaml.v3` package to process the YAML POST data. Similar you should be able to create a text client for the command line or even a GUI client via [Fyne](https://fyne.io)\n\n## Exploratory Questions\n\n- What does it mean to have a more text oriented web?\n- What advantages could a text user interface have over a graphical user interface?\n- Can \"tow\" provide enough simple interactivity to support interactive fiction?\n- Could a simple specification be stated clearly in a few pages of text?\n- What possibilities open up when a web browser can send a data structure via YAML to a service?\n- Can we live with a simpler client than a modern evergreen web browser?\n- With a conversation interaction model of \"listener\" and a \"speaker\", does it make sense thinking in terms of client server architecture?\n- How hard is it to support both traditional website and this minimal \"tow\" site using the same corpus?\n- Can this be done sustainably?\n\n## Extrapolations\n\nFrom a thought experiment I can see how to implement this both from a proof of concept level but also from a service and viewer level. I think it even offers an opportunity to function in a peer to peer manner.  If we're focusing primarily on text then the storage requirements can be minimal and the service could even live in a database system like SQLite3 as a form of sandbox of content.  Leveraging HTTP/HTTPS means we don't need any special support for content traveling across the net. With a much smaller foot print you can scratch the itch of a simpler textual experience without the trackers, JavaScript ping backs, etc. It could re-emphasize the conversion versus broadcast metaphor popularized by the walled gardens.  It might provide a more satisifying experience on Mobile since the payloads delivered to the web browser could be much smaller.\n\n## What is needed to demonstrate a standalone \"tow\"?\n\n- A modified HTTP web server (easy to implement in Go and other languages)\n- A viewer/browser, possible to implement via Fyne in Go or as a text application/command line interface in Go\n\n## Why not Gopher or Gemini?\n\nTow is not there to replace anything, not Gopher, Not Gemini, the WWW. It is an exploration of a subset of the WWW protocols with a specific focused on textual interaction. I don't see why a server or browser couldn't support Gopher and Gemini as well as Tow. Given that Markdown can easily be rendered into Gem Text, and Markdown can be treated as plain text I suspect you should be able to support all three text rich systems from the same copy and easily derive a full HTML results if desired too.\n\n\n",
       "data": {
         "author": "R. S. Doiel",
-        "byline": "R. S. Doiel, 2024-05-10",
-        "pubDate": "2024-05-10",
-        "title": "Building Lagrange on Raspberry Pi OS"
+        "byline": "R. S. Doiel, 2024-02-25",
+        "createdDate": "2024-02-25",
+        "keywords": [
+          "web",
+          "text"
+        ],
+        "pubDate": "2024-02-25",
+        "title": "A Text Oriented Web"
       },
-      "url": "posts/2024/05/10/building-lagrange-on-pi-os.json"
+      "url": "posts/2024/02/25/text_oriented_web.json"
     },
     {
+      "content": "\n# Installing pgloader from source\n\nBy R. S. Doiel, 2024-02-01\n\nI'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.\n\n## Getting your Lisps in order\n\npgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with [SBCL](https://sbcl.org) which is one of the Lisps I've used in the past. But SBCL isn't (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter [ECL](https://ecl.common-lisp.dev/), aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like\n\n1. Compile then install ECL\n2. Use ECL to compile SBCL\n3. Install SBCL\n4. Now that we have a working SBCL, follow the instructions to compile pgloader and install\n\nNOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled\n\n## Getting ECL up and running\n\nThis recipe is straight forward. \n\n1. Review ECL's current website, find latest releases\n2. Clone the Git repository from GitLab for ECL\n3. Follow the install documentation and compile ECL then install it\n\nHere's the steps I took in the shell (I'm installing ECL, SBCL in my home directory)\n\n```\ncd\ngit clone https://gitlab.com/embeddable-common-lisp/ecl.git \\\n          src/gitlab.com/embeddable-common-lisp/ecl\ncd src/gitlab.com/embeddable-common-lisp/ecl\n./configure --prefix=$HOME\nmake\nmake install\n```\n\n## Getting SBCL up and running\n\nTo get SBCL up and running I grab the sources using Git then compile it with the options recommended by pgloader as well as the options to compile SBCL with another common lisp, i.e. ECL. (note: the `--xc-host='ecl'`)\n\n```\ncd\ngit clone git://git.code.sf.net/p/sbcl/sbcl src/git.code.sf.net/p/sbcl/sbcl\ncd git clone git://git.code.sf.net/p/sbcl/sbcl\nsh make.sh --with-sb-core-compression --with-sb-thread --xc-host='ecl'\ncd ./tests && sh ./run-tests.sh\ncd ..\ncd ./doc/manual && make\ncd ..\nenv INSTALL_ROOT=$HOME sh install.sh\n```\n\nAt this time SBCL should be available to compile pgloader.\n\n## Install Quicklisp\n\nQuicklisp is a package manager for Lisp. It is used by pgloader so also needs to be installed. We have two lisp on our system but since SBCL is the one I need to work for pgloader I install Quicklisp for SBCL.\n\n1. Check the [Quicklisp website](https://www.quicklisp.org/beta/) and see how things are done (it has been a long time since I did some lisp work)\n2. Follow the [instructions](https://www.quicklisp.org/beta/#installation) on the website to install Quicklisp for SBCL\n\nThis leaves me with the specific steps\n\n1. Use curl to download quicklisp.lisp\n2. Use curl to download the signature file\n3. Verify the signature file\n4. If OK, load into SBCL\n5. From the SBCL repl execute the needed commands\n\n```\ncurl -O https://beta.quicklisp.org/quicklisp.lisp\ncurl -O https://beta.quicklisp.org/quicklisp.lisp.asc\ngpg --verify quicklisp.lisp.asc quicklisp.lisp\nsbcl --load quicklisp.lisp\n```\n\nAt this point you're in SBCL repl. You need to issue the follow command\n\n```\n(quicklisp-quickstart:install)\n(quit)\n```\n\n\n## Compiling pgloader\n\nOnce you have SBCL and Quicklisp working you're now ready to look at the rest of the dependencies. Based on the what other Linux systems required I figure I need to have the following available\n\n- SQLite 3, libsqlite shared library (already installed)\n- unzip (already installed)\n- make (already installed)\n- curl (already installed)\n- gawk (already installed)\n- freetds-dev (not installed)\n- libzip-dev (not installed)\n\nTwo libraries aren't installed on my system. I use Mac Ports so doing a quick search both appear to be available.\n\n```\nsudo port search freetds\nsudo port search libzip\nsudo port install freetds libzip\n```\n\n\nOK, now I think I am ready to build pgloader. Here's what I need to do.\n\n1. Clone the git repo for pgloader\n2. Invoke make with the right options\n3. Test installation\n\n```\ncd\ngit git@github.com:dimitri/pgloader.git src/github.com/dimitri/pgloader\ncd src/github.com/dimitri/pgloader\nmake save\n./build/bin/pgloader -h\n```\n\nIf all works well I should see the help/usage text for pgloader. The binary executable\nis located in `./build/bin` so I can copy this into place in `$HOME/bin/` directory.\n\n```\ncp ./build/bin/pgloader $HOME/bin/\n```\n\nHappy Loading.\n, \"PostgreSQL\"\n\n\n",
       "data": {
         "byline": "R. S. Doiel, 2024-02-01",
         "keywords": [
@@ -469,75 +158,7 @@
       "url": "posts/2024/02/01/installing-pgloader-from-source.json"
     },
     {
-      "data": {
-        "author": "R. S. Doiel",
-        "keywords": [
-          "html",
-          "web forms",
-          "encoding"
-        ],
-        "title": "Two missing features from HTML5, an enhanced form.enctype and a list input type"
-      },
-      "url": "posts/2024/02/23/enhanced_form_handling.json"
-    },
-    {
-      "data": {
-        "author": "R. S. Doiel",
-        "byline": "R. S. Doiel, 2024-02-25",
-        "createdDate": "2024-02-25",
-        "keywords": [
-          "web",
-          "text"
-        ],
-        "pubDate": "2024-02-25",
-        "title": "A Text Oriented Web"
-      },
-      "url": "posts/2024/02/25/text_oriented_web.json"
-    },
-    {
-      "data": {
-        "created": "2024-07-03",
-        "keywords": [
-          "TypeScript",
-          "JavaScript",
-          "Deno"
-        ],
-        "pubDate": "2024-07-03",
-        "software": [
-          "Deno >= v1.44"
-        ],
-        "title": "Transpiling with Deno"
-      },
-      "url": "posts/2024/07/03/transpiling_with_deno.json"
-    },
-    {
-      "data": {
-        "abstract": "My notes on two Web GUI modules available for Deno.\n",
-        "created": "2024-07-07",
-        "keywords": [
-          "Deno",
-          "TypeScript",
-          "webui",
-          "webview"
-        ],
-        "pubDate": "2024-07-08",
-        "title": "Web GUI and Deno"
-      },
-      "url": "posts/2024/07/08/webgui_and_deno.json"
-    },
-    {
-      "data": {
-        "author": "R. S. Doiel",
-        "keywords": [
-          "PostgREST",
-          "M1"
-        ],
-        "pubDate": "2024-01-04",
-        "title": "Updated recipe, compiling PostgREST 12.0.2 (M1)"
-      },
-      "url": "posts/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.json"
-    },
-    {
+      "content": "\n# vis for vi and fun\n\nBy R. S. Doiel, 2024-01-31 (updated: 2024-02-02)\n\n\nI've been looking for a `vi` editor that my fingers would be happy with. I learned `vi` when I first encountered Unix in University (1980s). I was a transfer student so didn't get the \"introduction to Unix and Emacs\" lecture. Everyone used Emacs to edit programs but Emacs to me was not intuitive. I recall having a heck of a time figuring out how to exit the editor! I knew I needed to learn an editor and Unix fast to do my school work. I head to my college bookstore and found two spiral bound books [Unix in a Nutshell](https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M) and \"Vi/Ed in a Nutshell\". They helped remedy my ignorance. I spent the afternoon getting comfortable with Unix and learning the basics in Vi. It became my go to text editor. Somewhere along the line `nvi` came along I used that. Eventually `vim` replaced `nvi` as the default \"vi\" for most Linux system and adapted again.  I like one featured about `vim` over `nvi`. `vim` does syntax highlighting. I routinely get frustrate with `vim` (my old muscle memory throws me into the help systems, very annoying) so I tend to bounce between `nvi` and `vim` depending on how my eyes feel and frustration level. \n\n## vis, the vi I wished for\n\nRecently I stumbled on `vis`. I find it a  very interesting `vi` implementation. Like `vim` it mostly conforms to the classic mappings of a modal editor built on top of `ed`. But `vis` has some nice twists. First it doesn't try to be a monolithic systems like Emacs or `vim`. Rather then used an application specific scripting language (e.g. Emacs-lisp, vim-script) it uses Lua 5.2 as its configuration language. For me starting up `vis` feels like starting up `nvi`. It is quick and responsive where my typical `vim` setup feels allot like Visual Studio Code in that it's loading a whole bunch of things I don't use. \n\nHad `vis` just had syntax highlighting I don't know if I was would switched from `vim`. `neovim` is a better vim but I don't use it regularly and don't go out of my way to install it.  `vis` has one compelling feature that pushed me over the edge. One I didn't expect. `vis` supports [structured regular expressions](http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf \"PDF paper explain structured regular expression by Rob Pike\"). This is the command language found in Plan 9 editors like [sam](http://sam.cat-v.org/) and [Acme](http://acme.cat-v.org/). The approach to regexp is oriented around streams of characters rather than lines of characters. It does this by supporting the concept of multiple cursors and operating on selections (note the plural) in parallel. This allows a higher degree of transformation, feels like a stream oriented AWK but with simpler syntax for the things you do all the time. It was easiest enough to learn that my finger quickly adapted to it. It does mean that in command mode my search and replace is different than what I used to type. E.g. changing CRLF to LF\n\n```\n:1,$x/\\r/ c//\n```\n\nversus\n\n```\n:1,$s/\\r//g\n```\n\nJust enough different to catch someone who is used to `vim` and `nvi` unaware.\n\n## Be careful what you wish for on Ubuntu\n\nWhen I decided I want to use `vis` as my preferred \"vi\" in went and installed it on all my work Ubuntu boxes. What surprised me was that when you install `vis` on an Ubuntu system it winds up becoming the default \"vi\". That posed a problem because I hadn't consulted with the other people who use those machines. I thought I would type `vis` instead of `vi` to use it. Fortunately Ubuntu also provides a means of fixing which alternative programs can be used for things like \"vi\".  I reverted the default \"vi\" to `vim` for my colleagues using the Ubuntu command `update-alternatives` (e.g. `sudo update-alternatives --config vi`). No surprises for them and I still get to use `vis`, I just type the extra \"s\". \n\n## Getting to know structured regular expressions and case swapping\n\nA challenge in making the switch to `vis` is learning a new approach to search and replace. Fortunately Marc Tanner gives you the phrases in his documentation.  Searching for \"structured regular expressions\" leads to Rob Pike's paper of the same name. The other thing Marc points out is his choices in implementing `vis`. `vis` is like `vi` meets the Sam editor of Plan 9 fame.  You can try Plan 9 Sam editor by installing [Plan 9 User Space](https://9fans.github.io/plan9port/). Understanding Sam made the transition to `vis` smoother. I recommend reading Rob Pike's paper on \"Structured Regular Expressions\"[^1], his \"Sam Tutorial\"[^2] then keeping the \"Sam Cheatsheet\"[^3] handy during the transition. The final challenge I ran into in making the switch is the old `vi` stand by for flipping case for letters in visual mode.  In the old `vi` you use the tilde key, `shift+~`. In `vis` you press `g` then `~` to change the case on a letter.  \n\n[^1]: Rob Pike's [\"structured regular expressions\"](http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf \"PDF document\")\n[^2]: [Sam Tutorial](http://doc.cat-v.org/bell_labs/sam_lang_tutorial/sam_tut.pdf \"PDF document\")\n[^3]: [Sam Cheat Sheet](http://sam.cat-v.org/cheatsheet/ \"html document containing an image\")\n\n\n## A few \"thank you\" or \"how did I stumble on vis?\"\n\nI'd like to say thank you to [Marc André Tanner](https://github.com/martanne) for writing `vis`, [Glendix](https://www.glendix.org/) for highlighting it and to OS News contributor [pablo_marx](https://www.osnews.com/submissions/?user=pablo_marx) for the story [Glendix: Bringing the Beauty of Plan 9 to Linux](https://www.osnews.com/story/20588/glendix-bringing-the-beauty-of-plan-9-to-linux/). With this I find my fingers are happier.\n\n## Additional resources\n\n- [Marc André Tanner](https://www.brain-dump.org/projects/vis/)'s vis project page\n- [vis on GitHub](https://github.com/martanne/vis/)\n- [vis @ readthedocs](https://vis.readthedocs.io/en/master/vis.html)\n- [Vis Wiki](https://github.com/martanne/vis/wiki)\n- [GitHub Topic](https://github.com/topics/vis-editor)\n- [Plugin collection](https://erf.github.io/vis-plugins/)\n\n",
       "data": {
         "byline": "R. S. Doiel, 2024-01-31",
         "created": "2024-01-31",
@@ -552,55 +173,88 @@
       "url": "posts/2024/01/31/vis-for-vi-and-fun.json"
     },
     {
+      "content": "\n# Updated recipe, compile PostgREST 12.0.2 (M1)\n\nby R. S. Doiel, 2024-01-04\n\nThese are my updated \"quick notes\" for compiling PostgREST v12.0.2 on a M1 Mac Mini using the current recommended\nversions of ghc, cabal and stack supplied [GHCup](https://www.haskell.org/ghcup).  When I recently tried to use\nmy previous [quick recipe](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md) I was disappointed it failed with errors like \n\n~~~\nResolving dependencies...\nError: cabal: Could not resolve dependencies:\n[__0] trying: postgrest-9.0.1 (user goal)\n[__1] next goal: optparse-applicative (dependency of postgrest)\n[__1] rejecting: optparse-applicative-0.18.1.0 (conflict: postgrest =>\noptparse-applicative>=0.13 && <0.17)\n[__1] skipping: optparse-applicative-0.17.1.0, optparse-applicative-0.17.0.0\n(has the same characteristics that caused the previous version to fail:\nexcluded by constraint '>=0.13 && <0.17' from 'postgrest')\n[__1] trying: optparse-applicative-0.16.1.0\n[__2] next goal: directory (dependency of postgrest)\n[__2] rejecting: directory-1.3.7.1/installed-1.3.7.1 (conflict: postgrest =>\nbase>=4.9 && <4.16, directory => base==4.17.2.1/installed-4.17.2.1)\n[__2] trying: directory-1.3.8.2\n[__3] next goal: base (dependency of postgrest)\n[__3] rejecting: base-4.17.2.1/installed-4.17.2.1 (conflict: postgrest =>\nbase>=4.9 && <4.16)\n\n...\n\n~~~\n\nSo this type of output means GHC and Cabal are not finding the versions of things they need\nto compile PostgREST. I then tried picking ghc 9.2.8 since the default.nix file indicated\na minimum of ghc 9.2.4.  The `ghcup tui` makes it easy to grab a listed version then set it\nas the active one.\n\nI made sure I was working in the v12.0.2 tagged release version of the Git repo for PostgREST.\nThen ran the usual suspects for compiling the project. I really wish PostgREST came with \ninstall from source documentation. It took me a while to think about looking in the default.nix\nfile for a minimum GHC version. That's why I am writing this update.\n\nA similar recipe can be used for building PostgREST on Linux.\n\n1. Upgrade [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it or `gchup upgrade`\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the version PostgREST v12.0.2 needs, i.e. ghc v9.2.8. I chose to keep \"recommended\" versions of Cabal and Stack\n3. Clone <https://github.com/PostgREST/postgrest> to my local machine\n4. Check out the version you want to build, i.e. v12.0.2\n5. Run the \"usual\" Haskell build sequence with cabal\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal build`\n    d. `cabal install` (I use the `--overwrite-policy=always` option to overwrite my old v11 postgrest install)\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\nghcup upgrade\nghcup tui\nmkdir -p src/github.com/PostgREST\ncd src/github.com/PostgREST\ngit clone git@github.com:PostgREST/postgrest\ncd postgrest\ngit checkout v12.0.2\ncabal clean\ncabal update\ncabal build\ncabal install --overwrite-policy=always\n~~~\n\nThis will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n\n",
       "data": {
-        "abstract": "In this post I talk about my exploration of using a Raspberry Pi Zero W\nas a desktop computer. This was made possible by the efficiency of \nRISC OS 5.30 which includes native WiFi support for Raspberry Pi computers.\n",
-        "byline": "R. S. Doiel, 2024-06-04",
+        "author": "R. S. Doiel",
         "keywords": [
-          "RISC OS",
-          "Raspberry Pi"
+          "PostgREST",
+          "M1"
         ],
-        "pubDate": "2024-06-04",
-        "title": "Exploring RISC OS 5.30 on a Raspberry Pi Zero W"
+        "pubDate": "2024-01-04",
+        "title": "Updated recipe, compiling PostgREST 12.0.2 (M1)"
       },
-      "url": "posts/2024/06/04/exploring_riscos.json"
+      "url": "posts/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.json"
     },
     {
+      "content": "\n# Building A to Z lists pages in Pandoc\n\nBy R. S. Doiel, 2023-10-18\n\nPandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page.  It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file.  One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them.  In JSON the typical data presentation would look something like\n\n```json\n{\n  \"a_to_z\": [ \"A\", \"B\"],\n  \"content\": {\n    \"A\": [\n      \"After a beautiful day\",\n      \"Afterlife\"\n    ],\n    \"B\": [\n      \"Better day after\",\n      \"Better Life\"\n    ]\n  }\n}\n```\n\nThe trouble is that while YAML’s outer dictionary (key/value map) works fine in Pandoc templates there is no way for the the for loop to handle maps of maps like we have above.  Pandoc templates really want to iterate over arrays of objects . That’s nice thing! It gives us more ways to transform the data to provide more flexibility in our template implementation. Here’s how I would restructure the previous JSON to make it easy to process via Pandoc’s template engine.  Note how I’ve taken our simple array of letters and turned them into an object with an “href” and “label” attribute. Similarly I’ve enhanced the “content” objects.\n\n```json\n{\n  \"a_to_z\": [ {\"href\": \"A\", \"label\": \"A\"}, {\"href\": \"B\", \"label\": \"B\"} ],\n  \"content\": [\n      {\"letter\": \"A\", \"title\": \"After a beautiful day\", \"id\": \"after-a-beautiful-day\"},\n      {\"title\": \"Afterlife\", \"id\": \"afterlife\"},\n      {\"letter\": \"B\", \"title\": \"Better day after\", \"id\": \"better-day-after\"},\n      {\"title\": \"Better Life\", \"id\": \"better-life\"}\n  ]\n}\n```\n\nThen the template can be structure something like\n\n```\n<menu>\n${for(a_to_z)}\n${if(it.href)}<li><a href=\"${it.href}\">${it.label}</a></li>${endif}\n${endfor}\n</menu>\n\n${for(content)}\n${if(it.letter)}\n\n## <a id=\"${it.letter}\" name=\"${it.letter}\">${it.letter}</a>\n\n${endif}\n- [${it.name}](${it.id})\n${endfor}\n\n```\n\nThere is one gotcha in A to Z list generation. A YAML parser may convert a bare “N” to “false” (and presumable “Y” will become “true”). This is really annoying. The way to avoid this is to add a space to the letter in your JSON output. This will insure that the “N” or “Y” aren’t converted to the boolean values “true” and “false”. Pandoc’s template engine is smart enough to trim leading and trailing spaces.\n\nFinally this technique can be used to produce lists and navigation that are based around years, months, or other iterative types but that is left as an exercise to the reader.\n\n\n\n",
       "data": {
-        "abstract": "These are my notes on learning to program a Raspberry Pi Zero W\nunder RISC OS using GCC 4.7 and RISC OS 5.30\n",
-        "created": "2024-06-08",
         "keywords": [
-          "RISC OS",
-          "Raspberry Pi",
-          "GCC",
-          "C Programming"
+          "Pandoc",
+          "templates"
         ],
-        "pubDate": "2024-06-08",
-        "references": [
-          "Steve Fryatt's tutorial <https://www.stevefryatt.org.uk/risc-os/wimp-prog>",
-          "James Hobson's YouTUBE Video showing a summary of Steve Fryatt's tutorial"
-        ],
-        "title": "RISC OS 5.30, GCC 4.7 and Hello World"
+        "pubDate": "2023-10-18",
+        "title": "Building A to Z list pages in Pandoc"
       },
-      "url": "posts/2024/06/08/riscos_gcc_and_hello.json"
+      "url": "posts/2023/10/18/A-to-Z-lists.json"
     },
     {
+      "content": "# skimmer\n\nBy R. S. Doiel, 2023-10-06\n\nI have a problem. I like to read my feeds in newsboat but I can't seem to get it working on a few machines I use.\nI miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way\nI read twtxt feeds using `yarnc timeline | less -R`. Just get a list of all items in reverse chronological order.\n\nI am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn't\navailable or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer\n. Something that works with RSS, Atom and jsonfeeds in the same way I use `yarnc timeline | less -R`.  \nI'm also inspired by Dave Winer's a river of news site and his outline tooling. But in this case I don't want\nan output style output, just a simple list of items in reverse chronological order. I'm thinking of a more\nephemeral experience in reading.\n\nThis has left me with some questions.\n\n- How simple is would it be to write skimmer?\n- How much effort would be required to maintain it?\n- Could this tool incorporate support for other feed types, e.g. twtxt, Gopher, Gemini?\n\nThere is a Go package called [gofeed](https://github.com/mmcdole/gofeed). The README describes it\nas a \"universal\" feed reading parser. That seems like a good starting point and picking a very narrowly\nfocus task seems like a way to keep the experiment simple to implement.\n\n## Design issues\n\nThe reader tool needs to output to standard out in the same manner as `yarnc timeline` does. The goal isn't\nto be newsboat, or river of news, drummer, or Lynx but to present a stream of items usefully formatted to read\nfrom standard output.\n\nSome design ideas\n\n1. Feeds should be fetched by the same tool as the reader but that should be done explicitly (downloads can take a while)\n2. I want to honor that RSS does not require titles! I need to handle that case gracefully\n3. For a given list of feed URLs I want to save the content in a SQLite3 database (useful down the road)\n4. I'd like the simplicity of newsboat's URL list but I want to eventually support OPML import/export\n\n# Skimmer, a thin wrapper around gofeed\n\nIn terms of working with RSS, Atom and JSON feeds the [gofeed](https://github.com/mmcdole/gofeed) takes care of\nall the heavy lifting in parsing that content. The go http package provides a reliable client.\nThere is a pure Go package, [go-sqlite](), for integrating with SQLite 3 database. The real task is knitting this\ntogether and a convenient package.\n\nHere's some ideas about behavior.\n\nTo configure skimmer you just run the command. It'll create a directory at `$HOME/.skimmer` to store configuration\nmuch like newsboat does with `$HOME/.newsboat`.\n\n~~~\nskimmer\n~~~\n\nA default URL list to be created so when running the command you have something to fetch and read.\n\nSince fetching feed content can be slow (this is true of all news readers I've used) I think you should have to\nexplicitly say fetch.\n\n~~~\nskimmer -fetch\n~~~\n\nThis would read the URLs in the URL list and populate a simple SQLite 3 database table. Then running skimmer again \nwould display any harvested content (or running skimmer in another terminal session).\n\nSince we're accumulating data in a database there are some house keep chores like prune that need to be supported.\nInitial this can be very simple and if the experiment move forward I can improve them over time. I want something\nlike saying prune everything up to today.\n\n~~~\nskimmer -prune today\n~~~\n\nThere are times I just want to limit the number of items displayed so a limit options makes sense\n\n~~~\nskimmer -limit 10\n~~~\n\nSince I am displaying to standard out I should be able to output via Pandoc to pretty print the content.\n\n~~~\nskimmer -limit 50 | pandoc -t markdown -f plain | less -R\n~~~\n\nThat seems a like a good set of design features for an initial experiment.\n\n## Proof of concept implementation\n\nSpending a little time this evening. I've release a proof of concept on GitHub\nat <https://github.com/rsdoiel/skimmer>, you can read the initial documentation\nat [skimmer](https://rsdoiel.github.io/skimmer).\n\n",
       "data": {
-        "byline": "R. S. Doiel, 2024-06-14",
-        "created": "2024-06-14",
         "keywords": [
-          "text oriented web",
-          "tow"
+          "feeds",
+          "reader",
+          "rss",
+          "atom",
+          "jsonfeed"
         ],
-        "pubDate": "2024-06-14",
-        "title": "Bootstrapping a Text Oriented Web"
+        "pubDate": "2023-10-06",
+        "title": "Skimmer"
       },
-      "url": "posts/2024/06/14/tow_bootstraping.json"
+      "url": "posts/2023/10/06/concept.json"
     },
     {
-      "data": {},
-      "url": "posts/nav.json"
+      "content": "\n# Quick recipe, compile PostgREST (M1)\n\nThese are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/PostgREST/postgrest> to your local machine\n4. Check out the version you want to build (e.g. v11.1.0)\n5. Run the \"usual\" Haskell build sequence with cabal\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal build`\n    d. `cabal install`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/PostgREST\ncd src/github.com/PostgREST\ngit clone git@github.com:PostgREST/postgrest\ncd postgrest\ncabal clean\ncabal update\ncabal build\ncabal install\n~~~\n\nThis will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "keywords": [
+          "PostgREST",
+          "M1"
+        ],
+        "pubDate": "2023-07-05",
+        "title": "Quick recipe, compiling PostgREST (M1)"
+      },
+      "url": "posts/2023/07/05/quick-recipe-compiling-PostgREST-M1.json"
     },
     {
+      "content": "\n# Quick recipe, compile Pandoc (M1)\n\nThese are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/jgm/pandoc> to your local machine\n4. Check out the version you want to build (e.g. 3.1.4)\n5. Run the \"usual\" Haskell build sequence with cabal per Pandoc's installation documentation for building from source\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal install pandoc-cli`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/jgm/pandoc\ncd src/github.com/jgm/pandoc\ngit clone git@github.com:jgm/pandoc\ncd pandoc\ngit checkout 3.1.4\ncabal clean\ncabal update\ncabal install pandoc-cli\n~~~\n\nThis will install Pandoc in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n## libiconv compile issues\n\nIf you use Mac Ports it can confuse Cabal/Haskell which one to link to. You'll get an error talking about undefined symbols and iconv.  To get a clean compile I've typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. `sudo port uninstall libiconv`, an using the \"all\" option when prompted).  After I've got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it.\n\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "keywords": [
+          "Pandoc",
+          "GHCup",
+          "M1"
+        ],
+        "pubDate": "2023-07-05",
+        "title": "Quick recipe, compiling Pandoc (M1)"
+      },
+      "url": "posts/2023/07/05/quick-recipe-compiling-Pandoc-M1.json"
+    },
+    {
+      "content": "\n# gsettings command\n\nOne of the things I find annoying about Ubuntu Desktop defaults is that when I open a new application it opens in the upper left corner. I then drag it to the center screen and start working. It's amazing how a small inconvenience can grind on you over time.  When I've search the net for changing this behavior the usual suggestions are \"install gnome-tweaks\". This seems ham-handed. I think continue searching and eventually find the command below. So I am making a note of the command here in my blog so I can find it latter.\n\n~~~\ngsettings set org.gnome.mutter center-new-window true\n~~~\n\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "keywords": [
+          "Ubuntu Desktop",
+          "Gnome",
+          "gsettings"
+        ],
+        "pubDate": "2023-05-20",
+        "title": "gsettings command"
+      },
+      "url": "posts/2023/05/20/gsettings-commands.json"
+    },
+    {
+      "content": "\n# First Personal Search Engine Prototype\n\nBy R. S. Doiel, 2023-08-10\n\nI've implemented a first prototype of my personal search engine which\nI will abbreviate as \"pse\" from here on out. I implemented it using \nthree [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) scripts\nrelying on [sqlite3](https://sqlite.org), [wget](https://en.wikipedia.org/wiki/Wget) and [PageFind](https://pagefind.app) to do the heavy lifting.\n\nBoth Firefox and newsboat store useful information in sqlite databases.  Firefox's `moz_places.sqlite` holds both all the URLs visited as well as those that are associated with bookmarks (i.e. the SQLite database `moz_bookmarks.sqlite`).  I had about 2000 bookmarks, less than I thought with many being stale from link rot. Stale page URLs really slow down the harvest process because of the need for wget to wait on various timeouts (e.g. DNS, server response, download times).  The \"history\" URLs would make an interesting collection to spider but you'd probably want to have an exclude list (e.g. there's no point in saving queries to search engines, web mail, shopping sites). Exploring that will wait for another prototype.\n\nThe `cache.db` associated with Newsboat provided a rich resource of content and much fewer stale links (not surprising because I maintain that URL list more much activity then reviewing my bookmarks).  Between the two I had 16,000 pages. I used SQLite 3 to query the url values from the various DB into sorting for unique URLs into a single text file one URL per line.\n\nThe next thing after creating a list of pages I wanted to search was to download them into a directory using wget.  Wget has many options, I choose to enable timestamping, create a protocol directory and then a domain and path directory for each item. This has the advantage of being able to transform the Path into a URL later.\n\nOnce the content was harvested I then used PageFind to index the all the harvested content. Since I started using PageFind originally the tool has gained an option called `--serve` which provides a localhost web service on port 1414.  All I needed to do was add an index.html file to the directory where I harvested the content and saved the PageFind indexes. Then I used PageFind to again to provide a localhost based personal search engine.\n\nWhile the total number of pages was small (16k pages) I did find interesting results just trying out random words. This makes the prototype look promising.\n\n## Current prototype components\n\nI have simple Bash script that gets the URLs from both Firefox bookmarks and Newsboat's cache then generates a single text file of unique URLs I've named \"pages.txt\".\n\nI then use the \"pages.txt\" file to harvest content with wget into a tree structure like \n\n- htdocs\n    - http (all the http based URLs I harvest go in here)\n    - https (all the https based URLs I harvest go in here)\n    - pagefind (this holds the PageFind indexes and JavaScript to implement the search UI)\n    - index.html (this holds the webpage for the search UI using the libraries in `pagefind`)\n\nSince I'm only downloaded the HTML the 16k pages does not take up significant disk space yet.\n\n## Prototype Implementation\n\nHere's the bash scripts I use to get the URLs, harvest content and launch my localhost search engine based on PageFind.\n\nGet the URLs I want to be searchable. I use to environment variables\nfor finding the various SQLite 3 databases (i.e. PSE_MOZ_PLACES, PSE_NEWSBOAT).\n\n~~~\n#!/bin/bash\n\nif [ \"$PSE_MOZ_PLACES\" = \"\" ]; then\n    printf \"the PSE_MOZ_PLACES environment variable is not set.\"\n    exit 1\nfi\nif [ \"$PSE_NEWSBOAT\" = \"\" ]; then\n    printf \"the PSE_NEWSBOAT environment variable is not set.\"\n    exit 1\nfi\n\nsqlite3 \"$PSE_MOZ_PLACES\" \\\n    'SELECT moz_places.url AS url FROM moz_bookmarks JOIN moz_places ON moz_bookmarks.fk = moz_places.id WHERE moz_bookmarks.type = 1 AND moz_bookmarks.fk IS NOT NULL' \\\n    >moz_places.txt\nsqlite3 \"$PSE_NEWSBOAT\" 'SELECT url FROM rss_item' >newsboat.txt\ncat moz_places.txt newsboat.txt |\n    grep -E '^(http|https):' |\n    grep -v '://127.0.' |\n    grep -v '://192.' |\n    grep -v 'view-source:' |\n    sort -u >pages.txt\n~~~\n\nThe next step is to have the pages. I use wget for that.\n\n~~~\n#!/bin/bash\n#\nif [ ! -f \"pages.txt\" ]; then\n    echo \"missing pages.txt, skipping harvest\"\n    exit 1\nfi\necho \"Output is logged to pages.log\"\nwget --input-file pages.txt \\\n    --timestamping \\\n    --append-output pages.log \\\n    --directory-prefix htdocs \\\n    --max-redirect=5 \\\n    --force-directories \\\n    --protocol-directories \\\n    --convert-links \\\n    --no-cache --no-cookies\n~~~\n\nFinally I have a bash script that generates the index.html page, an Open Search Description XML file, indexes the harvested sites and launches PageFind in server mode.\n\n~~~\n#!/bin/bash\nmkdir -p htdocs\n\ncat <<OPENSEARCH_XML >htdocs/pse.osdx\n<OpenSearchDescription xmlns=\"http://a9.com/-/spec/opensearch/1.1/\"\n                       xmlns:moz=\"http://www.mozilla.org/2006/browser/search/\">\n  <ShortName>PSE</ShortName>\n  <Description>A Personal Search Engine implemented via wget and PageFind</Description>\n  <InputEncoding>UTF-8</InputEncoding>\n  <Url rel=\"self\" type=\"text/html\" method=\"get\" template=\"http://localhost:1414/index.html?q={searchTerms}\" />\n  <moz:SearchForm>http://localhost:1414/index.html</moz:SearchForm>\n</OpenSearchDescription>\nOPENSEARCH_XML\n\ncat <<HTML >htdocs/index.html\n<html>\n<head>\n<link\n  rel=\"search\"\n  type=\"application/opensearchdescription+xml\"\n  title=\"A Personal Search Engine\"\n  href=\"http://localhost:1414/pse.osdx\" />\n<link href=\"/pagefind/pagefind-ui.css\" rel=\"stylesheet\">\n</head>\n<body>\n<h1>A personal search engine</h1>\n<div id=\"search\"></div>\n<script src=\"/pagefind/pagefind-ui.js\" type=\"text/javascript\"></script>\n<script>\n    window.addEventListener('DOMContentLoaded', function(event) {\n\t\tlet page_url = new URL(window.location.href),\n    \t    query_string = page_url.searchParams.get('q'),\n      \t\tpse = new PagefindUI({ element: \"#search\" });\n\t\tif (query_string !== null) {\n\t\t\tpse.triggerSearch(query_string);\n\t\t}\n    });\n</script>\n</body>\n</html>\nHTML\n\npagefind \\\n--source htdocs \\\n--serve\n~~~\n\nThen I just language my web browser pointing at `http://localhost:1414/index.html`. I can even pass the URL a `?q=...` query string if I want.\n\nFrom a functionality point of view this is very bare bones and I don't think 16K pages is enough to make it compelling (I think I need closer to 100K for that).\n\n## What I learned from the prototype so far\n\nThis prototype suffers from several limitations.\n\n1. Stale links in my pages.txt make the harvest process really really slow, I need to have a way to avoid stale links getting into the pages.txt or have them removed from the pages.txt\n2. PageFind's result display uses the pages I downloaded to my local machine. It would be better if the result link was translated to point at the actual source of the pages, I think this can be done via JavaScript in my index.html when I setup the PageFind search/results element. Needs more exploration\n\n16K pages is a very tiny corpus. I get interesting results from my testing but not good enough to make me use first.  I'm guessing I need a corpus of at least 100K pages to be compelling for first search use.\n\nIt is really nice having a localhost personal search engine. It means that I can keep working with my home network connection is problematic. I like that. Since the website generated for my localhost system is a \"static site\" I could easily replicate that to net and make it available to other machines.\n\nRight now the big time sync is harvesting content to index. I'm not certain yet how much space disk space will be needed for my 100K page target corpus.\n\nSetting up indexing and the search UI were the easiest part of the process.  PageFind is so easy to work with compare to enterprise search applications.\n\n## Things to explore\n\nI can think of several ways to enlarge my search corpus. The first is there are a few websites I use for reference that are small enough to mirror. Wget provides a mirror function. Working from a \"sites.txt\" list I could mirror those sites periodically and have their content available for indexing.\n\nWhen experimenting with the mirror option I notice I wind up with PDF that are linked in the pages being mirrored.  If I used the Unix find command to locate all the PDF I could use another tool to extract there text.  Doing that would enlarge my search beyond plain text and HTML.  I would need to think this through as ultimately I'd want to be able to recover the path to the PDF when those results are displayed.\n\nAnother approach would be to work with my full web browsers' history as\nwell as it's bookmarks. This would significantly expand the corpus. If I did this I could also check the \"head\" of the HTML for references to feeds that could be folded into my feed link harvests. This would have the advantage of capture content from sources I find useful to read but would catch blog posts I might have skipped due to limited reading time.\n\nI use Pocket to read the pages I find interesting in my feed reader.  Pocket has an API and I could get some additional interesting pages from it. Pocket also has various curated lists and they might have interesting pages to harvest and index. I think the trick would be to use those suggests against an exclude list of some sort. E.g. Makes not sense to try to harvest paywall stuff or commercial sites more generally. One of the values I see in pse is that it is a personal search engine not a replacement for commercial search engines generally.\n\n\n",
       "data": {
         "author": "R. S. Doiel",
         "keywords": [
@@ -619,6 +273,7 @@
       "url": "posts/2023/03/10/first-prototype-pse.json"
     },
     {
+      "content": "\n# Prototyping a personal search engine\n\nBy R. S. Doiel, 2023-03-07\n\n> Do we really need a search engine to index the \"whole web\"? Maybe a curated subset is better.\n\nAlex Schreoder's post [A Vision for Search](https://alexschroeder.ch/wiki/2023-03-07_A_vision_for_search) prompted me to write up an idea I call a \"personal search engine\".   I've been thinking about a \"a personal search engine\" for years, maybe a decade.\n\nWith the current state of brokenness in commercial search engines, especially with the implosion of the commercial social media platforms, we have an opportunity to re-think search on a more personal level.\n\nThe tooling around static site generation where a personal search is an extension of your own website suggests a path out of the quagmire of commercial search engines.  Can techniques I use for my own site search, be extended into a personal search engine?\n\n## A Broken Cycle\n\nSearch engines happened pretty early on in the web. If my memory is correct they showed up with the arrival of support for [CGI](https://en.wikipedia.org/wiki/Common_Gateway_Interface \"Common Gateway Interface\") in early web server software. Remembering back through the decades I see a pattern.\n\n1. Someone comes up with a clever way to index web content and determine relevancy\n2. They index enough the web to be interesting and attract early adopters\n3. They go mainstream, this compels them to have a business model, usually some form of ad-tech\n4. They index an ever larger portion of the web, the results from the search engine starts to degrade\n5. The business model becomes the primary focus of the company, the indexing gets exploited (e.g. content farms, page hijacking), the search results degrade.\n\nStage four and five can be summed up as the \"bad search engine stage\". When things get bad enough a new search engine comes on the scene and the early adopters jump ship and the cycle repeats. This was well established by the time some graduate students at Stanford invented page rank. I think it is happening now with search integrated ChatGPT.\n\nI think we're at the point in the cycle where there is an opportunity for something new. Maybe even break the loop entirely.\n\n## How do I use search?\n\nMy use of search engines can be described in four broad categories.\n\n1. Look for a specific answer queries\n    - `spelling of <VALUE>`\n    - `meaning of <VALUE>`\n    - `location of <VALUE>`\n    - `convert <UNIT> from <VALUE> to <UNIT>`\n2. Shopping queries\n    - pricing an item\n    - finding an item\n    - finding marketing material on an item\n3. Look for subject information\n    - a topic search\n    - news event\n    - algorithms\n4. Look for information I know exists\n    - technical documentation\n    - an article I read\n    - an article I want to read next\n\nMost of my searches are either subject information or retrieving something I know exists. Both are particularly susceptible to degradation when the business model comes to dominate the search results.\n\nA personal search engine for me would address these four types of searches before I reach for alternatives. In the mean time I'm stuck attempting to mitigate the bad search experience as best I can.\n\n## Mitigating the bad search engine experience\n\n> As commercial search engines degrade I rely on a given website's own search more\n\nI've noticed the follow search behavior practice changes in my own web usage.  For shopping I tend to go to the vendors I trust and use their searches on their websites.  To learn about a place, it's Wikipedia and if I trying to get a sense of going there I'll probably rely on an Open Street Map to avoid the ad-tech in commercial services. I dread using the commercial maps because usage correlates so strongly with the spam I encounter the next time I use an internet connected device.\n\nFor spelling and dictionary I can use Wiktionary. Location information I use Wikipedia and Open Street Maps. Weather info I have links into [NOAA](https://www.weather.gov/) website. Do I really need to use the commercial services?\n\nIt seems obvious that the commercial services for me are at best a fallback experience. They are no longer the \"go to\" place on the web to find stuff. I miss the convenience of using my web browsers URL box as a search box but the noise of the commercial search engines means the convenience is not worth the cost.\n\nWhat I would really like is a search service that integrated **my trusted sources** with a single search box but without the noise of the commercial sites. Is this possible? How much work would it be?\n\nI think a personal (or even small group) search engine is plausible and desirable. I think we can build a prototype with some off the shelf parts.\n\n## Observations\n\n1. I only need to index a tiny subset of the web, I don't want a web crawler that needs to be monitored and managed\n2. The audience of the search engine is me and possibly some friends\n3. There are a huge number of existing standards, protocols and structured data formats and practices I could leverage to mange building a search corpus and for indexing.\n4. Static site generators have moved site search from services (often outsourced to commercial search engines) to browser based solutions (e.g. [PageFind](https://pagefind.app), [LunrJS](https://lunrjs.com))\n5. A localhost site could stage pages for indexing and I could leverage my personal website to expose my indexes to my web devices (e.g. my phone).\n6. Tools like wget can mirror websites and that could also be used to stage content for a personal search engine\n7. There is a growing body of Open Access data, journal articles and books, these could be indexed and made available in a personal search engine with some effort\n\n## Exploring a personal search engine concept\n\nWhen I've brought up the idea of \"a personal search engine\" over the years with colleagues I've been consistently surprise at the opposition I encounter.  There are so many of reasons not to build something, including a personal search engine. That has left me thinking more deeply about the problem, a good thing in my experience.  I've synthesized that resistance into three general questions. Keeping those questions in mind will be helpful in evaluating the costs in time for prototyping a personal search engine and ultimately if the prototype should turn into an open source project.\n\n1. How would a personal search engine know/discover \"new\" content to include?\n2. Search engines are hard to setup and maintain (e.g. Solr, Opensearch), why would I want to spend time doing that?\n3. Indexing and search engines are resource intensive, isn't that going to bog down my computer?\n\nConstraints can be a good thing to consider as well. Here's some constraints I think will be helpful when considering a prototype implementation.\n\n- I maintain my personal website using a Raspberry Pi 400. The personal search engine needs to respect the limitations of that device.\n- I'd like to be able to access my personal search engine from all my networked devices (e.g. my phone when I am away from home)\n- I have little time to prototype or code anything\n- I need to explain the prototype easily if I want others to help expand on the ideas\n- If it breaks I need to easily fix it\n\nI believe recent evolution of static site generation and site search offer an adjacent technology that can be leverage to demonstrate a personal search engine as a prototype. The prototype of a personal search engine could be an extension of my existing website.\n\n## Addressing challenges\n\n### How can a personal search engine know about new things?\n\nThe first challenge boils down to discovering content you want to index. What I'm describing is a personal search engine. I'm not trying to \"index the whole web\" or even a large part of it. I suspect the corpus I regularly search probably is in the neighborhood of a 100,000 pages or so. Too big for a bookmark list but magnitudes smaller than search engine deployments commonly see in an enterprise setting. I also am NOT suggesting a personal search engine will replace commercial search engines or even compete with them. What I'm thinking of is an added tool, not a replacement.\n\nCurating content is labor intensive. This is why Yahoo evolved from a curated web directory to become a hybrid web directory plus search engine before its final demise.  I don't want to have to change how I currently find content on the web. When I do stumble on something interesting I need a mechanism to easily add it to my personal search engine. Fortunately I think my current web reading habits can function like a [mechanical Turk](https://en.wikipedia.org/wiki/Mechanical_Turk).\n\nMost \"new\" content I find isn't from using a commercial search engine. When I look at my habits I find two avenues for content discovery dominate. I come across something via social media (today that's RSS feeds provided via Mastodon and Yarn Social/Twtxt) or from RSS, Atom and JSON feeds of blogs or websites I follow. Since the social media platforms I track support RSS I typically read all this content via newsboat which is a terminal based feed reader. I still find myself using the web browser's bookmark feature. It's just the bookmarks aren't helpful if they remain only in my web browser.  I also use [Pocket](https://getpocket.com) to read things later. I think all these can serve as a \"link discovery\" mechanism for a personal search engine. It's just a matter of collecting the URLs into a list of content I want to index, staging the content, index it and publish the resulting indexes on my personal website using a browser based search engine to query them.\n\nThis link discovery approach is different from how commercial search engines work.  Commercial engines rely on crawlers that retrieve a web page, analyze the content, find new links in the page then recursively follows those to scan whole domains and websites.  Recursive crawlers aren't automatic. It's easy for them to get trapped in link loops and often they can be a burden to the sites they are crawling (hence robot.txt files suggesting to crawlers what needs to be avoided).  I don't need to index the whole web, usually not even whole websites.  I'm interested in page level content and I can get a list of web pages from by bookmarks and the feeds I follow.\n\n\nA Quick digression:\n\nBlogs, in spite of media hype, haven't \"gone away\".  Presently we're seeing a bit of a renaissance with projects like [Micro.blog](https://micro.blog) and [FeedLand](http://docs.feedland.org/about.opml \"this is a cool project from Dave Winer\"). The \"big services\" like [WordPress](https://wordpress.com), [Medium](https://medium.com), [Substack](https://substack.com) and [Mailchimp](https://mailchimp.com/) provide RSS feeds for their content. RSS/Atom/JSON feed syndication all are alive and well at least for the sites I track and content I read. I suspect this is the case for others.  What is a challenge is knowing how to find the feed URL.  But even that I've notice is becoming increasingly predictable. I suspect given a list of blog sites I could come up with a way of guessing the feed URL in many cases even without an advertised URL in the HTML head or RSS link in the footer.\n\n### Search engines are hard to setup and maintain, how can that be made easier?\n\nI think this can be addressed in several ways. First is splitting the problem of content retrieval, indexing and search UI.  [PageFind](https://pagefind.app) is the current static site search I use on my blog.  It does a really good job at indexing blog content will little configuration. PageFind is clever about the indexes it builds.  When PageFind indexes a site is builds a partitioned index. Each partition is loaded by the web browser only when the current search string suggests it is needed. This means you can index a large number of pages (e.g. 100,000 pages) before it starts to feel sluggish. Indexing is fast and can be done on demand after harvesting the new pages you come across in your feeds. If the PageFind indexes are saved in my static site directory (a Git repository) I can implement the search UI there implementing the personal search engine prototype. The web browser is the search engine and PageFind tool is the indexer. The harvester is built by extracting interesting URLs from the feeds I follow and the current state of my web browsers' bookmarks and potentially from content in Pocket. Note the web browser bookmarks are synchronized across my devices so if I encounter an interesting URL in the physical world I can easily add it my personal search engine too the next time I process the synchronized bookmark file.\n\n### Indexing and search engines are resource intensive, isn't that going to bog down my computer?\n\nEnterprise Search Engine Software is complicated to setup, very resource intensive and requires upkeep. For me Solr, Elasticsearch, Opensearch falls into the category \"day job\" duty and I do not want that burden for my personal search engine. Fortunately I don't need to run Solr, Elasticsearch or Opensearch. I can build a decent search engine using [PageFind](https://pagefind.app).  PageFind is simple to configured, simple to index with and it's indexes scale superbly for a browser based search engine UI. Hosting is reduced to the existing effort I put into updating my personal blog and automating the link extraction from the feeds I follow and my web browsers' current bookmark file.\n\nI currently use PageFind for web content I mirror to a search directory locally for off line reading. From that experience I know it can handle at least 100,000 pages. I know it will work on my Raspberry Pi 400. I don't see a problem in a prototype personal search engine assuming a corpus in the neighborhood of 100,000 pages.\n\n\n## Sketching the prototype\n\nHere's a sketch of a prototype of \"a personal search engine\" built on PageFind.\n\n1. Generate a list of URLs pointing at pages I want to index (this can be done by mining my bookmarks and feed reader content).\n2. Harvest and stage the pages on my local file system, maintaining a way to associated their actual URL with the staged copy\n3. Index with PageFind and save the resulting indexes my local copy of my personal website\n4. Have a page on my personal website use these indexes to implement a search and results page\n\nThe code that I would need to be implemented is mostly around extracting URL from my browser's bookmark file and my the feeds managed in my feed reader. Since newsboat is open source and it stores it cached feeds in a SQLite3 database in principle I could use the tables in that database to generate a list of content to harvest for indexing. I could write a script that combines the content from my bookmarks file and newsboat database rendering a flat list to harvest, stage and then index with PageFind. A prototype could be done in Bash or Python without too much of an effort.\n\nOne challenge remains after harvesting and staging is solved. It would be nice to use my personal search engine as my default search engine. After all I am already curating the content. I think this can be done by supporting the [Open Search Description](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) to make my personal search engine a first class citizen in my browser URL bar. Similarly I could turn the personal search engine page into a PWA so I can have it on my phone's desktop along the other apps I commonly use.\n\nObservations that maybe helpful for a successful prototype\n\n1. I don't need to crawl the whole web just the pages that interest me\n2. I don't need to create or monitor a recursive web crawler\n3. I avoid junk because I'm curating the sources through my existing web reading practices\n4. I am targeting a small search corpus, approximately 100,000 pages or so\n5. I am only indexing HTML, Pagefind can limit the elements it indexes\n\nA prototype of a personal search engine seems possible. The challenge will be finding the time to implement it.\n\n",
       "data": {
         "author": "R. S. Doiel",
         "keywords": [
@@ -637,80 +292,7 @@
       "url": "posts/2023/03/07/prototyping-a-personal-search-engine.json"
     },
     {
-      "data": {
-        "author": "R. S. Doiel",
-        "keywords": [
-          "Ubuntu Desktop",
-          "Gnome",
-          "gsettings"
-        ],
-        "pubDate": "2023-05-20",
-        "title": "gsettings command"
-      },
-      "url": "posts/2023/05/20/gsettings-commands.json"
-    },
-    {
-      "data": {
-        "abstract": "A collection of quick notes for setting and Postgres for development.",
-        "byline": "R. S. Doiel, 2023-11-17",
-        "keywords": [
-          "postgres"
-        ],
-        "title": "Postgres Quick Notes, take two"
-      },
-      "url": "posts/2023/11/17/PostgreSQL-Quick-Notes.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "Pandoc",
-          "templates"
-        ],
-        "pubDate": "2023-10-18",
-        "title": "Building A to Z list pages in Pandoc"
-      },
-      "url": "posts/2023/10/18/A-to-Z-lists.json"
-    },
-    {
-      "data": {
-        "keywords": [
-          "feeds",
-          "reader",
-          "rss",
-          "atom",
-          "jsonfeed"
-        ],
-        "pubDate": "2023-10-06",
-        "title": "Skimmer"
-      },
-      "url": "posts/2023/10/06/concept.json"
-    },
-    {
-      "data": {
-        "author": "R. S. Doiel",
-        "keywords": [
-          "PostgREST",
-          "M1"
-        ],
-        "pubDate": "2023-07-05",
-        "title": "Quick recipe, compiling PostgREST (M1)"
-      },
-      "url": "posts/2023/07/05/quick-recipe-compiling-PostgREST-M1.json"
-    },
-    {
-      "data": {
-        "author": "R. S. Doiel",
-        "keywords": [
-          "Pandoc",
-          "GHCup",
-          "M1"
-        ],
-        "pubDate": "2023-07-05",
-        "title": "Quick recipe, compiling Pandoc (M1)"
-      },
-      "url": "posts/2023/07/05/quick-recipe-compiling-Pandoc-M1.json"
-    },
-    {
+      "content": "\n# SQL query to CSV, a missing datatool\n\nBy R. S. Doiel, 2023-01-13\n\nUpdate: 2023-03-13\n\nAt work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.\n\nIn the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).\n\nThis got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.\n\n```\n    sql2csv -o eprint_status_report.csv -config=$HOME/.my.cnf \\\n\t    'SELECT eprintid, title, eprint_status FROM eprint' \n```\n\nThe `sql2csv` would take the results of the query and write to the CSV file.\n\nThe nice thing about this approach is that I could support the three relational databases we use -- i.e. MySQL 8, Postgres and SQLite3 with one common tool so my Bash scripts that run the reports would be very simple rather than specialized to one database system or the other.\n\nI hope to experiment with this approach in the next release of [datatools](https://github.com/caltechlibrary/datatools), an open source project maintained at work.\n\n## update\n\nJon Woodring pointed out to me today that both SQLite3 and PostgreSQL clients can output to CSV without need of an external tool. Wish MySQL client did that! Instead MySQL client supports tab delimited output. I'm still concidering sql2csv due to the ammount work I do with MySQL database but I'm not sure if it will make it into to the datatools project or now since I suspect our MySQL usage will decline overtime as more projects are built with PostgreSQL and SQLite3.\n",
       "data": {
         "author": "rsdoiel@sdf.org (R. S. Doiel)",
         "keywords": [
@@ -725,719 +307,65 @@
       "url": "posts/2023/01/03/sql-to-csv-a-missing-datatool.json"
     },
     {
+      "content": "\n# Go and MySQL timestamps\n\nBy R. S. Doiel, 2022-12-12\n\nThe Go [sql](https://pkg.go.dev/database/sql) package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the [MySQL driver](github.com/go-sql-driver/mysql).  Sometimes that is not a big deal. [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the `int64` used in Go's `time.Time`. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using [DATE_FORMAT](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format \"DATE_FORMAT is a MySQL date/time function returning a string value\") and from the Go side convert the formatted string into a `time.Time` using `time.Parse()`. Below is some Golang pseudo code showing this approach.\n\n```\n// Format used by MySQL strings representing date/times\nconst MySQLTimestamp = \"2006-01-02 15:04:05\"\n\n// GetRecordUpdate takes a configuration with a db attribute previously\n// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's\n// `DATE_FORMAT()` function to convert the timestamp into a string and\n// Go's `time.Parse()` to convert the string into a `time.Time` value.\nfunc GetRecordUpdate(cfg, id string) {\n\tstmt := `SELECT id, DATE_FORMAT(updated, \"%Y-%m-%d %H:%i:%s\") FROM some_tabl WHERE id = ?`\n\trow, err := cfg.db.Query(stmt, id)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tdefer row.Close()\n\trecord := new(Record)\n\tif row.Next() {\n\t\tvar updated string\n\t\tif err := row.Scan(&record.ID, &updated); err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\trecord.Updated, err = time.Parse(MySQLTimestamp, updated)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t}\n\terr = row.Err()\n\treturn record, err\n}\n```\n",
       "data": {
-        "abstract": "RSS is alive and kicking and Bluesky should support it too. Explore my recipe for reading web news.",
-        "byline": "R. S. Doiel, 2023-12-07",
-        "created": "2023-12-07",
-        "keywords": [
-          "RSS",
-          "Feeds",
-          "Social Media",
-          "news"
-        ],
-        "numnber": 1,
-        "series": "Simplification and the Web",
-        "title": "RSS and my web experience"
-      },
-      "url": "posts/2023/12/07/rss-and-my-web-experience.json"
-    },
-    {
-      "data": {
-        "byline": "R. S. Doiel, 2023-12-23",
-        "keywords": [
-          "bluesky",
-          "rss"
-        ],
-        "title": "Finding Bluesky RSS feeds"
-      },
-      "url": "posts/2023/12/23/finding-blue-sky-rss-feeds.json"
-    },
-    {
-      "data": {
-        "title": "Chars"
-      },
-      "url": "posts/2020/11/27/Chars.json"
-    },
-    {
-      "data": {
-        "title": "Dates"
-      },
-      "url": "posts/2020/11/27/Dates.json"
-    },
-    {
-      "data": {
-        "title": "Clock"
-      },
-      "url": "posts/2020/11/27/Clock.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "keywords": [
-          "Pandoc",
-          "Metadata",
-          "Templates"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 2,
-        "series": "Pandoc Techniques",
-        "title": "Pandoc & Metadata"
-      },
-      "url": "posts/2020/11/11/Pandoc-Metadata.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "keywords": [
-          "Pandoc",
-          "Templates"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 1,
-        "series": "Pandoc Techniques",
-        "title": "Pandoc Partials"
-      },
-      "url": "posts/2020/11/09/Pandoc-Partials.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "keywords": [
-          "Oberon",
-          "Pascal",
-          "Programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 2,
-        "series": "Software Tools",
-        "title": "Software Tools, Filters"
-      },
-      "url": "posts/2020/10/31/Filters.json"
-    },
-    {
-      "data": {
-        "title": "Robert's ramblings"
-      },
-      "url": "posts/index.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-05-28",
+        "author": "rsdoiel@sdf.org (R. S. Doiel)",
         "keywords": [
           "golang",
-          "opml",
-          "markdown"
+          "sql",
+          "timestamps"
         ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "OPML to Markdown and back"
+        "pubDate": "2022-12-12",
+        "title": "Go and MySQL timestamps"
       },
-      "url": "posts/2016/05/28/OPML-to-Markdown-and-back.json"
+      "url": "posts/2022/12/12/Go-and-MySQL-Timestamps.json"
     },
     {
+      "content": "\n# Progress and time remaining\n\nBy R. S. Doiel, 2022-11-05\n\nI often find myself logging output when I'm developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I've come to realize I really want a few specific pieces of information for non-error logging (e.g. `-verbose` which monitors progress as well as errors).\n\n- percentage completed\n- estimated time allocated (i.e. time remaining)\n\nTo do that I need three pieces of information.\n\n1. the count of the current iteration(e.g. `i`)\n2. the total number of iterations required (e.g. `tot`)\n3. The time just before I started iterating(e.g. `t0`)\n\nThe values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`. Note on the first pass (i.e. `i == 0`) you can skip the percentage calculation.\n\n\n```golang\nimport (\n\t\"time\"\n\t\"fmt\"\n)\n\n// Show progress with amount of time running\nfunc progress(t0 time.Time, i int, tot int) string {\n    if i == 0 {\n        return \"\"\n    }\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\tt1 := time.Now()\n\t// NOTE: Truncating the duration to seconds\n\treturn fmt.Sprintf(\"%.2f%% %v\", percent, t1.Sub(t0).Truncate(time.Second))\n}\n```\n\nHere's how you might use it.\n\n```golang\n\ttot := len(ids)\n\tt0 := time.Now()\n\tfor i, id := range ids {\n\t\t// ... processing stuff here ... and display progress every 1000 records\n\t\tif (i % 1000) == 0 {\n\t\t\tlog.Printf(\"%s records processed\", progress(t0, i, tot))\n\t\t}\n\t}\n```\n\nAn improvement on this is to include an time remaining. I need to calculated the estimated time allocation (i.e. ETA). I know `t0` so I can estimate that with this formula `estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)`[^1]. ETA adjusted for time running gives us time remaining[^2]. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula.\n\n[^1]: In code `(rt/i)*tot` is estimated time allocation\n\n[^2]: Estimated Time Remaining, in code `((rt/i)*tot) - rt`\n\n```golang\nfunc progress(t0 time.Time, i int, tot int) string {\n\tif i == 0 {\n\t\treturn \"0.00 ETR Unknown\"\n\t}\n\t// percent completed\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\t// running time\n    rt := time.Now().Sub(t0)\n    // estimated time allocation - running time = time remaining\n    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))\n    return fmt.Sprintf(\"%.2f%% ETR %v\", percent, eta.Truncate(time.Second))\n}\n```\n\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-05-30",
+        "author": "rsdoiel@sdf.org (R. S. Doiel)",
         "keywords": [
-          "structured data",
-          "amp",
-          "opengraph",
-          "twitter",
-          "google",
-          "facebook",
-          "instant pages"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph"
-      },
-      "url": "posts/2016/05/30/amp-cards-and-open-graph.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-06-16",
-        "keywords": [
-          "Golang",
-          "Pine64",
-          "ARM"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Cross compiling Go 1.8.3 for Pine64 Pinebook"
-      },
-      "url": "posts/2017/06/16/cross-compiling-go.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-07-04",
-        "keywords": [
-          "Raspberry Pi",
-          "Pi-Top",
-          "Rasbian",
-          "Raspberry Pi OS",
-          ":operating systems"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "How to make a Pi-Top more Raspbian"
-      },
-      "url": "posts/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-08-15",
-        "keywords": [
-          "Golang",
-          "Windows",
-          "Bash",
-          "Linux Subsystem"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Exploring Bash for Windows 10 Pro"
-      },
-      "url": "posts/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-08-16",
-        "keywords": [
-          "Bash",
-          "Markdown",
-          "site generator",
-          "mkpage",
-          "pandoc"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "From Markdown and Bash to mkpage"
-      },
-      "url": "posts/2016/08/16/From-Markdown-and-Bash-to-mkpage.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2016, R. S. Doiel",
-        "date": "2016-09-20",
-        "keywords": [
-          "Bash",
-          "cURL",
-          "jq",
-          "sed",
-          "grep",
-          "search",
+          "programming",
           "golang",
-          "Android"
+          "log info"
         ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Android, Termux and Dev Environment"
+        "pubDate": "2022-12-05",
+        "title": "Progress and time remaining"
       },
-      "url": "posts/2016/09/20/Android-Termux-Dev-environment.json"
+      "url": "posts/2022/12/05/progress-and-time-remaining.json"
     },
     {
+      "content": "\n# Pandoc, Pagefind and Make\n\nRecently I've refresh my approach to website generation using three programs.\n\n- [Pandoc](https://pandoc.org)\n- [Pagefind](https://pagefind.app) for providing a full text search of documentation\n- [GNU Make](https://www.gnu.org/software/make/)\n    - [website.mak](website.mak) Makefile\n\nPandoc does the heavy lifting. It renders all the HTML pages, CITATION.cff (from the projects [codemeta.json](codemeta.github.io \"codemeta.json is a metadata documentation schema for documenting software projects\")) and rendering an about.md file (also from the project's codemeta.json). This is done with three Pandoc templates. Pandoc can also be used to rendering man pages following a simple page recipe.\n\nI've recently adopted Pagefind for indexing the HTML for the project's website and providing the full text search UI suitable for a static website. The Pagefind indexes can be combined with your group or organization's static website providing a rich cross project search (exercise left for another post).\n\nFinally I orchestrate the site construction with GNU Make. I do this with a simple dedicated Makefile called [website.mak](#website.mak).\n\n\n## website.mak\n\nThe website.mak file is relatively simple.\n\n```makefile\n#\n# Makefile for running pandoc on all Markdown docs ending in .md\n#\nPROJECT = PROJECT_NAME_GOES_HERE\n\nMD_PAGES = $(shell ls -1 *.md) about.md\n\nHTML_PAGES = $(shell ls -1 *.md | sed -E 's/.md/.html/g') about.md\n\nbuild: $(HTML_PAGES) $(MD_PAGES) pagefind\n\nabout.md: .FORCE\n        cat codemeta.json | sed -E 's/\"@context\"/\"at__context\"/g;s/\"@type\"/\"at__type\"/g;s/\"@id\"/\"at__id\"/g' >_codemeta.json\n        if [ -f $(PANDOC) ]; then echo \"\" | pandoc --metadata title=\"About $(PROJECT)\" --metadata-file=_codemeta.json --template codemeta-md.tmpl >about.md; fi\n        if [ -f _codemeta.json ]; then rm _codemeta.json; fi\n\n$(HTML_PAGES): $(MD_PAGES) .FORCE\n\tpandoc -s --to html5 $(basename $@).md -o $(basename $@).html \\\n\t\t--metadata title=\"$(PROJECT) - $@\" \\\n\t    --lua-filter=links-to-html.lua \\\n\t    --template=page.tmpl\n\tgit add $(basename $@).html\n\npagefind: .FORCE\n\tpagefind --verbose --exclude-selectors=\"nav,header,footer\" --bundle-dir ./pagefind --source .\n\tgit add pagefind\n\nclean:\n\t@if [ -f index.html ]; then rm *.html; fi\n\t@if [ -f README.html ]; then rm *.html; fi\n\n.FORCE:\n```\n\nOnly the \"PROJECT\" value needs to be set. Typically this is just the name of the repository's base directory.\n\n## Pandoc, filters and templates\n\nWhen write my Markdown documents I link to Markdown files instead of the HTML versions. This serves two purposes. First GitHub can use this linking directory and second if you decide to repurposed the website as a Gopher or Gemini resource\nyou don't linking to the Markdown file makes more sense.  To convert the \".md\" names to \".html\" when I render the HTML I use a simple Lua filter called [links-to-html.lua](https://stackoverflow.com/questions/40993488/convert-markdown-links-to-html-with-pandoc#49396058 \"see the stackoverflow answer that shows this technique\").\n\n```lua\n# links-to-html.lua\nfunction Link(el)\n  el.target = string.gsub(el.target, \"%.md\", \".html\")\n  return el\nend\n```\n\nThe \"page.tmpl\" file provides a nice wrapper to the Markdown rendered as HTML by Pandoc. It includes the site navigation and project copyright information in the wrapping HTML. It is based on the default Pandoc page template with some added markup for navigation and copyright info in the footer. I also update the link to the CSS to conform with our general site branding requirements. You can generate a basic template using Pandoc.\n\n```shell\npandoc --print-default-template=html5\n```\n\nI also use Pandoc to generate an \"about.md\" file describing the project and author info.  The content of the about.md is taken directly from the project's codemeta.json file after I've renamed the \"@\" JSON-LD fields (those cause problems for Pandoc). You can see the preparation of a temporary \"_codemeta.json\" using `cat` and `sed` to rename the fields. This is I use a Pandoc template to render the Markdown from.\n\n```pandoc\n---\ntitle: $name$\n---\n\nAbout this software\n===================\n\n$name$ $version$\n----------------\n\n$if(author)$\n### Authors\n\n$for(author)$\n- $it.givenName$ $it.familyName$\n$endfor$\n$endif$\n\n$if(description)$\n$description$\n$endif$\n\n\n$if(license)$- License: $license$$endif$\n0$if(codeRepository)$- GitHub: $codeRepository$$endif$\n$if(issueTracker)$- Issues: $issueTracker$$endif$\n\n\n$if(programmingLanguage)$\n### Programming languages\n\n$for(programmingLanguage)$\n- $programmingLanguage$\n$endfor$\n$endif$\n\n$if(operatingSystem)$\n### Operating Systems\n\n$for(operatingSystem)$\n- $operatingSystem$\n$endfor$\n$endif$\n\n$if(softwareRequirements)$\n### Software Requiremets\n\n$for(softwareRequirements)$\n- $softwareRequirements$\n$endfor$\n$endif$\n\n$if(relatedLink)$\n### Related Links\n\n$for(relatedLink)$\n- [$it$]($it$)\n$endfor$\n$endif$\n```\n\nThis same technique can be repurposed to render a CITATION.cff if needed.\n\n## Pagefind\n\nPagefind provides three levels of functionality. First it will generate indexes for a full text search of your\nproject's HTML pages. It also builds the necessary search UI for your static site. I include the search UI via a\nMarkdown document that embeds the HTML markup described at [Pagefind.app](https://pagefind.app/docs/)'s Getting started\npage.  When I invoke Pagefind I use the `--bundle-dir` option to be \"pagefind\" rather than \"_pagefind\".  The reason is GitHub Pages ignores the \"_pagefind\" (probably ignores all directories with \"_\" prefix).\n\nIf you need a quick static web server while you're writing and developing your documentation website Pagefind can\nprovide that using the `--serve` option. Assuming you're in your project's directory then something like this should do the trick.\n\n```shell\n    pagefind --source . --bundle-dir=pagefind --serve\n```\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2017, R. S. Doiel",
-        "date": "2017-10-20",
         "keywords": [
-          "Javascript",
-          "NodeJS",
-          "Electron"
+          "Pandoc",
+          "Pagefind",
+          "make",
+          "static site"
         ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "NodeJS, NPM, Electron"
+        "pubDate": "2022-11-30",
+        "title": "Pandoc, Pagefind and Make"
       },
-      "url": "posts/2017/10/20/node-npm-electron.json"
+      "url": "posts/2022/11/28/pandoc-pagefind-and-make.json"
     },
     {
+      "content": "\n# Initial Impression of Pagefind\n\nBy R. S. Doiel, 2022-11-21\n\nI'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used [LunrJS](https://lunrjs.com) on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. [Pagefind](https://pagefind.app) addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.\n\nPagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).\n\nHere's the steps I took to bring Pagefind up on my M1 Mac.\n\n1. Install cargo/rust using rustup\n2. Make sure `$HOME/.cargo/bin` is in my PATH\n3. Clone the Pagefind Git repository\n4. Change to the repository directory\n5. Build and install pagefind\n\n```\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\nexport PATH=\"$HOME/.cargo/bin:$PATH\"\ngit clone git@github.com git@github.com:CloudCannon/pagefind.git src/github.com/CloudCannon/pagefind\ncd src/github.com/CloudCannon/pagefind\ncargo install pagefind --features extended\n```\n\nNext steps were\n\n1. Switch to my local copy of my website\n2. Build my site in the usual page\n3. Update my `search.html` page to use pagefind\n4. Index my site using pagefind\n5. Test my a local web server\n\nTo get the HTML/JavaScript needed to embed pagefind in your search page see [Getting Started](https://pagefind.app/docs/). The HTML/JavaScript fragment is at the top of the page. After updating `search.html` I ran the pagefind command[^1].\n\n```\npagefind --verbose --bundle-dir ./pagefind --source .\n```\n\nThe indexing is wicked fast and it gives you nice details. I verified everything worked as expected using `pttk ws` static site web server. I then published my website. You can see the results at <http://rsdoiel.sdf.org/search.html> and <https://rsdoiel.github.io/search.html>\n\n[^1]: I specified the bundle directory because GitHub pages had a problem with the default `_pagefind`.\n\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2017, R. S. Doiel",
-        "date": "2017-12-10",
+        "author": "rsdoiel@sdf.org (R. S. Doiel)",
+        "byline": "R. S. Doiel, 2022-11-21",
         "keywords": [
-          "GitHub",
-          "Gists",
-          "JSON"
+          "site search",
+          "pagefind",
+          "rust",
+          "cargo",
+          "rustup",
+          "M1",
+          "macOS"
         ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Harvesting my Gists from GitHub"
+        "pubDate": "2022-11-21",
+        "title": "Initial Impressions of Pagefind"
       },
-      "url": "posts/2017/12/10/harvesting-my-gists-from-github.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2017, R. S. Doiel",
-        "date": "2017-12-18",
-        "keywords": [
-          "Raspbian",
-          "Raspberry Pi OS",
-          "amd64",
-          "i386",
-          "operating systems"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Raspbian Stretch on DELL E4310 Laptop"
-      },
-      "url": "posts/2017/12/18/raspbian-stretch-on-amd64.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2018, R. S. Doiel",
-        "date": "2018-02-19",
-        "keywords": [
-          "Golang",
-          "Bleve",
-          "search"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Go, Bleve and Library oriented software"
-      },
-      "url": "posts/2018/02/19/go-bleve-and-libraries.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2018, R. S. Doiel",
-        "date": "2018-02-24",
-        "keywords": [
-          "Golang",
-          "Python",
-          "shared libraries"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Go based Python modules"
-      },
-      "url": "posts/2018/02/24/go-based-python-modules.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2018, R. S. Doiel",
-        "date": "2018-03-11",
-        "keywords": [
-          "Golang",
-          "Julia",
-          "shared libraries"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Accessing Go from Julia"
-      },
-      "url": "posts/2018/03/11/accessing-go-from-julia.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2018, R. S. Doiel",
-        "date": "2018-07-22",
-        "keywords": [
-          "Pascal",
-          "programming",
-          "book review"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Review: Software Tools in Pascal"
-      },
-      "url": "posts/2018/07/22/software-tools-in-pascal.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2018, R. S. Doiel",
-        "date": "2019-07-28",
-        "keywords": [
-          "FreeDOS",
-          "Oberon System"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "FreeDOS 1.2 to Oberon System 3",
-        "updated": "2021-03-16"
-      },
-      "url": "posts/2019/07/28/freedos-to-oberon-system-3.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-04-11",
-        "keywords": [
-          "Oberon",
-          "Wirth",
-          "Gutknecht",
-          "ETH",
-          "Parc",
-          "programming",
-          "operating systems"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 1,
-        "series": "Mostly Oberon",
-        "title": "Mostly Oberon"
-      },
-      "url": "posts/2020/04/11/Mostly-Oberon.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-04-12",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 2,
-        "series": "Mostly Oberon",
-        "title": "Oberon Modules and Procedures"
-      },
-      "url": "posts/2020/04/12/Mostly-Oberon-Modules.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-04-18",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 3,
-        "series": "Mostly Oberon",
-        "title": "Oberon Basic Types"
-      },
-      "url": "posts/2020/04/18/Mostly-Oberon-Basic-Types.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-04-19",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 4,
-        "series": "Mostly Oberon",
-        "title": "Oberon Loops and Conditions"
-      },
-      "url": "posts/2020/04/19/Mostly-Oberon-Loops-and-Conditions.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-05-01",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 5,
-        "series": "Mostly Oberon",
-        "title": "Combining Oberon-07 and C with OBNC"
-      },
-      "url": "posts/2020/05/01/Combining-Oberon-and-C.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-05-06",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 6,
-        "series": "Mostly Oberon",
-        "title": "Compiling OBNC on macOS"
-      },
-      "url": "posts/2020/05/06/Compiling-OBNC-on-macOS.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-05-09",
-        "keywords": [
-          "Oberon",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 7,
-        "series": "Mostly Oberon",
-        "title": "Oberon-07 and the file system",
-        "updated": "2021-10-29"
-      },
-      "url": "posts/2020/05/09/Oberon-07-and-the-filesystem.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-05-25",
-        "keywords": [
-          "Oberon",
-          "programming",
-          "type extension",
-          "dynamic data"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 8,
-        "series": "Mostly Oberon",
-        "title": "Dynamic types"
-      },
-      "url": "posts/2020/05/25/Dynamic-types.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-06-20",
-        "keywords": [
-          "Oberon",
-          "procedures",
-          "passing procedures as parameters",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 9,
-        "series": "Mostly Oberon",
-        "title": "Procedures as parameters"
-      },
-      "url": "posts/2020/06/20/Procedures-as-parameters.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-07-07",
-        "keywords": [
-          "Oberon",
-          "procedures",
-          "record procedures",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 10,
-        "series": "Mostly Oberon",
-        "title": "Procedures in records"
-      },
-      "url": "posts/2020/07/07/Procedures-in-records.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-07-08",
-        "keywords": [
-          "civil rights",
-          "diversity",
-          "equality"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Words Matter"
-      },
-      "url": "posts/2020/07/08/words-matter.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-08-15",
-        "keywords": [
-          "Oberon",
-          "portable",
-          "stdin"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 11,
-        "series": "Mostly Oberon",
-        "title": "Portable Oberon-07"
-      },
-      "url": "posts/2020/08/15/Portable-Oberon-07.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-09-29",
-        "keywords": [
-          "Oberon",
-          "Pascal",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 1,
-        "series": "Software Tools",
-        "title": "Software Tools, Getting Started"
-      },
-      "url": "posts/2020/09/29/Software-Tools-1.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-10-03",
-        "keywords": [
-          "Oberon",
-          "portable",
-          "markdown",
-          "programming"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 12,
-        "series": "Mostly Oberon",
-        "title": "Oberon to Markdown"
-      },
-      "url": "posts/2020/10/03/Oberon-to-markdown.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-10-19",
-        "keywords": [
-          "Oberon-07",
-          "portable",
-          "markdown",
-          "pandoc",
-          "frontmatter"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 13,
-        "series": "Mostly Oberon",
-        "title": "Assembling Pages"
-      },
-      "url": "posts/2020/10/19/Assemble-pages.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-11-27",
-        "keywords": [
-          "Oberon-07",
-          "C-shared",
-          "obnc"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 14,
-        "series": "Mostly Oberon",
-        "title": "Dates & Clock"
-      },
-      "url": "posts/2020/11/27/Dates-and-Clock.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2020, R. S. Doiel",
-        "date": "2020-12-24",
-        "keywords": [
-          "raspberry pi",
-          "retro games",
-          "case"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "RetroFlag GPi Case Setup"
-      },
-      "url": "posts/2020/12/24/gpi-case-setup.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-03-17",
-        "keywords": [
-          "FreeDOS 1.2",
-          "VirtualBox 6.1",
-          "Oberon System 3",
-          "Native Oberon"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "ETH Oberon System 3 on VirtualBox 6.1"
-      },
-      "url": "posts/2021/03/17/NativeOberon-VirtualBox.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-04-02",
-        "keywords": [
-          "FreeDOS 1.2",
-          "VirtualBox 6.1",
-          "A2 Oberon"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "A2 Oberon on VirtualBox 6.1"
-      },
-      "url": "posts/2021/04/02/A2-Oberon-on-VirtualBox-6.1.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-04-16",
-        "keywords": [
-          "SQLite",
-          "SQL",
-          "database"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 1,
-        "series": "SQL Reflections",
-        "title": "Updating Schema in SQLite3"
-      },
-      "url": "posts/2021/04/16/Updating-Schema-in-SQLite3.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-04-25",
-        "keywords": [
-          "Oberon",
-          "Raspberry Pi OS",
-          "Ofront",
-          "Mostly Oberon",
-          "V4",
-          "Linz"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "title": "Ofront on Raspberry Pi OS"
-      },
-      "url": "posts/2021/04/25/Ofront-on-Rasberry-Pi-OS.json"
-    },
-    {
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-05-16",
-        "keywords": [
-          "Oberon",
-          "Modules",
-          "Oakwood",
-          "Strings",
-          "Chars"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 18,
-        "title": "Beyond Oakwood, Modules and Aliases"
-      },
-      "url": "posts/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.json"
+      "url": "posts/2022/11/21/initial-impressions-pagefind.json"
     }
   ]
 }
