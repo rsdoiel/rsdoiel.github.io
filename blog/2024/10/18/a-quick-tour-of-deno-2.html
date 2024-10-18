@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>a-quick-tour-of-deno-2</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="development, languages">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/10/18/a-quick-tour-of-deno-2.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="quick-tour-of-deno-2.0.2">Quick tour of Deno 2.0.2</h1>
+<p>By R. S. Doiel</p>
+<p>I’ve been working with TypeScript this year using Deno. Deno has
+reached version 2.0. It has proven to be a nice platform to work on
+including thoughtful tooling, good language support, ECMAScript module
+support and a good standard library. As a TypeScript and JavaScript
+platform I find it much more stable and compelling than NodeJS. It also
+has the advantage of being able to cross compile TypeScript to an
+executable which makes deployment of web services as easy for me as it
+is with Go.</p>
+<h2 id="easy-install-with-cargo">Easy install with Cargo</h2>
+<p>Deno is written in Rust. I like installing Deno via Rust’s Cargo. You
+can installed Rust via <a href="https://rustup.rs">Rustup</a>. When I
+install Deno on a new machine I first check to make sure my Rust is the
+latest then I use Cargo to install Deno.</p>
+<pre class="shell"><code>rustup update
+cargo install deno</code></pre>
+<h2 id="easy-deno-upgrade">Easy Deno upgrade</h2>
+<p>Deno is in active development. You’ll want to run the latest
+releases. That’s easy using Deno. It has a self upgrade option.</p>
+<pre class="shell"><code>deno upgrade</code></pre>
+<h2 id="exploring-typescript">Exploring TypeScript</h2>
+<p>When I started using Deno this year I wasn’t familiar with
+TypeScript. Unlike NodeJS Deno can run TypeScript natively. Why write in
+TypeScript? How hard is it to learn? TypeScript is a superset of
+JavaScript. That means if you know JavaScript you know most of
+TypeScript already. Where TypeScript differs is in the support for type
+safety and other modern language features. Writing TypeScript for Deno
+is a joy because it supports the web standard ECMAScript Models. That
+means the code I develop for server side can be easily retargetted to
+work client side on modern browsers that support JavaScript. Finally
+TypeScript began life as a transpiled language targeting JavaScript.
+With Deno’ emit module I can easily transpile my TypeScript to
+JavaScript and run browser side without needing to include the
+TypeScript transpiler.</p>
+<h2 id="exporting-typescript-plus-deno">Exporting TypeScript plus
+Deno</h2>
+<p>As a learning platform I find Deno very refreshing. Like many
+interpreted languages it has a <a
+href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>.
+That means you can easily try out TypeScript interactively. Unlike
+NodeJS when I build something to run in Deno I don’t worry about giving
+my whole computer away should I make a coding mistake. That’s because
+Deno, like your web browser, runs TypeScript and JavaScript in a sand
+boxed environment. The REPL gives you full access to your machine but
+running programs via Deno requires you to give explicit permissions to
+resources like reading from your file system, accessing the network or
+importing models from remote systems. This might sound tedious but in
+practice Deno makes it easy for Deno projects.</p>
+<p>Deno projects use a <code>deno.json</code> file. Creating the file is
+as easy as typing <code>deno init</code> in your project directory.
+Here’s an example of creating a project called
+<code>happy_deno</code>.</p>
+<pre class="shell"><code>mkdir happy_deno
+cd happy_deno
+deno init</code></pre>
+<p>If you list your directory you should see a <code>deno.json</code>
+file. In the Windows (powershell) or macOS Terminal (Bash or Korn shell)
+you can see list a directory with the <code>ls</code> command.</p>
+<pre class="shell"><code>ls </code></pre>
+<p>You should see the following files listed.</p>
+<dl>
+<dt><code>deno.json</code></dt>
+<dd>
+The project configuration for Deno. It includes default tasks and module
+imports.
+</dd>
+<dt><code>main.ts</code></dt>
+<dd>
+This is the “main” program for your project. It’s where you’ll add your
+TypeScript code.
+</dd>
+<dt><code>main_test.ts</code></dt>
+<dd>
+This is a test program so you can test the code you’ve written in your
+“main” module.
+</dd>
+</dl>
+<p>You can see the currently defined tasks using the command
+<code>deno task</code>. On my Windows box under Deno 2.0.2 the default
+tasks created was “dev”.</p>
+<pre class="shell"><code>Available tasks:
+- dev
+    deno run --watch main.ts</code></pre>
+<p>Looking at the <code>deno.json</code> file directly we see.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tasks&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dev&quot;</span><span class="fu">:</span> <span class="st">&quot;deno run --watch main.ts&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The “dev” task will start deno using the “run” action passing it the
+“watch” option running the file “main.ts”. What does that do? The
+“watch” option will re-run the “main.ts” command if the file changes.
+That means when you save a change to “main.ts” in your editor deno
+reruns that file. The really helps when you are write web services, the
+service automatically restarts.</p>
+<p>Here’s an example of running the “dev” task with
+<code>deno task dev</code>.</p>
+<pre><code>Task dev deno run --watch main.ts
+Watcher Process started.
+Add 2 + 3 = 5
+Watcher Process finished. Restarting on file change...</code></pre>
+<p>Using your editor, add a “hello world” log message to the code in
+“main.ts” so it looks like this.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">add</span>(a<span class="op">:</span> <span class="dt">number</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">number</span>)<span class="op">:</span> <span class="dt">number</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Add 2 + 3 =&quot;</span><span class="op">,</span> <span class="fu">add</span>(<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>))<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Hello World!&quot;</span>)<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Save your program and look what happens in the terminal. Assuming you
+did not make any typos you should see something like this.</p>
+<pre><code>Watcher File change detected! Restarting!
+Add 2 + 3 = 5
+Hello World!
+Watcher Process finished. Restarting on file change...</code></pre>
+<p>Adding additional tasks is just a matter of editing the
+<code>deno.json</code> file and adding them to the <code>tasks</code>
+attributes.</p>
+<p>See <a
+href="https://docs.deno.com/runtime/reference/cli/task_runner/">deno
+task</a> documentation for details.</p>
+<h3 id="modules-in-deno">Modules in Deno</h3>
+<p>TypeScript and JavaScript support “modules”. Specifically Deno
+supports <a
+href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">ES</a>
+modules. The nice thing about this is ES modules can be used with the
+same import export syntax in your web browser. Deno supports local
+modules and remote modules accessed via URL just like your browser. At
+work we have our project documentation sites hosted on GitHub. I can
+write a module and host it there then import it into the program I am
+actively developing.</p>
+<p>Why is the significant? I don’t need to rely on an external system
+like <a href="https://npmjs.com">npm</a> though I can use npm modules if
+I want. Modules in the Deno community often use <a
+href="https://jsr.io/" class="uri">https://jsr.io/</a> to register
+modules for others to use. This includes Deno’s standard library
+modules. Let’s add the standard “fs” and “path” module to our happy deno
+project. Use Deno’s “add” action.</p>
+<pre class="shell"><code>deno add jsr:@std/fs
+deno add jsr:@std/path</code></pre>
+<p>If you look at the <code>deno.json</code> now it should look
+something like this.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tasks&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dev&quot;</span><span class="fu">:</span> <span class="st">&quot;deno run --watch main.ts&quot;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;imports&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/assert&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/assert@1&quot;</span><span class="fu">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/fs&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/fs@^1.0.4&quot;</span><span class="fu">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/path&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/path@^1.0.6&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>To quit my deno dev task I can press the control key and the “c” key
+(a.k.a. Ctrl-C) in my terminal window.</p>
+<p>I mentioned Deno runs programs in a sand box. That is because Deno
+tries to be secure by default. You must explicitly allow Deno to reach
+outside the sand box. One resource outside the sand box is the file
+system. You use our imported modules we need to give Deno permission.
+See <a
+href="https://docs.deno.com/runtime/fundamentals/security/">security and
+permissions</a> on Deno’s documentation website for more details.</p>
+<p>To allow reading of the local file system with the “dev” task I would
+modify the “dev” command to look like.</p>
+<pre><code>    &quot;dev&quot;: &quot;deno run --allow-read --watch main.ts&quot;</code></pre>
+<h3 id="an-exercise-for-the-reader">An exercise for the reader</h3>
+<p>Restart the dev task so you can use the “fs” (file system) and “path”
+modules to interact with your local file system. As an exercise for you
+add a function to read and display the “deno.json” file in our
+project.</p>
+<p>Here’s so links to documentation that may be helpful.</p>
+<ul>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/">fundamentals</a></li>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/standard_library/">standard
+modules</a></li>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/modules/">modules</a></li>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/configuration/">deno.json</a></li>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/security/">security</a></li>
+<li><a
+href="https://docs.deno.com/runtime/fundamentals/security/#file-system-access">file
+system access</a></li>
+</ul>
+<h2 id="compiling-typescript-to-executable-code">Compiling TypeScript to
+executable code</h2>
+<p>One of the really nice things about Deno + TypeScript is that your
+development experience can be interactive like interpretive languages
+(e.g. Python, Lisp) and as convenient to deploy as a <a
+href="https://golang.org">Go</a> executable. You can compile our
+“main.ts” file with the following command.</p>
+<pre><code>deno compile --allow-read main.ts</code></pre>
+<p>Listing my directory in our project I see the following.</p>
+<pre class="shell"><code>deno.json    deno.lock    happy_deno   main.ts      main_test.ts</code></pre>
+<pre><code>./happy_deno</code></pre>
+<p>NOTE: On a Windows the compiled program is named
+<code>happy_deno.exe</code>, to execute it I would type
+<code>.\happy_deno.exe</code> in your Powershell session.</p>
+<p>By default Deno uses the project directory for the executable name.
+You can explicitly set the executable name with a <a
+href="https://docs.deno.com/runtime/getting_started/command_line_interface/">command
+line option</a>. You can also use command line options with the compile
+action to <a href="https://en.wikipedia.org/wiki/Cross_compiler">cross
+compile</a> your executable similar to how it is done with Go.</p>
+<p>Why compile your program? Well it runs slightly fast but more
+importantly you can now copy the executable to another machine and run
+it even if Deno isn’t installed. This means you no longer have the
+version dependency problems I typically experience with deploying code
+from Python and NodeJS projects. Like Go the Deno compiler is a cross
+compiler. That means I can compile versions for macOS, Windows and Linux
+on one machine then copy the platform specific executable to the
+machines where they are needed. Deno’s compiler provides similar
+advantages to Go.</p>
+<h2 id="typescript-to-javascript-with-deno">TypeScript to JavaScript
+with Deno</h2>
+<p>JavaScript is a first class language in modern web browsers but
+TypeScript is not. When TypeScript was invented it was positioned as a
+<a
+href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpiled</a>
+language. Deno is a first class TypeScript environment but how do I get
+my TypeScript transpiled to JavaScript? Deno provides an <a
+href="https://jsr.io/@deno/emit">emit</a> module for that. With a five
+lines of TypeScript I can write a bundler to convert my TypeScript to
+JavaScript. I can even add running that as a task to my
+<code>deno.json</code> file. Here’s an example of “main_to_js.ts”.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { bundle } <span class="im">from</span> <span class="st">&quot;jsr:@deno/emit&quot;</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> url <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(<span class="st">&quot;./main.ts&quot;</span><span class="op">,</span> import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">url</span>)<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> <span class="fu">bundle</span>(url)<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { code } <span class="op">=</span> result<span class="op">;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(code)<span class="op">;</span></span></code></pre></div>
+<p>The command I use to run <code>main_to_js.ts</code> is</p>
+<pre class="shell"><code>deno run --allow-read --allow-env main_to_js.ts</code></pre>
+<p>My <code>deno.json</code> file will look like this with a “transpile”
+task.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tasks&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dev&quot;</span><span class="fu">:</span> <span class="st">&quot;deno run --allow-read --watch main.ts&quot;</span><span class="fu">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;transpile&quot;</span><span class="fu">:</span> <span class="st">&quot;deno run --allow-read --allow-env main_to_js.ts&quot;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;imports&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/assert&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/assert@1&quot;</span><span class="fu">,</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/fs&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/fs@^1.0.4&quot;</span><span class="fu">,</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/path&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/path@^1.0.6&quot;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Now when I want to see the <code>main.ts</code> in JavaScript I can
+do <code>deno task transpile</code>.</p>
+<h2 id="contrasting-deno-typescript-with-go-and-python">Contrasting Deno
++ TypeScript with Go and Python</h2>
+<p>For me working in Go has been a pleasure in large part because of its
+tooling. The “go” command comes with module management, code formatter,
+linting, testing and cross compiler right out of the box. I like a
+garbage collected language. I like type safety. I like the ease which
+you can work with structured data. I’ve enjoyed programming with the
+excellent Go standard library while having the option to include third
+party modules if needed.</p>
+<p>Deno with TypeScript gives me most of what I like about Go out of the
+box. The <code>deno</code> command includes a task runner, module
+manager, testing, linting (aka check), cross compiler and formatter out
+of the box. TypeScript interfaces provide a similar experience to
+working with <code>struct</code> types in Go. Unlike Go you can work
+with Deno interactively similar to using the REPL in Python, Lisp or
+your favorite SQL client. I like the ES module experience of Deno better
+than Go’s module experience.</p>
+<p>What makes Deno + TypeScript compelling over writing web services
+over Python is Deno’s cross compiler. Like Go I can compile executables
+for macOS, Windows and Linux on one box and target x86_64 and ARM 64
+CPUs.No more need to manage virtual environments and no more sorting out
+things when virtual environments inevitably get crossed up. Copying an
+executable to the production machines is so much easier. Many
+deployments boil down to an <code>scp</code> and restarting the services
+on the report machines. Example
+<code>scp myservice apps.example.edu:/serivces/bin/; ssh apps.example.edu "systemctl restart myservice"</code>.
+It also means curl installs are trivial. All you need is an SH or
+Powershell script that can download a zip file, unpack it and copy it
+into the search path of the host system. Again the single self contained
+executable is a huge simplifier.</p>
+<p>One feature I miss in Deno + TypeScript is the DSL in Go content
+strings embedded in struct type definitions. This makes it trivial to
+write converts for XML, JSON and YAML. Allot of code in libraries and
+archives involves structured metadata and that feature ensures the
+structures definition are consistent between formats. I think adding
+to/from methods will become a chore at some point.</p>
+<p>If you are working in Data Science domain I think Python still has
+the compelling code ecosystem. It works, it mature and there is lots of
+documentation and community out there. While you can run Deno from a <a
+href="https://docs.deno.com/runtime/reference/cli/jupyter/">Jupyter
+notebook</a> I think it’ll take a while for TypeScript/JavaScript to
+reach parity with Python for this application domain.</p>
+<p>Switching from Go to Deno/TypeScript has been largely a matter of
+getting familiar with Deno, the standard library and remembering
+JavaScript while adding the TypeScript’s type annotations. I’ve also had
+to learn TypeScript’s approach to type conversions though that feels
+similar to Go. If I need the same functional code server side and
+browser side I think the Deno + TypeScript story can be compelling.</p>
+<p>Python, Rust, Go and Deno + TypeScript all support creating and
+running WASM modules. Of those languages Rust has the best story and
+most complete experience. Deno runs a close second. Largely because it
+is written in Rust so what you learn about WASM in rust carries over
+nicely. The Python story is better than Go at this time. This is largely
+a result of how garbage collection is integrated into Go. If I write a
+Go WASM module there is a penalty paid when you move between the Go
+runtime space and the hosts WASM runtime space. This will improve over
+time but it isn’t something I’ve felt comfortable using in my day to day
+Go work (October 2024, Go v1.23.2).</p>
+<p>Deno makes TypeScript is a serious application language. I suspect
+more work projects to be implemented in TypeScript where shared server
+and browser code is needed. I has be useful exploring Deno and
+TypeScript.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>

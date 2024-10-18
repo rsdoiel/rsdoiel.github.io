@@ -8,7 +8,7 @@
 
 ### Reading tools
 
-- [skimmer](https://rsdoiel.github.io/skimmer/) - A extremely minimal feed reader
+- [skimmer](https://rsdoiel.github.io/skimmer/) - A extremely minimal feed to to list log reader website
 
 ### Additional text rendering/formatting tools
 

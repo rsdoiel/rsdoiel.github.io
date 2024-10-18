@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Quick tour of Deno 2.0.2](/blog/2024/10/18/a-quick-tour-of-deno-2.md), 2024-10-18
 - [Web GUI and Deno](/blog/2024/07/08/webgui_and_deno.md), 2024-07-08
 - [Transpiling with Deno](/blog/2024/07/03/transpiling_with_deno.md), 2024-07-03
 - [Bootstrapping a Text Oriented Web](/blog/2024/06/14/tow_bootstraping.md), 2024-06-14
