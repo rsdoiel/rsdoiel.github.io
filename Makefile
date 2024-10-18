@@ -3,6 +3,8 @@
 #
 TODAY = $(shell date "+%Y-%m-%d")
 
+YEARS = 2024,2023,2022,2021,2020,2019,2018,2017,2016
+
 TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
@@ -111,13 +113,14 @@ gemini: .FORCE
 	bash mk-gemini-pages.bash
 
 phlog: .FORCE
+	pttk phlogit -prefix=blog -refresh=$(YEARS)
 	bash phlog.bash
 	git add $(shell find . -name gophermap)
 	git add blog/phlog.json
 
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
-	pttk blogit -prefix=blog -refresh=2024,2023,2022,2021,2020,2019,2018,2017,2016
+	pttk blogit -prefix=blog -refresh=$(YEARS)
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
@@ -141,6 +144,7 @@ blog.zip: .FORCE
 	zip -r blog.zip $(find series -type f)
 
 phlog.zip: .FORCE
+	rm phlog.zip
 	zip -r phlog.zip gophermap *.md twtxt.txt
 	zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
 	zip -r phlog.zip $(find series -type f | grep -v -E ".html$")

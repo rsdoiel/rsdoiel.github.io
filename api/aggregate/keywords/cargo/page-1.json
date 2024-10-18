@@ -5,24 +5,26 @@
   "next_page": null,
   "values": [
     {
+      "content": "\n# Initial Impression of Pagefind\n\nBy R. S. Doiel, 2022-11-21\n\nI'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used [LunrJS](https://lunrjs.com) on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. [Pagefind](https://pagefind.app) addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.\n\nPagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).\n\nHere's the steps I took to bring Pagefind up on my M1 Mac.\n\n1. Install cargo/rust using rustup\n2. Make sure `$HOME/.cargo/bin` is in my PATH\n3. Clone the Pagefind Git repository\n4. Change to the repository directory\n5. Build and install pagefind\n\n```\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\nexport PATH=\"$HOME/.cargo/bin:$PATH\"\ngit clone git@github.com git@github.com:CloudCannon/pagefind.git src/github.com/CloudCannon/pagefind\ncd src/github.com/CloudCannon/pagefind\ncargo install pagefind --features extended\n```\n\nNext steps were\n\n1. Switch to my local copy of my website\n2. Build my site in the usual page\n3. Update my `search.html` page to use pagefind\n4. Index my site using pagefind\n5. Test my a local web server\n\nTo get the HTML/JavaScript needed to embed pagefind in your search page see [Getting Started](https://pagefind.app/docs/). The HTML/JavaScript fragment is at the top of the page. After updating `search.html` I ran the pagefind command[^1].\n\n```\npagefind --verbose --bundle-dir ./pagefind --source .\n```\n\nThe indexing is wicked fast and it gives you nice details. I verified everything worked as expected using `pttk ws` static site web server. I then published my website. You can see the results at <http://rsdoiel.sdf.org/search.html> and <https://rsdoiel.github.io/search.html>\n\n[^1]: I specified the bundle directory because GitHub pages had a problem with the default `_pagefind`.\n\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel",
+        "author": "rsdoiel@sdf.org (R. S. Doiel)",
+        "byline": "R. S. Doiel, 2022-11-21",
         "keywords": [
-          "64bit",
-          "Rapsberry Pi OS",
-          "Cargo",
-          "rustc"
+          "site search",
+          "pagefind",
+          "rust",
+          "cargo",
+          "rustup",
+          "M1",
+          "macOS"
         ],
-        "pubDate": "2022-10-31",
-        "title": "Installing Cargo/Rust on Raspberry Pi 400"
+        "pubDate": "2022-11-21",
+        "title": "Initial Impressions of Pagefind"
       },
-      "url": "posts/2022/11/01/installing-cargo-rust-r400.json"
-    }
-  ]
-}22/11/21/initial-impressions-pagefind.json"
+      "url": "posts/2022/11/21/initial-impressions-pagefind.json"
     },
     {
+      "content": "\nRust development notes\n======================\n\nby R. S. Doiel, 2022-09-27\n\nI recently wanted to try [ncgopher](https://github.com/jansc/ncgopher) which is a [rust](https://rust-lang.org) based application. I was working on a an M1 Mac mini. I use [Mac Ports](https://www.macports.org) for my userland applications and installed [cargo](https://doc.rust-lang.org/cargo/) to pickup the rust compiler and build tool\n\n```shell\nsudo port install cargo\n```\n\nAll went well until I tried to build ncgopher and got an error as follows\n\n```\ncargo build --release\n    Updating crates.io index\nerror: Unable to update registry `crates-io`\n\nCaused by:\n  failed to fetch `https://github.com/rust-lang/crates.io-index`\n\nCaused by:\n  failed to authenticate when downloading repository: git@github.com:rust-lang/crates.io-index\n\n  * attempted ssh-agent authentication, but no usernames succeeded: `git`\n\n  if the git CLI succeeds then `net.git-fetch-with-cli` may help here\n  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli\n\nCaused by:\n  no authentication available\nmake: *** [build] Error 101\n```\n\nThis seemed odd as I could run `git clone git@github.com:rust-lang/crates.io-index` successfully. Re-reading the error message a dim light went on. I checked the cargo docs and the value `net.git-fetch-with-cli` defaults to false. That meant that cargo was using its own embedded git. OK, that makes sense but how do I fix it. I had no problem using cargo installed via ports on an Intel iMac so what gives? When cargo got installed on the M1 there was now `.cargo/config.toml` file. If you create this and set the value of `git-fetch-with-cli` to true then the problem resolves itself.\n\nIt was good that the error message provided a lead. It's also good that cargo has nice documentation. My experience though still left the taste of [COIK](https://www.urbandictionary.com/define.php?term=coik). Not sure how to improve the situation. It's not really a cargo bug (unless config.taml should be always created), it's not a rust bug and I don't even think it is a ports packaging bug.  If I was a new developer just getting familiar with git I don't think I would have known how to solve my problem even with the documentation provided. Git is something that has always struggled with COIK. While I like it it does make things challenging.\n\nIf I wind up playing with rust more then I'll add somemore notes here in the future.\n\nMy `$HOME/.cargo/config.toml` file looks like to have cargo use the git cli instead of the built in rust library.\n\n```\n[net]\ngit-fetch-with-cli = true\n```\n\n\n\n\n\n",
       "data": {
         "author": "rsdoiel@gmail.com (R. S. Doiel)",
         "keywords": [
