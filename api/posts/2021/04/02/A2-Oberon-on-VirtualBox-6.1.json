@@ -1,5 +1,474 @@
 {
   "content": "\n\nA2 Oberon on VirtualBox 6.1\n===========================\n\nBy R. S. Doiel, 2021-04-02\n\nThis is a short article documenting how I install A2 Oberon\nin VirtualBox using the [FreeDOS 1.2](https://freedos.org),\nthe A2 [ISO](https://sourceforge.net/projects/a2oberon/files/) cd image and [VirtualBox 6.1](https://virtualbox.org).\n\nBasic Approach\n--------------\n\n1. Download the ISO images for FreeDOS and A2\n2. Create a new Virtual Machine\n3. Install FreeDOS 1.2 (Base install) in the virtual machine\n4. Install A2 from the ISO image over the FreeDOS installation\n\nFrom working with Native Oberon 2.3.7 I've found it very helpful\nto have a FreeDOS 1.2. installed in the Virtual machine first. \nI suspect the reason I have had better luck taking this approach\nis based on assumptions about the virtual hard disk being setup\nwith an existing known formatted, boot-able partition. In essence\nmaking our Virtualbox look like a fresh out of the box vintage PC.\n\nDownload the ISO Images for FreeDOS and A2\n------------------------------------------\n\nYou'll find FreeDOS 1.2 installation ISO image at \n[FreeDos.org](http://freedos.org/download/). Download it\nwhere you can easily find it from the VirtualBox manager.\n\nYou'll find the A2 Oberon ISO image at [SourceForge](https://sourceforge.net/projects/a2oberon/files/) in the A2 Files section. There is a green download\nbutton you can click and it'll take you to a downloads page and download\nthe ISO.  Once again move it to where you can find it from \nthe VirtualBox manager easily.\n\n\nCreate a new Virtual Machine\n----------------------------\n\nFire up VirtualBox.  Click the \"New\" icon. Given your machine\na descriptive name and set the Type to \"Other\" and version to \"DOS\".\nClick Next.\n\nOn the Memory Size panel select the memory size you want. I picked\n2048 MB. A2 like other Oberon are frugal in resource consumption.\nClick Next.\n\nOn the Hard Disk panel I accepted the default \"Create a virtual hard disk now\"\nand clicked \"Create\" button at the bottom of the panel.\n\nI accepted the default \"VDI (VirtualBox Disk Image)\" and clicked\nNext.\n\nI accepted \"Dynamically allocated\" and clicked Next.\n\nI accepted the default name and 500 MB disk size and clicked\nCreate.\n\nThis returned me to the main VirtualBox manager panel. I click on \nthe \"Settings\" icon. This opens the Settings panel. I Clicked on the\n\"Display\" label in the left side of the panel. On the \"Screen\" tab\nI increased the Video Memory from 6 MB to 128 MB.  I also checked\nthe \"Enable 3D Acceleration\" box.\n\nNext I clicked  \"Network\" label in the left side of the panel.\nI changed the Attached to from \"NAT\" to \"Bridged Adapter\"\nbefore clicking \"OK\". This should return you to the manager panel.\n\nScroll down the description of your virtual machine so that the\n\"Storage\" section is visible. You should see \"IDE Secondary Device 0: \n[Optical Drive] Empty\". Click the the words \"Optical Drive\".\nYou be given a context menu, click on \"Choose a Disk file\". Navigate\nto where you saved the FressDOS ISO (e.g. FD12CD.iso).\nClick Open. This should return you to the manager panel and you\nshould see the \"FD12CD.iso\" file listed.\n\nInstall FreeDOS 1.2\n-------------------\n\nClick the \"Start\" button.  This should boot the machine. By\ndefault the search order for booting is floppy drive,\nCD-ROM drive then hard disk.  Since we have the FD12CD.iso\nmounted in the cd ROM drive it'll boot using it.\n\nWhen you see the \"Welcome\" screen press the tab key.\nYou should see a line describing the image it'll boot.  Click\ninto the Virtual machine's window and press the space bar\nthen type \"raw\" (without the quotes). Press the enter key.\n\nThis should return you to the install process, select your\nlanguage (e.g. English for me). The select \"Yes - Continue with the\ninstallations\". On the next screen select \"Yes - Partition drive C:\".\nThen select \"Yes - Please reboot now\". This will reboot the\nmachine and bring you back to the Welcome page. Once again\npress the tab key, press the space bar and type in \"raw\"\n(without the quotes).\n\nAs before select your language and select \"Yes - Continue with\nthe installation\". This time you should see the option \n\"Yes - Please erase and format drive C:\", select it. \nAfter formatting it ask you to select your keyboard type.\nIt will then give you the option of installing base or full\ninstallations (with our without source).  I suggest only\nselecting \"Base packages only\".  \n\nOn the next screen select \"Yes - Please install FreeDOS 1.2\".\nAfter it finishes you can select \"Yes - Please reboot now\".\nWhen the machine reboots you'll see the welcome screen again\nbut rather than press tab, select \"Boot system from hard disk\".\nPress enter to select the extended memory manager and you\nshould now be at the DOS \"C:>\" prompt.\n\nSwitch back to the VirtualBox manager panel and click on\n\"Optical Drive\" and click \"Remove disk from virtual drive\".\n\nInstalling A2 Oberon\n--------------------\n\nWe now should have a Virtual Machine ready to receive A2.\nClick the \"Optical Drive\" again and select the A2 ISO\nimage you downloaded from SourceForge previously.\nYour optical drive should show the full filename of\nthe ISO image, e.g. \"A2_Rev-6498_serial-trace.iso\"\nWe can now click the \"Start\" icon in the manager panel.\n\nA2 comes up running like a \"live CD\".  It's the full A2\nso you can play around with it if you want but we're going\nto install it on our virtual hard drive. At the bottom of the\nA2 desktop you should see a panel of buttons. Click the button\nlabeled \"System\". This will change the panel buttons below it.\nIn the lower panel you should see \"Installer\", click it. This\nwill bring up a \"Welcome to Oberon\" installer window. You will\nsee two presentations of drives. The upper one will be the hard\ndrive where we want to install A2 and the lower one is the \nvirtual CD ROM we're running. Click on the bar for the hard disk.\nBefore click the drive bar was red. After clicking it was yellow.\nThe text label above the var says, \"IDE0 (VBOX HARD DISK), Size \n500 MB, Open count 0\".\n\nIn the lower part of the panel click \"Quickinstall\", then\nanswer Yes to the model dialog that pops up. After a few moments \nA2 should finish installing itself on the virtual hard disk.  The lower\npanel's buttons will include one labeled \"Done\", press it. This\nwill close the installer window.\n\nAt the bottom of the desktop you should still see the System\npanel buttons. There is a red one labeled \"Shutdown\". Press it.\n\nThe virtual machine's screen should go black. On my machine\nI press the right control key (the host key) to release my\nmouse and keyboard from the virtual machine. Close the window\nand when it select \"Power of the machine\" in when VirtualBox\nprompts how to shut it down.\n\nLike with the FD12CD.iso we want to unmount our A2 installation\nCD ROM. Click on the \"Optical Drive\" in the manager panel\nand choose \"Remove disk from virtual Drive\". \n\nYou can now start the machine again and start exploring A2.\nI recommend looking at the [Oberon Wikibook](https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS)\n for details about how to use A2 and ideas of what to explore.\n\nOne nice feature of A2 is it includes a full \"NativeOberon\"\nor ETH Oberon as an A2 Application.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A2 Oberon on VirtualBox 6.1"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2021-04-02"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is a short article documenting how I install A2 Oberon\nin VirtualBox using the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "FreeDOS 1.2"
+              }
+            ],
+            "type": "link",
+            "url": "https://freedos.org"
+          },
+          {
+            "type": "text",
+            "value": ",\nthe A2 "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ISO"
+              }
+            ],
+            "type": "link",
+            "url": "https://sourceforge.net/projects/a2oberon/files/"
+          },
+          {
+            "type": "text",
+            "value": " cd image and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "VirtualBox 6.1"
+              }
+            ],
+            "type": "link",
+            "url": "https://virtualbox.org"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Basic Approach"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Download the ISO images for FreeDOS and A2"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Create a new Virtual Machine"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install FreeDOS 1.2 (Base install) in the virtual machine"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install A2 from the ISO image over the FreeDOS installation"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "From working with Native Oberon 2.3.7 I've found it very helpful\nto have a FreeDOS 1.2. installed in the Virtual machine first.\nI suspect the reason I have had better luck taking this approach\nis based on assumptions about the virtual hard disk being setup\nwith an existing known formatted, boot-able partition. In essence\nmaking our Virtualbox look like a fresh out of the box vintage PC."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Download the ISO Images for FreeDOS and A2"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You'll find FreeDOS 1.2 installation ISO image at\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "FreeDos.org"
+              }
+            ],
+            "type": "link",
+            "url": "http://freedos.org/download/"
+          },
+          {
+            "type": "text",
+            "value": ". Download it\nwhere you can easily find it from the VirtualBox manager."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You'll find the A2 Oberon ISO image at "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "SourceForge"
+              }
+            ],
+            "type": "link",
+            "url": "https://sourceforge.net/projects/a2oberon/files/"
+          },
+          {
+            "type": "text",
+            "value": " in the A2 Files section. There is a green download\nbutton you can click and it'll take you to a downloads page and download\nthe ISO.  Once again move it to where you can find it from\nthe VirtualBox manager easily."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Create a new Virtual Machine"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Fire up VirtualBox.  Click the \"New\" icon. Given your machine\na descriptive name and set the Type to \"Other\" and version to \"DOS\".\nClick Next."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "On the Memory Size panel select the memory size you want. I picked\n2048 MB. A2 like other Oberon are frugal in resource consumption.\nClick Next."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "On the Hard Disk panel I accepted the default \"Create a virtual hard disk now\"\nand clicked \"Create\" button at the bottom of the panel."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I accepted the default \"VDI (VirtualBox Disk Image)\" and clicked\nNext."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I accepted \"Dynamically allocated\" and clicked Next."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I accepted the default name and 500 MB disk size and clicked\nCreate."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This returned me to the main VirtualBox manager panel. I click on\nthe \"Settings\" icon. This opens the Settings panel. I Clicked on the\n\"Display\" label in the left side of the panel. On the \"Screen\" tab\nI increased the Video Memory from 6 MB to 128 MB.  I also checked\nthe \"Enable 3D Acceleration\" box."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next I clicked  \"Network\" label in the left side of the panel.\nI changed the Attached to from \"NAT\" to \"Bridged Adapter\"\nbefore clicking \"OK\". This should return you to the manager panel."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Scroll down the description of your virtual machine so that the\n\"Storage\" section is visible. You should see \"IDE Secondary Device 0:\n[Optical Drive] Empty\". Click the the words \"Optical Drive\".\nYou be given a context menu, click on \"Choose a Disk file\". Navigate\nto where you saved the FressDOS ISO (e.g. FD12CD.iso).\nClick Open. This should return you to the manager panel and you\nshould see the \"FD12CD.iso\" file listed."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Install FreeDOS 1.2"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Click the \"Start\" button.  This should boot the machine. By\ndefault the search order for booting is floppy drive,\nCD-ROM drive then hard disk.  Since we have the FD12CD.iso\nmounted in the cd ROM drive it'll boot using it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When you see the \"Welcome\" screen press the tab key.\nYou should see a line describing the image it'll boot.  Click\ninto the Virtual machine's window and press the space bar\nthen type \"raw\" (without the quotes). Press the enter key."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This should return you to the install process, select your\nlanguage (e.g. English for me). The select \"Yes - Continue with the\ninstallations\". On the next screen select \"Yes - Partition drive C:\".\nThen select \"Yes - Please reboot now\". This will reboot the\nmachine and bring you back to the Welcome page. Once again\npress the tab key, press the space bar and type in \"raw\"\n(without the quotes)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "As before select your language and select \"Yes - Continue with\nthe installation\". This time you should see the option\n\"Yes - Please erase and format drive C:\", select it.\nAfter formatting it ask you to select your keyboard type.\nIt will then give you the option of installing base or full\ninstallations (with our without source).  I suggest only\nselecting \"Base packages only\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "On the next screen select \"Yes - Please install FreeDOS 1.2\".\nAfter it finishes you can select \"Yes - Please reboot now\".\nWhen the machine reboots you'll see the welcome screen again\nbut rather than press tab, select \"Boot system from hard disk\".\nPress enter to select the extended memory manager and you\nshould now be at the DOS \"C:>\" prompt."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Switch back to the VirtualBox manager panel and click on\n\"Optical Drive\" and click \"Remove disk from virtual drive\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Installing A2 Oberon"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We now should have a Virtual Machine ready to receive A2.\nClick the \"Optical Drive\" again and select the A2 ISO\nimage you downloaded from SourceForge previously.\nYour optical drive should show the full filename of\nthe ISO image, e.g. \"A2_Rev-6498_serial-trace.iso\"\nWe can now click the \"Start\" icon in the manager panel."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A2 comes up running like a \"live CD\".  It's the full A2\nso you can play around with it if you want but we're going\nto install it on our virtual hard drive. At the bottom of the\nA2 desktop you should see a panel of buttons. Click the button\nlabeled \"System\". This will change the panel buttons below it.\nIn the lower panel you should see \"Installer\", click it. This\nwill bring up a \"Welcome to Oberon\" installer window. You will\nsee two presentations of drives. The upper one will be the hard\ndrive where we want to install A2 and the lower one is the\nvirtual CD ROM we're running. Click on the bar for the hard disk.\nBefore click the drive bar was red. After clicking it was yellow.\nThe text label above the var says, \"IDE0 (VBOX HARD DISK), Size\n500 MB, Open count 0\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In the lower part of the panel click \"Quickinstall\", then\nanswer Yes to the model dialog that pops up. After a few moments\nA2 should finish installing itself on the virtual hard disk.  The lower\npanel's buttons will include one labeled \"Done\", press it. This\nwill close the installer window."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At the bottom of the desktop you should still see the System\npanel buttons. There is a red one labeled \"Shutdown\". Press it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The virtual machine's screen should go black. On my machine\nI press the right control key (the host key) to release my\nmouse and keyboard from the virtual machine. Close the window\nand when it select \"Power of the machine\" in when VirtualBox\nprompts how to shut it down."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Like with the FD12CD.iso we want to unmount our A2 installation\nCD ROM. Click on the \"Optical Drive\" in the manager panel\nand choose \"Remove disk from virtual Drive\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You can now start the machine again and start exploring A2.\nI recommend looking at the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Oberon Wikibook"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikibooks.org/wiki/Oberon#A2_and_UnixAOS"
+          },
+          {
+            "type": "text",
+            "value": "\nfor details about how to use A2 and ideas of what to explore."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "One nice feature of A2 is it includes a full \"NativeOberon\"\nor ETH Oberon as an A2 Application."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2021, R. S. Doiel",

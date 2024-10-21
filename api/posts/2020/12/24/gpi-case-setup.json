@@ -1,5 +1,414 @@
 {
   "content": "\n\nSetting up a RetroFlag GPi Case\n===============================\n\nBy R. S. Doiel, 2020-12-24\n\nThese are my notes for setting up a RetroFlag GPi case using Recalbox\ndistribution for retro gaming.\n\n+ RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)\n+ A computer to setup the SD Card  and the Raspberry Pi Imager v1.5\n\nWe will be installing [Recalbox](https://www.recalbox.com/ \"the all-in-one retro gaming console\")\nv7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro\nGaming Linux distribution.\n\nSteps\n=====\n\nPreparing the 32 GiB SD Card\n---------------------------\n\n1. Download the appropriate Raspberry Pi Imager 1.5 from \n   https://www.raspberrypi.org/software/ for your system\n2. Install and launch the Raspberry Pi Imager\n3. Click \"Operating System\"\n  a. Select \"Emulation and game OS\"\n  b. Select \"Recalbox\"\n  c. Select \"Recalbox 7.1.1-Reloaded (Pi 0/1/GPi Case)\"\n4. Click \"SD Card\" \", then select the bank 32 GiB SD Card\n5. Click \"Write\"\n6. You will be asked remove the SD Card when done, do so and and exit \n   Raspberry Pi Imager\n\nNOTE: The current release of Recalbox (7.7.1) doesn't require patching\nwith \"GPI_Case_patch.zip\" or installing the shutdown scripts as suggested\non the RetroFlag website. Applying the patches will prevent the GPi\nfrom booting. The website instructions appear to be for an earlier release\nof Recalbox.\n\n\nInstalling the Raspberry Pi Zero W in the GPi Case\n--------------------------------------------------\n\nThe RetroFlag comes with instructions to install the Raspberry Pi Zero W\nin the case. I found the pictorial instructions confusing. Doing a search\nfor \"RetroFlag GPi Case Setup\" yielded a link to [Howchoo's YouTube\nvideo](https://www.youtube.com/watch?v=NyJUlNifN1I&feature=youtu.be \"RetroFlag GPi CASE Setup and Usage\"),  This video also talks about setting up Retro Pi software,\nGPi case patches. Skip these. The instructions are now for software that\nis out of date (the video dates back to 2019). \n\nNOTE: Howchoo describes installing RetroPie not Recalbox. Don't install a\n\"wpa_supplicant.conf\" file or \"ssh\" file on the SD Card as suggested.\nIt is not needed and will cause problems.\n\nThe GPi case looks very much like a Game Boy. It includes a \"Game Pack\"\ntype module which will hold our Raspberry Pi once installed. I found the\nassembly instructions confusing but searching YouTube for \"RetroFlag GPi\nCase Setup\" listed several videos which describe the process of putting\nthe case together as well as how to install RetroPie or\nRecalbox Linux Distributions.\n\nBooting the Pi Zero W with the SD Card\n--------------------------------------\n\n1. Make sure the GPi Zero Case **IS NOT CONNECTED TO POWER**\n  a. the switch the case off\n  b. Disconnect the barrel to USB cable from a power source\n2. Remove the \"game pack\" element where you've installed the Raspberry Pi Zero W\n3. Insert the SD Card into the SD Card slot under the soft cover on the side of\n   the Game Pack case\n4. Re-insert \"Game Pack\" into side of the GPi case\n5. Plug the barrel USB cable into a USB Power supply , \n6. Turn the power switch to \"ON\" on the top of the GPi case\n7. Wait patiently, it's going to take several minutes to boot the first time\n\n\n\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Setting up a RetroFlag GPi Case"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-12-24"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "These are my notes for setting up a RetroFlag GPi case using Recalbox\ndistribution for retro gaming."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "A computer to setup the SD Card  and the Raspberry Pi Imager v1.5"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We will be installing "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Recalbox"
+              }
+            ],
+            "title": "the all-in-one retro gaming console",
+            "type": "link",
+            "url": "https://www.recalbox.com/"
+          },
+          {
+            "type": "text",
+            "value": "\nv7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro\nGaming Linux distribution."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Steps"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Preparing the 32 GiB SD Card"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Download the appropriate Raspberry Pi Imager 1.5 from\nhttps://www.raspberrypi.org/software/ for your system"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install and launch the Raspberry Pi Imager"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Click \"Operating System\"\na. Select \"Emulation and game OS\"\nb. Select \"Recalbox\"\nc. Select \"Recalbox 7.1.1-Reloaded (Pi 0/1/GPi Case)\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Click \"SD Card\" \", then select the bank 32 GiB SD Card"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Click \"Write\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "You will be asked remove the SD Card when done, do so and and exit\nRaspberry Pi Imager"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: The current release of Recalbox (7.7.1) doesn't require patching\nwith \"GPI_Case_patch.zip\" or installing the shutdown scripts as suggested\non the RetroFlag website. Applying the patches will prevent the GPi\nfrom booting. The website instructions appear to be for an earlier release\nof Recalbox."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Installing the Raspberry Pi Zero W in the GPi Case"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The RetroFlag comes with instructions to install the Raspberry Pi Zero W\nin the case. I found the pictorial instructions confusing. Doing a search\nfor \"RetroFlag GPi Case Setup\" yielded a link to "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Howchoo's YouTube\nvideo"
+              }
+            ],
+            "title": "RetroFlag GPi CASE Setup and Usage",
+            "type": "link",
+            "url": "https://www.youtube.com/watch?v=NyJUlNifN1I&feature=youtu.be"
+          },
+          {
+            "type": "text",
+            "value": ",  This video also talks about setting up Retro Pi software,\nGPi case patches. Skip these. The instructions are now for software that\nis out of date (the video dates back to 2019)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Howchoo describes installing RetroPie not Recalbox. Don't install a\n\"wpa_supplicant.conf\" file or \"ssh\" file on the SD Card as suggested.\nIt is not needed and will cause problems."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The GPi case looks very much like a Game Boy. It includes a \"Game Pack\"\ntype module which will hold our Raspberry Pi once installed. I found the\nassembly instructions confusing but searching YouTube for \"RetroFlag GPi\nCase Setup\" listed several videos which describe the process of putting\nthe case together as well as how to install RetroPie or\nRecalbox Linux Distributions."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Booting the Pi Zero W with the SD Card"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make sure the GPi Zero Case "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "IS NOT CONNECTED TO POWER"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\na. the switch the case off\nb. Disconnect the barrel to USB cable from a power source"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Remove the \"game pack\" element where you've installed the Raspberry Pi Zero W"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Insert the SD Card into the SD Card slot under the soft cover on the side of\nthe Game Pack case"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Re-insert \"Game Pack\" into side of the GPi case"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Plug the barrel USB cable into a USB Power supply ,"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Turn the power switch to \"ON\" on the top of the GPi case"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Wait patiently, it's going to take several minutes to boot the first time"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2020, R. S. Doiel",

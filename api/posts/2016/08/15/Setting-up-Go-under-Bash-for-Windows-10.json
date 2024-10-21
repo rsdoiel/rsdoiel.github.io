@@ -1,5 +1,494 @@
 {
   "content": "\n\n# Exploring Bash for Windows 10 Pro\n\nBy R. S. Doiel 2016-08-15\n\n    UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under \n    Windows 10 Pro I've am getting compile errors when the \n    assembler is being built.  I can compile go1.4.3 but see errors \n    in some of the tests results.\n\n## Initial Setup and configuration\n\nI am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps\n\n+ Search with Bing for \"Bash for Windows\" \n    + Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/\n+ Switch on developer mode for Windows\n+ Turned on Linux Subsystem Beta (searched for \"Turning on Features\")\n+ Reboot\n+ Search for \"Bash\" and clicked on \"Run Bash command\"\n+ Answered \"y\"\n+ Waited for download and extracted file system\n+ When prompted setup developer account with username/password\n    + Documentation can be found at https://aka.ms/wsldocs\n+ Exit root install shell\n+ Search for \"Bash\" locally\n+ Launched \"Bash on Ubuntu on Windows\"\n+ Authenticate with your username/password\n\n\n## Setting up Go under Bash for Windows 10\n\nWith Bash installed these are the steps I took to compile Go\nunder Bash on Ubuntu on Windows.\n\n```shell\n    sudo apt-get update && sudo apt-get upgrade -y\n    sudo apt-get autoremove\n    sudo apt-get install build-essential clang git-core unzip zip -y\n    export CGO_ENABLE=0\n    git clone https://github.com/golang/go go1.4\n    git clone https://github.com/golang/go go\n    cd go1.4\n    git checkout go1.4.3\n    cd src\n    ./all.bash\n    cd\n    export PATH=$PATH:$HOME/go1.4/bin\n    cd go\n    git checkout go1.7\n    cd src\n    ./all.bash\n    cd\n    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME\n```\n\nNote some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed\naround network sockets.  This is probably a result of the limitations in the Linux subsystem\nunder Windows.\n\nIf successful you should be able to run `go version` as well as install additional Go based software\nwith the usual `go get ...` syntax.\n\nIn your `.bashrc` or `.profile` add the following\n\n```shell\n    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME\n```\n\n\n## Improved vim setup\n\nI like the vim-go packages for editing Go code in vim. They are easy to setup.\n\n```shell\n     mkdir -p ~/.vim/autoload ~/.vim/bundle \n     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim\n     git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go\n```\n\nExample $HOME/.vimrc\n\n```vimrc\n    execute pathogen#infect()\n    syntax on\n    filetype plugin on\n    set ai\n    set nu\n    set smartindent\n    set tabstop=4\n    set shiftwidth=4\n    set expandtab\n    let &background = ( &background == \"dark\"? \"light\" : \"dark\" )\n    let g:vim_markdown_folding_disabled=1\n```\n\nColor schemes are browsable at [vimcolors.com](http://vimcolors.com). They can be installed in\n$HOME/.vim/colors.\n\n1. git clone and place the colorscheme\n2. place the *.vim file holding the color scheme into $HOME/.vim/colors\n3. start vim and at the : do colorscheme NAME where NAME is the scheme you want to try\n\nYou can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number\ne.g. /usr/share/vim/vim74/colors.\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Exploring Bash for Windows 10 Pro"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel 2016-08-15"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under \nWindows 10 Pro I've am getting compile errors when the \nassembler is being built.  I can compile go1.4.3 but see errors \nin some of the tests results."
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Initial Setup and configuration"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Search with Bing for \"Bash for Windows\""
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Switch on developer mode for Windows"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Turned on Linux Subsystem Beta (searched for \"Turning on Features\")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Reboot"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Search for \"Bash\" and clicked on \"Run Bash command\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Answered \"y\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Waited for download and extracted file system"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "When prompted setup developer account with username/password"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Documentation can be found at https://aka.ms/wsldocs"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Exit root install shell"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Search for \"Bash\" locally"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Launched \"Bash on Ubuntu on Windows\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Authenticate with your username/password"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Setting up Go under Bash for Windows 10"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "With Bash installed these are the steps I took to compile Go\nunder Bash on Ubuntu on Windows."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    sudo apt-get update && sudo apt-get upgrade -y\n    sudo apt-get autoremove\n    sudo apt-get install build-essential clang git-core unzip zip -y\n    export CGO_ENABLE=0\n    git clone https://github.com/golang/go go1.4\n    git clone https://github.com/golang/go go\n    cd go1.4\n    git checkout go1.4.3\n    cd src\n    ./all.bash\n    cd\n    export PATH=$PATH:$HOME/go1.4/bin\n    cd go\n    git checkout go1.7\n    cd src\n    ./all.bash\n    cd\n    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed\naround network sockets.  This is probably a result of the limitations in the Linux subsystem\nunder Windows."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If successful you should be able to run "
+          },
+          {
+            "type": "inlineCode",
+            "value": "go version"
+          },
+          {
+            "type": "text",
+            "value": " as well as install additional Go based software\nwith the usual "
+          },
+          {
+            "type": "inlineCode",
+            "value": "go get ..."
+          },
+          {
+            "type": "text",
+            "value": " syntax."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In your "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".bashrc"
+          },
+          {
+            "type": "text",
+            "value": " or "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".profile"
+          },
+          {
+            "type": "text",
+            "value": " add the following"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Improved vim setup"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I like the vim-go packages for editing Go code in vim. They are easy to setup."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "     mkdir -p ~/.vim/autoload ~/.vim/bundle \n     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim\n     git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example $HOME/.vimrc"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "vimrc",
+        "type": "code",
+        "value": "    execute pathogen#infect()\n    syntax on\n    filetype plugin on\n    set ai\n    set nu\n    set smartindent\n    set tabstop=4\n    set shiftwidth=4\n    set expandtab\n    let &background = ( &background == \"dark\"? \"light\" : \"dark\" )\n    let g:vim_markdown_folding_disabled=1"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Color schemes are browsable at "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "vimcolors.com"
+              }
+            ],
+            "type": "link",
+            "url": "http://vimcolors.com"
+          },
+          {
+            "type": "text",
+            "value": ". They can be installed in\n$HOME/.vim/colors."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "git clone and place the colorscheme"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "place the *.vim file holding the color scheme into $HOME/.vim/colors"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "start vim and at the : do colorscheme NAME where NAME is the scheme you want to try"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number\ne.g. /usr/share/vim/vim74/colors."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2016, R. S. Doiel",

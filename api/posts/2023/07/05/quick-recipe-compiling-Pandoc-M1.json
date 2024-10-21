@@ -1,5 +1,225 @@
 {
   "content": "\n# Quick recipe, compile Pandoc (M1)\n\nThese are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/jgm/pandoc> to your local machine\n4. Check out the version you want to build (e.g. 3.1.4)\n5. Run the \"usual\" Haskell build sequence with cabal per Pandoc's installation documentation for building from source\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal install pandoc-cli`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/jgm/pandoc\ncd src/github.com/jgm/pandoc\ngit clone git@github.com:jgm/pandoc\ncd pandoc\ngit checkout 3.1.4\ncabal clean\ncabal update\ncabal install pandoc-cli\n~~~\n\nThis will install Pandoc in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n## libiconv compile issues\n\nIf you use Mac Ports it can confuse Cabal/Haskell which one to link to. You'll get an error talking about undefined symbols and iconv.  To get a clean compile I've typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. `sudo port uninstall libiconv`, an using the \"all\" option when prompted).  After I've got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Quick recipe, compile Pandoc (M1)"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "GHCup"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.haskell.org/ghcup/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to get a good Haskell setup (I accept all the default choices)\na. Use the curl example command to install it\nb. Make sure the environment is active (e.g. source "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "$HOME/.ghcup/env"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Clone "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "https://github.com/jgm/pandoc"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://github.com/jgm/pandoc"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to your local machine"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Check out the version you want to build (e.g. 3.1.4)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Run the \"usual\" Haskell build sequence with cabal per Pandoc's installation documentation for building from source\na. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal clean"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\nb. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal update"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\nc. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal install pandoc-cli"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/jgm/pandoc\ncd src/github.com/jgm/pandoc\ngit clone git@github.com:jgm/pandoc\ncd pandoc\ngit checkout 3.1.4\ncabal clean\ncabal update\ncabal install pandoc-cli"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This will install Pandoc in your "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$HOME/.cabal/bin"
+          },
+          {
+            "type": "text",
+            "value": " directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "libiconv compile issues"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you use Mac Ports it can confuse Cabal/Haskell which one to link to. You'll get an error talking about undefined symbols and iconv.  To get a clean compile I've typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "sudo port uninstall libiconv"
+          },
+          {
+            "type": "text",
+            "value": ", an using the \"all\" option when prompted).  After I've got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "R. S. Doiel",
     "keywords": [

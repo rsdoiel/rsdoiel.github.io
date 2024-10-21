@@ -1,5 +1,912 @@
 {
   "content": "\n# RISC OS 5.30, GCC 4.7 and Hello World\n\nBy R. S. Doiel, 2024-06-08 (updated: 2024-06-16)\n\nPresently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.\n\nI found two resources helpful. First James Hobson had a YouTUBE series on RISC OS and C programming. From this I learned about allocating more space in the Task Window via the Tasks window display of Next and Free memory. Very handy to know. Watching his presentation it became apparent he was walking through some\none's tutorial. This lead to some more DuckDuckGo searches and that is when I stumbled on Steve Fryatt's [Wimp Programming In C](https://www.stevefryatt.org.uk/risc-os/wimp-prog). James Hobson's series (showing visually) help and the detail of Steve Fryatt's tutorial helped me better understanding how things work on RISC OS.\n\nI think these both probably date from around 2016. Things have been evolving in RISC OS since then. I'm not certain that OSLib today plays the same role it played in 2016. Also in the case of Steve Fryatt's tutorial I'm not certain that the DDE and Norcroft compilers are essential in the say way. Since I am waiting on the arrival of the ePic SD Card I figured I'd get started using the\nGCC and tools available via Packman and see how far I can get.\n\n## Getting oriented\n\nWhat I think I need.\n\n1. Editor\n2. C compiler\n3. Probably some libraries\n\nYou need an editor fortunately RISC OS comes with two, `!Edit` and `!StrongED`. You can use both to create C files since they are general purpose text edits.\n\nYou need a C compiler, GCC 4.7.4 is available via Packman. That is a click,\nand download away so I installed that.\n\nI had some libraries already installed so I skipped installing additional ones since I wasn't sure what was currently required.\n\n## Pick a simple goal\n\nWhen learning a new system I find it helpful to set simple goals. It helps from feeling overwhelmed.\n\nMy initial goal is to understand how I can compile a program and run it in the Task Window of RISC OS. The Task Window is a command line environment for RISC OS much like a DOS Window was for MS Windows or the Terminal is for modern macOS.  My initial program will only use standard in and out. Those come with the standard library that ships with the compiler. Minimal dependencies simplifies things. That goes my a good simple intial goal.\n\n> I want to understand the most minimal requirements to compile a C program and run it in Task Window\n\n## Getting started\n\nThe program below is a simple C variation on the \"Hello World\"  program tought to beginner C programers.  I've added a minimal amount of parameter handlnig to se how that works in the Task Window environment. This program will say \"Hello World!\" but if you include parameters it will say \"Hi\" to those too.\n\nThe code looks like this.\n\n~~~C\n#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n  int i = 0;\n  printf(\"Hello World!\\n\");\n  for (i = 1; i < argc; i++)  { \n       printf(\"Hi %s\\n\", argv[i]);\n  }\n  return 0;\n}\n~~~\n\nIn a POSIX system I would name this \"HelloWorld.c\". On RISC OS the \".\" (dot)\nis a directory delimiter. There seems to be two approaches to translating POSIX paths to RISC OS. Samba mounted resources seem to have a simple substitution translatio. A dot used for file extensions in POSIX becomes a slash. The slash directory delimiter becomes a dot. Looking at it from the POSIX side the translation is flipped. A POSIX path like \"Project/HelloWorld/HelloWorld.c\" becomes \"Project.HelloWorld.HelloWorld/c\" in RISC OS.\n\nIn reading of the RISC OS Open forums I heard discussions about a different approach that is more RISC OS centric. It looks like the convention in RISC OS is to put the C files in a directory called \"c\" and the header files in a directory called \"h\". Taking that approach I should instead setup my directory paths like \"Project.HelloWorld.c\" which in POSIX would be \"Project/HelloWorld/c\". It seems to make sense to follow the RISC OS convensions in this case as I am not planning to port my RISC OS C code to POSIX anytime soon and if I did I could easily write a mappnig program to do that. My path to \"HelloWorld\" C source should look like `$.Projects.C_Programming.c.HelloWorld`.\n\nAfter storting this bit out it is time to see if I can compile a simple program with GCC and run it in a Task Window. This is a summary of my initial efforts.\n\nFirst attempt steps\n\n1. Open Task Window\n2. run `gcc --version`\n\nThis failed. GCC wasn't visible to the task window. Without understanding what I was doing I decided maybe I need to launch `!GCC` in `$.Apps.Development` directory. I then tried `gcc --version` again in the Task Window and this time\nthe error was about not enough memory available. I looked the \"Tasks\" window and saw plenty of memory was free. I did NOT realise you could drag the red bar for \"next\" and increase the memory allocation for the next time you opened a Task Window. I didn't find that out until I did some searching and stumbled on James Hobson's videos after watching the recent WROCC Wakefield Show held in Bedford (2024).\n\n> A clever thing about RISC OS is the graphical elements are not strictly informational. Often they are actionable. Dragging is not limited to icons.\n\nSecond attempt steps\n\n1. Open the Tasks window, drag the memory (red bar) allocation to be more than 16K\n2. Open a new Task Window\n3. Find and Click on `!GCC`\n4. In the task window check the GCC version number\n5. Change the directory in the Task Window to where I saved \"HelloWorld\"\n6. Check the directory with \"cat\"\n7. Try to compile with `gcc HelloWorld -o app`, fails\n8. Check GCC options with `--help`\n9. Try to compiled with `gcc -x c HelloWorld -o app`, works\n\nThis sequence was more successful. I did a \"cat\" on the task window and saw I was not in the right folder where my \"HelloWorld\" was saved.  Fortunately James Hobson video shows any easy way of setting the working directory. I brought the window forward that held \"HelloWorld\". Then I used the middle mouse button (context menu) to \"set directory\". I then switched back to the Task Window and low and behold when I did a \"cat\" I could see my HelloWorld file.\n\nI  tried to compile \"HelloWorld\". In James Hobson video he shows how to do this but I couldn't really see what he typed.  When I tried this I got an error\nabout the file type not being determined.  Doing `gcc --help` listed the options\nand I spotted `-x` can be used to explicitly set the type from the GCC point of view. This is something to remember when using GCC. It's a POSIX program running\non RISC OS which is not a POSIX system.  GCC will expect files to have a POSIX references in some case and not others. There's a bit of trial and error around\nthis for me.\n\nNext I tried using the `-x c` option. I try recompiling and after a few moments\nGCC creates a \"app\" file in the current directory. On initial creation it is a Textfile but then the icon quickly switches to a \"App/ELF\" icon.  Double clicking the App icon displays hex code in the Task Window. Not what I was expected. Back in the Task Window I type the following.\n\n~~~shell\napp Henry Mable\n~~~\n\nAnd I get out put of\n\n~~~shell\nHello World!\nHi Henry\nHi Mable\n~~~\n\nMy program works at the CLI level in a Task Window. My initial goal has been met.\n\n## What I learned\n\n1. Remember that RISC OS is a fully GUI system, things you do in windows can change what happens in the whole environment\n2. Remember that the display elements in the GUI maybe actionable\n3. When I double clicked on `!GCC` what it did is add itself to the search path.\n\nI remember something from the Hobson video about setting that in `!Configure`, `!Boot` and picking the right boot configuration action.  I'll leave that for next time. I should also be able to script this in an Obey file and that might be a better approach.\n\nThere are some things I learned about StrongED that were surprising. StrongED's C mode functions like a \"folding\" editor. I saw a red arrow next to my \"main\" functions. If I click it the function folds up except for the function signature and opening curly bracket. Click it again the the arrow changes direction and the full function is visible again.\n\nThe \"build\" icon in StrongED doesn't invoke GCC at the moment. I think the build icon in the ribbon bar maybe looking for a Makefile. If so I need to install Make from Packman. This can be left for next time.\n\nI'd really like to change the editor colors as my eyes have trouble with white background. This too can be left for another day to figure out.\n\n## Next Questions\n\n1. How do I have the GCC compiled \"app\" so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?\n2. Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?\n\n## Updates\n\nI got a chance to read more about [Obey files](https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics) and also clicked through the examples in the `SDSF::RISCOSPi.$.Apps.Development.!GCC` directory (shift double click to open the GCC directory. In that directory is an examples\nfolder which contains a Makefile for compile C programs in various forms.\nFrom there it was an easy stop to see how a simple Obey file could be used\nto create a `!Build` and `!Cleanup` scripts.\nwhere all the GCC setup lives). What follows are the two Obey files in the directory holding the \"c\" folder of HelloWorld.\n\nHere's `!build`\n\n~~~riscos\n| !Build will run GCC on c.HelloWorld to create !HelloWorld\nSet HelloWord$Dir <Obey$Dir>\nWimpSlot -min 16k\ngcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld\n~~~\n\nand `!Cleanup`\n\n~~~riscos\n| !Cleanup removes the binaries created with !Build\nSet HelloWorld$Dir <Obey$Dir>\nDelete !HelloWorld\n~~~\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "RISC OS 5.30, GCC 4.7 and Hello World"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I found two resources helpful. First James Hobson had a YouTUBE series on RISC OS and C programming. From this I learned about allocating more space in the Task Window via the Tasks window display of Next and Free memory. Very handy to know. Watching his presentation it became apparent he was walking through some\none's tutorial. This lead to some more DuckDuckGo searches and that is when I stumbled on Steve Fryatt's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Wimp Programming In C"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.stevefryatt.org.uk/risc-os/wimp-prog"
+          },
+          {
+            "type": "text",
+            "value": ". James Hobson's series (showing visually) help and the detail of Steve Fryatt's tutorial helped me better understanding how things work on RISC OS."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I think these both probably date from around 2016. Things have been evolving in RISC OS since then. I'm not certain that OSLib today plays the same role it played in 2016. Also in the case of Steve Fryatt's tutorial I'm not certain that the DDE and Norcroft compilers are essential in the say way. Since I am waiting on the arrival of the ePic SD Card I figured I'd get started using the\nGCC and tools available via Packman and see how far I can get."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting oriented"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What I think I need."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Editor"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "C compiler"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Probably some libraries"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You need an editor fortunately RISC OS comes with two, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Edit"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!StrongED"
+          },
+          {
+            "type": "text",
+            "value": ". You can use both to create C files since they are general purpose text edits."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You need a C compiler, GCC 4.7.4 is available via Packman. That is a click,\nand download away so I installed that."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I had some libraries already installed so I skipped installing additional ones since I wasn't sure what was currently required."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pick a simple goal"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When learning a new system I find it helpful to set simple goals. It helps from feeling overwhelmed."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My initial goal is to understand how I can compile a program and run it in the Task Window of RISC OS. The Task Window is a command line environment for RISC OS much like a DOS Window was for MS Windows or the Terminal is for modern macOS.  My initial program will only use standard in and out. Those come with the standard library that ships with the compiler. Minimal dependencies simplifies things. That goes my a good simple intial goal."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "I want to understand the most minimal requirements to compile a C program and run it in Task Window"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "blockquote"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting started"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The program below is a simple C variation on the \"Hello World\"  program tought to beginner C programers.  I've added a minimal amount of parameter handlnig to se how that works in the Task Window environment. This program will say \"Hello World!\" but if you include parameters it will say \"Hi\" to those too."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The code looks like this."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "C",
+        "type": "code",
+        "value": "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n  int i = 0;\n  printf(\"Hello World!\\n\");\n  for (i = 1; i < argc; i++)  { \n       printf(\"Hi %s\\n\", argv[i]);\n  }\n  return 0;\n}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In a POSIX system I would name this \"HelloWorld.c\". On RISC OS the \".\" (dot)\nis a directory delimiter. There seems to be two approaches to translating POSIX paths to RISC OS. Samba mounted resources seem to have a simple substitution translatio. A dot used for file extensions in POSIX becomes a slash. The slash directory delimiter becomes a dot. Looking at it from the POSIX side the translation is flipped. A POSIX path like \"Project/HelloWorld/HelloWorld.c\" becomes \"Project.HelloWorld.HelloWorld/c\" in RISC OS."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In reading of the RISC OS Open forums I heard discussions about a different approach that is more RISC OS centric. It looks like the convention in RISC OS is to put the C files in a directory called \"c\" and the header files in a directory called \"h\". Taking that approach I should instead setup my directory paths like \"Project.HelloWorld.c\" which in POSIX would be \"Project/HelloWorld/c\". It seems to make sense to follow the RISC OS convensions in this case as I am not planning to port my RISC OS C code to POSIX anytime soon and if I did I could easily write a mappnig program to do that. My path to \"HelloWorld\" C source should look like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$.Projects.C_Programming.c.HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "After storting this bit out it is time to see if I can compile a simple program with GCC and run it in a Task Window. This is a summary of my initial efforts."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "First attempt steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Open Task Window"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "run "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "gcc --version"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This failed. GCC wasn't visible to the task window. Without understanding what I was doing I decided maybe I need to launch "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!GCC"
+          },
+          {
+            "type": "text",
+            "value": " in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$.Apps.Development"
+          },
+          {
+            "type": "text",
+            "value": " directory. I then tried "
+          },
+          {
+            "type": "inlineCode",
+            "value": "gcc --version"
+          },
+          {
+            "type": "text",
+            "value": " again in the Task Window and this time\nthe error was about not enough memory available. I looked the \"Tasks\" window and saw plenty of memory was free. I did NOT realise you could drag the red bar for \"next\" and increase the memory allocation for the next time you opened a Task Window. I didn't find that out until I did some searching and stumbled on James Hobson's videos after watching the recent WROCC Wakefield Show held in Bedford (2024)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "A clever thing about RISC OS is the graphical elements are not strictly informational. Often they are actionable. Dragging is not limited to icons."
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "blockquote"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Second attempt steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Open the Tasks window, drag the memory (red bar) allocation to be more than 16K"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Open a new Task Window"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Find and Click on "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "!GCC"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "In the task window check the GCC version number"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Change the directory in the Task Window to where I saved \"HelloWorld\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Check the directory with \"cat\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Try to compile with "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "gcc HelloWorld -o app"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", fails"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Check GCC options with "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "--help"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Try to compiled with "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "gcc -x c HelloWorld -o app"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", works"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This sequence was more successful. I did a \"cat\" on the task window and saw I was not in the right folder where my \"HelloWorld\" was saved.  Fortunately James Hobson video shows any easy way of setting the working directory. I brought the window forward that held \"HelloWorld\". Then I used the middle mouse button (context menu) to \"set directory\". I then switched back to the Task Window and low and behold when I did a \"cat\" I could see my HelloWorld file."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I  tried to compile \"HelloWorld\". In James Hobson video he shows how to do this but I couldn't really see what he typed.  When I tried this I got an error\nabout the file type not being determined.  Doing "
+          },
+          {
+            "type": "inlineCode",
+            "value": "gcc --help"
+          },
+          {
+            "type": "text",
+            "value": " listed the options\nand I spotted "
+          },
+          {
+            "type": "inlineCode",
+            "value": "-x"
+          },
+          {
+            "type": "text",
+            "value": " can be used to explicitly set the type from the GCC point of view. This is something to remember when using GCC. It's a POSIX program running\non RISC OS which is not a POSIX system.  GCC will expect files to have a POSIX references in some case and not others. There's a bit of trial and error around\nthis for me."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next I tried using the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "-x c"
+          },
+          {
+            "type": "text",
+            "value": " option. I try recompiling and after a few moments\nGCC creates a \"app\" file in the current directory. On initial creation it is a Textfile but then the icon quickly switches to a \"App/ELF\" icon.  Double clicking the App icon displays hex code in the Task Window. Not what I was expected. Back in the Task Window I type the following."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "app Henry Mable"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "And I get out put of"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "Hello World!\nHi Henry\nHi Mable"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My program works at the CLI level in a Task Window. My initial goal has been met."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What I learned"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Remember that RISC OS is a fully GUI system, things you do in windows can change what happens in the whole environment"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Remember that the display elements in the GUI maybe actionable"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "When I double clicked on "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "!GCC"
+                  },
+                  {
+                    "type": "text",
+                    "value": " what it did is add itself to the search path."
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I remember something from the Hobson video about setting that in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Configure"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Boot"
+          },
+          {
+            "type": "text",
+            "value": " and picking the right boot configuration action.  I'll leave that for next time. I should also be able to script this in an Obey file and that might be a better approach."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "There are some things I learned about StrongED that were surprising. StrongED's C mode functions like a \"folding\" editor. I saw a red arrow next to my \"main\" functions. If I click it the function folds up except for the function signature and opening curly bracket. Click it again the the arrow changes direction and the full function is visible again."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The \"build\" icon in StrongED doesn't invoke GCC at the moment. I think the build icon in the ribbon bar maybe looking for a Makefile. If so I need to install Make from Packman. This can be left for next time."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I'd really like to change the editor colors as my eyes have trouble with white background. This too can be left for another day to figure out."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next Questions"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "How do I have the GCC compiled \"app\" so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Updates"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I got a chance to read more about "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Obey files"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics"
+          },
+          {
+            "type": "text",
+            "value": " and also clicked through the examples in the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SDSF::RISCOSPi.$.Apps.Development.!GCC"
+          },
+          {
+            "type": "text",
+            "value": " directory (shift double click to open the GCC directory. In that directory is an examples\nfolder which contains a Makefile for compile C programs in various forms.\nFrom there it was an easy stop to see how a simple Obey file could be used\nto create a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Build"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Cleanup"
+          },
+          {
+            "type": "text",
+            "value": " scripts.\nwhere all the GCC setup lives). What follows are the two Obey files in the directory holding the \"c\" folder of HelloWorld."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!build"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "riscos",
+        "type": "code",
+        "value": "| !Build will run GCC on c.HelloWorld to create !HelloWorld\nSet HelloWord$Dir <Obey$Dir>\nWimpSlot -min 16k\ngcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "!Cleanup"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "riscos",
+        "type": "code",
+        "value": "| !Cleanup removes the binaries created with !Build\nSet HelloWorld$Dir <Obey$Dir>\nDelete !HelloWorld"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "abstract": "These are my notes on learning to program a Raspberry Pi Zero W\nunder RISC OS using GCC 4.7 and RISC OS 5.30\n",
     "created": "2024-06-08",

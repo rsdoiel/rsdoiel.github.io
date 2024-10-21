@@ -1,5 +1,224 @@
 {
   "content": "\n\n# Procedures as parameters\n\nBy R. S. Doiel, 2020-06-20\n\nThis is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.\nMostly Oberon documents my exploration of the Oberon Language, Oberon System and the \nvarious rabbit holes I will inevitably fall into.\n\nOberon-07 supports the passing of procedures as parameters in a procedure. \nLet's create a module name [Noises.Mod](Noises.Mod) to explore this.\n\nThe key to supporting this is Oberon's type system.  We need to decide what our \ngeneric procedure will look like first. In our case our procedures that will display \nan animal noise will include the name of the animal speaking.  We'll call this type \nof procedure \"Noise\". It'll accept an ARRAY OF CHAR for the name as a parameter \nthen use the standard Out module to display the animal name and noise they make.\n\n\n~~~\n\n    TYPE\n      Noise = PROCEDURE (who : ARRAY OF CHAR);\n\n~~~\n\n\nThe two \"Noise\" procedures will be \"BarkBark\" and \"ChirpChirp\". They will\nimplement the same parameter signature as describe in the \"Noise\" type.\n\n\n~~~\n\n    PROCEDURE BarkBark(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Bark, bark\");Out.Ln();\n    END BarkBark;\n\n    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Chirp, chirp\");Out.Ln();\n    END ChirpChirp;\n\n~~~\n\n\nWe'll also create a procedure, MakeNoise, that accepts the animal name and\nour \"Noise\" procedure name and it'll call the \"Noise\" type procedure \npassing in the animal name.\n\n\n~~~\n\n    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);\n    BEGIN\n      (* Call noise with the animal name *)\n      noise(name);\n    END MakeNoise;\n\n~~~\n\n\nIf we invoke MakeNoise with our animal name and pass the name of the \nprocedure we want to do the MakeNoise procedure will generate our\nnoise output. Here' is what is looks like all together.\n\n\n~~~\n\n    MODULE Noises;\n      IMPORT Out;\n    \n    TYPE \n      Noise = PROCEDURE(who : ARRAY OF CHAR);\n    \n    PROCEDURE BarkBark(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Bark, bark\");Out.Ln();\n    END BarkBark;\n    \n    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Chirp, chirp\");Out.Ln();\n    END ChirpChirp;\n    \n    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);\n    BEGIN\n      (* Call noise with the animal name *)\n      noise(name);\n    END MakeNoise;\n    \n    BEGIN\n      MakeNoise(\"Fido\", BarkBark);\n      MakeNoise(\"Tweety\", ChirpChirp);\n      MakeNoise(\"Fido\", ChirpChirp);\n      MakeNoise(\"Tweety\", BarkBark);\n    END Noises.\n\n~~~\n\n\nNote when we pass the procedures we include their name **without** parenthesis.\nOur type definition tells the compiler that the procedure can be a parameter,\nany procedure with the same signature, e.g. `who : ARRAY OF CHAR` as the\nonly parameter will be treated as a \"Noise\" type procedures. \n\n### Next and Previous \n\n+ Next [Procedures in Records](../../07/07/Procedures-in-records.html)\n+ Previous [Dynamic types](../../05/25/Dynamic-types.html) \n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Procedures as parameters"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-06-20"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is the ninth post in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Mostly Oberon"
+              }
+            ],
+            "type": "link",
+            "url": "../../04/11/Mostly-Oberon.html"
+          },
+          {
+            "type": "text",
+            "value": " series.\nMostly Oberon documents my exploration of the Oberon Language, Oberon System and the\nvarious rabbit holes I will inevitably fall into."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon-07 supports the passing of procedures as parameters in a procedure.\nLet's create a module name "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Noises.Mod"
+              }
+            ],
+            "type": "link",
+            "url": "Noises.Mod"
+          },
+          {
+            "type": "text",
+            "value": " to explore this."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The key to supporting this is Oberon's type system.  We need to decide what our\ngeneric procedure will look like first. In our case our procedures that will display\nan animal noise will include the name of the animal speaking.  We'll call this type\nof procedure \"Noise\". It'll accept an ARRAY OF CHAR for the name as a parameter\nthen use the standard Out module to display the animal name and noise they make."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    TYPE\n      Noise = PROCEDURE (who : ARRAY OF CHAR);\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The two \"Noise\" procedures will be \"BarkBark\" and \"ChirpChirp\". They will\nimplement the same parameter signature as describe in the \"Noise\" type."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    PROCEDURE BarkBark(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Bark, bark\");Out.Ln();\n    END BarkBark;\n\n    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Chirp, chirp\");Out.Ln();\n    END ChirpChirp;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We'll also create a procedure, MakeNoise, that accepts the animal name and\nour \"Noise\" procedure name and it'll call the \"Noise\" type procedure\npassing in the animal name."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);\n    BEGIN\n      (* Call noise with the animal name *)\n      noise(name);\n    END MakeNoise;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If we invoke MakeNoise with our animal name and pass the name of the\nprocedure we want to do the MakeNoise procedure will generate our\nnoise output. Here' is what is looks like all together."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    MODULE Noises;\n      IMPORT Out;\n    \n    TYPE \n      Noise = PROCEDURE(who : ARRAY OF CHAR);\n    \n    PROCEDURE BarkBark(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Bark, bark\");Out.Ln();\n    END BarkBark;\n    \n    PROCEDURE ChirpChirp(who : ARRAY OF CHAR);\n    BEGIN\n      Out.String(who);\n      Out.String(\": Chirp, chirp\");Out.Ln();\n    END ChirpChirp;\n    \n    PROCEDURE MakeNoise(name : ARRAY OF CHAR; noise : Noise);\n    BEGIN\n      (* Call noise with the animal name *)\n      noise(name);\n    END MakeNoise;\n    \n    BEGIN\n      MakeNoise(\"Fido\", BarkBark);\n      MakeNoise(\"Tweety\", ChirpChirp);\n      MakeNoise(\"Fido\", ChirpChirp);\n      MakeNoise(\"Tweety\", BarkBark);\n    END Noises.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Note when we pass the procedures we include their name "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "without"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " parenthesis.\nOur type definition tells the compiler that the procedure can be a parameter,\nany procedure with the same signature, e.g. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "who : ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " as the\nonly parameter will be treated as a \"Noise\" type procedures."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next and Previous"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Next "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Procedures in Records"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../../07/07/Procedures-in-records.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Previous "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Dynamic types"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../../05/25/Dynamic-types.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2020, R. S. Doiel",

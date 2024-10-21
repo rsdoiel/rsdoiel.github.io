@@ -1,5 +1,1862 @@
 {
   "content": "\n\nOberon Modules and Procedures\n=============================\n\nBy R. S. Doiel, 2020-04-12\n\nThis is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.\n\n## Modules\n\nThe module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.\nA module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon\nthe statement separator in Oberon. Our simple \"Hello World\" example \nshows the basic code shape.\n\n\n~~~{.oberon}\n\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n\n~~~\n\n\nModules end with a `END` followed by the module's name and a period.\nAny text following the `END` statement is ignored by the compiler. This\nturns out to be very useful as a place to write up ideas about the code\nyou're working on. You can also write any additional special instructions \nthere (e.g. document usage). You can even use it as a scratch pad knowing \nthat the compiler will ignore it.\n\nHere's an example\n\n\n~~~{.oberon}\n\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n\n    This program isn't very useful. It has no interactive ability.\n    It'd be nice if it could be more specific about who it was saying\n    hello to.\n\n~~~\n\n\nFor a module to be really useful you want to have the capability\nof including both private and public code. Public code\nallows us to reuse our code in other modules while the private code \nkeeps internal things inside the module safe from colliding with other\nmodules private code. This technique is classically known as \n\"information hiding\" and in computer sciences texts as \"scope\". Lets \ncreate a a more composable module called `SayingHi.Mod`.  In \naddition to display \"Hello World!\" we want a public method \n(procedure in Oberon terminology) that can ask for a name and print \nout a salutation. We will use the `SayingHi.Mod` module along with \na newer version of `HelloWorld.Mod` named `HelloWorld2.Mod`.\n\n\n## Procedures\n\nHow do we write methods in Oberon?  Methods are declared\nusing the keyword `PROCEDURE` followed by their name, a \ndeclaration of any parameters and if the procedure returns a\nvalue (i.e. is a function) it also includes that declaration. \nNext we declare any internal variables needed by the procedure.\nThis is followed by the procedure's body.  The body of the \nprocedure is defined by a `BEGIN` and `END` statement structure. \nThe body contains the steps the procedure needs to execute.\n\nWe'll create a procedure called \"HelloWorld\" in our new module.\nSince we will use this procedure from our new `HelloWorld2.Mod` \nour new \"HelloWorld\" procedure needs to be public.  A public \nprocedure in `SayingHi.Mod` is available for use in our new \n`HelloWorld2.Mod` (or by another module).  Marking a procedure \npublic in Oberon is a little different than in other languages. \nA Module's procedure is public if its name ends with an asterisk. \nBelow is a sketch of our module `SayingHi.Mod` so far.\n\nNOTE: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are \"read only\" in other modules.\n\n\n~~~{.oberon}\n\n    MODULE SayingHi;\n      IMPORT Out;\n    \n      PROCEDURE HelloWorld*;\n      BEGIN\n        Out.String(\"Hello World!\"); Out.Ln;\n      END HelloWorld;\n    END SayingHi.\n\n~~~\n\n\nThis modules looks allot like `HelloWorld.Mod` with a couple key\ndifferences. Rather than relying on the module's begin and end \nstatements we declare a procedure with its own begin and end statements.\nNotice the procedures end statement includes the procedure name and\nis terminated by semicolon rather than a period.  Like `HelloWorld.Mod`\nwe import the `Out` module to display our greeting.\n\n## Putting it all together\n\nLet's create a new \"Hello World\" module called `HelloWorld2.Mod` and\nuse our `SayingHi` module instead of directly importing `Out`.\n\n\n~~~{.oberon}\n\n    MODULE HelloWorld2;\n      IMPORT SayingHi;\n    BEGIN\n      SayingHi.HelloWorld;\n    END HelloWorld2.\n\n~~~\n\n\nWe can compile our module with OBNC using the command\n\n\n~~~\n\n    obnc HelloWorld2.Mod\n\n~~~\n\n\nWe can run our new \"Hello World\" with the command\n\n\n~~~\n\n    ./HelloWorld2\n\n~~~\n\n\nAt this point we have a way of saying \"Hello World!\" whenever\nwe need in our Oberon programs. But just printing \"Hello World!\"\nto the screen isn't very interactive. It'd be nice if we could\nhave the computer ask our name and then respond with a greeting.\n\nWe'll modify our SayingHi to include a new procedure called \"Greetings\"\nand that procedure needs to ask us our name and then display\nan appropriate greeting. \"Greetings\" will be a public procedure\nmarked by an asterisk like \"HelloWorld\". \n\n\"Greetings\" has three tasks\n\n1. Ask politely for our name\n2. Get the name typed in with our keyboard\n3. Assemble and display a polite greeting\n\nTo keep our \"Greeting\" procedure short we'll split this\nup into some private procedures. These will not be available\noutside `SayingHi.Mod`. Here's a sketch of our improved module.\n\n\n~~~{.oberon}\n\n    MODULE SayingHi;\n      IMPORT In, Out;\n    \n      PROCEDURE HelloWorld*;\n      BEGIN\n        Out.String(\"Hello World!\"); Out.Ln;\n      END HelloWorld;\n    \n      PROCEDURE AskOurName;\n      BEGIN\n        Out.String(\"Excuse me, may I ask your name? \");\n      END AskOurName;\n    \n      PROCEDURE GetName(VAR ourName : ARRAY OF CHAR);\n      BEGIN\n        In.Line(ourName);\n      END GetName;\n    \n      PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);\n      BEGIN\n        Out.String(\"Hello \");Out.String(ourName);\n        Out.String (\", very nice to meeting you.\"); Out.Ln;\n      END AssembleGreeting;\n    \n      PROCEDURE Greetings*;\n        VAR ourName : ARRAY 256 OF CHAR;\n      BEGIN\n        AskOurName;\n        GetName(ourName);\n        AssembleGreeting(ourName);\n      END Greetings;\n    END SayingHi.\n\n~~~\n\n\nNow let's add our Greetings procedure to `HelloWorld2.Mod`.\n\n\n~~~{.oberon}\n\n    MODULE HelloWorld2;\n      IMPORT SayingHi;\n    BEGIN\n      SayingHi.HelloWorld;\n      SayingHi.Greetings;\n    END HelloWorld2.\n\n~~~\n\n\nWe compile and run it the same way as before\n\n\n~~~\n\n    obnc HelloWorld2\n    ./HelloWorld2\n\n~~~\n\n\nWhen you run `HelloWorld2` you should now see something like\n(I've answered \"Robert\" and pressed return after the second line.\n\n\n~~~\n\n   Hello World!\n   Excuse me, may I ask your name? Robert\n   Hello Robert, very nice to meeting you.\n\n~~~\n\n\n\n## Reading our code\n\nWhile our revised modules are still short they actually exercise\na number of language features. Let's walk through the code \nblock by block and see what is going.\n\n`HelloWorld2.Mod` is responsible for the general management of\nour program namely say \"Hello World!\" and also for initiating\nand responding with a more personal greeting.  It does this by\nfirst importing our `SayingHi.Mod` module.\n\n\n~~~\n\n    IMPORT SayingHi;\n\n~~~\n\n\n[HelloWorld2.Mod](HelloWorld2.Mod) doesn't have any of its own \nprocedures and like our original [HelloWorld.Mod](HelloWorld.Mod)\nrelies on the module's initialization block to run our two public \nprocedures from `SayingHi`. It calls first `SayingHi.HelloWorld;` \nthen `SayingHi.Greetings'` before existing. Other than using the \n`SayingHi` module it is similar in spirit to our first \n[HelloWorld.Mod](HelloWorld.Mod).\n\nOur second module [SayingHi.Mod](SayingHi.Mod) does the heavy lifting.\nIt contains both public and private procedures.  If you tried to\nuse `GetName` from `SayingHi` in `HelloWorld2.Mod` you would get a\ncompiler error. As far as `HelloWorld2.Mod` is concerned `GetName`\ndoes not exist. This is called information hiding and is an important\ncapability provided by Oberon's Modules system. \n\n### explore `SayingHi` more deeply\n\nIn `SayingHi.Mod` we introduce two important concepts.\n\n1. Public and Private procedures\n2. variables to hold user input\n\n`SayingHi.Mod` imports two module, `In` which is for getting\ntext input from the keyboard, and `Out` which is used for displaying\ntext to standard output.\n\n\n~~~{.oberon}\n\n    IMPORT In, Out;\n\n~~~\n\n\n`In` and `Out` are to modules you will commonly use to either\nreceive input (`In`) from the keyboard or display output (`Out`)\nto the terminal or shell. They provide simple methods for working\nwith variables and constants and built-in Oberon data types. \nThis is a very useful as it lets us focus our procedures\non operating on data rather than the low level steps needed to\ninteract with the operating system and hardware.\n\nNOTE: __basic types__, Oberon has a number of basic types, BYTE holds a byte as a series of bit, CHAR holds a single ASCII character, INTEGER holds a signed integer value, REAL holds a floating point number and BOOLEAN holds a True/False value.\n\nThe first procedure is `HelloWorld` and it's pretty straight forward.\nIt displays a \"Hello World!\" message in our terminal. It uses `Out`.\n`Out.String` to display the \"Hello World!\" and `Out.Ln` to force a new\nline. `Out.String` is responsible for displaying values that are of type\n`ARRAY OF CHAR`. This includes text we provided in double quotes.\n\n\n~~~{.oberon}\n\n    PROCEDURE HelloWorld*;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld;\n\n~~~\n\n\nThe notable thing about `HelloWorld*` is its annotation `*`.\nThis asterisk indicates to the compiler that this is\na public procedure and should be made available to other modules.\nProcedures, variables, constants, records (data structures) can be\nmade public with this simple annotation.  If we left off the `*`\nthen we would not be able to use `HelloWorld` procedure from other\nmodule.\n\nOur second procedure is `AskOurName`. It's private because it lacks\nthe `*`. It is invisible to `HelloWorld2.Mod`. It is visible within\n`SayingHi` module and we'll use it later in `Greetings*`. Before\na procedure, variable, constant or record can be used it must be\ndeclared. That is why we most define `AskOurName` before we define\n`Greetings*`. `AskOurName` is in other respects very similar to \n`HelloWorld*`.\n\n\n~~~{.oberon}\n\n    PROCEDURE AskOurName;\n    BEGIN\n      Out.String(\"Excuse me, may I ask your name? \");\n    END AskOurName;\n\n~~~\n\n\nOur third procedure `GetName` is a little more interesting.\nIt demonstrates several features of the Oberon language. Most\nobvious is that it is the first procedure which contains a\nparameter list.\n\n\n~~~{.oberon}\n\n    PROCEDURE GetName(VAR ourName: ARRAY OF CHAR);\n\n~~~\n\n\nThere is allot packed in this single statement in addition\nto putting a name to our procedure. Specifically it uses\na `VAR` in the parameter.  Oberon provides two kinds of parameters\nin declaring procedures. The two are `VAR` and static.  A `VAR` \nparameter means that the procedure is allowed to up date the value \nin the memory location indicated by the name. A static variable \n(a parameter without the `VAR` prefix passes in a read only value. \nThis allows us to distinguish between those procedures and variables\nwhere that can be modified by the procedure and those which\nwill be left the same. Inside of `GetName` we call the \n`In` module using the `Line`. This retrieves a line of text\n(a sequence of keyboard strokes ended with the return key).\n\n\n~~~{.oberon}\n\n    In.Line(ourName);\n\n~~~\n\n\nBecause `ourName` was a variable parameter in `GetName` it\ncan be modified by `In.Line`.\n\nOur next procedure `AssembleGreeting` is private like\n`AskOurName` and `GetName`. Like `HelloWorld*` and `AskOurName`\nit makes use of the `Out` module to display content.\nUnlike `HelloWorld*` it has a parameter but this time\na static one. Notice the missing `VAR`. This indicates that\n`AssembleGreeting` doesn't modify, cannot modify `ourName`.\n\n\n~~~{.oberon}\n\n    PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);\n    BEGIN\n      Out.String(\"Hello \");Out.String(ourName);\n      Out.String (\", very nice to meeting you.\"); Out.Ln;\n    END AssembleGreeting;\n\n~~~\n\n\nThe use of `Out.String` is more elaborate then before. Notice how\nwe use trailing spaces to make the output more readable.\n\nOur final procedure is public, `Greetings*`. It does not\nhave any parameters.  Importantly it does include a\nvariable for use inside the procedure called `ourName`. \nThe `VAR` line declares `ourName` as an `ARRAY 256 OF CHAR`. \nThis declaration tells the compiler to allocate memory \nfor storing `ourName` while `Greetings*` is being executed. \nThe declaration tells us three things. First the storage\nis continuous block of memory, that is what `ARRAY` means.\nThe second is the size of this memory block is 256 `CHAR`\nlong and the that we will be storing `CHAR` values in it.\n\nThe memory for `ourName` will be populated when we pass\nthe variable to `GetName` based on what we type at the\nkeyboard. If we type more than 256 ASCII characters they\nwill be ignored. After `GetName` records the typed character\nwe use the memory associated with the `ourName` variable\nwe read that memory to display what we typed in \nthe procedure named `AssembleGreeting`.\n\n\n### Going a little deeper\n\nOberon is a typed language meaning that \nvariables are declared, allocated and checked during compile time\nfor specific characteristics. The one variable we created `ourName`\nin the `Greetings` procedure reserves the space for 256 \n[ASCII](https://en.wikipedia.org/wiki/ASCII) characters. \nIn Oberon we call a single ASCII character a `CHAR`.  Since it\nwould be useful to work with more than one `CHAR` in relationship\nto others Oberon also supports a variable type called `ARRAY`. \nAn `ARRAY` is represented as a block of memory that is allocated\nby the Oberon run time. Because it is allocated ahead of time we\nneed to know its size (i.e. how many `CHAR` are we storing). In\nour case we have declared `ARRAY 256 OF CHAR`. That means we can\nhold names up to 256 ASCII characters. \n\n`Greetings*` does three things and the second thing, `GetName` \nreceives the characters typed at the keyboard.  `GetName` has\na parameter list. In this case the only one parameter is declared\n`VAR ourName : ARRAY OF CHAR`. Notice the similarity and\ndifference between the `VAR` statement in `Greetings` versions\nthe parameter list.  Our `GetName` can accept **any** length of\n`ARRAY OF CHAR` and it **only** can accept an `ARRAY OF CHAR`.\nIf you try to pass another type of variable to `GetName` the\ncompiler will stop with an error message.\n\nWhy is this important?\n\nWe've minimized the memory we've used in our program.  Memory is \ntypically allocated on the stack (a block of memory made available \nby the operating system to the program). We've told the operating \nsystem we need 256 `CHAR` worth of consecutive memory locations \nwhen we allocated room the variable `ourName` in `Greetings`. When \nwe invoke `GetName` Oberon knows to use that same memory location \nfor the value of `ourName` defined in the parameter.  In turn\nwhen `In.String(ourName);` is called the module `In` knows\nto store the name typed on the keyboard in that location of memory.\nWhen `Out.String(outName);` is called the compiler knows to use\nthe same location of memory to send the contents to the display.\nWhen we finally finish the `Greetings*` procedure the memory is \nreleased back to the operating system for re-use by this or\nother programs.\n\n### What we've explored\n\n1. Using a module to break down a simple problem\n2. Using a module's ability to have public and private procedures \n3. Touched on how memory is used in a simple interactive program\n\n\n\n### Next and Previous\n\n+ Next [Basic Types](../18/Mostly-Oberon-Basic-Types.html)\n+ Previous [Mostly Oberon](../11/Mostly-Oberon.html)\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon Modules and Procedures"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-04-12"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is the second post in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Mostly Oberon"
+              }
+            ],
+            "type": "link",
+            "url": "../11/Mostly-Oberon.html"
+          },
+          {
+            "type": "text",
+            "value": " series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Modules"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.\nA module's name should match the filename you are saving it under. A module starts with declaring it's name and ends the declaration with a semicolon\nthe statement separator in Oberon. Our simple \"Hello World\" example\nshows the basic code shape."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Modules end with a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "END"
+          },
+          {
+            "type": "text",
+            "value": " followed by the module's name and a period.\nAny text following the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "END"
+          },
+          {
+            "type": "text",
+            "value": " statement is ignored by the compiler. This\nturns out to be very useful as a place to write up ideas about the code\nyou're working on. You can also write any additional special instructions\nthere (e.g. document usage). You can even use it as a scratch pad knowing\nthat the compiler will ignore it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's an example"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n\n    This program isn't very useful. It has no interactive ability.\n    It'd be nice if it could be more specific about who it was saying\n    hello to.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For a module to be really useful you want to have the capability\nof including both private and public code. Public code\nallows us to reuse our code in other modules while the private code\nkeeps internal things inside the module safe from colliding with other\nmodules private code. This technique is classically known as\n\"information hiding\" and in computer sciences texts as \"scope\". Lets\ncreate a a more composable module called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": ".  In\naddition to display \"Hello World!\" we want a public method\n(procedure in Oberon terminology) that can ask for a name and print\nout a salutation. We will use the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " module along with\na newer version of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": " named "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Procedures"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "How do we write methods in Oberon?  Methods are declared\nusing the keyword "
+          },
+          {
+            "type": "inlineCode",
+            "value": "PROCEDURE"
+          },
+          {
+            "type": "text",
+            "value": " followed by their name, a\ndeclaration of any parameters and if the procedure returns a\nvalue (i.e. is a function) it also includes that declaration.\nNext we declare any internal variables needed by the procedure.\nThis is followed by the procedure's body.  The body of the\nprocedure is defined by a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "BEGIN"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "END"
+          },
+          {
+            "type": "text",
+            "value": " statement structure.\nThe body contains the steps the procedure needs to execute."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We'll create a procedure called \"HelloWorld\" in our new module.\nSince we will use this procedure from our new "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": "\nour new \"HelloWorld\" procedure needs to be public.  A public\nprocedure in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " is available for use in our new\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " (or by another module).  Marking a procedure\npublic in Oberon is a little different than in other languages.\nA Module's procedure is public if its name ends with an asterisk.\nBelow is a sketch of our module "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " so far."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: This technique is also used to mark variables, records and constants as public and available to other modules. Public variables are \"read only\" in other modules."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE SayingHi;\n      IMPORT Out;\n    \n      PROCEDURE HelloWorld*;\n      BEGIN\n        Out.String(\"Hello World!\"); Out.Ln;\n      END HelloWorld;\n    END SayingHi.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This modules looks allot like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": " with a couple key\ndifferences. Rather than relying on the module's begin and end\nstatements we declare a procedure with its own begin and end statements.\nNotice the procedures end statement includes the procedure name and\nis terminated by semicolon rather than a period.  Like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": "\nwe import the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " module to display our greeting."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Putting it all together"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's create a new \"Hello World\" module called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " and\nuse our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": " module instead of directly importing "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE HelloWorld2;\n      IMPORT SayingHi;\n    BEGIN\n      SayingHi.HelloWorld;\n    END HelloWorld2.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We can compile our module with OBNC using the command"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    obnc HelloWorld2.Mod\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We can run our new \"Hello World\" with the command"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    ./HelloWorld2\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At this point we have a way of saying \"Hello World!\" whenever\nwe need in our Oberon programs. But just printing \"Hello World!\"\nto the screen isn't very interactive. It'd be nice if we could\nhave the computer ask our name and then respond with a greeting."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We'll modify our SayingHi to include a new procedure called \"Greetings\"\nand that procedure needs to ask us our name and then display\nan appropriate greeting. \"Greetings\" will be a public procedure\nmarked by an asterisk like \"HelloWorld\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "\"Greetings\" has three tasks"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Ask politely for our name"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Get the name typed in with our keyboard"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Assemble and display a polite greeting"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To keep our \"Greeting\" procedure short we'll split this\nup into some private procedures. These will not be available\noutside "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": ". Here's a sketch of our improved module."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE SayingHi;\n      IMPORT In, Out;\n    \n      PROCEDURE HelloWorld*;\n      BEGIN\n        Out.String(\"Hello World!\"); Out.Ln;\n      END HelloWorld;\n    \n      PROCEDURE AskOurName;\n      BEGIN\n        Out.String(\"Excuse me, may I ask your name? \");\n      END AskOurName;\n    \n      PROCEDURE GetName(VAR ourName : ARRAY OF CHAR);\n      BEGIN\n        In.Line(ourName);\n      END GetName;\n    \n      PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);\n      BEGIN\n        Out.String(\"Hello \");Out.String(ourName);\n        Out.String (\", very nice to meeting you.\"); Out.Ln;\n      END AssembleGreeting;\n    \n      PROCEDURE Greetings*;\n        VAR ourName : ARRAY 256 OF CHAR;\n      BEGIN\n        AskOurName;\n        GetName(ourName);\n        AssembleGreeting(ourName);\n      END Greetings;\n    END SayingHi.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Now let's add our Greetings procedure to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    MODULE HelloWorld2;\n      IMPORT SayingHi;\n    BEGIN\n      SayingHi.HelloWorld;\n      SayingHi.Greetings;\n    END HelloWorld2.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We compile and run it the same way as before"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    obnc HelloWorld2\n    ./HelloWorld2\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When you run "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2"
+          },
+          {
+            "type": "text",
+            "value": " you should now see something like\n(I've answered \"Robert\" and pressed return after the second line."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n   Hello World!\n   Excuse me, may I ask your name? Robert\n   Hello Robert, very nice to meeting you.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Reading our code"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "While our revised modules are still short they actually exercise\na number of language features. Let's walk through the code\nblock by block and see what is going."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " is responsible for the general management of\nour program namely say \"Hello World!\" and also for initiating\nand responding with a more personal greeting.  It does this by\nfirst importing our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " module."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    IMPORT SayingHi;\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "HelloWorld2.Mod"
+              }
+            ],
+            "type": "link",
+            "url": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " doesn't have any of its own\nprocedures and like our original "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "HelloWorld.Mod"
+              }
+            ],
+            "type": "link",
+            "url": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": "\nrelies on the module's initialization block to run our two public\nprocedures from "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": ". It calls first "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.HelloWorld;"
+          },
+          {
+            "type": "text",
+            "value": "\nthen "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Greetings'"
+          },
+          {
+            "type": "text",
+            "value": " before existing. Other than using the\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": " module it is similar in spirit to our first\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "HelloWorld.Mod"
+              }
+            ],
+            "type": "link",
+            "url": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our second module "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "SayingHi.Mod"
+              }
+            ],
+            "type": "link",
+            "url": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " does the heavy lifting.\nIt contains both public and private procedures.  If you tried to\nuse "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " from "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": " in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " you would get a\ncompiler error. As far as "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": " is concerned "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": "\ndoes not exist. This is called information hiding and is an important\ncapability provided by Oberon's Modules system."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "explore "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": " more deeply"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " we introduce two important concepts."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Public and Private procedures"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "variables to hold user input"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "SayingHi.Mod"
+          },
+          {
+            "type": "text",
+            "value": " imports two module, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": " which is for getting\ntext input from the keyboard, and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " which is used for displaying\ntext to standard output."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    IMPORT In, Out;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " are to modules you will commonly use to either\nreceive input ("
+          },
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": ") from the keyboard or display output ("
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": ")\nto the terminal or shell. They provide simple methods for working\nwith variables and constants and built-in Oberon data types.\nThis is a very useful as it lets us focus our procedures\non operating on data rather than the low level steps needed to\ninteract with the operating system and hardware."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "basic types"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": ", Oberon has a number of basic types, BYTE holds a byte as a series of bit, CHAR holds a single ASCII character, INTEGER holds a signed integer value, REAL holds a floating point number and BOOLEAN holds a True/False value."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The first procedure is "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": " and it's pretty straight forward.\nIt displays a \"Hello World!\" message in our terminal. It uses "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": ".\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.String"
+          },
+          {
+            "type": "text",
+            "value": " to display the \"Hello World!\" and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.Ln"
+          },
+          {
+            "type": "text",
+            "value": " to force a new\nline. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.String"
+          },
+          {
+            "type": "text",
+            "value": " is responsible for displaying values that are of type\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ". This includes text we provided in double quotes."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    PROCEDURE HelloWorld*;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The notable thing about "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld*"
+          },
+          {
+            "type": "text",
+            "value": " is its annotation "
+          },
+          {
+            "type": "inlineCode",
+            "value": "*"
+          },
+          {
+            "type": "text",
+            "value": ".\nThis asterisk indicates to the compiler that this is\na public procedure and should be made available to other modules.\nProcedures, variables, constants, records (data structures) can be\nmade public with this simple annotation.  If we left off the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "*"
+          },
+          {
+            "type": "text",
+            "value": "\nthen we would not be able to use "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": " procedure from other\nmodule."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our second procedure is "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AskOurName"
+          },
+          {
+            "type": "text",
+            "value": ". It's private because it lacks\nthe "
+          },
+          {
+            "type": "inlineCode",
+            "value": "*"
+          },
+          {
+            "type": "text",
+            "value": ". It is invisible to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld2.Mod"
+          },
+          {
+            "type": "text",
+            "value": ". It is visible within\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "SayingHi"
+          },
+          {
+            "type": "text",
+            "value": " module and we'll use it later in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": ". Before\na procedure, variable, constant or record can be used it must be\ndeclared. That is why we most define "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AskOurName"
+          },
+          {
+            "type": "text",
+            "value": " before we define\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": ". "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AskOurName"
+          },
+          {
+            "type": "text",
+            "value": " is in other respects very similar to\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld*"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    PROCEDURE AskOurName;\n    BEGIN\n      Out.String(\"Excuse me, may I ask your name? \");\n    END AskOurName;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our third procedure "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " is a little more interesting.\nIt demonstrates several features of the Oberon language. Most\nobvious is that it is the first procedure which contains a\nparameter list."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    PROCEDURE GetName(VAR ourName: ARRAY OF CHAR);\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "There is allot packed in this single statement in addition\nto putting a name to our procedure. Specifically it uses\na "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " in the parameter.  Oberon provides two kinds of parameters\nin declaring procedures. The two are "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " and static.  A "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": "\nparameter means that the procedure is allowed to up date the value\nin the memory location indicated by the name. A static variable\n(a parameter without the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " prefix passes in a read only value.\nThis allows us to distinguish between those procedures and variables\nwhere that can be modified by the procedure and those which\nwill be left the same. Inside of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " we call the\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": " module using the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Line"
+          },
+          {
+            "type": "text",
+            "value": ". This retrieves a line of text\n(a sequence of keyboard strokes ended with the return key)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    In.Line(ourName);\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Because "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " was a variable parameter in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " it\ncan be modified by "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Line"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our next procedure "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AssembleGreeting"
+          },
+          {
+            "type": "text",
+            "value": " is private like\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "AskOurName"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": ". Like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld*"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AskOurName"
+          },
+          {
+            "type": "text",
+            "value": "\nit makes use of the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " module to display content.\nUnlike "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld*"
+          },
+          {
+            "type": "text",
+            "value": " it has a parameter but this time\na static one. Notice the missing "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": ". This indicates that\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "AssembleGreeting"
+          },
+          {
+            "type": "text",
+            "value": " doesn't modify, cannot modify "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.oberon}",
+        "type": "code",
+        "value": "\n    PROCEDURE AssembleGreeting(ourName : ARRAY OF CHAR);\n    BEGIN\n      Out.String(\"Hello \");Out.String(ourName);\n      Out.String (\", very nice to meeting you.\"); Out.Ln;\n    END AssembleGreeting;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The use of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.String"
+          },
+          {
+            "type": "text",
+            "value": " is more elaborate then before. Notice how\nwe use trailing spaces to make the output more readable."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our final procedure is public, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": ". It does not\nhave any parameters.  Importantly it does include a\nvariable for use inside the procedure called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": ".\nThe "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " line declares "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " as an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY 256 OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ".\nThis declaration tells the compiler to allocate memory\nfor storing "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " while "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": " is being executed.\nThe declaration tells us three things. First the storage\nis continuous block of memory, that is what "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY"
+          },
+          {
+            "type": "text",
+            "value": " means.\nThe second is the size of this memory block is 256 "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": "\nlong and the that we will be storing "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": " values in it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The memory for "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " will be populated when we pass\nthe variable to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " based on what we type at the\nkeyboard. If we type more than 256 ASCII characters they\nwill be ignored. After "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " records the typed character\nwe use the memory associated with the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " variable\nwe read that memory to display what we typed in\nthe procedure named "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AssembleGreeting"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Going a little deeper"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon is a typed language meaning that\nvariables are declared, allocated and checked during compile time\nfor specific characteristics. The one variable we created "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": "\nin the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings"
+          },
+          {
+            "type": "text",
+            "value": " procedure reserves the space for 256\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ASCII"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/ASCII"
+          },
+          {
+            "type": "text",
+            "value": " characters.\nIn Oberon we call a single ASCII character a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": ".  Since it\nwould be useful to work with more than one "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": " in relationship\nto others Oberon also supports a variable type called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY"
+          },
+          {
+            "type": "text",
+            "value": ".\nAn "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY"
+          },
+          {
+            "type": "text",
+            "value": " is represented as a block of memory that is allocated\nby the Oberon run time. Because it is allocated ahead of time we\nneed to know its size (i.e. how many "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": " are we storing). In\nour case we have declared "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY 256 OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ". That means we can\nhold names up to 256 ASCII characters."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": " does three things and the second thing, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": "\nreceives the characters typed at the keyboard.  "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " has\na parameter list. In this case the only one parameter is declared\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR ourName : ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ". Notice the similarity and\ndifference between the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " statement in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings"
+          },
+          {
+            "type": "text",
+            "value": " versions\nthe parameter list.  Our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " can accept "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "any"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " length of\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " and it "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "only"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " can accept an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ".\nIf you try to pass another type of variable to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " the\ncompiler will stop with an error message."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Why is this important?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We've minimized the memory we've used in our program.  Memory is\ntypically allocated on the stack (a block of memory made available\nby the operating system to the program). We've told the operating\nsystem we need 256 "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CHAR"
+          },
+          {
+            "type": "text",
+            "value": " worth of consecutive memory locations\nwhen we allocated room the variable "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings"
+          },
+          {
+            "type": "text",
+            "value": ". When\nwe invoke "
+          },
+          {
+            "type": "inlineCode",
+            "value": "GetName"
+          },
+          {
+            "type": "text",
+            "value": " Oberon knows to use that same memory location\nfor the value of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ourName"
+          },
+          {
+            "type": "text",
+            "value": " defined in the parameter.  In turn\nwhen "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.String(ourName);"
+          },
+          {
+            "type": "text",
+            "value": " is called the module "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": " knows\nto store the name typed on the keyboard in that location of memory.\nWhen "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.String(outName);"
+          },
+          {
+            "type": "text",
+            "value": " is called the compiler knows to use\nthe same location of memory to send the contents to the display.\nWhen we finally finish the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Greetings*"
+          },
+          {
+            "type": "text",
+            "value": " procedure the memory is\nreleased back to the operating system for re-use by this or\nother programs."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What we've explored"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Using a module to break down a simple problem"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Using a module's ability to have public and private procedures"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Touched on how memory is used in a simple interactive program"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next and Previous"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Next "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Basic Types"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../18/Mostly-Oberon-Basic-Types.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Previous "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Mostly Oberon"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../11/Mostly-Oberon.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2020, R. S. Doiel",

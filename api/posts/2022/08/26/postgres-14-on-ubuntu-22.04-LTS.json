@@ -1,5 +1,261 @@
 {
   "content": "\nPostgres 14 on Ubuntu 22.04 LTS\n===============================\n\nby R. S. Doiel, 2022-08-26\n\nThis is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include `jane.doe` is in the sudo group\n- `jane.doe` is the one logged in and installing Postgres for machine wide use\n- `jane.doe` will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add `jane.doe` user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n~~~shell\nsudo apt install postgresql postgresql-contrib\nsudo -u createuser --interactive\njane.doe\ny\n~~~\n\nWhat we've accomplished is installing Postgres, we've create a user in Postgres DB environment called \"jane.doe\" and given \"jane.doe\" superuser permissions, i.e. the permissions to manage Postgres databases.\n\nAt this point we have a `jane.doe` Postgres admin user. This means we can run the `psql` shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available\n\n~~~shell\npsql \nSELECT datname FROM pg_database;\n\\quit\n~~~\n\nNOTE: This post is a distilation of what I learned from reading Digital Ocean's [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Postgres 14 on Ubuntu 22.04 LTS"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "by R. S. Doiel, 2022-08-26"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Assumptions"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "include "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "jane.doe"
+                  },
+                  {
+                    "type": "text",
+                    "value": " is in the sudo group"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "inlineCode",
+                    "value": "jane.doe"
+                  },
+                  {
+                    "type": "text",
+                    "value": " is the one logged in and installing Postgres for machine wide use"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "inlineCode",
+                    "value": "jane.doe"
+                  },
+                  {
+                    "type": "text",
+                    "value": " will want to work with her own database by default"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install Postgres"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Confirm installation"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Add "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "jane.doe"
+                  },
+                  {
+                    "type": "text",
+                    "value": " user providing access"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Below is the commands I typed to run to complete the three steps."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "sudo apt install postgresql postgresql-contrib\nsudo -u createuser --interactive\njane.doe\ny"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What we've accomplished is installing Postgres, we've create a user in Postgres DB environment called \"jane.doe\" and given \"jane.doe\" superuser permissions, i.e. the permissions to manage Postgres databases."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At this point we have a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "jane.doe"
+          },
+          {
+            "type": "text",
+            "value": " Postgres admin user. This means we can run the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "psql \nSELECT datname FROM pg_database;\n\\quit"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: This post is a distilation of what I learned from reading Digital Ocean's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "How To Install PostgreSQL on Ubuntu 22.04 [Quickstart]"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart"
+          },
+          {
+            "type": "text",
+            "value": ", April 25, 2022 by Alex Garnett."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel",
     "byline": "R. S. Doiel",

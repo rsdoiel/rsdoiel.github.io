@@ -127,6 +127,7 @@ blog: .FORCE
 
 api: .FORCE
 	-flatlake
+	git add api
 
 rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
@@ -139,15 +140,16 @@ html_site.zip : .FORCE
 	zip -r html_site.zip * --exclude=@html_exclude.lst
 
 blog.zip: .FORCE
-	zip -r blog.zip *.md *.html twtxt.txt
-	zip -r blog.zip $(find blog -type f)
-	zip -r blog.zip $(find series -type f)
+	-rm blog.zip >/dev/null 2>&1
+	-zip -r blog.zip *.md *.html twtxt.txt
+	-zip -r blog.zip $(find blog -type f)
+	-zip -r blog.zip $(find series -type f)
 
 phlog.zip: .FORCE
-	rm phlog.zip
-	zip -r phlog.zip gophermap *.md twtxt.txt
-	zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
-	zip -r phlog.zip $(find series -type f | grep -v -E ".html$")
+	-rm phlog.zip >/dev/null 2>&1
+	-zip -r phlog.zip gophermap *.md twtxt.txt series/gophermap series/*.md blog/*.md blog/*/*/*/*.md
+	#zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
+	#zip -r phlog.zip $(find series -type f | grep -v -E ".html$")
 
 
 status:

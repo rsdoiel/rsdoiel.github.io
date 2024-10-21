@@ -1,5 +1,1191 @@
 {
   "content": "\n\n# Software Tools, Getting Started\n\n## Overview\n\nThis post is the first in a series revisiting the\nprograms described in the 1981 book by Brian W. Kernighan and\nP. J. Plauger's called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern).\nThe book is available from the [Open Library](https://openlibrary.org/)\nand physical copies are still (2020) commonly available from used book\nsellers.  The book was an early text on creating portable command\nline programs.  \n\nIn this series I present the K & P (i.e. Software Tools in Pascal)\nprograms re-implemented in Oberon-07. I have testing my implementations\nusing Karl Landström's [OBNC](http://miasap.se/obnc/)\ncompiler and his implementation of the Oakwood Guide's modules\nfor portable Oberon programs. Karl also provides a few additional\nmodules for working in a POSIX environment (e.g. BSD, macOS, Linux,\nWindows 10 with Linux subsystem). I have also tested these\nprograms with Mike Spivey's [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler) an aside\nfrom the differences file extensions that both compilers use\nthe source code works the same. \n\nNOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available.\n\nNOTE: POSIX defines a standard of compatibility inspired by [UNIX](https://en.wikipedia.org/wiki/Unix), see <https://en.wikipedia.org/wiki/POSIX>\n\n\n## Getting Started.\n\nChapter one in K & P is the first chapter that presents code. It introduces\nsome challenges and constraints creating portable Pascal suitable for use\nacross hardware architectures and operating systems. In 1981 this included\nmainframes, minicomputers as well as the recent evolution of the microcomputer.\nThe programs presented build up from simple to increasingly complex as\nyou move through the book.  They provide example documentation and discuss\ntheir implementation choices. It is well worth reading the book for those\ndiscussions, while specific to the era, mirror the problems program authors\nface today in spite of the wide spread success of the POXIS model, the\nconsolidation of CPU types and improvements made in development tools in\nthe intervening decades.\n\nThrough out K & P you'll see the bones of many POSIX commands we have today.\n\nPrograms from this chapter include:\n\n1. **copyprog**, this is like \"cat\" in a POSIX system\n2. **charcount**, this is like the \"wc\" POSIX command using the \"-c\" option\n3. **linecount**, this is like the \"wc\" POSIX command using the \"-l\" option\n4. **wordcount**, this is like the \"wc\" POSIX command using the \"-w\" option\n5. **detab**, converts tabs to spaces using tab stops every four characters in a line\n\nAll programs in this chapter rely solely on standard input and output.\nToday's reader will notice an absence to common concepts in today's\ncommand line programs.  First is the lack of interaction with command line\nparameters, the second is no example take advantage of environment variables.\nThese operating system features were not always available across\noperating systems of the early 1980s. Finally I'd like to point out a\nreally nice feature included in the book. It is often left out as a topic\nin programming books.  K & P provide example documentation. It's structure\nlike an early UNIX man page. It very clear and short. This is something\nI wish all programming texts at least mentioned. Documentation is important\nto the program author because it clarifies scope of the problem being\ntackled and to the program user so they understand what they are using.\n\n\n### [1.1. File Copying](https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up)\n\nHere's how K & P describe \"copyprog.pas\" (referred to as \"copy\" in\nthe documentation).\n\n\n~~~\n\nPROGRAM\n\n    copy    copy input to output\n\nUSAGE\n\n    copy\n\nFUNCTION\n\n    copy copies its input to its output unchanged. It is useful for copying\n    from a terminal to a file, from file to file, or even from terminal to\n    terminal. It may be used for displaying the contents of a file, without\n    interpretation or formatting, by copying from the file to terminal.\n\nEXAMPLE\n\n    To echo lines type at your terminal.\n\n    copy\n    hello there, are you listening?\n    **hello there, are you listening?**\n    yes, I am.\n    **yes, I am.**\n    <ENDFILE>\n\n~~~\n\nThe source code for \"copyprog.pas\" is shown on\n[page 9](https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up)\nof K & P.  First the authors introduce the __copy__ procedure\nthen a complete the section introducing it in context of the complete Pascal\nprogram. After this first example K & P leave implementation of the full\nprogram up to the reader.\n\nThe body of the Pascal program invokes a procedure called\n[copy](https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up)\nwhich reads from standard input character by character and writes\nto standard output character by character without modification.  Two\nsupporting procedures are introduced, \"getc\" and \"putc\". These are shown\nin the complete program listing on page 9. They are repeatedly used\nthrough out the book. One of the really good aspects of this simple\nprogram is relying on the idea of standard input and output. This makes\n\"copyprog.pas\" a simple filter and template for writing many of the programs\nthat follow. K & P provide a good explanation for this simple approach.\nAlso note K & P's rational for working character by character versus\nline by line.\n\nMy Oberon-07 version takes a similar approach. The module looks remarkably\nsimilar to the Pascal but is shorter because reading and writing characters are\nprovided for by Oberon's standard modules \"In\" and \"Out\".\nI have chosen to use a \"REPEAT/UNTIL\" loop over the \"WHILE\"\nloop used by K & P is the attempt to read from standard input needs to happen\nat least once. Note in my \"REPEAT/UNTIL\" loop's terminating condition.\nThe value of `In.Done` is true on successful read and false\notherwise (e.g. you hit an end of the file). That means our loop must\nterminate on `In.Done # TRUE` rather than `In.Done = TRUE`. This appears\ncounter intuitive unless you keep in mind our loop stops when we having\nnothing more to read, rather than when we can continue to read.\nIt `In.Done` means the read was successful and does not\nmean \"I'm done and can exit now\". Likewise before writing out the character\nwe read, it is good practice to check the `In.Done` value. If `In.Done` is\nTRUE, I know can safely display the character using `Out.Char(c);`.\n\n~~~\n\nMODULE CopyProg;\nIMPORT In, Out;\n\nPROCEDURE copy;\nVAR\n  c : CHAR;\nBEGIN\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n        Out.Char(c);\n    END;\n  UNTIL In.Done # TRUE;\nEND copy;\n\nBEGIN\n  copy();\nEND CopyProg.\n\n~~~\n\n#### Limitations\n\nThis program only works with standard input and output. A more generalized\nversion would work with named files.\n\n### [1.2 Counting Characters](https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up)\n\n~~~\n\nPROGRAM\n\n  charcount count characters in input\n\nUSAGE\n\n  charcount\n\nFUNCTION\n\n  charcount counts the characters in its input and writes the total\n  as a single line of text to the output. Since each line of text is\n  internally delimited by a NEWLINE character, the total count is the\n  number of lines plus the number of characters within each line.\n\nEXAMPLE\n\n  charcount\n  A single line of input.\n  <ENDFILE>\n  24\n\n~~~\n\n[On page 13](https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up)\nK & P introduces their second program, **charcount**. It is based on a single\nprocedure that reads from standard input and counts up the number of\ncharacters encountered then writes the total number found to standard out\nfollowed by a newline. In the text only the procedure is shown, it is\nassumed you'll write the outer wrapper of the program yourself as\nwas done with the **copyprog** program. My Oberon-07 version is very similar\nto the Pascal. Like in the our first \"CopyProg\" we will make use of the\n\"In\" and \"Out\" modules. Since we will\nneed to write an INTEGER value we'll also use \"Out.Int()\" procedure which\nis very similar to K & P's \"putdec()\". Aside from the counting this is very\nsimple  like our first program.\n\n~~~\n\nMODULE CharCount;\nIMPORT In, Out;\n\nPROCEDURE CharCount;\nVAR\n  nc : INTEGER;\n  c : CHAR;\nBEGIN\n  nc := 0;\n\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      nc := nc + 1;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nc, 1);\n  Out.Ln();\nEND CharCount;\n\nBEGIN\n  CharCount();\nEND CharCount.\n\n~~~\n\n#### Limitations\n\nThe primary limitation in counting characters is most readers are\ninterested in visible character count. In our implementation\neven non-printed characters are counted. Like our first program\nthis only works on standard input and output. Ideally this should\nbe written so it works on any file including standard input and\noutput. If the reader implements that it could become part of a\npackage on statistical analysis of plain text files.\n\n### [1.3 Counting Lines](https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up)\n\n~~~\n\nPROGRAM\n\n  linecount count lines in input\n\nUSAGE\n\n  linecount\n\nFUNCTION\n\n  linecount counts the lines in its input and write the total as a\n  line of text to the output.\n\nEXAMPLE\n\n  linecount\n  A single line of input.\n  <ENDFILE>\n  1\n\n~~~\n\n**linecount**, from [page 15](https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up)\nis very similar to **charcount** except adding a\nconditional count in the loop for processing the file. In\nour Oberon-07 implementation we'll check if the `In.Char(c)`\ncall was successful but we'll add a second condition to see if the\ncharacter read was a NEWLINE. If it was I increment\nour counter variable.\n\n~~~\n\nMODULE LineCount;\nIMPORT In, Out;\n\nPROCEDURE LineCount;\nCONST\n  NEWLINE = 10;\n\nVAR\n  nl : INTEGER;\n  c : CHAR;\nBEGIN\n  nl := 0;\n  REPEAT\n    In.Char(c);\n    IF In.Done & (ORD(c) = NEWLINE) THEN\n      nl := nl + 1;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nl, 1);\n  Out.Ln();\nEND LineCount;\n\nBEGIN\n  LineCount();\nEND LineCount.\n\n~~~\n\n#### Limitations\n\nThis program assumes that NEWLINE is ASCII value 10. Line delimiters\nvary between operating systems.  If your OS used carriage returns\nwithout a NEWLINE then this program would not count lines correctly.\nThe reader could extend the checking to support carriage returns,\nnew lines, and carriage return with new lines and cover most versions\nof line endings.\n\n\n### [1.4 Counting Words](https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up)\n\n~~~\n\nPROGRAM\n\n  wordcount count words in input\n\nUSAGE\n\n  wordcount\n\nFUNCTION\n\n  wordcount counts the words in its input and write the total as a\n  line of text to the output. A \"word\" is a maximal sequence of characters\n  not containing a blank or tab or newline.\n\nEXAMPLE\n\n  wordcount\n  A single line of input.\n  <ENDFILE>\n  5\n\nBUGS\n\n  The definition of \"word\" is simplistic.\n\n~~~\n\n[Page 17](https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up)\nbrings us to the **wordcount** program. Counting words can be\nvery nuanced but here K & P have chosen a simple definition\nwhich most of the time is \"good enough\" for languages like English.\nA word is defined simply as an run of characters separated by\na space, tab or newline characters.  In practice most documents\nwill work with this minimal definition. It also makes the code\nstraight forward.  This is a good example of taking the simple\nroad if you can. It keeps this program short and sweet.\n\nIf you follow along in the K & P book note their rational\nand choices in arriving at there solutions. There solutions\nwill often balance readability and clarity over machine efficiency.\nWhile the code has progressed from \"if then\" to \"if then else if\"\nlogical sequence, the solution's modeled remains\nclear. This means the person reading the source code can easily verify\nif the approach chosen was too simple to meet their needs or it was\n\"good enough\".\n\nMy Oberon-07 implementation is again very simple. Like in previous programs\nI still have an outer check to see if the read worked (i.e. \"In.Done = TRUE\"),\notherwise the conditional logic is the same as the Pascal implementation.\n\n~~~\n\nMODULE WordCount;\nIMPORT In, Out;\n\nPROCEDURE WordCount;\nCONST\n  NEWLINE = 10;\n  BLANK = 32;\n  TAB = 9;\n\nVAR\n  nw : INTEGER;\n  c : CHAR;\n  inword : BOOLEAN;\nBEGIN\n  nw := 0;\n  inword := FALSE;\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      IF ((ORD(c) = BLANK) OR (ORD(c) = NEWLINE) OR (ORD(c) = TAB)) THEN\n        inword := FALSE;\n      ELSIF (inword = FALSE) THEN\n        inword := TRUE;\n        nw := nw + 1;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nw, 1);\n  Out.Ln();\nEND WordCount;\n\nBEGIN\n  WordCount();\nEND WordCount.\n\n~~~\n\n## [1.5 Removing Tabs](https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up)\n\n~~~\n\nPROGRAM\n\n  detab convert tabs into blanks\n\nUSAGE\n\n  detab\n\nFUNCTION\n\n  detab copies its input to its output, expanding the horizontal\n  tabs to blanks along the way, so that the output is visually\n  the same as the input, but contains no tab characters. Tab stops\n  are assumed to be set every four columns (i.e. 1, 5, 9, ...), so\n  each tab character is replaced by from one to four blanks.\n\nEXAMPLE\n\n  Usaing \"->\" as a visible tab:\n\n  detab\n  ->col 1->2->34->rest\n      col 1   2   34  rest\n\nBUGS\n\n  detab is naive about backspaces, vertical motions, and\n  non-printing characters.\n\n~~~\n\nThe source code for \"detab\" can be found on\n[page 24](https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up)\nin the last section of chapter 1. **detab** removes\ntabs and replaces them with spaces. Rather than a simple \"tab\"\nreplaced with four spaces **detab** preserves a concept found on\ntypewriters called \"tab stops\". In 1981 typewrites were still widely\nused though word processing software would become common. Supporting the\n\"tab stop\" model means the program works with what office workers would\nexpect from older tools like the typewriter or even the computer's\nteletype machine. I think this shows an important aspect of writing\nprograms. Write the program for people, support existing common concepts\nthey will likely know.\n\nK & P implementation includes separate source files\nfor setting tab stops and checking a tab stop.  The Pascal K & P\nwrote for didn't support separate source files or program modules. Recent Pascal\nversions did support the concept of modularization (e.g. UCSD Pascal). Since\nand significant goal of K & P was portability they needed to come up\nwith a solution that worked on the \"standard\" Pascal compilers available on\nminicomputers and mainframes and not write their solution to a specific\nPascal system like UCSD Pascal (see Appendix, \"IMPLEMENTATION\nPRIMITIVES [page 315](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up)).\nModularization facilitates code reuse and like information hiding is an\nimport software technique. Unfortunately the preprocessor approach doesn't\nsupport information hiding.\n\nTo facilitate code reuse the K & P book includes a preprocessor as part\nof the Pascal development tools (see [page 71](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up)\nfor implementation). The preprocessor written\nin Pascal was based on the early versions of the \"C\" preprocessor\nthey had available in the early UNIX systems. Not terribly Pascal\nlike but it worked and allowed the two files to be shared between\nthis program and one in the next chapter.\n\nOberon-07 of course benefits from all of Wirth's language improvements\nthat came after Pascal. Oberon-07 supports modules and as such\nthere is no need for a preprocessor.  Because of Oberon-07's module\nsupport I've implemented the Oberon version using two files\nrather than three. My main program file is \"Detab.Mod\",\nthe supporting library module is \"Tabs.Mod\". \"Tabs\" is where I\ndefine our tab stop data structure as well as the\nprocedures that operating on that data structure.\n\nLet's look at the first part, \"Detab.Mod\". This is the module\nthat forms the program and it features an module level \"BEGIN/END\" block.\nIn that block I call \"Detab();\" which implements the program's functionality.\nI import \"In\", \"Out\" as before but I also import \"Tabs\" which I will show next.\nLike my previous examples I validate the read was successful before proceeding\nwith the logic presented in the original Pascal and deciding\nwhat to write to standard output.\n\n~~~\n\nMODULE Detab;\n  IMPORT In, Out, Tabs;\n\nCONST\n  NEWLINE = 10;\n  TAB = 9;\n  BLANK = 32;\n\nPROCEDURE Detab;\nVAR\n  c : CHAR;\n  col : INTEGER;\n  tabstops : Tabs.TabType;\nBEGIN\n  Tabs.SetTabs(tabstops); (* set initial tab stops *)\n  col := 1;\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      IF (ORD(c) = TAB) THEN\n        REPEAT\n          Out.Char(CHR(BLANK));\n          col := col + 1;\n        UNTIL Tabs.TabPos(col, tabstops);\n      ELSIF (ORD(c) = NEWLINE) THEN\n        Out.Char(c);\n        col := 1;\n      ELSE\n        Out.Char(c);\n        col := col + 1;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Detab;\n\nBEGIN\n  Detab();\nEND Detab.\n\n~~~\n\nOur second module is \"Tabs.Mod\". It provides the supporting procedures\nand definition of the our \"TabType\" data structure. For us this\nis the first time we write a module which \"exports\" procedures\nand type definitions. If you are new to Oberon, expected constants,\nvariables and procedures names have a trailing \"*\". Otherwise the\nOberon compiler will assume a local use only. This is a very\npowerful information hiding capability and what allows you to\nevolve a modules' internal implementation independently of the\nprograms that rely on it.\n\n~~~\n\nMODULE Tabs;\n\nCONST\n  MAXLINE = 1000; (* or whatever *)\n\nTYPE\n  TabType* = ARRAY MAXLINE OF BOOLEAN;\n\n(* TabPos -- return TRUE if col is a tab stop *)\nPROCEDURE TabPos*(col : INTEGER; VAR tabstops : TabType) : BOOLEAN;\n  VAR res : BOOLEAN;\nBEGIN\n  res := FALSE; (* Initialize our internal default return value *)\n  IF (col >= MAXLINE) THEN\n    res := TRUE;\n  ELSE\n    res := tabstops[col];\n  END;\n  RETURN res\nEND TabPos;\n\n(* SetTabs -- set initial tab stops *)\nPROCEDURE SetTabs*(VAR tabstops: TabType);\nCONST\n  TABSPACE = 4; (* 4 spaces per tab *)\nVAR\n  i : INTEGER;\nBEGIN\n  (* NOTE: Arrays in Oberon start at zero, we want to\n     stop at the last cell *)\n  FOR i := 0 TO (MAXLINE - 1) DO\n    tabstops[i] := ((i MOD TABSPACE) = 0);\n  END;\nEND SetTabs;\n\nEND Tabs.\n\n~~~\n\nNOTE: This module is used by \"Detab.Mod\" and \"Entab.Mod\"\nand provides for common type definitions and code reuse.\nWe exported `TabType`, `TabPos` and `SetTabs`. Everything else\nis private to this module.\n\n## In closing\n\nThis post briefly highlighted ports of the programs\npresented in Chapter 1 of \"Software Tools in Pascal\".\nBelow are links to my source files of the my\nimplementations inspired by the K & P book. Included\nin each Oberon module source after the module definition\nis transcribed text of the program documentation as well\nas transcribed text of the K & P Pascal implementations.\nEach file should compiler without modification using the\nOBNC compiler.  By default the OBNC compiler will use the\nmodule's name as the name of the executable version. I\nI have used mixed case module names, if you prefer lower\ncase executable names use the \"-o\" option with the OBNC\ncompiler.\n\n~~~\n\n    obnc -o copy CopyProg.Mod\n    obnc -o charcount CharCount.Mod\n    obnc -o linecount LineCount.Mod\n    obnc -o wordcount WordCount.Mod\n    obnc -o detab Detab.Mod\n\n~~~\n\nIf you happen to be using The [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler)\nyou need to rename the files ending in \".Mod\" to \".m\" \nand you can compiler with the following command.\n\n~~~\n    obc -07 -o copyprog CopyProg.m\n    obc -07 -o charcount CharCount.m\n    obc -07 -o linecount LineCount.m\n    obc -07 -o wordcount WordCount.m\n    obc -07 -o detab Tabs.m Detab.m\n~~~\n\nNote the line for compiling \"Detab\" with **obc**, your\nlocal modules need to become before the module calling them.\n\n\n+ [CopyProg](CopyProg.Mod)\n+ [CharCount](CharCount.Mod)\n+ [LineCount](LineCount.Mod)\n+ [WordCount](WordCount.Mod)\n+ [Detab](Detab.Mod)\n    + [Tabs](Tabs.Mod), this one we'll revisit in next installment.\n\n\n# Next\n\n+ [Filters](../../10/31/Filters.html)\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Software Tools, Getting Started"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Overview"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This post is the first in a series revisiting the\nprograms described in the 1981 book by Brian W. Kernighan and\nP. J. Plauger's called "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Software Tools in Pascal"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern"
+          },
+          {
+            "type": "text",
+            "value": ".\nThe book is available from the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Open Library"
+              }
+            ],
+            "type": "link",
+            "url": "https://openlibrary.org/"
+          },
+          {
+            "type": "text",
+            "value": "\nand physical copies are still (2020) commonly available from used book\nsellers.  The book was an early text on creating portable command\nline programs."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this series I present the K & P (i.e. Software Tools in Pascal)\nprograms re-implemented in Oberon-07. I have testing my implementations\nusing Karl Landström's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "OBNC"
+              }
+            ],
+            "type": "link",
+            "url": "http://miasap.se/obnc/"
+          },
+          {
+            "type": "text",
+            "value": "\ncompiler and his implementation of the Oakwood Guide's modules\nfor portable Oberon programs. Karl also provides a few additional\nmodules for working in a POSIX environment (e.g. BSD, macOS, Linux,\nWindows 10 with Linux subsystem). I have also tested these\nprograms with Mike Spivey's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Oxford Oberon Compiler"
+              }
+            ],
+            "type": "link",
+            "url": "http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler"
+          },
+          {
+            "type": "text",
+            "value": " an aside\nfrom the differences file extensions that both compilers use\nthe source code works the same."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: OBNC compiler is the work of Karl Langström, it is portable across many systems where the C tool chain is available."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: POSIX defines a standard of compatibility inspired by "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "UNIX"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Unix"
+          },
+          {
+            "type": "text",
+            "value": ", see "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "https://en.wikipedia.org/wiki/POSIX"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/POSIX"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting Started."
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Chapter one in K & P is the first chapter that presents code. It introduces\nsome challenges and constraints creating portable Pascal suitable for use\nacross hardware architectures and operating systems. In 1981 this included\nmainframes, minicomputers as well as the recent evolution of the microcomputer.\nThe programs presented build up from simple to increasingly complex as\nyou move through the book.  They provide example documentation and discuss\ntheir implementation choices. It is well worth reading the book for those\ndiscussions, while specific to the era, mirror the problems program authors\nface today in spite of the wide spread success of the POXIS model, the\nconsolidation of CPU types and improvements made in development tools in\nthe intervening decades."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Through out K & P you'll see the bones of many POSIX commands we have today."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Programs from this chapter include:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "copyprog"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", this is like \"cat\" in a POSIX system"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "charcount"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", this is like the \"wc\" POSIX command using the \"-c\" option"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "linecount"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", this is like the \"wc\" POSIX command using the \"-l\" option"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "wordcount"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", this is like the \"wc\" POSIX command using the \"-w\" option"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "detab"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", converts tabs to spaces using tab stops every four characters in a line"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "All programs in this chapter rely solely on standard input and output.\nToday's reader will notice an absence to common concepts in today's\ncommand line programs.  First is the lack of interaction with command line\nparameters, the second is no example take advantage of environment variables.\nThese operating system features were not always available across\noperating systems of the early 1980s. Finally I'd like to point out a\nreally nice feature included in the book. It is often left out as a topic\nin programming books.  K & P provide example documentation. It's structure\nlike an early UNIX man page. It very clear and short. This is something\nI wish all programming texts at least mentioned. Documentation is important\nto the program author because it clarifies scope of the problem being\ntackled and to the program user so they understand what they are using."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.1. File Copying"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/7/mode/1up"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's how K & P describe \"copyprog.pas\" (referred to as \"copy\" in\nthe documentation)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n    copy    copy input to output\n\nUSAGE\n\n    copy\n\nFUNCTION\n\n    copy copies its input to its output unchanged. It is useful for copying\n    from a terminal to a file, from file to file, or even from terminal to\n    terminal. It may be used for displaying the contents of a file, without\n    interpretation or formatting, by copying from the file to terminal.\n\nEXAMPLE\n\n    To echo lines type at your terminal.\n\n    copy\n    hello there, are you listening?\n    **hello there, are you listening?**\n    yes, I am.\n    **yes, I am.**\n    <ENDFILE>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The source code for \"copyprog.pas\" is shown on\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 9"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/9/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nof K & P.  First the authors introduce the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "copy"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " procedure\nthen a complete the section introducing it in context of the complete Pascal\nprogram. After this first example K & P leave implementation of the full\nprogram up to the reader."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The body of the Pascal program invokes a procedure called\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "copy"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/8/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nwhich reads from standard input character by character and writes\nto standard output character by character without modification.  Two\nsupporting procedures are introduced, \"getc\" and \"putc\". These are shown\nin the complete program listing on page 9. They are repeatedly used\nthrough out the book. One of the really good aspects of this simple\nprogram is relying on the idea of standard input and output. This makes\n\"copyprog.pas\" a simple filter and template for writing many of the programs\nthat follow. K & P provide a good explanation for this simple approach.\nAlso note K & P's rational for working character by character versus\nline by line."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My Oberon-07 version takes a similar approach. The module looks remarkably\nsimilar to the Pascal but is shorter because reading and writing characters are\nprovided for by Oberon's standard modules \"In\" and \"Out\".\nI have chosen to use a \"REPEAT/UNTIL\" loop over the \"WHILE\"\nloop used by K & P is the attempt to read from standard input needs to happen\nat least once. Note in my \"REPEAT/UNTIL\" loop's terminating condition.\nThe value of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": " is true on successful read and false\notherwise (e.g. you hit an end of the file). That means our loop must\nterminate on "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done # TRUE"
+          },
+          {
+            "type": "text",
+            "value": " rather than "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done = TRUE"
+          },
+          {
+            "type": "text",
+            "value": ". This appears\ncounter intuitive unless you keep in mind our loop stops when we having\nnothing more to read, rather than when we can continue to read.\nIt "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": " means the read was successful and does not\nmean \"I'm done and can exit now\". Likewise before writing out the character\nwe read, it is good practice to check the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": " value. If "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": " is\nTRUE, I know can safely display the character using "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out.Char(c);"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE CopyProg;\nIMPORT In, Out;\n\nPROCEDURE copy;\nVAR\n  c : CHAR;\nBEGIN\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n        Out.Char(c);\n    END;\n  UNTIL In.Done # TRUE;\nEND copy;\n\nBEGIN\n  copy();\nEND CopyProg.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Limitations"
+          }
+        ],
+        "depth": 4,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This program only works with standard input and output. A more generalized\nversion would work with named files."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.2 Counting Characters"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  charcount count characters in input\n\nUSAGE\n\n  charcount\n\nFUNCTION\n\n  charcount counts the characters in its input and writes the total\n  as a single line of text to the output. Since each line of text is\n  internally delimited by a NEWLINE character, the total count is the\n  number of lines plus the number of characters within each line.\n\nEXAMPLE\n\n  charcount\n  A single line of input.\n  <ENDFILE>\n  24\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "On page 13"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/13/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nK & P introduces their second program, "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "charcount"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": ". It is based on a single\nprocedure that reads from standard input and counts up the number of\ncharacters encountered then writes the total number found to standard out\nfollowed by a newline. In the text only the procedure is shown, it is\nassumed you'll write the outer wrapper of the program yourself as\nwas done with the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "copyprog"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " program. My Oberon-07 version is very similar\nto the Pascal. Like in the our first \"CopyProg\" we will make use of the\n\"In\" and \"Out\" modules. Since we will\nneed to write an INTEGER value we'll also use \"Out.Int()\" procedure which\nis very similar to K & P's \"putdec()\". Aside from the counting this is very\nsimple  like our first program."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE CharCount;\nIMPORT In, Out;\n\nPROCEDURE CharCount;\nVAR\n  nc : INTEGER;\n  c : CHAR;\nBEGIN\n  nc := 0;\n\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      nc := nc + 1;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nc, 1);\n  Out.Ln();\nEND CharCount;\n\nBEGIN\n  CharCount();\nEND CharCount.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Limitations"
+          }
+        ],
+        "depth": 4,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The primary limitation in counting characters is most readers are\ninterested in visible character count. In our implementation\neven non-printed characters are counted. Like our first program\nthis only works on standard input and output. Ideally this should\nbe written so it works on any file including standard input and\noutput. If the reader implements that it could become part of a\npackage on statistical analysis of plain text files."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.3 Counting Lines"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  linecount count lines in input\n\nUSAGE\n\n  linecount\n\nFUNCTION\n\n  linecount counts the lines in its input and write the total as a\n  line of text to the output.\n\nEXAMPLE\n\n  linecount\n  A single line of input.\n  <ENDFILE>\n  1\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "linecount"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": ", from "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 15"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/15/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nis very similar to "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "charcount"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " except adding a\nconditional count in the loop for processing the file. In\nour Oberon-07 implementation we'll check if the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Char(c)"
+          },
+          {
+            "type": "text",
+            "value": "\ncall was successful but we'll add a second condition to see if the\ncharacter read was a NEWLINE. If it was I increment\nour counter variable."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE LineCount;\nIMPORT In, Out;\n\nPROCEDURE LineCount;\nCONST\n  NEWLINE = 10;\n\nVAR\n  nl : INTEGER;\n  c : CHAR;\nBEGIN\n  nl := 0;\n  REPEAT\n    In.Char(c);\n    IF In.Done & (ORD(c) = NEWLINE) THEN\n      nl := nl + 1;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nl, 1);\n  Out.Ln();\nEND LineCount;\n\nBEGIN\n  LineCount();\nEND LineCount.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Limitations"
+          }
+        ],
+        "depth": 4,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This program assumes that NEWLINE is ASCII value 10. Line delimiters\nvary between operating systems.  If your OS used carriage returns\nwithout a NEWLINE then this program would not count lines correctly.\nThe reader could extend the checking to support carriage returns,\nnew lines, and carriage return with new lines and cover most versions\nof line endings."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.4 Counting Words"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/14/mode/1up"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  wordcount count words in input\n\nUSAGE\n\n  wordcount\n\nFUNCTION\n\n  wordcount counts the words in its input and write the total as a\n  line of text to the output. A \"word\" is a maximal sequence of characters\n  not containing a blank or tab or newline.\n\nEXAMPLE\n\n  wordcount\n  A single line of input.\n  <ENDFILE>\n  5\n\nBUGS\n\n  The definition of \"word\" is simplistic.\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 17"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/17/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nbrings us to the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "wordcount"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " program. Counting words can be\nvery nuanced but here K & P have chosen a simple definition\nwhich most of the time is \"good enough\" for languages like English.\nA word is defined simply as an run of characters separated by\na space, tab or newline characters.  In practice most documents\nwill work with this minimal definition. It also makes the code\nstraight forward.  This is a good example of taking the simple\nroad if you can. It keeps this program short and sweet."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you follow along in the K & P book note their rational\nand choices in arriving at there solutions. There solutions\nwill often balance readability and clarity over machine efficiency.\nWhile the code has progressed from \"if then\" to \"if then else if\"\nlogical sequence, the solution's modeled remains\nclear. This means the person reading the source code can easily verify\nif the approach chosen was too simple to meet their needs or it was\n\"good enough\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My Oberon-07 implementation is again very simple. Like in previous programs\nI still have an outer check to see if the read worked (i.e. \"In.Done = TRUE\"),\notherwise the conditional logic is the same as the Pascal implementation."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE WordCount;\nIMPORT In, Out;\n\nPROCEDURE WordCount;\nCONST\n  NEWLINE = 10;\n  BLANK = 32;\n  TAB = 9;\n\nVAR\n  nw : INTEGER;\n  c : CHAR;\n  inword : BOOLEAN;\nBEGIN\n  nw := 0;\n  inword := FALSE;\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      IF ((ORD(c) = BLANK) OR (ORD(c) = NEWLINE) OR (ORD(c) = TAB)) THEN\n        inword := FALSE;\n      ELSIF (inword = FALSE) THEN\n        inword := TRUE;\n        nw := nw + 1;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\n  Out.Int(nw, 1);\n  Out.Ln();\nEND WordCount;\n\nBEGIN\n  WordCount();\nEND WordCount.\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.5 Removing Tabs"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/20/mode/1up"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  detab convert tabs into blanks\n\nUSAGE\n\n  detab\n\nFUNCTION\n\n  detab copies its input to its output, expanding the horizontal\n  tabs to blanks along the way, so that the output is visually\n  the same as the input, but contains no tab characters. Tab stops\n  are assumed to be set every four columns (i.e. 1, 5, 9, ...), so\n  each tab character is replaced by from one to four blanks.\n\nEXAMPLE\n\n  Usaing \"->\" as a visible tab:\n\n  detab\n  ->col 1->2->34->rest\n      col 1   2   34  rest\n\nBUGS\n\n  detab is naive about backspaces, vertical motions, and\n  non-printing characters.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The source code for \"detab\" can be found on\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 24"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/24/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nin the last section of chapter 1. "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "detab"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " removes\ntabs and replaces them with spaces. Rather than a simple \"tab\"\nreplaced with four spaces "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "detab"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " preserves a concept found on\ntypewriters called \"tab stops\". In 1981 typewrites were still widely\nused though word processing software would become common. Supporting the\n\"tab stop\" model means the program works with what office workers would\nexpect from older tools like the typewriter or even the computer's\nteletype machine. I think this shows an important aspect of writing\nprograms. Write the program for people, support existing common concepts\nthey will likely know."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "K & P implementation includes separate source files\nfor setting tab stops and checking a tab stop.  The Pascal K & P\nwrote for didn't support separate source files or program modules. Recent Pascal\nversions did support the concept of modularization (e.g. UCSD Pascal). Since\nand significant goal of K & P was portability they needed to come up\nwith a solution that worked on the \"standard\" Pascal compilers available on\nminicomputers and mainframes and not write their solution to a specific\nPascal system like UCSD Pascal (see Appendix, \"IMPLEMENTATION\nPRIMITIVES "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 315"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/315/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": ").\nModularization facilitates code reuse and like information hiding is an\nimport software technique. Unfortunately the preprocessor approach doesn't\nsupport information hiding."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To facilitate code reuse the K & P book includes a preprocessor as part\nof the Pascal development tools (see "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 71"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/71/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nfor implementation). The preprocessor written\nin Pascal was based on the early versions of the \"C\" preprocessor\nthey had available in the early UNIX systems. Not terribly Pascal\nlike but it worked and allowed the two files to be shared between\nthis program and one in the next chapter."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon-07 of course benefits from all of Wirth's language improvements\nthat came after Pascal. Oberon-07 supports modules and as such\nthere is no need for a preprocessor.  Because of Oberon-07's module\nsupport I've implemented the Oberon version using two files\nrather than three. My main program file is \"Detab.Mod\",\nthe supporting library module is \"Tabs.Mod\". \"Tabs\" is where I\ndefine our tab stop data structure as well as the\nprocedures that operating on that data structure."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's look at the first part, \"Detab.Mod\". This is the module\nthat forms the program and it features an module level \"BEGIN/END\" block.\nIn that block I call \"Detab();\" which implements the program's functionality.\nI import \"In\", \"Out\" as before but I also import \"Tabs\" which I will show next.\nLike my previous examples I validate the read was successful before proceeding\nwith the logic presented in the original Pascal and deciding\nwhat to write to standard output."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Detab;\n  IMPORT In, Out, Tabs;\n\nCONST\n  NEWLINE = 10;\n  TAB = 9;\n  BLANK = 32;\n\nPROCEDURE Detab;\nVAR\n  c : CHAR;\n  col : INTEGER;\n  tabstops : Tabs.TabType;\nBEGIN\n  Tabs.SetTabs(tabstops); (* set initial tab stops *)\n  col := 1;\n  REPEAT\n    In.Char(c);\n    IF In.Done THEN\n      IF (ORD(c) = TAB) THEN\n        REPEAT\n          Out.Char(CHR(BLANK));\n          col := col + 1;\n        UNTIL Tabs.TabPos(col, tabstops);\n      ELSIF (ORD(c) = NEWLINE) THEN\n        Out.Char(c);\n        col := 1;\n      ELSE\n        Out.Char(c);\n        col := col + 1;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Detab;\n\nBEGIN\n  Detab();\nEND Detab.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our second module is \"Tabs.Mod\". It provides the supporting procedures\nand definition of the our \"TabType\" data structure. For us this\nis the first time we write a module which \"exports\" procedures\nand type definitions. If you are new to Oberon, expected constants,\nvariables and procedures names have a trailing \"*\". Otherwise the\nOberon compiler will assume a local use only. This is a very\npowerful information hiding capability and what allows you to\nevolve a modules' internal implementation independently of the\nprograms that rely on it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Tabs;\n\nCONST\n  MAXLINE = 1000; (* or whatever *)\n\nTYPE\n  TabType* = ARRAY MAXLINE OF BOOLEAN;\n\n(* TabPos -- return TRUE if col is a tab stop *)\nPROCEDURE TabPos*(col : INTEGER; VAR tabstops : TabType) : BOOLEAN;\n  VAR res : BOOLEAN;\nBEGIN\n  res := FALSE; (* Initialize our internal default return value *)\n  IF (col >= MAXLINE) THEN\n    res := TRUE;\n  ELSE\n    res := tabstops[col];\n  END;\n  RETURN res\nEND TabPos;\n\n(* SetTabs -- set initial tab stops *)\nPROCEDURE SetTabs*(VAR tabstops: TabType);\nCONST\n  TABSPACE = 4; (* 4 spaces per tab *)\nVAR\n  i : INTEGER;\nBEGIN\n  (* NOTE: Arrays in Oberon start at zero, we want to\n     stop at the last cell *)\n  FOR i := 0 TO (MAXLINE - 1) DO\n    tabstops[i] := ((i MOD TABSPACE) = 0);\n  END;\nEND SetTabs;\n\nEND Tabs.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: This module is used by \"Detab.Mod\" and \"Entab.Mod\"\nand provides for common type definitions and code reuse.\nWe exported "
+          },
+          {
+            "type": "inlineCode",
+            "value": "TabType"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "TabPos"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SetTabs"
+          },
+          {
+            "type": "text",
+            "value": ". Everything else\nis private to this module."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In closing"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This post briefly highlighted ports of the programs\npresented in Chapter 1 of \"Software Tools in Pascal\".\nBelow are links to my source files of the my\nimplementations inspired by the K & P book. Included\nin each Oberon module source after the module definition\nis transcribed text of the program documentation as well\nas transcribed text of the K & P Pascal implementations.\nEach file should compiler without modification using the\nOBNC compiler.  By default the OBNC compiler will use the\nmodule's name as the name of the executable version. I\nI have used mixed case module names, if you prefer lower\ncase executable names use the \"-o\" option with the OBNC\ncompiler."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    obnc -o copy CopyProg.Mod\n    obnc -o charcount CharCount.Mod\n    obnc -o linecount LineCount.Mod\n    obnc -o wordcount WordCount.Mod\n    obnc -o detab Detab.Mod\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you happen to be using The "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Oxford Oberon Compiler"
+              }
+            ],
+            "type": "link",
+            "url": "http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler"
+          },
+          {
+            "type": "text",
+            "value": "\nyou need to rename the files ending in \".Mod\" to \".m\"\nand you can compiler with the following command."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "    obc -07 -o copyprog CopyProg.m\n    obc -07 -o charcount CharCount.m\n    obc -07 -o linecount LineCount.m\n    obc -07 -o wordcount WordCount.m\n    obc -07 -o detab Tabs.m Detab.m"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Note the line for compiling \"Detab\" with "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "obc"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": ", your\nlocal modules need to become before the module calling them."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "CopyProg"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "CopyProg.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "CharCount"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "CharCount.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "LineCount"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "LineCount.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "WordCount"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "WordCount.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Detab"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Detab.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "Tabs"
+                              }
+                            ],
+                            "type": "link",
+                            "url": "Tabs.Mod"
+                          },
+                          {
+                            "type": "text",
+                            "value": ", this one we'll revisit in next installment."
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": true,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Filters"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../../10/31/Filters.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2020, R. S. Doiel",

@@ -1,5 +1,84 @@
 {
   "content": "\n# Find Bluesky RSS Feeds\n\nWith the update to [1.60](https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i) of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me. \nThe RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is\nat <https://bsky.app/profile/rsdoiel.bsky.social> and if you look at that pages HTML markup you'll see a link element in the head\n\n```html\n <link rel=\"alternate\" type=\"application/rss+xml\" href=\"/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss\">\n```\n\nThat's the RSS feed. So now if you want to follow you can expand the URL to \n\n```\nhttps://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss\n```\n\nAnd use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website\nto getting updates via my feed reader.\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Find Bluesky RSS Feeds"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "With the update to "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "1.60"
+              }
+            ],
+            "type": "link",
+            "url": "https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i"
+          },
+          {
+            "type": "text",
+            "value": " of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me.\nThe RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is\nat "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "https://bsky.app/profile/rsdoiel.bsky.social"
+              }
+            ],
+            "type": "link",
+            "url": "https://bsky.app/profile/rsdoiel.bsky.social"
+          },
+          {
+            "type": "text",
+            "value": " and if you look at that pages HTML markup you'll see a link element in the head"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "html",
+        "type": "code",
+        "value": " <link rel=\"alternate\" type=\"application/rss+xml\" href=\"/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss\">"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "That's the RSS feed. So now if you want to follow you can expand the URL to"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "https://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "And use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website\nto getting updates via my feed reader."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "byline": "R. S. Doiel, 2023-12-23",
     "keywords": [

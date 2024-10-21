@@ -1,5 +1,150 @@
 {
   "content": "\nUpdating Schema in SQLite3\n==========================\n\nBy R. S. Doiel, 2020-04-16\n\n[SQLite3](https://sqlite.org/docs.html) is a handy little\ndatabase as single file tool.  You can interact with the file\nthrough largely standard SQL commands and embed it easily into\napplications via the C libraries that the project supports.\nIt is also available from various popular scripting languages\nlike Python, PHP, and Lua. One of the things I occasionally\nneed to do and always seems to forget it how to is modify a\ntable schema where I need to remove a column[^1]. So here are\nsome of the basics do I can quickly find them later and avoid\nreading various articles tutorials because the search engines\ndoesn't return the page in the SQLite documentation.\n\n[^1]: The SQL `ALTER TABLE table_name DROP COLUMN column_name` does not work in SQLite3\n\nIn the next sections I'll be modeling a simple person object\nwith a id, uname, display_name, role and updated fields.\n\nCreating a person table\n-----------------------\n\n\n```sql\n\nCREATE TABLE IF NOT EXISTS \"person\" \n        (\"id\" INTEGER NOT NULL PRIMARY KEY, \n        \"uname\" VARCHAR(255) NOT NULL, \n        \"role\" VARCHAR(255) NOT NULL, \n        \"display_name\" VARCHAR(255) NOT NULL, \n        \"updated\" INTEGER NOT NULL);\n\n```\n\nAdding a column\n---------------\n\nWe will create a *junk* column which we will remove later.\n\n```sql\n\n.schema person\nALTER TABLE person ADD COLUMN junk VARCHAR(255) NOT NULL;\n.schema person\n\n```\n\nDropping a column\n-----------------\n\nTo drop a column in SQLite you need to actually create\na new table, migrate the data into it then drop the old table\nand finally rename it. It is best to wrap this in a transaction.\n\n```sql\n\nBEGIN TRANSACTION;\n    CREATE TABLE IF NOT EXISTS \"person_new\" \n           (\"id\" INTEGER NOT NULL PRIMARY KEY, \n           \"uname\" VARCHAR(255) NOT NULL, \n           \"role\" VARCHAR(255) NOT NULL, \n           \"display_name\" VARCHAR(255) NOT NULL, \n           \"updated\" INTEGER NOT NULL);\n    INSERT INTO person_new\n           SELECT id, uname, role, display_name, updated\n           FROM person;\n    DROP TABLE person;\n    ALTER TABLE person_new RENAME TO person;\nCOMMIT;\n\n```\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Updating Schema in SQLite3"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-04-16"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "SQLite3"
+              }
+            ],
+            "type": "link",
+            "url": "https://sqlite.org/docs.html"
+          },
+          {
+            "type": "text",
+            "value": " is a handy little\ndatabase as single file tool.  You can interact with the file\nthrough largely standard SQL commands and embed it easily into\napplications via the C libraries that the project supports.\nIt is also available from various popular scripting languages\nlike Python, PHP, and Lua. One of the things I occasionally\nneed to do and always seems to forget it how to is modify a\ntable schema where I need to remove a column[^1]. So here are\nsome of the basics do I can quickly find them later and avoid\nreading various articles tutorials because the search engines\ndoesn't return the page in the SQLite documentation."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[^1]: The SQL "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ALTER TABLE table_name DROP COLUMN column_name"
+          },
+          {
+            "type": "text",
+            "value": " does not work in SQLite3"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In the next sections I'll be modeling a simple person object\nwith a id, uname, display_name, role and updated fields."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Creating a person table"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "lang": "sql",
+        "type": "code",
+        "value": "\nCREATE TABLE IF NOT EXISTS \"person\" \n        (\"id\" INTEGER NOT NULL PRIMARY KEY, \n        \"uname\" VARCHAR(255) NOT NULL, \n        \"role\" VARCHAR(255) NOT NULL, \n        \"display_name\" VARCHAR(255) NOT NULL, \n        \"updated\" INTEGER NOT NULL);\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Adding a column"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We will create a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "junk"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " column which we will remove later."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "sql",
+        "type": "code",
+        "value": "\n.schema person\nALTER TABLE person ADD COLUMN junk VARCHAR(255) NOT NULL;\n.schema person\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Dropping a column"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To drop a column in SQLite you need to actually create\na new table, migrate the data into it then drop the old table\nand finally rename it. It is best to wrap this in a transaction."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "sql",
+        "type": "code",
+        "value": "\nBEGIN TRANSACTION;\n    CREATE TABLE IF NOT EXISTS \"person_new\" \n           (\"id\" INTEGER NOT NULL PRIMARY KEY, \n           \"uname\" VARCHAR(255) NOT NULL, \n           \"role\" VARCHAR(255) NOT NULL, \n           \"display_name\" VARCHAR(255) NOT NULL, \n           \"updated\" INTEGER NOT NULL);\n    INSERT INTO person_new\n           SELECT id, uname, role, display_name, updated\n           FROM person;\n    DROP TABLE person;\n    ALTER TABLE person_new RENAME TO person;\nCOMMIT;\n"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2021, R. S. Doiel",

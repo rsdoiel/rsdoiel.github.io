@@ -1,5 +1,131 @@
 {
   "content": "\n# Go and MySQL timestamps\n\nBy R. S. Doiel, 2022-12-12\n\nThe Go [sql](https://pkg.go.dev/database/sql) package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the [MySQL driver](github.com/go-sql-driver/mysql).  Sometimes that is not a big deal. [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the `int64` used in Go's `time.Time`. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using [DATE_FORMAT](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format \"DATE_FORMAT is a MySQL date/time function returning a string value\") and from the Go side convert the formatted string into a `time.Time` using `time.Parse()`. Below is some Golang pseudo code showing this approach.\n\n```\n// Format used by MySQL strings representing date/times\nconst MySQLTimestamp = \"2006-01-02 15:04:05\"\n\n// GetRecordUpdate takes a configuration with a db attribute previously\n// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's\n// `DATE_FORMAT()` function to convert the timestamp into a string and\n// Go's `time.Parse()` to convert the string into a `time.Time` value.\nfunc GetRecordUpdate(cfg, id string) {\n\tstmt := `SELECT id, DATE_FORMAT(updated, \"%Y-%m-%d %H:%i:%s\") FROM some_tabl WHERE id = ?`\n\trow, err := cfg.db.Query(stmt, id)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tdefer row.Close()\n\trecord := new(Record)\n\tif row.Next() {\n\t\tvar updated string\n\t\tif err := row.Scan(&record.ID, &updated); err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\trecord.Updated, err = time.Parse(MySQLTimestamp, updated)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t}\n\terr = row.Err()\n\treturn record, err\n}\n```\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go and MySQL timestamps"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2022-12-12"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The Go "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "sql"
+              }
+            ],
+            "type": "link",
+            "url": "https://pkg.go.dev/database/sql"
+          },
+          {
+            "type": "text",
+            "value": " package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "MySQL driver"
+              }
+            ],
+            "type": "link",
+            "url": "github.com/go-sql-driver/mysql"
+          },
+          {
+            "type": "text",
+            "value": ".  Sometimes that is not a big deal. "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "MySQL"
+              }
+            ],
+            "type": "link",
+            "url": "https://dev.mysql.com"
+          },
+          {
+            "type": "text",
+            "value": " can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "int64"
+          },
+          {
+            "type": "text",
+            "value": " used in Go's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "time.Time"
+          },
+          {
+            "type": "text",
+            "value": ". To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "DATE_FORMAT"
+              }
+            ],
+            "title": "DATE_FORMAT is a MySQL date/time function returning a string value",
+            "type": "link",
+            "url": "https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format"
+          },
+          {
+            "type": "text",
+            "value": " and from the Go side convert the formatted string into a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "time.Time"
+          },
+          {
+            "type": "text",
+            "value": " using "
+          },
+          {
+            "type": "inlineCode",
+            "value": "time.Parse()"
+          },
+          {
+            "type": "text",
+            "value": ". Below is some Golang pseudo code showing this approach."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "// Format used by MySQL strings representing date/times\nconst MySQLTimestamp = \"2006-01-02 15:04:05\"\n\n// GetRecordUpdate takes a configuration with a db attribute previously\n// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's\n// `DATE_FORMAT()` function to convert the timestamp into a string and\n// Go's `time.Parse()` to convert the string into a `time.Time` value.\nfunc GetRecordUpdate(cfg, id string) {\n\tstmt := `SELECT id, DATE_FORMAT(updated, \"%Y-%m-%d %H:%i:%s\") FROM some_tabl WHERE id = ?`\n\trow, err := cfg.db.Query(stmt, id)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tdefer row.Close()\n\trecord := new(Record)\n\tif row.Next() {\n\t\tvar updated string\n\t\tif err := row.Scan(&record.ID, &updated); err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\trecord.Updated, err = time.Parse(MySQLTimestamp, updated)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t}\n\terr = row.Err()\n\treturn record, err\n}"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@sdf.org (R. S. Doiel)",
     "keywords": [

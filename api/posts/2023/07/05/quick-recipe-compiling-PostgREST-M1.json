@@ -1,5 +1,206 @@
 {
   "content": "\n# Quick recipe, compile PostgREST (M1)\n\nThese are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/PostgREST/postgrest> to your local machine\n4. Check out the version you want to build (e.g. v11.1.0)\n5. Run the \"usual\" Haskell build sequence with cabal\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal build`\n    d. `cabal install`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/PostgREST\ncd src/github.com/PostgREST\ngit clone git@github.com:PostgREST/postgrest\ncd postgrest\ncabal clean\ncabal update\ncabal build\ncabal install\n~~~\n\nThis will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Quick recipe, compile PostgREST (M1)"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "These are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "GHCup"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.haskell.org/ghcup/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to get a good Haskell setup (I accept all the default choices)\na. Use the curl example command to install it\nb. Make sure the environment is active (e.g. source "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "$HOME/.ghcup/env"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Clone "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "https://github.com/PostgREST/postgrest"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://github.com/PostgREST/postgrest"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to your local machine"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Check out the version you want to build (e.g. v11.1.0)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Run the \"usual\" Haskell build sequence with cabal\na. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal clean"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\nb. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal update"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\nc. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal build"
+                  },
+                  {
+                    "type": "text",
+                    "value": "\nd. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cabal install"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/PostgREST\ncd src/github.com/PostgREST\ngit clone git@github.com:PostgREST/postgrest\ncd postgrest\ncabal clean\ncabal update\ncabal build\ncabal install"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This will install PostgREST in your "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$HOME/.cabal/bin"
+          },
+          {
+            "type": "text",
+            "value": " directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup)."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "R. S. Doiel",
     "keywords": [

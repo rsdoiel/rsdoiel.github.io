@@ -1,5 +1,819 @@
 {
   "content": "\n\nOPML to Markdown and back\n=========================\n\nBy R. S. Doiel 2016-05-28\n\n## Overview\n\nI wrote a Go language package to sort [OPML](http://dev.opml.org/spec2.html) outlines. \nI wrote this because my preferred [feed reader ](http://goread.io) supports manual \nsorting but not automatic alpha sorting by the _outline_ element's _text_ attribute. \n\n## Observations\n\nOut of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,\nscripts, basic metadata (create, modified, authorship), and even directory structures.\n\n[Fargo](http://fargo.io) allows user defined attributes to be applied to the _outline_ \nelement in OPML. This could be used in support some of the \n[Scrivener](https://www.literatureandlatte.com/scrivener.php)\nfeatures I miss such as describing how to render a project to various formats such as\nrtf, pdf, ePub, web pages or even [Final Draft fdx](https://www.finaldraft.com/) files.\n\nI write allot of Markdown formatted text.  Markdown is simple to index, \nsearch and convert into useful formats. Markdown is not good at expressing more\ncomplex structures such as metadata. Website generators that use markdown often\nrequire a preamble or _front matter_ in the markdown to provide any metadata. This\nleaves your document head cluttered and less human readable.\n\nAnother approach is to include a parallel document with the metadata.  It occurred to me \nthat an OPML file could easily hold that metadata. It can even hold Markdown content.\nThe trouble with OPML is that it is not quick to edit by hand.\n\n    Is there a round trip semantic mapping between OPML and Markdown?\n\n\n## Germination of an idea\n\nEntering a web link in Fargo the link is URL encoded and saved in the _text_ attribute of the \n_outline_ element.\n\nThe source view of a web links in Fargo's _outline_ element looks like\n\n```OPML\n    <outline text=\"&gt; href=&quot;http://example.org&quot;&lt;My example.org&gt;/a&lt;\" />\n```\n\nThat _outline_ element might render in Markdown as\n\n```\n    + [My element.org](http://example.org)\n```\n\nThe steps to create the Markdown view are simple\n\n1. URL decode the _text_ attribute\n2. Convert HTML to Markdown\n\nMaking a round trip could be done by\n\n3. Convert Markdown into HTML\n4. For each _li_ element covert to an _outline_ element URL encoding the inner HTML of the _li_\n\nSo far so good. What about something more complex?\n\n\nHere's an _outline_ element example from http://hosting.opml.org/dave/spec/directory.opml \n\n```OPML\n    <outline text=\"Scripting News sites\" created=\"Sun, 16 Oct 2005 05:56:10 GMT\" type=\"link\" url=\"http://hosting.opml.org/dave/mySites.opml\"/>\n```\n\nTo me that should look like \n\n```\n    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml)\n```\n\nWhat about the _created_ attribute? Could we render this case as an additional set of anchors using data uri?\n\nThis suggest a rule like\n\n+ if the _text_ attribute contains HTML markup\n    + URL decode into HTML\n    + Convert HTML to Markdown\n+ else render attributes as additional anchors using data URI\n\nThis might work as follows. \n\n```OPML\n    <outline text=\"Scripting News sites\" \n        created=\"Sun, 16 Oct 2005 05:56:10 GMT\" \n        type=\"link\" \n        url=\"http://hosting.opml.org/dave/mySites.opml\"/>\n```\n\nWould become \n\n```Markdown\n    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)\n```\n\nIn HTML this would look like\n\n```HTML\n    <li><a href=\"http://histing.opml.org/dave/mySites.opml\">Scripting News Sites</a>\n        <a href=\"data:text/plain;link\">type</a>\n        <a href=\"data:text/date;Sun, 16 Oct 2005 05:56:10 GMT\">created</a></li>\n```\n\n### Markdown to OPML\n\nComing back to OPML from Markdown then becomes\n\n+ Convert Markdown to HTML\n+ For each _li_ element inspect anchors, \n    + if anchors contain data URI then map _outline_ element\n    + else URL encode and embed in _outline_ _text_ attribute\n\nIs this viable? Does it have any advantages?\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OPML to Markdown and back"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel 2016-05-28"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Overview"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I wrote a Go language package to sort "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "OPML"
+              }
+            ],
+            "type": "link",
+            "url": "http://dev.opml.org/spec2.html"
+          },
+          {
+            "type": "text",
+            "value": " outlines.\nI wrote this because my preferred "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "feed reader "
+              }
+            ],
+            "type": "link",
+            "url": "http://goread.io"
+          },
+          {
+            "type": "text",
+            "value": " supports manual\nsorting but not automatic alpha sorting by the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " element's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "text"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " attribute."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Observations"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,\nscripts, basic metadata (create, modified, authorship), and even directory structures."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Fargo"
+              }
+            ],
+            "type": "link",
+            "url": "http://fargo.io"
+          },
+          {
+            "type": "text",
+            "value": " allows user defined attributes to be applied to the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": "\nelement in OPML. This could be used in support some of the\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Scrivener"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.literatureandlatte.com/scrivener.php"
+          },
+          {
+            "type": "text",
+            "value": "\nfeatures I miss such as describing how to render a project to various formats such as\nrtf, pdf, ePub, web pages or even "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Final Draft fdx"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.finaldraft.com/"
+          },
+          {
+            "type": "text",
+            "value": " files."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I write allot of Markdown formatted text.  Markdown is simple to index,\nsearch and convert into useful formats. Markdown is not good at expressing more\ncomplex structures such as metadata. Website generators that use markdown often\nrequire a preamble or "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "front matter"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " in the markdown to provide any metadata. This\nleaves your document head cluttered and less human readable."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Another approach is to include a parallel document with the metadata.  It occurred to me\nthat an OPML file could easily hold that metadata. It can even hold Markdown content.\nThe trouble with OPML is that it is not quick to edit by hand."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "Is there a round trip semantic mapping between OPML and Markdown?"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Germination of an idea"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Entering a web link in Fargo the link is URL encoded and saved in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "text"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " attribute of the\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " element."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The source view of a web links in Fargo's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " element looks like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "OPML",
+        "type": "code",
+        "value": "    <outline text=\"&gt; href=&quot;http://example.org&quot;&lt;My example.org&gt;/a&lt;\" />"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "That "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " element might render in Markdown as"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "    + [My element.org](http://example.org)"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The steps to create the Markdown view are simple"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "URL decode the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "text"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " attribute"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Convert HTML to Markdown"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Making a round trip could be done by"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Convert Markdown into HTML"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "For each "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "li"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " element covert to an "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "outline"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " element URL encoding the inner HTML of the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "li"
+                      }
+                    ],
+                    "type": "emphasis"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 3,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "So far so good. What about something more complex?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's an "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "outline"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " element example from http://hosting.opml.org/dave/spec/directory.opml"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "OPML",
+        "type": "code",
+        "value": "    <outline text=\"Scripting News sites\" created=\"Sun, 16 Oct 2005 05:56:10 GMT\" type=\"link\" url=\"http://hosting.opml.org/dave/mySites.opml\"/>"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To me that should look like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml)"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What about the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "created"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " attribute? Could we render this case as an additional set of anchors using data uri?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This suggest a rule like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "if the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "text"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " attribute contains HTML markup"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "URL decode into HTML"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Convert HTML to Markdown"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "else render attributes as additional anchors using data URI"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This might work as follows."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "OPML",
+        "type": "code",
+        "value": "    <outline text=\"Scripting News sites\" \n        created=\"Sun, 16 Oct 2005 05:56:10 GMT\" \n        type=\"link\" \n        url=\"http://hosting.opml.org/dave/mySites.opml\"/>"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Would become"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "Markdown",
+        "type": "code",
+        "value": "    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In HTML this would look like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "HTML",
+        "type": "code",
+        "value": "    <li><a href=\"http://histing.opml.org/dave/mySites.opml\">Scripting News Sites</a>\n        <a href=\"data:text/plain;link\">type</a>\n        <a href=\"data:text/date;Sun, 16 Oct 2005 05:56:10 GMT\">created</a></li>"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Markdown to OPML"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Coming back to OPML from Markdown then becomes"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Convert Markdown to HTML"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "For each "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "li"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " element inspect anchors,"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "if anchors contain data URI then map "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "outline"
+                              }
+                            ],
+                            "type": "emphasis"
+                          },
+                          {
+                            "type": "text",
+                            "value": " element"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "else URL encode and embed in "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "outline"
+                              }
+                            ],
+                            "type": "emphasis"
+                          },
+                          {
+                            "type": "text",
+                            "value": " "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "text"
+                              }
+                            ],
+                            "type": "emphasis"
+                          },
+                          {
+                            "type": "text",
+                            "value": " attribute"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Is this viable? Does it have any advantages?"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2016, R. S. Doiel",

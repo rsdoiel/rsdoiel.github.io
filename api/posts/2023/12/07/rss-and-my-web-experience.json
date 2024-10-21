@@ -1,5 +1,371 @@
 {
   "content": "\n# RSS and my web experience\n\nby R. S. Doiel, 2023-12-07\n\nI agree with [Dave Winer](http://scripting.com/2023/12/07/140505.html?title=whyWeWantFeedsInBluesky), Blue Sky should support RSS. Most web systems benefit from supporting RSS. RSS is a base level inter-opt for web software like HTML and JSON can be. While I may not be typical I am an example of a web user who experiences much of the web via RSS. I read blog and site content via RSS. I \"follow\" my friends and colleagues via RSS. This is true when they blog or when they post in a Mastodon community.  I track academic repositories content for [ETH Zurich Research](https://www.rc-blog.ethz.ch/en/feed) and [Caltech](https://feeds.library.caltech.edu/recent/combined.html) via RSS feeds. I check the weather via NOAA's [RSS feed](https://www.weather.gov/rss).  News sites often syndicate still via RSS and then Podcasts, if they are actual Podcasts are distributed via RSS.  All this is to say I think RSS is not dead. It remains easy to render can can be easy to consume.  If a website doesn't provide it it is possible to generate it yourself[1] or find a service to use that does[2]. RSS remains key to how I experience and use the web in 2023.\n\n[1]: Go libraries like [Colly](https://go-colly.org/) and [Gofeeds](https://github.com/mmcdole/gofeed) make it possible to roll your own like the one in skimmer\n\n[2]: https://firesky.tv/ is an example of a service that provides RSS for Bluesky via its raw API, [html2rss](https://html2rss.github.io/) is service that producing RSS feeds for popular sites that don't include them\n\nMy personal approach to feeds is very much tailored to me. It's probably overkill for most people but it works with my vision and cognitive limitations. He's the steps I take in feed reading. They essentially decompose a traditional feed reader and allow for more flexibility for my reading pleasure.\n\n1. Maintain a list of feeds in a simple text file\n2. Harvest those feeds with [skimmer](https://rsdoiel.github.io/skimmer), Skimmer stores the items in an [SQLite3](https://sqlite.org)\n3. I filter the items using SQL and SQLite3 or via an interactive mode provided by Skimmer\n4. Render saved items to Markdown with [skim2md](https://rsdoiel.github.io/skimmer/skim2md.1.html)\n5. Use [Pandoc](https://pandoc.org) to render the Markdown and view Firefox\n\nThe nice thing about this approach is that I can easily script it with Bash or even a Windows bat. I can easily maintain separate lists and separate databases for personal and work related material.  A bonus is the database items can also serve as a corpus for a personal search engine too. If you want to save maintain a public reading list this setup is ideal too. Of course the list of curated items can be transformed into their own RSS feed as well.\n\n[Skimmer](https://rsdoiel.github.io/skimmer/skimmer.1.html) is a deconstructed feed reader. Does that make it post modern feed reader?  Skimmer processes a list of feeds I follow and saves the results in an SQLite 3 database. That database can be used to filter the feeds and flag items as \"saved\". Typically I filter by timestamps. Saved items can be processed with `skim2md` to render a markdown document. `skim2md` has an option to include a \"save to pocket\" button for each item in the output. I use Pandoc to render the page then view that result in Firefox. At my leisure I read the web page and press the \"Save to pocket\" button any item I want to read later. It's a very comfortable experience.\n\nSkimmer lead me to think about a personal news page for myself and family. Skimmer lets me curate separate lists organized around themes. These can then be rendered to individual pages like pages of a newspaper. This has been captured in an experimental project I call [Antenna](https://rsdoiel.github.io/antenna). It even includes a feed search feature thanks to [PageFind](https://pagefind.app)\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "RSS and my web experience"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "by R. S. Doiel, 2023-12-07"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I agree with "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Dave Winer"
+              }
+            ],
+            "type": "link",
+            "url": "http://scripting.com/2023/12/07/140505.html?title=whyWeWantFeedsInBluesky"
+          },
+          {
+            "type": "text",
+            "value": ", Blue Sky should support RSS. Most web systems benefit from supporting RSS. RSS is a base level inter-opt for web software like HTML and JSON can be. While I may not be typical I am an example of a web user who experiences much of the web via RSS. I read blog and site content via RSS. I \"follow\" my friends and colleagues via RSS. This is true when they blog or when they post in a Mastodon community.  I track academic repositories content for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ETH Zurich Research"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.rc-blog.ethz.ch/en/feed"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Caltech"
+              }
+            ],
+            "type": "link",
+            "url": "https://feeds.library.caltech.edu/recent/combined.html"
+          },
+          {
+            "type": "text",
+            "value": " via RSS feeds. I check the weather via NOAA's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "RSS feed"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.weather.gov/rss"
+          },
+          {
+            "type": "text",
+            "value": ".  News sites often syndicate still via RSS and then Podcasts, if they are actual Podcasts are distributed via RSS.  All this is to say I think RSS is not dead. It remains easy to render can can be easy to consume.  If a website doesn't provide it it is possible to generate it yourself[1] or find a service to use that does[2]. RSS remains key to how I experience and use the web in 2023."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[1]: Go libraries like "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Colly"
+              }
+            ],
+            "type": "link",
+            "url": "https://go-colly.org/"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Gofeeds"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/mmcdole/gofeed"
+          },
+          {
+            "type": "text",
+            "value": " make it possible to roll your own like the one in skimmer"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[2]: https://firesky.tv/ is an example of a service that provides RSS for Bluesky via its raw API, "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "html2rss"
+              }
+            ],
+            "type": "link",
+            "url": "https://html2rss.github.io/"
+          },
+          {
+            "type": "text",
+            "value": " is service that producing RSS feeds for popular sites that don't include them"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My personal approach to feeds is very much tailored to me. It's probably overkill for most people but it works with my vision and cognitive limitations. He's the steps I take in feed reading. They essentially decompose a traditional feed reader and allow for more flexibility for my reading pleasure."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Maintain a list of feeds in a simple text file"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Harvest those feeds with "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "skimmer"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://rsdoiel.github.io/skimmer"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", Skimmer stores the items in an "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "SQLite3"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://sqlite.org"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "I filter the items using SQL and SQLite3 or via an interactive mode provided by Skimmer"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Render saved items to Markdown with "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "skim2md"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://rsdoiel.github.io/skimmer/skim2md.1.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Use "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Pandoc"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://pandoc.org"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to render the Markdown and view Firefox"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The nice thing about this approach is that I can easily script it with Bash or even a Windows bat. I can easily maintain separate lists and separate databases for personal and work related material.  A bonus is the database items can also serve as a corpus for a personal search engine too. If you want to save maintain a public reading list this setup is ideal too. Of course the list of curated items can be transformed into their own RSS feed as well."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Skimmer"
+              }
+            ],
+            "type": "link",
+            "url": "https://rsdoiel.github.io/skimmer/skimmer.1.html"
+          },
+          {
+            "type": "text",
+            "value": " is a deconstructed feed reader. Does that make it post modern feed reader?  Skimmer processes a list of feeds I follow and saves the results in an SQLite 3 database. That database can be used to filter the feeds and flag items as \"saved\". Typically I filter by timestamps. Saved items can be processed with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "skim2md"
+          },
+          {
+            "type": "text",
+            "value": " to render a markdown document. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "skim2md"
+          },
+          {
+            "type": "text",
+            "value": " has an option to include a \"save to pocket\" button for each item in the output. I use Pandoc to render the page then view that result in Firefox. At my leisure I read the web page and press the \"Save to pocket\" button any item I want to read later. It's a very comfortable experience."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Skimmer lead me to think about a personal news page for myself and family. Skimmer lets me curate separate lists organized around themes. These can then be rendered to individual pages like pages of a newspaper. This has been captured in an experimental project I call "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Antenna"
+              }
+            ],
+            "type": "link",
+            "url": "https://rsdoiel.github.io/antenna"
+          },
+          {
+            "type": "text",
+            "value": ". It even includes a feed search feature thanks to "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "PageFind"
+              }
+            ],
+            "type": "link",
+            "url": "https://pagefind.app"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "abstract": "RSS is alive and kicking and Bluesky should support it too. Explore my recipe for reading web news.",
     "byline": "R. S. Doiel, 2023-12-07",

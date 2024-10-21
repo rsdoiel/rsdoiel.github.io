@@ -1,5 +1,758 @@
 {
   "content": "\nRosette Notes\n=============\n\nBy R. S. Doiel, 2022-08-19\n\n> A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar's rosette\n\nWhat follows are my preliminary notes learning Postgres 12 and 14.\n\nPostgres & MySQL\n----------------\n\nThis is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you're using `psql` to access Postgres and `mysql` to  access MySQL. Values between `<` and `>` should be replaced with an appropriate value.\n\n| Task                    | Postgres 14.5                     | MySQL 8           |\n|-------------------------|------------------------------------|-------------------|\n| show all databases      | `SELECT datname FROM pg_database;` | `SHOW DATABASES;` |\n| select a database       | `\\c <dbname>`                      | `USE <dbname>`    |\n| show tables in database | `\\dt`                              | `SHOW TABLES;`    |\n| show columns in table   | `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '<table_name>';` | `SHOW COLUMNS IN <table_name>` |\n\nReflections\n-----------\n\nThe Postgres shell, `psql`, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the `SHOW TABLES` query. For me `SHOW ...` feels like SQL where as `\\d` or `\\dt` takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. `\\dt` quickly becomes second nature and is shorter to type than `SHOW TABLES`. \n\nConnecting to a database with `\\c` in `psql` is like calling an \"open\" in programming language. The \"connection\" in `psql` is open until explicitly closed or the shell is terminated.  Like `USE ...` in the MySQL shell it make working with multiple database easy.  The difference are apparent when you execute a `DROP DATABASE ...` command. In `psql` you need to `CLOSE` the database first or the `DROP` will fail.  The MySQL shell will happily let you drop the current database you are currently using.\n\nThe challenge I've experienced learning `psql` after knowing MySQL is my lack of familiarity with the metadata Postgres maintains about databases and structures.  On the other hand everything I've learned about standards base SQL applies to managing Postgres once remember the database/table I need to work with.  A steeper learning curve from MySQL's `SHOW` but it also means writing external programs for managing Postgres databases and tables is far easier because everything is visible because that is how you manage Postgres. MySQL's `SHOW` is very convenient but at the cost of hiding some of its internal structures.\n\nBoth MySQL and Postgres support writing programs in SQL. They also support stored procedures, views and triggers. They've converged in the degree in which they have both implemented SQL language standards.  The differences are mostly in approach to managing databases.  There are some differences, necessitated by implementation choices, in the `CREATE DATABASE`, `CREATE TABLE` or `ALTER` statements but you can often use the basic form described in ANSI SQL and get the results you need. When doing performance tuning the dialect differences are more important.\n\nDump & Restore\n--------------\n\nBoth Postgres and MySQL provide command line programs for dumping a database. MySQL provides a single program where as Postgres splits it in two. Check the man pages (or website docs) for details in their options. Both sets of programs are highly configurable allowing you to dump just schema, just data or both with different expectations.\n\n| Postgres 14.5      | MySQL 8                         |\n|--------------------|---------------------------------|\n| `pg_dumpall`       | `mysqldump --all-databases`     |\n| `pg_dump <dbname>` | `mysqldump --database <dbname>` |\n\nThe `pg_dumpall` tool is designed to restore an entire database instance. It includes account and ownership information. `pg_dump` just focuses on the database itself. If you are taking a snapshot production data to use in a test `pg_dump` output is easier to work with. It captures the specific database with out entangling things like the `template1` database or database user accounts and ownership.\n\nYou can restore a database dump in both Postgres and MySQL. The tooling is a little different.\n\n| Postgres 14.5                   | MySQL 8                                      |\n|---------------------------------|----------------------------------------------|\n| `dropdb <dbname>`               | `mysql -execute 'DROP DATABASE <dbname>;'`   |\n| `createdb <dbname>`             | `mysql -execute 'CREATE DATABASE <dbname>;'` |\n| `psql -f <dump_filename>`       |`mysql <dbname> < <dump_filename>`            |\n\nNOTE: These instructions work for a database dumped with `pg_dump` for the Postgres example. In principle it is the same way you can restore from `pg_dumpall` but if you Postgres instance already exists then you're going to run into various problems, e.g. errors about `template1` db.\n\nLessons learned along the way\n-----------------------------\n\n2022-08-22\n\n8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is \"REPLACE\" is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I've used \"?\" with SQLite and MySQL but with Postgres I need to use \"$1\", \"$2\", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.\n\n\n2022-08-24\n\n11:00 - 12:00; SQL; Postgres; I miss `SHOW TABLES` it's just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's \"SHOW TABLES\". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.\n\n2022-08-26\n\n9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.\n\n2022-09-19\n\n10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Rosette Notes"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2022-08-19"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar's rosette"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "blockquote"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What follows are my preliminary notes learning Postgres 12 and 14."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Postgres & MySQL"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you're using "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " to access Postgres and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysql"
+          },
+          {
+            "type": "text",
+            "value": " to  access MySQL. Values between "
+          },
+          {
+            "type": "inlineCode",
+            "value": "<"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": ">"
+          },
+          {
+            "type": "text",
+            "value": " should be replaced with an appropriate value."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "| Task                    | Postgres 14.5                     | MySQL 8           |\n|-------------------------|------------------------------------|-------------------|\n| show all databases      | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SELECT datname FROM pg_database;"
+          },
+          {
+            "type": "text",
+            "value": " | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW DATABASES;"
+          },
+          {
+            "type": "text",
+            "value": " |\n| select a database       | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\c <dbname>"
+          },
+          {
+            "type": "text",
+            "value": "                      | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "USE <dbname>"
+          },
+          {
+            "type": "text",
+            "value": "    |\n| show tables in database | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\dt"
+          },
+          {
+            "type": "text",
+            "value": "                              | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW TABLES;"
+          },
+          {
+            "type": "text",
+            "value": "    |\n| show columns in table   | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '<table_name>';"
+          },
+          {
+            "type": "text",
+            "value": " | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW COLUMNS IN <table_name>"
+          },
+          {
+            "type": "text",
+            "value": " |"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Reflections"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The Postgres shell, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": ", provides the functionality of showing a list of tables via a short cut while MySQL choose to add the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW TABLES"
+          },
+          {
+            "type": "text",
+            "value": " query. For me "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW ..."
+          },
+          {
+            "type": "text",
+            "value": " feels like SQL where as "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\d"
+          },
+          {
+            "type": "text",
+            "value": " or "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\dt"
+          },
+          {
+            "type": "text",
+            "value": " takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\dt"
+          },
+          {
+            "type": "text",
+            "value": " quickly becomes second nature and is shorter to type than "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW TABLES"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Connecting to a database with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "\\c"
+          },
+          {
+            "type": "text",
+            "value": " in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " is like calling an \"open\" in programming language. The \"connection\" in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " is open until explicitly closed or the shell is terminated.  Like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "USE ..."
+          },
+          {
+            "type": "text",
+            "value": " in the MySQL shell it make working with multiple database easy.  The difference are apparent when you execute a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DROP DATABASE ..."
+          },
+          {
+            "type": "text",
+            "value": " command. In "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " you need to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CLOSE"
+          },
+          {
+            "type": "text",
+            "value": " the database first or the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DROP"
+          },
+          {
+            "type": "text",
+            "value": " will fail.  The MySQL shell will happily let you drop the current database you are currently using."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The challenge I've experienced learning "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " after knowing MySQL is my lack of familiarity with the metadata Postgres maintains about databases and structures.  On the other hand everything I've learned about standards base SQL applies to managing Postgres once remember the database/table I need to work with.  A steeper learning curve from MySQL's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW"
+          },
+          {
+            "type": "text",
+            "value": " but it also means writing external programs for managing Postgres databases and tables is far easier because everything is visible because that is how you manage Postgres. MySQL's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW"
+          },
+          {
+            "type": "text",
+            "value": " is very convenient but at the cost of hiding some of its internal structures."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Both MySQL and Postgres support writing programs in SQL. They also support stored procedures, views and triggers. They've converged in the degree in which they have both implemented SQL language standards.  The differences are mostly in approach to managing databases.  There are some differences, necessitated by implementation choices, in the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CREATE DATABASE"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CREATE TABLE"
+          },
+          {
+            "type": "text",
+            "value": " or "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ALTER"
+          },
+          {
+            "type": "text",
+            "value": " statements but you can often use the basic form described in ANSI SQL and get the results you need. When doing performance tuning the dialect differences are more important."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Dump & Restore"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Both Postgres and MySQL provide command line programs for dumping a database. MySQL provides a single program where as Postgres splits it in two. Check the man pages (or website docs) for details in their options. Both sets of programs are highly configurable allowing you to dump just schema, just data or both with different expectations."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "| Postgres 14.5      | MySQL 8                         |\n|--------------------|---------------------------------|\n| "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dumpall"
+          },
+          {
+            "type": "text",
+            "value": "       | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysqldump --all-databases"
+          },
+          {
+            "type": "text",
+            "value": "     |\n| "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dump <dbname>"
+          },
+          {
+            "type": "text",
+            "value": " | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysqldump --database <dbname>"
+          },
+          {
+            "type": "text",
+            "value": " |"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dumpall"
+          },
+          {
+            "type": "text",
+            "value": " tool is designed to restore an entire database instance. It includes account and ownership information. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dump"
+          },
+          {
+            "type": "text",
+            "value": " just focuses on the database itself. If you are taking a snapshot production data to use in a test "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dump"
+          },
+          {
+            "type": "text",
+            "value": " output is easier to work with. It captures the specific database with out entangling things like the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "template1"
+          },
+          {
+            "type": "text",
+            "value": " database or database user accounts and ownership."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You can restore a database dump in both Postgres and MySQL. The tooling is a little different."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "| Postgres 14.5                   | MySQL 8                                      |\n|---------------------------------|----------------------------------------------|\n| "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dropdb <dbname>"
+          },
+          {
+            "type": "text",
+            "value": "               | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysql -execute 'DROP DATABASE <dbname>;'"
+          },
+          {
+            "type": "text",
+            "value": "   |\n| "
+          },
+          {
+            "type": "inlineCode",
+            "value": "createdb <dbname>"
+          },
+          {
+            "type": "text",
+            "value": "             | "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysql -execute 'CREATE DATABASE <dbname>;'"
+          },
+          {
+            "type": "text",
+            "value": " |\n| "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql -f <dump_filename>"
+          },
+          {
+            "type": "text",
+            "value": "       |"
+          },
+          {
+            "type": "inlineCode",
+            "value": "mysql <dbname> < <dump_filename>"
+          },
+          {
+            "type": "text",
+            "value": "            |"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: These instructions work for a database dumped with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dump"
+          },
+          {
+            "type": "text",
+            "value": " for the Postgres example. In principle it is the same way you can restore from "
+          },
+          {
+            "type": "inlineCode",
+            "value": "pg_dumpall"
+          },
+          {
+            "type": "text",
+            "value": " but if you Postgres instance already exists then you're going to run into various problems, e.g. errors about "
+          },
+          {
+            "type": "inlineCode",
+            "value": "template1"
+          },
+          {
+            "type": "text",
+            "value": " db."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Lessons learned along the way"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2022-08-22"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is \"REPLACE\" is a none standard extension I picked up from MySQL "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "it wraps a DELETE and INSERT together"
+              }
+            ],
+            "type": "link",
+            "url": "https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html"
+          },
+          {
+            "type": "text",
+            "value": ", should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "db implementation specific"
+              }
+            ],
+            "type": "link",
+            "url": "http://go-database-sql.org/prepared.html"
+          },
+          {
+            "type": "text",
+            "value": ". I've used \"?\" with SQLite and MySQL but with Postgres I need to use \"$1\", \"$2\", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2022-08-24"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "11:00 - 12:00; SQL; Postgres; I miss "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SHOW TABLES"
+          },
+          {
+            "type": "text",
+            "value": " it's just muscle memory from MySQL, the SQL to show tables is "
+          },
+          {
+            "type": "inlineCode",
+            "value": "SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';"
+          },
+          {
+            "type": "text",
+            "value": ". I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's \"SHOW TABLES\". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2022-08-26"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "How To Install PostgreSQL on Ubuntu 22.04 [Quickstart]"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart"
+          },
+          {
+            "type": "text",
+            "value": ", April 25, 2022 by Alex Garnett helpful."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2022-09-19"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "https://www.postgresql.org/download/linux/ubuntu/"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.postgresql.org/download/linux/ubuntu/"
+          },
+          {
+            "type": "text",
+            "value": ", see "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart"
+          },
+          {
+            "type": "text",
+            "value": " for setting up initial database and users"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "byline": "R. S. Doiel, 2022-08-19",

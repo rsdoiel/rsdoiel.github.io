@@ -1,5 +1,259 @@
 {
   "content": "\n\n# Harvesting my Gists from GitHub\n\nBy R. S. Doiel 2017-12-10\n\nThis is a just quick set of notes on harvesting my Gists on GitHub so I\nhave an independent copy for my own website. \n\n## Assumptions\n\nIn this gist I assume you are using Bash on a POSIX system (e.g. Raspbian \non a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, \nsed, curl). I also use Stephen Dolan's [jq](https://github.com/stedolan/jq)\nas well as Caltech Library's [datatools](https://github.com/caltechlibrary/datatools).\nSee the respective GitHub repositories for installation instructions.\nThe gist harvest process was developed against GitHub's v3 API\n(see developer.github.com). \n\nIn the following examples \"USER\" is assumed to hold your GitHub user id \n(e.g. rsdoiel for https://github.com/rsdoiel).\n\n## Getting my basic profile\n\nThis retrieves the public view of your profile.\n\n```shell\n    curl -o USER \"https://api.github.com/users/USER\"\n```\n\n## Find the urL for your gists\n\nGet the gists url from `USER.json.\n\n```shell\n    GISTS_URL=$(jq \".gists_url\" \"USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\"\n```\n\nNow `gists.json` should hold a JSON array of objects representing your Gists.\n\n## Harvesting the individual Gists.\n\nWhen you look at _gists.json_ you'll see a multi-level JSON structure.  It has been\nformatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library\nhas some nice utilities for working with JSON I'll use *jsonrange* and *jq* to pull out a list\nof individual Gists URLS.\n\n```shell\n    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | sed -E 's/\"//g'\n    done\n```\n\nExpanding this we can now curl each individual gist metadata to find URL to the raw file.\n\n\n```shell\n    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g'; \n        done;\n    done\n```\n\nNow that we have URLs to the raw gist files we can use curl again to fetch each.\n\nWhat do we want to store with our harvested gists?  The raw files, metadata\nabout the Gist (e.g. when it was created), the Gist ID. Putting it all together\nwe have the following script.\n\n```shell\n    #!/bin/bash\n    if [[ \"$1\" = \"\" ]]; then\n        echo \"USAGE: $(basename \"$0\") GITHUB_USERNAME\"\n        exit 1\n    fi\n\n    USER=\"$1\"\n    curl -o \"$USER.json\" \"https://api.github.com/users/$USER\"\n    if [[ ! -s \"$USER.json\" ]]; then\n        echo \"Someting went wrong getting https://api.github.cm/users/${USER}\"\n        exit 1\n    fi\n\n    GISTS_URL=$(jq \".gists_url\" \"$USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\"\n    if [[ ! -s gists.json ]]; then\n        echo \"Someting went wrong getting ${GISTS_URL}\"\n        exit 1\n    fi\n\n    # For each gist harvest our file\n    jsonrange -i gists.json | while read I; do\n        GIST_ID=$(jq \".[$I].id\" gists.json | sed -E 's/\"//g')\n        mkdir -p \"gists/$GIST_ID\"\n        echo \"Saving gists/$GIST_ID/metadata.json\"\n        jq \".[$I]\" gists.json > \"gists/$GIST_ID/metadata.json\"\n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            URL=$(jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g')\n            echo \"Saving gist/$GIST_ID/$FNAME\"\n            curl -o \"gists/$GIST_ID/$FNAME\" \"$URL\"\n        done;\n    done\n```\n\n\n\n\n\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Harvesting my Gists from GitHub"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel 2017-12-10"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is a just quick set of notes on harvesting my Gists on GitHub so I\nhave an independent copy for my own website."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Assumptions"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian\non a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,\nsed, curl). I also use Stephen Dolan's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "jq"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/stedolan/jq"
+          },
+          {
+            "type": "text",
+            "value": "\nas well as Caltech Library's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "datatools"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/caltechlibrary/datatools"
+          },
+          {
+            "type": "text",
+            "value": ".\nSee the respective GitHub repositories for installation instructions.\nThe gist harvest process was developed against GitHub's v3 API\n(see developer.github.com)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In the following examples \"USER\" is assumed to hold your GitHub user id\n(e.g. rsdoiel for https://github.com/rsdoiel)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting my basic profile"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This retrieves the public view of your profile."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    curl -o USER \"https://api.github.com/users/USER\""
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Find the urL for your gists"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Get the gists url from `USER.json."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    GISTS_URL=$(jq \".gists_url\" \"USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\""
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Now "
+          },
+          {
+            "type": "inlineCode",
+            "value": "gists.json"
+          },
+          {
+            "type": "text",
+            "value": " should hold a JSON array of objects representing your Gists."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Harvesting the individual Gists."
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When you look at "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "gists.json"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " you'll see a multi-level JSON structure.  It has been\nformatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library\nhas some nice utilities for working with JSON I'll use "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "jsonrange"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "jq"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " to pull out a list\nof individual Gists URLS."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | sed -E 's/\"//g'\n    done"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Expanding this we can now curl each individual gist metadata to find URL to the raw file."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g'; \n        done;\n    done"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Now that we have URLs to the raw gist files we can use curl again to fetch each."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What do we want to store with our harvested gists?  The raw files, metadata\nabout the Gist (e.g. when it was created), the Gist ID. Putting it all together\nwe have the following script."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    #!/bin/bash\n    if [[ \"$1\" = \"\" ]]; then\n        echo \"USAGE: $(basename \"$0\") GITHUB_USERNAME\"\n        exit 1\n    fi\n\n    USER=\"$1\"\n    curl -o \"$USER.json\" \"https://api.github.com/users/$USER\"\n    if [[ ! -s \"$USER.json\" ]]; then\n        echo \"Someting went wrong getting https://api.github.cm/users/${USER}\"\n        exit 1\n    fi\n\n    GISTS_URL=$(jq \".gists_url\" \"$USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\"\n    if [[ ! -s gists.json ]]; then\n        echo \"Someting went wrong getting ${GISTS_URL}\"\n        exit 1\n    fi\n\n    # For each gist harvest our file\n    jsonrange -i gists.json | while read I; do\n        GIST_ID=$(jq \".[$I].id\" gists.json | sed -E 's/\"//g')\n        mkdir -p \"gists/$GIST_ID\"\n        echo \"Saving gists/$GIST_ID/metadata.json\"\n        jq \".[$I]\" gists.json > \"gists/$GIST_ID/metadata.json\"\n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            URL=$(jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g')\n            echo \"Saving gist/$GIST_ID/$FNAME\"\n            curl -o \"gists/$GIST_ID/$FNAME\" \"$URL\"\n        done;\n    done"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2017, R. S. Doiel",

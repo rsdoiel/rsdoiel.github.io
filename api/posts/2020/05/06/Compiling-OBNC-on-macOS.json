@@ -1,5 +1,406 @@
 {
   "content": "\nCompiling OBNC on macOS \n=======================\n\nBy R. S. Doiel, 2020-05-06\n\nThis is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.\n\nCompiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) \nis straight forward if you have the required dependencies and \nenvironment setup up. Below are my notes to get everything working.\n\n## Prerequisites\n\n+ OBNC v0.16.1\n+ SDL v1.2\n+ Boehm-Demers-Weiser GC\n+ A C compiler and linker (OBNC uses this to generate machine specific code)\n\n### SDL 1.2\n\nMacPorts has libsdl 1.2 available as a package called \"libsdl\"\n(not surprisingly). There are other versions of the SDL available\nin ports but this is the one we're using.\n\n\n~~~\n\n   sudo port install libsdl\n\n~~~\n\n\n### The Boehm-Demers-Weiser GC\n\nYou need to install the Boehm-Demers-Weiser GC installed. Using\nMacPorts it is almost as easy as installing under Debian. The\npackage is less obviously named than under Debian. The package\nyou want is \"beohmgc\".\n\n\n~~~\n\n    sudo port install boehmgc\n\n~~~\n\n\nMore info on the GC.\n\n+ [The Boehm-Demers-Weiser GC](https://www.hboehm.info/gc/)\n+ [MacPorts page](https://ports.macports.org/port/boehmgc/summary)\n\n### C compiler and linker\n\nXCode is provides a C compiler and linker. That is what is installed on my\nmachine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can\ninstall other C compilers (e.g. Clang) but I haven't tried them yet.\n\n## Setting up my environment\n\nYou need to update your CC variables to find the header and\nshared library files for compilation of obnc with `build`. (I added\nthese to my `.bash_profile`). New Macs ships with zsh and\nyour settings might be in a different location. MacPorts puts \nits libraries under the `/opt/local` directory.\n\n\n~~~\n\n    export C_INCLUDE_PATH=\"/usr/include:/usr/local/include:/opt/local/include\"\n    export LIBRARY_PATH=\"/usr/lib:/usr/local/lib:/opt/local/lib\"\n    export LD_LIBRARY_PATH=\"/usr/lib:/usr/local/lib:/opt/local/lib\"\n\n~~~\n\n\n## OBNC environment variables\n\nThis follows' Karl's docs.  Additionally if you install OBNC extlib so\nyou can do POSIX shell programs you'll need to set your\n`OBNC_IMPORT_PATH` environment.  An example of including a default\ninstall location and local home directory location.\n\n\n~~~\n\n    export OBNC_IMPORT_PATH=\"/usr/local/lib/obnc:$HOME/lib/obnc\"\n\n~~~\n\n\n### Next and Previous\n\n+ Next [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html)\n+ Previous [Combining Oberon-07 and C](../01/Combining-Oberon-and-C.html)\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Compiling OBNC on macOS"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-05-06"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is the sixth post in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Mostly Oberon"
+              }
+            ],
+            "type": "link",
+            "url": "../../04/11/Mostly-Oberon.html"
+          },
+          {
+            "type": "text",
+            "value": " series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2)\nis straight forward if you have the required dependencies and\nenvironment setup up. Below are my notes to get everything working."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Prerequisites"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "OBNC v0.16.1"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "SDL v1.2"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Boehm-Demers-Weiser GC"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "A C compiler and linker (OBNC uses this to generate machine specific code)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "SDL 1.2"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "MacPorts has libsdl 1.2 available as a package called \"libsdl\"\n(not surprisingly). There are other versions of the SDL available\nin ports but this is the one we're using."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n   sudo port install libsdl\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The Boehm-Demers-Weiser GC"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You need to install the Boehm-Demers-Weiser GC installed. Using\nMacPorts it is almost as easy as installing under Debian. The\npackage is less obviously named than under Debian. The package\nyou want is \"beohmgc\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    sudo port install boehmgc\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "More info on the GC."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "The Boehm-Demers-Weiser GC"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.hboehm.info/gc/"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "MacPorts page"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://ports.macports.org/port/boehmgc/summary"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "C compiler and linker"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "XCode is provides a C compiler and linker. That is what is installed on my\nmachine. It can be a bit of a pain at times with obscure errors, particularly with regards to the linker. Your milleage may very. I know you can\ninstall other C compilers (e.g. Clang) but I haven't tried them yet."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Setting up my environment"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You need to update your CC variables to find the header and\nshared library files for compilation of obnc with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "build"
+          },
+          {
+            "type": "text",
+            "value": ". (I added\nthese to my "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".bash_profile"
+          },
+          {
+            "type": "text",
+            "value": "). New Macs ships with zsh and\nyour settings might be in a different location. MacPorts puts\nits libraries under the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "/opt/local"
+          },
+          {
+            "type": "text",
+            "value": " directory."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    export C_INCLUDE_PATH=\"/usr/include:/usr/local/include:/opt/local/include\"\n    export LIBRARY_PATH=\"/usr/lib:/usr/local/lib:/opt/local/lib\"\n    export LD_LIBRARY_PATH=\"/usr/lib:/usr/local/lib:/opt/local/lib\"\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OBNC environment variables"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This follows' Karl's docs.  Additionally if you install OBNC extlib so\nyou can do POSIX shell programs you'll need to set your\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "OBNC_IMPORT_PATH"
+          },
+          {
+            "type": "text",
+            "value": " environment.  An example of including a default\ninstall location and local home directory location."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    export OBNC_IMPORT_PATH=\"/usr/local/lib/obnc:$HOME/lib/obnc\"\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next and Previous"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Next "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Oberon-07 and the file system"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../09/Oberon-07-and-the-filesystem.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Previous "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Combining Oberon-07 and C"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../01/Combining-Oberon-and-C.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2020, R. S. Doiel",

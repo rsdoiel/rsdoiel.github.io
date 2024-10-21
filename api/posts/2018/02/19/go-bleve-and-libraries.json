@@ -1,5 +1,638 @@
 {
   "content": "\n\n# Go, Bleve and Library oriented software\n\nBy R. S. Doiel, 2018-02-19\n(updated: 2018-02-22)\n\nIn 2016, Stephen Davison, asked me, \"Why use Go and Blevesearch for\nour library projects?\" After our conversation I wrote up some notes so\nI would remember. It is now 2018 and I am revising these notes. I\nthink our choice paid off.  What follows is the current state of my\nreflection on the background, rational, concerns, and risk mitigation\nstrategies so far for using [Go](https://golang.org) and\n[Blevesearch](https://blevesearch.com) for Caltech Library projects.\n\n## Background\n\nI first came across Go a few years back when it was announced as an\nOpen Source project by Google at an Google I/O event (2012). The\noriginal Go authors were Robert Griesemer, Rob Pike, and Ken\nThompson. What I remember from that presentation was Go was a rather\nconsistent language with the features you need but little else.  Go\ndeveloped at Google as a response to high development costs for C/C++\nand Java in addition to challenges with performance and slow\ncompilation times.  As a language I would put Go between C/C++ and\nJava. It comes the ease of writing and reading you find in languages\nlike Python. Syntax is firmly in the C/C++ family but heavily\nsimplified. Like Java it provides many modern features including rich basic\ndata structures and garbage collection. It has a very complete standard\nlibrary and provides very good tooling.  This makes it easy to\ngenerate code level documentation, format code, test, efficiently profile, \nand debug.\n\nOften programming languages develop around a specific set of needs.\nThis is true for Go. Given the Google origin it should not be\nsurprising to find that Go's primary strengths are working with \nstructured data, I/O and concurrency. The rich standard\nlibrary is organized around a package concept. These include packages\nsupporting network protocols, file and socket I/O as well as various\nencoding and compression scheme. It has particularly strong support\nfor XML, JSON, CSV formatted data out of the box. It has a template\nlibrary for working with plain text formats as well as generating safe\nHTML. You can browse Go's standard library https://golang.org/pkg/.\n\nAn additional feature is Go's consistency. Go code that compiles under\nversion 1.0 still compiles under 1.10. Even before 1.0 code changes\nthat were breaking came with tooling to automatically updates existing\ncode.  Running code is a strong element of Go's evolution.\n\nGo is unsurprising and has even been called boring.  This turns out to\nbe a strength when building sustainable projects in a small team.\n\n\n## Why do I write Go?\n\nFor me Go is a good way to write web services, assemble websites,\ncreate search appliances and write command line (cli) utilities. When\na shell script becomes unwieldy Go is often what I turn to.  Go is\nwell suited to building tools as well as systems.  Go based command\nline tools are very easy to orchestrate with shell and Python.\n\nGo runs on all the platforms I actively use - Windows, Mac OS X, Linux\non both Intel and ARM (e.g. Raspberry Pi, Pine64). It has experimental\nsupport for Android and iOS.  I've used a tool called\n[GopherJS](http://gopherjs.org) to write web browser applications that\ntransform my command line tools into web tools with a friendlier user\ninterface (see our [BibTeX Tools](https://caltechlibrary.github.io/bibtex/webapp/)).\n\nGo supports cross compiling out of the box. This means a production\nsystem running on AWS, Google's compute engine or Microsoft's Azure\ncan be compiled from Windows, Mac OS or even a Raspberry Pi!\nDeployment is a matter of copying the (self contained) compiled binary\nonto the production system. This contrasts with other\nplatforms like Perl, PHP, Python, NodeJS and Ruby where you need to\ninstall not only your application code but all dependencies. While\ninterpretive languages retain an advantage of having a REPL, Go\nbased programs have advantages of fast compile times and easy deployment.\n\nIn many of the projects I've written in Go I've only required a few\n(if any) 3rd party libraries (packages in Go's nomenclature). This is\nquite a bit different from my experience with Perl, PHP, Python,\nNodeJS and Ruby. This is in large part a legacy of having grown up at\nGoogle before become an open source project. While the Go standard\npackages are very good there is a rich ecosystem for 3rd party\npackages for specialized needs. I've found I tend to rely only on a\nfew of them. The one I've used the most is\n[Bleve](http://blevesearch.com).\n\nBleve is a Go package for building search engines. When I originally\ncame across Bleve (around 2014), it was described as \"Lucene lite\". \n\"Lucene lite\" was an apt description, but I find it easier\nto use than Lucene. When I first used Bleve I embedded its\nfunctionality into the tools I used to process data and present web\nservices. It did not have much in the way of stand alone command line\ntooling.  Today I increasingly think of Bleve as \"Elastic Search\nlite\". It ships with a set of command line tools that include support\nfor building Bleve's indexes.  My current practice is to only embed the search\nportion of the packages. I can use the Bleve command line for the\nrest.  In 2018, Bleve is being actively developed, has a small vibrant\ncommunity and is used by [Couchbase](https://couchbase.com), a well\nestablished NoSQL player.\n\n\n## Who is using Go?\n\nMany companies use Go. The short list includes\nGoogle, Amazon, Netflix, Dropbox, Box, eBay, Pearsons and even\nWalmart and Microsoft. This came to my attention at developer conferences\nback in 2014.  People from many of these companies started\npresenting at conferences on pilot projects that had been successful\nand moved to production. Part of what drove adoption was the ease\nof development in Go along with good system performance. I also think\nthere was a growing disenchantment with alternatives like C++, C sharp\nand Java as well as the weight of the LAMP, Tomcat, and OpenStack.\n\nHighly visible Go based projects include\n\n+ [Docker](http://docker.org) and [Rocket](http://www.docker.com) - Containerization for running process in the cloud\n+ [Kubernettes](http://kubernetes.io/) and [Terraform](https://www.terraform.io/) - Container orchestration systems\n+ [Hugo](http://hugo.io) - the fast/popular static website generator, an alternative to Jekyll, for those who want speed\n+ [Caddy](https://caddyserver.com/) - a Go based web server trying to unseat Apache/NGinX focusing on easy of use plus speed\n+ [IPFS](http://ipfs.io) - a cutting edge distributed storage system based on block chains\n\n\n### Who is using Blevesearch?\n\nHere's some larger projects using Bleve.\n\n+ [Couchbase](http://www.couchbase.com), a NoSQL database platform are replacing Lucene with Bleve.  Currently the creator of Bleve works for them.\n+ [Hugo](http://hugo.io) can integrate with Bleve for search and index generation\n+ [Caddy](https://caddyserver.com/) integrates with Bleve to provide an embedded search capability\n\n\n## Managing risks\n\nIn 2014 Go was moving from bleeding to leading edge. Serious capital\nwas behind its adoption and it stopped being an exotic conference\nitem. In 2014 Bleve was definitely bleeding edge. By late 2015 and early\n2016 the program level API stabilized. People were piloting projects\nwith it. This included our small group at Caltech Library. In 2015\nnon-English language support appeared followed by a growing list\nof non-European languages in 2016. By mid 2016 we started to see \nmissing features like alternative sorting added. While Bleve isn't\nyet 1.0 (Feb. 2018) it is reliable. The primary challenge for the Bleve\nproject is documentation targeting the novice and non-Programmer users.\nBleve has proven effective as an indexing and search platform for \narchival, library, and data repository content.\n\nAdopting new software comes with risk. We have mitigated this in two ways.\n\n1. Identify alternative technology (a plan B)\n2. Architect our systems for easy decomposition and re-composition\n\nIn the case of Go, packages can be compiled to a C-Shared\nlibrary. This allows us to share working Go packages with languages\nlike Python, R, and PHP. We have included shared Go/Python modules\non our current road map for projects.\n\nFor Blevesearch the two alternatives are Solr and Elastic\nSearch. Both are well known, documented, and solid.  The costs would be\nrecommitting to a Java stack and its resource requirements. We have\nalready identified what we want to index and that could be converted\nto either platform if needed.  If we stick with Go but dropped \nBlevesearch we would swap out the Bleve specific code for Go packages \nsupporting Solr and Elastic Search.\n\n\nThe greatest risk in adopting Go for library and archive projects was \nknowledge transfer. We addressed this \nby knowledge sharing and insuring the Go codebase can \nbe used via command line programs.  Additionally \nwe are adding support for Go based Python modules.\nTraining also is available in the form of books, websites and\nonline courses ([lynda.com](https://www.lynda.com/Go-tutorials/Up-Running-Go/412378-2.html) offers a \"Up Running Go\" course).\n\n\n## What are the benefits?\n\nFor library and archives software we have found Go's benefits include\nimproved back end systems performance at a lower cost, ease of development, \nease of deployment, a rich standard library focused on the types of things \nneeded in library and archival software.  Go plays nice with\nother systems (e.g. I create an API based service in Go that can easily\nbe consumed by a web browser running JavaScript or Perl/PHP/Python\ncode running under LAMP). In the library and archives setting Go \ncan become a high performance duck tape. We get the performance and \nreliability of C/Java type systems with code simplicity \nsimilar to Python.\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go, Bleve and Library oriented software"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2018-02-19\n(updated: 2018-02-22)"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In 2016, Stephen Davison, asked me, \"Why use Go and Blevesearch for\nour library projects?\" After our conversation I wrote up some notes so\nI would remember. It is now 2018 and I am revising these notes. I\nthink our choice paid off.  What follows is the current state of my\nreflection on the background, rational, concerns, and risk mitigation\nstrategies so far for using "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Go"
+              }
+            ],
+            "type": "link",
+            "url": "https://golang.org"
+          },
+          {
+            "type": "text",
+            "value": " and\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Blevesearch"
+              }
+            ],
+            "type": "link",
+            "url": "https://blevesearch.com"
+          },
+          {
+            "type": "text",
+            "value": " for Caltech Library projects."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Background"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I first came across Go a few years back when it was announced as an\nOpen Source project by Google at an Google I/O event (2012). The\noriginal Go authors were Robert Griesemer, Rob Pike, and Ken\nThompson. What I remember from that presentation was Go was a rather\nconsistent language with the features you need but little else.  Go\ndeveloped at Google as a response to high development costs for C/C++\nand Java in addition to challenges with performance and slow\ncompilation times.  As a language I would put Go between C/C++ and\nJava. It comes the ease of writing and reading you find in languages\nlike Python. Syntax is firmly in the C/C++ family but heavily\nsimplified. Like Java it provides many modern features including rich basic\ndata structures and garbage collection. It has a very complete standard\nlibrary and provides very good tooling.  This makes it easy to\ngenerate code level documentation, format code, test, efficiently profile,\nand debug."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Often programming languages develop around a specific set of needs.\nThis is true for Go. Given the Google origin it should not be\nsurprising to find that Go's primary strengths are working with\nstructured data, I/O and concurrency. The rich standard\nlibrary is organized around a package concept. These include packages\nsupporting network protocols, file and socket I/O as well as various\nencoding and compression scheme. It has particularly strong support\nfor XML, JSON, CSV formatted data out of the box. It has a template\nlibrary for working with plain text formats as well as generating safe\nHTML. You can browse Go's standard library https://golang.org/pkg/."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "An additional feature is Go's consistency. Go code that compiles under\nversion 1.0 still compiles under 1.10. Even before 1.0 code changes\nthat were breaking came with tooling to automatically updates existing\ncode.  Running code is a strong element of Go's evolution."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go is unsurprising and has even been called boring.  This turns out to\nbe a strength when building sustainable projects in a small team."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Why do I write Go?"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For me Go is a good way to write web services, assemble websites,\ncreate search appliances and write command line (cli) utilities. When\na shell script becomes unwieldy Go is often what I turn to.  Go is\nwell suited to building tools as well as systems.  Go based command\nline tools are very easy to orchestrate with shell and Python."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go runs on all the platforms I actively use - Windows, Mac OS X, Linux\non both Intel and ARM (e.g. Raspberry Pi, Pine64). It has experimental\nsupport for Android and iOS.  I've used a tool called\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "GopherJS"
+              }
+            ],
+            "type": "link",
+            "url": "http://gopherjs.org"
+          },
+          {
+            "type": "text",
+            "value": " to write web browser applications that\ntransform my command line tools into web tools with a friendlier user\ninterface (see our "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "BibTeX Tools"
+              }
+            ],
+            "type": "link",
+            "url": "https://caltechlibrary.github.io/bibtex/webapp/"
+          },
+          {
+            "type": "text",
+            "value": ")."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go supports cross compiling out of the box. This means a production\nsystem running on AWS, Google's compute engine or Microsoft's Azure\ncan be compiled from Windows, Mac OS or even a Raspberry Pi!\nDeployment is a matter of copying the (self contained) compiled binary\nonto the production system. This contrasts with other\nplatforms like Perl, PHP, Python, NodeJS and Ruby where you need to\ninstall not only your application code but all dependencies. While\ninterpretive languages retain an advantage of having a REPL, Go\nbased programs have advantages of fast compile times and easy deployment."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In many of the projects I've written in Go I've only required a few\n(if any) 3rd party libraries (packages in Go's nomenclature). This is\nquite a bit different from my experience with Perl, PHP, Python,\nNodeJS and Ruby. This is in large part a legacy of having grown up at\nGoogle before become an open source project. While the Go standard\npackages are very good there is a rich ecosystem for 3rd party\npackages for specialized needs. I've found I tend to rely only on a\nfew of them. The one I've used the most is\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Bleve"
+              }
+            ],
+            "type": "link",
+            "url": "http://blevesearch.com"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Bleve is a Go package for building search engines. When I originally\ncame across Bleve (around 2014), it was described as \"Lucene lite\".\n\"Lucene lite\" was an apt description, but I find it easier\nto use than Lucene. When I first used Bleve I embedded its\nfunctionality into the tools I used to process data and present web\nservices. It did not have much in the way of stand alone command line\ntooling.  Today I increasingly think of Bleve as \"Elastic Search\nlite\". It ships with a set of command line tools that include support\nfor building Bleve's indexes.  My current practice is to only embed the search\nportion of the packages. I can use the Bleve command line for the\nrest.  In 2018, Bleve is being actively developed, has a small vibrant\ncommunity and is used by "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Couchbase"
+              }
+            ],
+            "type": "link",
+            "url": "https://couchbase.com"
+          },
+          {
+            "type": "text",
+            "value": ", a well\nestablished NoSQL player."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Who is using Go?"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Many companies use Go. The short list includes\nGoogle, Amazon, Netflix, Dropbox, Box, eBay, Pearsons and even\nWalmart and Microsoft. This came to my attention at developer conferences\nback in 2014.  People from many of these companies started\npresenting at conferences on pilot projects that had been successful\nand moved to production. Part of what drove adoption was the ease\nof development in Go along with good system performance. I also think\nthere was a growing disenchantment with alternatives like C++, C sharp\nand Java as well as the weight of the LAMP, Tomcat, and OpenStack."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Highly visible Go based projects include"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Docker"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://docker.org"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Rocket"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://www.docker.com"
+                  },
+                  {
+                    "type": "text",
+                    "value": " - Containerization for running process in the cloud"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Kubernettes"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://kubernetes.io/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Terraform"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.terraform.io/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " - Container orchestration systems"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Hugo"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://hugo.io"
+                  },
+                  {
+                    "type": "text",
+                    "value": " - the fast/popular static website generator, an alternative to Jekyll, for those who want speed"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Caddy"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://caddyserver.com/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " - a Go based web server trying to unseat Apache/NGinX focusing on easy of use plus speed"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "IPFS"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://ipfs.io"
+                  },
+                  {
+                    "type": "text",
+                    "value": " - a cutting edge distributed storage system based on block chains"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Who is using Blevesearch?"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's some larger projects using Bleve."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Couchbase"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://www.couchbase.com"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", a NoSQL database platform are replacing Lucene with Bleve.  Currently the creator of Bleve works for them."
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Hugo"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://hugo.io"
+                  },
+                  {
+                    "type": "text",
+                    "value": " can integrate with Bleve for search and index generation"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Caddy"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://caddyserver.com/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " integrates with Bleve to provide an embedded search capability"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Managing risks"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In 2014 Go was moving from bleeding to leading edge. Serious capital\nwas behind its adoption and it stopped being an exotic conference\nitem. In 2014 Bleve was definitely bleeding edge. By late 2015 and early\n2016 the program level API stabilized. People were piloting projects\nwith it. This included our small group at Caltech Library. In 2015\nnon-English language support appeared followed by a growing list\nof non-European languages in 2016. By mid 2016 we started to see\nmissing features like alternative sorting added. While Bleve isn't\nyet 1.0 (Feb. 2018) it is reliable. The primary challenge for the Bleve\nproject is documentation targeting the novice and non-Programmer users.\nBleve has proven effective as an indexing and search platform for\narchival, library, and data repository content."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Adopting new software comes with risk. We have mitigated this in two ways."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Identify alternative technology (a plan B)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Architect our systems for easy decomposition and re-composition"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In the case of Go, packages can be compiled to a C-Shared\nlibrary. This allows us to share working Go packages with languages\nlike Python, R, and PHP. We have included shared Go/Python modules\non our current road map for projects."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For Blevesearch the two alternatives are Solr and Elastic\nSearch. Both are well known, documented, and solid.  The costs would be\nrecommitting to a Java stack and its resource requirements. We have\nalready identified what we want to index and that could be converted\nto either platform if needed.  If we stick with Go but dropped\nBlevesearch we would swap out the Bleve specific code for Go packages\nsupporting Solr and Elastic Search."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The greatest risk in adopting Go for library and archive projects was\nknowledge transfer. We addressed this\nby knowledge sharing and insuring the Go codebase can\nbe used via command line programs.  Additionally\nwe are adding support for Go based Python modules.\nTraining also is available in the form of books, websites and\nonline courses ("
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "lynda.com"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.lynda.com/Go-tutorials/Up-Running-Go/412378-2.html"
+          },
+          {
+            "type": "text",
+            "value": " offers a \"Up Running Go\" course)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What are the benefits?"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For library and archives software we have found Go's benefits include\nimproved back end systems performance at a lower cost, ease of development,\nease of deployment, a rich standard library focused on the types of things\nneeded in library and archival software.  Go plays nice with\nother systems (e.g. I create an API based service in Go that can easily\nbe consumed by a web browser running JavaScript or Perl/PHP/Python\ncode running under LAMP). In the library and archives setting Go\ncan become a high performance duck tape. We get the performance and\nreliability of C/Java type systems with code simplicity\nsimilar to Python."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
   "data": {
     "author": "rsdoiel@gmail.com (R. S. Doiel)",
     "copyright": "copyright (c) 2018, R. S. Doiel",

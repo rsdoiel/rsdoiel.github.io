@@ -1,17 +1,19 @@
+global:
+  outputs:
+    - "single"
+    - "list"
 collections:
   - output_key: "posts"
     page_size: 24
     sort_key: "pubDate"
     sort_direction: "desc"
-    outputs:
-      - "single"
-      - "list"
     single_elements:
       - "data"
       - "content"
+      - "content_ast"
     list_elements:
       - "data"
       - "content"
     inputs:
       - path: "./blog"
-        glob: "*/*/*/*{md}"
+        glob: "**/*{md}"
