@@ -1,9 +1,11 @@
 ---
 title: Quick tour of Deno 2.0.2
 abstract: |
-  A quick tour of Deno 2 along with a discussion of some of the features are enjoy about
-  Deno plus TypeScript and contrasts with my experience with Go and Python.
+  A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,
+  ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile
+  TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
 created: 2024-10-18
+updated: 2024-10-21
 pubDate: 2024-10-18
 byline: R. S. Doiell, 2024-10-18
 keywords:
@@ -15,7 +17,7 @@ keywords:
 
 By R. S. Doiel
 
-I've been working with TypeScript this year using Deno. Deno has reached version 2.0. It has proven to be a nice platform to work on including thoughtful tooling, good language support, ECMAScript module support and a good standard library.  As a TypeScript and JavaScript platform I find it much more stable and compelling than NodeJS. It also has the advantage of being able to cross compile TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
+I've been working with TypeScript this year using Deno. Deno has reached version 2.0. It has proven to be a nice platform for projects. Deno includes thoughtful tooling, good language support, ECMAScript module support and a [good standard library](https://jsr.io/@std).  As a TypeScript and JavaScript platform I find it much more stable and compelling than NodeJS. Deno has the advantage of being able to cross compile TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
 
 ## Easy install with Cargo
 
@@ -36,13 +38,15 @@ deno upgrade
 
 ## Exploring TypeScript
 
-When I started using Deno this year I wasn't familiar with TypeScript. Unlike NodeJS Deno can run TypeScript natively. Why write in TypeScript? How hard is it to learn?  TypeScript is a superset of JavaScript. That means if you know JavaScript you know most of TypeScript already. Where TypeScript differs is in the support for type safety and other modern language features. Writing TypeScript for Deno is a joy because it supports the web standard ECMAScript Models. That means the code I develop for server side can be easily retargetted to work client side on modern browsers that support JavaScript. Finally TypeScript began life as a transpiled language targeting JavaScript. With Deno' emit module I can easily transpile my TypeScript to JavaScript and run browser side without needing to include the TypeScript transpiler.
+When I started using Deno this year I wasn't familiar with TypeScript. Unlike NodeJS Deno can run TypeScript natively. Why write in TypeScript? TypeScript is a superset of JavaScript. That means if you know JavaScript you know most of TypeScript already. Where TypeScript differs is in the support for type safety and other modern language features. Writing TypeScript for Deno is a joy because it supports the web standard ECMAScript Models. That means the code I develop to run server side can be easily targetted to work in modern browsers too. TypeScript began life as a transpiled language targeting JavaScript. With Deno's emit module I can easily transpile my TypeScript to JavaScript. No more messying about with NodeJS and npm.
 
-## Exporting TypeScript plus Deno
+## Exploring Deno
 
-As a learning platform I find Deno very refreshing. Like many interpreted languages it has a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop). That means you can easily try out TypeScript interactively.  Unlike NodeJS when I build something to run in Deno I don't worry about giving my whole computer away should I make a coding mistake. That's because Deno, like your web browser, runs TypeScript and JavaScript in a sand boxed environment. The REPL gives you full access to your machine but running programs via Deno requires you to give explicit permissions to resources like reading from your file system, accessing the network or importing models from remote systems. This might sound tedious but in practice Deno makes it easy for Deno projects. 
+As a learning platform I find Deno very refreshing. Deno provides a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop). That means you can easily try out TypeScript interactively. Deno is smart about when it runs "programs" versus running as a REPL. This is an improvement over NodeJS.
 
-Deno projects use a `deno.json` file. Creating the file is as easy as typing `deno init` in your project directory. Here's an example of creating a project called `happy_deno`.
+Deno, like your web browser, runs TypeScript and JavaScript in a sand boxed environment. The REPL gives you full access to your machine but running programs via Deno requires you to give explicit permissions to resources like reading from your file system, accessing your environment, accessing the network or importing models from remote systems. This might sound tedious but Deno makes it easy in practice.
+
+Deno projects use a `deno.json` file for initialization. Creating the file is as easy as typing `deno init` in your project directory. Here's an example of setting up a `happy_deno` project.
 
 ~~~shell
 mkdir happy_deno
@@ -50,13 +54,13 @@ cd happy_deno
 deno init
 ~~~
 
-If you list your directory you should see a `deno.json` file. In the Windows (powershell) or macOS Terminal (Bash or Korn shell) you can see list a directory with the `ls` command.
+If you list your directory you will see a `deno.json` file (Windows Powershell also supports "ls" to list directories).
 
 ~~~shell
 ls 
 ~~~
 
-You should see the following files listed.
+The init action created the following files.
 
 `deno.json`
 : The project configuration for Deno. It includes default tasks and module imports.
@@ -67,7 +71,8 @@ You should see the following files listed.
 `main_test.ts`
 : This is a test program so you can test the code you've written in your "main" module.
 
-You can see the currently defined tasks using the command `deno task`. On my Windows box under Deno 2.0.2 the default tasks created was "dev".
+The task action by itself will list currently defined tasks, e.g. `deno task` (the "dev" task
+was defined by the init action).
 
 ~~~shell
 Available tasks:
@@ -85,9 +90,9 @@ Looking at the `deno.json` file directly we see.
 }
 ~~~
 
-The "dev" task will start deno using the "run" action passing it the "watch" option running the file "main.ts". What does that do? The "watch" option will re-run the "main.ts" command if the file changes.  That means when you save a change to "main.ts" in your editor deno reruns that file. The really helps when you are write web services, the service automatically restarts.
+What does that do? The "dev" task will start deno using the "run" action passing it the "watch" option when running the file "main.ts". What does mean? The "watch" option will notice of the "main.ts" file changes on disk. It it changes it will re-run the "main.ts" program.  Save a change to "main.ts" in your editor deno and automagically it runs "main.ts" again. The really helps when you are write web services, the service automatically restarts.
 
-Here's an example of running the "dev" task with `deno task dev`.
+Here's an example of the output of running the "dev" task with the command `deno task dev`.
 
 ~~~
 Task dev deno run --watch main.ts
@@ -110,7 +115,7 @@ if (import.meta.main) {
 }
 ~~~
 
-Save your program and look what happens in the terminal. Assuming you did not make any typos you should see something like this.
+Save your program and look what happens.
 
 ~~~
 Watcher File change detected! Restarting!
@@ -125,9 +130,9 @@ See [deno task](https://docs.deno.com/runtime/reference/cli/task_runner/) docume
 
 ### Modules in Deno
 
-TypeScript and JavaScript support "modules". Specifically Deno supports [ES](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) modules. The nice thing about this is ES modules can be used with the same import export syntax in your web browser. Deno supports local modules and remote modules accessed via URL just like your browser. At work we have our project documentation sites hosted on GitHub. I can write a module and host it there then import it into the program I am actively developing. 
+TypeScript and JavaScript support "modules". Specifically Deno supports [ES](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) modules. The nice thing about this is ES modules can be used with the same import export syntax in your web browser supports. Deno supports local modules and remote modules accessed via URL just like your browser. At work I have our project documentation hosted on GitHub. I can write a TypeScript modules there too. I can then import them into a another project just by using the URL.
 
-Why is the significant? I don't need to rely on an external system like [npm](https://npmjs.com) though I can use npm modules if I want.  Modules in the Deno community often use <https://jsr.io/> to register modules for others to use. This includes Deno's standard library modules.  Let's add the standard "fs" and "path" module to our happy deno project. Use Deno's "add" action.
+Why is the significant? I don't need to rely on an external system like [npm](https://npmjs.com) for module repositories. All I need is a simple static website. Modules in the Deno community often use <https://jsr.io/> as a common module registery. This includes Deno's standard library modules.  Let's add the standard "fs" and "path" module to our happy deno project. Use Deno's "add" action.
 
 ~~~shell
 deno add jsr:@std/fs
@@ -151,26 +156,32 @@ If you look at the `deno.json` now it should look something like this.
 
 To quit my deno dev task I can press the control key and the "c" key (a.k.a. Ctrl-C) in my terminal window. 
 
-I mentioned Deno runs programs in a sand box. That is because Deno tries to be secure by default. You must explicitly allow Deno to reach outside the sand box. One resource outside the sand box is the file system. You use our imported modules we need to give Deno permission. See [security and permissions](https://docs.deno.com/runtime/fundamentals/security/) on Deno's documentation website for more details.
+I mentioned Deno runs programs in a sand box. That is because Deno tries to be secure by default. You must explicitly allow Deno to reach outside the sand box. One resource outside the sand box is the file system. If you use our remote modules we need to give Deno permission to do that too. See [security and permissions](https://docs.deno.com/runtime/fundamentals/security/) on Deno's documentation website for more details.
 
-To allow reading of the local file system with the "dev" task I would modify the "dev" command to look like.
+To allow reading files on the local file system with the "dev" task I would modify the "dev" command to look like.
 
 ~~~
     "dev": "deno run --allow-read --watch main.ts"
 ~~~
 
+You can include multiple permissions by adding the related "allow" option (E.g. `--allow-import`, `--allow-env`, `--allow-net`). It is important to realize that importing a moddel doesn't give you permission, you need to explicitly allow Deno to do that. When you compile a program the permissions you allow will also be allowed in the compiled version.
+
 ### An exercise for the reader
 
-Restart the dev task so you can use the "fs" (file system) and "path" modules to interact with your local file system. As an exercise for you add a function to read and display the "deno.json" file in our project.
+Create a TypeScript file called [show_deno_json.ts](show_deno_json.ts). Read in and display the contents of the "deno.json" file in the same directory.
 
-Here's so links to documentation that may be helpful.
+Here's so links to documentation that may be helpful in finishing the exercise.
+
+- [reading files](https://docs.deno.com/examples/reading-files/)
+
+Additional reading.
 
 - [fundamentals](https://docs.deno.com/runtime/fundamentals/)
+- [file system access](https://docs.deno.com/runtime/fundamentals/security/#file-system-access)
 - [standard modules](https://docs.deno.com/runtime/fundamentals/standard_library/)
 - [modules](https://docs.deno.com/runtime/fundamentals/modules/)
 - [deno.json](https://docs.deno.com/runtime/fundamentals/configuration/)
 - [security](https://docs.deno.com/runtime/fundamentals/security/)
-- [file system access](https://docs.deno.com/runtime/fundamentals/security/#file-system-access)
 
 ## Compiling TypeScript to executable code
 
