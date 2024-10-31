@@ -1,5 +1,5 @@
 {
-  "content": "\n# SQLite3 json_patch is a jewel\n\nIf you’re working with an SQLite3 database table and have JSON or columns you need to merge with other columns then the `json_path` function comes in really handy.\nI have a SQLite3 database table with four columns.\n\n- _key (string)\n- src (json)\n- created (datestamp)\n- updated (datestamp)\n\nOccassionally I want to return the `_key`, `created` and `updated` columns as part of the JSON held in the `src` column.  In SQLite3 it is almost trivial.\n\n~~~sql\nselect \n  json_patch(json_object('key', _key, 'updated', updated, 'created', created), src) as object\n  from data;\n~~~\n\n",
+  "content": "\n# SQLite3 json_patch is a jewel\n\nBy R. S. Doiel, 2024-10-31\n\nIf you’re working with an SQLite3 database table and have JSON or columns you need to merge with other columns then the `json_path` function comes in really handy.\nI have a SQLite3 database table with four columns.\n\n- _key (string)\n- src (json)\n- created (datestamp)\n- updated (datestamp)\n\nOccasionally I want to return the `_key`, `created` and `updated` columns as part of the JSON held in the `src` column.  In SQLite3 it is almost trivial.\n\n~~~sql\nselect \n  json_patch(json_object('key', _key, 'updated', updated, 'created', created), src) as object\n  from data;\n~~~\n\n",
   "content_ast": {
     "children": [
       {
@@ -11,6 +11,15 @@
         ],
         "depth": 1,
         "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2024-10-31"
+          }
+        ],
+        "type": "paragraph"
       },
       {
         "children": [
@@ -100,7 +109,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Occassionally I want to return the "
+            "value": "Occasionally I want to return the "
           },
           {
             "type": "inlineCode",
@@ -147,10 +156,12 @@
   },
   "data": {
     "abstract": "Quick note about json_path function in SQLite3",
+    "author": "R. S. Doiel",
+    "byline": "R. S. Doiel",
     "created": "2024-10-31",
     "keywords": [
       "sql",
-      "sqlite3"
+      "SQLite3"
     ],
     "pubDate": "2024-10-31",
     "title": "SQLite3 json_patch is a jewel"
