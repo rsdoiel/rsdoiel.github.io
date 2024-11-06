@@ -1,0 +1,250 @@
+{
+  "content": "\n# Two Rust command line tools for web work\n\nI've noticed that I'm using more tools written in the Rust language. One of the nice things about Rust projects is the easy of installation on macOS, Windows and Linux. Most of the time it boils down to \"`cargo install TOOLNAME`\".  \n\nHere's four tools I'd like to highlight I use in static site development.\n\n- [PageFind](https://pagefind.app), a static site search engine\n- [FlatLake](https://flatlake.app), a tool to provide a JSON API for static websites\n- [Static Web Server](https://static-web-server.net/), a static site web server\n\nThe first tool solves a huge problem for static websites. Namely when you site reaches a curtain size search becomes a valuable feature.  Historically that has meant running a service like Solr. Alternatively you could outsource search to a SAAS like Google or Bing.  The trouble with the former is you're stuck running a machine and loose much of the advantage of that makes static sites compelling.  In the latter case you're stuck with all the baggage if Big Tech and you're a product they are selling. Neither are ideal.\n\nThe grail has been to run the search engine in the browser building the search indexes when you generate your website. [Oliver Nightingale](https://github.com/olivernn) wrote a nifty JavaScript search engine called [LunrJS](https://lunrjs.com/) that does this.  The problem was you're stuck writing your index generator and you're limited to indexing about 10K objects before the engine bogs down. For a small site not a problem but for a medium sized one it's an issue.  PageFind by [Cloud Cannon](https://cloudcannon.com/) is a good solution to the limitations of LunrJS.  It can quickly index your HTML content and generates partial indexes that load on demand and the search engine is used inside the browser.  They do this by cleverly leverage WASM to hold the indexes. Like LunrJS you will need to have JavaScript available in your web browser but it's a fair trade to avoid the issues with Big Tech.  The PageFind JavaScript lazy loads the partial indexes on demand and avoid the 10K problem in the process.  Since PageFind understands HTML it is easy to define what should be indexed. Any content that can be turned into HTML can then be indexes and searched. \n\nFlatLake, also from Cloud Cannon, is a tool that evaluates the Markdown content of your site and then renders a static JSON API you can use.  It does this by aggregating front matter in your Markdown documents.  Like PageFind the tool runs quickly generating an new directory structure of JSON documents expression the API.  If you're building widgets to interact with data your your website then FlatLake simplifies that process considerably by giving you a consistent API to program against.\n\nSo you have your search engine, static JSON API how to do see that without \"publishing\" your static site?  Static Web Server, is a recent discovery for me, is a good solution for that problem. Like `PageFind` and `FlatLate` it can be installed via Cargo, `cargo install static-web-server`. Two command line important options are \"-p\" to set the port and \"-d\" for identifying the content you want to serve. If I have a directory called \"htdocs\" holding my Markdown and HTML files. I can serve it on localhost port 8000 with the command `static-web-server -p 8000 -d htdocs`. Combined with PageFind and FlatLake I can fully test my static websites before pushing them into production.\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Two Rust command line tools for web work"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I've noticed that I'm using more tools written in the Rust language. One of the nice things about Rust projects is the easy of installation on macOS, Windows and Linux. Most of the time it boils down to \""
+          },
+          {
+            "type": "inlineCode",
+            "value": "cargo install TOOLNAME"
+          },
+          {
+            "type": "text",
+            "value": "\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's four tools I'd like to highlight I use in static site development."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "PageFind"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://pagefind.app"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", a static site search engine"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "FlatLake"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://flatlake.app"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", a tool to provide a JSON API for static websites"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Static Web Server"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://static-web-server.net/"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", a static site web server"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The first tool solves a huge problem for static websites. Namely when you site reaches a curtain size search becomes a valuable feature.  Historically that has meant running a service like Solr. Alternatively you could outsource search to a SAAS like Google or Bing.  The trouble with the former is you're stuck running a machine and loose much of the advantage of that makes static sites compelling.  In the latter case you're stuck with all the baggage if Big Tech and you're a product they are selling. Neither are ideal."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The grail has been to run the search engine in the browser building the search indexes when you generate your website. "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Oliver Nightingale"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/olivernn"
+          },
+          {
+            "type": "text",
+            "value": " wrote a nifty JavaScript search engine called "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "LunrJS"
+              }
+            ],
+            "type": "link",
+            "url": "https://lunrjs.com/"
+          },
+          {
+            "type": "text",
+            "value": " that does this.  The problem was you're stuck writing your index generator and you're limited to indexing about 10K objects before the engine bogs down. For a small site not a problem but for a medium sized one it's an issue.  PageFind by "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Cloud Cannon"
+              }
+            ],
+            "type": "link",
+            "url": "https://cloudcannon.com/"
+          },
+          {
+            "type": "text",
+            "value": " is a good solution to the limitations of LunrJS.  It can quickly index your HTML content and generates partial indexes that load on demand and the search engine is used inside the browser.  They do this by cleverly leverage WASM to hold the indexes. Like LunrJS you will need to have JavaScript available in your web browser but it's a fair trade to avoid the issues with Big Tech.  The PageFind JavaScript lazy loads the partial indexes on demand and avoid the 10K problem in the process.  Since PageFind understands HTML it is easy to define what should be indexed. Any content that can be turned into HTML can then be indexes and searched."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "FlatLake, also from Cloud Cannon, is a tool that evaluates the Markdown content of your site and then renders a static JSON API you can use.  It does this by aggregating front matter in your Markdown documents.  Like PageFind the tool runs quickly generating an new directory structure of JSON documents expression the API.  If you're building widgets to interact with data your your website then FlatLake simplifies that process considerably by giving you a consistent API to program against."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "So you have your search engine, static JSON API how to do see that without \"publishing\" your static site?  Static Web Server, is a recent discovery for me, is a good solution for that problem. Like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "PageFind"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "FlatLate"
+          },
+          {
+            "type": "text",
+            "value": " it can be installed via Cargo, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "cargo install static-web-server"
+          },
+          {
+            "type": "text",
+            "value": ". Two command line important options are \"-p\" to set the port and \"-d\" for identifying the content you want to serve. If I have a directory called \"htdocs\" holding my Markdown and HTML files. I can serve it on localhost port 8000 with the command "
+          },
+          {
+            "type": "inlineCode",
+            "value": "static-web-server -p 8000 -d htdocs"
+          },
+          {
+            "type": "text",
+            "value": ". Combined with PageFind and FlatLake I can fully test my static websites before pushing them into production."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "A quick review of a few Rust based command line tools I find myself\nenjoying for web development.\n",
+    "byline": "R. S. Doiel",
+    "createDate": "2024-11-05",
+    "keywords": [
+      "web",
+      "tooling",
+      "rust",
+      "search",
+      "JSON API"
+    ],
+    "pubDate": "2024-11-05",
+    "title": "Rust tools for Web Work"
+  }
+}
