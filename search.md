@@ -19,7 +19,6 @@ let pse = new PagefindUI({
     highlightParam: "highlight",
     mergeIndex: [{
         bundlePath: "https://rsdoiel.github.io/pagefind",
-        bundlePath: "https://rsdoiel.github.io/antenna/pagefind",
         bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
         bundlePath: "https://rsdoiel.github.io/pttk/pagefind",
         bundlePath: "https://rsdoiel.github.io/skimmer/pagefind",

@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Rust tools for Web Work](/blog/2024/11/06/rust-tools-for-web-work.md), 2024-11-06
 - [SQLite3 json_patch is a jewel](/blog/2024/10/31/sqlite3_json_patch.md), 2024-10-31
 - [Limit and offset for row pruning](/blog/2024/10/31/limit_and_offset_for_row_pruning.md), 2024-10-31
 - [Quick tour of Deno 2.0.2](/blog/2024/10/18/a-quick-tour-of-deno-2.md), 2024-10-18
