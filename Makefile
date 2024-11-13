@@ -9,7 +9,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
 
-all: blog api phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind gemini
+all: blog api phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind
 
 
 nav.include: nav.md .FORCE
@@ -109,8 +109,8 @@ rss.xml: .FORCE
         -channel-description="Robert's Website" \
         -channel-link="https://rsdoiel.github.io" . >index.xml
 
-gemini: .FORCE
-	bash mk-gemini-pages.bash
+#gemini: .FORCE
+#	bash mk-gemini-pages.bash
 
 phlog: .FORCE
 	pttk phlogit -prefix=blog -refresh=$(YEARS)
