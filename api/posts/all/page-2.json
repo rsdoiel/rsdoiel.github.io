@@ -5,6 +5,21 @@
   "next_page": "posts/all/page-3.json",
   "values": [
     {
+      "content": "\n# SQL query to CSV, a missing datatool\n\nBy R. S. Doiel, 2023-01-13\n\nUpdate: 2023-03-13\n\nAt work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.\n\nIn the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).\n\nThis got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.\n\n```\n    sql2csv -o eprint_status_report.csv -config=$HOME/.my.cnf \\\n\t    'SELECT eprintid, title, eprint_status FROM eprint' \n```\n\nThe `sql2csv` would take the results of the query and write to the CSV file.\n\nThe nice thing about this approach is that I could support the three relational databases we use -- i.e. MySQL 8, Postgres and SQLite3 with one common tool so my Bash scripts that run the reports would be very simple rather than specialized to one database system or the other.\n\nI hope to experiment with this approach in the next release of [datatools](https://github.com/caltechlibrary/datatools), an open source project maintained at work.\n\n## update\n\nJon Woodring pointed out to me today that both SQLite3 and PostgreSQL clients can output to CSV without need of an external tool. Wish MySQL client did that! Instead MySQL client supports tab delimited output. I'm still concidering sql2csv due to the ammount work I do with MySQL database but I'm not sure if it will make it into to the datatools project or now since I suspect our MySQL usage will decline overtime as more projects are built with PostgreSQL and SQLite3.\n",
+      "data": {
+        "author": "rsdoiel@sdf.org (R. S. Doiel)",
+        "keywords": [
+          "sql",
+          "csv",
+          "tab delimited"
+        ],
+        "pubDate": "2023-01-03",
+        "title": "SQL query to CSV, a missing datatool",
+        "updateDate": "2023-03-13"
+      },
+      "url": "posts/2023/01/03/sql-to-csv-a-missing-datatool.json"
+    },
+    {
       "content": "\n# Go and MySQL timestamps\n\nBy R. S. Doiel, 2022-12-12\n\nThe Go [sql](https://pkg.go.dev/database/sql) package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the [MySQL driver](github.com/go-sql-driver/mysql).  Sometimes that is not a big deal. [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the `int64` used in Go's `time.Time`. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using [DATE_FORMAT](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format \"DATE_FORMAT is a MySQL date/time function returning a string value\") and from the Go side convert the formatted string into a `time.Time` using `time.Parse()`. Below is some Golang pseudo code showing this approach.\n\n```\n// Format used by MySQL strings representing date/times\nconst MySQLTimestamp = \"2006-01-02 15:04:05\"\n\n// GetRecordUpdate takes a configuration with a db attribute previously\n// opened and an id string returning a record populated with id and updated values where updated is an attribute of type time.Time. We use MySQL's\n// `DATE_FORMAT()` function to convert the timestamp into a string and\n// Go's `time.Parse()` to convert the string into a `time.Time` value.\nfunc GetRecordUpdate(cfg, id string) {\n\tstmt := `SELECT id, DATE_FORMAT(updated, \"%Y-%m-%d %H:%i:%s\") FROM some_tabl WHERE id = ?`\n\trow, err := cfg.db.Query(stmt, id)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tdefer row.Close()\n\trecord := new(Record)\n\tif row.Next() {\n\t\tvar updated string\n\t\tif err := row.Scan(&record.ID, &updated); err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\trecord.Updated, err = time.Parse(MySQLTimestamp, updated)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t}\n\terr = row.Err()\n\treturn record, err\n}\n```\n",
       "data": {
         "author": "rsdoiel@sdf.org (R. S. Doiel)",
@@ -341,19 +356,6 @@
         "title": "A Quick into to PL/pgSQL"
       },
       "url": "posts/2022/08/24/plpgsql-quick-intro.json"
-    },
-    {
-      "content": "\n# 11:30 AM, SQL: Postgres\n\nPost: Monday, August 22, 2022, 11:30 AM\n\nThree things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is \"REPLACE\" is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I've used \"?\" with SQLite and MySQL but with Postgres I need to use \"$1\", \"$2\", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.\n\n",
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 4,
-        "pubDate": "2022-08-22",
-        "series": "SQL",
-        "title": "11:30 AM, SQL: Postgres"
-      },
-      "url": "posts/2022/08/22/rosette-notes-2022-08-22_111130.json"
     }
   ]
 }

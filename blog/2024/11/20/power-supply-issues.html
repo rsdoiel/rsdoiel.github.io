@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>power-supply-issues</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="Raspberry Pi, Power Supply, Voltage
+errors">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/11/20/power-supply-issues.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="raspberry-pi-4-400-power-supply-issues">Raspberry Pi 4 &amp; 400
+Power Supply Issues</h1>
+<p>By R. S. Doiel, 2024-11-20</p>
+<p>I have a Raspberry Pi 4 and Raspberry Pi 400. The former builds my
+personal website and my <a
+href="https://rsdoiel.github.io/antenna">Antenna</a>. I use the latter
+as a casual portable development box.</p>
+<p>Over the last year or two I noticed I would get voltage warnings
+popping up. Typical this was prevalent when I was compiling Go, Pandoc
+or Deno. The power supply I was using was the Official Raspberry Pi 4
+power supply that came with the Raspberry Pi Desktop Kit and Raspberry
+Pi 400 Computer Kit. At first I thought the power supplies were going
+bad or had become damaged. I tried replacing the power supply with one
+of the extras I had picked up (power supplies can and do fail). Still
+had problems with low voltage.</p>
+<p>I did some digging but found nothing useful than the old
+recommendations of making sure the power supplies were appropriately and
+to spec. I did read somewhere in my searching that the official power
+supplies didn’t have allot of headroom. This got me thinking. The
+Raspberry Pi OS has been updated many times since I got these devices.
+Maybe there are more power demands happening than I realized. I’ve also
+moved away from using the internal micro SD cards to using an external
+thumb drive to boot, that would place an additional power requirement on
+the system.</p>
+<p>I looked at <a href="https://www.pishop.us">PiShop.us</a> which is
+linked from the Raspberry Pi website as an official retailer. They had
+the official supplies that came with my kits but also had one that had a
+higher wattage rating. I ordered <a
+href="https://www.pishop.us/product/raspberry-pi-27w-usb-c-power-supply-white-us/">Raspberry
+Pi 27W USB-C Power Supply White US</a>. Connected it up to my Raspberry
+Pi 400 via the powered monitor. Booted from the thumb drive and then
+tried rebuilding Go from Go 1.19 that ships with Raspberry Pi OS
+compiling Go 1.21.9 and 1.23.3 from source. No voltage errors. Looks
+like I just out grew the stock power supply. If this remains working
+without problems I will order another one and use it with my old Pi
+Drive enclosure and my Pi 4. Keeping my fingers crossed.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
