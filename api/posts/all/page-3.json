@@ -178,6 +178,21 @@
       "url": "posts/2024/02/23/enhanced_form_handling.json"
     },
     {
+      "content": "\n# Transpiling & Bundling with Emit\n\nOne of the nice features of Deno is native TypeScript support.  One of the selling strength though is that the same source can run both server side and browser side.  The challenge is that TypeScript does not have native TypeScript support. This is easy to remedy using Deno's [emit](https://jsr.io/@deno/emit) module.\n\nThe emit module supports to important functions, `transpile` and `bundle`. Both will render your TypeScript as JavaScript in a browser friendly manner. The `transpile` function turns a single TypeScript file into an equivalent JavaScript file. Bundle can do that with a TypeScript and all the files it imports so you have a self contained JavaScript file with everything you need.\n\n<!-- The emit module website shows how to write a short TypeScript program to transpile and bundle.  When you combine that with a Deno task it is trivial to automatically make that happen. -->\n\n\nHere's what my `transpile.ts` looks like.\n\n~~~typescript\nimport { transpile } from \"jsr:@deno/emit\";\nimport * as path from \"jsr:@std/path\";\n\n/* Transpile directory_client.ts to JavaScript and render it to \n   htdocs/js/directory_client.js */\nconst js_path = path.join(\"htdocs\", \"js\");\nconst js_name = path.join(js_path, \"directory_client.js\");\nconst url = new URL(\"./directory_client.ts\", import.meta.url);\nconst result = await transpile(url);\nconst code = await result.get(url.href);\n\nawait Deno.mkdir(js_path, { mode: 0o775, recursive: true });\nDeno.writeTextFile(js_name, code);\n~~~\n\nYou can run that with the following long command line.\n\n~~~shell\ndeno run --allow-import --allow-env --allow-read --allow-write --allow-net transpile.ts\n~~~\n\nOf course you can easily turn this into a [Deno task](https://docs.deno.com/runtime/reference/cli/task_runner/).\n\nIf our `directory_client.ts` file contained other modules you can instead use the `bundle` function.  Here's an example of bundling our `directory_client.ts` saving the result as `htdocs/modules/directory_client.js`.\n\n~~~typescript\n/**\n * bundle.ts is an example of \"bundling\" the type script file directory_client.ts\n * into a module and writing it to htdocs/modules.\n */\nimport { bundle } from \"jsr:@deno/emit\";\n\nconst js_path = path.join(\"htdocs\", \"modules\");\nconst js_name = path.join(js_path, \"directory_client.js\");\nconst result = await bundle(\"./directory_client.ts\");\nconst { code } = result;\nawait Deno.mkdir(js_path, { mode: 0o775, recursive: true });\nawait Deno.writeTextFile(js_name, code);\n~~~\n\nYou can run that with the following long command line.\n\n~~~shell\ndeno run --allow-import --allow-env --allow-read --allow-write --allow-net bundle.ts\n~~~\n\nThe bundle will contain the transpiled TypeScript from `directory_client.ts` but also any modules that `directory_client.ts` relied on. If you don't want to include the imported modules then you can set the value of `recursive` to false.\n",
+      "data": {
+        "abstract": "A brief discussion of using the Deno emit module to transpile and bundle\nTypeScript.\n",
+        "byline": "R. S. Doiel, 2024-11-21",
+        "keywords": [
+          "Deno",
+          "TypeScript",
+          "transpile",
+          "bundle"
+        ],
+        "title": "Transpiling & Bundling with Emit"
+      },
+      "url": "posts/2024/11/21/transpiling-and-bundling-with-emit.json"
+    },
+    {
       "content": "",
       "data": {},
       "url": "posts/nav.json"
@@ -338,24 +353,6 @@
         "title": "A2 Oberon on VirtualBox 6.1"
       },
       "url": "posts/2021/04/02/A2-Oberon-on-VirtualBox-6.1.json"
-    },
-    {
-      "content": "\nUpdating Schema in SQLite3\n==========================\n\nBy R. S. Doiel, 2020-04-16\n\n[SQLite3](https://sqlite.org/docs.html) is a handy little\ndatabase as single file tool.  You can interact with the file\nthrough largely standard SQL commands and embed it easily into\napplications via the C libraries that the project supports.\nIt is also available from various popular scripting languages\nlike Python, PHP, and Lua. One of the things I occasionally\nneed to do and always seems to forget it how to is modify a\ntable schema where I need to remove a column[^1]. So here are\nsome of the basics do I can quickly find them later and avoid\nreading various articles tutorials because the search engines\ndoesn't return the page in the SQLite documentation.\n\n[^1]: The SQL `ALTER TABLE table_name DROP COLUMN column_name` does not work in SQLite3\n\nIn the next sections I'll be modeling a simple person object\nwith a id, uname, display_name, role and updated fields.\n\nCreating a person table\n-----------------------\n\n\n```sql\n\nCREATE TABLE IF NOT EXISTS \"person\" \n        (\"id\" INTEGER NOT NULL PRIMARY KEY, \n        \"uname\" VARCHAR(255) NOT NULL, \n        \"role\" VARCHAR(255) NOT NULL, \n        \"display_name\" VARCHAR(255) NOT NULL, \n        \"updated\" INTEGER NOT NULL);\n\n```\n\nAdding a column\n---------------\n\nWe will create a *junk* column which we will remove later.\n\n```sql\n\n.schema person\nALTER TABLE person ADD COLUMN junk VARCHAR(255) NOT NULL;\n.schema person\n\n```\n\nDropping a column\n-----------------\n\nTo drop a column in SQLite you need to actually create\na new table, migrate the data into it then drop the old table\nand finally rename it. It is best to wrap this in a transaction.\n\n```sql\n\nBEGIN TRANSACTION;\n    CREATE TABLE IF NOT EXISTS \"person_new\" \n           (\"id\" INTEGER NOT NULL PRIMARY KEY, \n           \"uname\" VARCHAR(255) NOT NULL, \n           \"role\" VARCHAR(255) NOT NULL, \n           \"display_name\" VARCHAR(255) NOT NULL, \n           \"updated\" INTEGER NOT NULL);\n    INSERT INTO person_new\n           SELECT id, uname, role, display_name, updated\n           FROM person;\n    DROP TABLE person;\n    ALTER TABLE person_new RENAME TO person;\nCOMMIT;\n\n```\n\n\n",
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "copyright": "copyright (c) 2021, R. S. Doiel",
-        "date": "2021-04-16",
-        "keywords": [
-          "SQLite",
-          "SQL",
-          "database"
-        ],
-        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "number": 1,
-        "series": "SQL Reflections",
-        "title": "Updating Schema in SQLite3"
-      },
-      "url": "posts/2021/04/16/Updating-Schema-in-SQLite3.json"
     }
   ]
 }
