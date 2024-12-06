@@ -25,7 +25,7 @@ Learning Go isn't difficult and the learning resources are pretty good. I find G
 
 My colleagues and I all know Python. Python is our language of collaboration. I'm the only one that knows Go on our team of four. The leap from Python to Go isn't huge but it is a leap. I made that leap because I needed the features that Go provided at the time[^3]. Since that time the uptake in libraries and archives of coding in Go has been minimal[^4].
 
-[^3]: This was over a decade ago, back when Go was very much a child of Robert Griesemer, Brian Kernighan and Rob Pike.
+[^3]: This was over a decade ago, back when Go was very much a child of Robert Griesemer, Brian Kernighan, Rob Pike and Ken Thompson.
 
 [^4]: After a decade I know only a half dozen or so Go programmers working in the library and archive domain.
 
