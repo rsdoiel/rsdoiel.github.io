@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [When Deno+TypeScript, when Go?](/blog/2024/12/06/when_deno_when_go.md), 2024-12-06
 - [Transpiling & Bundling with Emit](/blog/2024/11/21/transpiling-and-bundling-with-emit.md), 2024-11-21
 - [Raspberry Pi 4 & 400 Power Supply Issues](/blog/2024/11/20/power-supply-issues.md), 2024-11-20
 - [Rust tools for Web Work](/blog/2024/11/06/rust-tools-for-web-work.md), 2024-11-06
