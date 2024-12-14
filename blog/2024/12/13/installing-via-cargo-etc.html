@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>installing-via-cargo-etc</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="rust, deno, cargo, Debian, Linux, windows, macOS">
+  <link rel="alternative" type="application/markdown" href="/blog/2024/12/13/installing-via-cargo-etc.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="installing-deno-via-cargo-and-other-options">Installing Deno via
+Cargo and other options</h1>
+<p>By R. S. Doiel, 2024-12-13</p>
+<p>I’ve recently needed to install Deno on several Debian flavored Linux
+boxes. I wanted to install Deno using the
+<code>cargo install --locked deno</code> command. Notice the
+<code>--locked</code> option, you need that for Deno. This worked for
+the recent Ubuntu 22.04 LTS release. I needed alternatives for Ubuntu
+20.04 LTS and Raspberry Pi OS.</p>
+<h2 id="using-cargo">Using Cargo</h2>
+<p>Prerequisites:</p>
+<ul>
+<li>Rust (install with <a href="https://rustup.rs">Rustup</a>)</li>
+<li>CMake</li>
+<li>Clang, LLVM dev, Clang DEV and the lld (clang) linker</li>
+<li>SQLite3 and LibSQLite3 dev</li>
+<li>pkg config</li>
+<li>libssh dev, libssl dev</li>
+</ul>
+<p>The Debian flavors I work with are recent (Dec. 2024) Ubuntu 22.04
+LTS release<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Recently when I was installing Deno 2.1.4 I got errors about building
+the <code>flate2</code> module. I had forgotten to include the
+<code>--locked</code> option in my cargo command. I found this solution
+in Deno GitHub issue <a
+href="https://github.com/denoland/deno/issues/9524">9524</a>.</p>
+<pre class="shell"><code>sudo apt install -y build-essential cmake clang libclang-dev llvm-dev lld \
+                    sqlite3 libsqlite3-dev pkg-config libssh-dev libssl-dev
+rustup update
+cargo install deno --locked</code></pre>
+<h2 id="other-options">Other options</h2>
+<p>For Ubuntu 20.04 LTS and Raspberry Pi OS, use
+<code>curl -fsSL https://deno.land/install.sh | sh</code> to
+install.</p>
+<p>For Windows on ARM64 use
+<code>iwr https://deno.land/install.ps1 -useb | iex</code>.</p>
+<p><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code>
+On Raspberry Pi OS I added a <code>nice</code> before calling
+<code>cargo</code>. Without the “nice” it failed after the “spin”
+module.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I failed to install Deno this way on Ubuntu 20.04 LTS,
+just use the cURL + sh script.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>

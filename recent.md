@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Installing Deno via Cargo and other options](/blog/2024/12/13/installing-via-cargo-etc.md), 2024-12-13
 - [When Deno+TypeScript, when Go?](/blog/2024/12/06/when_deno_when_go.md), 2024-12-06
 - [Transpiling & Bundling with Emit](/blog/2024/11/21/transpiling-and-bundling-with-emit.md), 2024-11-21
 - [Raspberry Pi 4 & 400 Power Supply Issues](/blog/2024/11/20/power-supply-issues.md), 2024-11-20
