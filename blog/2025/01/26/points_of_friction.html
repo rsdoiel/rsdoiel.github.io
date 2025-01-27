@@ -145,6 +145,35 @@ Found 2 errors.</code></pre>
 <p>It seems like what works in the repl should also compile but that’s
 isn’t the case. I have an open question on Deno’s discord help channel
 and am curious to find the “correct” way to handle this problem.</p>
+<h2 id="update-2025-01-26-500pm">Update 2025-01-26, 5:00PM</h2>
+<p>I heard back on Deno Discord channel for help. With the help of <a
+href="https://github.com/crowlKats">crowlKat</a> sorted the problem
+out.</p>
+<p>The compile and runnable version of <a href="mycat.ts">mycat.ts</a>
+looks like this.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">main</span>() {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> input <span class="op">:</span> Deno<span class="op">.</span><span class="at">FsFile</span> <span class="op">|</span> <span class="dt">any</span> <span class="op">=</span> Deno<span class="op">.</span><span class="at">stdin</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (Deno<span class="op">.</span><span class="at">args</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        input <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">open</span>(Deno<span class="op">.</span><span class="at">args</span>[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> decoder <span class="op">=</span> <span class="kw">new</span> <span class="fu">TextDecoder</span>()<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: the .readable function is available on both types of objects.</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="cf">await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> input<span class="op">.</span><span class="at">readable</span>) {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(decoder<span class="op">.</span><span class="fu">decode</span>(chunk))<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) <span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
+<p>The “any” type feels a little ugly but since I am assinging the
+default value is <code>Deno.stdin</code> it covers that case where the
+<code>Deno.FsFile</code> covers the case of a name file. Where does this
+leave me? I have a nice clean idiom that does what I want for
+interacting with standard input or a file stream. Not necessarily the
+fast thing on the planet but it works.</p>
   </article>
 </section>
 

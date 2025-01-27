@@ -129,3 +129,32 @@ Found 2 errors.
 ~~~
 
 It seems like what works in the repl should also compile but that's isn't the case. I have an open question on Deno's discord help channel and am curious to find the "correct" way to handle this problem.
+
+## Update 2025-01-26, 5:00PM
+
+I heard back on Deno Discord channel for help.  With the help of [crowlKat](https://github.com/crowlKats) sorted the problem out.
+
+The compile and runnable version of [mycat.ts](mycat.ts) looks like this.
+
+~~~typescript
+async function main() {
+    let input : Deno.FsFile | any = Deno.stdin;
+
+    if (Deno.args.length > 0) {
+        input = await Deno.open(Deno.args[0]);
+    }
+
+    const decoder = new TextDecoder();
+
+    // NOTE: the .readable function is available on both types of objects.
+    for await (const chunk of input.readable) {
+        console.log(decoder.decode(chunk));
+    }
+}
+
+if (import.meta.main) main();
+~~~
+
+The "any" type feels a little ugly but since I am assinging the default value is `Deno.stdin` it covers that case where the `Deno.FsFile` covers the case of a name file.  Where does this leave me? I have a nice clean idiom that does what I want for interacting with standard input or a file stream.  Not necessarily the fast thing on the planet but it works.
+
+
