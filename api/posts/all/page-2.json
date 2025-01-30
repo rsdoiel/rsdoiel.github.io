@@ -319,19 +319,6 @@
       "url": "posts/2022/08/30/Ordering-Frontmatter.json"
     },
     {
-      "content": "\n# 10:30 AM, SQL: Postgres\n\nPost: Friday, August 26, 2022, 10:30 AM\n\nIf you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.\n\n",
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 2,
-        "pubDate": "2022-08-26",
-        "series": "SQL",
-        "title": "10:30 AM, SQL: Postgres"
-      },
-      "url": "posts/2022/08/26/rosette-notes-2022-08-26_101030.json"
-    },
-    {
       "content": "\nPostgres 14 on Ubuntu 22.04 LTS\n===============================\n\nby R. S. Doiel, 2022-08-26\n\nThis is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include `jane.doe` is in the sudo group\n- `jane.doe` is the one logged in and installing Postgres for machine wide use\n- `jane.doe` will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add `jane.doe` user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n~~~shell\nsudo apt install postgresql postgresql-contrib\nsudo -u createuser --interactive\njane.doe\ny\n~~~\n\nWhat we've accomplished is installing Postgres, we've create a user in Postgres DB environment called \"jane.doe\" and given \"jane.doe\" superuser permissions, i.e. the permissions to manage Postgres databases.\n\nAt this point we have a `jane.doe` Postgres admin user. This means we can run the `psql` shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available\n\n~~~shell\npsql \nSELECT datname FROM pg_database;\n\\quit\n~~~\n\nNOTE: This post is a distilation of what I learned from reading Digital Ocean's [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett.\n\n",
       "data": {
         "author": "rsdoiel@gmail.com (R. S. Doiel",
@@ -345,23 +332,30 @@
       "url": "posts/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.json"
     },
     {
-      "content": "\nA Quick intro to PL/pgSQL\n========================\n\nPL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger. \n\nThe Postgres documentation defines and explains the [PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql.html) and how it works.  This document is just a quick orientation with specific examples to provide context.\n\nHello World\n-----------\n\nHere is a \"helloworld\" procedure definition.\n\n```sql\n    CREATE PROCEDURE helloworld() AS $$\n    DECLARE\n    BEGIN\n       RAISE NOTICE 'Hello WORLD!';\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\nLet's take a look this line by line.\n\n1. CREATE PROCEDURE defines the procedure and the starting and ending delimiter for the procedure (e.g. `AS $$` the procedure's text ends when `$$` is encountered an second time.\n2. DECLARE is the block where you would declare the variables used in the procedure, we have none in this example\n3. The BEGIN starts the actual procedure instructions\n4. The `RAISE NOTICE` line is how you can display output to the console when the procedure is run\n5. The END completes the procedure definition\n6. the `$$ LANGUAGE plpgsql;` concludes the text defining the procedure and tells the database engine that procedure is written in PL/pgSQL.\n\nWe can run the procedure using the \"CALL\" query.\n\n```sql\n    CALL helloworld()\n```\n\nNOTE: If you want to change the procedure you can \"DROP\" it first otherwise you'll get an error that it already exists.\n\n```sql\n    DROP PROCEDURE helloworld;\n```\n\nImproving my workflow\n---------------------\n\nSQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system's database. Procedures and functions are created and can be dropped. While they can be manually typed in the database's shell it is easier to maintain them in plain text files outside the RDBM environment.  \n\n1. Write the procedure in a text file.\n2. Load the text file (e.g. FILENAME) into Postgres \n   a. outside the Postgres shell use `psql -f FILENAME` \n   b. inside the Postgres shell used `\\i FILENAME`\n3. Call the procedure to test it\n\nTo turn these steps into a look I use a \"CREATE OR REPLACE\" statement and be able to reload the updated procedure easier see [43.12. Tips for Developing in PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql-development-tips.html).  Note in the revised example the \"-- \" lines are comments.\n\nOur revised [helloworld](helloworld.plpgsql).\n\n```sql\n    --\n    -- Create (or replace) the new \"helloworld\" procedure.\n    -- NOTE: this can be run with \"CALL\"\n    --\n    CREATE OR REPLACE PROCEDURE helloworld() AS $$\n    DECLARE\n    BEGIN\n        RAISE NOTICE 'Hello World!';\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\n\nHi There\n--------\n\n[hithere](hithere.plpgsql) is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a \"VARCHAR\", so this should work as part of a select statement.\n\n```sql\n    --\n    -- This is a \"Hi There\" function. The function takes\n    -- a single parameter and forms a greeting.\n    --\n    CREATE OR REPLACE FUNCTION hithere(name varchar) RETURNS varchar AS $$\n    DECLARE\n      greeting varchar;\n    BEGIN\n        IF name = '' THEN\n            greeting := 'Hi there!';\n        ELSE\n            greeting := 'Hello ' || name || '!';\n        END IF;\n        RETURN greeting;\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\nGiving it a try.\n\n```shell\n    SELECT hithere('Mojo Sam');\n```\n\nFurther reading\n---------------\n\n- [Conditionals](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS)\n- [Loops](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS)\n- [Calling a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE)\n- [Early return from a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE)\n\n",
+      "content": "\n# 10:30 AM, SQL: Postgres\n\nPost: Friday, August 26, 2022, 10:30 AM\n\nIf you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.\n\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
-        "byline": "R. S. Doiel, 2022-08-24",
         "keywords": [
-          "postgres",
-          "sql",
-          "psql",
-          "plsql",
-          "plpgsql"
+          "Postgres"
         ],
-        "number": 3,
-        "pubDate": "2022-08-24",
-        "series": "SQL Reflections",
-        "title": "A Quick into to PL/pgSQL"
+        "no": 2,
+        "pubDate": "2022-08-26",
+        "series": "SQL",
+        "title": "10:30 AM, SQL: Postgres"
       },
-      "url": "posts/2022/08/24/plpgsql-quick-intro.json"
+      "url": "posts/2022/08/26/rosette-notes-2022-08-26_101030.json"
+    },
+    {
+      "content": "\n# 12:00 PM, SQL: Postgres\n\nPost: Wednesday, August 24, 2022, 12:00 PM\n\nI miss `SHOW TABLES` it's just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%'\n`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's \"SHOW TABLES\". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.\n\n",
+      "data": {
+        "keywords": [
+          "Postgres"
+        ],
+        "no": 3,
+        "pubDate": "2022-08-24",
+        "series": "SQL",
+        "title": "12:00 PM, SQL: Postgres"
+      },
+      "url": "posts/2022/08/24/rosette-notes-2022-08-24_121200.json"
     }
   ]
 }
