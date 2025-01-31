@@ -9,7 +9,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
 
-all: blog api phlog redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind
+all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind
 
 
 nav.include: nav.md .FORCE
@@ -109,15 +109,6 @@ rss.xml: .FORCE
         -channel-description="Robert's Website" \
         -channel-link="https://rsdoiel.github.io" . >index.xml
 
-#gemini: .FORCE
-#	bash mk-gemini-pages.bash
-
-phlog: .FORCE
-	pttk phlogit -prefix=blog -refresh=$(YEARS)
-	bash phlog.bash
-	git add $(shell find . -name gophermap)
-	git add blog/phlog.json
-
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
 	pttk blogit -prefix=blog -refresh=$(YEARS)
@@ -133,9 +124,6 @@ rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
 	git add rssfeed.html
 
-gopher_site.zip : .FORCE
-	zip -r gopher_site.zip * --exclude=@gopher_exclude.lst
-
 html_site.zip : .FORCE
 	zip -r html_site.zip * --exclude=@html_exclude.lst
 
@@ -144,13 +132,6 @@ blog.zip: .FORCE
 	-zip -r blog.zip *.md *.html twtxt.txt
 	-zip -r blog.zip $(find blog -type f)
 	-zip -r blog.zip $(find series -type f)
-
-phlog.zip: .FORCE
-	-rm phlog.zip >/dev/null 2>&1
-	-zip -r phlog.zip gophermap *.md twtxt.txt series/gophermap series/*.md blog/*.md blog/*/*/*/*.md
-	#zip -r phlog.zip $(find blog -type f | grep -v -E ".html$")
-	#zip -r phlog.zip $(find series -type f | grep -v -E ".html$")
-
 
 status:
 	-git status
@@ -168,7 +149,7 @@ website: all .FORCE
 sitemap.xml: .FORCE
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: rss.xml all gopher_site.zip html_site.zip phlog.zip
+publish: rss.xml all html_site.zip
 	bash blog.bash
 	sitemapper . sitemap.xml http://rsdoiel.sdf.org
 	sitemapper . sitemap.xml https://rsdoiel.github.io
