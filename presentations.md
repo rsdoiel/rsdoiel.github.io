@@ -2,6 +2,7 @@
 title : "Past Presentations"
 ---
 
+- [COLD - curating objects with Deno, Dataset and SQLite3](https://caltechlibrary.github.io/cold/presentations/presentation1.html#(1)), Code4Lib SoCal meetup at Caltech, 2024-11-15
 - [Newt, the second prototype](https://caltechlibrary.github.io/newt/presentation2/), Code4Lib SoCal meetup at USC, 2024-04-19
 - [Newt, a small system experiment](https://caltechlibrary.github.io/newt/presentation/), Code4Lib SoCal meetup at UCLA, 2023-07-14
 - [Building software at the edges of heterogeneous repositories](https://caltechlibrary.github.io/or2018-building-at-the-edges/), at Montana State University for [Open Repositories 2018](http://www.or2018.net/), 2018-06-06
