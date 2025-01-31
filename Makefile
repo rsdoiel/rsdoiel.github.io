@@ -124,8 +124,6 @@ rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
 	git add rssfeed.html
 
-html_site.zip : .FORCE
-	zip -r html_site.zip * --exclude=@html_exclude.lst
 
 blog.zip: .FORCE
 	-rm blog.zip >/dev/null 2>&1
@@ -149,10 +147,8 @@ website: all .FORCE
 sitemap.xml: .FORCE
 	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: rss.xml all html_site.zip
+publish: rss.xml sitemap.xml all
 	bash blog.bash
-	sitemapper . sitemap.xml http://rsdoiel.sdf.org
-	sitemapper . sitemap.xml https://rsdoiel.github.io
 	git commit -am "save and publish"
 	git push origin main
 
@@ -163,6 +159,5 @@ clean:
 	@if [ -f nav.include ]; then rm nav.include; fi
 	@if [ -f footer.include ]; then rm footer.include; fi
 	@if [ -f index.md ]; then rm index.md; fi
-	@if [ -f lunr.json ]; then rm lunr.json; fi
 
 .FORCE:

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>moving_beyond_git_templates</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="software
+development, programming, CodeMeta">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/01/31/moving_beyond_git_templates.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="moving-beyond-git-template-repositories-with-codemeta">Moving
+beyond git template repositories with CodeMeta</h1>
+<p>By R. S. Doiel, 2025-01-31</p>
+<p>A nice feature of GitHub is the ease in starting a new repository
+with a complete set of documents<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>. This feature creates a
+problem. The “template” documents require editing. Then they require
+more editing to keep them from being stale. If you’re serious about
+keeping documentation up to date then the copy edit work must be
+continuous. Copy edit work is tedious. Is there a path beyond the git
+repository templates that avoid stale <a
+href="https://en.wikipedia.org/wiki/Artifact_(software_development)">software
+artifacts</a>?</p>
+<p>Existing development tools suggestion a solution. For decades
+software developers have had tools to extract documentation from the
+comments in source code. <a
+href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a> pioneered
+this with his <a
+href="https://en.wikipedia.org/wiki/Literate_programming">literate
+programming</a> approach. A simplified take on this is <a
+href="https://en.wikipedia.org/wiki/Javadoc">Javadoc</a> used in the
+Java programming community. Today most open source programming languages
+have similar tools available. In 2025 it is trivial to generate source
+code documentation directly from the comments in your source code. Can
+an approach like this be used for more of our software artifacts?</p>
+<p>I believe leveraging <a href="https://codemeta.github.io"
+title="See the section titled, Motivation">CodeMeta</a>, developed by
+the research programming community, gives us a path forward for general
+software development.</p>
+<h2 id="how-is-codemeta-relevant">How is CodeMeta relevant?</h2>
+<p>The CodeMeta data is meant to be machine readable and human
+manageable. That’s a developer sweet spot. The CodeMeta object let’s you
+track metadata like name, description, version, authorship and
+contributors. It includes where the project source repository is hosted
+and the license used. Over time the list of metadata attributes in the
+CodeMeta object has grown. Today we have a long list of a project’s
+metadata that can be tracked and acted upon.</p>
+<p>When I started including CodeMeta files in my projects at Caltech
+Library I did so at software release. It was a task to do at the end of
+the process like the task of reviewing and updating the cloned
+documentation files. Treating the CodeMeta as an after thought created a
+burden. It was a disincentive to adopting CodeMeta.</p>
+<p>I think we make the CodeMeta object relevant to developers by
+treating it as primary source code. Editing it should be the first
+rather than last thing updated before a release. <strong>An accurate
+CodeMeta file is actionable.</strong> Ignored this and you ignore
+CodeMeta’s super power.</p>
+<p>Can CodeMeta be used to help lower the documentation burden? Yes.</p>
+<p>In 2025 there is enough information in a complete CodeMeta object to
+create structured documents. This includes documents like a README and
+INSTALL. Keeping track of the content as metadata can lower the effort
+in managing stale documentation. It may be enough to eliminate the need
+for git template repositories. At a minimum it can shrink what is needed
+from template repositories.</p>
+<p>Here’s the steps I used to take setting up a project.</p>
+<ol type="1">
+<li>Write the README</li>
+<li>Document how the software will work</li>
+<li>Write tests to confirm the software works</li>
+<li>Write the software</li>
+<li>Create/update my software artifacts to reflect the current state
+such as the codemeta.json file.</li>
+</ol>
+<p>Repeat as needed. The last step was always tedious. The longer a
+project is around the more artifacts need to be managed. It was easy to
+want to short cut that last step.</p>
+<p>Here’s what I have been experimenting with.</p>
+<ol type="1">
+<li>Create or update the CodeMeta file</li>
+<li>Document or update how the software should work</li>
+<li>Create or update tests to confirm the software works as
+documented</li>
+<li>Write or update the software to pass the tests</li>
+<li><strong>Generate</strong> additional software artifacts from the
+CodeMeta document.</li>
+</ol>
+<p>Step five is automated. In practice step five can be integrated with
+your standard build processes. Us humans focus on steps one through
+four. Life just got a little easier for the busy developer.</p>
+<p>Several questions are suggested by this proposal.</p>
+<ol type="1">
+<li>How do I make it easy to create and update the CodeMeta file?</li>
+<li>How do I generate the software artifacts?</li>
+<li>What artifacts can be generated in a reliable way?</li>
+</ol>
+<p>The CodeMeta object is stored as a JSON document in your repository.
+That means you can readily build tooling around it.</p>
+<p>Today you can use the CodeMeta <a
+href="https://codemeta.github.io/codemeta-generator/">generator</a> to
+bootstrap the creation of a CodeMeta file. If you’re willing to do some
+cut and paste work the generator can even be used to maintain your
+CodeMeta file.</p>
+<p>What about generating our artifacts?</p>
+<p>For the last few years I’ve relied on Pandoc templates, see <a
+href="https://github.com/caltechlibrary/codemeta-pandoc-examples">codemeta-pandoc-examples</a>.
+I use Pandoc and these templates to generate files like CITATION.cff,
+about.md, installer scripts and version files for the Python, Go and
+TypeScript programming languages. The trouble with this approach is
+Pandoc tends to be well knowing in the data science community but not in
+the general developer community. The Pandoc template language is
+obscure. This has lead me to believe new tools are needed beyond Pandoc
+and templates.</p>
+<hr />
+<h2 id="cmtools">CMTools</h2>
+<p>I recently started prototyping two programs for working with <a
+href="https://codemeta.github.io">CodeMeta</a> objects. The prototype
+code is available at <a
+href="https://github.io/CMTools">github.com/caltechlibrary/CMTools</a>.
+The two programs are for editing (<code>cme</code>) and for transforming
+(<code>cmt</code>) the CodeMeta object. I am currently testing the
+prototypes in selected Caltech Library projects.</p>
+<h3 id="what-challenges-have-the-prototypes-raise">What challenges have
+the prototypes raise?</h3>
+<p>The CodeMeta object is sprawling. <code>cme</code> was started as
+command line alternative to the generator. It was initially designed
+with an interactive, prompt and response, user interface. It would
+iterate over all the top level attributes prompting for changes. This
+can be tedious. I quickly added support to shorten the process by
+including a list of specific attributes to edit.</p>
+<pre class="shell"><code>cme codmeta.json                       # &lt;-- iterate over all
+cme codemeta.json version dateModified # &lt;-- just listed attributes</code></pre>
+<p>The prompt and response approach works well for simple attribute
+types like name, description and version. The more complex attributes
+like author or contributor were challenging. To avoid the need to
+increase the types of prompts or be forced into a menu system I’m
+experimenting with using YAML to display the current value and accept
+YAML as the user response. YAML is much easier to type and copy edit
+than JSON. It is easy to transform into JSON. The downside is you need
+to know the structure and attribute names ahead of time. That gives
+<code>cme</code> a training cost.</p>
+<p>Multi line values are tricky to work with if you rely on standard
+input. To address this I added a feature to allow the use of the <a
+href="https://micro-editor.github.io">Micro Editor</a> for setting
+values. It didn’t solve the problem of knowing the YAML attributes in
+advance but does make it easier to copy edit the YAML. Micro Editor is
+Open Source and available for macOS, Linux and Windows. Support for
+other editors could be added. Further prototyping and development work
+is needed to support alternatives to editing YAML.</p>
+<pre class="shell"><code>cme codemeta.json author -e</code></pre>
+<p>In the 0.0.9 release of the <code>cme</code> prototype I added the
+ability to set the attribute values from the command line. This has
+helped in automated environments. CodeMeta attribute name is used as the
+key. An equal sign, “=”, is the delimiter. What follows the equal sign
+is treated as the value. This works well for simple fields,
+e.g. version, dateModified.</p>
+<pre class="shell"><code>cme codemeta.json version=&quot;0.0.2&quot; dateModified=&quot;2025-01-30&quot;</code></pre>
+<p>Complex attribute editing using this approach is very
+challenging.</p>
+<h3 id="what-can-cmtools-generate">What can CMTools generate?</h3>
+<p>The <code>cmt</code> prototype has limitted abilities. It can render
+about.md and CITATION.cff files. It can generate “version” source code
+files for Python (version.py), Go (version.go), TypeScript (version.ts)
+and JavaScript (version.js). I am actively working on porting the
+remaining Pandoc templates from codemeta-pandoc-examples to
+<code>cmt</code>. README and INSTALL will be added after the template
+port is complete.</p>
+<pre class="shell"><code>cmt codemeta.json about.md CITATION.cff version.py</code></pre>
+<h2 id="whats-next">What’s next?</h2>
+<p>CMTools is at an early stage of development (January 2025). The
+project is focused finding the balance of editing and generating.
+Improvements will flow base on our usage.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The feature is built around using another Git repository
+as a template. GitHub has a nice UI for this, essentially it is forking
+the “template repository” when you create your new repository.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
