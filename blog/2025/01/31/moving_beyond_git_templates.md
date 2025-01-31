@@ -75,7 +75,7 @@ For the last few years I've relied on Pandoc templates, see [codemeta-pandoc-exa
 
 ## CMTools
 
-I recently started prototyping two programs for working with [CodeMeta](https://codemeta.github.io) objects. The prototype code is available at [github.com/caltechlibrary/CMTools](https://github.io/CMTools). The two programs are for editing (`cme`) and for transforming (`cmt`) the CodeMeta object. I am currently testing the prototypes in selected Caltech Library projects.
+I recently started prototyping two programs for working with [CodeMeta](https://codemeta.github.io) objects. The prototype code is available at [github.com/caltechlibrary/CMTools](https://github.com/caltechlibrary/CMTools). The two programs are for editing (`cme`) and for transforming (`cmt`) the CodeMeta object. I am currently testing the prototypes in selected Caltech Library projects.
 
 ### What challenges have the prototypes raise?
 
