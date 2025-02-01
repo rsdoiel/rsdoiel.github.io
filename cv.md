@@ -47,12 +47,14 @@ Technical Skills
 Current Projects
 ----------------
 
-- Build [cool things](https://caltechlibrary.github.io) for Caltech Library
+- Build [Cool Things](https://caltechlibrary.github.io) for Caltech Library
+  - [CMTools](https://caltechlibrary.github.io/CMTools) - CodeMeta Tools
+  - [COLD](https://caltechlibrary.github.io/COLD) - Controlled Object Lists and Datum
+  - [metadatatools](https://caltechlibrary.github.io/metadatatools) - identifier validation, normalization verification for Deno+TypeScript
   - [newt](https://caltechlibrary.github.io/newt) - a rapid development platform for metadata application used by galleries, libraries, archives and museums
   - [irdmtools](https://caltechlibrary.github.io/irdmtools) - a collection of tools for migrating, managing and interacting with Invenio-RDM and EPrints repository software and metadata
   - [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or as a localhost web service
   - [datatools](https://caltechlibrary.github.io/datatools) - a collection of command line utilities for working with CSV, JSON and Excel Workbooks
-
 
 Past responsibilities
 ---------------------
@@ -103,25 +105,29 @@ Past Projects
 - Project management, web application and database architect for USC International Alumni Conference 2001 (retired, ZOPE)
 - Web application and database design for APRU&rsquo;s Distance Learning and the Internet (retired, ZOPE)
 - Courseware testing, evaluation, training, data conversion and management for USC&rsquo;s Blackboard installation (retired, Perl/LAMP)
-- Software design and development for Visualizing Ideology with Dr. Steve Ross (site generation tools, interactive course modules (retired, Perl+LAMP
+- Software design and development for Visualizing Ideology with Dr. Steve Ross (site generation tools, interactive course modules) (retired, Perl/LAMP)
 - Project management, application architecture for Exercise Science  with Dr. Jill McNitt-Gray (retired, Java applet for "digitizing" image points)
 - Tool development and design for Oral Pathology website with Dr. Bill Crawford (retired, Perl based site generation tools)
 
 Presentations
 -------------
 
-- September 15, 2016, [Command Line for Librarians](https://caltechlibrary.github.io/command-line-for-librarians), co-presentation with Heather Wilson for [MMWCon 2016](https://mmwcon.org/sessions/21a) at UCLA
-- Aug 2, 2016, [Introducing the ArchivesSpace REST API using Python 3](https://rsdoiel.github.io/archivesspace-api-workshop), presentation for the [ArchivesSpace Member Forum 2016](https://archivesspace.atlassian.net/wiki/display/ADC/ArchivesSpace+Member+Forum+2016)
-- June 20, 2016, [Bash, curl and jq: Accessing ORCID public API](https://rsdoiel.github.io/bash-curl-and-jq-presentation/), presentation for Code4Lib SoCal Summer 2016 meetup
-- December 15, 2015, [Unified Search Box](http://caltechlibrary.github.io/unified-search-box/presentation.html) presentation for Code4Lib SoCal meetup at Caltech
-- January 24, 2013, [Safely-php](https://docs.google.com/presentation/d/1Efh9Z_HGBOxxYsupHQDok9-CjL4aBC-lGIAnZu5mm1E/edit?usp=sharing) presentation for the USC Web Council
-- October 6, 2010, [USC Map and Calendar API](usc-api-demos) demonstration presentation for the USC Web Council
-- October 4, 2006, Lecture on software development, practice and lessons learned in ITS Web Services for the USC Center for Software Engineering CS-577 graduate course
-- October 5, 2005, Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course
-- Fall 2004, Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course
-- Fall 2003, Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course
-- November 12, 2000, CLA Conference, CLA Institute Weaving the Web of the future: Distance Learning Tools, now and where they might be headed tomorrow
-- October 26-27, 1999, Educause 1999, Advanced Applications Showcase: SMIL and its Role in Presenting Multimedia Resources
+- [COLD - curating objects with Deno, Dataset and SQLite3](https://caltechlibrary.github.io/cold/presentations/presentation1.html), Code4Lib SoCal meetup at Caltech, 2024-11-15
+- [Newt, the second prototype](https://caltechlibrary.github.io/newt/presentation2/), Code4Lib SoCal meetup at USC, 2024-04-19
+- [Newt, a small system experiment](https://caltechlibrary.github.io/newt/presentation/), Code4Lib SoCal meetup at UCLA, 2023-07-14
+- [Building software at the edges of heterogeneous repositories](https://caltechlibrary.github.io/or2018-building-at-the-edges/), at Montana State University for Open Repositories 2018, 2018-06-06
+- [Command Line for Librarians](https://caltechlibrary.github.io/command-line-for-librarians), co-presentation with Heather Wilson for [MMWCon 2016](https://mmwcon.org/sessions/21a) at UCLA, 2016-11-15
+- [Introducing the ArchivesSpace REST API using Python 3](https://rsdoiel.github.io/archivesspace-api-workshop), presentation for the [ArchivesSpace Member Forum 2016](https://archivesspace.atlassian.net/wiki/display/ADC/ArchivesSpace+Member+Forum+2016), 2016-08-02
+- [Bash, curl, jq: Accessing the ORCID API](https://rsdoiel.github.io/bash-curl-and-jq-presentation/), presentation for Code4Lib SoCal Summer 2016 meetup, 2016-06-20
+- [Unified Search Box](http://caltechlibrary.github.io/unified-search-box/presentation.html),presentation for Code4Lib SoCal meetup at Caltech, 2015-12-15
+- [Safely-php](https://docs.google.com/presentation/d/1Efh9Z_HGBOxxYsupHQDok9-CjL4aBC-lGIAnZu5mm1E/edit?usp=sharing) presentation for the USC Web Council, 2013-01-24 
+- [USC Map and Calendar API](usc-api-demos) demonstration presentation for the USC Web Council, 2010-10-06 
+- Lecture on software development, practice and lessons learned in ITS Web Services for the USC Center for Software Engineering CS-577 graduate course, 2006-10-04
+- Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course, 2005-10-05 
+- Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course, Fall 2004
+- Lecture on software development, practice and lessons learned in the Center for Scholarly Technology for the USC Center for Software Engineering CS-577 graduate course, Fall 2003
+- CLA Conference, CLA Institute Weaving the Web of the future: Distance Learning Tools, now and where they might be headed tomorrow, 2000-11-12
+- Educause 1999, Advanced Applications Showcase: SMIL and its Role in Presenting Multimedia Resources, 1999-10-26, 1999-10-27
 - Fall 1999 Quickstart: 1/2 day seminar
   - Slam Dunk: One Course Website in One Day
   - Introduction to CourseInfo. October 22, 1999
