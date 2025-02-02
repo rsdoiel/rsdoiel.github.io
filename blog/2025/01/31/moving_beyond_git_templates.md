@@ -1,7 +1,7 @@
 ---
 title: Moving beyond git template repositories with CodeMeta
 createDate: 2025-01-30
-updateDate: 2025-01-31
+updateDate: 2025-02-02
 pubDate: 2025-01-31
 byline: R. S. Doiel
 author: R. S. Doiel
@@ -113,3 +113,5 @@ cmt codemeta.json about.md CITATION.cff version.py
 ## What's next?
 
 CMTools is at an early stage of development (January 2025). The project is focused finding the balance of editing and generating. Improvements will flow base on our usage.
+
+The next release, 0.0.13, will include experimental support for generating README.md, INSTALL.md, installer.ps1 and installer.sh. RSD 2025-02-02
