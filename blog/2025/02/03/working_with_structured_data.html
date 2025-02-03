@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>working_with_structured_data</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="Deno, TypeScript, Structured Data">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/02/03/working_with_structured_data.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="working-with-structured-data-in-deno-and-typescript">Working
+with Structured Data in Deno and TypeScript</h1>
+<p>One of the features in Go that I miss in TypeScript is Go’s <a
+href="https://en.wikipedia.org/wiki/Domain-specific_language"
+title="Domain Specific Language">DSL</a> for expressing data
+representations. Adding JSON, YAML and XML support in Go is simple.
+Annotating a struct with a string expression. There is no equivalent
+feature in TypeScript. How do easily support multiple representations in
+TypeScript?</p>
+<p>Let’s start with JSON. TypeScript has <code>JSON.stringify()</code>
+and <code>JSON.parse()</code>. So getting to JSON representation is
+trivial, just call the stringify method. Going from text to populated
+object is done with <code>JSON.parse</code>. But there is a catch.</p>
+<p>Let’s take a simple object I’m defining called “ObjectN”. The object
+has a single attribute “n”. “n” holds a number. The initial values is
+set to zero. What happens when I instantiate my ObjectN then assign it
+the result from <code>JSON.parse()</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ObjectN {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    n<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addThree</span>()<span class="op">:</span> <span class="dt">number</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">n</span> <span class="op">+</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> src <span class="op">=</span> <span class="vs">`{&quot;n&quot;: 1}`</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> o<span class="op">:</span> ObjectN <span class="op">=</span> <span class="kw">new</span> <span class="fu">ObjectN</span>()<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>o <span class="op">=</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(src)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// </span><span class="al">NOTE</span><span class="co">: This will fail, addThree method isn&#39;t available.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(o<span class="op">.</span><span class="fu">addThree</span>())<span class="op">;</span></span></code></pre></div>
+<p>Huston, we have a problem. No “addThree” method. That is because JSON
+doesn’t include method representation. What we really want to do is
+inspect the object returned by <code>JSON.parse()</code> and set the
+values in our ObjectN accordingly. Let’s add a method called
+<code>fromObject()</code>. (type the following into the Deno REPL).</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ObjectN {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    n<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addThree</span>()<span class="op">:</span> <span class="dt">number</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">n</span> <span class="op">+</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fromObject</span>(o<span class="op">:</span> {[key<span class="op">:</span> <span class="dt">string</span>]<span class="op">:</span> <span class="dt">any</span>})<span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (o<span class="op">.</span><span class="at">n</span> <span class="op">===</span> <span class="kw">undefined</span>) {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Validate that o.n is a number before assigning it.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> n <span class="op">=</span> (<span class="kw">new</span> <span class="bu">Number</span>(o<span class="op">.</span><span class="at">n</span>))<span class="op">.</span><span class="fu">valueOf</span>()<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="pp">isNaN</span>(n)) {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">n</span> <span class="op">=</span> n<span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> src <span class="op">=</span> <span class="vs">`{&quot;n&quot;: 1}`</span><span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> o<span class="op">:</span> ObjectN <span class="op">=</span> <span class="kw">new</span> <span class="fu">ObjectN</span>()<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(o<span class="op">.</span><span class="fu">addThree</span>())<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">fromObject</span>(<span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(src))<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(o<span class="op">.</span><span class="fu">addThree</span>())<span class="op">;</span></span></code></pre></div>
+<p>Now when we run this code we should see a “3” and then a “4” output.
+Wait, <code>o.fromObject(JSON.parse(src));</code> looks weird. Why not
+put <code>JSON.parse()</code> inside “fromObject”? Why not renamed it
+“parse”?</p>
+<p>I want to support many types of data conversion like YAML or XML. I
+can use my “fromObject” method with the result of produced from
+<code>JSON.parse()</code>, <code>yaml.parse()</code> and
+<code>xml.parse()</code>. One function works with the result of all
+three. Try adding this.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> yaml <span class="im">from</span> <span class="st">&#39;jsr:@std/yaml&#39;</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> xml <span class="im">from</span> <span class="st">&quot;jsr:@libs/xml&quot;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> <span class="vs">`n: 2`</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">fromObject</span>(yaml<span class="op">.</span><span class="fu">parse</span>(src))<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(o<span class="op">.</span><span class="fu">addThree</span>())<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> <span class="vs">`&lt;n&gt;3&lt;/n&gt;`</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">fromObject</span>(xml<span class="op">.</span><span class="fu">parse</span>(src))<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(o<span class="op">.</span><span class="fu">addThree</span>())<span class="op">;</span></span></code></pre></div>
+<p>That works!</p>
+<p>Still it would be nice to have a “parse” method too. How do I do that
+without winding up with a “parseJSON()”, “parseYAML()” and “parseXML()”?
+What I really want is a “parseWith” method which accepts the text and a
+parse function. TypeScript expects type information about the function
+being passed. I solve that problem by including a “ObjectParseType”
+definition that works across the three parsing objects – JSON, yaml and
+xml.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> yaml <span class="im">from</span> <span class="st">&#39;jsr:@std/yaml&#39;</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> xml <span class="im">from</span> <span class="st">&quot;jsr:@libs/xml&quot;</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// This defines my expectations of the parse function provide by JSON, yaml and xml.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> ObjectParseType <span class="op">=</span> (arg1<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> arg2<span class="op">?:</span> <span class="dt">any</span>) <span class="kw">=&gt;</span> {[key<span class="op">:</span> <span class="dt">string</span>]<span class="op">:</span> <span class="dt">any</span>} <span class="op">|</span> unknown<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ObjectN {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    n<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addThree</span>()<span class="op">:</span> <span class="dt">number</span> {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">n</span> <span class="op">+</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fromObject</span>(o<span class="op">:</span> {[key<span class="op">:</span> <span class="dt">string</span>]<span class="op">:</span> <span class="dt">any</span>}) <span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (o<span class="op">.</span><span class="at">n</span> <span class="op">===</span> <span class="kw">undefined</span>) {</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Validate that o.n is a number before assigning it.</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> n <span class="op">=</span> (<span class="kw">new</span> <span class="bu">Number</span>(o<span class="op">.</span><span class="at">n</span>))<span class="op">.</span><span class="fu">valueOf</span>()<span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="pp">isNaN</span>(n)) {</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">n</span> <span class="op">=</span> n<span class="op">;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">parseWith</span>(s<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> fn<span class="op">:</span> ObjectParseType)<span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">fromObject</span>(<span class="fu">fn</span>(s) <span class="im">as</span> <span class="dt">unknown</span> <span class="im">as</span> {[key<span class="op">:</span> <span class="dt">string</span>]<span class="op">:</span> <span class="dt">any</span>})<span class="op">;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> o<span class="op">:</span> ObjectN <span class="op">=</span> <span class="kw">new</span> <span class="fu">ObjectN</span>()<span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Initial o.addThree() -&gt; </span><span class="sc">${</span>o<span class="op">.</span><span class="fu">addThree</span>()<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`o.toString() -&gt; </span><span class="sc">${</span>o<span class="op">.</span><span class="fu">toString</span>()<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> src <span class="op">=</span> <span class="vs">`{&quot;n&quot;: 1}`</span><span class="op">;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">parseWith</span>(src<span class="op">,</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>)<span class="op">;</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`parse with JSON, o.addThree() -&gt; </span><span class="sc">${</span>o<span class="op">.</span><span class="fu">addThree</span>()<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`JSON.stringify(o) -&gt; </span><span class="sc">${</span><span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>(o)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> <span class="vs">`n: 2`</span><span class="op">;</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">parseWith</span>(src<span class="op">,</span> yaml<span class="op">.</span><span class="at">parse</span>)<span class="op">;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`parse with yaml, o.addThree() -&gt; </span><span class="sc">${</span>o<span class="op">.</span><span class="fu">addThree</span>()<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`yaml.stringify(o) -&gt; </span><span class="sc">${</span>yaml<span class="op">.</span><span class="fu">stringify</span>(o)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>src <span class="op">=</span> <span class="vs">`&lt;?xml version=&quot;1.0&quot;?&gt;</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;n&gt;3&lt;/n&gt;`</span><span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>o<span class="op">.</span><span class="fu">parseWith</span>(src<span class="op">,</span> xml<span class="op">.</span><span class="at">parse</span>)<span class="op">;</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`parse with xml, o.addThree() -&gt; </span><span class="sc">${</span>o<span class="op">.</span><span class="fu">addThree</span>()<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`xml.stringify(o) -&gt; </span><span class="sc">${</span>xml<span class="op">.</span><span class="fu">stringify</span>(o)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span></code></pre></div>
+<p>As long as the parse method returns an object I can now update my
+ObjectN instance from the attributes of the object expressed as JSON,
+YAML, or XML strings. I like this approach because I can add validation
+and normalization in my “fromObject” method and use for any parse method
+that confirms to how JSON, YAML or XML parse works. The coding cost is
+the “ObjectParseType” type definition and the “parseWith” method boiler
+plate and defining a class specific “fromObject”. Supporting new
+representations does require changes to my class definition at all.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
