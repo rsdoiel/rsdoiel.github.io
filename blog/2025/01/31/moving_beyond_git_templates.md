@@ -54,7 +54,6 @@ Here's what I have been experimenting with.
 3. Create or update tests to confirm the software works as documented
 4. Write or update the software to pass the tests
 5. **Generate** additional software artifacts from the CodeMeta document.
-  - README.md, INSTALL.md, installer.ps1, installer.sh, about.md, CITATION.cff, version.(py|js|ts|go)
 
 Step five is automated. In practice step five can be integrated with your standard build processes. Us humans focus on steps one through four. Life just got a little easier for the busy developer.
 
