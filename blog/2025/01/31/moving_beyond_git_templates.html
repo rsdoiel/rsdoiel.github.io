@@ -37,7 +37,7 @@ development, programming, CodeMeta">
   <article>
 <h1 id="moving-beyond-git-template-repositories-with-codemeta">Moving
 beyond git template repositories with CodeMeta</h1>
-<p>By R. S. Doiel, 2025-01-31</p>
+<p>By R. S. Doiel, 2025-01-31 (updated: 2025-02-03)</p>
 <p>A nice feature of GitHub is the ease in starting a new repository
 with a complete set of documents<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a>. This feature creates a
@@ -111,6 +111,10 @@ documented</li>
 <li><strong>Generate</strong> additional software artifacts from the
 CodeMeta document.</li>
 </ol>
+<ul>
+<li>README.md, INSTALL.md, installer.ps1, installer.sh, about.md,
+CITATION.cff, version.(py|js|ts|go)</li>
+</ul>
 <p>Step five is automated. In practice step five can be integrated with
 your standard build processes. Us humans focus on steps one through
 four. Life just got a little easier for the busy developer.</p>
@@ -166,14 +170,23 @@ than JSON. It is easy to transform into JSON. The downside is you need
 to know the structure and attribute names ahead of time. That gives
 <code>cme</code> a training cost.</p>
 <p>Multi line values are tricky to work with if you rely on standard
-input. To address this I added a feature to allow the use of the <a
+input. To address this I added a feature to allow the use the editor of
+your choice. If you are on macOS or Linux the default editor is nano. On
+Windows it is notepad.exe. You can pick a different editor by setting
+the EDITOR environment variable. In the example below I’ve chosen the <a
 href="https://micro-editor.github.io">Micro Editor</a> for setting
 values. It didn’t solve the problem of knowing the YAML attributes in
 advance but does make it easier to copy edit the YAML. Micro Editor is
 Open Source and available for macOS, Linux and Windows. Support for
 other editors could be added. Further prototyping and development work
 is needed to support alternatives to editing YAML.</p>
-<pre class="shell"><code>cme codemeta.json author -e</code></pre>
+<p>On macOS and Linux</p>
+<pre class="shell"><code>export EDITOR=micro
+cme codemeta.json author -e</code></pre>
+<p>or on Windows</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ps1"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-Variable</span> EDITOR micro</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cme codemeta<span class="op">.</span><span class="fu">json</span> author <span class="op">-</span>e</span></code></pre></div>
 <p>In the 0.0.9 release of the <code>cme</code> prototype I added the
 ability to set the attribute values from the command line. This has
 helped in automated environments. CodeMeta attribute name is used as the
@@ -184,22 +197,23 @@ e.g. version, dateModified.</p>
 <p>Complex attribute editing using this approach is very
 challenging.</p>
 <h3 id="what-can-cmtools-generate">What can CMTools generate?</h3>
-<p>The <code>cmt</code> prototype has limitted abilities. It can render
+<p>The <code>cmt</code> prototype has limited abilities. It can render
 about.md and CITATION.cff files. It can generate “version” source code
 files for Python (version.py), Go (version.go), TypeScript (version.ts)
 and JavaScript (version.js). I am actively working on porting the
 remaining Pandoc templates from codemeta-pandoc-examples to
 <code>cmt</code>. README and INSTALL will be added after the template
 port is complete.</p>
-<pre class="shell"><code>cmt codemeta.json about.md CITATION.cff version.py</code></pre>
+<pre class="shell"><code>cmt codemeta.json about.md CITATION.cff version.py \\
+  README.md INSTALL.md installer.sh installer.ps1</code></pre>
 <h2 id="whats-next">What’s next?</h2>
 <p>CMTools is at an early stage of development (January 2025). The
 project is focused finding the balance of editing and generating.
 Improvements will flow base on our usage.</p>
 <p>The <a
-href="https://github.com/caltechlibrary/CMTools/releases/tag/v0.0.13">v0.0.13
-release</a> includes experimental support for generating README.md,
-INSTALL.md, installer.ps1 and installer.sh. RSD 2025-02-03</p>
+href="https://github.com/caltechlibrary/CMTools/releases/tag/v0.0.14">v0.0.14
+release</a> includes the basic features discussed in this post for both
+<code>cme</code> and <code>cmt</code>. RSD 2025-02-03</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

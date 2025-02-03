@@ -15,7 +15,7 @@ keywords:
 
 # Moving beyond git template repositories with CodeMeta
 
-By R. S. Doiel, 2025-01-31
+By R. S. Doiel, 2025-01-31 (updated: 2025-02-03)
 
 A nice feature of GitHub is the ease in starting a new repository with a complete set of documents[^1]. This feature creates a problem. The "template" documents require editing. Then they require more editing to keep them from being stale. If you're serious about keeping documentation up to date then the copy edit work must be continuous. Copy edit work is tedious. Is there a path beyond the git repository templates that avoid stale [software artifacts](https://en.wikipedia.org/wiki/Artifact_(software_development))?
 
@@ -54,6 +54,7 @@ Here's what I have been experimenting with.
 3. Create or update tests to confirm the software works as documented
 4. Write or update the software to pass the tests
 5. **Generate** additional software artifacts from the CodeMeta document.
+  - README.md, INSTALL.md, installer.ps1, installer.sh, about.md, CITATION.cff, version.(py|js|ts|go)
 
 Step five is automated. In practice step five can be integrated with your standard build processes. Us humans focus on steps one through four. Life just got a little easier for the busy developer.
 
@@ -88,9 +89,19 @@ cme codemeta.json version dateModified # <-- just listed attributes
 
 The prompt and response approach works well for simple attribute types like name, description and version. The more complex attributes like author or contributor were challenging. To avoid the need to increase the types of prompts or be forced into a menu system I'm experimenting with using YAML to display the current value and accept YAML as the user response. YAML is much easier to type and copy edit than JSON. It is easy to transform into JSON. The downside is you need to know the structure and attribute names ahead of time. That gives `cme` a training cost.
 
-Multi line values are tricky to work with if you rely on standard input. To address this I added a feature to allow the use of the [Micro Editor](https://micro-editor.github.io) for setting values. It didn't solve the problem of knowing the YAML attributes in advance but does make it easier to copy edit the YAML. Micro Editor is Open Source and available for macOS, Linux and Windows. Support for other editors could be added. Further prototyping and development work is needed to support alternatives to editing YAML.
+Multi line values are tricky to work with if you rely on standard input. To address this I added a feature to allow the use the editor of your choice.  If you are on macOS or Linux the default editor is nano. On Windows it is notepad.exe.  You can pick a different editor by setting the EDITOR environment variable.  In the example below I've chosen the [Micro Editor](https://micro-editor.github.io) for setting values. It didn't solve the problem of knowing the YAML attributes in advance but does make it easier to copy edit the YAML. Micro Editor is Open Source and available for macOS, Linux and Windows. Support for other editors could be added. Further prototyping and development work is needed to support alternatives to editing YAML.
+
+On macOS and Linux
 
 ~~~shell
+export EDITOR=micro
+cme codemeta.json author -e
+~~~
+
+or on Windows
+
+~~~ps1
+Set-Variable EDITOR micro
 cme codemeta.json author -e
 ~~~
 
@@ -104,14 +115,15 @@ Complex attribute editing using this approach is very challenging.
 
 ### What can CMTools generate?
 
-The `cmt` prototype has limitted abilities. It can render about.md and CITATION.cff files. It can generate "version" source code files for Python (version.py), Go (version.go), TypeScript (version.ts) and JavaScript (version.js). I am actively working on porting the remaining Pandoc templates from codemeta-pandoc-examples to `cmt`. README and INSTALL will be added after the template port is complete.
+The `cmt` prototype has limited abilities. It can render about.md and CITATION.cff files. It can generate "version" source code files for Python (version.py), Go (version.go), TypeScript (version.ts) and JavaScript (version.js). I am actively working on porting the remaining Pandoc templates from codemeta-pandoc-examples to `cmt`. README and INSTALL will be added after the template port is complete.
 
 ~~~shell
-cmt codemeta.json about.md CITATION.cff version.py
+cmt codemeta.json about.md CITATION.cff version.py \\
+  README.md INSTALL.md installer.sh installer.ps1
 ~~~
 
 ## What's next?
 
 CMTools is at an early stage of development (January 2025). The project is focused finding the balance of editing and generating. Improvements will flow base on our usage.
 
-The [v0.0.13 release](https://github.com/caltechlibrary/CMTools/releases/tag/v0.0.13) includes experimental support for generating README.md, INSTALL.md, installer.ps1 and installer.sh. RSD 2025-02-03
+The [v0.0.14 release](https://github.com/caltechlibrary/CMTools/releases/tag/v0.0.14) includes the basic features discussed in this post for both `cme` and `cmt`. RSD 2025-02-03
