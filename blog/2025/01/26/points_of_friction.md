@@ -1,5 +1,5 @@
 ---
-title: Deno 2.1.7, points of friction
+title: Deno 2.1.7, Points of Friction
 byline: R. S. Doiel
 abstract: |
   A short discussion of working with file input in TypeScript+Deno coming from the
@@ -11,7 +11,7 @@ keywords:
   - input
 ---
 
-# Deno 2.1.7, points of friction
+# Deno 2.1.7, Points of Friction
 
 By R. S. Doiel, 2025-01-26
 
