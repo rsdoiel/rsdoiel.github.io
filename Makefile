@@ -64,12 +64,16 @@ library-terminology.html: nav.include footer.include library-terminology.md inde
 	$(PANDOC) --template index.tmpl library-terminology.md > library-terminology.html
 	git add library-terminology.html
 
-series: series/index.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html
+series: series/index.html series/deno-and-typescript.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html
 
 series/index.html: nav.include footer.include series/index.md
 	$(PANDOC) -M "title:Article Series" --template page.tmpl series/index.md > series/index.html
 	git add series/index.html
 
+series/deno-and-typescript.html: nav.include footer.include series/deno-and-typescript.md
+	$(PANDOC) --template page.tmpl -M "title:Deno & TypeScript" series/deno-and-typescript.md > series/deno-and-typescript.html
+	git add series/deno-and-typescript.html
+	
 series/mostly-oberon.html: nav.include footer.include series/mostly-oberon.md
 	$(PANDOC) --template page.tmpl -M "title:Mostly Oberon Series" series/mostly-oberon.md > series/mostly-oberon.html
 	git add series/mostly-oberon.html
