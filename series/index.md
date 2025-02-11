@@ -9,5 +9,5 @@ that explore an idea, topic or theme.
 - [Exploring FreeDOS](/series/freedos.md), installation, exploration and development
 - [SQL reflections](/series/sql-reflections.md), notes regarding SQL in the context of MySQL 8, SQLite 3 and PostgreSQL >= 14
 - [A Personal Search Engine](/series/pse.md), notes regarding my exploration of the viability of a personal search engine
-
+- [Book Reviews](/series/books.md), reviews of clasic texts available from Open Library
 

@@ -64,7 +64,7 @@ library-terminology.html: nav.include footer.include library-terminology.md inde
 	$(PANDOC) --template index.tmpl library-terminology.md > library-terminology.html
 	git add library-terminology.html
 
-series: series/index.html series/deno-and-typescript.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html
+series: series/index.html series/deno-and-typescript.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html series/books.html
 
 series/index.html: nav.include footer.include series/index.md
 	$(PANDOC) -M "title:Article Series" --template page.tmpl series/index.md > series/index.html
@@ -97,6 +97,10 @@ series/sql-reflections.html: series/sql-reflections.md
 series/pse.html: series/pse.md
 	$(PANDOC) --template page.tmpl -M "title:A Personal Search Engine" series/pse.md > series/pse.html
 	git add series/pse.html
+
+series/books.html: series/books.md
+	$(PANDOC) --template page.tmpl -M "title:Book Reviews" series/books.md > series/books.html
+	git add series/books.html
 
 redirects: .FORCE
 	bash generate-redirect-pages.bash
