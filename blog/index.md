@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Setting up my Raspberry Pi 500, a Portable Workstation](/blog/2025/02/14/Review_Pi-500_as_portable_workstation.md), 2025-02-14
 - [Book review, "Man and the Computer"](/blog/2025/02/10/Man_and_the_Computer.md), 2025-02-10
 - [Working with Structured Data in Deno and TypeScript](/blog/2025/02/03/working_with_structured_data.md), 2025-02-03
 - [Moving beyond git template repositories with CodeMeta](/blog/2025/01/31/moving_beyond_git_templates.md), 2025-01-31

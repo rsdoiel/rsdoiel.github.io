@@ -1,0 +1,354 @@
+{
+  "content": "\n# Setting up my Raspberry Pi 500, a Portable Workstation\n\nBy R. S. Doiel, 2025-02-14\n\nI'm  writing this on a newly setup Raspberry Pi 500. So far I'm impressed. I was sceptical about moving from my Pi 400 but when it died I was forced to upgrade. It has been worth it.\n\nI've now had a chance to install the various pieces of software I regularly use. Even do some web browsing with it. Image some SD cards for a RISC OS project I'm working on. It feels much quicker than my Pi 400. I think the speed increase is in part the faster CPU but I suspect the program I am running is taking advantage of the 8 Gig RAM instead of the old 4. As I've testing this machine out I noticed I had stopped asking myself the question about launching more than one large program at a time (e.g. my browser is running and being used as I type this in VS Code). When I tried VS Code on my Pi 4B+ and 400 it just felt too sluggish. I'm typing this review in VS Code now on the Pi 500 is keeping up OK.\n\nWhen I purchased the Pi-500 and I also decided to go with the new Raspberry Pi Monitor. Together I have a complete portable workstation. While my previous powered WaveShare monitor was higher resolution the Pi Monitor it  also used allot more power.  With the combination of Pi Monitor and Pi-500 I am now contemplating exploring power consumption so I can find a one battery to power the monitor and Pi-500.\n\nHere's the spec and pricing for this new machine. Some parts I didn't purchase because I already owned them (e.g. the 27W Pi power supply) but I have included the list prices for those who might be interested.\n\n---------------------------------- ---------- ------------------\nItem                               List Price Notes \n---------------------------------- ---------- ----------------\nRaspberry Pi 500 unit              $90.00     included  32G SD card\nRaspberry Pi 27W Power supply      $13.65     used existing one\nRaspberry Pi Mouse                 $9.25      used existing one\nMicro HDMI to standard HDMI cable  $5.75      used existing one\nRaspberry Pi Monitor               $100.00\nRaspberry Pi 15W Power supply      $8.00      for monitor\nRaspberry Pi 128G SD Card          $16.95    upgraded storage\n\n\n## Software Setup\n\nI created an \"image\" on my 128G SD Card using the Raspberry Pi Imager on another computer.  The imager lets you setup initial user account, WiFi configuration and whether you want SSH services running the first boot. I like using the vanilla 64 bit Raspberry Pi OS distribution. I picked the one for the Raspberry Pi 5 series.\n\nWhen I booted the Pi-500 connected to the Pi Monitor it seemed to cause the screen to cycle through and Pi splash page a few times. Once it completed its first boot it hasn't done that again. I am assuming that was some negotiation between the monitor and the Pi. After a quick click around test I rebooted the machine by doing a full shutdown and power off and the power back up.\n\n### Development and Writing Software\n\nI am planning to use the Pi-500 as a light weight development machine and as a machine for preparing updates for my blog. I installed the additional software below.\n\n- Pandoc 3.6 (installed via .deb package available from Pandoc website)\n- Rust installed via Rustup\n- PageFind installed via Cargo\n- Flatlake installed via Cargo\n- htmlq installed via Cargo\n- ncal installed via Cargo\n- Deno installed via website using CURL\n- Go installed via website's tar ball\n- jq installed via apt\n- SQLite3, libsqlite3-dev installed via apt\n- Hunspell and US English dictionary installed via apt\n\nThe \"build-essential\" package was already installed. I noticed that Git and GNU Make were immediately available with my first boot.\n\nI this setup as a portable  workstation. It feels quick and snappy but is small enough to toss in computer bag. I did test compile a few things. It is possible to peg the CPU but then again it's a little machine after all. I didn't get any warning lights or notifications like I used to on the Pi-400.\n\nWith a connection to my home WiFi network (not a fast connection) it took me about an hour or so to download and install all my extras. This was quicker than the last time I setup a Pi. Some of the time saved was the better hardware and net work performance but much of the time saved was due to the fact that I did not have to compile software from scratch. That was a change from the last time I setup a Pi up.  I guess  Pi and aarch64 processors are common enough that projects are now including it in their regular builds.\n\nIf  I pickup the right capacity battery I suspect I will have a lovely deconstructed Laptop to use as a portable workstation.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Setting up my Raspberry Pi 500, a Portable Workstation"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2025-02-14"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I'm  writing this on a newly setup Raspberry Pi 500. So far I'm impressed. I was sceptical about moving from my Pi 400 but when it died I was forced to upgrade. It has been worth it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I've now had a chance to install the various pieces of software I regularly use. Even do some web browsing with it. Image some SD cards for a RISC OS project I'm working on. It feels much quicker than my Pi 400. I think the speed increase is in part the faster CPU but I suspect the program I am running is taking advantage of the 8 Gig RAM instead of the old 4. As I've testing this machine out I noticed I had stopped asking myself the question about launching more than one large program at a time (e.g. my browser is running and being used as I type this in VS Code). When I tried VS Code on my Pi 4B+ and 400 it just felt too sluggish. I'm typing this review in VS Code now on the Pi 500 is keeping up OK."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When I purchased the Pi-500 and I also decided to go with the new Raspberry Pi Monitor. Together I have a complete portable workstation. While my previous powered WaveShare monitor was higher resolution the Pi Monitor it  also used allot more power.  With the combination of Pi Monitor and Pi-500 I am now contemplating exploring power consumption so I can find a one battery to power the monitor and Pi-500."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the spec and pricing for this new machine. Some parts I didn't purchase because I already owned them (e.g. the 27W Pi power supply) but I have included the list prices for those who might be interested."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "thematicBreak"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Item                               List Price Notes"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "thematicBreak"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Raspberry Pi 500 unit              $90.00     included  32G SD card\nRaspberry Pi 27W Power supply      $13.65     used existing one\nRaspberry Pi Mouse                 $9.25      used existing one\nMicro HDMI to standard HDMI cable  $5.75      used existing one\nRaspberry Pi Monitor               $100.00\nRaspberry Pi 15W Power supply      $8.00      for monitor\nRaspberry Pi 128G SD Card          $16.95    upgraded storage"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Software Setup"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I created an \"image\" on my 128G SD Card using the Raspberry Pi Imager on another computer.  The imager lets you setup initial user account, WiFi configuration and whether you want SSH services running the first boot. I like using the vanilla 64 bit Raspberry Pi OS distribution. I picked the one for the Raspberry Pi 5 series."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When I booted the Pi-500 connected to the Pi Monitor it seemed to cause the screen to cycle through and Pi splash page a few times. Once it completed its first boot it hasn't done that again. I am assuming that was some negotiation between the monitor and the Pi. After a quick click around test I rebooted the machine by doing a full shutdown and power off and the power back up."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Development and Writing Software"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I am planning to use the Pi-500 as a light weight development machine and as a machine for preparing updates for my blog. I installed the additional software below."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Pandoc 3.6 (installed via .deb package available from Pandoc website)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Rust installed via Rustup"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "PageFind installed via Cargo"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Flatlake installed via Cargo"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "htmlq installed via Cargo"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "ncal installed via Cargo"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Deno installed via website using CURL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Go installed via website's tar ball"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "jq installed via apt"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "SQLite3, libsqlite3-dev installed via apt"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Hunspell and US English dictionary installed via apt"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The \"build-essential\" package was already installed. I noticed that Git and GNU Make were immediately available with my first boot."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I this setup as a portable  workstation. It feels quick and snappy but is small enough to toss in computer bag. I did test compile a few things. It is possible to peg the CPU but then again it's a little machine after all. I didn't get any warning lights or notifications like I used to on the Pi-400."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "With a connection to my home WiFi network (not a fast connection) it took me about an hour or so to download and install all my extras. This was quicker than the last time I setup a Pi. Some of the time saved was the better hardware and net work performance but much of the time saved was due to the fact that I did not have to compile software from scratch. That was a change from the last time I setup a Pi up.  I guess  Pi and aarch64 processors are common enough that projects are now including it in their regular builds."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If  I pickup the right capacity battery I suspect I will have a lovely deconstructed Laptop to use as a portable workstation."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "Quick notes on configuring a Raspberry Pi 500 as a portable workstation along with a price list.\n",
+    "author": "R. S. Doiel",
+    "byline": "R. S. Doiel, 2025-02-14",
+    "dateCreated": "2025-02-14",
+    "keywords": [
+      "Raspberry Pi",
+      "Workstation",
+      "Review"
+    ],
+    "title": "Setting up my Raspberry Pi 500, a Portable Workstation"
+  }
+}

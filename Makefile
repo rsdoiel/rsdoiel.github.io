@@ -9,7 +9,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
 
-all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml sitemap.xml pagefind
+all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml pagefind
 
 
 nav.include: nav.md .FORCE
@@ -152,10 +152,10 @@ save:
 # NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pttk
 website: all .FORCE
 
-sitemap.xml: .FORCE
-	sitemapper . sitemap.xml https://rsdoiel.github.io
+#sitemap.xml: .FORCE
+#	sitemapper . sitemap.xml https://rsdoiel.github.io
 
-publish: rss.xml sitemap.xml all
+publish: rss.xml all
 	bash blog.bash
 	git commit -am "save and publish"
 	git push origin main
