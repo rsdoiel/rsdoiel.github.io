@@ -56,29 +56,29 @@ replaced with an appropriate value.</p>
 <col style="width: 23%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Task</th>
 <th>Postgres 14.5</th>
 <th>MySQL 8</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>show all databases</td>
 <td><code>SELECT datname FROM pg_database;</code></td>
 <td><code>SHOW DATABASES;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>select a database</td>
 <td><code>\c &lt;dbname&gt;</code></td>
 <td><code>USE &lt;dbname&gt;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>show tables in database</td>
 <td><code>\dt</code></td>
 <td><code>SHOW TABLES;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>show columns in table</td>
 <td><code>SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '&lt;table_name&gt;';</code></td>
 <td><code>SHOW COLUMNS IN &lt;table_name&gt;</code></td>
@@ -130,17 +130,17 @@ Both sets of programs are highly configurable allowing you to dump just
 schema, just data or both with different expectations.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Postgres 14.5</th>
 <th>MySQL 8</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>pg_dumpall</code></td>
 <td><code>mysqldump --all-databases</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>pg_dump &lt;dbname&gt;</code></td>
 <td><code>mysqldump --database &lt;dbname&gt;</code></td>
 </tr>
@@ -161,21 +161,21 @@ tooling is a little different.</p>
 <col style="width: 58%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Postgres 14.5</th>
 <th>MySQL 8</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>dropdb &lt;dbname&gt;</code></td>
 <td><code>mysql -execute 'DROP DATABASE &lt;dbname&gt;;'</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>createdb &lt;dbname&gt;</code></td>
 <td><code>mysql -execute 'CREATE DATABASE &lt;dbname&gt;;'</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>psql -f &lt;dump_filename&gt;</code></td>
 <td><code>mysql &lt;dbname&gt; &lt; &lt;dump_filename&gt;</code></td>
 </tr>
@@ -226,7 +226,7 @@ for setting up initial database and users</p>
 </section>
 
 <footer>
-<p>copyright © 2016 - 2024 R. S. Doiel<br /> <a
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
 href="/rssfeed.html">RSS</a> feeds and website built with <a
 href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
 href="https://pandoc.org">Pandoc</a>.</p>

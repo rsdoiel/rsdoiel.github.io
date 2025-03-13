@@ -7,6 +7,8 @@ byline: R. S. Doiel
 author: R. S. Doiel
 abstract: |
   An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.
+series: Code Generation
+series_no: 1
 keywords:
   - software development
   - programming
