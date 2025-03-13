@@ -1,16 +1,13 @@
 ---
 title: Building Web Components using Large Language Models
 byline: R. S. Doiel
-author:
-  givenName: R. S.
-  familyName: Doiel
-  id: https://orcid.org/0000-0003-0900-6903
+author: Doiel, R. S.
 abstract: |
   Quick discussion of my recent experience bootstrapping the CL-web-components project
 dateCreated: 2025-03-13
 pubDate: 2025-03-13
 series: Code Generation
-series_no: 2
+number: 2
 keywords:
   - LLM
   - Web Components
