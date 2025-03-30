@@ -37,60 +37,112 @@
 <h1 id="llm-first-impressions-a-few-weeks-in">LLM first impressions a
 few weeks in</h1>
 <p>By R.S. Doiel, 2025-03-30</p>
-<p>Writing code with an LLM is far from what the hype cycle has sold. It
-takes care and significant compute resources. If you want to find a
-happy medium between describing what and how you want something done
-you’ll have to accept that a non trivial amount of effort will need to
-be spent with each model you try. Depending on your level of experience
-it may be faster to limit code generation to specific parts of a
-project. Or simply code the project yourself.</p>
-<p>When I compare working with an LLM like Phi4, Mistral, Chat-GPT4 to
-more traditional RAD approaches their are counterparts the RAD tools
-operate easier and use less compute resources. In principle the LLM
-could be configured to learn and use efficient RAD resources as a “tool”
-but the computational over head as well as the complexity of running an
-integrated LLM environment that supports RAG and tools is much more than
-writing a simple code generator (a practice that has been well
-established in the Go community for decades). Does the LLM enhanced
-coding environment push things really forward? Or is it yet another tool
-in the toolbox that developers learn?</p>
+<p>Writing code with an LLM is far cry from what the hype cycle
+promises. It requires care. An attention to detail. It imposes
+significant compute resources. Those impose significant amount of
+electricity consumption. Even cloud hosted LLM are slow beyond the first
+few iterations. If you want to find a happy medium between describing
+what want and how you want it done you need to commit to a non trivial
+amount of effort. Depending on your level of experience it may be faster
+to limit code generation to specific parts of a project. In early 2025
+it maybe faster to code simple projects yourself.</p>
+<p>When I compare working with an LLM like Gemma, Llama, Phi, Mistral,
+Chat-GPT to traditional <a
+href="https://en.wikipedia.org/wiki/Rapid_application_development"
+title="Rapid Application Development">RAD</a> the shiny of the current
+“AI” hype is diminished. RAD tools often are easier operate, been around
+so long we forget about them and use significantly less compute
+resources<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. RAD tools are venerable in 2025.
+The computational overhead as well as the complexity of running an
+integrated LLM environment that supports <a
+href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+title="Retrieval Augmented Generation">RAG</a>, <a
+href="https://en.wikipedia.org/wiki/Software_agent"
+title="software agent explained">agency</a> and <a
+href="https://www.forbes.com/councils/forbestechcouncil/2025/03/27/your-essential-primer-on-large-language-model-agent-tools/"
+title="A Forbes article on tool use with large language models">tools</a>
+is much more than writing a simple code generator<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. A
+popular one I tried is <a href="https://mysty.app">Msty.app</a>. It
+unfortunately is restricted to the x86 platform. So much for energy
+efficiency. How do we get more bang for the energy consumed? Does the
+LLM enhanced coding environment push things really forward? Are LLM yet
+another tool in the toolbox of our profession?</p>
 <p>What are the areas I’ve found helpful use LLM?</p>
-<p>My hands and wrists aren’t the same as when I started in my career.
-It maybe be possible that using an LLM in conjunction with speech to
-text could reduce the risks to repetitive stress injury by virtue of
-reducing the typing. I wonder if reduced eye strain is possible b
-allowing the developer to spend less time staring at the screen. This
-later benefit seems problematic though as the code quantity and
-implementation the LLM generated results needs review and should not be
-accepted at face value.</p>
-<p>Without using an LLM my normal approach is to write out a summary of
-what I want to do in a project. I clarify the modules I want and the
-operations I need to perform. Then I code tests before coding coding a
-module. For many people I think this approach appears upside down but
-I’ve found it helpful to ensure I have some documentation and clarity in
-my objectives, I have at least some tests to ensure some level of trust
-in the code functioning as desired and having the tests helps avoid
-premature optimization of the project code.</p>
-<p>The first step in this approach is well suited to adopting an LLM and
-using code generation. The LLM I’ve tried are decent at righting minimal
-test code. Tooling can automate some of the loop of generating code,
-confirming it will parse or compile and run the tests. It’s not fast,
-reminds me of the slow compilers of my youth but it works for the most
-part. You can speed things up with faster hardware which makes me miss
-the old workstations when compared with personal computers. Of course
-today we farm out the compute to rented machines in the cloud.</p>
-<p>What I find intriguing is the relationship of using an LLM to the
-Knuth practice of literate programming. The LLM I’ve tried present a
-response from a prompt in Markdown with code blocks. This feels very
-much like literate programming. You are writing a narrative of code and
-function. That feels familiar to me. The challenges of working with an
-LLM is much like the challenges of literate programming.</p>
+<p>My hands and wrists aren’t the same as when I started in my career. I
+am hoping that an LLM can reduce my typing and reduce the risk of <a
+href="https://en.wikipedia.org/wiki/Repetitive_strain_injury"
+title="repetitive strain injury">RSI</a>. I am also hoping that I only
+need to do detailed reading after waiting for code to be generated
+(i.e. I’m taking advantage of the slowness of the LLM eval cycle). My
+hope is for lowered eye strain. Is that worth burning down rain forests?
+No it is not. Am I convinced that either benefit is true? No. I’m hoping
+this aspect of LLM usage get studied. I’m interested in tools that are a
+good ergonomic benefit for developers.</p>
+<p>Without using an LLM my normal development approach is to write out a
+summary of what I want to do in a project. I clarify the modules I want
+and the operations I need to perform. Then I code tests before coding
+the modules. For many people I think this approach appears upside down.
+When I started as a programmer I wrote code first to some general notion
+of what I thought the client wanted. I’ve found this inverted approach
+yields some documentation. Writing documentation first clarifies my
+software architecture and how I will organize the code needed. Writing
+tests first means I don’t write more code than needed. The result is
+software I can look at a year or more later and still understand.</p>
+<p>The first step in my current approach is well suited to adopting an
+LLM and using code generation. The LLM I’ve tried are decent at writing
+minimal test code. Tooling can automate some of the loop of generating
+code that can actually run and pass tests. The process is not fast. It
+reminds me of the slow compilers of my youth. It works OK for the most
+part. You can speed things up with faster hardware. Are we reinventing
+Workstations with “AI computers”? Today you can rent LLM services and
+hardware in the cloud.</p>
+<p>An intriguing relationship with LLM or “prompt programming” that
+isn’t talked about much is the <a
+href="https://en.wikipedia.org/wiki/Literate_programming">Literate
+programming</a> <a
+href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a> advocated.
+The LLM I’ve tried have used a chat interface. An documented and editing
+approach may be better suited. Using a chat approach the responses are
+usually presented in Markdown with embedded code blocks. This is
+analogous to a simplified version of what Knuth created using TeX with
+embedded code blocks. With the LLM your prompts trigger a narrative of
+code and function. That feels familiar to me. The challenges of working
+with an LLM is much like the challenges of literate programming. An LLM
+might encourage us to think more about what we’re trying to do and
+perhaps more objectively vet the resulting code without engaging our
+egos.</p>
 <p>A significant advantage of the LLM generated code is a byproduct of
-large training sets. The generated code tends to look average and is
-reasonably reasonable to read and follow. Obfuscation is generally
-avoided. If the computing resources can be decreased and energy
-consumption radically reduced then LLM may help with sustainable
-software practices.</p>
+large training sets. The generated code tends to look average. It tends
+to avoid obfuscation. It mostly is reasonably reasonable. If the
+computing resources were significantly lower I’d feel more comfortable
+with this approach over the long run. The current state needs radical
+simplification. The LLM development environment is overly complex. That
+complexity only benefits consolidation in the cloud where we are rented
+the tools of our trade. LLM development environment’s complexity and
+energy consumption weight heavily on me as I explore this approach. It
+is too early to tell if it should be a regular tool in the developers’
+toolbox of sustainable software practices.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Delphi’s RAD tooling and Lazarus’ RAD tooling can run on
+desktop computers from a decade or more ago. The hardware vendors want
+to sell us “AI computers” and “CPU” because of the increase compute
+demands of running large LLM software. You can rent GPU as a service
+because the costs in terms of hardware and energy consumption from Big
+Tech’s LLM obsession.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Code generation goes back to the at least to 1950 or
+1960. Code generation was well established practice before the Go
+community picked it up over a decade ago to deal with the routine boiler
+plate. I routinely create code templates and run it through Pandoc.
+These I can even use on a Raspberry Pi without it breaking a sweat.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
   </article>
 </section>
 
