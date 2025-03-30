@@ -5,6 +5,19 @@
   "next_page": "posts/all/page-3.json",
   "values": [
     {
+      "content": "\n# Quick recipe, compile PostgREST (M1)\n\nThese are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/PostgREST/postgrest> to your local machine\n4. Check out the version you want to build (e.g. v11.1.0)\n5. Run the \"usual\" Haskell build sequence with cabal\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal build`\n    d. `cabal install`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/PostgREST\ncd src/github.com/PostgREST\ngit clone git@github.com:PostgREST/postgrest\ncd postgrest\ncabal clean\ncabal update\ncabal build\ncabal install\n~~~\n\nThis will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "keywords": [
+          "PostgREST",
+          "M1"
+        ],
+        "pubDate": "2023-07-05",
+        "title": "Quick recipe, compiling PostgREST (M1)"
+      },
+      "url": "posts/2023/07/05/quick-recipe-compiling-PostgREST-M1.json"
+    },
+    {
       "content": "\n# gsettings command\n\nOne of the things I find annoying about Ubuntu Desktop defaults is that when I open a new application it opens in the upper left corner. I then drag it to the center screen and start working. It's amazing how a small inconvenience can grind on you over time.  When I've search the net for changing this behavior the usual suggestions are \"install gnome-tweaks\". This seems ham-handed. I think continue searching and eventually find the command below. So I am making a note of the command here in my blog so I can find it latter.\n\n~~~\ngsettings set org.gnome.mutter center-new-window true\n~~~\n\n",
       "data": {
         "author": "R. S. Doiel",
@@ -350,19 +363,6 @@
         "title": "Ordering front matter"
       },
       "url": "posts/2022/08/30/Ordering-Frontmatter.json"
-    },
-    {
-      "content": "\nPostgres 14 on Ubuntu 22.04 LTS\n===============================\n\nby R. S. Doiel, 2022-08-26\n\nThis is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include `jane.doe` is in the sudo group\n- `jane.doe` is the one logged in and installing Postgres for machine wide use\n- `jane.doe` will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add `jane.doe` user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n~~~shell\nsudo apt install postgresql postgresql-contrib\nsudo -u createuser --interactive\njane.doe\ny\n~~~\n\nWhat we've accomplished is installing Postgres, we've create a user in Postgres DB environment called \"jane.doe\" and given \"jane.doe\" superuser permissions, i.e. the permissions to manage Postgres databases.\n\nAt this point we have a `jane.doe` Postgres admin user. This means we can run the `psql` shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available\n\n~~~shell\npsql \nSELECT datname FROM pg_database;\n\\quit\n~~~\n\nNOTE: This post is a distilation of what I learned from reading Digital Ocean's [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett.\n\n",
-      "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel",
-        "byline": "R. S. Doiel",
-        "daft": true,
-        "number": 4,
-        "pubDate": "2022-08-26",
-        "series": "SQL Reflections",
-        "title": "Postgres 14 on Ubuntu 22.04 LTS"
-      },
-      "url": "posts/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.json"
     }
   ]
 }

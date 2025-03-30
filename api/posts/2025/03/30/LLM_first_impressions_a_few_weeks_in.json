@@ -1,0 +1,112 @@
+{
+  "content": "\n# LLM first impressions a few weeks in\n\nBy R.S. Doiel, 2025-03-30\n\nWriting code with an LLM is far from what the hype cycle has sold. It takes care and significant compute resources. If you want to find a happy medium between describing what and how you want something done you'll have to accept that a non trivial amount of effort will need to be spent with each model you try. Depending on your level of experience it may be faster to limit code generation to specific parts of a project. Or simply code the project yourself.\n\nWhen I compare working with an LLM like Phi4, Mistral, Chat-GPT4 to more traditional RAD approaches their are counterparts the RAD tools operate easier and use less compute resources. In principle the LLM could be configured to learn and use efficient RAD resources as a \"tool\" but the computational over head as well as the complexity of running an integrated LLM environment that supports RAG and tools is much more than writing a simple code generator (a practice that has been well established in the Go community for decades). Does the LLM enhanced coding environment push things really forward? Or is it yet another tool in the toolbox that developers learn?\n\nWhat are the areas I've found helpful use LLM?\n\nMy hands and wrists aren't the same as when I started in my career. It maybe be possible that using an LLM in conjunction with speech to text could reduce the risks to repetitive stress injury by virtue of reducing the typing.  I wonder if reduced eye strain is possible b allowing the developer to spend less time staring at the screen. This later benefit seems problematic though as the code quantity and implementation the LLM generated results needs review and should not be accepted at face value.\n\nWithout using an LLM my normal approach is to write out a summary of what I want to do in a project. I clarify the modules I want and the operations I need to perform. Then I code tests before coding coding a module.  For many people I think this approach appears upside down but I've found it helpful to ensure I have some documentation and clarity in my objectives, I have at least some tests to ensure some level of trust in the code functioning as desired and having the tests helps avoid premature optimization of the project code.\n\nThe first step in this approach is well suited to adopting an LLM and using code generation.  The LLM I've tried are decent at righting minimal test code. Tooling can automate some of the loop of generating code, confirming it will parse or compile and run the tests. It's not fast, reminds me of the slow compilers of my youth but it works for the most part.   You can speed things up with faster hardware which makes me miss the old workstations when compared with personal computers.  Of course today we farm out the compute to rented machines in the cloud. \n\nWhat I find intriguing is the relationship of using an LLM to the Knuth practice of literate programming.  The LLM I've tried present a response from a prompt in Markdown with code blocks. This feels very much like literate programming.  You are writing a narrative of code and function. That feels familiar to me. The challenges of working with an LLM is much like the challenges of literate programming.\n\nA significant advantage of the LLM generated code is a byproduct of large training sets. The generated code tends to look average and is reasonably reasonable to read and follow. Obfuscation is generally avoided.  If the computing resources can be decreased and energy consumption radically reduced then LLM may help with sustainable software practices.\n\n\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "LLM first impressions a few weeks in"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R.S. Doiel, 2025-03-30"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Writing code with an LLM is far from what the hype cycle has sold. It takes care and significant compute resources. If you want to find a happy medium between describing what and how you want something done you'll have to accept that a non trivial amount of effort will need to be spent with each model you try. Depending on your level of experience it may be faster to limit code generation to specific parts of a project. Or simply code the project yourself."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When I compare working with an LLM like Phi4, Mistral, Chat-GPT4 to more traditional RAD approaches their are counterparts the RAD tools operate easier and use less compute resources. In principle the LLM could be configured to learn and use efficient RAD resources as a \"tool\" but the computational over head as well as the complexity of running an integrated LLM environment that supports RAG and tools is much more than writing a simple code generator (a practice that has been well established in the Go community for decades). Does the LLM enhanced coding environment push things really forward? Or is it yet another tool in the toolbox that developers learn?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What are the areas I've found helpful use LLM?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My hands and wrists aren't the same as when I started in my career. It maybe be possible that using an LLM in conjunction with speech to text could reduce the risks to repetitive stress injury by virtue of reducing the typing.  I wonder if reduced eye strain is possible b allowing the developer to spend less time staring at the screen. This later benefit seems problematic though as the code quantity and implementation the LLM generated results needs review and should not be accepted at face value."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Without using an LLM my normal approach is to write out a summary of what I want to do in a project. I clarify the modules I want and the operations I need to perform. Then I code tests before coding coding a module.  For many people I think this approach appears upside down but I've found it helpful to ensure I have some documentation and clarity in my objectives, I have at least some tests to ensure some level of trust in the code functioning as desired and having the tests helps avoid premature optimization of the project code."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The first step in this approach is well suited to adopting an LLM and using code generation.  The LLM I've tried are decent at righting minimal test code. Tooling can automate some of the loop of generating code, confirming it will parse or compile and run the tests. It's not fast, reminds me of the slow compilers of my youth but it works for the most part.   You can speed things up with faster hardware which makes me miss the old workstations when compared with personal computers.  Of course today we farm out the compute to rented machines in the cloud."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What I find intriguing is the relationship of using an LLM to the Knuth practice of literate programming.  The LLM I've tried present a response from a prompt in Markdown with code blocks. This feels very much like literate programming.  You are writing a narrative of code and function. That feels familiar to me. The challenges of working with an LLM is much like the challenges of literate programming."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A significant advantage of the LLM generated code is a byproduct of large training sets. The generated code tends to look average and is reasonably reasonable to read and follow. Obfuscation is generally avoided.  If the computing resources can be decreased and energy consumption radically reduced then LLM may help with sustainable software practices."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "A first take of LLM use for coding projects.\n",
+    "author": {
+      "familyName": "Doiel",
+      "givenName": "R. S.",
+      "id": "https://orcid.org/0000-0003-0900-6903"
+    },
+    "byline": "R.S. Doiel",
+    "dateCreated": "2025-03-30",
+    "dateModified": "2025-03-30",
+    "pubDate": "2025-03-30",
+    "title": "LLM first impressions a few weeks in"
+  }
+}

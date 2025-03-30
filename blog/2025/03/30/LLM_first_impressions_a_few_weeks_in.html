@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>LLM_first_impressions_a_few_weeks_in</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  
+  <link rel="alternative" type="application/markdown" href="/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="llm-first-impressions-a-few-weeks-in">LLM first impressions a
+few weeks in</h1>
+<p>By R.S. Doiel, 2025-03-30</p>
+<p>Writing code with an LLM is far from what the hype cycle has sold. It
+takes care and significant compute resources. If you want to find a
+happy medium between describing what and how you want something done
+you’ll have to accept that a non trivial amount of effort will need to
+be spent with each model you try. Depending on your level of experience
+it may be faster to limit code generation to specific parts of a
+project. Or simply code the project yourself.</p>
+<p>When I compare working with an LLM like Phi4, Mistral, Chat-GPT4 to
+more traditional RAD approaches their are counterparts the RAD tools
+operate easier and use less compute resources. In principle the LLM
+could be configured to learn and use efficient RAD resources as a “tool”
+but the computational over head as well as the complexity of running an
+integrated LLM environment that supports RAG and tools is much more than
+writing a simple code generator (a practice that has been well
+established in the Go community for decades). Does the LLM enhanced
+coding environment push things really forward? Or is it yet another tool
+in the toolbox that developers learn?</p>
+<p>What are the areas I’ve found helpful use LLM?</p>
+<p>My hands and wrists aren’t the same as when I started in my career.
+It maybe be possible that using an LLM in conjunction with speech to
+text could reduce the risks to repetitive stress injury by virtue of
+reducing the typing. I wonder if reduced eye strain is possible b
+allowing the developer to spend less time staring at the screen. This
+later benefit seems problematic though as the code quantity and
+implementation the LLM generated results needs review and should not be
+accepted at face value.</p>
+<p>Without using an LLM my normal approach is to write out a summary of
+what I want to do in a project. I clarify the modules I want and the
+operations I need to perform. Then I code tests before coding coding a
+module. For many people I think this approach appears upside down but
+I’ve found it helpful to ensure I have some documentation and clarity in
+my objectives, I have at least some tests to ensure some level of trust
+in the code functioning as desired and having the tests helps avoid
+premature optimization of the project code.</p>
+<p>The first step in this approach is well suited to adopting an LLM and
+using code generation. The LLM I’ve tried are decent at righting minimal
+test code. Tooling can automate some of the loop of generating code,
+confirming it will parse or compile and run the tests. It’s not fast,
+reminds me of the slow compilers of my youth but it works for the most
+part. You can speed things up with faster hardware which makes me miss
+the old workstations when compared with personal computers. Of course
+today we farm out the compute to rented machines in the cloud.</p>
+<p>What I find intriguing is the relationship of using an LLM to the
+Knuth practice of literate programming. The LLM I’ve tried present a
+response from a prompt in Markdown with code blocks. This feels very
+much like literate programming. You are writing a narrative of code and
+function. That feels familiar to me. The challenges of working with an
+LLM is much like the challenges of literate programming.</p>
+<p>A significant advantage of the LLM generated code is a byproduct of
+large training sets. The generated code tends to look average and is
+reasonably reasonable to read and follow. Obfuscation is generally
+avoided. If the computing resources can be decreased and energy
+consumption radically reduced then LLM may help with sustainable
+software practices.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>

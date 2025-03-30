@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [LLM first impressions a few weeks in](/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.md), 2025-03-30
 - [Building Web Components using Large Language Models](/blog/2025/03/13/Building_Web_Component_using_an_LLM.md), 2025-03-13
 - [Setting up my Raspberry Pi 500, a Portable Workstation](/blog/2025/02/14/Review_Pi-500_as_portable_workstation.md), 2025-02-14
 - [Book review, "Man and the Computer"](/blog/2025/02/10/Man_and_the_Computer.md), 2025-02-10
