@@ -18,6 +18,20 @@
       "url": "posts/2023/07/05/quick-recipe-compiling-PostgREST-M1.json"
     },
     {
+      "content": "\n# Quick recipe, compile Pandoc (M1)\n\nThese are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).\n\n1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)\n    a. Use the curl example command to install it\n    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)\n2. Make sure GHCup is pointing at the \"recommended\" versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)\n3. Clone <https://github.com/jgm/pandoc> to your local machine\n4. Check out the version you want to build (e.g. 3.1.4)\n5. Run the \"usual\" Haskell build sequence with cabal per Pandoc's installation documentation for building from source\n    a. `cabal clean`\n    b. `cabal update`\n    c. `cabal install pandoc-cli`\n\nHere's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).\n\n~~~\ncurl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh\nsource $HOME/.gchup/env\nghcup tui\nmkdir -p src/github.com/jgm/pandoc\ncd src/github.com/jgm/pandoc\ngit clone git@github.com:jgm/pandoc\ncd pandoc\ngit checkout 3.1.4\ncabal clean\ncabal update\ncabal install pandoc-cli\n~~~\n\nThis will install Pandoc in your `$HOME/.cabal/bin` directory. Make sure\nit is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).\n\n## libiconv compile issues\n\nIf you use Mac Ports it can confuse Cabal/Haskell which one to link to. You'll get an error talking about undefined symbols and iconv.  To get a clean compile I've typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. `sudo port uninstall libiconv`, an using the \"all\" option when prompted).  After I've got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it.\n\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "keywords": [
+          "Pandoc",
+          "GHCup",
+          "M1"
+        ],
+        "pubDate": "2023-07-05",
+        "title": "Quick recipe, compiling Pandoc (M1)"
+      },
+      "url": "posts/2023/07/05/quick-recipe-compiling-Pandoc-M1.json"
+    },
+    {
       "content": "\n# gsettings command\n\nOne of the things I find annoying about Ubuntu Desktop defaults is that when I open a new application it opens in the upper left corner. I then drag it to the center screen and start working. It's amazing how a small inconvenience can grind on you over time.  When I've search the net for changing this behavior the usual suggestions are \"install gnome-tweaks\". This seems ham-handed. I think continue searching and eventually find the command below. So I am making a note of the command here in my blog so I can find it latter.\n\n~~~\ngsettings set org.gnome.mutter center-new-window true\n~~~\n\n",
       "data": {
         "author": "R. S. Doiel",
@@ -325,19 +339,6 @@
       "url": "posts/2022/09/26/golang-development-2022-09-26_070730.json"
     },
     {
-      "content": "\n# 12:30 PM, SQL: Postgres\n\nPost: Monday, September 19, 2022, 12:30 PM\n\nSetting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users\n\n",
-      "data": {
-        "keywords": [
-          "Postgres"
-        ],
-        "no": 1,
-        "pubDate": "2022-09-19",
-        "series": "SQL",
-        "title": "12:30 PM, SQL: Postgres"
-      },
-      "url": "posts/2022/09/19/rosette-notes-2022-09-19_121230.json"
-    },
-    {
       "content": "\nPostgreSQL dump and restore\n===========================\n\nThis is a quick note on easily dumping and restoring a specific database\nin Postgres 14.5.  This example has PostgreSQL running on localhost and\n[psql](https://www.postgresql.org/docs/current/app-psql.html) and\n[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.\nOur database administrator username is \"admin\", the database to dump is called \"collections\". The SQL dump\nfile will be named \"collections-dump-2022-09-19.sql\".\n\n```shell\n\tpg_dump --username=admin --column-inserts \\\n\t    collections >collections-dump-2022-09-19.sql\n```\n\nFor the restore process I follow these steps\n\n1. Using `psql` create an empty database to restore into\n2. Using `psql` replay (import) the dump file in the new database to restoring the data\n\nThe database we want to restore our content into is called \"collections_snapshot\"\n\n```shell\n\tpsql -U dbadmin\n\t\\c postgres\n\tDROP DATABASE IF EXISTS collections_snapshot;\n\tCREATE DATABASE collections_snapshot;\n\t\\c collections_snapshots\n\t\\i ./collections-dump-2022-09-19.sql\n\t\\q\n```\n\nOr if you want to stay at the OS shell level\n\n```shell\n\tdropdb collections_snapshot\n\tcreatedb collections_snapshot\n\tpsql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql\n```\n\n\nNOTE: During this restore process `psql` will display some output. This is normal. The two\ntypes of lines output are shown below.\n\n```sql\n\tINSERT 0 1\n\tALTER TABLE\n```\n\nIf you want to stop the input on error you can use the `--set` option to set the error behavior\nto abort the reload if an error is encountered.\n\n\n",
       "data": {
         "author": "rsdoiel@gmail.com (R. S. Doiel)",
@@ -352,17 +353,17 @@
       "url": "posts/2022/09/19/PostgreSQL-Dump-and-Restore.json"
     },
     {
-      "content": "\nOrdering Front Matter\n=====================\n\nBy R. S. Doiel, 2022-08-30\n\nA colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).\n\nThe order he wanted in the front matter was\n\n- title\n- interviewer\n- interviewee\n- abstract\n\nThis was for a collection of oral histories. When my friend use Pandoc's `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.\n\nWe found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes.\n\nHere's the steps we used.\n\n1. create an empty file called \"empty.txt\" (this is just so you pandoc doesn't try to read standard input and processes\nyou metadata.json file with the template supplied)\n2. Create a template with the order you want (see below)\n3. Use pandoc to process your \".txt\" file and your JSON metadata file using the template (it makes it tread it as plain text even though we're going to treat it as markdown later)\n4. Append the content of the word file and run pandoc over your combined file as you would normally to generate your HTML\n\n\nThis is the contents of our [metadata.json](metadata.json) file.\n\n```json\n    {\n        \"title\": \"Interview with Mojo Sam\", \n        \"interviewee\": \"Mojo Sam\", \n        \"interviewer\": \"Tom Lopez\",\n        \"abstract\": \"Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal\"\n    }\n```\n\n[frontmatter.tmpl](frontmatter.tmpl) is the template we used to render ordered front matter.\n\n```\n    ---\n    $if(title)$title: \"$title$\"$endif$\n    $if(interviewee)$interviewee: \"$interviewee$\"$endif$\n    $if(interviewer)$interviewer: \"$interviewer$\"$endif$\n    $if(abstract)$abstract: \"$abstract$\"$endif$\n    ---\n```\n\nHere's the commands we used to generate a \"doc.txt\" file with the \nfront matter in the desired order. Not \"empty.txt\" is just an empty\nfile so Pandoc will not read from standard input and just work with the\nJSON metadata and our template.\n\n```\ntouch empty.txt\npandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt\n```\n\nThe output of the pandoc command looks like this.\n\n```\n    ---\n    title: \"Interview with Mojo Sam\"\n    interviewee: \"Mojo Sam\"\n    interviewer: \"Tom Lopez\"\n    abstract: \"Interview in three sessions over sevaral decases, 1970 -\n    20020. The interview was conducted next door to reality via a portal in\n    Old Montreal\"\n    ---\n```\n",
+      "content": "\n# 12:30 PM, SQL: Postgres\n\nPost: Monday, September 19, 2022, 12:30 PM\n\nSetting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users\n\n",
       "data": {
-        "author": "rsdoiel@gmail.com (R. S. Doiel)",
         "keywords": [
-          "pandoc",
-          "front matter"
+          "Postgres"
         ],
-        "pubDate": "2022-08-30",
-        "title": "Ordering front matter"
+        "no": 1,
+        "pubDate": "2022-09-19",
+        "series": "SQL",
+        "title": "12:30 PM, SQL: Postgres"
       },
-      "url": "posts/2022/08/30/Ordering-Frontmatter.json"
+      "url": "posts/2022/09/19/rosette-notes-2022-09-19_121230.json"
     }
   ]
 }
