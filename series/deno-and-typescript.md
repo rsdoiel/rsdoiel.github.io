@@ -2,6 +2,7 @@
 
 An exploration of Deno, TypeScript and portable code.
 
+- [A quick note on types in Deno+TypeScript](blog/2025/05/25/a_quick_notes_on_types.html), 2025-05-25
 - [Working with Structured Data in Deno and TypeScript](/blog/2025/02/03/working_with_structured_data.html), 2025-02-03
 - [Deno 2.1.7, Project Idioms](/blog/2025/01/29/project_idioms.html), 2025-01-29
 - [Deno 2.1.7, points of friction](/blog/2025/01/26/points_of_friction.html), 2025-01-26
