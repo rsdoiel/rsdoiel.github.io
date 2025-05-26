@@ -1,12 +1,12 @@
 {
-  "content": "\n# A quick note on types  in Deno+TypeScript\n\nUnderstanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.\n\nThere are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following\nthe value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)\n\n`typeof`\n: This is good for simple types but when a type is an object you get `[object object]` response.\n\n`Object.protototype.toString.call(VARIABLE_OR_CONSTANT)`\n: This is what is behind the `typeof` function but can be nice to know. It returns the string representation of the `VARIABLE_OR_CONSTANT` you pass to it.\n\n`VARIABLE_OR_CONSTANT.constructor.name`\n: This will give you the name derived from the object's constructor, effectively the class name. It doesn't tell you if the the `VARIABLE_OR_CONSTANT` is an interface. If you construct an object as an object literal then the name returned will be `Object`.\n\nHere's the three types in action.\n\n~~~TypeScript\n  let fp = await Deno.open('README.md');\n  console.log(typeof(fp));\n  console.log(Object.prototype.toString.call(fp);\n  console.log(fp.constructor.name);\n  await fp.close()\n  \n  let t = { \"one\": 1 };\n  console.log(typeof(t));\n  console.log(Object.prototype.toString.call(t);\n  console.log(t.constructor.name);\n~~~\n\n\n\n",
+  "content": "\n# A quick note on types in Deno+TypeScript\n\nUnderstanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.\n\nThere are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following\nthe value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)\n\n`typeof`\n: This is good for simple types but when a type is an object you get `[object object]` response.\n\n`Object.protototype.toString.call(VARIABLE_OR_CONSTANT)`\n: This is what is behind the `typeof` function but can be nice to know. It returns the string representation of the `VARIABLE_OR_CONSTANT` you pass to it.\n\n`VARIABLE_OR_CONSTANT.constructor.name`\n: This will give you the name derived from the object's constructor, effectively the class name. It doesn't tell you if the the `VARIABLE_OR_CONSTANT` is an interface. If you construct an object as an object literal then the name returned will be `Object`.\n\nHere's the three types in action.\n\n~~~TypeScript\n  let fp = await Deno.open('README.md');\n  console.log(typeof(fp));\n  console.log(Object.prototype.toString.call(fp);\n  console.log(fp.constructor.name);\n  await fp.close()\n  \n  let t = { \"one\": 1 };\n  console.log(typeof(t));\n  console.log(Object.prototype.toString.call(t);\n  console.log(t.constructor.name);\n~~~\n\n\n\n",
   "content_ast": {
     "children": [
       {
         "children": [
           {
             "type": "text",
-            "value": "A quick note on types  in Deno+TypeScript"
+            "value": "A quick note on types in Deno+TypeScript"
           }
         ],
         "depth": 1,
@@ -175,6 +175,6 @@
     ],
     "pubDate": "2025-05-25",
     "series": "Deno+TypeScript",
-    "title": "A quick note in types in Deno+TypeScript"
+    "title": "A quick note on types in Deno+TypeScript"
   }
 }

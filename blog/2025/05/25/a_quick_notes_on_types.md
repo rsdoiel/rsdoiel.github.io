@@ -1,5 +1,5 @@
 ---
-title: A quick note in types in Deno+TypeScript
+title: A quick note on types in Deno+TypeScript
 pubDate: 2025-05-25
 author: R. S. Doiel
 byline: R. S. Doiel, 2025-05-25
@@ -9,7 +9,7 @@ keywords:
   - Deno
 ---
 
-# A quick note on types  in Deno+TypeScript
+# A quick note on types in Deno+TypeScript
 
 Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.
 

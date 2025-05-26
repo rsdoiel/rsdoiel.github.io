@@ -5,11 +5,11 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
-        <lastBuildDate>Sun, 25 May 2025 00:00:00 +0000</lastBuildDate>
+        <pubDate>Mon, 26 May 2025 00:00:00 +0000</pubDate>
+        <lastBuildDate>Mon, 26 May 2025 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.18</generator>
         <item>
-            <title>A quick note in types in Deno+TypeScript</title>
+            <title>A quick note on types in Deno+TypeScript</title>
             <link>https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</link>
             <description>Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can&#39;t identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.&#xA;&#xA;There are three approaches I&#39;ve found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following&#xA;the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)&#xA;&#xA;`typeof`&#xA;: This is good for simple types but when a type is an object you get `[object object]` response.&#xA;&#xA;`Object.protototype.toString.call(VARIABLE_OR_CONSTANT)`&#xA;: This is what is behind the `typeof` function but can be nice to know. It returns the string representation of the `VARIABLE_OR_CONSTANT` you pass to it.&#xA;&#xA;`VARIABLE_OR_CONSTANT.constructor.name`&#xA;: This will give you the name derived from the object&#39;s constructor, effectively the class name. It doesn&#39;t tell you if the the `VARIABLE_OR_CONSTANT` is an interface. If you construct an object as an object literal then the name returned will be `Object`. ...</description>
             <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
