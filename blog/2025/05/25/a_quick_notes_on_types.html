@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>a_quick_notes_on_types</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="TypeScript, Deno">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/05/25/a_quick_notes_on_types.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="a-quick-note-on-types-in-denotypescript">A quick note on types
+in Deno+TypeScript</h1>
+<p>Understanding the plumbing of a program that is built with Deno in
+TypeScript can be challenging if you can’t identify the type of
+variables or constants. TypeScript inherits the JavaScript function,
+<code>typeof</code>. This works nicely for simple types like
+<code>string</code>, <code>boolean</code>, <code>number</code> but is
+less useful when compared to a class or interface name of a data
+structure.</p>
+<p>There are three approaches I’ve found helpful in my exploration of
+type metadata when working with Deno+TypeScript. (NOTE: in the following
+the value <code>VARIABLE_OR_CONSTANT</code> would be replaced with the
+object you are querying for type metadata)</p>
+<dl>
+<dt><code>typeof</code></dt>
+<dd>
+This is good for simple types but when a type is an object you get
+<code>[object object]</code> response.
+</dd>
+<dt><code>Object.protototype.toString.call(VARIABLE_OR_CONSTANT)</code></dt>
+<dd>
+This is what is behind the <code>typeof</code> function but can be nice
+to know. It returns the string representation of the
+<code>VARIABLE_OR_CONSTANT</code> you pass to it.
+</dd>
+<dt><code>VARIABLE_OR_CONSTANT.constructor.name</code></dt>
+<dd>
+This will give you the name derived from the object’s constructor,
+effectively the class name. It doesn’t tell you if the the
+<code>VARIABLE_OR_CONSTANT</code> is an interface. If you construct an
+object as an object literal then the name returned will be
+<code>Object</code>.
+</dd>
+</dl>
+<p>Here’s the three types in action.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> fp <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">open</span>(<span class="st">&#39;README.md&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="kw">typeof</span>(fp))<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">Object</span><span class="op">.</span><span class="at">prototype</span><span class="op">.</span><span class="at">toString</span><span class="op">.</span><span class="fu">call</span>(fp)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(fp<span class="op">.</span><span class="at">constructor</span><span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> fp<span class="op">.</span><span class="fu">close</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> { <span class="st">&quot;one&quot;</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="kw">typeof</span>(t))<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">Object</span><span class="op">.</span><span class="at">prototype</span><span class="op">.</span><span class="at">toString</span><span class="op">.</span><span class="fu">call</span>(t)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(t<span class="op">.</span><span class="at">constructor</span><span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span></code></pre></div>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
