@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [PowerShell and Edit for macOS, Linux and Windows](/blog/2025/06/05/PowerShell_and_Edit.md), 2025-06-05
 - [A quick note on types in Deno+TypeScript](/blog/2025/05/25/a_quick_notes_on_types.md), 2025-05-25
 - [New Life for Fielded Search](/blog/2025/04/10/New_Life_for_Fielded_Search.md), 2025-04-10
 - [LLM first impressions a few weeks in](/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.md), 2025-03-30

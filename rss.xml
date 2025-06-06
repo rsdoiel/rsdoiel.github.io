@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Mon, 26 May 2025 00:00:00 +0000</pubDate>
-        <lastBuildDate>Mon, 26 May 2025 00:00:00 +0000</lastBuildDate>
-        <generator>pttk rss 0.0.18</generator>
+        <pubDate>Thu, 05 Jun 2025 00:00:00 +0000</pubDate>
+        <lastBuildDate>Thu, 05 Jun 2025 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.19</generator>
+        <item>
+            <title>PowerShell and Edit for macOS, Linux and Windows</title>
+            <link>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</link>
+            <description>One of the challenges of multi platform support is the variance in tools. Unix and related operating systems are pretty unified these days. The differences are minor today as opposed to twenty years ago. If you need to support Windows too it&#39;s a whole different story. You can jump to Linux Subsystem for Windows but that is really like using a container inside Windows and doesn&#39;t solve the problem when you need to work across the whole system.&#xA;&#xA;Windows&#39; shell experience is varied. Originally it was command com, essentially a enhanced CP/M shell. Much later as Windows moved beyond then replaced MS-DOS they invented PowerShell. Initially a Windows only system. Fast forward today things have change. PowerShell runs across Windows, macOS and Linux. It is even licensed under an MIT style license.&#xA;&#xA;- &lt;https://github.com/PowerShell/PowerShell&gt;&#xA;&#xA;PowerShell is intended as a system scripting language and as such is focused on the types of things you need too to manage a system. It has vague overtones of Java, .NET and F#. If you are familiar with those it probably feels familiar for me it wasn&#39;t familiar. Picking up PowerShell has boiled down to my thinking I can do X in Bash then doing a search to find out the equivalent in PowerShell 7 or above.  There are something examples out there that are Windows specific because there isn&#39;t a matching service under that other operating systems but if you focus on PowerShell itself rather than Windows particular feature it is very useful. It also means while you&#39;re picking up how Windows might approach something you can re-purpose that knowledge on the other operating systems. That&#39;s really handy for admin type tasks.&#xA;&#xA;One of the things I&#39;ve been playing with is creating a set of scripts that have a common name but deal with the specifics of the target OS. That way when I need to run a generalized task I can deploy the OS specific version to the platform but then start thinking about managing the heterogeneous environments in a unified way. E.g. scripts like &#34;require-reboot.ps1&#34;, &#34;safe-to-reboot.ps1&#34;, &#34;disk-is-used-by.ps1&#34;. ...</description>
+            <pubDate>Thu, 05 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</guid>
+        </item>
         <item>
             <title>A quick note on types in Deno+TypeScript</title>
             <link>https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</link>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>PowerShell_and_Edit</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="Windows, macOS, Linux">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/06/05/PowerShell_and_Edit.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="powershell-and-edit-on-windows-macos-and-linux">PowerShell and
+Edit on Windows, macOS and Linux</h1>
+<p>By R. S. Doiel, 2025-06-05</p>
+<p>One of the challenges of multi platform support is the variance in
+tools. Unix and related operating systems are pretty unified these days.
+The differences are minor today as opposed to twenty years ago. If you
+need to support Windows too it’s a whole different story. You can jump
+to Linux Subsystem for Windows but that is really like using a container
+inside Windows and doesn’t solve the problem when you need to work
+across the whole system.</p>
+<p>Windows’ shell experience is varied. Originally it was command com,
+essentially a enhanced CP/M shell. Much later as Windows moved beyond
+then replaced MS-DOS they invented PowerShell. Initially a Windows only
+system. Fast forward today things have change. PowerShell runs across
+Windows, macOS and Linux. It is even licensed under an MIT style
+license.</p>
+<ul>
+<li><a href="https://github.com/PowerShell/PowerShell"
+class="uri">https://github.com/PowerShell/PowerShell</a></li>
+</ul>
+<p>PowerShell is intended as a system scripting language and as such is
+focused on the types of things you need too to manage a system. It has
+vague overtones of Java, .NET and F#. If you are familiar with those it
+probably feels familiar for me it wasn’t familiar. Picking up PowerShell
+has boiled down to my thinking I can do X in Bash then doing a search to
+find out the equivalent in PowerShell 7 or above. There are something
+examples out there that are Windows specific because there isn’t a
+matching service under that other operating systems but if you focus on
+PowerShell itself rather than Windows particular feature it is very
+useful. It also means while you’re picking up how Windows might approach
+something you can re-purpose that knowledge on the other operating
+systems. That’s really handy for admin type tasks.</p>
+<p>One of the things I’ve been playing with is creating a set of scripts
+that have a common name but deal with the specifics of the target OS.
+That way when I need to run a generalized task I can deploy the OS
+specific version to the platform but then start thinking about managing
+the heterogeneous environments in a unified way. E.g. scripts like
+“require-reboot.ps1”, “safe-to-reboot.ps1”, “disk-is-used-by.ps1”.</p>
+<p>Once you start getting serious about learning a system admin script
+language you also learn you need to vet the quality of your the scripts
+you are writing. On Unix I use a program called <a
+href="https://www.shellcheck.net/">shellcheck</a> and <a
+href="https://github.com/patrickvane/shfmt">shfmt</a> to format my
+scripts. How do you do that for Powershell?</p>
+<p>Recently I discovered recently is PSScriptAnalyzer. Like shellcheck
+it will perform static analysis on your script and let you know of
+lurking issues to be aware of. The beauty of it is I can evaluate a
+script in PowerShell on macOS and know that I’ve caught issues that
+would have pinched me if I ran it Linux or Windows. That’s kinds of
+sweet.</p>
+<p>You need to <a
+href="https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/overview?view=ps-modules">install
+PSScriptAnalyzer</a> but it is easy to do under PowerShell.</p>
+<pre class="pwsh"><code>Install-Module -Name PSScriptAnalyzer -Force</code></pre>
+<p>or</p>
+<pre class="pwsh"><code>Install-PSResource -Name PSScriptAnalyzer -Reinstall</code></pre>
+<p>If I want <a
+href="https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/using-scriptanalyzer?view=ps-modules&amp;source=recommendations">run
+the analyzer</a> on a script called <code>installer.ps1</code> I’d run
+lit like</p>
+<pre class="psh"><code>Invoke-ScriptAnalyzer -Path ./installer.ps1 -Settings PSGallery -Recurse</code></pre>
+<p>Formatting PowerShell scripts I am currently testing out <a
+href="https://github.com/DTW-DanWard/PowerShell-Beautifier">PowerShell-Beautifier</a>.
+It’s a “cmdlet” and an easy install into PSGallery following the
+instructions in the GitHub repo.</p>
+<p>Here’s an example of formatting the previous example so it uses tabs
+instead of spaces.</p>
+<pre class="pwsh"><code>Edit-DTWBeautifyScript ./installer.ps1 -IndentType Tabs</code></pre>
+<h1
+id="now-that-i-got-a-shell-running-across-systems-what-about-an-editor">Now
+that I got a shell running across systems, what about an editor?</h1>
+<p>MS-DOS acquired an editor called “edit” at some point in time
+(version 4 or 5?). I remember it was a simple full screen non model
+editor. Recently Microsoft has created a similar editor that runs in a
+terminal on Windows and Linux. Like PowerShell it arrived as an Open
+Source Project. You don’t mind some rough edges I have compiled it
+successfully on macOS. A few features are not implemented but it can
+open and save files. It builds with the latest Rust (e.g. run
+<code>rustup update</code> if you haven’t in a while) and generates an
+installable executable using Cargo. While I’m not likely to switch
+editors it’s nice to have one that is really cross platform in doesn’t
+require odd Unix adapter libraries to be installed to compile it. It’s
+just a Rust program so like Go the build process is pretty consistent
+when you compile on Windows, Linux or macOS.</p>
+<ul>
+<li><a href="https://github.com/Microsoft/edit"
+class="uri">https://github.com/Microsoft/edit</a></li>
+</ul>
+<p>So you have an administrative shell environment and a common editor.
+If you happen to have to document admin chores across systems at least
+now you can document one admin language and editor and know it’ll run if
+installed.</p>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
