@@ -5,9 +5,16 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Thu, 05 Jun 2025 00:00:00 +0000</pubDate>
-        <lastBuildDate>Thu, 05 Jun 2025 00:00:00 +0000</lastBuildDate>
-        <generator>pttk rss 0.0.19</generator>
+        <pubDate>Sat, 07 Jun 2025 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 07 Jun 2025 00:00:00 +0000</lastBuildDate>
+        <generator>pttk rss 0.0.18</generator>
+        <item>
+            <title>Rethinking REST</title>
+            <link>https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</link>
+            <description>[Roy Fielding](https://en.wikipedia.org/wiki/Roy_Fielding)&#39;s 2000 dissertation describing [REST](https://en.wikipedia.org/wiki/REST) is a brilliant work. It revolutionized web services. I&#39;ve spent a good chunk of my career implementing back end systems using a REST approach. REST&#39;s superpower is the mapping of HTTP methods to core database operations of create (POST), read (GET), update (PUT), and delete (DELETE). The has simplified machine to machine communication. That is a good thing.&#xA;&#xA;REST has a browser problem. A quarter century after Fielding presented REST, the web browser still requires JavaScript to talk directly to a REST service. The core problem is the REST methods are not defined in the semantics of HTML. They are only available in HTTP protocol layer. JavaScript plays the role of solving the mapping of actions to REST methods. I can program over that impedance server side, browser side or both. The penalty is increased complexity. I think this complexity unnecessarily.&#xA;&#xA;**What abstraction aligns with the grain of both web service and web browser?**&#xA;&#xA;Sir Tim invented HTTP and HTML on a NeXT cube. The NeXT cube was a Unix system like the systems used by the Physicists at CERN where Sir Tim was employed. From Unix you can trace the concept of &#34;everything is a file&#34;. File interaction can be boiled down to reads and writes. A second influence was the practice of using plain text to encode data. These characteristics influenced Sir Tim&#39;s choices when he invented HTTP and HTML. These characteristics inform the grain of the modern web.&#xA;&#xA;What are the challenges of building on a read write abstraction rather than the database abstraction of create, read, update and delete? Do we toss out the database completely? That would be a too high of a cost.  Databases solve some important problems. This includes managing concurrent access, data protections and versatile query support. Database are the right choice in most cases for web applications. **So how do I get to a read write (RW) abstraction? The database wants create, read, update and delete (CRUD)?** ...</description>
+            <pubDate>Sat, 07 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</guid>
+        </item>
         <item>
             <title>PowerShell and Edit for macOS, Linux and Windows</title>
             <link>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</link>
