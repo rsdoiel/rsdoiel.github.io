@@ -710,11 +710,12 @@
     "type": "root"
   },
   "data": {
+    "abstract": "I am re-thinking my reliance on REST's implementation of the CRUD abstraction in favor of the simpler\nread write file abstraction in my web application. This can be accomplished in SQL easily. This post\ncovers an example of doing this in SQLite3 while also implementing JSON object versioning.\n\nCoverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3's\n`on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.\nThe trigger maintains the version number and updated timestamp.\n",
     "author": "R. S. Doiel",
     "byline": "R. S. Doiel",
     "copyright": "copyright (c) 2025, R. S. Doiel",
     "dateCreated": "2025-05-31",
-    "dateModified": "2025-06-07",
+    "dateModified": "2025-06-09",
     "keywords": [
       "web service",
       "web applications",
