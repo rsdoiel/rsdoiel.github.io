@@ -172,10 +172,12 @@ automatically.</p>
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> write_data <span class="kw">BEFORE</span> <span class="kw">UPDATE</span> <span class="kw">OF</span> src <span class="kw">ON</span> <span class="kw">data</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Now insert a new version into data_history.</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">INSERT</span> <span class="kw">INTO</span> data_history (<span class="kw">id</span>,src, updated, version) <span class="kw">SELECT</span> <span class="kw">id</span>, src, updated, version <span class="kw">FROM</span> <span class="kw">data</span> <span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span><span class="kw">id</span>; </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Handle updating the updated timestamp and version number</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UPDATE</span> <span class="kw">data</span> <span class="kw">SET</span> updated <span class="op">=</span> datetime(), version <span class="op">=</span> version <span class="op">+</span> <span class="dv">1</span> <span class="kw">WHERE</span> <span class="kw">old</span>.<span class="kw">id</span> <span class="op">=</span> <span class="kw">new</span>.<span class="kw">id</span>;</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>; </span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">INSERT</span> <span class="kw">INTO</span> data_history (<span class="kw">id</span>,src, updated, version)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="kw">id</span>, src, updated, version <span class="kw">FROM</span> <span class="kw">data</span> <span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span><span class="kw">id</span>; </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Handle updating the updated timestamp and version number</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UPDATE</span> <span class="kw">data</span> <span class="kw">SET</span> updated <span class="op">=</span> datetime(), version <span class="op">=</span> version <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> <span class="kw">old</span>.<span class="kw">id</span> <span class="op">=</span> <span class="kw">new</span>.<span class="kw">id</span>;</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>; </span></code></pre></div>
 <p>So when I insert a new object there is no conflict so a simple insert
 is performed on the <code>data</code> table. The row’s version and
 <code>upgrade</code> columns get populated by the schema defaults. The
@@ -198,8 +200,9 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#c
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span>.updated <span class="kw">as</span> updated,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ifnull(data_history.updated, <span class="kw">data</span>.updated) <span class="kw">as</span> created,</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">data</span>.version</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="kw">data</span> <span class="kw">LEFT</span> <span class="kw">JOIN</span> data_history <span class="kw">ON</span> (<span class="kw">data</span>.<span class="kw">id</span> <span class="op">=</span> data_history.<span class="kw">id</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (data_history.version <span class="op">=</span> <span class="dv">0</span> <span class="kw">OR</span> data_history.version <span class="kw">is</span> <span class="kw">null</span>);</span></code></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="kw">data</span> <span class="kw">LEFT</span> <span class="kw">JOIN</span> data_history <span class="kw">ON</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ((<span class="kw">data</span>.<span class="kw">id</span> <span class="op">=</span> data_history.<span class="kw">id</span>) <span class="kw">and</span> (data_history.version <span class="op">=</span> <span class="dv">0</span>))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">data</span>.<span class="kw">id</span> <span class="op">=</span> ?;</span></code></pre></div>
 <p>The complexity of mapping CRUD to RW is now completely contained in
 the SQL engine. While I have use SQLite3 for this specific example in
 practice these features are available in most modern relational database

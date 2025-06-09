@@ -100,9 +100,11 @@ The `write_data` trigger is responsible for two things. Inserts a new row into t
 CREATE TRIGGER write_data BEFORE UPDATE OF src ON data
 BEGIN
   -- Now insert a new version into data_history.
-  INSERT INTO data_history (id,src, updated, version) SELECT id, src, updated, version FROM data WHERE id =id; 
+  INSERT INTO data_history (id,src, updated, version)
+    SELECT id, src, updated, version FROM data WHERE id =id; 
   -- Handle updating the updated timestamp and version number
-  UPDATE data SET updated = datetime(), version = version + 1 WHERE old.id = new.id;
+  UPDATE data SET updated = datetime(), version = version + 1
+    WHERE old.id = new.id;
 END; 
 ~~~
 
@@ -119,8 +121,9 @@ SELECT data.id as id,
   data.updated as updated,
   ifnull(data_history.updated, data.updated) as created,
   data.version
-FROM data LEFT JOIN data_history ON (data.id = data_history.id)
-WHERE (data_history.version = 0 OR data_history.version is null);
+FROM data LEFT JOIN data_history ON
+  ((data.id = data_history.id) and (data_history.version = 0))
+WHERE data.id = ?;
 ~~~
 
 The complexity of mapping CRUD to RW is now completely contained in the SQL engine. While I have use SQLite3 for this specific example in practice these features are available in most modern relational database management systems. It's matter of knowing the specifics of the dialect.
