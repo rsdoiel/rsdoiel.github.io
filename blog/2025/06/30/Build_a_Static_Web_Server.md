@@ -193,11 +193,11 @@ Better yet we can compile our JavaScript program into an executable file. The is
 deno compile --allow-net --allow-read webserver_v1.js
 ~~~
 
-This should result in a file being created called "webserver_v1" (or on Windows, "webserver_v1.exe"). This file can be run from this directory or moved to the directory you store other programs.
+This should result in a file being created called "webserver_v1" (or on Windows, "webserver_v1.exe"). This file can be run from this directory or moved to aother directory where you store other programs.
 
 ## Improving on v1
 
-While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to have the files in my current directory or different directory be where the web content resides?  We can do that by leveraging command line parameters.
+While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding supoprt for command line arguments.
 
 ~~~JavaScript
 /**
@@ -258,7 +258,7 @@ I can compile that using the following deno compile command
 deno compile --allow-net --allow-read webserver_v2.js
 ~~~
 
-I can run your new webserver using the following command.
+We can run the new webserver using the following command.
 
 ~~~shell
 ./webserver_v2 8001 .
@@ -296,7 +296,7 @@ copy htdocs\helloworld.html htdocs\index.html
 
 Point the web browser at <http://localhost:8000>, what do you see?
 
-Can we improve on this?  It'd be nice to web able to just type "webserver_v2" and have us the port and htdocs directory of our choice. We can do this using a configuration file. YAML is an easy to read and easy to type notation that expresses the same types of data structures as JSON (JavaScript Object Notation). Here's an example of what a configuration file. Type it in and save it using the filename "webserver.yaml".
+Can this be improved?  It'd be nice to web able to just type "webserver_v2" and have the program using a default port and htdocs directory of our choice. That can be supported by using a configuration file. YAML is an easy to read and easy to type notation that expresses the same types of data structures as JSON (JavaScript Object Notation). Below an example of a configuration file. Type it in and save it using the filename "webserver.yaml".
 
 ~~~yaml
 # Set root path for web content to the current directory.
@@ -305,14 +305,14 @@ htdocs: .
 port: 8002
 ~~~
 
-From the point of the view of our program we'll need to see if the "webserver.yaml" file exists and Deno has a module for that. We'll also need to read the YAML and parse it. Deno also has a standard model for working with YAML too. The modules we're interested in are `@std/fs/exists` and `@std/yaml`. We'll need to "add" them to our deno project first.
+From the point of the view of our program it'll need to check if the "webserver.yaml" file exists before attempting to read it. Deno has a module for that. It'll also need to read the YAML, parse it and get an object that exposes the allowed settings. Deno has a standard model for working with YAML too. The modules we're interested in are `@std/fs/exists` and `@std/yaml`. We'll need to "add" them to our deno project first.
 
 ~~~shell
 deno add jsr:@std/fs/exists
 deno add jsr:@std/yaml
 ~~~
 
-Now let's write our improved version of our static web server. It should be called, "webserver_v3.js".
+Now let's write an improved version of our static web server. It should be called, "webserver_v3.js".
 
 ~~~JavaScript
 /**
@@ -398,7 +398,7 @@ deno compile --allow-net --allow-read webserver_v3.js
 
 Point the web browser at <http://localhost:8002>. What do you see?  Can you find our HTML files?
 
-I think we have a useful localhost static content web server. It's time to rename our working prototype version and install it so we have it available in our toolbox.
+I think we have a useful localhost static content web server. It's time to rename our working prototype, compile and install it so it is available in our toolbox.
 
 1. Copy `webserver_v3.js` to `webserver.js` 
 2. Use `deno compile` to create an executable

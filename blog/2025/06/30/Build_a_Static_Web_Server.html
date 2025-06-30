@@ -230,12 +230,14 @@ box like our terminal application, text editor and web browser.</p>
 <pre class="shell"><code>deno compile --allow-net --allow-read webserver_v1.js</code></pre>
 <p>This should result in a file being created called “webserver_v1” (or
 on Windows, “webserver_v1.exe”). This file can be run from this
-directory or moved to the directory you store other programs.</p>
+directory or moved to aother directory where you store other
+programs.</p>
 <h2 id="improving-on-v1">Improving on v1</h2>
 <p>While webserver_v1.js is helpful it could be more friendly. What if I
-want to use a different port number? What if I want to have the files in
-my current directory or different directory be where the web content
-resides? We can do that by leveraging command line parameters.</p>
+want to use a different port number? What if I want to server out
+content my current directory or maybe I want to service content on a
+different mounted drive?We can do that by adding supoprt for command
+line arguments.</p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v2.js - A simple static file server with configurable port and root directory.</span></span>
@@ -289,7 +291,7 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15
 <span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 <p>I can compile that using the following deno compile command</p>
 <pre class="shell"><code>deno compile --allow-net --allow-read webserver_v2.js</code></pre>
-<p>I can run your new webserver using the following command.</p>
+<p>We can run the new webserver using the following command.</p>
 <pre class="shell"><code>./webserver_v2 8001 .</code></pre>
 <p>Point the web browser at <a href="http://localhost:8001"
 class="uri">http://localhost:8001</a>. What do you see? Can you find
@@ -310,27 +312,28 @@ the web server again.</p>
 .\webserver_v2</code></pre>
 <p>Point the web browser at <a href="http://localhost:8000"
 class="uri">http://localhost:8000</a>, what do you see?</p>
-<p>Can we improve on this? It’d be nice to web able to just type
-“webserver_v2” and have us the port and htdocs directory of our choice.
-We can do this using a configuration file. YAML is an easy to read and
-easy to type notation that expresses the same types of data structures
-as JSON (JavaScript Object Notation). Here’s an example of what a
-configuration file. Type it in and save it using the filename
-“webserver.yaml”.</p>
+<p>Can this be improved? It’d be nice to web able to just type
+“webserver_v2” and have the program using a default port and htdocs
+directory of our choice. That can be supported by using a configuration
+file. YAML is an easy to read and easy to type notation that expresses
+the same types of data structures as JSON (JavaScript Object Notation).
+Below an example of a configuration file. Type it in and save it using
+the filename “webserver.yaml”.</p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set root path for web content to the current directory.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htdocs</span><span class="kw">:</span><span class="at"> .</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the port number to listen on to 8002</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8002</span></span></code></pre></div>
-<p>From the point of the view of our program we’ll need to see if the
-“webserver.yaml” file exists and Deno has a module for that. We’ll also
-need to read the YAML and parse it. Deno also has a standard model for
+<p>From the point of the view of our program it’ll need to check if the
+“webserver.yaml” file exists before attempting to read it. Deno has a
+module for that. It’ll also need to read the YAML, parse it and get an
+object that exposes the allowed settings. Deno has a standard model for
 working with YAML too. The modules we’re interested in are
 <code>@std/fs/exists</code> and <code>@std/yaml</code>. We’ll need to
 “add” them to our deno project first.</p>
 <pre class="shell"><code>deno add jsr:@std/fs/exists
 deno add jsr:@std/yaml</code></pre>
-<p>Now let’s write our improved version of our static web server. It
+<p>Now let’s write an improved version of our static web server. It
 should be called, “webserver_v3.js”.</p>
 <div class="sourceCode" id="cb24"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
@@ -412,8 +415,8 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb24
 class="uri">http://localhost:8002</a>. What do you see? Can you find our
 HTML files?</p>
 <p>I think we have a useful localhost static content web server. It’s
-time to rename our working prototype version and install it so we have
-it available in our toolbox.</p>
+time to rename our working prototype, compile and install it so it is
+available in our toolbox.</p>
 <ol type="1">
 <li>Copy <code>webserver_v3.js</code> to <code>webserver.js</code></li>
 <li>Use <code>deno compile</code> to create an executable</li>
