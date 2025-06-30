@@ -48,23 +48,24 @@ specify a document root for the content I want to expose. It should
 default to a sensible location like the “htdocs” directory in my current
 working directory.</p>
 <p>Deno is a JavaScript and TypeScript runtime. I prefer Deno for
-several reasons over other runtimes like NodeJS. First Deno runs
-sandboxed similar to the web browser. Deno’s standard library follows
-browser where there is overlap between running on your machien versus
-the browser. Deno good set of standard modules. This includes “<span
-class="citation"
-data-cites="std/http/file-server">@std/http/file-server</span>” which
-I’ll use to create a static site web server. Other modules I’ll be using
-are “<span class="citation"
+several reasons over other runtimes like NodeJS. Deno runs sandboxed
+similar to the web browser. Deno’s standard library follows browser
+expetentions where there is overlap between the local machine and the
+web browser. Deno has a good set of standard modules. These ones I will
+use in this post. The standard module “<span class="citation"
+data-cites="std/http/file-server">@std/http/file-server</span>” provides
+most of what you need to implement a static content server. Two other
+modules will round things out in how I want my web server to behave.
+They are “<span class="citation"
 data-cites="std/fs/exists">@std/fs/exists</span>” and “<span
-class="citation" data-cites="std/yaml/parse">@std/yaml/parse</span>”.
-Normally when I write for Deno I write TypeScript but for this article
-I’m going to use plain old JavaScript.</p>
+class="citation"
+data-cites="std/yaml/parse">@std/yaml/parse</span>”.</p>
 <p>Let’s build a simple but useful static web server for our web
 toolbox.</p>
-<p>Before we build our static web server some web content, an HTML file.
-Create a directory “htdocs” directory. On macOS, Linux and Windows the
-command we want to run in the terminal is <code>mkdir htdocs</code>.
+<p>Before I build my static web server I need some web content. I’m
+going to need and HTML file and a JavaScript file to test against. The
+web content should in an “htdocs” directory. On macOS, Linux and Windows
+the command we want to run in the terminal is <code>mkdir htdocs</code>.
 Using your text editor, create the HTML file called “helloworld.html”
 inside the “htdocs” directory.</p>
 <div class="sourceCode" id="cb1"><pre
@@ -82,7 +83,7 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> elem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;div&quot;</span>)<span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>elem<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&#39;Hello World 2!&#39;</span><span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>body<span class="op">.</span><span class="fu">append</span>(elem)<span class="op">;</span></span></code></pre></div>
-<p>This will give us some content to test with.</p>
+<p>This gives us our test content.</p>
 <p>Your directory tree shoud look something like this.</p>
 <pre class="shell"><code>tree htdocs
 htdocs/
@@ -90,7 +91,6 @@ htdocs/
 └── helloworld.js
 
 1 directory, 2 files</code></pre>
-<p>I’ll use these two files to for tesitng the web server.</p>
 <h2 id="first-take">First take</h2>
 <p>Using a text editor, create a file called
 <code>webserver_v1.js</code>. We need to do several things in JavaScript
@@ -102,39 +102,37 @@ data-cites="std/http/file-server">@std/http/file-server</span>”
 module</li>
 <li>We need to set two constants, our port number and root document
 path</li>
-<li>It is helpful to display the setting for the port and document
-root</li>
+<li>It is helpful to display the setting for the port and document root
+when the server starts up</li>
 <li>We can using Deno’s built in <code>serve</code> method to handle
 inbound requests and then dispatch them to <code>serveDir</code></li>
 </ol>
 <p>Let’s start with our import, <code>"@std/http/file-server</code>.
 Notice that it starts with and “@”. This indicates to the JavaScript
 runtime that the full URL to the module is found in a import map. When
-you build a Deno project you can use a file called
-<code>deno.json</code> to include a mapping of module names. The
-<code>deno</code> command provides a really easy way to manage this
+you build a Deno project you can generate a file called
+<code>deno.json</code>. It will include a mapping of module names. The
+<code>deno add</code> command provides a really easy way to manage this
 mapping. As of Deno 2 the standard modules are available from <a
 href="https://jsr.io">jsr.io</a>, a JavaScript registry. The module
-<code>@std/http/file-server</code> is part of the standard module
-package called <code>@std/http</code>. We can “add” that to our project
-using the following command</p>
-<pre class="shell"><code>deno add jsr:@std/http</code></pre>
-<p>If the “deno.json” file does not exist this command will create it.
-If you look inside it after running this command you’ll see something
-like this.</p>
+<code>@std/http/file-server</code>. I can “add” it to my project using
+the following command.</p>
+<pre class="shell"><code>deno add jsr:@std/http/file-server</code></pre>
+<p>If the “deno.json” file does not exist this command will create it
+otherwise it will update it to reflect the new module. If you look
+inside it after running this command you’ll see something like this.</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;imports&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/http&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/http@^1.0.18&quot;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>The Deno run time knows how to contact jsr.io and use it to etrieve
+<p>The Deno run time knows how to contact jsr.io and use it to retrieve
 the module requested. By default it picks the current stable version. In
-our case that is currently v1.0.18. If you are reading this is in the
-distant the future is the version number will likely have changed. Deno
-updates have come pretty steadly in 2025.</p>
-<p>Now that that Deno is setup, I need to write our first version of a
-static web server.</p>
+our case that is currently v1.0.18. The version number maybe different.
+Deno updates have come pretty steadly in 2025.</p>
+<p>Now that Deno is setup, I need to write my first version of a static
+web server.</p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v1.js - A simple static file server for serving files from the &quot;htdocs&quot; directory.</span></span>
@@ -170,17 +168,18 @@ commands.</p>
 <li>check</li>
 <li>lint</li>
 </ol>
-<p>Check read the JavaScript (or TypeScript) file and makes server it
+<p>Check reads the JavaScript (or TypeScript) file and makes sure it
 makes sense from the compilation point of view. The lint command goes a
 step further. It checks to see if best practices have been followed.
 Lint is completely optional but check needs to pass before Deno will
-attempt to run our program.</p>
+attempt to run or compile the program.</p>
 <pre class="shell"><code>deno check webserver_v1.js
 deno lint webserver_v1.js</code></pre>
-<p>If all went well in both cases you should see a line indicating it
-checked the file. If there are complaints you’ll see those too.</p>
-<p>Deno can run in interactive mode. To test our program we’ll initially
-run it.</p>
+<p>If all went well in both cases you would see a line indicating it
+checked the file. If there are complaints you’ll see lines describing
+errors.</p>
+<p>Deno can run our JavaScript and TypeScript files. To test our program
+try the following.</p>
 <pre class="shell"><code>deno run webserver_v1.js</code></pre>
 <p>You should a message like the one below. This is because Deno wants
 permission to access the network.</p>
@@ -191,8 +190,8 @@ permission to access the network.</p>
 ┠─ Learn more at: https://docs.deno.com/go/--allow-net
 ┠─ Run again with --allow-net to bypass this prompt.
 ┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) &gt; </code></pre>
-<p>For can type an “y” for now. Now you should see a lines like those
-below.</p>
+<p>For now you can type an “y” and press enter. New lines should appear
+like these below.</p>
 <pre class="shell"><code>Server running on http://localhost:8000/, serving htdocs
 ✅ Granted net access to &quot;0.0.0.0:8000&quot;.
 Listening on http://0.0.0.0:8000/ (http://localhost:8000/)</code></pre>
@@ -220,7 +219,7 @@ shutdown the web server. You can confirm it is shutdown in the web
 browser by reloading the page.</p>
 <p>You don’t need to answer questions about permissions each time you
 run a program. You can specify the permissions you want to grant on the
-command line. I know from our test that our program needs a “net” and
+command line. I know from our test that our program needs “net” and
 “read” permissions. We can grant this using the following command.</p>
 <pre class="shell"><code>deno run --allow-net --allow-read webserver_v1.js</code></pre>
 <p>Better yet we can compile our JavaScript program into an executable

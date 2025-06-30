@@ -20,11 +20,11 @@ license: https://creativecommons.org/licenses/by-sa/4.0/
 
 One of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as "application/javascript" not as "text/plain"). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the "htdocs" directory in my current working directory.
 
-Deno is a JavaScript and TypeScript runtime. I prefer Deno for several reasons over other runtimes like NodeJS. First Deno runs sandboxed similar to the web browser. Deno's standard library follows browser where there is overlap between running on your machien versus the browser. Deno good set  of standard modules. This includes "@std/http/file-server" which I'll use to create a static site web server. Other modules I'll be using are "@std/fs/exists" and "@std/yaml/parse". Normally when I write for Deno I write TypeScript but for this article I'm going to use plain old JavaScript.
+Deno is a JavaScript and TypeScript runtime. I prefer Deno for several reasons over other runtimes like NodeJS. Deno runs sandboxed similar to the web browser. Deno's standard library follows browser expetentions where there is overlap between the local machine and the web browser. Deno has a good set of standard modules. These ones I will use in this post. The standard module "@std/http/file-server" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are "@std/fs/exists" and "@std/yaml/parse".
 
 Let's build a simple but useful static web server for our web toolbox.
 
-Before we build our static web server some web content, an HTML file. Create a directory "htdocs" directory. On macOS, Linux and Windows the command we want to run in the terminal is `mkdir htdocs`. Using your text editor, create the HTML file called "helloworld.html" inside the "htdocs" directory.
+Before I build my static web server I need some web content. I'm going to need and HTML file and a JavaScript file to test against. The web content should in an "htdocs" directory. On macOS, Linux and Windows the command we want to run in the terminal is `mkdir htdocs`. Using your text editor, create the HTML file called "helloworld.html" inside the "htdocs" directory.
 
 ~~~html
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ elem.innerText = 'Hello World 2!';
 body.append(elem);
 ~~~
 
-This will give us some content to test with.
+This gives us our test content.
 
 Your directory tree shoud look something like this.
 
@@ -58,24 +58,22 @@ htdocs/
 1 directory, 2 files
 ~~~
 
-I'll use these two files to for tesitng the web server.
-
 ## First take
 
 Using a text editor, create a file called `webserver_v1.js`. We need to do several things in JavaScript to build our static web server.
 
 1. import a function called `serveDir` from the "@std/http/file-server" module
 2. We need to set two constants, our port number and root document path
-3. It is helpful to display the setting for the port and document root
+3. It is helpful to display the setting for the port and document root when the server starts up
 4. We can using Deno's built in `serve` method to handle inbound requests and then dispatch them to `serveDir`
 
-Let's start with our import, `"@std/http/file-server`.  Notice that it starts with and "@". This indicates to the JavaScript runtime that the full URL to the module is found in a import map. When you build a Deno project you can use a file called `deno.json` to include a mapping of module names. The `deno` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a JavaScript registry. The module `@std/http/file-server` is part of the standard module package called `@std/http`. We can "add" that to our project using the following command
+Let's start with our import, `"@std/http/file-server`.  Notice that it starts with and "@". This indicates to the JavaScript runtime that the full URL to the module is found in a import map. When you build a Deno project you can generate a file called `deno.json`. It will include a mapping of module names. The `deno add` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a JavaScript registry. The module `@std/http/file-server`. I can "add" it  to my project using the following command.
 
 ~~~shell
-deno add jsr:@std/http
+deno add jsr:@std/http/file-server
 ~~~
 
-If the "deno.json" file does not exist this command will create it. If you look inside it after running this command you'll see something like this.
+If the "deno.json" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside it after running this command you'll see something like this.
 
 ~~~json
 {
@@ -85,9 +83,9 @@ If the "deno.json" file does not exist this command will create it. If you look 
 }
 ~~~
 
-The Deno run time knows how to contact jsr.io and use it to etrieve the module requested.  By default it picks the current stable version. In our case that is currently v1.0.18. If you are reading this is in the distant the future is the version number will likely have changed. Deno updates have come pretty steadly in 2025.
+The Deno run time knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is currently v1.0.18. The version number maybe different. Deno updates have come pretty steadly in 2025.
 
-Now that that Deno is setup, I need to write our first version of a static web server.
+Now that Deno is setup, I need to write my first version of a static web server.
 
 ~~~JavaScript
 /**
@@ -125,16 +123,16 @@ Let's see if the code we typed in works. Deno provide two helpful commands.
 1. check 
 2. lint
 
-Check read the JavaScript (or TypeScript) file and makes server it makes sense from the compilation point of view.  The lint command goes a step further. It checks to see if best practices have been followed. Lint is completely optional but check needs to pass before Deno will attempt to run our program.
+Check reads the JavaScript (or TypeScript) file and makes sure it makes sense from the compilation point of view.  The lint command goes a step further. It checks to see if best practices have been followed. Lint is completely optional but check needs to pass before Deno will attempt to run or compile the program.
 
 ~~~shell
 deno check webserver_v1.js
 deno lint webserver_v1.js
 ~~~
 
-If all went well in both cases you should see a line indicating it checked the file. If there are complaints you'll see those too.
+If all went well in both cases you would see a line indicating it checked the file. If there are complaints you'll see lines describing errors.
 
-Deno can run in interactive mode. To test our program we'll initially run it. 
+Deno can run our JavaScript and TypeScript files. To test our program try the following. 
 
 ~~~shell
 deno run webserver_v1.js
@@ -152,7 +150,7 @@ Server running on http://localhost:8000/, serving htdocs
 ┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) > 
 ~~~
 
-For can type an "y" for now. Now you should see a lines like those below.
+For now you can type an "y" and press enter. New lines should appear like these below.
 
 ~~~shell
 Server running on http://localhost:8000/, serving htdocs
@@ -183,7 +181,7 @@ What do you do you see in the browser page?  Is it a list of files? Is one of th
 
 You might be wondering how to shutdown the web server. In the terminal window press control and the letter c, aka "Ctrl-C". This will shutdown the web server. You can confirm it is shutdown in the web browser by reloading the page.
 
-You don't need to answer questions about permissions each time you run a program. You can specify the permissions you want to grant on the command line.  I know from our test that our program needs a "net" and "read" permissions. We can grant this using the following command.
+You don't need to answer questions about permissions each time you run a program. You can specify the permissions you want to grant on the command line.  I know from our test that our program needs "net" and "read" permissions. We can grant this using the following command.
 
 ~~~shell
 deno run --allow-net --allow-read webserver_v1.js

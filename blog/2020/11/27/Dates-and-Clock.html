@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>Dates-and-Clock</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="Oberon-07, C-shared, obnc">
+  <link rel="alternative" type="application/markdown" href="/blog/2020/11/27/Dates-and-Clock.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="dates-and-clock">Dates and Clock</h1>
+<p>By R. S. Doiel, 2020-11-27</p>
+<p>The <a
+href="http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines">Oakwood</a>
+guidelines specified a common set of modules for Oberon-2 for writing
+programs outside of an Oberon System. A missing module from the Oakwood
+guidelines is modules for working with dates and the system clock.
+Fortunately the A2 Oberon System<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> provides a template for
+that functionality. In this article I am exploring implementing the <a
+href="Dates.Mod">Dates</a> and <a href="Clock.Mod">Clock</a> modules for
+Oberon-07. I also plan to go beyond the A2 implementations and provide
+additional functionality such as parsing procedures and the ability to
+work with either the date or time related attributes separately in the
+<code>Dates.DateTime</code> record.</p>
+<h2 id="divergences">Divergences</h2>
+<p>One of the noticeable differences between Oberon-07 and Active Oberon
+is the types that functional procedures can return. We cannot return an
+Object in Oberon-07. This is not much of a handicap as we have variable
+procedure parameters. Likewise Active Oberon provides a large variety of
+integer number types. In Oberon-07 we have only INTEGER. Where I’ve
+create new procedures I’ve used the Oberon idiom of read only input
+parameters followed by variable parameters with side effects and finally
+parameters for the target record or values to be updated.</p>
+<h2 id="similarities">Similarities</h2>
+<p>In spite of the divergence I have split the module into two. The <a
+href="Dates.html">Dates</a> module is the one you would include in your
+program, it provides a DateTime record type which holds the integer
+values for year, month, day, hour, minute and second. It provides the
+means of parsing a date or time string, comparison, difference and
+addition of dates. The second module <a href="Clock.html">Clock</a>
+provides a mechanism to retrieve the real time clock value from the host
+system and map the C based time object into our own DateTime record.
+Clock is specific to OBNC method of interfacing to the C standard
+libraries of the host system. If you were to use a different Oberon
+compiled such as the Oxford Oberon Compiler you would need to
+re-implement Clock. Dates itself should be system independent and work
+with Oberon-07 compilers generally.</p>
+<h2 id="clock">Clock</h2>
+<p>The Clock module is built from a skeleton in Oberon-07 describing the
+signatures of the procedure and an implementation in <a
+href="Clock.c">C</a> that is built using the technique for discussed in
+my post <a href="../../05/01/Combining-Oberon-and-C.html">Combining
+Oberon-07 and C with OBNC</a>. In that article I outline Karl’s three
+step process to create a module that will be an interface to C code. In
+Step one I create the Oberon module. Normally I’d leave all procedures
+empty and develop them in C. In this specific case I went ahead and
+wrote the procedure called <code>Get</code> in Oberon and left the
+procedure <code>GetRtcTime</code> blank. This allowed OBNC to generate
+the C code for <code>Get</code> saving me some time and create the
+skeleton for <code>GetRtcTime</code> which does the work interfacing
+with the system clock via C library calls.</p>
+<p>The interface Oberon module looked like this:</p>
+<pre class="oberon"><code>
+MODULE Clock;
+
+PROCEDURE GetRtcTime*(VAR second, minute, hour, day, month, year : INTEGER);
+BEGIN
+END GetRtcTime;
+
+PROCEDURE Get*(VAR time, date : INTEGER);
+VAR
+    second, minute, hour, day, month, year : INTEGER;
+BEGIN
+    GetRtcTime(second, minute, hour, day, month, year);
+    time = ((hour * 4096) + (minute * 64)) + second;
+    date = ((year * 512) + (month * 32)) + day;
+END Get;
+
+END Clock.
+</code></pre>
+<p>I wrote the <code>Get</code> procedure code in Oberon-07 is the OBNC
+compiler will render the Oberon as C during the compilation process. I
+save myself writing some C code in by leveraging OBNC.</p>
+<p>Step two was to write <a href="ClockTest.Mod">ClockTest.Mod</a> in
+Oberon-07.</p>
+<pre class="oberon"><code>
+MODULE ClockTest;
+
+IMPORT Tests, Chars, Clock; (* , Out; *)
+
+CONST
+    MAXSTR = Chars.MAXSTR;
+
+VAR
+    title : ARRAY MAXSTR OF CHAR;
+    success, errors : INTEGER;
+
+PROCEDURE TestGetRtcTime() : BOOLEAN;
+VAR second, minute, hour, day, month, year : INTEGER; 
+    test, expected, result: BOOLEAN;
+BEGIN
+    test := TRUE;
+    second := 0; minute := 0; hour := 0;
+    day := 0; month := 0; year := 0;
+    expected := TRUE;
+    Clock.GetRtcTime(second, minute, hour, day, month, year);
+
+
+    result := (year &gt; 1900);
+    Tests.ExpectedBool(expected, result, 
+          &quot;year should be greater than 1900&quot;, test);
+    result := (month &gt;= 0) &amp; (month &lt;= 11);
+    Tests.ExpectedBool(expected, result,
+          &quot;month should be [0, 11]&quot;, test);
+    result := (day &gt;= 1) &amp; (day &lt;= 31);
+    Tests.ExpectedBool(expected, result,
+          &quot;day should be non-zero&quot;, test);
+
+    result := (hour &gt;= 0) &amp; (hour &lt;= 23);
+    Tests.ExpectedBool(expected, result,
+          &quot;hour should be [0, 23]&quot;, test);
+    result := (minute &gt;= 0) &amp; (minute &lt;= 59);
+    Tests.ExpectedBool(expected, result, 
+          &quot;minute should be [0, 59]&quot;, test);
+    result := (second &gt;= 0) &amp; (second &lt;= 60);
+    Tests.ExpectedBool(expected, result,
+          &quot;second year should be [0,60]&quot;, test);
+    RETURN test
+END TestGetRtcTime;
+
+PROCEDURE TestGet() : BOOLEAN;
+VAR time, date : INTEGER; 
+    test, expected, result : BOOLEAN;
+BEGIN
+    test := TRUE;
+    time := 0;
+    date := 0;
+    Clock.Get(time, date);
+    expected := TRUE;
+    result := (time &gt; 0);
+    Tests.ExpectedBool(expected, result,
+        &quot;time should not be zero&quot;, test);
+    result := (date &gt; 0);
+    Tests.ExpectedBool(expected, result,
+        &quot;date should not be zero&quot;, test);
+
+    RETURN test
+END TestGet;
+
+BEGIN
+    Chars.Set(&quot;Clock module test&quot;, title);
+    success := 0; errors := 0;
+    Tests.Test(TestGetRtcTime, success, errors);
+    Tests.Test(TestGet, success, errors);
+    Tests.Summarize(title, success, errors);
+END ClockTest.
+</code></pre>
+<p>ClockTest is a simple test module for <a
+href="Clock.Mod">Clock.Mod</a>. It also serves the role when compiled
+with OBNC to create the template C code for <a
+href="Clock.c">Clock.c</a>. Here’s the steps we take to generate
+<code>Clock.c</code> with OBNC:</p>
+<pre class="shell"><code>
+obnc ClockTest.Mod
+mv .obnc/Clock.c ./
+vi Clock.c
+</code></pre>
+<p>After compiling <code>.obnc/Clock.c</code> I then moved
+<code>.obnc/Clock.c</code> to my working directory. Filled in the C
+version of <code>GetRtcTime</code> function and modified my <a
+href="Clock.Mod">Clock.Mod</a> to contain my empty procedure.</p>
+<p>The finally version of Clock.c looks like (note how we need to
+include “Clock.h” in the head of the our C source file).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">/*GENERATED BY OBNC 0.16.1*/</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;.obnc/Clock.h&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;obnc/OBNC.h&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define OBERON_SOURCE_FILENAME </span><span class="st">&quot;Clock.Mod&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__GetRtcTime_<span class="op">(</span>OBNC_INTEGER <span class="op">*</span>second_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>minute_<span class="op">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     OBNC_INTEGER <span class="op">*</span>hour_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>day_<span class="op">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     OBNC_INTEGER <span class="op">*</span>month_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>year_<span class="op">)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time_t</span> now<span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> tm <span class="op">*</span>time_info<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    now <span class="op">=</span> time<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    time_info <span class="op">=</span> localtime<span class="op">(&amp;</span>now<span class="op">);</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>second_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_sec<span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>minute_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_min<span class="op">;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>hour_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_hour<span class="op">;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>day_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_mday<span class="op">;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>month_ <span class="op">=</span> time_info<span class="op">-&gt;</span>tm_mon<span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>year_ <span class="op">=</span> <span class="op">(</span>time_info<span class="op">-&gt;</span>tm_year<span class="op">)</span> <span class="op">+</span> <span class="dv">1900</span><span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__Get_<span class="op">(</span>OBNC_INTEGER <span class="op">*</span>time_<span class="op">,</span> OBNC_INTEGER <span class="op">*</span>date_<span class="op">)</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    OBNC_INTEGER second_<span class="op">,</span> minute_<span class="op">,</span> hour_<span class="op">,</span> day_<span class="op">,</span> month_<span class="op">,</span> year_<span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    Clock__GetRtcTime_<span class="op">(&amp;</span>second_<span class="op">,</span> <span class="op">&amp;</span>minute_<span class="op">,</span> </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                       <span class="op">&amp;</span>hour_<span class="op">,</span> <span class="op">&amp;</span>day_<span class="op">,</span> <span class="op">&amp;</span>month_<span class="op">,</span> <span class="op">&amp;</span>year_<span class="op">);</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">(*</span>time_<span class="op">)</span> <span class="op">=</span> <span class="op">((</span>hour_ <span class="op">*</span> <span class="dv">4096</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span>minute_ <span class="op">*</span> <span class="dv">64</span><span class="op">))</span> <span class="op">+</span> second_<span class="op">;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">(*</span>date_<span class="op">)</span> <span class="op">=</span> <span class="op">((</span>year_ <span class="op">*</span> <span class="dv">512</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span>month_ <span class="op">*</span> <span class="dv">32</span><span class="op">))</span> <span class="op">+</span> day_<span class="op">;</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Clock__Init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The final version of Clock.Mod looks like</p>
+<pre class="oberon"><code>
+MODULE Clock;
+
+PROCEDURE GetRtcTime*(VAR second, minute, 
+                      hour, day, month, year : INTEGER);
+BEGIN
+END GetRtcTime;
+
+PROCEDURE Get*(VAR time, date : INTEGER);
+BEGIN
+END Get;
+
+END Clock.
+</code></pre>
+<p>Step three was to re-compile <code>ClockTest.Mod</code> and run the
+tests.</p>
+<pre class="shell"><code>
+    obnc ClockTest.Mod
+    ./ClockTest
+</code></pre>
+<h2 id="dates">Dates</h2>
+<p>The dates module provides a rich variety of procedures for working
+with dates. This includes parsing date strings into
+<code>DateTime</code> records, testing strings for supported date
+formats, setting dates or time in a <code>DateTime</code> record as well
+as comparison, difference and addition (both addition and subtraction)
+of dates. Tests for the Dates module is implemented in <a
+href="DatesTest.Mod">DatesTest.Mod</a>.</p>
+<pre class="oberon"><code>
+MODULE Dates;
+IMPORT Chars, Strings, Clock, Convert := extConvert;
+
+CONST
+    MAXSTR = Chars.MAXSTR;
+    SHORTSTR = Chars.SHORTSTR;
+
+    YYYYMMDD* = 1; (* YYYY-MM-DD format *)
+    MMDDYYYY* = 2; (* MM/DD/YYYY format *)
+    YYYYMMDDHHMMSS* = 3; (* YYYY-MM-DD HH:MM:SS format *)
+
+TYPE
+    DateTime* = RECORD
+        year*, month*, day*, hour*, minute*, second* : INTEGER
+    END;
+
+VAR
+    (* Month names, January = 0, December = 11 *)
+    Months*: ARRAY 23 OF ARRAY 10 OF CHAR;
+    (* Days of week, Monday = 0, Sunday = 6 *)
+    Days*: ARRAY 7 OF ARRAY 10 OF CHAR;
+    DaysInMonth: ARRAY 12 OF INTEGER;
+
+
+(* Set -- initialize a date record year, month and day values *)
+PROCEDURE Set*(year, month, day, hour, minute, second : INTEGER; 
+               VAR dt: DateTime);
+BEGIN
+    dt.year := year;
+    dt.month := month;
+    dt.day := day;
+    dt.hour := hour;
+    dt.minute := minute;
+    dt.second := second;
+END Set;
+
+(* SetDate -- set a Date record&#39;s year, month and day attributes *)
+PROCEDURE SetDate*(year, month, day : INTEGER; VAR dt: DateTime);
+BEGIN
+    dt.year := year;
+    dt.month := month;
+    dt.day := day;
+END SetDate;
+
+(* SetTime -- set a Date record&#39;s hour, minute, second attributes *)
+PROCEDURE SetTime*(hour, minute, second : INTEGER; VAR dt: DateTime);
+BEGIN
+    dt.hour := hour;
+    dt.minute := minute;
+    dt.second := second;
+END SetTime;
+
+(* Copy -- copy the values from one date record to another *)
+PROCEDURE Copy*(src : DateTime; VAR dest : DateTime);
+BEGIN
+    dest.year := src.year;
+    dest.month := src.month;
+    dest.day := src.day;
+    dest.hour := src.hour;
+    dest.minute := src.minute;
+    dest.second := src.second;
+END Copy;
+
+(* ToChars -- converts a date record into an array of chars using
+the format constant. Formats supported are YYYY-MM-DD HH:MM:SS
+or MM/DD/YYYY HH:MM:SS. *)
+PROCEDURE ToChars*(dt: DateTime; fmt : INTEGER;
+                   VAR src : ARRAY OF CHAR);
+VAR ok : BOOLEAN;
+BEGIN
+    Chars.Clear(src);
+    IF fmt = YYYYMMDD THEN
+        Chars.AppendInt(dt.year, 4, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;-&quot;, src);
+        Chars.AppendInt(dt.month, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;-&quot;, src);
+        Chars.AppendInt(dt.day, 2, &quot;0&quot;, src);
+    ELSIF fmt = MMDDYYYY THEN
+        Chars.AppendInt(dt.month, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;/&quot;, src);
+        Chars.AppendInt(dt.day, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;/&quot;, src);
+        Chars.AppendInt(dt.year, 4, &quot;0&quot;, src);
+    ELSIF fmt = YYYYMMDDHHMMSS THEN
+        Chars.AppendInt(dt.year, 4, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;-&quot;, src);
+        Chars.AppendInt(dt.month, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;-&quot;, src);
+        Chars.AppendInt(dt.day, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot; &quot;, src);
+        Chars.AppendInt(dt.hour, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;:&quot;, src);
+        Chars.AppendInt(dt.minute, 2, &quot;0&quot;, src);
+        ok := Chars.AppendChar(&quot;:&quot;, src);
+        Chars.AppendInt(dt.second, 2, &quot;0&quot;, src);
+    END;
+END ToChars;
+
+(*
+ * Date and Time functions very much inspired by A2 but
+ * adapted for use in Oberon-07 and OBNC compiler.
+ *)
+
+(* LeapYear -- returns TRUE if &#39;year&#39; is a leap year *)
+PROCEDURE LeapYear*(year: INTEGER): BOOLEAN;
+BEGIN
+    RETURN (year &gt; 0) &amp; (year MOD 4 = 0) &amp; 
+           (~(year MOD 100 = 0) OR (year MOD 400 = 0))
+END LeapYear;
+
+(* NumOfDays -- number of days, returns the number of 
+days in that month *)
+PROCEDURE NumOfDays*(year, month: INTEGER): INTEGER;
+VAR result : INTEGER;
+BEGIN
+    result := 0;
+    DEC(month);
+    IF ((month &gt;= 0) &amp; (month &lt; 12)) THEN
+        IF (month = 1) &amp; LeapYear(year) THEN
+            result := DaysInMonth[1]+1;
+        ELSE
+            result := DaysInMonth[month];
+        END;
+    END;
+    RETURN result
+END NumOfDays;
+
+(* IsValid -- checks if the attributes set in a 
+DateTime record are valid *)
+PROCEDURE IsValid*(dt: DateTime): BOOLEAN;
+BEGIN
+    RETURN ((dt.year &gt; 0) &amp; (dt.month &gt; 0) &amp;
+           (dt.month &lt;= 12) &amp; (dt.day &gt; 0) &amp;
+           (dt.day &lt;= NumOfDays(dt.year, dt.month)) &amp;
+           (dt.hour &gt;= 0) &amp; (dt.hour &lt; 24) &amp; (dt.minute &gt;= 0) &amp;
+           (dt.minute &lt; 60) &amp; (dt.second &gt;= 0) &amp; (dt.second &lt; 60))
+END IsValid;
+
+(* IsValidDate -- checks to see if a datetime record 
+has valid day, month and year attributes *)
+PROCEDURE IsValidDate*(dt: DateTime) : BOOLEAN;
+BEGIN
+    RETURN (dt.year &gt; 0) &amp; (dt.month &gt; 0) &amp;
+           (dt.month &lt;= 12) &amp; (dt.day &gt; 0) &amp;
+           (dt.day &lt;= NumOfDays(dt.year, dt.month))
+END IsValidDate;
+
+(* IsValidTime -- checks if the hour, minute, second
+attributes set in a DateTime record are valid *)
+PROCEDURE IsValidTime*(dt: DateTime): BOOLEAN;
+BEGIN
+    RETURN (dt.hour &gt;= 0) &amp; (dt.hour &lt; 24) &amp;
+           (dt.minute &gt;= 0) &amp; (dt.minute &lt; 60) &amp;
+           (dt.second &gt;= 0) &amp; (dt.second &lt; 60)
+END IsValidTime;
+
+
+(* OberonToDateTime -- convert an Oberon date/time 
+to a DateTime structure *)
+PROCEDURE OberonToDateTime*(Date, Time: INTEGER; 
+                            VAR dt : DateTime);
+BEGIN
+    dt.second := Time MOD 64; Time := Time DIV 64;
+    dt.minute := Time MOD 64; Time := Time DIV 64;
+    dt.hour := Time MOD 24;
+    dt.day := Date MOD 32; Date := Date DIV 32;
+    dt.month := (Date MOD 16) + 1; Date := Date DIV 16;
+    dt.year := Date;
+END OberonToDateTime;
+
+(* DateTimeToOberon -- convert a DateTime structure
+to an Oberon date/time *)
+PROCEDURE DateTimeToOberon*(dt: DateTime;
+                            VAR date, time: INTEGER);
+BEGIN
+    IF IsValid(dt) THEN
+    date := (dt.year)*512 + dt.month*32 + dt.day;
+    time := dt.hour*4096 + dt.minute*64 + dt.second
+    ELSE
+        date := 0;
+        time := 0;
+    END;
+END DateTimeToOberon;
+
+(* Now -- returns the current date and time as a
+DateTime record. *)
+PROCEDURE Now*(VAR dt: DateTime);
+VAR d, t: INTEGER;
+BEGIN
+    Clock.Get(t, d);
+    OberonToDateTime(d, t, dt);
+END Now;
+
+
+(* WeekDate -- returns the ISO 8601 year number,
+week number &amp; week day (Monday=1, ....Sunday=7)
+Algorithm is by Rick McCarty, 
+http://personal.ecu.edu/mccartyr/ISOwdALG.txt
+*)
+PROCEDURE WeekDate*(dt: DateTime; 
+                    VAR year, week, weekday: INTEGER);
+VAR doy, i, yy, c, g, jan1: INTEGER; leap: BOOLEAN;
+BEGIN
+    IF IsValid(dt) THEN
+        leap := LeapYear(dt.year);
+        doy := dt.day; i := 0;
+        WHILE (i &lt; (dt.month - 1)) DO
+            doy := doy + DaysInMonth[i];
+            INC(i);
+        END;
+        IF leap &amp; (dt.month &gt; 2) THEN
+            INC(doy);
+        END;
+        yy := (dt.year - 1) MOD 100;
+        c := (dt.year - 1) - yy;
+        g := (yy + yy) DIV 4;
+        jan1 := 1 + (((((c DIV 100) MOD 4) * 5) + g) MOD 7);
+
+        weekday := 1 + (((doy + (jan1 - 1)) - 1) MOD 7);
+        (* does doy fall in year-1 ? *)
+        IF (doy &lt;= (8 - jan1)) &amp; (jan1 &gt; 4) THEN 
+            year := dt.year - 1;
+            IF (jan1 = 5) OR ((jan1 = 6) &amp; LeapYear(year)) THEN
+                week := 53;
+            ELSE
+                week := 52;
+            END;
+        ELSE
+            IF leap THEN
+                i := 366;
+            ELSE
+                i := 365;
+            END;
+            IF ((i - doy) &lt; (4 - weekday)) THEN
+                year := dt.year + 1;
+                week := 1;
+            ELSE
+                year := dt.year;
+                i := doy + (7-weekday) + (jan1-1);
+                week := i DIV 7;
+                IF (jan1 &gt; 4) THEN
+                    DEC(week);
+                END;
+            END;
+        END;
+    ELSE
+        year := -1; week := -1; weekday := -1;
+    END;
+END WeekDate;
+
+(* Equal -- compare to date records to see if they 
+are equal values *)
+PROCEDURE Equal*(t1, t2: DateTime) : BOOLEAN;
+BEGIN
+    RETURN ((t1.second = t2.second) &amp;
+            (t1.minute = t2.minute) &amp; (t1.hour = t2.hour) &amp;
+            (t1.day = t2.day) &amp; (t1.month = t2.month) &amp;
+            (t1.year = t2.year))
+END Equal;
+
+(* compare -- used in Compare only for comparing
+specific values, returning an appropriate -1, 0, 1 *)
+PROCEDURE compare(t1, t2 : INTEGER) : INTEGER;
+VAR result : INTEGER;
+BEGIN
+    IF (t1 &lt; t2) THEN
+        result := -1;
+    ELSIF (t1 &gt; t2) THEN
+        result := 1;
+    ELSE
+        result := 0;
+    END;
+    RETURN result
+END compare;
+
+(* Compare -- returns -1 if (t1 &lt; t2), 
+0 if (t1 = t2) or 1 if (t1 &gt;  t2) *)
+PROCEDURE Compare*(t1, t2: DateTime) : INTEGER;
+VAR result : INTEGER;
+BEGIN
+    result := compare(t1.year, t2.year);
+    IF (result = 0) THEN
+        result := compare(t1.month, t2.month);
+        IF (result = 0) THEN
+            result := compare(t1.day, t2.day);
+            IF (result = 0) THEN
+                result := compare(t1.hour, t2.hour);
+                IF (result = 0) THEN
+                    result := compare(t1.minute, t2.minute);
+                    IF (result = 0) THEN
+                        result := compare(t1.second, t2.second);
+                    END;
+                END;
+            END;
+        END;
+    END;
+    RETURN result
+END Compare;
+
+(* CompareDate -- compare day, month and year
+values only *)
+PROCEDURE CompareDate*(t1, t2: DateTime) : INTEGER;
+VAR result : INTEGER;
+BEGIN
+    result := compare(t1.year, t2.year);
+    IF (result = 0) THEN
+        result := compare(t1.month, t2.month);
+        IF (result = 0) THEN
+            result := compare(t1.day, t2.day);
+        END;
+    END;
+    RETURN result
+END CompareDate;
+
+(* CompareTime -- compare second, minute and
+hour values only *)
+PROCEDURE CompareTime*(t1, t2: DateTime) : INTEGER;
+VAR result : INTEGER;
+BEGIN
+    result := compare(t1.hour, t2.hour);
+    IF (result = 0) THEN
+        result := compare(t1.minute, t2.minute);
+        IF (result = 0) THEN
+            result := compare(t1.second, t2.second);
+        END;
+    END;
+    RETURN result
+END CompareTime;
+
+
+
+(* TimeDifferences -- returns the absolute time
+difference between
+t1 and t2.
+
+Note that leap seconds are not counted,
+see http://www.eecis.udel.edu/~mills/leap.html *)
+PROCEDURE TimeDifference*(t1, t2: DateTime;
+              VAR days, hours, minutes, seconds : INTEGER);
+CONST 
+    SecondsPerMinute = 60; 
+    SecondsPerHour = 3600; 
+    SecondsPerDay = 86400;
+VAR start, end: DateTime; year, month, second : INTEGER;
+BEGIN
+    IF (Compare(t1, t2) = -1) THEN
+        start := t1;
+        end := t2;
+    ELSE
+        start := t2;
+        end := t1;
+    END;
+    IF (start.year = end.year) &amp; (start.month = end.month) &amp;
+       (start.day = end.day) THEN
+        second := end.second - start.second + 
+                  ((end.minute - start.minute) * SecondsPerMinute) +
+                  ((end.hour - start.hour) * SecondsPerHour);
+        days := 0;
+        hours := 0;
+        minutes := 0;
+    ELSE
+        (* use start date/time as reference point *)
+        (* seconds until end of the start.day *)
+        second := (SecondsPerDay - start.second) -
+                  (start.minute * SecondsPerMinute) -
+                  (start.hour * SecondsPerHour);
+        IF (start.year = end.year) &amp;
+           (start.month = end.month) THEN
+            (* days between start.day and end.day *)
+            days := (end.day - start.day) - 1;
+        ELSE
+            (* days until start.month ends excluding start.day *)
+            days := NumOfDays(start.year, start.month) - start.day;
+            IF (start.year = end.year) THEN
+                (* months between start.month and end.month *)
+                FOR month := start.month + 1 TO end.month - 1 DO
+                    days := days + NumOfDays(start.year, month);
+                END;
+            ELSE
+                (* days until start.year ends (excluding start.month) *)
+                FOR month := start.month + 1 TO 12 DO
+                    days := days + NumOfDays(start.year, month);
+                END;
+                (* days between start.years and end.year *)
+                FOR year := start.year + 1 TO end.year - 1 DO
+                    IF LeapYear(year) THEN days := days + 366; 
+                    ELSE days := days + 365; END;
+                END;
+                (* days until we reach end.month in end.year *)
+                FOR month := 1 TO end.month - 1 DO
+                    days := days + NumOfDays(end.year, month);
+                END;
+            END;
+            (* days in end.month until reaching end.day excluding end.day *)
+            days := (days + end.day) - 1;
+        END;
+        (* seconds in end.day *)
+        second := second + end.second +
+                  (end.minute * SecondsPerMinute) +
+                  (end.hour * SecondsPerHour);
+    END;
+    days := days + (second DIV SecondsPerDay); 
+    second := (second MOD SecondsPerDay);
+    hours := (second DIV SecondsPerHour); 
+    second := (second MOD SecondsPerHour);
+    minutes := (second DIV SecondsPerMinute);
+    second := (second MOD SecondsPerMinute);
+    seconds := second;
+END TimeDifference;
+
+(* AddYear -- Add/Subtract a number of years to/from date *)
+PROCEDURE AddYears*(VAR dt: DateTime; years : INTEGER);
+BEGIN
+    ASSERT(IsValid(dt));
+    dt.year := dt.year + years;
+    ASSERT(IsValid(dt));
+END AddYears;
+
+(* AddMonths -- Add/Subtract a number of months to/from date.
+This will adjust date.year if necessary *)
+PROCEDURE AddMonths*(VAR dt: DateTime; months : INTEGER);
+VAR years : INTEGER;
+BEGIN
+    ASSERT(IsValid(dt));
+    years := months DIV 12;
+    dt.month := dt.month + (months MOD 12);
+    IF (dt.month &gt; 12) THEN
+        dt.month := dt.month - 12;
+        INC(years);
+    ELSIF (dt.month &lt; 1) THEN
+        dt.month := dt.month + 12;
+        DEC(years);
+    END;
+    IF (years # 0) THEN AddYears(dt, years); END;
+    ASSERT(IsValid(dt));
+END AddMonths;
+
+(* AddDays --  Add/Subtract a number of days to/from date.
+This will adjust date.month and date.year if necessary *)
+PROCEDURE AddDays*(VAR dt: DateTime; days : INTEGER);
+VAR nofDaysLeft : INTEGER;
+BEGIN
+    ASSERT(IsValid(dt));
+    IF (days &gt; 0) THEN
+        WHILE (days &gt; 0) DO
+            nofDaysLeft := NumOfDays(dt.year, dt.month) - dt.day;
+            IF (days &gt; nofDaysLeft) THEN
+                dt.day := 1;
+                AddMonths(dt, 1);
+                (* -1 because we consume the first day 
+                    of the next month *)
+                days := days - nofDaysLeft - 1;
+            ELSE
+                dt.day := dt.day + days;
+                days := 0;
+            END;
+        END;
+    ELSIF (days &lt; 0) THEN
+        days := -days;
+        WHILE (days &gt; 0) DO
+            nofDaysLeft := dt.day - 1;
+            IF (days &gt; nofDaysLeft) THEN
+                (* otherwise, dt could become an invalid 
+                   date if the previous month has less 
+                   days than dt.day *)
+                dt.day := 1; 
+                AddMonths(dt, -1);
+                dt.day := NumOfDays(dt.year, dt.month);
+                (* -1 because we consume the last day 
+                   of the previous month *)
+                days := days - nofDaysLeft - 1;
+            ELSE
+                dt.day := dt.day - days;
+                days := 0;
+            END;
+        END;
+    END;
+    ASSERT(IsValid(dt));
+END AddDays;
+
+(* AddHours -- Add/Subtract a number of hours to/from date.
+This will adjust date.day, date.month and date.year if necessary *)
+PROCEDURE AddHours*(VAR dt: DateTime; hours : INTEGER);
+VAR days : INTEGER;
+BEGIN
+    ASSERT(IsValid(dt));
+    dt.hour := dt.hour + hours;
+    days := dt.hour DIV 24;
+    dt.hour := dt.hour MOD 24;
+    IF (dt.hour &lt; 0) THEN
+        dt.hour := dt.hour + 24;
+        DEC(days);
+    END;
+    IF (days # 0) THEN AddDays(dt, days); END;
+    ASSERT(IsValid(dt));
+END AddHours;
+
+(* AddMinutes -- Add/Subtract a number of minutes to/from date.
+This will adjust date.hour, date.day, date.month and date.year
+if necessary *)
+PROCEDURE AddMinutes*(VAR dt: DateTime; minutes : INTEGER);
+VAR hours : INTEGER;
+BEGIN
+    ASSERT(IsValid(dt));
+    dt.minute := dt.minute + minutes;
+    hours := dt.minute DIV 60;
+    dt.minute := dt.minute MOD 60;
+    IF (dt.minute &lt; 0) THEN
+        dt.minute := dt.minute + 60;
+        DEC(hours);
+    END;
+    IF (hours # 0) THEN AddHours(dt, hours); END;
+    ASSERT(IsValid(dt));
+END AddMinutes;
+
+(* AddSeconds -- Add/Subtract a number of seconds to/from date.
+This will adjust date.minute, date.hour, date.day, date.month and
+date.year if necessary *)
+PROCEDURE AddSeconds*(VAR dt: DateTime; seconds : INTEGER);
+VAR minutes : INTEGER;
+BEGIN
+    ASSERT(IsValid(dt));
+    dt.second := dt.second + seconds;
+    minutes := dt.second DIV 60;
+    dt.second := dt.second MOD 60;
+    IF (dt.second &lt; 0) THEN
+        dt.second := dt.second + 60;
+        DEC(minutes);
+    END;
+    IF (minutes # 0) THEN AddMinutes(dt, minutes); END;
+    ASSERT(IsValid(dt));
+END AddSeconds;
+
+
+(* IsDateString -- return TRUE if the ARRAY OF CHAR is 10 characters
+long and is either in the form of YYYY-MM-DD or MM/DD/YYYY where
+Y, M and D are digits.
+NOTE: is DOES NOT check the ranges of the digits. *)
+PROCEDURE IsDateString*(inline : ARRAY OF CHAR) : BOOLEAN;
+VAR
+    test : BOOLEAN; i, pos : INTEGER;
+    src : ARRAY MAXSTR OF CHAR;
+BEGIN
+    Chars.Set(inline, src);
+    Chars.TrimSpace(src);
+    test := FALSE;
+    IF Strings.Length(src) = 10 THEN
+        pos := Strings.Pos(&quot;-&quot;, src, 0);
+        IF pos &gt; 0 THEN
+            IF (src[4] = &quot;-&quot;) &amp; (src[7] = &quot;-&quot;) THEN
+                test := TRUE;
+                FOR i := 0 TO 9 DO
+                    IF (i # 4) &amp; (i # 7) THEN
+                       IF Chars.IsDigit(src[i]) = FALSE THEN
+                           test := FALSE;
+                       END;
+                    END;
+                END;
+            ELSE
+                test := FALSE;
+            END;
+        END;
+        pos := Strings.Pos(&quot;/&quot;, src, 0);
+        IF pos &gt; 0 THEN
+            IF (src[2] = &quot;/&quot;) &amp; (src[5] = &quot;/&quot;) THEN
+                test := TRUE;
+                FOR i := 0 TO 9 DO
+                    IF (i # 2) &amp; (i # 5) THEN
+                        IF Chars.IsDigit(src[i]) = FALSE THEN
+                            test := FALSE;
+                        END;
+                    END;
+                END;
+            ELSE
+                test := FALSE;
+            END;
+        END;
+    END;
+    RETURN test
+END IsDateString;
+
+(* IsTimeString -- return TRUE if the ARRAY OF CHAR has 4 to 8
+characters in the form of H:MM, HH:MM, HH:MM:SS where H, M and S
+are digits. *)
+PROCEDURE IsTimeString*(inline : ARRAY OF CHAR) : BOOLEAN;
+VAR
+    test : BOOLEAN;
+    l : INTEGER;
+    src : ARRAY MAXSTR OF CHAR;
+BEGIN
+    Chars.Set(inline, src);
+    Chars.TrimSpace(src);
+    (* remove any trailing am/pm suffixes *)
+    IF Chars.EndsWith(&quot;m&quot;, src) THEN
+        IF Chars.EndsWith(&quot;am&quot;, src) THEN
+            Chars.TrimSuffix(&quot;am&quot;, src);
+        ELSE
+            Chars.TrimSuffix(&quot;pm&quot;, src);
+        END;
+        Chars.TrimSpace(src);
+    ELSIF Chars.EndsWith(&quot;M&quot;, src) THEN
+        Chars.TrimSuffix(&quot;AM&quot;, src);
+        Chars.TrimSuffix(&quot;PM&quot;, src);
+        Chars.TrimSpace(src);
+    ELSIF Chars.EndsWith(&quot;p&quot;, src) THEN
+        Chars.TrimSuffix(&quot;p&quot;, src);
+        Chars.TrimSpace(src);
+    ELSIF Chars.EndsWith(&quot;P&quot;, src) THEN
+        Chars.TrimSuffix(&quot;P&quot;, src);
+        Chars.TrimSpace(src);
+    ELSIF Chars.EndsWith(&quot;a&quot;, src) THEN
+        Chars.TrimSuffix(&quot;a&quot;, src);
+        Chars.TrimSpace(src);
+    ELSIF Chars.EndsWith(&quot;A&quot;, src) THEN
+        Chars.TrimSuffix(&quot;A&quot;, src);
+        Chars.TrimSpace(src);
+    END;
+    Strings.Extract(src, 0, 8, src);
+    test := FALSE;
+    l := Strings.Length(src);
+    IF (l = 4) THEN
+        IF Chars.IsDigit(src[0]) &amp; (src[1] = &quot;:&quot;) &amp;
+            Chars.IsDigit(src[2]) &amp; Chars.IsDigit(src[3]) THEN
+            test := TRUE;
+        ELSE
+            test := FALSE;
+        END;
+    ELSIF (l = 5) THEN
+        IF Chars.IsDigit(src[0]) &amp; Chars.IsDigit(src[1]) &amp;
+            (src[2] = &quot;:&quot;) &amp;
+            Chars.IsDigit(src[3]) &amp; Chars.IsDigit(src[4]) THEN
+            test := TRUE;
+        ELSE
+            test := FALSE;
+        END;
+    ELSIF (l = 8) THEN
+        IF Chars.IsDigit(src[0]) &amp; Chars.IsDigit(src[1]) &amp;
+            (src[2] = &quot;:&quot;) &amp;
+            Chars.IsDigit(src[3]) &amp; Chars.IsDigit(src[4]) &amp;
+            (src[5] = &quot;:&quot;) &amp;
+            Chars.IsDigit(src[6]) &amp; Chars.IsDigit(src[7]) THEN
+            test := TRUE;
+        ELSE
+            test := FALSE;
+        END;
+    ELSE
+        test := FALSE;
+    END;
+    RETURN test
+END IsTimeString;
+
+(* ParseDate -- parses a date string in YYYY-MM-DD or
+MM/DD/YYYY format. *)
+PROCEDURE ParseDate*(inline : ARRAY OF CHAR;
+                     VAR year, month, day : INTEGER) : BOOLEAN;
+VAR src, tmp : ARRAY MAXSTR OF CHAR; ok, b : BOOLEAN;
+BEGIN
+    Chars.Set(inline, src);
+    Chars.Clear(tmp);
+    ok := FALSE;
+    IF IsDateString(src) THEN
+        (* LIMITATION: Need to allow for more than 4 digit years! *)
+        IF (src[2] = &quot;/&quot;) &amp; (src[5] = &quot;/&quot;) THEN
+            ok := TRUE;
+            Strings.Extract(src, 0, 2, tmp);
+            Convert.StringToInt(tmp, month, b);
+            ok := ok &amp; b;
+            Strings.Extract(src, 4, 2, tmp);
+            Convert.StringToInt(tmp, day, b);
+            ok := ok &amp; b;
+            Strings.Extract(src, 6, 4, tmp);
+            Convert.StringToInt(tmp, year, b);
+            ok := ok &amp; b;
+        ELSIF (src[4] = &quot;-&quot;) &amp; (src[7] = &quot;-&quot;) THEN
+            ok := TRUE;
+            Strings.Extract(src, 0, 4, tmp);
+            Convert.StringToInt(tmp, year, b);
+            ok := ok &amp; b;
+            Strings.Extract(src, 5, 2, tmp);
+            Convert.StringToInt(tmp, month, b);
+            ok := ok &amp; b;
+            Strings.Extract(src, 8, 2, tmp);
+            Convert.StringToInt(tmp, day, b);
+            ok := ok &amp; b;
+        ELSE
+            ok := FALSE;
+        END;
+    END;
+    RETURN ok
+END ParseDate;
+
+(* ParseTime -- procedure for parsing time strings into hour,
+minute, second. Returns TRUE on successful parse, FALSE otherwise *)
+PROCEDURE ParseTime*(inline : ARRAY OF CHAR;
+                     VAR hour, minute, second : INTEGER) : BOOLEAN;
+VAR src, tmp : ARRAY MAXSTR OF CHAR;
+    ok : BOOLEAN; cur, pos, l : INTEGER;
+BEGIN
+    Chars.Set(inline, src);
+    Chars.Clear(tmp);
+    IF IsTimeString(src) THEN
+        ok := TRUE;
+        cur := 0; pos := 0;
+        pos := Strings.Pos(&quot;:&quot;, src, cur);
+        IF pos &gt; 0 THEN
+        (* Get Hour *)
+            Strings.Extract(src, cur, pos - cur, tmp);
+            Convert.StringToInt(tmp, hour, ok);
+            IF ok THEN
+                (* Get Minute *)
+                cur := pos + 1;
+                Strings.Extract(src, cur, 2, tmp);
+                Convert.StringToInt(tmp, minute, ok);
+                IF ok THEN
+                    (* Get second, optional, default to zero *)
+                    pos := Strings.Pos(&quot;:&quot;, src, cur);
+                    IF pos &gt; 0 THEN
+                        cur := pos + 1;
+                        Strings.Extract(src, cur, 2, tmp);
+                        Convert.StringToInt(tmp, second, ok);
+                        cur := cur + 2;
+                    ELSE
+                        second := 0;
+                    END;
+                    (* Get AM/PM, optional, adjust hour if PM *)
+                    l := Strings.Length(src);
+                    WHILE (cur &lt; l) &amp; Chars.IsSpace(src[cur]) DO
+                        cur := cur + 1;
+                    END;
+                    Strings.Extract(src, cur, 2, tmp);
+                    Chars.TrimSpace(tmp);
+                    IF Chars.Equal(tmp, &quot;PM&quot;) OR Chars.Equal(tmp, &quot;pm&quot;) THEN
+                        hour := hour + 12;
+                    END;
+                ELSE
+                    ok := FALSE;
+                END;
+            END;
+        ELSE
+            ok := FALSE;
+        END;
+    ELSE
+        ok := FALSE;
+    END;
+    IF ok THEN
+        ok := ((hour &gt;= 0) &amp; (hour &lt;= 23)) &amp;
+            ((minute &gt;= 0) &amp; (minute &lt;= 59)) &amp;
+                ((second &gt;= 0) &amp; (second &lt;= 59));
+    END;
+    RETURN ok
+END ParseTime;
+
+
+(* Parse accepts a date array of chars in either dates, times
+or dates and times separate by spaces. Date formats supported
+include YYYY-MM-DD, MM/DD/YYYY. Time formats include
+H:MM, HH:MM, H:MM:SS, HH:MM:SS with &#39;a&#39;, &#39;am&#39;, &#39;p&#39;, &#39;pm&#39;
+suffixes.  Dates and times can also be accepted as JSON
+expressions with the individual time compontents are specified
+as attributes, e.g. {&quot;year&quot;: 1998, &quot;month&quot;: 12, &quot;day&quot;: 10,
+&quot;hour&quot;: 11, &quot;minute&quot;: 4, &quot;second&quot;: 3}.
+Parse returns TRUE on successful parse, FALSE otherwise.
+
+BUG: Assumes a 4 digit year.
+*)
+PROCEDURE Parse*(inline : ARRAY OF CHAR; VAR dt: DateTime) : BOOLEAN;
+VAR src, ds, ts, tmp : ARRAY SHORTSTR OF CHAR; ok, okDate, okTime : BOOLEAN;
+    pos, year, month, day, hour, minute, second : INTEGER;
+BEGIN
+    dt.year := 0;
+    dt.month := 0;
+    dt.day := 0;
+    dt.hour := 0;
+    dt.minute := 0;
+    dt.second := 0;
+    Chars.Clear(tmp);
+    Chars.Set(inline, src);
+    Chars.TrimSpace(src);
+    (* Split into Date and Time components *)
+    pos := Strings.Pos(&quot; &quot;, src, 0);
+    IF pos &gt;= 0 THEN
+        Strings.Extract(src, 0, pos, ds);
+        pos := pos + 1;
+        Strings.Extract(src, pos, Strings.Length(src) - pos, ts);
+    ELSE
+        Chars.Set(src, ds);
+        Chars.Set(src, ts);
+    END;
+    ok := FALSE;
+    IF IsDateString(ds) THEN
+        ok := TRUE;
+        okDate := ParseDate(ds, year, month, day);
+        SetDate(year, month, day, dt);
+        ok := ok &amp; okDate;
+    END;
+    IF IsTimeString(ts) THEN
+        ok := ok OR okDate;
+        okTime := ParseTime(ts, hour, minute, second);
+        SetTime(hour, minute, second, dt);
+        ok := ok &amp; okTime;
+    END;
+    RETURN ok
+END Parse;
+
+BEGIN
+    Chars.Set(&quot;January&quot;, Months[0]);
+    Chars.Set(&quot;February&quot;, Months[1]);
+    Chars.Set(&quot;March&quot;, Months[2]);
+    Chars.Set(&quot;April&quot;, Months[3]);
+    Chars.Set(&quot;May&quot;, Months[4]);
+    Chars.Set(&quot;June&quot;, Months[5]);
+    Chars.Set(&quot;July&quot;, Months[6]);
+    Chars.Set(&quot;August&quot;, Months[7]);
+    Chars.Set(&quot;September&quot;, Months[8]);
+    Chars.Set(&quot;October&quot;, Months[9]);
+    Chars.Set(&quot;November&quot;, Months[10]);
+    Chars.Set(&quot;December&quot;, Months[11]);
+
+    Chars.Set(&quot;Sunday&quot;, Days[0]);
+    Chars.Set(&quot;Monday&quot;, Days[1]);
+    Chars.Set(&quot;Tuesday&quot;, Days[2]);
+    Chars.Set(&quot;Wednesday&quot;, Days[3]);
+    Chars.Set(&quot;Thursday&quot;, Days[4]);
+    Chars.Set(&quot;Friday&quot;, Days[5]);
+    Chars.Set(&quot;Saturday&quot;, Days[6]);
+
+    DaysInMonth[0] := 31; (* January *)
+    DaysInMonth[1] := 28; (* February *)
+    DaysInMonth[2] := 31; (* March *)
+    DaysInMonth[3] := 30; (* April *)
+    DaysInMonth[4] := 31; (* May *)
+    DaysInMonth[5] := 30; (* June *)
+    DaysInMonth[6] := 31; (* July *)
+    DaysInMonth[7] := 31; (* August *)
+    DaysInMonth[8] := 30; (* September *)
+    DaysInMonth[9] := 31; (* October *)
+    DaysInMonth[10] := 30; (* November *)
+    DaysInMonth[11] := 31; (* December *)
+
+END Dates.
+</code></pre>
+<p>Postscript: In this article I included a reference to the module
+<strong><a href="Chars.html">Chars</a></strong>. This is a non-standard
+module I wrote for Oberon-07. Here is a link to <a
+href="Chars.Mod">Chars</a>. RSD, 2021-05-06</p>
+<h3 id="next-previous">Next, Previous</h3>
+<ul>
+<li>Next <a
+href="/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">Beyond
+Oakwood, Modules and Aliases</a></li>
+<li>Previous <a href="/blog/2020/10/19/Assemble-pages.html">Assemble
+Pages</a></li>
+</ul>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A2 information can be found in the <a
+href="https://en.wikibooks.org/wiki/Oberon#In_A2">Oberon wikibook</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
