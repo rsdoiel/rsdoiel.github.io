@@ -9,7 +9,8 @@
   <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
   <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
   <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
-  <meta name="keywords" content="web service, static web site">
+  <meta name="keywords" content="web service, static web
+site, JavaScript">
   <link rel="alternative" type="application/markdown" href="/blog/2025/06/30/Build_a_Static_Web_Server.md">
   <link rel="search" type="application/opensearchdescription+xml"
         title="Robert's Rambling Search Engine"
@@ -47,12 +48,19 @@ should be able choose the port the server runs on. I should be able to
 specify a document root for the content I want to expose. It should
 default to a sensible location like the “htdocs” directory in my current
 working directory.</p>
-<p>Deno is a JavaScript and TypeScript runtime. I prefer Deno for
-several reasons over other runtimes like NodeJS. Deno runs sandboxed
-similar to the web browser. Deno’s standard library follows browser
-expetentions where there is overlap between the local machine and the
-web browser. Deno has a good set of standard modules. These ones I will
-use in this post. The standard module “<span class="citation"
+<p>When I started working with the web (when people used the NCSA web
+server), web servers were considered complex and hart to implement. I
+remember most network systems were presumed complex. Today most
+programming languages have some sort of library, module or package that
+makes implementing a web server trivial. This is true for JavaScript
+running under a JavaScript run time engine.</p>
+<p>Deno is a JavaScript and TypeScript runtime. I prefer Deno over other
+JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to
+how the web browser treats JavaScript. Deno’s standard library aligns
+with web browser implementation too. Deno has a good set of standard
+modules. Many modules can also be used browser side. This includes the
+standard JavaScript modules I’ll cover in post. The standard module
+“<span class="citation"
 data-cites="std/http/file-server">@std/http/file-server</span>” provides
 most of what you need to implement a static content server. Two other
 modules will round things out in how I want my web server to behave.
@@ -60,14 +68,15 @@ They are “<span class="citation"
 data-cites="std/fs/exists">@std/fs/exists</span>” and “<span
 class="citation"
 data-cites="std/yaml/parse">@std/yaml/parse</span>”.</p>
-<p>Let’s build a simple but useful static web server for our web
-toolbox.</p>
+<p>Let’s build a simple but useful static web server and add it to our
+web toolbox.</p>
 <p>Before I build my static web server I need some web content. I’m
-going to need and HTML file and a JavaScript file to test against. The
-web content should in an “htdocs” directory. On macOS, Linux and Windows
-the command we want to run in the terminal is <code>mkdir htdocs</code>.
-Using your text editor, create the HTML file called “helloworld.html”
-inside the “htdocs” directory.</p>
+going to need an HTML file and a JavaScript file. This will provide
+content to test. The web content should created in a directory called
+“htdocs”. On macOS, Linux and Windows the command I run from in the
+terminal application to create the “htdocs” directory is
+<code>mkdir htdocs</code>. Using your my editor, I create the HTML file
+called “helloworld.html” inside the “htdocs” directory.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
@@ -83,17 +92,19 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> elem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;div&quot;</span>)<span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>elem<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&#39;Hello World 2!&#39;</span><span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>body<span class="op">.</span><span class="fu">append</span>(elem)<span class="op">;</span></span></code></pre></div>
-<p>This gives us our test content.</p>
-<p>Your directory tree shoud look something like this.</p>
+<p>I now have content I can use to test my web server with. I can make
+sure it properly serves out a web page, handles a file listing and
+properly services the JavaScript.</p>
+<p>Your directory tree should look something like this.</p>
 <pre class="shell"><code>tree htdocs
 htdocs/
 ├── helloworld.html
 └── helloworld.js
 
 1 directory, 2 files</code></pre>
-<h2 id="first-take">First take</h2>
-<p>Using a text editor, create a file called
-<code>webserver_v1.js</code>. We need to do several things in JavaScript
+<h2 id="first-prototype">First prototype</h2>
+<p>Using a text editor, I create a file called
+<code>webserver_v1.js</code>. I need to do several things in JavaScript
 to build our static web server.</p>
 <ol type="1">
 <li>import a function called <code>serveDir</code> from the “<span
@@ -107,32 +118,34 @@ when the server starts up</li>
 <li>We can using Deno’s built in <code>serve</code> method to handle
 inbound requests and then dispatch them to <code>serveDir</code></li>
 </ol>
-<p>Let’s start with our import, <code>"@std/http/file-server</code>.
+<p>Let’s start with the import, <code>"@std/http/file-server</code>.
 Notice that it starts with and “@”. This indicates to the JavaScript
-runtime that the full URL to the module is found in a import map. When
-you build a Deno project you can generate a file called
-<code>deno.json</code>. It will include a mapping of module names. The
+runtime that the full URL to the module is defined by an import map.
+When you build a Deno project you can generate a file called
+<code>deno.json</code>. It will include an the import map. The
 <code>deno add</code> command provides a really easy way to manage this
 mapping. As of Deno 2 the standard modules are available from <a
-href="https://jsr.io">jsr.io</a>, a JavaScript registry. The module
-<code>@std/http/file-server</code>. I can “add” it to my project using
-the following command.</p>
+href="https://jsr.io">jsr.io</a>, a reliable JavaScript registry. This
+includes our standard module <code>@std/http/file-server</code>. I can
+“add” it to my project using the following command.</p>
 <pre class="shell"><code>deno add jsr:@std/http/file-server</code></pre>
 <p>If the “deno.json” file does not exist this command will create it
 otherwise it will update it to reflect the new module. If you look
-inside it after running this command you’ll see something like this.</p>
+inside the “deno.json” file after running this command you’ll see an
+import map.</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;imports&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/http&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/http@^1.0.18&quot;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>The Deno run time knows how to contact jsr.io and use it to retrieve
+<p>The Deno runtime knows how to contact jsr.io and use it to retrieve
 the module requested. By default it picks the current stable version. In
-our case that is currently v1.0.18. The version number maybe different.
-Deno updates have come pretty steadly in 2025.</p>
-<p>Now that Deno is setup, I need to write my first version of a static
-web server.</p>
+our case that is v1.0.18. Deno updates happen pretty steadily in 2025.
+When you try this a month from now it’ll probably be a different version
+number.</p>
+<p>Now that Deno is setup, I need to write my first prototype static web
+server.</p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v1.js - A simple static file server for serving files from the &quot;htdocs&quot; directory.</span></span>
@@ -162,6 +175,11 @@ class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(<span class="st">&quot;404: Not Found&quot;</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">404</span> })<span class="op">;</span></span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>The <code>Deno.serve</code> manages the inbound request and the async
+anonymous function handles the mapping to the static web server module
+function called <code>serveDir</code>. If that function mails a 404
+response is created and returned. That whole thing is bundled in a try
+and catch.</p>
 <p>Let’s see if the code we typed in works. Deno provide two helpful
 commands.</p>
 <ol type="1">
@@ -230,13 +248,13 @@ box like our terminal application, text editor and web browser.</p>
 <pre class="shell"><code>deno compile --allow-net --allow-read webserver_v1.js</code></pre>
 <p>This should result in a file being created called “webserver_v1” (or
 on Windows, “webserver_v1.exe”). This file can be run from this
-directory or moved to aother directory where you store other
+directory or moved to another directory where you store other
 programs.</p>
 <h2 id="improving-on-v1">Improving on v1</h2>
 <p>While webserver_v1.js is helpful it could be more friendly. What if I
 want to use a different port number? What if I want to server out
 content my current directory or maybe I want to service content on a
-different mounted drive?We can do that by adding supoprt for command
+different mounted drive?We can do that by adding support for command
 line arguments.</p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
@@ -441,7 +459,7 @@ webserver</code></pre>
 <p>If the “<span class="math inline">$HOME/bin" or "$</span>HOME” are
 not in your PATH then you’ll need to refer to your operating system
 instruction to add that directory to your path.</p>
-<p>There you have it, a conveint static web server for your own
+<p>There you have it, a convenient static web server for your own
 localhost.</p>
   </article>
 </section>

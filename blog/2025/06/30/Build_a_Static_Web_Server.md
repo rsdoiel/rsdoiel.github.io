@@ -3,15 +3,16 @@ title: Build a Static Web Server with Deno
 author: R. S. Doiel
 byline: R. S. Doiel
 abstract: |
-  This chapter demonstrates how to build a static web server using Deno.
+  This post discusses static web server implementation using Deno.
 dateCreated: 2025-06-30
 pubDate: 2025-06-30
-dateModified: 2025-06-30
+dateModified: 2025-07-01
 series: Deno and TypeScript
 number: 8
 keywords:
   - web service
   - static web site
+  - JavaScript
 copyright: copyright (c) 2025, R. S. Doiel
 license: https://creativecommons.org/licenses/by-sa/4.0/
 ---
@@ -20,11 +21,13 @@ license: https://creativecommons.org/licenses/by-sa/4.0/
 
 One of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as "application/javascript" not as "text/plain"). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the "htdocs" directory in my current working directory.
 
-Deno is a JavaScript and TypeScript runtime. I prefer Deno for several reasons over other runtimes like NodeJS. Deno runs sandboxed similar to the web browser. Deno's standard library follows browser expetentions where there is overlap between the local machine and the web browser. Deno has a good set of standard modules. These ones I will use in this post. The standard module "@std/http/file-server" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are "@std/fs/exists" and "@std/yaml/parse".
+When I started working with the web (when people used the NCSA web server), web servers were considered complex and hart to implement. I remember most network systems were presumed complex. Today most programming languages have some sort of library, module or package that makes implementing a web server trivial. This is true for JavaScript running under a JavaScript run time engine.
 
-Let's build a simple but useful static web server for our web toolbox.
+Deno is a JavaScript and TypeScript runtime. I prefer Deno over other JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to how the web browser treats JavaScript. Deno's standard library aligns with web browser implementation too. Deno has a good set of standard modules. Many modules can also be used browser side. This includes the standard JavaScript modules I'll cover in post. The standard module "@std/http/file-server" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are "@std/fs/exists" and "@std/yaml/parse".
 
-Before I build my static web server I need some web content. I'm going to need and HTML file and a JavaScript file to test against. The web content should in an "htdocs" directory. On macOS, Linux and Windows the command we want to run in the terminal is `mkdir htdocs`. Using your text editor, create the HTML file called "helloworld.html" inside the "htdocs" directory.
+Let's build a simple but useful static web server and add it to our web toolbox.
+
+Before I build my static web server I need some web content. I'm going to need an HTML file and a JavaScript file. This will provide content to test. The web content should created in a directory called "htdocs". On macOS, Linux and Windows the command I run from in the terminal application to create the "htdocs" directory is `mkdir htdocs`. Using your my editor, I create the HTML file called "helloworld.html" inside the "htdocs" directory.
 
 ~~~html
 <!DOCTYPE html>
@@ -45,9 +48,9 @@ elem.innerText = 'Hello World 2!';
 body.append(elem);
 ~~~
 
-This gives us our test content.
+I now have content I can use to test my web server with. I can make sure it properly serves out a web page, handles a file listing and properly services the JavaScript.
 
-Your directory tree shoud look something like this.
+Your directory tree should look something like this.
 
 ~~~shell
 tree htdocs
@@ -58,22 +61,22 @@ htdocs/
 1 directory, 2 files
 ~~~
 
-## First take
+## First prototype
 
-Using a text editor, create a file called `webserver_v1.js`. We need to do several things in JavaScript to build our static web server.
+Using a text editor, I create a file called `webserver_v1.js`. I need to do several things in JavaScript to build our static web server.
 
 1. import a function called `serveDir` from the "@std/http/file-server" module
 2. We need to set two constants, our port number and root document path
 3. It is helpful to display the setting for the port and document root when the server starts up
 4. We can using Deno's built in `serve` method to handle inbound requests and then dispatch them to `serveDir`
 
-Let's start with our import, `"@std/http/file-server`.  Notice that it starts with and "@". This indicates to the JavaScript runtime that the full URL to the module is found in a import map. When you build a Deno project you can generate a file called `deno.json`. It will include a mapping of module names. The `deno add` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a JavaScript registry. The module `@std/http/file-server`. I can "add" it  to my project using the following command.
+Let's start with the import, `"@std/http/file-server`.  Notice that it starts with and "@". This indicates to the JavaScript runtime that the full URL to the module is defined by an import map. When you build a Deno project you can generate a file called `deno.json`. It will include an the import map. The `deno add` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a reliable JavaScript registry. This includes our standard module `@std/http/file-server`. I can "add" it  to my project using the following command.
 
 ~~~shell
 deno add jsr:@std/http/file-server
 ~~~
 
-If the "deno.json" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside it after running this command you'll see something like this.
+If the "deno.json" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside the "deno.json" file after running this command you'll see an import map.
 
 ~~~json
 {
@@ -83,9 +86,9 @@ If the "deno.json" file does not exist this command will create it otherwise it 
 }
 ~~~
 
-The Deno run time knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is currently v1.0.18. The version number maybe different. Deno updates have come pretty steadly in 2025.
+The Deno runtime knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is v1.0.18. Deno updates happen pretty steadily in 2025. When you try this a month from now it'll probably be a different version number.
 
-Now that Deno is setup, I need to write my first version of a static web server.
+Now that Deno is setup, I need to write my first prototype static web server.
 
 ~~~JavaScript
 /**
@@ -117,6 +120,8 @@ Deno.serve({
   }
 });
 ~~~
+ 
+The `Deno.serve` manages the inbound request and the async anonymous function handles the mapping to the static web server module function called `serveDir`. If that function mails a 404 response is created and returned. That whole thing is bundled in a try and catch.
 
 Let's see if the code we typed in works. Deno provide two helpful commands. 
 
@@ -193,11 +198,11 @@ Better yet we can compile our JavaScript program into an executable file. The is
 deno compile --allow-net --allow-read webserver_v1.js
 ~~~
 
-This should result in a file being created called "webserver_v1" (or on Windows, "webserver_v1.exe"). This file can be run from this directory or moved to aother directory where you store other programs.
+This should result in a file being created called "webserver_v1" (or on Windows, "webserver_v1.exe"). This file can be run from this directory or moved to another directory where you store other programs.
 
 ## Improving on v1
 
-While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding supoprt for command line arguments.
+While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding support for command line arguments.
 
 ~~~JavaScript
 /**
@@ -428,5 +433,5 @@ webserver
 
 If the "$HOME/bin" or "$HOME\bin" are not in your PATH then you'll need to refer to your operating system instruction to add that directory to your path.
 
-There you have it, a conveint static web server for your own localhost.
+There you have it, a convenient static web server for your own localhost.
 

@@ -1,5 +1,5 @@
 {
-  "content": "\n# Build your own static web server with Deno\n\nOne of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as \"application/javascript\" not as \"text/plain\"). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the \"htdocs\" directory in my current working directory.\n\nDeno is a JavaScript and TypeScript runtime. I prefer Deno for several reasons over other runtimes like NodeJS. Deno runs sandboxed similar to the web browser. Deno's standard library follows browser expetentions where there is overlap between the local machine and the web browser. Deno has a good set of standard modules. These ones I will use in this post. The standard module \"@std/http/file-server\" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are \"@std/fs/exists\" and \"@std/yaml/parse\".\n\nLet's build a simple but useful static web server for our web toolbox.\n\nBefore I build my static web server I need some web content. I'm going to need and HTML file and a JavaScript file to test against. The web content should in an \"htdocs\" directory. On macOS, Linux and Windows the command we want to run in the terminal is `mkdir htdocs`. Using your text editor, create the HTML file called \"helloworld.html\" inside the \"htdocs\" directory.\n\n~~~html\n<!DOCTYPE html>\n<head>\n  <script type=\"module\" src=\"helloworld.js\"></script>\n</head>\n<html lang=\"en-US\">\n  <body>Hello World</body>\n</html>\n~~~\n\nNow let's create a \"helloworld.js\" inside the \"htdocs\" directory too.\n\n~~~JavaScript\nconst body = document.querySelector(\"body\");\nconst elem = document.createElement(\"div\");\nelem.innerText = 'Hello World 2!';\nbody.append(elem);\n~~~\n\nThis gives us our test content.\n\nYour directory tree shoud look something like this.\n\n~~~shell\ntree htdocs\nhtdocs/\n├── helloworld.html\n└── helloworld.js\n\n1 directory, 2 files\n~~~\n\n## First take\n\nUsing a text editor, create a file called `webserver_v1.js`. We need to do several things in JavaScript to build our static web server.\n\n1. import a function called `serveDir` from the \"@std/http/file-server\" module\n2. We need to set two constants, our port number and root document path\n3. It is helpful to display the setting for the port and document root when the server starts up\n4. We can using Deno's built in `serve` method to handle inbound requests and then dispatch them to `serveDir`\n\nLet's start with our import, `\"@std/http/file-server`.  Notice that it starts with and \"@\". This indicates to the JavaScript runtime that the full URL to the module is found in a import map. When you build a Deno project you can generate a file called `deno.json`. It will include a mapping of module names. The `deno add` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a JavaScript registry. The module `@std/http/file-server`. I can \"add\" it  to my project using the following command.\n\n~~~shell\ndeno add jsr:@std/http/file-server\n~~~\n\nIf the \"deno.json\" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside it after running this command you'll see something like this.\n\n~~~json\n{\n  \"imports\": {\n    \"@std/http\": \"jsr:@std/http@^1.0.18\"\n  }\n}\n~~~\n\nThe Deno run time knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is currently v1.0.18. The version number maybe different. Deno updates have come pretty steadly in 2025.\n\nNow that Deno is setup, I need to write my first version of a static web server.\n\n~~~JavaScript\n/**\n * webserver_v1.js - A simple static file server for serving files from the \"htdocs\" directory.\n */\nimport { serveDir } from \"@std/http/file-server\";\n\nconst port = 8000;\nconst rootPath = \"htdocs\"; // Serve files from the \"htdocs\" directory\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n\nLet's see if the code we typed in works. Deno provide two helpful commands. \n\n1. check \n2. lint\n\nCheck reads the JavaScript (or TypeScript) file and makes sure it makes sense from the compilation point of view.  The lint command goes a step further. It checks to see if best practices have been followed. Lint is completely optional but check needs to pass before Deno will attempt to run or compile the program.\n\n~~~shell\ndeno check webserver_v1.js\ndeno lint webserver_v1.js\n~~~\n\nIf all went well in both cases you would see a line indicating it checked the file. If there are complaints you'll see lines describing errors.\n\nDeno can run our JavaScript and TypeScript files. To test our program try the following. \n\n~~~shell\ndeno run webserver_v1.js\n~~~\n\nYou should a message like the one below. This is because Deno wants permission to access the network.\n\n~~~shell\nServer running on http://localhost:8000/, serving htdocs\n┏ ⚠️  Deno requests net access to \"0.0.0.0:8000\".\n┠─ Requested by `Deno.listen()` API.\n┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.\n┠─ Learn more at: https://docs.deno.com/go/--allow-net\n┠─ Run again with --allow-net to bypass this prompt.\n┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) > \n~~~\n\nFor now you can type an \"y\" and press enter. New lines should appear like these below.\n\n~~~shell\nServer running on http://localhost:8000/, serving htdocs\n✅ Granted net access to \"0.0.0.0:8000\".\nListening on http://0.0.0.0:8000/ (http://localhost:8000/)\n~~~\n\nPoint your web browser to \"http://localhost:8000/\". Do you see anything?  In your terminal window you'll see another prompt about permissions.\n\n~~~shell\n┏ ⚠️  Deno requests read access to \"htdocs\".\n┠─ Requested by `Deno.stat()` API.\n┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.\n┠─ Learn more at: https://docs.deno.com/go/--allow-read\n┠─ Run again with --allow-read to bypass this prompt.\n┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all read permissions)\n~~~\n\nAgain answer \"y\". You then see something like this in the terminal window.\n\n~~~shell\n[2025-06-30 16:27:31] [GET] / 200\nNo such file or directory (os error 2): stat '/Users/rsdoiel/Sandbox/Writing/Books/A_Simple_Web/htdocs/favicon.ico'\n[2025-06-30 16:27:31] [GET] /favicon.ico 404\n~~~\n\nWhat do you do you see in the browser page?  Is it a list of files? Is one of them \"helloworld.html\"?  If so click on it. You should now see an simple web page with the words \"Hello World\". Congratulations, you've created your first static web server.\n\nYou might be wondering how to shutdown the web server. In the terminal window press control and the letter c, aka \"Ctrl-C\". This will shutdown the web server. You can confirm it is shutdown in the web browser by reloading the page.\n\nYou don't need to answer questions about permissions each time you run a program. You can specify the permissions you want to grant on the command line.  I know from our test that our program needs \"net\" and \"read\" permissions. We can grant this using the following command.\n\n~~~shell\ndeno run --allow-net --allow-read webserver_v1.js\n~~~\n\nBetter yet we can compile our JavaScript program into an executable file. The is handy because we can run it without Deno being installed (such as on a different computer using the same operating system and processor). An executable becomes similar to our other tools in our tool box like our terminal application, text editor and web browser.\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v1.js\n~~~\n\nThis should result in a file being created called \"webserver_v1\" (or on Windows, \"webserver_v1.exe\"). This file can be run from this directory or moved to aother directory where you store other programs.\n\n## Improving on v1\n\nWhile webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding supoprt for command line arguments.\n\n~~~JavaScript\n/**\n * webserver_v2.js - A simple static file server with configurable port and root directory.\n */\nimport { serveDir } from \"@std/http/file-server\";\n\nconst defaultPort = 8000;\nconst defaultRoot = \"htdocs\";\n\n// Parse command-line arguments\nconst args = Deno.args;\nlet rootPath = defaultRoot;\nlet port = defaultPort;\n\n// Check the command arguments and set the port and rootPath appropriately\nif (args.length > 0) {\n  // Check if the first argument is a port number\n  const portArg = parseInt(args[0], 10);\n  if (!isNaN(portArg)) {\n    port = portArg;\n  } else {\n    // If not a port number, assume it's the root path\n    rootPath = args[0];\n  }\n\n  // Check if the second argument is a root path\n  if (args.length > 1) {\n    rootPath = args[1];\n  }\n}\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n\nI can compile that using the following deno compile command\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v2.js\n~~~\n\nWe can run the new webserver using the following command.\n\n~~~shell\n./webserver_v2 8001 .\n~~~\n\nPoint the web browser at <http://localhost:8001>. What do you see? Can you find \"helloworld.html\"? Shutdown the web server and then start it again using just the executable name.\n\nmacOS and Linux\n\n~~~shell\n./webserver_v2\n~~~\n\non Windows\n\n~~~shell\n.\\webserver_v2\n~~~\n\nWhat do you see? Can you find \"helloworld.html\"? Stop the web server. Copy \"helloworld.html\" to \"index.html\". After you copy the file start up the web server again.\n\nOn macOS and Linux\n\n~~~shell\ncp htdocs/helloworld.html htdocs/index.html\n./webserver_v2\n~~~\n\nOn Windows\n\n~~~pwsh\ncopy htdocs\\helloworld.html htdocs\\index.html\n.\\webserver_v2\n~~~\n\nPoint the web browser at <http://localhost:8000>, what do you see?\n\nCan this be improved?  It'd be nice to web able to just type \"webserver_v2\" and have the program using a default port and htdocs directory of our choice. That can be supported by using a configuration file. YAML is an easy to read and easy to type notation that expresses the same types of data structures as JSON (JavaScript Object Notation). Below an example of a configuration file. Type it in and save it using the filename \"webserver.yaml\".\n\n~~~yaml\n# Set root path for web content to the current directory.\nhtdocs: .\n# Set the port number to listen on to 8002\nport: 8002\n~~~\n\nFrom the point of the view of our program it'll need to check if the \"webserver.yaml\" file exists before attempting to read it. Deno has a module for that. It'll also need to read the YAML, parse it and get an object that exposes the allowed settings. Deno has a standard model for working with YAML too. The modules we're interested in are `@std/fs/exists` and `@std/yaml`. We'll need to \"add\" them to our deno project first.\n\n~~~shell\ndeno add jsr:@std/fs/exists\ndeno add jsr:@std/yaml\n~~~\n\nNow let's write an improved version of our static web server. It should be called, \"webserver_v3.js\".\n\n~~~JavaScript\n/**\n * webserver_v3.js - A simple static file server with configurable port and root directory via YAML.\n */\nimport { serveDir } from \"@std/http/file-server\";\nimport { parse } from \"@std/yaml/parse\";\nimport { exists } from \"@std/fs/exists\";\n\nconst defaultPort = 8000;\nconst defaultRoot = \"htdocs\";\n\n// Function to read and parse YAML configuration file\nasync function readConfigFile(filePath) {\n  try {\n    const fileContent = await Deno.readTextFile(filePath);\n    return parse(fileContent);\n  } catch (err) {\n    console.error(\"Error reading or parsing YAML file:\", err);\n    return null;\n  }\n}\n\n// Parse command-line arguments\nconst args = Deno.args;\nlet rootPath = defaultRoot;\nlet port = defaultPort;\n\nif (args.length > 0) {\n  // Check if the first argument is a port number\n  const portArg = parseInt(args[0], 10);\n  if (!isNaN(portArg)) {\n    port = portArg;\n  } else {\n    // If not a port number, assume it's the root path\n    rootPath = args[0];\n  }\n\n  // Check if the second argument is a root path\n  if (args.length > 1) {\n    rootPath = args[1];\n  }\n} else {\n  // Check for YAML configuration file\n  const configFilePath = \"webserver.yaml\";\n  if (await exists(configFilePath)) {\n    const config = await readConfigFile(configFilePath);\n    if (config) {\n      rootPath = config.htdocs || defaultRoot;\n      port = config.port || defaultPort;\n    }\n  }\n}\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n\nLike before I compile it with the my desired permissions.\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v3.js\n./webserver_v3\n~~~\n\nPoint the web browser at <http://localhost:8002>. What do you see?  Can you find our HTML files?\n\nI think we have a useful localhost static content web server. It's time to rename our working prototype, compile and install it so it is available in our toolbox.\n\n1. Copy `webserver_v3.js` to `webserver.js` \n2. Use `deno compile` to create an executable\n3. Create a \"$HOME/bin\" directory if necessary\n4. Move the executable to a location in your with, example \"$HOME/bin\"\n5. If needed add \"$HOME/bin\" to your path, you can check this to be sure\n\nOn macOS and Linux\n\n~~~shell\ncp webserver_v3.js webserver.js\ndeno compile --allow-net --allow-read webserver.js\nmkdir -p $HOME/bin\nmv ./webserver $HOME/bin\nwebserver\n~~~\n\nOn Windows\n\n~~~shell\ncopy webserver_v3.js webserver.js\ndeno install --global --allow-net --allow-read webserver.js\nNew-Item -ItemType Directory -Path \"$HOME\\bin\" -Force\nmove webserver.exe $HOME\\bin\\\nwebserver\n~~~\n\nIf the \"$HOME/bin\" or \"$HOME\\bin\" are not in your PATH then you'll need to refer to your operating system instruction to add that directory to your path.\n\nThere you have it, a conveint static web server for your own localhost.\n\n",
+  "content": "\n# Build your own static web server with Deno\n\nOne of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as \"application/javascript\" not as \"text/plain\"). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the \"htdocs\" directory in my current working directory.\n\nWhen I started working with the web (when people used the NCSA web server), web servers were considered complex and hart to implement. I remember most network systems were presumed complex. Today most programming languages have some sort of library, module or package that makes implementing a web server trivial. This is true for JavaScript running under a JavaScript run time engine.\n\nDeno is a JavaScript and TypeScript runtime. I prefer Deno over other JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to how the web browser treats JavaScript. Deno's standard library aligns with web browser implementation too. Deno has a good set of standard modules. Many modules can also be used browser side. This includes the standard JavaScript modules I'll cover in post. The standard module \"@std/http/file-server\" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are \"@std/fs/exists\" and \"@std/yaml/parse\".\n\nLet's build a simple but useful static web server and add it to our web toolbox.\n\nBefore I build my static web server I need some web content. I'm going to need an HTML file and a JavaScript file. This will provide content to test. The web content should created in a directory called \"htdocs\". On macOS, Linux and Windows the command I run from in the terminal application to create the \"htdocs\" directory is `mkdir htdocs`. Using your my editor, I create the HTML file called \"helloworld.html\" inside the \"htdocs\" directory.\n\n~~~html\n<!DOCTYPE html>\n<head>\n  <script type=\"module\" src=\"helloworld.js\"></script>\n</head>\n<html lang=\"en-US\">\n  <body>Hello World</body>\n</html>\n~~~\n\nNow let's create a \"helloworld.js\" inside the \"htdocs\" directory too.\n\n~~~JavaScript\nconst body = document.querySelector(\"body\");\nconst elem = document.createElement(\"div\");\nelem.innerText = 'Hello World 2!';\nbody.append(elem);\n~~~\n\nI now have content I can use to test my web server with. I can make sure it properly serves out a web page, handles a file listing and properly services the JavaScript.\n\nYour directory tree should look something like this.\n\n~~~shell\ntree htdocs\nhtdocs/\n├── helloworld.html\n└── helloworld.js\n\n1 directory, 2 files\n~~~\n\n## First prototype\n\nUsing a text editor, I create a file called `webserver_v1.js`. I need to do several things in JavaScript to build our static web server.\n\n1. import a function called `serveDir` from the \"@std/http/file-server\" module\n2. We need to set two constants, our port number and root document path\n3. It is helpful to display the setting for the port and document root when the server starts up\n4. We can using Deno's built in `serve` method to handle inbound requests and then dispatch them to `serveDir`\n\nLet's start with the import, `\"@std/http/file-server`.  Notice that it starts with and \"@\". This indicates to the JavaScript runtime that the full URL to the module is defined by an import map. When you build a Deno project you can generate a file called `deno.json`. It will include an the import map. The `deno add` command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from [jsr.io](https://jsr.io), a reliable JavaScript registry. This includes our standard module `@std/http/file-server`. I can \"add\" it  to my project using the following command.\n\n~~~shell\ndeno add jsr:@std/http/file-server\n~~~\n\nIf the \"deno.json\" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside the \"deno.json\" file after running this command you'll see an import map.\n\n~~~json\n{\n  \"imports\": {\n    \"@std/http\": \"jsr:@std/http@^1.0.18\"\n  }\n}\n~~~\n\nThe Deno runtime knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is v1.0.18. Deno updates happen pretty steadily in 2025. When you try this a month from now it'll probably be a different version number.\n\nNow that Deno is setup, I need to write my first prototype static web server.\n\n~~~JavaScript\n/**\n * webserver_v1.js - A simple static file server for serving files from the \"htdocs\" directory.\n */\nimport { serveDir } from \"@std/http/file-server\";\n\nconst port = 8000;\nconst rootPath = \"htdocs\"; // Serve files from the \"htdocs\" directory\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n \nThe `Deno.serve` manages the inbound request and the async anonymous function handles the mapping to the static web server module function called `serveDir`. If that function mails a 404 response is created and returned. That whole thing is bundled in a try and catch.\n\nLet's see if the code we typed in works. Deno provide two helpful commands. \n\n1. check \n2. lint\n\nCheck reads the JavaScript (or TypeScript) file and makes sure it makes sense from the compilation point of view.  The lint command goes a step further. It checks to see if best practices have been followed. Lint is completely optional but check needs to pass before Deno will attempt to run or compile the program.\n\n~~~shell\ndeno check webserver_v1.js\ndeno lint webserver_v1.js\n~~~\n\nIf all went well in both cases you would see a line indicating it checked the file. If there are complaints you'll see lines describing errors.\n\nDeno can run our JavaScript and TypeScript files. To test our program try the following. \n\n~~~shell\ndeno run webserver_v1.js\n~~~\n\nYou should a message like the one below. This is because Deno wants permission to access the network.\n\n~~~shell\nServer running on http://localhost:8000/, serving htdocs\n┏ ⚠️  Deno requests net access to \"0.0.0.0:8000\".\n┠─ Requested by `Deno.listen()` API.\n┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.\n┠─ Learn more at: https://docs.deno.com/go/--allow-net\n┠─ Run again with --allow-net to bypass this prompt.\n┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) > \n~~~\n\nFor now you can type an \"y\" and press enter. New lines should appear like these below.\n\n~~~shell\nServer running on http://localhost:8000/, serving htdocs\n✅ Granted net access to \"0.0.0.0:8000\".\nListening on http://0.0.0.0:8000/ (http://localhost:8000/)\n~~~\n\nPoint your web browser to \"http://localhost:8000/\". Do you see anything?  In your terminal window you'll see another prompt about permissions.\n\n~~~shell\n┏ ⚠️  Deno requests read access to \"htdocs\".\n┠─ Requested by `Deno.stat()` API.\n┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.\n┠─ Learn more at: https://docs.deno.com/go/--allow-read\n┠─ Run again with --allow-read to bypass this prompt.\n┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all read permissions)\n~~~\n\nAgain answer \"y\". You then see something like this in the terminal window.\n\n~~~shell\n[2025-06-30 16:27:31] [GET] / 200\nNo such file or directory (os error 2): stat '/Users/rsdoiel/Sandbox/Writing/Books/A_Simple_Web/htdocs/favicon.ico'\n[2025-06-30 16:27:31] [GET] /favicon.ico 404\n~~~\n\nWhat do you do you see in the browser page?  Is it a list of files? Is one of them \"helloworld.html\"?  If so click on it. You should now see an simple web page with the words \"Hello World\". Congratulations, you've created your first static web server.\n\nYou might be wondering how to shutdown the web server. In the terminal window press control and the letter c, aka \"Ctrl-C\". This will shutdown the web server. You can confirm it is shutdown in the web browser by reloading the page.\n\nYou don't need to answer questions about permissions each time you run a program. You can specify the permissions you want to grant on the command line.  I know from our test that our program needs \"net\" and \"read\" permissions. We can grant this using the following command.\n\n~~~shell\ndeno run --allow-net --allow-read webserver_v1.js\n~~~\n\nBetter yet we can compile our JavaScript program into an executable file. The is handy because we can run it without Deno being installed (such as on a different computer using the same operating system and processor). An executable becomes similar to our other tools in our tool box like our terminal application, text editor and web browser.\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v1.js\n~~~\n\nThis should result in a file being created called \"webserver_v1\" (or on Windows, \"webserver_v1.exe\"). This file can be run from this directory or moved to another directory where you store other programs.\n\n## Improving on v1\n\nWhile webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding support for command line arguments.\n\n~~~JavaScript\n/**\n * webserver_v2.js - A simple static file server with configurable port and root directory.\n */\nimport { serveDir } from \"@std/http/file-server\";\n\nconst defaultPort = 8000;\nconst defaultRoot = \"htdocs\";\n\n// Parse command-line arguments\nconst args = Deno.args;\nlet rootPath = defaultRoot;\nlet port = defaultPort;\n\n// Check the command arguments and set the port and rootPath appropriately\nif (args.length > 0) {\n  // Check if the first argument is a port number\n  const portArg = parseInt(args[0], 10);\n  if (!isNaN(portArg)) {\n    port = portArg;\n  } else {\n    // If not a port number, assume it's the root path\n    rootPath = args[0];\n  }\n\n  // Check if the second argument is a root path\n  if (args.length > 1) {\n    rootPath = args[1];\n  }\n}\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n\nI can compile that using the following deno compile command\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v2.js\n~~~\n\nWe can run the new webserver using the following command.\n\n~~~shell\n./webserver_v2 8001 .\n~~~\n\nPoint the web browser at <http://localhost:8001>. What do you see? Can you find \"helloworld.html\"? Shutdown the web server and then start it again using just the executable name.\n\nmacOS and Linux\n\n~~~shell\n./webserver_v2\n~~~\n\non Windows\n\n~~~shell\n.\\webserver_v2\n~~~\n\nWhat do you see? Can you find \"helloworld.html\"? Stop the web server. Copy \"helloworld.html\" to \"index.html\". After you copy the file start up the web server again.\n\nOn macOS and Linux\n\n~~~shell\ncp htdocs/helloworld.html htdocs/index.html\n./webserver_v2\n~~~\n\nOn Windows\n\n~~~pwsh\ncopy htdocs\\helloworld.html htdocs\\index.html\n.\\webserver_v2\n~~~\n\nPoint the web browser at <http://localhost:8000>, what do you see?\n\nCan this be improved?  It'd be nice to web able to just type \"webserver_v2\" and have the program using a default port and htdocs directory of our choice. That can be supported by using a configuration file. YAML is an easy to read and easy to type notation that expresses the same types of data structures as JSON (JavaScript Object Notation). Below an example of a configuration file. Type it in and save it using the filename \"webserver.yaml\".\n\n~~~yaml\n# Set root path for web content to the current directory.\nhtdocs: .\n# Set the port number to listen on to 8002\nport: 8002\n~~~\n\nFrom the point of the view of our program it'll need to check if the \"webserver.yaml\" file exists before attempting to read it. Deno has a module for that. It'll also need to read the YAML, parse it and get an object that exposes the allowed settings. Deno has a standard model for working with YAML too. The modules we're interested in are `@std/fs/exists` and `@std/yaml`. We'll need to \"add\" them to our deno project first.\n\n~~~shell\ndeno add jsr:@std/fs/exists\ndeno add jsr:@std/yaml\n~~~\n\nNow let's write an improved version of our static web server. It should be called, \"webserver_v3.js\".\n\n~~~JavaScript\n/**\n * webserver_v3.js - A simple static file server with configurable port and root directory via YAML.\n */\nimport { serveDir } from \"@std/http/file-server\";\nimport { parse } from \"@std/yaml/parse\";\nimport { exists } from \"@std/fs/exists\";\n\nconst defaultPort = 8000;\nconst defaultRoot = \"htdocs\";\n\n// Function to read and parse YAML configuration file\nasync function readConfigFile(filePath) {\n  try {\n    const fileContent = await Deno.readTextFile(filePath);\n    return parse(fileContent);\n  } catch (err) {\n    console.error(\"Error reading or parsing YAML file:\", err);\n    return null;\n  }\n}\n\n// Parse command-line arguments\nconst args = Deno.args;\nlet rootPath = defaultRoot;\nlet port = defaultPort;\n\nif (args.length > 0) {\n  // Check if the first argument is a port number\n  const portArg = parseInt(args[0], 10);\n  if (!isNaN(portArg)) {\n    port = portArg;\n  } else {\n    // If not a port number, assume it's the root path\n    rootPath = args[0];\n  }\n\n  // Check if the second argument is a root path\n  if (args.length > 1) {\n    rootPath = args[1];\n  }\n} else {\n  // Check for YAML configuration file\n  const configFilePath = \"webserver.yaml\";\n  if (await exists(configFilePath)) {\n    const config = await readConfigFile(configFilePath);\n    if (config) {\n      rootPath = config.htdocs || defaultRoot;\n      port = config.port || defaultPort;\n    }\n  }\n}\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});\n~~~\n\nLike before I compile it with the my desired permissions.\n\n~~~shell\ndeno compile --allow-net --allow-read webserver_v3.js\n./webserver_v3\n~~~\n\nPoint the web browser at <http://localhost:8002>. What do you see?  Can you find our HTML files?\n\nI think we have a useful localhost static content web server. It's time to rename our working prototype, compile and install it so it is available in our toolbox.\n\n1. Copy `webserver_v3.js` to `webserver.js` \n2. Use `deno compile` to create an executable\n3. Create a \"$HOME/bin\" directory if necessary\n4. Move the executable to a location in your with, example \"$HOME/bin\"\n5. If needed add \"$HOME/bin\" to your path, you can check this to be sure\n\nOn macOS and Linux\n\n~~~shell\ncp webserver_v3.js webserver.js\ndeno compile --allow-net --allow-read webserver.js\nmkdir -p $HOME/bin\nmv ./webserver $HOME/bin\nwebserver\n~~~\n\nOn Windows\n\n~~~shell\ncopy webserver_v3.js webserver.js\ndeno install --global --allow-net --allow-read webserver.js\nNew-Item -ItemType Directory -Path \"$HOME\\bin\" -Force\nmove webserver.exe $HOME\\bin\\\nwebserver\n~~~\n\nIf the \"$HOME/bin\" or \"$HOME\\bin\" are not in your PATH then you'll need to refer to your operating system instruction to add that directory to your path.\n\nThere you have it, a convenient static web server for your own localhost.\n\n",
   "content_ast": {
     "children": [
       {
@@ -25,7 +25,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Deno is a JavaScript and TypeScript runtime. I prefer Deno for several reasons over other runtimes like NodeJS. Deno runs sandboxed similar to the web browser. Deno's standard library follows browser expetentions where there is overlap between the local machine and the web browser. Deno has a good set of standard modules. These ones I will use in this post. The standard module \"@std/http/file-server\" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are \"@std/fs/exists\" and \"@std/yaml/parse\"."
+            "value": "When I started working with the web (when people used the NCSA web server), web servers were considered complex and hart to implement. I remember most network systems were presumed complex. Today most programming languages have some sort of library, module or package that makes implementing a web server trivial. This is true for JavaScript running under a JavaScript run time engine."
           }
         ],
         "type": "paragraph"
@@ -34,7 +34,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Let's build a simple but useful static web server for our web toolbox."
+            "value": "Deno is a JavaScript and TypeScript runtime. I prefer Deno over other JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to how the web browser treats JavaScript. Deno's standard library aligns with web browser implementation too. Deno has a good set of standard modules. Many modules can also be used browser side. This includes the standard JavaScript modules I'll cover in post. The standard module \"@std/http/file-server\" provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are \"@std/fs/exists\" and \"@std/yaml/parse\"."
           }
         ],
         "type": "paragraph"
@@ -43,7 +43,16 @@
         "children": [
           {
             "type": "text",
-            "value": "Before I build my static web server I need some web content. I'm going to need and HTML file and a JavaScript file to test against. The web content should in an \"htdocs\" directory. On macOS, Linux and Windows the command we want to run in the terminal is "
+            "value": "Let's build a simple but useful static web server and add it to our web toolbox."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Before I build my static web server I need some web content. I'm going to need an HTML file and a JavaScript file. This will provide content to test. The web content should created in a directory called \"htdocs\". On macOS, Linux and Windows the command I run from in the terminal application to create the \"htdocs\" directory is "
           },
           {
             "type": "inlineCode",
@@ -51,7 +60,7 @@
           },
           {
             "type": "text",
-            "value": ". Using your text editor, create the HTML file called \"helloworld.html\" inside the \"htdocs\" directory."
+            "value": ". Using your my editor, I create the HTML file called \"helloworld.html\" inside the \"htdocs\" directory."
           }
         ],
         "type": "paragraph"
@@ -79,7 +88,7 @@
         "children": [
           {
             "type": "text",
-            "value": "This gives us our test content."
+            "value": "I now have content I can use to test my web server with. I can make sure it properly serves out a web page, handles a file listing and properly services the JavaScript."
           }
         ],
         "type": "paragraph"
@@ -88,7 +97,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Your directory tree shoud look something like this."
+            "value": "Your directory tree should look something like this."
           }
         ],
         "type": "paragraph"
@@ -102,7 +111,7 @@
         "children": [
           {
             "type": "text",
-            "value": "First take"
+            "value": "First prototype"
           }
         ],
         "depth": 2,
@@ -112,7 +121,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Using a text editor, create a file called "
+            "value": "Using a text editor, I create a file called "
           },
           {
             "type": "inlineCode",
@@ -120,7 +129,7 @@
           },
           {
             "type": "text",
-            "value": ". We need to do several things in JavaScript to build our static web server."
+            "value": ". I need to do several things in JavaScript to build our static web server."
           }
         ],
         "type": "paragraph"
@@ -217,7 +226,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Let's start with our import, "
+            "value": "Let's start with the import, "
           },
           {
             "type": "inlineCode",
@@ -225,7 +234,7 @@
           },
           {
             "type": "text",
-            "value": ".  Notice that it starts with and \"@\". This indicates to the JavaScript runtime that the full URL to the module is found in a import map. When you build a Deno project you can generate a file called "
+            "value": ".  Notice that it starts with and \"@\". This indicates to the JavaScript runtime that the full URL to the module is defined by an import map. When you build a Deno project you can generate a file called "
           },
           {
             "type": "inlineCode",
@@ -233,7 +242,7 @@
           },
           {
             "type": "text",
-            "value": ". It will include a mapping of module names. The "
+            "value": ". It will include an the import map. The "
           },
           {
             "type": "inlineCode",
@@ -255,7 +264,7 @@
           },
           {
             "type": "text",
-            "value": ", a JavaScript registry. The module "
+            "value": ", a reliable JavaScript registry. This includes our standard module "
           },
           {
             "type": "inlineCode",
@@ -277,7 +286,7 @@
         "children": [
           {
             "type": "text",
-            "value": "If the \"deno.json\" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside it after running this command you'll see something like this."
+            "value": "If the \"deno.json\" file does not exist this command will create it otherwise it will update it to reflect the new module. If you look inside the \"deno.json\" file after running this command you'll see an import map."
           }
         ],
         "type": "paragraph"
@@ -291,7 +300,7 @@
         "children": [
           {
             "type": "text",
-            "value": "The Deno run time knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is currently v1.0.18. The version number maybe different. Deno updates have come pretty steadly in 2025."
+            "value": "The Deno runtime knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In our case that is v1.0.18. Deno updates happen pretty steadily in 2025. When you try this a month from now it'll probably be a different version number."
           }
         ],
         "type": "paragraph"
@@ -300,7 +309,7 @@
         "children": [
           {
             "type": "text",
-            "value": "Now that Deno is setup, I need to write my first version of a static web server."
+            "value": "Now that Deno is setup, I need to write my first prototype static web server."
           }
         ],
         "type": "paragraph"
@@ -309,6 +318,31 @@
         "lang": "JavaScript",
         "type": "code",
         "value": "/**\n * webserver_v1.js - A simple static file server for serving files from the \"htdocs\" directory.\n */\nimport { serveDir } from \"@std/http/file-server\";\n\nconst port = 8000;\nconst rootPath = \"htdocs\"; // Serve files from the \"htdocs\" directory\n\nconsole.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);\n\n// Start a simple server\nDeno.serve({\n  port,\n}, async (req) => {\n  try {\n    // Serve files from the specified directory\n    return await serveDir(req, {\n      fsRoot: rootPath,\n      urlRoot: \"\",\n      showDirListing: true,\n      showDotfiles: false, // Exclude files starting with a period\n    });\n  } catch (err) {\n    console.error(err);\n    // Return a 404 response if something goes wrong\n    return new Response(\"404: Not Found\", { status: 404 });\n  }\n});"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Deno.serve"
+          },
+          {
+            "type": "text",
+            "value": " manages the inbound request and the async anonymous function handles the mapping to the static web server module function called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "serveDir"
+          },
+          {
+            "type": "text",
+            "value": ". If that function mails a 404 response is created and returned. That whole thing is bundled in a try and catch."
+          }
+        ],
+        "type": "paragraph"
       },
       {
         "children": [
@@ -500,7 +534,7 @@
         "children": [
           {
             "type": "text",
-            "value": "This should result in a file being created called \"webserver_v1\" (or on Windows, \"webserver_v1.exe\"). This file can be run from this directory or moved to aother directory where you store other programs."
+            "value": "This should result in a file being created called \"webserver_v1\" (or on Windows, \"webserver_v1.exe\"). This file can be run from this directory or moved to another directory where you store other programs."
           }
         ],
         "type": "paragraph"
@@ -519,7 +553,7 @@
         "children": [
           {
             "type": "text",
-            "value": "While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding supoprt for command line arguments."
+            "value": "While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive?We can do that by adding support for command line arguments."
           }
         ],
         "type": "paragraph"
@@ -916,7 +950,7 @@
         "children": [
           {
             "type": "text",
-            "value": "There you have it, a conveint static web server for your own localhost."
+            "value": "There you have it, a convenient static web server for your own localhost."
           }
         ],
         "type": "paragraph"
@@ -925,15 +959,16 @@
     "type": "root"
   },
   "data": {
-    "abstract": "This chapter demonstrates how to build a static web server using Deno.\n",
+    "abstract": "This post discusses static web server implementation using Deno.\n",
     "author": "R. S. Doiel",
     "byline": "R. S. Doiel",
     "copyright": "copyright (c) 2025, R. S. Doiel",
     "dateCreated": "2025-06-30",
-    "dateModified": "2025-06-30",
+    "dateModified": "2025-07-01",
     "keywords": [
       "web service",
-      "static web site"
+      "static web site",
+      "JavaScript"
     ],
     "license": "https://creativecommons.org/licenses/by-sa/4.0/",
     "number": 8,
