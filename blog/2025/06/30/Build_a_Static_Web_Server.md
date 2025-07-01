@@ -437,5 +437,5 @@ move webserver.exe $HOME\bin\
 webserver
 ~~~
 
-There you have it. I have a new convenient static web server for server content on localhost.
+There you have it. I have a new convenient static web server for serving static content on localhost.
 
