@@ -2,6 +2,7 @@
 
 An exploration of Deno, TypeScript and portable code.
 
+- [Build a Static Web Server with Deno](https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html), 2025-06-30
 - [A quick note on types in Deno+TypeScript](blog/2025/05/25/a_quick_notes_on_types.html), 2025-05-25
 - [Working with Structured Data in Deno and TypeScript](/blog/2025/02/03/working_with_structured_data.html), 2025-02-03
 - [Deno 2.1.7, Project Idioms](/blog/2025/01/29/project_idioms.html), 2025-01-29
