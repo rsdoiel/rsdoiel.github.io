@@ -1,0 +1,745 @@
+{
+  "content": "\n# Installing pgloader from source\n\nBy R. S. Doiel, 2024-02-01\n\nI'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.\n\n## Getting your Lisps in order\n\npgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with [SBCL](https://sbcl.org) which is one of the Lisps I've used in the past. But SBCL isn't (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter [ECL](https://ecl.common-lisp.dev/), aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like\n\n1. Compile then install ECL\n2. Use ECL to compile SBCL\n3. Install SBCL\n4. Now that we have a working SBCL, follow the instructions to compile pgloader and install\n\nNOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled\n\n## Getting ECL up and running\n\nThis recipe is straight forward. \n\n1. Review ECL's current website, find latest releases\n2. Clone the Git repository from GitLab for ECL\n3. Follow the install documentation and compile ECL then install it\n\nHere's the steps I took in the shell (I'm installing ECL, SBCL in my home directory)\n\n```\ncd\ngit clone https://gitlab.com/embeddable-common-lisp/ecl.git \\\n          src/gitlab.com/embeddable-common-lisp/ecl\ncd src/gitlab.com/embeddable-common-lisp/ecl\n./configure --prefix=$HOME\nmake\nmake install\n```\n\n## Getting SBCL up and running\n\nTo get SBCL up and running I grab the sources using Git then compile it with the options recommended by pgloader as well as the options to compile SBCL with another common lisp, i.e. ECL. (note: the `--xc-host='ecl'`)\n\n```\ncd\ngit clone git://git.code.sf.net/p/sbcl/sbcl src/git.code.sf.net/p/sbcl/sbcl\ncd git clone git://git.code.sf.net/p/sbcl/sbcl\nsh make.sh --with-sb-core-compression --with-sb-thread --xc-host='ecl'\ncd ./tests && sh ./run-tests.sh\ncd ..\ncd ./doc/manual && make\ncd ..\nenv INSTALL_ROOT=$HOME sh install.sh\n```\n\nAt this time SBCL should be available to compile pgloader.\n\n## Install Quicklisp\n\nQuicklisp is a package manager for Lisp. It is used by pgloader so also needs to be installed. We have two lisp on our system but since SBCL is the one I need to work for pgloader I install Quicklisp for SBCL.\n\n1. Check the [Quicklisp website](https://www.quicklisp.org/beta/) and see how things are done (it has been a long time since I did some lisp work)\n2. Follow the [instructions](https://www.quicklisp.org/beta/#installation) on the website to install Quicklisp for SBCL\n\nThis leaves me with the specific steps\n\n1. Use curl to download quicklisp.lisp\n2. Use curl to download the signature file\n3. Verify the signature file\n4. If OK, load into SBCL\n5. From the SBCL repl execute the needed commands\n\n```\ncurl -O https://beta.quicklisp.org/quicklisp.lisp\ncurl -O https://beta.quicklisp.org/quicklisp.lisp.asc\ngpg --verify quicklisp.lisp.asc quicklisp.lisp\nsbcl --load quicklisp.lisp\n```\n\nAt this point you're in SBCL repl. You need to issue the follow command\n\n```\n(quicklisp-quickstart:install)\n(quit)\n```\n\n\n## Compiling pgloader\n\nOnce you have SBCL and Quicklisp working you're now ready to look at the rest of the dependencies. Based on the what other Linux systems required I figure I need to have the following available\n\n- SQLite 3, libsqlite shared library (already installed)\n- unzip (already installed)\n- make (already installed)\n- curl (already installed)\n- gawk (already installed)\n- freetds-dev (not installed)\n- libzip-dev (not installed)\n\nTwo libraries aren't installed on my system. I use Mac Ports so doing a quick search both appear to be available.\n\n```\nsudo port search freetds\nsudo port search libzip\nsudo port install freetds libzip\n```\n\n\nOK, now I think I am ready to build pgloader. Here's what I need to do.\n\n1. Clone the git repo for pgloader\n2. Invoke make with the right options\n3. Test installation\n\n```\ncd\ngit git@github.com:dimitri/pgloader.git src/github.com/dimitri/pgloader\ncd src/github.com/dimitri/pgloader\nmake save\n./build/bin/pgloader -h\n```\n\nIf all works well I should see the help/usage text for pgloader. The binary executable\nis located in `./build/bin` so I can copy this into place in `$HOME/bin/` directory.\n\n```\ncp ./build/bin/pgloader $HOME/bin/\n```\n\nHappy Loading.\n, \"PostgreSQL\"\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Installing pgloader from source"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2024-02-01"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting your Lisps in order"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "pgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "SBCL"
+              }
+            ],
+            "type": "link",
+            "url": "https://sbcl.org"
+          },
+          {
+            "type": "text",
+            "value": " which is one of the Lisps I've used in the past. But SBCL isn't (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ECL"
+              }
+            ],
+            "type": "link",
+            "url": "https://ecl.common-lisp.dev/"
+          },
+          {
+            "type": "text",
+            "value": ", aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Compile then install ECL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Use ECL to compile SBCL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Install SBCL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Now that we have a working SBCL, follow the instructions to compile pgloader and install"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting ECL up and running"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This recipe is straight forward."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Review ECL's current website, find latest releases"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Clone the Git repository from GitLab for ECL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Follow the install documentation and compile ECL then install it"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the steps I took in the shell (I'm installing ECL, SBCL in my home directory)"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "cd\ngit clone https://gitlab.com/embeddable-common-lisp/ecl.git \\\n          src/gitlab.com/embeddable-common-lisp/ecl\ncd src/gitlab.com/embeddable-common-lisp/ecl\n./configure --prefix=$HOME\nmake\nmake install"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting SBCL up and running"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To get SBCL up and running I grab the sources using Git then compile it with the options recommended by pgloader as well as the options to compile SBCL with another common lisp, i.e. ECL. (note: the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "--xc-host='ecl'"
+          },
+          {
+            "type": "text",
+            "value": ")"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "cd\ngit clone git://git.code.sf.net/p/sbcl/sbcl src/git.code.sf.net/p/sbcl/sbcl\ncd git clone git://git.code.sf.net/p/sbcl/sbcl\nsh make.sh --with-sb-core-compression --with-sb-thread --xc-host='ecl'\ncd ./tests && sh ./run-tests.sh\ncd ..\ncd ./doc/manual && make\ncd ..\nenv INSTALL_ROOT=$HOME sh install.sh"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At this time SBCL should be available to compile pgloader."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Install Quicklisp"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Quicklisp is a package manager for Lisp. It is used by pgloader so also needs to be installed. We have two lisp on our system but since SBCL is the one I need to work for pgloader I install Quicklisp for SBCL."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Check the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Quicklisp website"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.quicklisp.org/beta/"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and see how things are done (it has been a long time since I did some lisp work)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Follow the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "instructions"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.quicklisp.org/beta/#installation"
+                  },
+                  {
+                    "type": "text",
+                    "value": " on the website to install Quicklisp for SBCL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This leaves me with the specific steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Use curl to download quicklisp.lisp"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Use curl to download the signature file"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Verify the signature file"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "If OK, load into SBCL"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "From the SBCL repl execute the needed commands"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "type": "code",
+        "value": "curl -O https://beta.quicklisp.org/quicklisp.lisp\ncurl -O https://beta.quicklisp.org/quicklisp.lisp.asc\ngpg --verify quicklisp.lisp.asc quicklisp.lisp\nsbcl --load quicklisp.lisp"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At this point you're in SBCL repl. You need to issue the follow command"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "(quicklisp-quickstart:install)\n(quit)"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Compiling pgloader"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Once you have SBCL and Quicklisp working you're now ready to look at the rest of the dependencies. Based on the what other Linux systems required I figure I need to have the following available"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "SQLite 3, libsqlite shared library (already installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "unzip (already installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "make (already installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "curl (already installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "gawk (already installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "freetds-dev (not installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "libzip-dev (not installed)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Two libraries aren't installed on my system. I use Mac Ports so doing a quick search both appear to be available."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "sudo port search freetds\nsudo port search libzip\nsudo port install freetds libzip"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OK, now I think I am ready to build pgloader. Here's what I need to do."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Clone the git repo for pgloader"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Invoke make with the right options"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Test installation"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "type": "code",
+        "value": "cd\ngit git@github.com:dimitri/pgloader.git src/github.com/dimitri/pgloader\ncd src/github.com/dimitri/pgloader\nmake save\n./build/bin/pgloader -h"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If all works well I should see the help/usage text for pgloader. The binary executable\nis located in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "./build/bin"
+          },
+          {
+            "type": "text",
+            "value": " so I can copy this into place in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$HOME/bin/"
+          },
+          {
+            "type": "text",
+            "value": " directory."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "cp ./build/bin/pgloader $HOME/bin/"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Happy Loading.\n, \"PostgreSQL\""
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "byline": "R. S. Doiel, 2024-02-01",
+    "keywords": [
+      "SQL",
+      "Postgres",
+      "PostgreSQL",
+      "MySQL",
+      "pgloader",
+      "lisp",
+      "macos",
+      "ecl",
+      "sbcl"
+    ],
+    "number": 6,
+    "pubDate": "2024-02-01",
+    "series": "SQL Reflections",
+    "title": "Installing pgloader from source"
+  }
+}

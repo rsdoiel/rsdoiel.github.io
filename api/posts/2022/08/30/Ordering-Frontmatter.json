@@ -1,0 +1,301 @@
+{
+  "content": "\nOrdering Front Matter\n=====================\n\nBy R. S. Doiel, 2022-08-30\n\nA colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).\n\nThe order he wanted in the front matter was\n\n- title\n- interviewer\n- interviewee\n- abstract\n\nThis was for a collection of oral histories. When my friend use Pandoc's `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.\n\nWe found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes.\n\nHere's the steps we used.\n\n1. create an empty file called \"empty.txt\" (this is just so you pandoc doesn't try to read standard input and processes\nyou metadata.json file with the template supplied)\n2. Create a template with the order you want (see below)\n3. Use pandoc to process your \".txt\" file and your JSON metadata file using the template (it makes it tread it as plain text even though we're going to treat it as markdown later)\n4. Append the content of the word file and run pandoc over your combined file as you would normally to generate your HTML\n\n\nThis is the contents of our [metadata.json](metadata.json) file.\n\n```json\n    {\n        \"title\": \"Interview with Mojo Sam\", \n        \"interviewee\": \"Mojo Sam\", \n        \"interviewer\": \"Tom Lopez\",\n        \"abstract\": \"Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal\"\n    }\n```\n\n[frontmatter.tmpl](frontmatter.tmpl) is the template we used to render ordered front matter.\n\n```\n    ---\n    $if(title)$title: \"$title$\"$endif$\n    $if(interviewee)$interviewee: \"$interviewee$\"$endif$\n    $if(interviewer)$interviewer: \"$interviewer$\"$endif$\n    $if(abstract)$abstract: \"$abstract$\"$endif$\n    ---\n```\n\nHere's the commands we used to generate a \"doc.txt\" file with the \nfront matter in the desired order. Not \"empty.txt\" is just an empty\nfile so Pandoc will not read from standard input and just work with the\nJSON metadata and our template.\n\n```\ntouch empty.txt\npandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt\n```\n\nThe output of the pandoc command looks like this.\n\n```\n    ---\n    title: \"Interview with Mojo Sam\"\n    interviewee: \"Mojo Sam\"\n    interviewer: \"Tom Lopez\"\n    abstract: \"Interview in three sessions over sevaral decases, 1970 -\n    20020. The interview was conducted next door to reality via a portal in\n    Old Montreal\"\n    ---\n```\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Ordering Front Matter"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2022-08-30"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The order he wanted in the front matter was"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "title"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "interviewer"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "interviewee"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "abstract"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This was for a collection of oral histories. When my friend use Pandoc's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "--metadata-json"
+          },
+          {
+            "type": "text",
+            "value": " to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the steps we used."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "create an empty file called \"empty.txt\" (this is just so you pandoc doesn't try to read standard input and processes\nyou metadata.json file with the template supplied)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Create a template with the order you want (see below)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Use pandoc to process your \".txt\" file and your JSON metadata file using the template (it makes it tread it as plain text even though we're going to treat it as markdown later)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Append the content of the word file and run pandoc over your combined file as you would normally to generate your HTML"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is the contents of our "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "metadata.json"
+              }
+            ],
+            "type": "link",
+            "url": "metadata.json"
+          },
+          {
+            "type": "text",
+            "value": " file."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "json",
+        "type": "code",
+        "value": "    {\n        \"title\": \"Interview with Mojo Sam\", \n        \"interviewee\": \"Mojo Sam\", \n        \"interviewer\": \"Tom Lopez\",\n        \"abstract\": \"Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal\"\n    }"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "frontmatter.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "frontmatter.tmpl"
+          },
+          {
+            "type": "text",
+            "value": " is the template we used to render ordered front matter."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "    ---\n    $if(title)$title: \"$title$\"$endif$\n    $if(interviewee)$interviewee: \"$interviewee$\"$endif$\n    $if(interviewer)$interviewer: \"$interviewer$\"$endif$\n    $if(abstract)$abstract: \"$abstract$\"$endif$\n    ---"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the commands we used to generate a \"doc.txt\" file with the\nfront matter in the desired order. Not \"empty.txt\" is just an empty\nfile so Pandoc will not read from standard input and just work with the\nJSON metadata and our template."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "touch empty.txt\npandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The output of the pandoc command looks like this."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "    ---\n    title: \"Interview with Mojo Sam\"\n    interviewee: \"Mojo Sam\"\n    interviewer: \"Tom Lopez\"\n    abstract: \"Interview in three sessions over sevaral decases, 1970 -\n    20020. The interview was conducted next door to reality via a portal in\n    Old Montreal\"\n    ---"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "keywords": [
+      "pandoc",
+      "front matter"
+    ],
+    "pubDate": "2022-08-30",
+    "title": "Ordering front matter"
+  }
+}

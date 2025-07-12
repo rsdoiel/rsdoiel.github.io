@@ -1,0 +1,1198 @@
+{
+  "content": "\nTwitter's pending implosion\n===========================\n\nBy R. S. Doiel, 2022-11-11\n\nIt looks like Twitter continues to implode as layoffs and resignations continue. If bankers, investors and lenders call in the loans [bankruptcy appears to be possible](https://www.reuters.com/technology/twitter-information-security-chief-kissner-decides-leave-2022-11-10/). So what's next?\n\n\nThe problem\n-----------\n\nTwitter has been troubled for some time. The advertising model corrodes content. Twitter is effectively a massive RSS-like distribution system. It has stagnated as the APIs became more restrictive. The Advertising Business Model via [Ad-tech](https://pluralistic.net/tag/adtech/ \"per Cory Doctorow 'ad-fraud'\") encourages decay regardless of system.  Non-Twitter examples include commercial search engines (e.g. Google, Bing et el). Their usefulness usefulness declines over time. I believe this due to the increase in \"noise\" in the signal. The \"noise\" is driven be business models. That usually boils down to content who's function is to attract your attention so it can be sold for money. A corollary is [fear based journalism](https://medium.com/@oliviacadby/fear-mongering-journalisms-downfall-aac1f4f5756d). That has even caught the attention of a [Pope](https://www.9news.com.au/world/fear-based-journalism-is-terrorism-pope/4860b502-5dbb-4eef-abcf-57582445fc2c). Not fun.\n\nI suspect business models don't encourage great content. Business models are generally designed to turn a profit. They tend to get refined and tuned to that purpose. The evolution of Twitter and Google's search engine would make good case studies in that regard.\n\n\nA small hope\n------------\n\nI don't know what is next but I know what I find interesting. I've looked at Mastodon a number of times. It's not going away but the W3C activity pub spec is horribly complex. Complexity slows adoption. It reminds me of SGML. Conceptually interesting but in practice was too heavy. It did form inspiration for HTML though, and that has proven successful. What gives me hope is that Mastodon has survived. I think casting a wide net is interesting. The wider net is something I've heard called the \"small web\".\n\nThe small web\n-------------\n\nFor a number of years there has been a slowly growing  \"small web\" movement. I think it is relatively new term, I didn't find it in [Wikipedia](https://en.wikipedia.org/w/index.php?search=small+web&ns0=1 \"today is 2022-11-11\") when I looked today. As I see it the \"small web\" has been driven by a number of things. It is not a homogeneous movement but rather a collection of various efforts and communities.  I think it likely to continue to evolve. At times evolve rapidly. Perhaps it will coalesce at some point.  Here's what appears to me to be the common motivations as of 2022-11-11.\n\n- desire for simplicity\n- desire for authenticity\n- lower resource footprint\n- text as a primary but not exclusive medium\n- hyperlinks encouraged\n- a space where you're not a product\n- desire for decentralization (so you're not a product)\n- a desire to have room to grow (because you're not a product)\n\nThe \"small web\" is a term I've seen pop up in Gopherspace, among people who promote [Gemini](https://gemini.circumlunar.space/), [Micro blogging](https://micro.blog \"as an example of micro blogging\") and in the [Public Access Unix](https://sdf.org) communities.\"small web\" as a term does not return useful results in the commercial search engines I've checked. Elements seem to be part of [DWeb](https://getdweb.net/) which Mozilla is [championing](https://wiki.mozilla.org/Dweb). Curiously in spite of the hype and marketing I don't see \"small web\" in [web 3.0](https://www.forbes.com/advisor/investing/cryptocurrency/what-is-web-3-0/). I think blockchain has proven environmentally dangerous and tends to compile down to various forms of [grift](https://pluralistic.net/2022/05/27/voluntary-carbon-market/).\n\n\nSmall web\n---------\n\nWhat does \"small web\" mean to me?  I think it means\n\n- simple protocols that are flexible and friendly to tool creation\n- built on existing network protocols with a proven track record (e.g. IPv4, IPv6)\n- decentralized by design as was the early Internet\n- low barrier to participation\n    - e.g. a text editor, static site providing a URL to a twtxt file\n- text centric (at least for the moment)\n- integrated with the larger Internet, i.e. supports hyper links\n- friendly to distributed personal search engines (e.g. LunrJS running over curated set of JSONfeeds or twtxt urls)\n- \"feed\" oriented discovery based on simple formats (e.g. [RSS 2.0](https://cyber.harvard.edu/rss/rss.html), [JSONfeed](https://www.jsonfeed.org/), [twtxt](https://twtxt.readthedocs.io/en/latest/), [OPML](https://en.wikipedia.org/wiki/OPML), even [Gophermaps](https://en.wikipedia.org/wiki/Gopher_(protocol) \"see Source code of a menu title\"))\n- sustainable and preservation friendly\n    - example characteristics\n        - clone-able (e.g. as easy as cloning a Git Repo)\n        - push button update to Internet Archive's way back machine\n        - human and machine readable metadata\n\nI think the \"small web\" already exists. Examples include readable personal websites hosted as \"static pages\" via GitHub and S3 buckets are a good examples of prior art in a \"small web\".  Gopherspace is a good example of the \"small web\". I think the various [tilde communities](https://tilde.club) hosted on [Public Access Unix](https://en.wikipedia.org/wiki/SDF_Public_Access_Unix_System) are examples. Even the venerable \"bloggosphere\" of [Wordpress](https://wordpress.com) and the newer [Micro.blog](https://micro.blog/) is evidence that the \"small web\" already is hear. [Dave Winer](https://scripting.com)'s [Feedland](http://feedland.org/) is a good example of innovation in the \"small web\" happen today.  [Yarn.social](https://yarn.social) built on twtxt file format is very promising. I would argue right now the \"small web\" is the internet that already exists outside the walled gardens of Google, Meta/Facebook, Twitter, TikTok, Pinterest, Slack, Trello, Discord, etc.\n\nI think it is significant that the \"small web\" existed before the Pandemic. It continued to thrive during it. It is likely to evolve beyond it. The pending shift has already happening as it is already populated by \"early adopters\" and appears to be growing into larger community participation.  For the \"main stream\" it is waiting to be \"discovered\" or perhaps \"re-discovered\" depending on your point of view.\n\nHow do you participate?\n-----------------------\n\nYou may already be participating in the \"small web\".  Do you blog? Do your read feeds? Do you use a non-soloed social media platform like Mastodon? Do you use Gopher? The \"small web\" is defined by choice and is characterized by simplicity. It is a general term. You're the navigator not an algorithm tuned to tune someone a profit. If you are not sure where to start you can join a communities like [sdf.org](https://sdf.org) and get started there. You can explore [Gopherspace](https://floodgap.com) via a WWW proxy. You can create a static website and host a [twtxt](https://twtxt.readthedocs.io/en/latest/) file on GitHub or a [Yarn Pod](https://yarn.social). You can create a site via [Micro.blog](https://micro.blog) or [Feedland](http://feedland.org). You can blog. You can read RSS feeds or read twtxt feed with [twtxt](https://twtxt.readthedocs.io/en/latest/user/intro.html), [twet](https://github.com/quite/twet) or [yarn.social](https://yarn.social). You participate by stepping outside the walled gardens and seeing the larger \"Internet\".\n\nI think the important thing is to realize the alternatives are already here, you don't need to wait for invention, invitation or permission. You can move beyond the silos today. You don't need to have your attention captured then bought and sold. It's not so much a matter of \"giving up\" a silo but rather stepping outside one and breathing some fresh air.\n\nThings to watch\n---------------\n\n- [Feedland](https://feedland.org)\n- [yarn.social](https://yarn.social) and [twtxt](https://twtxt.readthedocs.io/en/latest/)\n- [Micro.blog](https://micro.blog/)\n- [Mastodon](https://joinmastodon.org/)\n- [Gopherspace](http://gopher.floodgap.com/gopher/gw?a=gopher%3A%2F%2Fgopher.floodgap.com%2F1%2Fworld), see [Gopherspace in 2020](https://cheapskatesguide.org/articles/gopherspace.html) as a nice orientation to see the internet through lynx and text\n- Even [Project Gemini](https://gemini.circumlunar.space/)\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Twitter's pending implosion"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2022-11-11"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "It looks like Twitter continues to implode as layoffs and resignations continue. If bankers, investors and lenders call in the loans "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "bankruptcy appears to be possible"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.reuters.com/technology/twitter-information-security-chief-kissner-decides-leave-2022-11-10/"
+          },
+          {
+            "type": "text",
+            "value": ". So what's next?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The problem"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Twitter has been troubled for some time. The advertising model corrodes content. Twitter is effectively a massive RSS-like distribution system. It has stagnated as the APIs became more restrictive. The Advertising Business Model via "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Ad-tech"
+              }
+            ],
+            "title": "per Cory Doctorow 'ad-fraud'",
+            "type": "link",
+            "url": "https://pluralistic.net/tag/adtech/"
+          },
+          {
+            "type": "text",
+            "value": " encourages decay regardless of system.  Non-Twitter examples include commercial search engines (e.g. Google, Bing et el). Their usefulness usefulness declines over time. I believe this due to the increase in \"noise\" in the signal. The \"noise\" is driven be business models. That usually boils down to content who's function is to attract your attention so it can be sold for money. A corollary is "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "fear based journalism"
+              }
+            ],
+            "type": "link",
+            "url": "https://medium.com/@oliviacadby/fear-mongering-journalisms-downfall-aac1f4f5756d"
+          },
+          {
+            "type": "text",
+            "value": ". That has even caught the attention of a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Pope"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.9news.com.au/world/fear-based-journalism-is-terrorism-pope/4860b502-5dbb-4eef-abcf-57582445fc2c"
+          },
+          {
+            "type": "text",
+            "value": ". Not fun."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I suspect business models don't encourage great content. Business models are generally designed to turn a profit. They tend to get refined and tuned to that purpose. The evolution of Twitter and Google's search engine would make good case studies in that regard."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A small hope"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I don't know what is next but I know what I find interesting. I've looked at Mastodon a number of times. It's not going away but the W3C activity pub spec is horribly complex. Complexity slows adoption. It reminds me of SGML. Conceptually interesting but in practice was too heavy. It did form inspiration for HTML though, and that has proven successful. What gives me hope is that Mastodon has survived. I think casting a wide net is interesting. The wider net is something I've heard called the \"small web\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The small web"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For a number of years there has been a slowly growing  \"small web\" movement. I think it is relatively new term, I didn't find it in "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Wikipedia"
+              }
+            ],
+            "title": "today is 2022-11-11",
+            "type": "link",
+            "url": "https://en.wikipedia.org/w/index.php?search=small+web&ns0=1"
+          },
+          {
+            "type": "text",
+            "value": " when I looked today. As I see it the \"small web\" has been driven by a number of things. It is not a homogeneous movement but rather a collection of various efforts and communities.  I think it likely to continue to evolve. At times evolve rapidly. Perhaps it will coalesce at some point.  Here's what appears to me to be the common motivations as of 2022-11-11."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "desire for simplicity"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "desire for authenticity"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "lower resource footprint"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "text as a primary but not exclusive medium"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "hyperlinks encouraged"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "a space where you're not a product"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "desire for decentralization (so you're not a product)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "a desire to have room to grow (because you're not a product)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The \"small web\" is a term I've seen pop up in Gopherspace, among people who promote "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Gemini"
+              }
+            ],
+            "type": "link",
+            "url": "https://gemini.circumlunar.space/"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Micro blogging"
+              }
+            ],
+            "title": "as an example of micro blogging",
+            "type": "link",
+            "url": "https://micro.blog"
+          },
+          {
+            "type": "text",
+            "value": " and in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Public Access Unix"
+              }
+            ],
+            "type": "link",
+            "url": "https://sdf.org"
+          },
+          {
+            "type": "text",
+            "value": " communities.\"small web\" as a term does not return useful results in the commercial search engines I've checked. Elements seem to be part of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "DWeb"
+              }
+            ],
+            "type": "link",
+            "url": "https://getdweb.net/"
+          },
+          {
+            "type": "text",
+            "value": " which Mozilla is "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "championing"
+              }
+            ],
+            "type": "link",
+            "url": "https://wiki.mozilla.org/Dweb"
+          },
+          {
+            "type": "text",
+            "value": ". Curiously in spite of the hype and marketing I don't see \"small web\" in "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "web 3.0"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.forbes.com/advisor/investing/cryptocurrency/what-is-web-3-0/"
+          },
+          {
+            "type": "text",
+            "value": ". I think blockchain has proven environmentally dangerous and tends to compile down to various forms of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "grift"
+              }
+            ],
+            "type": "link",
+            "url": "https://pluralistic.net/2022/05/27/voluntary-carbon-market/"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Small web"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What does \"small web\" mean to me?  I think it means"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "simple protocols that are flexible and friendly to tool creation"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "built on existing network protocols with a proven track record (e.g. IPv4, IPv6)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "decentralized by design as was the early Internet"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "low barrier to participation"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "e.g. a text editor, static site providing a URL to a twtxt file"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "text centric (at least for the moment)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "integrated with the larger Internet, i.e. supports hyper links"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "friendly to distributed personal search engines (e.g. LunrJS running over curated set of JSONfeeds or twtxt urls)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "\"feed\" oriented discovery based on simple formats (e.g. "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "RSS 2.0"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://cyber.harvard.edu/rss/rss.html"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "JSONfeed"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://www.jsonfeed.org/"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "twtxt"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://twtxt.readthedocs.io/en/latest/"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "OPML"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://en.wikipedia.org/wiki/OPML"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", even "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Gophermaps"
+                      }
+                    ],
+                    "title": "see Source code of a menu title",
+                    "type": "link",
+                    "url": "https://en.wikipedia.org/wiki/Gopher_(protocol)"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "sustainable and preservation friendly"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "example characteristics"
+                          }
+                        ],
+                        "type": "paragraph"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "text",
+                                    "value": "clone-able (e.g. as easy as cloning a Git Repo)"
+                                  }
+                                ],
+                                "type": "paragraph"
+                              }
+                            ],
+                            "spread": false,
+                            "type": "listItem"
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "text",
+                                    "value": "push button update to Internet Archive's way back machine"
+                                  }
+                                ],
+                                "type": "paragraph"
+                              }
+                            ],
+                            "spread": false,
+                            "type": "listItem"
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "text",
+                                    "value": "human and machine readable metadata"
+                                  }
+                                ],
+                                "type": "paragraph"
+                              }
+                            ],
+                            "spread": false,
+                            "type": "listItem"
+                          }
+                        ],
+                        "ordered": false,
+                        "spread": false,
+                        "type": "list"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I think the \"small web\" already exists. Examples include readable personal websites hosted as \"static pages\" via GitHub and S3 buckets are a good examples of prior art in a \"small web\".  Gopherspace is a good example of the \"small web\". I think the various "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "tilde communities"
+              }
+            ],
+            "type": "link",
+            "url": "https://tilde.club"
+          },
+          {
+            "type": "text",
+            "value": " hosted on "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Public Access Unix"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/SDF_Public_Access_Unix_System"
+          },
+          {
+            "type": "text",
+            "value": " are examples. Even the venerable \"bloggosphere\" of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Wordpress"
+              }
+            ],
+            "type": "link",
+            "url": "https://wordpress.com"
+          },
+          {
+            "type": "text",
+            "value": " and the newer "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Micro.blog"
+              }
+            ],
+            "type": "link",
+            "url": "https://micro.blog/"
+          },
+          {
+            "type": "text",
+            "value": " is evidence that the \"small web\" already is hear. "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Dave Winer"
+              }
+            ],
+            "type": "link",
+            "url": "https://scripting.com"
+          },
+          {
+            "type": "text",
+            "value": "'s "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Feedland"
+              }
+            ],
+            "type": "link",
+            "url": "http://feedland.org/"
+          },
+          {
+            "type": "text",
+            "value": " is a good example of innovation in the \"small web\" happen today.  "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Yarn.social"
+              }
+            ],
+            "type": "link",
+            "url": "https://yarn.social"
+          },
+          {
+            "type": "text",
+            "value": " built on twtxt file format is very promising. I would argue right now the \"small web\" is the internet that already exists outside the walled gardens of Google, Meta/Facebook, Twitter, TikTok, Pinterest, Slack, Trello, Discord, etc."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I think it is significant that the \"small web\" existed before the Pandemic. It continued to thrive during it. It is likely to evolve beyond it. The pending shift has already happening as it is already populated by \"early adopters\" and appears to be growing into larger community participation.  For the \"main stream\" it is waiting to be \"discovered\" or perhaps \"re-discovered\" depending on your point of view."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "How do you participate?"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You may already be participating in the \"small web\".  Do you blog? Do your read feeds? Do you use a non-soloed social media platform like Mastodon? Do you use Gopher? The \"small web\" is defined by choice and is characterized by simplicity. It is a general term. You're the navigator not an algorithm tuned to tune someone a profit. If you are not sure where to start you can join a communities like "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "sdf.org"
+              }
+            ],
+            "type": "link",
+            "url": "https://sdf.org"
+          },
+          {
+            "type": "text",
+            "value": " and get started there. You can explore "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Gopherspace"
+              }
+            ],
+            "type": "link",
+            "url": "https://floodgap.com"
+          },
+          {
+            "type": "text",
+            "value": " via a WWW proxy. You can create a static website and host a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "twtxt"
+              }
+            ],
+            "type": "link",
+            "url": "https://twtxt.readthedocs.io/en/latest/"
+          },
+          {
+            "type": "text",
+            "value": " file on GitHub or a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Yarn Pod"
+              }
+            ],
+            "type": "link",
+            "url": "https://yarn.social"
+          },
+          {
+            "type": "text",
+            "value": ". You can create a site via "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Micro.blog"
+              }
+            ],
+            "type": "link",
+            "url": "https://micro.blog"
+          },
+          {
+            "type": "text",
+            "value": " or "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Feedland"
+              }
+            ],
+            "type": "link",
+            "url": "http://feedland.org"
+          },
+          {
+            "type": "text",
+            "value": ". You can blog. You can read RSS feeds or read twtxt feed with "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "twtxt"
+              }
+            ],
+            "type": "link",
+            "url": "https://twtxt.readthedocs.io/en/latest/user/intro.html"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "twet"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/quite/twet"
+          },
+          {
+            "type": "text",
+            "value": " or "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "yarn.social"
+              }
+            ],
+            "type": "link",
+            "url": "https://yarn.social"
+          },
+          {
+            "type": "text",
+            "value": ". You participate by stepping outside the walled gardens and seeing the larger \"Internet\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I think the important thing is to realize the alternatives are already here, you don't need to wait for invention, invitation or permission. You can move beyond the silos today. You don't need to have your attention captured then bought and sold. It's not so much a matter of \"giving up\" a silo but rather stepping outside one and breathing some fresh air."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Things to watch"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Feedland"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://feedland.org"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "yarn.social"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://yarn.social"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "twtxt"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://twtxt.readthedocs.io/en/latest/"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Micro.blog"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://micro.blog/"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Mastodon"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://joinmastodon.org/"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Gopherspace"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "http://gopher.floodgap.com/gopher/gw?a=gopher%3A%2F%2Fgopher.floodgap.com%2F1%2Fworld"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", see "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Gopherspace in 2020"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://cheapskatesguide.org/articles/gopherspace.html"
+                  },
+                  {
+                    "type": "text",
+                    "value": " as a nice orientation to see the internet through lynx and text"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Even "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Project Gemini"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://gemini.circumlunar.space/"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@sdf.org (R. S. Doiel)",
+    "byline": "R. S. Doiel",
+    "keywords": [
+      "small web",
+      "twtxt",
+      "micro blogging",
+      "social networks"
+    ],
+    "pubDate": "2022-11-11",
+    "title": "Twitter's pending implosion"
+  }
+}

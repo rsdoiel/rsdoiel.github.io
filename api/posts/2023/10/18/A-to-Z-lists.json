@@ -1,0 +1,94 @@
+{
+  "content": "\n# Building A to Z lists pages in Pandoc\n\nBy R. S. Doiel, 2023-10-18\n\nPandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page.  It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file.  One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them.  In JSON the typical data presentation would look something like\n\n```json\n{\n  \"a_to_z\": [ \"A\", \"B\"],\n  \"content\": {\n    \"A\": [\n      \"After a beautiful day\",\n      \"Afterlife\"\n    ],\n    \"B\": [\n      \"Better day after\",\n      \"Better Life\"\n    ]\n  }\n}\n```\n\nThe trouble is that while YAML’s outer dictionary (key/value map) works fine in Pandoc templates there is no way for the the for loop to handle maps of maps like we have above.  Pandoc templates really want to iterate over arrays of objects . That’s nice thing! It gives us more ways to transform the data to provide more flexibility in our template implementation. Here’s how I would restructure the previous JSON to make it easy to process via Pandoc’s template engine.  Note how I’ve taken our simple array of letters and turned them into an object with an “href” and “label” attribute. Similarly I’ve enhanced the “content” objects.\n\n```json\n{\n  \"a_to_z\": [ {\"href\": \"A\", \"label\": \"A\"}, {\"href\": \"B\", \"label\": \"B\"} ],\n  \"content\": [\n      {\"letter\": \"A\", \"title\": \"After a beautiful day\", \"id\": \"after-a-beautiful-day\"},\n      {\"title\": \"Afterlife\", \"id\": \"afterlife\"},\n      {\"letter\": \"B\", \"title\": \"Better day after\", \"id\": \"better-day-after\"},\n      {\"title\": \"Better Life\", \"id\": \"better-life\"}\n  ]\n}\n```\n\nThen the template can be structure something like\n\n```\n<menu>\n${for(a_to_z)}\n${if(it.href)}<li><a href=\"${it.href}\">${it.label}</a></li>${endif}\n${endfor}\n</menu>\n\n${for(content)}\n${if(it.letter)}\n\n## <a id=\"${it.letter}\" name=\"${it.letter}\">${it.letter}</a>\n\n${endif}\n- [${it.name}](${it.id})\n${endfor}\n\n```\n\nThere is one gotcha in A to Z list generation. A YAML parser may convert a bare “N” to “false” (and presumable “Y” will become “true”). This is really annoying. The way to avoid this is to add a space to the letter in your JSON output. This will insure that the “N” or “Y” aren’t converted to the boolean values “true” and “false”. Pandoc’s template engine is smart enough to trim leading and trailing spaces.\n\nFinally this technique can be used to produce lists and navigation that are based around years, months, or other iterative types but that is left as an exercise to the reader.\n\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Building A to Z lists pages in Pandoc"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2023-10-18"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page.  It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file.  One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them.  In JSON the typical data presentation would look something like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "json",
+        "type": "code",
+        "value": "{\n  \"a_to_z\": [ \"A\", \"B\"],\n  \"content\": {\n    \"A\": [\n      \"After a beautiful day\",\n      \"Afterlife\"\n    ],\n    \"B\": [\n      \"Better day after\",\n      \"Better Life\"\n    ]\n  }\n}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The trouble is that while YAML’s outer dictionary (key/value map) works fine in Pandoc templates there is no way for the the for loop to handle maps of maps like we have above.  Pandoc templates really want to iterate over arrays of objects . That’s nice thing! It gives us more ways to transform the data to provide more flexibility in our template implementation. Here’s how I would restructure the previous JSON to make it easy to process via Pandoc’s template engine.  Note how I’ve taken our simple array of letters and turned them into an object with an “href” and “label” attribute. Similarly I’ve enhanced the “content” objects."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "json",
+        "type": "code",
+        "value": "{\n  \"a_to_z\": [ {\"href\": \"A\", \"label\": \"A\"}, {\"href\": \"B\", \"label\": \"B\"} ],\n  \"content\": [\n      {\"letter\": \"A\", \"title\": \"After a beautiful day\", \"id\": \"after-a-beautiful-day\"},\n      {\"title\": \"Afterlife\", \"id\": \"afterlife\"},\n      {\"letter\": \"B\", \"title\": \"Better day after\", \"id\": \"better-day-after\"},\n      {\"title\": \"Better Life\", \"id\": \"better-life\"}\n  ]\n}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Then the template can be structure something like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "<menu>\n${for(a_to_z)}\n${if(it.href)}<li><a href=\"${it.href}\">${it.label}</a></li>${endif}\n${endfor}\n</menu>\n\n${for(content)}\n${if(it.letter)}\n\n## <a id=\"${it.letter}\" name=\"${it.letter}\">${it.letter}</a>\n\n${endif}\n- [${it.name}](${it.id})\n${endfor}\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "There is one gotcha in A to Z list generation. A YAML parser may convert a bare “N” to “false” (and presumable “Y” will become “true”). This is really annoying. The way to avoid this is to add a space to the letter in your JSON output. This will insure that the “N” or “Y” aren’t converted to the boolean values “true” and “false”. Pandoc’s template engine is smart enough to trim leading and trailing spaces."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Finally this technique can be used to produce lists and navigation that are based around years, months, or other iterative types but that is left as an exercise to the reader."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "keywords": [
+      "Pandoc",
+      "templates"
+    ],
+    "pubDate": "2023-10-18",
+    "title": "Building A to Z list pages in Pandoc"
+  }
+}

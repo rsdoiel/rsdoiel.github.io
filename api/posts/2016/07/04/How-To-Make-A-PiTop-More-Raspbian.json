@@ -1,0 +1,438 @@
+{
+  "content": "\n\nHow to make a Pi-Top more Raspbian\n==================================\n\nBy R. S. Doiel, 2016-07-04\n\nI have a first generation Pi-Top.  I like the idea but found I didn't use it much due to a preference for\nbasic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively\nstraight forward.\n\n## The recipe\n\n1. Make sure you're running the latest Pi-TopOS based on Jessie\n2. Login into your Pi-Top normally\n3. From the Pi-Top dashboard select the \"Desktop\" icon\n4. When you see the familiar Raspbian desktop click on the following things\n\t+ Click on the Raspberry Menu (upper left corner)\n\t+ Click on Preferences\n\t+ Click on Raspberry Pi Configuration\n5. I made the following changes to my System configuration\n\t+ Under *Boot* I selected \"To CLI\"\n\t+ I unchecked *login as user \"pi\"*\n6. Restart your Pi Top\n\t+ Click on Raspberry Menu in the upper left of the desktop\n\t+ Click on shutdown\n\t+ Select *reboot*\n7. When you restart you'll see an old school console login, login as the pi user using your Pi-Top password\n8. Remove the following program use the *apt* command\n\t+ ceed-universe\n\t+ pt-dashboard\n\t+ pt-splashscreen\n\n```\n    sudo apt purge ceed-universe pt-dashboard pt-splashscreen\n```\n\nNote: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably\nwant to keep them.\n\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "How to make a Pi-Top more Raspbian"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2016-07-04"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I have a first generation Pi-Top.  I like the idea but found I didn't use it much due to a preference for\nbasic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively\nstraight forward."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The recipe"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make sure you're running the latest Pi-TopOS based on Jessie"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Login into your Pi-Top normally"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "From the Pi-Top dashboard select the \"Desktop\" icon"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "When you see the familiar Raspbian desktop click on the following things"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Click on the Raspberry Menu (upper left corner)"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Click on Preferences"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Click on Raspberry Pi Configuration"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "I made the following changes to my System configuration"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Under "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "Boot"
+                              }
+                            ],
+                            "type": "emphasis"
+                          },
+                          {
+                            "type": "text",
+                            "value": " I selected \"To CLI\""
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "I unchecked "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "login as user \"pi\""
+                              }
+                            ],
+                            "type": "emphasis"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Restart your Pi Top"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Click on Raspberry Menu in the upper left of the desktop"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Click on shutdown"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "Select "
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "reboot"
+                              }
+                            ],
+                            "type": "emphasis"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "When you restart you'll see an old school console login, login as the pi user using your Pi-Top password"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Remove the following program use the "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "apt"
+                      }
+                    ],
+                    "type": "emphasis"
+                  },
+                  {
+                    "type": "text",
+                    "value": " command"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "ceed-universe"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "pt-dashboard"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "pt-splashscreen"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "type": "code",
+        "value": "    sudo apt purge ceed-universe pt-dashboard pt-splashscreen"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably\nwant to keep them."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2016, R. S. Doiel",
+    "date": "2016-07-04",
+    "keywords": [
+      "Raspberry Pi",
+      "Pi-Top",
+      "Rasbian",
+      "Raspberry Pi OS",
+      ":operating systems"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "title": "How to make a Pi-Top more Raspbian"
+  }
+}

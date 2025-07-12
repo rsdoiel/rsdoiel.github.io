@@ -1,0 +1,823 @@
+{
+  "content": "\n\n# Go based Python modules\n\nBy R. S. Doiel, 2018-02-24\n\nThe problem: I have written a number of Go packages at work.\nMy colleagues know Python and I'd like them to be able to use the\npackages without resorting to system calls from Python to the\ncommand line implementations. The solution is create a C-Shared\nlibrary from my Go packages, using Go's _C_ package and combine it\nwith Python's _ctypes_ package.  What follows is a series of \nsimple recipes I used to understand the details of how that worked.\n\n\n## Example 1, libtwice.go and twice.py\n\nMany of the the examples I've come across on the web start by \nshowing how to run a simple math operation on the Go side with\nnumeric values traveling round trip via the C shared library layer. \nIt is a good place to start as you only need to consider type \nconversion between both Python's runtime and Go's runtime.  It \nprovides a simple illustration of how the Go *C* package, Python's\n*ctypes* module and the toolchain work together.\n\nIn this example we have a function in Go called \"twice\" it takes\na single integer, doubles it and returns the new value.  On\nthe Go side we create a _libtwice.go_ file with an empty `main()` \nfunction.  Notice that we also import the *C* package and use \na comment decoration to indicate the function we are exporting\n(see https://github.com/golang/go/wiki/cgo and \nhttps://golang.org/cmd/cgo/\nfor full story about Go's _C_ package and _cgo_).\nPart of the what _cgo_ and the *C* package does is use the \ncomment decoration to build the signatures for the function calls\nin the shared C library.  The Go toolchain does all the heavy \nlifting in making a *C* shared library based on comment \ndirectives like \"//export\". We don't need much for our twice\nfunction.\n\n```Go\n    package main\n    \n    import (\n    \t\"C\"\n    )\n    \n    //export twice\n    func twice(i int) int {\n    \treturn i * 2\n    }\n    \n    func main() {}\n```\n\nOn the python side we need to wrap our calls to our shared library\nbringing them into the Python runtime in a useful and idiomatically\nPython way. Python provides a few ways of doing this. In my examples\nI am using the *ctypes* package.  _twice.py_ looks like this--\n\n```python\n    import ctypes\n    import os\n    \n    # Set our shared library's name\n    lib_name='libtwice'\n    \n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n    \n    # Find our shared library and load it\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    # Setup our Go functions to be nicely wrapped\n    go_twice = lib.twice\n    go_twice.argtypes = [ctypes.c_int]\n    go_twice.restype = ctypes.c_int\n    \n    # Now write our Python idiomatic function\n    def twice(i):\n        return go_twice(ctypes.c_int(i))\n    \n    # We run this test code if with: python3 twice.py\n    if __name__ == '__main__':\n        print(\"Twice of 2 is\", twice(2))\n```\n\nNotice the amount of lifting Python's *ctypes* does for us. It provides\nfor converting C based types to their Python counter parts. Indeed the\nadditional Python source here is focused around using that functionality\nto create a simple Python function called twice. This pattern of \nbringing in a low level version of our desired function and then \npresenting in a Pythonic one is common in more complex C based Python\nmodules.  In general we need *ctypes* to access and wrapping our \nshared library. The *os* module is used so we can find our C \nshared library based on the naming conventions of our host OS. \nFor simplicity I've kept the shared library (e.g. _libtwice.so_ \nunder Linux) in the same directory as the python module \ncode _twice.py_.\n\nThe build command for Linux looks like---\n\n```shell\n    go build -buildmode=c-shared -o libtwice.so libtwice.go\n```\n\nUnder Windows it would look like---\n\n```shell\n    go build -buildmode=c-shared -o libtwice.dll libtwice.go\n```\n\nand Mac OS X---\n\n```shell\n    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go\n```\n\nYou can test the Python module with---\n\n```shell\n    python3 twice.py\n```\n\nNotice the filename choices. I could have called the Go shared\nlibrary anything as long as it wasn't called `twice.so`, `twice.dll`\nor `twice.dylib`. This constraint is to avoid a module name collision\nin Python.  If we had a Python script named `twice_test.py` and \nimport `twice.py` then Python needs to make a distinction between\n`twice.py` and our shared library. If you use a Python package\napproach to wrapping the shared library you would have other options\nfor voiding name collision.\n\nHere is an example of `twice_test.py` to make sure out import is\nworking.\n\n```python\n    import twice\n    print(\"Twice 3\", twice.twice(3))\n```\n\nExample 1 is our base recipe. The next examples focus on handling\nother data types but follow the same pattern.\n\n\n## Example 2, libsayhi.go and sayhi.py\n\nI found working with strings a little more nuanced. Go's concept of\nstrings are oriented to utf-8. Python has its own concept of strings \nand encoding.  Both need to pass through the C layer which assumes \nstrings are a char pointer pointing at contiguous memory ending \nin a null. The *sayhi* recipe is focused on moving a string from \nPython, to C, to Go (a one way trip this time). The example uses \nGo's *fmt* package to display the string. \n\n```go\n    package main\n    \n    import (\n    \t\"C\"\n    \t\"fmt\"\n    )\n    \n    //export say_hi\n    func say_hi(msg *C.char) {\n    \tfmt.Println(C.GoString(msg))\n    }\n    \n    func main() { }\n```\n\nThe Go source is similar to our first recipe but our Python modules\nneeds to use *ctypes* to get you Python string into shape to be\nunpacked by Go.\n\n```python\n   import ctypes\n   import os\n   \n   # Set the name of our shared library\n   lib_name = 'libsayhi'\n\n   # Figure out shared library extension\n   uname = os.uname().sysname\n   ext = '.so'\n   if uname == 'Darwin':\n       ext = '.dylib'\n   if uname == 'Windows':\n       ext = '.dll'\n   \n   # Find our shared library and load it\n   dir_path = os.path.dirname(os.path.realpath(__file__))\n   lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n   \n   # Setup our Go functions to be nicely wrapped\n   go_say_hi = lib.say_hi\n   go_say_hi.argtypes = [ctypes.c_char_p]\n   # NOTE: we don't have a return type defined here, the message is \n   # displayed from Go\n   \n   # Now write our Python idiomatic function\n   def say_hi(txt):\n       return go_say_hi(ctypes.c_char_p(txt.encode('utf8')))\n   \n   if __name__ == '__main__':\n       say_hi('Hello!')\n```\n\nPutting things together (if you are using Windows or Mac OS X\nyou'll adjust name output name, `libsayhi.so`, to match the\nfilename extension suitable for your operating system).\n\n```bash\n    go build -buildmode=c-shared -o libsayhi.so libsayhi.go\n```\n\nand testing.\n\n```bash\n    python3 sayhi.py\n```\n\n\n## Example 3, libhelloworld.go and helloworld.py\n\nIn this example we send a Python string to Go (which expects utf-8)\nbuild our \"hello world\" message and then send it back to Python\n(which needs to do additional conversion and decoding).\n\nLike in previous examples the Go side remains very simple. The heavy\nlifting is done by the *C* package and the comment `//export`. We\nare using `C.GoString()` and `C.CString()` to flip between our native\nGo and C datatypes.\n\n```go\n    package main\n    \n    import (\n    \t\"C\"\n    \t\"fmt\"\n    )\n    \n    //export helloworld\n    func helloworld(name *C.char) *C.char {\n    \ttxt := fmt.Sprintf(\"Hello %s\", C.GoString(name))\n    \treturn C.CString(txt)\n    }\n    \n    func main() { }\n```\n\nIn the python code below the conversion process is much more detailed.\nPython isn't explicitly utf-8 like Go. Plus we're sending our Python \nstring via C's char arrays (or pointer to chars). Finally when we \ncomeback from Go via C we have to put things back in order for Python. \nOf particular note is checking how the byte arrays work then \nencoding/decoding everything as needed. We also explicitly set the result \ntype from our Go version of the helloworld function.\n\n```python\n    import ctypes\n    import os\n    \n    # Set the name of our shared library\n    lib_name = 'libhelloworld'\n\n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n    \n    # Find our shared library and load it\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    # Setup our Go functions to be nicely wrapped\n    go_helloworld = lib.helloworld\n    go_helloworld.argtypes = [ctypes.c_char_p]\n    go_helloworld.restype = ctypes.c_char_p\n    \n    # Now write our Python idiomatic function\n    def helloworld(txt):\n        value = go_helloworld(ctypes.c_char_p(txt.encode('utf8')))\n        if not isinstance(value, bytes):\n            value = value.encode('utf-8')\n        return value.decode()\n    \n    \n    if __name__ == '__main__':\n        import sys\n        if len(sys.argv) > 1:\n            print(helloworld(sys.argv[1]))\n        else:\n            print(helloworld('World'))\n```\n\nThe build recipe remains the same as the two previous examples.\n\n```bash\n    go build -buildmode=c-shared -o libhelloworld.so libhelloworld.go\n```\n\nHere are two variations to test.\n\n```bash\n     python3 helloworld.py\n     python3 helloworld.py Jane\n```\n\n\n## Example 4, libjsonpretty.go and jsonpretty.py\n\nIn this example we send JSON encode text to the Go package,\nunpack it in Go's runtime and repack it using the `MarshalIndent()`\nfunction in Go's JSON package before sending it back as Python\nin string form.  You'll see the same encode/decode patterns as \nin our *helloworld* example.\n\nGo code\n\n```go\n    package main\n    \n    import (\n    \t\"C\"\n    \t\"encoding/json\"\n    \t\"fmt\"\n    \t\"log\"\n    )\n    \n    //export jsonpretty\n    func jsonpretty(rawSrc *C.char) *C.char {\n    \tdata := new(map[string]interface{})\n    \terr := json.Unmarshal([]byte(C.GoString(rawSrc)), &data)\n    \tif err != nil {\n    \t\tlog.Printf(\"%s\", err)\n    \t\treturn C.CString(\"\")\n    \t}\n    \tsrc, err := json.MarshalIndent(data, \"\", \"    \")\n    \tif err != nil {\n    \t\tlog.Printf(\"%s\", err)\n    \t\treturn C.CString(\"\")\n    \t}\n    \ttxt := fmt.Sprintf(\"%s\", src)\n    \treturn C.CString(txt)\n    }\n    \n    func main() {}\n```\n\nPython code\n\n```python\n    import ctypes\n    import os\n    import json\n    \n    # Set the name of our shared library\n    lib_name = 'libjsonpretty'\n\n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    go_jsonpretty = lib.jsonpretty\n    go_jsonpretty.argtypes = [ctypes.c_char_p]\n    go_jsonpretty.restype = ctypes.c_char_p\n    \n    def jsonpretty(txt):\n        value = go_jsonpretty(ctypes.c_char_p(txt.encode('utf8')))\n        if not isinstance(value, bytes):\n            value = value.encode('utf-8')\n        return value.decode()\n    \n    if __name__ == '__main__':\n        src = '''\n    {\"name\":\"fred\",\"age\":25,\"height\":75,\"units\":\"inch\",\"weight\":\"239\"}\n    '''\n        value = jsonpretty(src)\n        print(\"Pretty print\")\n        print(value)\n        print(\"Decode into dict\")\n        o = json.loads(value)\n        print(o)\n```\n\nBuild command\n\n```shell\n    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go\n```\n\nAs before you can run your tests with `python3 jsonpretty.py`.\n\nIn closing I would like to note that to use these examples you Python3\nwill need to be able to find the module and shared library. For \nsimplicity I've put all the code in the same directory. If your Python\ncode is spread across multiple directories you'll need to make some \nadjustments.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go based Python modules"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2018-02-24"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The problem: I have written a number of Go packages at work.\nMy colleagues know Python and I'd like them to be able to use the\npackages without resorting to system calls from Python to the\ncommand line implementations. The solution is create a C-Shared\nlibrary from my Go packages, using Go's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package and combine it\nwith Python's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package.  What follows is a series of\nsimple recipes I used to understand the details of how that worked."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 1, libtwice.go and twice.py"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Many of the the examples I've come across on the web start by\nshowing how to run a simple math operation on the Go side with\nnumeric values traveling round trip via the C shared library layer.\nIt is a good place to start as you only need to consider type\nconversion between both Python's runtime and Go's runtime.  It\nprovides a simple illustration of how the Go "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package, Python's\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " module and the toolchain work together."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this example we have a function in Go called \"twice\" it takes\na single integer, doubles it and returns the new value.  On\nthe Go side we create a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "libtwice.go"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " file with an empty "
+          },
+          {
+            "type": "inlineCode",
+            "value": "main()"
+          },
+          {
+            "type": "text",
+            "value": "\nfunction.  Notice that we also import the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package and use\na comment decoration to indicate the function we are exporting\n(see https://github.com/golang/go/wiki/cgo and\nhttps://golang.org/cmd/cgo/\nfor full story about Go's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "cgo"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": ").\nPart of the what "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "cgo"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " and the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package does is use the\ncomment decoration to build the signatures for the function calls\nin the shared C library.  The Go toolchain does all the heavy\nlifting in making a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " shared library based on comment\ndirectives like \"//export\". We don't need much for our twice\nfunction."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "Go",
+        "type": "code",
+        "value": "    package main\n    \n    import (\n    \t\"C\"\n    )\n    \n    //export twice\n    func twice(i int) int {\n    \treturn i * 2\n    }\n    \n    func main() {}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "On the python side we need to wrap our calls to our shared library\nbringing them into the Python runtime in a useful and idiomatically\nPython way. Python provides a few ways of doing this. In my examples\nI am using the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package.  "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "twice.py"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " looks like this--"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "python",
+        "type": "code",
+        "value": "    import ctypes\n    import os\n    \n    # Set our shared library's name\n    lib_name='libtwice'\n    \n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n    \n    # Find our shared library and load it\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    # Setup our Go functions to be nicely wrapped\n    go_twice = lib.twice\n    go_twice.argtypes = [ctypes.c_int]\n    go_twice.restype = ctypes.c_int\n    \n    # Now write our Python idiomatic function\n    def twice(i):\n        return go_twice(ctypes.c_int(i))\n    \n    # We run this test code if with: python3 twice.py\n    if __name__ == '__main__':\n        print(\"Twice of 2 is\", twice(2))"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Notice the amount of lifting Python's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " does for us. It provides\nfor converting C based types to their Python counter parts. Indeed the\nadditional Python source here is focused around using that functionality\nto create a simple Python function called twice. This pattern of\nbringing in a low level version of our desired function and then\npresenting in a Pythonic one is common in more complex C based Python\nmodules.  In general we need "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " to access and wrapping our\nshared library. The "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "os"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " module is used so we can find our C\nshared library based on the naming conventions of our host OS.\nFor simplicity I've kept the shared library (e.g. "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "libtwice.so"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": "\nunder Linux) in the same directory as the python module\ncode "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "twice.py"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The build command for Linux looks like---"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libtwice.so libtwice.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Under Windows it would look like---"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libtwice.dll libtwice.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "and Mac OS X---"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libtwice.dynlib libtwice.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You can test the Python module with---"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    python3 twice.py"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Notice the filename choices. I could have called the Go shared\nlibrary anything as long as it wasn't called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice.so"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice.dll"
+          },
+          {
+            "type": "text",
+            "value": "\nor "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice.dylib"
+          },
+          {
+            "type": "text",
+            "value": ". This constraint is to avoid a module name collision\nin Python.  If we had a Python script named "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice_test.py"
+          },
+          {
+            "type": "text",
+            "value": " and\nimport "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice.py"
+          },
+          {
+            "type": "text",
+            "value": " then Python needs to make a distinction between\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice.py"
+          },
+          {
+            "type": "text",
+            "value": " and our shared library. If you use a Python package\napproach to wrapping the shared library you would have other options\nfor voiding name collision."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here is an example of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "twice_test.py"
+          },
+          {
+            "type": "text",
+            "value": " to make sure out import is\nworking."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "python",
+        "type": "code",
+        "value": "    import twice\n    print(\"Twice 3\", twice.twice(3))"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 1 is our base recipe. The next examples focus on handling\nother data types but follow the same pattern."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 2, libsayhi.go and sayhi.py"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I found working with strings a little more nuanced. Go's concept of\nstrings are oriented to utf-8. Python has its own concept of strings\nand encoding.  Both need to pass through the C layer which assumes\nstrings are a char pointer pointing at contiguous memory ending\nin a null. The "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "sayhi"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " recipe is focused on moving a string from\nPython, to C, to Go (a one way trip this time). The example uses\nGo's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "fmt"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package to display the string."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "go",
+        "type": "code",
+        "value": "    package main\n    \n    import (\n    \t\"C\"\n    \t\"fmt\"\n    )\n    \n    //export say_hi\n    func say_hi(msg *C.char) {\n    \tfmt.Println(C.GoString(msg))\n    }\n    \n    func main() { }"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The Go source is similar to our first recipe but our Python modules\nneeds to use "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ctypes"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " to get you Python string into shape to be\nunpacked by Go."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "python",
+        "type": "code",
+        "value": "   import ctypes\n   import os\n   \n   # Set the name of our shared library\n   lib_name = 'libsayhi'\n\n   # Figure out shared library extension\n   uname = os.uname().sysname\n   ext = '.so'\n   if uname == 'Darwin':\n       ext = '.dylib'\n   if uname == 'Windows':\n       ext = '.dll'\n   \n   # Find our shared library and load it\n   dir_path = os.path.dirname(os.path.realpath(__file__))\n   lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n   \n   # Setup our Go functions to be nicely wrapped\n   go_say_hi = lib.say_hi\n   go_say_hi.argtypes = [ctypes.c_char_p]\n   # NOTE: we don't have a return type defined here, the message is \n   # displayed from Go\n   \n   # Now write our Python idiomatic function\n   def say_hi(txt):\n       return go_say_hi(ctypes.c_char_p(txt.encode('utf8')))\n   \n   if __name__ == '__main__':\n       say_hi('Hello!')"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Putting things together (if you are using Windows or Mac OS X\nyou'll adjust name output name, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "libsayhi.so"
+          },
+          {
+            "type": "text",
+            "value": ", to match the\nfilename extension suitable for your operating system)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "bash",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libsayhi.so libsayhi.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "and testing."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "bash",
+        "type": "code",
+        "value": "    python3 sayhi.py"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 3, libhelloworld.go and helloworld.py"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this example we send a Python string to Go (which expects utf-8)\nbuild our \"hello world\" message and then send it back to Python\n(which needs to do additional conversion and decoding)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Like in previous examples the Go side remains very simple. The heavy\nlifting is done by the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "C"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " package and the comment "
+          },
+          {
+            "type": "inlineCode",
+            "value": "//export"
+          },
+          {
+            "type": "text",
+            "value": ". We\nare using "
+          },
+          {
+            "type": "inlineCode",
+            "value": "C.GoString()"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "C.CString()"
+          },
+          {
+            "type": "text",
+            "value": " to flip between our native\nGo and C datatypes."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "go",
+        "type": "code",
+        "value": "    package main\n    \n    import (\n    \t\"C\"\n    \t\"fmt\"\n    )\n    \n    //export helloworld\n    func helloworld(name *C.char) *C.char {\n    \ttxt := fmt.Sprintf(\"Hello %s\", C.GoString(name))\n    \treturn C.CString(txt)\n    }\n    \n    func main() { }"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In the python code below the conversion process is much more detailed.\nPython isn't explicitly utf-8 like Go. Plus we're sending our Python\nstring via C's char arrays (or pointer to chars). Finally when we\ncomeback from Go via C we have to put things back in order for Python.\nOf particular note is checking how the byte arrays work then\nencoding/decoding everything as needed. We also explicitly set the result\ntype from our Go version of the helloworld function."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "python",
+        "type": "code",
+        "value": "    import ctypes\n    import os\n    \n    # Set the name of our shared library\n    lib_name = 'libhelloworld'\n\n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n    \n    # Find our shared library and load it\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    # Setup our Go functions to be nicely wrapped\n    go_helloworld = lib.helloworld\n    go_helloworld.argtypes = [ctypes.c_char_p]\n    go_helloworld.restype = ctypes.c_char_p\n    \n    # Now write our Python idiomatic function\n    def helloworld(txt):\n        value = go_helloworld(ctypes.c_char_p(txt.encode('utf8')))\n        if not isinstance(value, bytes):\n            value = value.encode('utf-8')\n        return value.decode()\n    \n    \n    if __name__ == '__main__':\n        import sys\n        if len(sys.argv) > 1:\n            print(helloworld(sys.argv[1]))\n        else:\n            print(helloworld('World'))"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The build recipe remains the same as the two previous examples."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "bash",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libhelloworld.so libhelloworld.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here are two variations to test."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "bash",
+        "type": "code",
+        "value": "     python3 helloworld.py\n     python3 helloworld.py Jane"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 4, libjsonpretty.go and jsonpretty.py"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this example we send JSON encode text to the Go package,\nunpack it in Go's runtime and repack it using the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "MarshalIndent()"
+          },
+          {
+            "type": "text",
+            "value": "\nfunction in Go's JSON package before sending it back as Python\nin string form.  You'll see the same encode/decode patterns as\nin our "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "helloworld"
+              }
+            ],
+            "type": "emphasis"
+          },
+          {
+            "type": "text",
+            "value": " example."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Go code"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "go",
+        "type": "code",
+        "value": "    package main\n    \n    import (\n    \t\"C\"\n    \t\"encoding/json\"\n    \t\"fmt\"\n    \t\"log\"\n    )\n    \n    //export jsonpretty\n    func jsonpretty(rawSrc *C.char) *C.char {\n    \tdata := new(map[string]interface{})\n    \terr := json.Unmarshal([]byte(C.GoString(rawSrc)), &data)\n    \tif err != nil {\n    \t\tlog.Printf(\"%s\", err)\n    \t\treturn C.CString(\"\")\n    \t}\n    \tsrc, err := json.MarshalIndent(data, \"\", \"    \")\n    \tif err != nil {\n    \t\tlog.Printf(\"%s\", err)\n    \t\treturn C.CString(\"\")\n    \t}\n    \ttxt := fmt.Sprintf(\"%s\", src)\n    \treturn C.CString(txt)\n    }\n    \n    func main() {}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Python code"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "python",
+        "type": "code",
+        "value": "    import ctypes\n    import os\n    import json\n    \n    # Set the name of our shared library\n    lib_name = 'libjsonpretty'\n\n    # Figure out shared library extension\n    uname = os.uname().sysname\n    ext = '.so'\n    if uname == 'Darwin':\n        ext = '.dylib'\n    if uname == 'Windows':\n        ext = '.dll'\n\n    dir_path = os.path.dirname(os.path.realpath(__file__))\n    lib = ctypes.cdll.LoadLibrary(os.path.join(dir_path, lib_name+ext))\n    \n    go_jsonpretty = lib.jsonpretty\n    go_jsonpretty.argtypes = [ctypes.c_char_p]\n    go_jsonpretty.restype = ctypes.c_char_p\n    \n    def jsonpretty(txt):\n        value = go_jsonpretty(ctypes.c_char_p(txt.encode('utf8')))\n        if not isinstance(value, bytes):\n            value = value.encode('utf-8')\n        return value.decode()\n    \n    if __name__ == '__main__':\n        src = '''\n    {\"name\":\"fred\",\"age\":25,\"height\":75,\"units\":\"inch\",\"weight\":\"239\"}\n    '''\n        value = jsonpretty(src)\n        print(\"Pretty print\")\n        print(value)\n        print(\"Decode into dict\")\n        o = json.loads(value)\n        print(o)"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Build command"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "    go build -buildmode=c-shared -o libjsonpretty.so libjsonpretty.go"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "As before you can run your tests with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "python3 jsonpretty.py"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In closing I would like to note that to use these examples you Python3\nwill need to be able to find the module and shared library. For\nsimplicity I've put all the code in the same directory. If your Python\ncode is spread across multiple directories you'll need to make some\nadjustments."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2018, R. S. Doiel",
+    "date": "2018-02-24",
+    "keywords": [
+      "Golang",
+      "Python",
+      "shared libraries"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "title": "Go based Python modules"
+  }
+}

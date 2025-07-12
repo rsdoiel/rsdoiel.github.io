@@ -1,0 +1,348 @@
+{
+  "content": "\n# Getting Started with Miranda\n\nI've been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as [Pandoc](https://pandoc.org) and [shellcheck](https://www.shellcheck.net/). I've given a quick review of [miranda.org.uk](https://miranda.org.uk) to get a sense of the language but to follow along with the [Miranda: The Craft of Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/) it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.\n\n## Compilation\n\nFirst down load Miranda source code at <http://miranda.org.uk/downloads>. The version 2.066 is the most recent release I saw linked (2024-04-25), <http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11>. The [COPYING](https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING) link shows the terms under which this source release is made available.\n\nNext you need to untar/gzip the tarball you downloaded. Try running `make` to see if it compiles. On my Mac Mini I got a compile error that looks like\n\n~~~shell\nmake\ngcc -w    -c -o data.o data.c\ndata.c:666:43: error: incompatible integer to pointer conversion passing 'word' (aka 'long') to parameter of type 'char *' [-Wint-conversion]\n                     else fprintf(f,\"%c%s\",HERE_X,mkrel(hd[x]));\n                                                        ^~~~~\n1 error generated.\nmake: *** [data.o] Error 1\n~~~\n\nWhile I'm rusty on C I read this as the C compiler being more strict today then it was back in the 1990s. That's a good thing generally.  Next I checked the compiler version. \n\n~~~shell\ngcc --version\nApple clang version 15.0.0 (clang-1500.3.9.4)\nTarget: arm64-apple-darwin23.4.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n~~~\n\nI'm using clang and the website mentioned it should compile with clang for other platforms.  I reviewed the data.c file and notice other similar lines that invoked `mkrel(hd[x])` had a `(char *)` cast in front of `hd[x]`. This tells me that being explicit with the compiler might solve my problem. I edited line 666 of data.c to look like\n\n~~~C\n    else fprintf(f,\"%c%s\",HERE_X,mkrel((char *)hd[x]));\n~~~\n\nSave the file and then ran Make again. It compile cleanly. I gave at quick test run of the `mira` command creating an simple function called `addone`\n\n~~~miranda\nmira\n/edit\naddone a = a + 1\n:wq\naddone (addone (addone 3))\n6\n/q\n~~~\n\nMiranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into `/usr`).\nI'd rather it install into my home directory so I copied the Makefile to `miranda.mak` and change the lines setting `BIN`, `LIB` and `MAN` to the following\nlines.\n\n~~~Makefile\nBIN=$(HOME)/bin\nLIB=$(HOME)/lib#beware no spaces after LIB\nMAN=$(HOME)/man/man1\n~~~\n\nIn my `.profile` I set the `MIRALIB` variable to point at `$HOME/lib/miralib`. I opened a new terminal session and ran `mira` and the interpreter was up and running.\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Getting Started with Miranda"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I've been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Pandoc"
+              }
+            ],
+            "type": "link",
+            "url": "https://pandoc.org"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "shellcheck"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.shellcheck.net/"
+          },
+          {
+            "type": "text",
+            "value": ". I've given a quick review of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "miranda.org.uk"
+              }
+            ],
+            "type": "link",
+            "url": "https://miranda.org.uk"
+          },
+          {
+            "type": "text",
+            "value": " to get a sense of the language but to follow along with the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Miranda: The Craft of Functional Programming"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/"
+          },
+          {
+            "type": "text",
+            "value": " it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Compilation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "First down load Miranda source code at "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "http://miranda.org.uk/downloads"
+              }
+            ],
+            "type": "link",
+            "url": "http://miranda.org.uk/downloads"
+          },
+          {
+            "type": "text",
+            "value": ". The version 2.066 is the most recent release I saw linked (2024-04-25), "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11"
+              }
+            ],
+            "type": "link",
+            "url": "http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11"
+          },
+          {
+            "type": "text",
+            "value": ". The "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "COPYING"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING"
+          },
+          {
+            "type": "text",
+            "value": " link shows the terms under which this source release is made available."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next you need to untar/gzip the tarball you downloaded. Try running "
+          },
+          {
+            "type": "inlineCode",
+            "value": "make"
+          },
+          {
+            "type": "text",
+            "value": " to see if it compiles. On my Mac Mini I got a compile error that looks like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "make\ngcc -w    -c -o data.o data.c\ndata.c:666:43: error: incompatible integer to pointer conversion passing 'word' (aka 'long') to parameter of type 'char *' [-Wint-conversion]\n                     else fprintf(f,\"%c%s\",HERE_X,mkrel(hd[x]));\n                                                        ^~~~~\n1 error generated.\nmake: *** [data.o] Error 1"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "While I'm rusty on C I read this as the C compiler being more strict today then it was back in the 1990s. That's a good thing generally.  Next I checked the compiler version."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "gcc --version\nApple clang version 15.0.0 (clang-1500.3.9.4)\nTarget: arm64-apple-darwin23.4.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I'm using clang and the website mentioned it should compile with clang for other platforms.  I reviewed the data.c file and notice other similar lines that invoked "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mkrel(hd[x])"
+          },
+          {
+            "type": "text",
+            "value": " had a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "(char *)"
+          },
+          {
+            "type": "text",
+            "value": " cast in front of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "hd[x]"
+          },
+          {
+            "type": "text",
+            "value": ". This tells me that being explicit with the compiler might solve my problem. I edited line 666 of data.c to look like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "C",
+        "type": "code",
+        "value": "    else fprintf(f,\"%c%s\",HERE_X,mkrel((char *)hd[x]));"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Save the file and then ran Make again. It compile cleanly. I gave at quick test run of the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mira"
+          },
+          {
+            "type": "text",
+            "value": " command creating an simple function called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "addone"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "miranda",
+        "type": "code",
+        "value": "mira\n/edit\naddone a = a + 1\n:wq\naddone (addone (addone 3))\n6\n/q"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Miranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into "
+          },
+          {
+            "type": "inlineCode",
+            "value": "/usr"
+          },
+          {
+            "type": "text",
+            "value": ").\nI'd rather it install into my home directory so I copied the Makefile to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "miranda.mak"
+          },
+          {
+            "type": "text",
+            "value": " and change the lines setting "
+          },
+          {
+            "type": "inlineCode",
+            "value": "BIN"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "LIB"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "MAN"
+          },
+          {
+            "type": "text",
+            "value": " to the following\nlines."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "Makefile",
+        "type": "code",
+        "value": "BIN=$(HOME)/bin\nLIB=$(HOME)/lib#beware no spaces after LIB\nMAN=$(HOME)/man/man1"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In my "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".profile"
+          },
+          {
+            "type": "text",
+            "value": " I set the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "MIRALIB"
+          },
+          {
+            "type": "text",
+            "value": " variable to point at "
+          },
+          {
+            "type": "inlineCode",
+            "value": "$HOME/lib/miralib"
+          },
+          {
+            "type": "text",
+            "value": ". I opened a new terminal session and ran "
+          },
+          {
+            "type": "inlineCode",
+            "value": "mira"
+          },
+          {
+            "type": "text",
+            "value": " and the interpreter was up and running."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "byline": "R. S. Doiel, 2024-04-25",
+    "keywords": [
+      "functional",
+      "miranda"
+    ],
+    "pubDate": "2024-04-25",
+    "title": "Getting Started with Miranda"
+  }
+}

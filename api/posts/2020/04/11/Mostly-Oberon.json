@@ -1,0 +1,789 @@
+{
+  "content": "\n\nMostly Oberon\n=============\n\nBy R. S. Doiel, 2020-04-11\n\n**Mostly Oberon** is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.\n\n## Overview\n\nOberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\\(company\\)).  This series of blog posts are my meandering exploration of Oberon-07 language based on [Project Oberon 2013](http://www.projectoberon.com/).\n\nNOTE: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol.\n\n### My Voyage\n\nI am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal).  Oberon's language shape is more Pascal than C. For that reason I think it has largely been overlooked.\n\nOberon-07 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like [Go](https://golang.org).\n\nWhile Wirth conceived of Oberon in the context of a whole system it's use in research and instruction means it is also well suited [POSIX](https://en.wikipedia.org/wiki/POSIX) based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment.\n\nNOTE: Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations.\n\nThe latest Oberon is Prof. Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's [emulator](https://github.com/pdewacht/oberon-risc-emu). Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices.\n\n\n## A starting point\n\nI am starting my exploration with Karl Landström's [OBNC](https://miasap.se/obnc/) compiler. I am focusing on getting comfortable using and writing in the Oberon language.\n\nHere's an example of a simple \"Hello World\" program in Oberon written for a POSIX system. I've named the [source code](HelloWorld.Mod) `HelloWorld.Mod`.\n\nNOTE: In 2020 common POSIX systems include [Linux](https://en.wikipedia.org/wiki/Linux), [BSD](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution) and [macOS](https://en.wikipedia.org/wiki/MacOS).\n\n\n~~~\n\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n\n~~~\n\n\nWhile this is longer than a Python \"hello world\" program it is much shorter than I remember writing in Java and about the same number of lines as in C. `BEGIN` and `END` are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. `IMPORT` includes the module `Out` (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself.\n\nThe `Out` module includes methods for displaying various data types native\nto Oberon. There is a corresponding `In` for receiving input as well as\nsome additional modules provided with our chosen compiler implementation.\n\nModules in Oberon can include a module wide initialization block. The\n`BEGIN` through `END HelloWorld.` are an initialization block. This is\nsimilar to C or Go's \"main\" function for our POSIX environment.\n\n### OBNC\n\nIf you want to run my \"Hello World\" you need to compile it.  I have found that [OBNC](https://miasap.se/obnc/) compiler runs well on Linux, macOS and [Raspberry Pi](https://www.raspberrypi.org). Karl has also made a precompiled version that runs on Windows available too. It is the Oberon compiler I plan to use in this series of posts.\n\nOBNC compiles Oberon source into C then into machine code for the computer system you are running on. Because it is compiling to C it can function as a [cross compiler](https://en.wikipedia.org/wiki/Cross_compiler). This opens the door to [bare metal programming](https://en.wikipedia.org/wiki/Bare_machine).\n\nIf you're following along please install OBNC on your computer.  Instructions are found at https://maisap.se/obnc. Karl also has excellent documentation and is responsive to questions about his implementation. His contact methods are included on his website.\n\n\n### Running OBNC\n\nOBNC provides a Oberon-07 compiler with some optional modules for working in a POSIX environment.  Compiling our \"Hello World\" is easy from your shell or terminal.\n\n\n~~~\n\n    obnc HelloWorld.Mod\n\n~~~\n\n\nIf all goes well this should produce an executable file named `HelloWorld` (or `HelloWorld.exe` on Windows). You can now run this program with a command like `./HelloWorld` (or `HelloWorld` on Windows).\n\n### Learning more about Oberon\n\nI have faced two challenges in my exploration of Oberon, finding a compiler I was happy with (thank you Karl for OBNC) and sorting out the literature around Oberon language implementations and system versions.\n\nOberon has a rich history though it was not well known in Southern California in 2020. Oberon's history is primarily academic and European. It was commonly used in college level instruction in Europe from it's inception at ETH in the late 80's through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era.  They covered the Oberon language and system of their time.  From a historical computing perspective they remain very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Paul Reed brought things up to date in 2013. I recommend Reed's [www.projectoberon.com](http://www.projectoberon.com) as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth's [website](https://inf.ethz.ch/personal/wirth/) is still maintained and he features links to most of his major publications. His is the canonical source of information on Oberon.\n\nNOTE: Prof. Wirth's personal website at ETH was available as of 2020-04-11. \n\nI have found the ACM [Digital Library](https://dl.acm.org/) and the ETH [Research Collection](https://www.research-collection.ethz.ch/?locale-attribute=en) very helpful.  While much of the material is now historic it remains useful for both techniques and inspiration.  Today's hardware, even a Raspberry Pi Zero, is more resource rich than the original systems Oberon ran on.\n\nThe online community for Oberon and Oberon System seems mostly centered around a [mail list](https://lists.inf.ethz.ch/mailman/listinfo/oberon) at ETH and net news group [comp.lang.oberon](https://groups.google.com/forum/#!forum/comp.lang.oberon)\n\n\n\n\n\n\n\n\n### Next\n\n+ Next [Modules and Procedures](../12/Mostly-Oberon-Modules.html)\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Mostly Oberon"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-04-11"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Mostly Oberon"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Overview"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "ETH"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/ETH_Zurich"
+          },
+          {
+            "type": "text",
+            "value": " circa 1987.  It was inspired by their experiences in California at the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Xerox Palo Alto Research Center"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/PARC_(company)"
+          },
+          {
+            "type": "text",
+            "value": ".  This series of blog posts are my meandering exploration of Oberon-07 language based on "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Project Oberon 2013"
+              }
+            ],
+            "type": "link",
+            "url": "http://www.projectoberon.com/"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Oberon grew from Wirth's Modula, which grew from Pascal, which grew from his experiences with Algol."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My Voyage"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I am new to both Oberon and the Oberon System.  Oberon language is in the tradition of ALGOL, Pascal, Modula 1 and 2 as well as incorporating ideas from the parent of Object Oriented languages Simula. The Oberon language reminds me of my first programming language "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Turbo Pascal"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Turbo_Pascal"
+          },
+          {
+            "type": "text",
+            "value": ".  Oberon's language shape is more Pascal than C. For that reason I think it has largely been overlooked."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon-07 is Wirth's most recent refinement of the Oberon language.  It is a terse and powerful systems language.  It strikes a different computing path then many popular programming languages used in 2020.  You find its influence along with Simula in more recent popular languages like "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Go"
+              }
+            ],
+            "type": "link",
+            "url": "https://golang.org"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "While Wirth conceived of Oberon in the context of a whole system it's use in research and instruction means it is also well suited "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "POSIX"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/POSIX"
+          },
+          {
+            "type": "text",
+            "value": " based systems (e.g. BSD, Linux, macOS).  The difference in programming in Oberon for a POSIX system versus a native Oberon System is primarily in the modules you import. These posts will focus on using Oberon language in a POSIX environment."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Oberon was initially a project including the CERES Hardware, Oberon compiler and Oberon operating system for networked workstations."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The latest Oberon is Prof. Niklaus Wirth and Paul Reeds' Project Oberon 2013. If you want to explore it I suggest using Peter De Wachter's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "emulator"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/pdewacht/oberon-risc-emu"
+          },
+          {
+            "type": "text",
+            "value": ". Project Oberon also his links to the updated books and articles in PDF format which are easy to read (or print) on most computing devices."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A starting point"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I am starting my exploration with Karl Landström's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "OBNC"
+              }
+            ],
+            "type": "link",
+            "url": "https://miasap.se/obnc/"
+          },
+          {
+            "type": "text",
+            "value": " compiler. I am focusing on getting comfortable using and writing in the Oberon language."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's an example of a simple \"Hello World\" program in Oberon written for a POSIX system. I've named the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "source code"
+              }
+            ],
+            "type": "link",
+            "url": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": " "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld.Mod"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: In 2020 common POSIX systems include "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Linux"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Linux"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "BSD"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Berkeley_Software_Distribution"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "macOS"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/MacOS"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    MODULE HelloWorld;\n      IMPORT Out;\n    BEGIN\n      Out.String(\"Hello World!\"); Out.Ln;\n    END HelloWorld.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "While this is longer than a Python \"hello world\" program it is much shorter than I remember writing in Java and about the same number of lines as in C. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "BEGIN"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "END"
+          },
+          {
+            "type": "text",
+            "value": " are similar to our opening and closing curly braces in C and the module is the basic unit of source code in Oberon. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IMPORT"
+          },
+          {
+            "type": "text",
+            "value": " includes the module "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " (modules are similar to a included library in C) for sending values to the console (stdout in POSIX). One thing to note, Oberon language(s) are case sensitive. All language terms are capitalized. This makes it easy to distinguish between source code written in Oberon versus the Oberon language itself."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Out"
+          },
+          {
+            "type": "text",
+            "value": " module includes methods for displaying various data types native\nto Oberon. There is a corresponding "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In"
+          },
+          {
+            "type": "text",
+            "value": " for receiving input as well as\nsome additional modules provided with our chosen compiler implementation."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Modules in Oberon can include a module wide initialization block. The\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "BEGIN"
+          },
+          {
+            "type": "text",
+            "value": " through "
+          },
+          {
+            "type": "inlineCode",
+            "value": "END HelloWorld."
+          },
+          {
+            "type": "text",
+            "value": " are an initialization block. This is\nsimilar to C or Go's \"main\" function for our POSIX environment."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OBNC"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you want to run my \"Hello World\" you need to compile it.  I have found that "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "OBNC"
+              }
+            ],
+            "type": "link",
+            "url": "https://miasap.se/obnc/"
+          },
+          {
+            "type": "text",
+            "value": " compiler runs well on Linux, macOS and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Raspberry Pi"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.raspberrypi.org"
+          },
+          {
+            "type": "text",
+            "value": ". Karl has also made a precompiled version that runs on Windows available too. It is the Oberon compiler I plan to use in this series of posts."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OBNC compiles Oberon source into C then into machine code for the computer system you are running on. Because it is compiling to C it can function as a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "cross compiler"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Cross_compiler"
+          },
+          {
+            "type": "text",
+            "value": ". This opens the door to "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "bare metal programming"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Bare_machine"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you're following along please install OBNC on your computer.  Instructions are found at https://maisap.se/obnc. Karl also has excellent documentation and is responsive to questions about his implementation. His contact methods are included on his website."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Running OBNC"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "OBNC provides a Oberon-07 compiler with some optional modules for working in a POSIX environment.  Compiling our \"Hello World\" is easy from your shell or terminal."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    obnc HelloWorld.Mod\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If all goes well this should produce an executable file named "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": " (or "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld.exe"
+          },
+          {
+            "type": "text",
+            "value": " on Windows). You can now run this program with a command like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "./HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": " (or "
+          },
+          {
+            "type": "inlineCode",
+            "value": "HelloWorld"
+          },
+          {
+            "type": "text",
+            "value": " on Windows)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Learning more about Oberon"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I have faced two challenges in my exploration of Oberon, finding a compiler I was happy with (thank you Karl for OBNC) and sorting out the literature around Oberon language implementations and system versions."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon has a rich history though it was not well known in Southern California in 2020. Oberon's history is primarily academic and European. It was commonly used in college level instruction in Europe from it's inception at ETH in the late 80's through the early 2000s. The Oberon System is an Open Source system (predating the term by a decade) and was created in the spirit of other academic systems such as BSD. There are many books (physical books as opposed to ebooks) dating from that era.  They covered the Oberon language and system of their time.  From a historical computing perspective they remain very interesting. But running Oberon on modern 2020 hardware is a little more challenging. Fortunately Prof. Emeritus Wirth and Paul Reed brought things up to date in 2013. I recommend Reed's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "www.projectoberon.com"
+              }
+            ],
+            "type": "link",
+            "url": "http://www.projectoberon.com"
+          },
+          {
+            "type": "text",
+            "value": " as a good place to start. He includes links to revised versions of the classic Oberon and Oberon System texts written by Wirth et el. Prof. Wirth's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "website"
+              }
+            ],
+            "type": "link",
+            "url": "https://inf.ethz.ch/personal/wirth/"
+          },
+          {
+            "type": "text",
+            "value": " is still maintained and he features links to most of his major publications. His is the canonical source of information on Oberon."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Prof. Wirth's personal website at ETH was available as of 2020-04-11."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I have found the ACM "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Digital Library"
+              }
+            ],
+            "type": "link",
+            "url": "https://dl.acm.org/"
+          },
+          {
+            "type": "text",
+            "value": " and the ETH "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Research Collection"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.research-collection.ethz.ch/?locale-attribute=en"
+          },
+          {
+            "type": "text",
+            "value": " very helpful.  While much of the material is now historic it remains useful for both techniques and inspiration.  Today's hardware, even a Raspberry Pi Zero, is more resource rich than the original systems Oberon ran on."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The online community for Oberon and Oberon System seems mostly centered around a "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "mail list"
+              }
+            ],
+            "type": "link",
+            "url": "https://lists.inf.ethz.ch/mailman/listinfo/oberon"
+          },
+          {
+            "type": "text",
+            "value": " at ETH and net news group "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "comp.lang.oberon"
+              }
+            ],
+            "type": "link",
+            "url": "https://groups.google.com/forum/#!forum/comp.lang.oberon"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Next "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Modules and Procedures"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../12/Mostly-Oberon-Modules.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "byline": "R. S. Doiel",
+    "copyright": "copyright (c) 2020, R. S. Doiel",
+    "date": "2020-04-11",
+    "keywords": [
+      "Oberon",
+      "Wirth",
+      "Gutknecht",
+      "ETH",
+      "Parc",
+      "programming",
+      "operating systems"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 1,
+    "series": "Mostly Oberon",
+    "title": "Mostly Oberon"
+  }
+}

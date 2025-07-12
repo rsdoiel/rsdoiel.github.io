@@ -1,0 +1,297 @@
+{
+  "content": "\n# Progress and time remaining\n\nBy R. S. Doiel, 2022-11-05\n\nI often find myself logging output when I'm developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I've come to realize I really want a few specific pieces of information for non-error logging (e.g. `-verbose` which monitors progress as well as errors).\n\n- percentage completed\n- estimated time allocated (i.e. time remaining)\n\nTo do that I need three pieces of information.\n\n1. the count of the current iteration(e.g. `i`)\n2. the total number of iterations required (e.g. `tot`)\n3. The time just before I started iterating(e.g. `t0`)\n\nThe values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`. Note on the first pass (i.e. `i == 0`) you can skip the percentage calculation.\n\n\n```golang\nimport (\n\t\"time\"\n\t\"fmt\"\n)\n\n// Show progress with amount of time running\nfunc progress(t0 time.Time, i int, tot int) string {\n    if i == 0 {\n        return \"\"\n    }\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\tt1 := time.Now()\n\t// NOTE: Truncating the duration to seconds\n\treturn fmt.Sprintf(\"%.2f%% %v\", percent, t1.Sub(t0).Truncate(time.Second))\n}\n```\n\nHere's how you might use it.\n\n```golang\n\ttot := len(ids)\n\tt0 := time.Now()\n\tfor i, id := range ids {\n\t\t// ... processing stuff here ... and display progress every 1000 records\n\t\tif (i % 1000) == 0 {\n\t\t\tlog.Printf(\"%s records processed\", progress(t0, i, tot))\n\t\t}\n\t}\n```\n\nAn improvement on this is to include an time remaining. I need to calculated the estimated time allocation (i.e. ETA). I know `t0` so I can estimate that with this formula `estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)`[^1]. ETA adjusted for time running gives us time remaining[^2]. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula.\n\n[^1]: In code `(rt/i)*tot` is estimated time allocation\n\n[^2]: Estimated Time Remaining, in code `((rt/i)*tot) - rt`\n\n```golang\nfunc progress(t0 time.Time, i int, tot int) string {\n\tif i == 0 {\n\t\treturn \"0.00 ETR Unknown\"\n\t}\n\t// percent completed\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\t// running time\n    rt := time.Now().Sub(t0)\n    // estimated time allocation - running time = time remaining\n    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))\n    return fmt.Sprintf(\"%.2f%% ETR %v\", percent, eta.Truncate(time.Second))\n}\n```\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Progress and time remaining"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2022-11-05"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I often find myself logging output when I'm developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I've come to realize I really want a few specific pieces of information for non-error logging (e.g. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "-verbose"
+          },
+          {
+            "type": "text",
+            "value": " which monitors progress as well as errors)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "percentage completed"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "estimated time allocated (i.e. time remaining)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "To do that I need three pieces of information."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "the count of the current iteration(e.g. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "i"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "the total number of iterations required (e.g. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "tot"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "The time just before I started iterating(e.g. "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "t0"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The values for "
+          },
+          {
+            "type": "inlineCode",
+            "value": "i"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "tot"
+          },
+          {
+            "type": "text",
+            "value": " let me compute the percent completed. The percent completed is trivial "
+          },
+          {
+            "type": "inlineCode",
+            "value": "(i/tot) * 100.0"
+          },
+          {
+            "type": "text",
+            "value": ". Note on the first pass (i.e. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "i == 0"
+          },
+          {
+            "type": "text",
+            "value": ") you can skip the percentage calculation."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "golang",
+        "type": "code",
+        "value": "import (\n\t\"time\"\n\t\"fmt\"\n)\n\n// Show progress with amount of time running\nfunc progress(t0 time.Time, i int, tot int) string {\n    if i == 0 {\n        return \"\"\n    }\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\tt1 := time.Now()\n\t// NOTE: Truncating the duration to seconds\n\treturn fmt.Sprintf(\"%.2f%% %v\", percent, t1.Sub(t0).Truncate(time.Second))\n}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's how you might use it."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "golang",
+        "type": "code",
+        "value": "\ttot := len(ids)\n\tt0 := time.Now()\n\tfor i, id := range ids {\n\t\t// ... processing stuff here ... and display progress every 1000 records\n\t\tif (i % 1000) == 0 {\n\t\t\tlog.Printf(\"%s records processed\", progress(t0, i, tot))\n\t\t}\n\t}"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "An improvement on this is to include an time remaining. I need to calculated the estimated time allocation (i.e. ETA). I know "
+          },
+          {
+            "type": "inlineCode",
+            "value": "t0"
+          },
+          {
+            "type": "text",
+            "value": " so I can estimate that with this formula "
+          },
+          {
+            "type": "inlineCode",
+            "value": "estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)"
+          },
+          {
+            "type": "text",
+            "value": "[^1]. ETA adjusted for time running gives us time remaining[^2]. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[^1]: In code "
+          },
+          {
+            "type": "inlineCode",
+            "value": "(rt/i)*tot"
+          },
+          {
+            "type": "text",
+            "value": " is estimated time allocation"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[^2]: Estimated Time Remaining, in code "
+          },
+          {
+            "type": "inlineCode",
+            "value": "((rt/i)*tot) - rt"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "golang",
+        "type": "code",
+        "value": "func progress(t0 time.Time, i int, tot int) string {\n\tif i == 0 {\n\t\treturn \"0.00 ETR Unknown\"\n\t}\n\t// percent completed\n\tpercent := (float64(i) / float64(tot)) * 100.0\n\t// running time\n    rt := time.Now().Sub(t0)\n    // estimated time allocation - running time = time remaining\n    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))\n    return fmt.Sprintf(\"%.2f%% ETR %v\", percent, eta.Truncate(time.Second))\n}"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@sdf.org (R. S. Doiel)",
+    "keywords": [
+      "programming",
+      "golang",
+      "log info"
+    ],
+    "pubDate": "2022-12-05",
+    "title": "Progress and time remaining"
+  }
+}

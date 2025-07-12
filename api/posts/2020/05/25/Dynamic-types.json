@@ -1,0 +1,1762 @@
+{
+  "content": "\n\n# Dynamic types\n\nBy R. S. Doiel, 2020-05-25\n\nThis is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)\nseries. Mostly Oberon documents my exploration of the Oberon Language, \nOberon System and the various rabbit holes I will inevitably fall into.\n\n## Dynamic Types in Oberon\n\nOberon-07 is a succinct systems language. It provides a minimal\nbut useful set of basic static types. Relying on them addresses \nmany common programming needs. The Oberon compiler ensures \nstatic types are efficiently allocated in memory. One of the \nstrengths of Oberon is this ability to extend the type system. \nThis means when the basic types fall short you can take \nadvantage of Oberon's type  extension features. This includes \ncreating dynamically allocated data structures. In Oberon-07 \ncombining Oberon's `POINTER TO` and `RECORD` types allows us to\ncreate complex and dynamic data structures. \n\n\n## An example, dynamic strings \n\nStrings in Oberon-07 are typical declared as an `ARRAY OF CHAR` \nwith a specific length. If the length of a string is not \nknown a head of time this presents a challenge. One approach is \nto declare a long array but that would allocate allot of memory \nwhich may not get used. Another approach is to create a dynamic\ndata structure. An example is using a linked list of shorter \n`ARRAY OF CHAR`.  The small fixed strings can combine to \nrepresent much larger strings. When one fills up we add \nanother. \n\n### Pointers and records, an Oberon idiom \n\nOur data model is a pointer to a record where the record \ncontains an `ARRAY OF CHAR` and a pointer to the next record. \nA common idiom in Oberon for dynamic types is to declare a \n`POINTER TO` type and declare a `RECORD` type which contains\nthe `POINTER TO` type as an attribute.  If you see this idiom \nyou are looking at some sort of dynamic data structure. The \npointer type is usually named for the dynamic type you want \nwork with and the record type is declared using the same name \nwith a \"Desc\" suffix. In our case `DynamicString` will be the \nname of our `POINTER TO` type and our record type will be \ncalled `DynamicStringDesc` following the convention.  In our \nrecord structure we include a \"value\" to holding a short \nfixed length `ARRAY OF CHAR`  and a \"next\" to holding the \npointer to our next record.\n\nIn our record the value is declared as a static type. We need\nto know how long our \"short\" string should be? I.e. What length\nis our `ARRAY OF CHAR`? It's a question of tuning. If it is too \nshort we spend more time allocating new records, too long and \nwe are wasting memory in each record. A way to make tuning a \nlittle simpler is to use a constant value to describe our array \nlength. Then if we decide our array is too big \nor too small we can adjust the constant knowing that our record \nstructure and the procedures that use that the length \ninformation will continue to work correctly. \n\nLet's take a look at actual code (NOTE: vSize is our constant value). \n\n~~~\n\n    CONST\n      vSize = 128; \n    \n    TYPE\n      DynamicString* = POINTER TO DynamicStringDesc;\n      DynamicStringDesc* = RECORD \n        value : ARRAY vSize OF CHAR; \n        next : DymamicString; \n      END;\n\n~~~\n\nNOTE: Both `DynamicString` and `DynamicStringDesc` are defined \nusing an `*`. These are public and will be available \nto other modules.  Inside our record `DynamicStringDesc` we \nhave two private to our module attributes, `.value` and \n`.next`. They are private so that we can change our \nimplementation in the future without requiring changes in \nmodules that use our dynamic strings. Likewise our constant `vSize`\nis private as that is an internal implementation detail. This\npractice is called information hiding.\n\nNOTE: The asterisk in Oberon decorates procedures, types, variables\nand constants that are \"public\" to other modules.\n\nNOTE: Variables are always exported read only.\n\nNOTE: With information hiding some details of implementation allow us \nto keep a clean division between implementation inside the module and how\nthat implementation might be used. With out information hiding we often\nhave \"leaky\" abstractions that become brittle and hard to maintain and\nrely on.\n\n\n\n## Working with DynamicString\n\nOur type definitions describe to the compiler how to layout our \ndata in memory. The type system in Oberon-07 also ensures that \naccess to that memory is restricted to assignments, operations \nand procedures compatible with that type. To be useful from \nother modules we need a few procedures to help work with\nthis new data type. What follows is a minimal set needed to be \nuseful.\n\n### `New*(VAR str : DynamicString)`\n\n`New` will initialize a DynamicString object setting `.value` to \nan empty string. \n\n\n~~~\n\n  PROCEDURE New*(VAR str : DynamicString);\n  BEGIN NEW(str);\n    str.value := \"\"; \n    str.next := NIL;\n  END New;\n\n~~~\n\n\n### `Set*(VAR str : DynamicString; source : ARRAY OF CHAR)` \n\n`Set` copies an `ARRAY OF CHAR` into an existing DynamicString. \nThis requires that we add and link additional records if the \n`source` is longer than our current dynamic string. Set is a \nbridge procedure between an existing datatype, `ARRAY OF CHAR` \nand our new data type, `DynamicString`.\n\n\n~~~\n\n  PROCEDURE Set*(VAR str : DynamicString; source : ARRAY OF CHAR); \n    VAR cur, next : DynamicString; tmp : ARRAY vSize OF CHAR; \n        i, l : INTEGER;\n  BEGIN cur := str; cur.value := \"\";\n    l := Strings.Length(source);\n    i := 0; \n    WHILE i < l DO\n      Strings.Extract(source, i, i + vSize, tmp);\n      Strings.Append(tmp, cur.value);\n      i := i + Strings.Length(tmp);\n      IF (i < l) THEN\n        IF cur.next = NIL THEN\n          New(next); cur.next := next;\n        END;\n        cur := cur.next;\n      END; \n    END;\n  END Set;\n\n~~~\n\n### `ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)`\n\n`ToCharArray` copies the contents of our dynamic string into an array \nof char setting `ok` to TRUE on success or FALSE if truncated. \nLike `Set*` it is a bridge procedure to let us move data output \nour new dynamic string type.\n\n\n~~~\n\n  PROCEDURE ToCharArray*(str : DynamicString; \n                         VAR dest : ARRAY OF CHAR; \n                         VAR ok : BOOLEAN);\n    VAR cur : DynamicString; i : INTEGER;\n  BEGIN \n    ok := FALSE;\n    cur := str; i := 0;\n    WHILE cur # NIL DO\n      i := i + Strings.Length(cur.value);\n      Strings.Append(cur.value, dest);\n      cur := cur.next;\n    END;\n    ok := (i = Strings.Length(dest));\n  END ToCharArray;\n\n~~~\n\nTwo additional procedures will likely be needed-- `Append` and \n`AppendCharArray`. This first one is trivial, if we want to add \none dynamic string onto another all we need to do is link the \nlast record of the first and point it to a copy of the second string we're appending.\n\n\n### `Append*(extra : DynamicString; VAR dest : DynamicString);`\n\n`Append` adds the `extra` dynamic string to `dest` dynamic string. Our \n\"input\" is `extra` and our output is a modified dynamic string \nnamed `dest`. This parameter order mimics the standard \n`Strings` module's `Append`.\n\nNOTE: Oberon idiom is often input values, modified value and \nresult values. Modified and result values are declared in the parameter\ndefinition using `VAR`.\n\nAlgorithm:\n\n1. Move to the end of `dest` dynamic string\n2. Create a new record at `cur.next`.\n3. Copy `extra.value` info.value `cur.next.value`\n4. Advance `extra` and `cur`, repeating steps 2 to 4 as needed.\n\nImplemented procedure.\n\n~~~\n\n  PROCEDURE Append*(extra: DynamicString; VAR dest : DynamicString);\n    VAR cur : DynamicString;  \n  BEGIN\n    (* Move to the end of the dest DynamicString *)\n    cur := dest;\n    WHILE cur.next # NIL DO cur := cur.next; END;\n    (* Starting initial pointer of `extra` copy its records\n       input new records created in `cur`. *)\n    WHILE extra # NIL DO\n      (* Create a new record *)\n      NEW(cur.next);\n      cur.next.value := \"\";\n      cur.next.next := NIL;\n      (* Copy extra.value into new record *)\n      Strings.Extract(extra.value, 0, vSize, cur.next.value);\n      (* Advance to next record for both cur and extra *)\n      extra := extra.next;\n      cur := cur.next;\n    END;\n  END Append;\n\n~~~\n\nA second procedure for appending an `ARRAY OF CHAR` also \nbecomes trivial. First convert the `ARRAY OF CHAR` to a dynamic \nstring then append it with the previous procedure.\n\n### `AppendCharArray*(src : ARRAY OF CHAR; VAR str : DynamicString);`\n\nThis procedure appends an ARRAY OF CHAR to an existing dynamic string.\n\n~~~\n\n  PROCEDURE AppendCharArray*(extra: ARRAY OF CHAR; VAR dest : DynamicString);\n    VAR extraStr : DynamicString;    \n  BEGIN\n    (* Convert our extra ARRAY OF CHAR into a DynamicString *)\n    New(extraStr); Set(extraStr, extra);\n    (* Now we can append. *)\n    Append(extraStr, dest);\n  END AppendCharArray;\n\n~~~\n\nAt some point we will want to know the length of our dynamic string.\n\n### `Length(str : DynamicString) : INTEGER`\n\nOur `Length` needs to go through our linked list and total up \nthe length of each value. We will use a variable called `cur` \nto point at the current record and add up our total length as \nwe walk through the list.\n\n~~~\n\n  PROCEDURE Length*( source : DynamicString) : INTEGER;\n    VAR cur : DynamicString; total : INTEGER;\n  BEGIN\n    total := 0;\n    cur := source;\n    WHILE cur # NIL DO\n      total := total + Strings.Length(cur.value);\n      cur := cur.next;\n    END; \n    RETURN total\n  END Length;\n\n~~~\n\n## Extending DynamicStrings module\n\nWith these few procedures we have a basic means of working with \ndynamic strings. Moving beyond this we can look at the standard \nOberon `Strings` module for inspiration.  If we use similar \nprocedure signatures we can create a drop in replacement \nfor `Strings` with `DynamicStrings`.\n\nNOTE: Procedure signatures refer to procedures type along \nwith the order and types of parameters. A quick review of the \nprocedure signatures for the standard module [Strings](https://miasap.se/obnc/obncdoc/basic/Strings.def.html) is \nprovided by the [OBNC](https://miasap.se/obnc) compiler docs. \n\nLet's look at recreating `Insert` as a potential guide to\na more fully featured [\"DynamicStrings.Mod\"](DynamicStrings.Mod). \nIn our `Insert` we modify the procedure signature so the \nsource and destinations are dynamic strings.\n\n\n### `Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)`\n\nThe `Insert` procedure inserts a `source` dynamic string at the \nposition provided into our `dest` dynamic string. We are implementing\nthe same signature  for our `DynamicStrings.Insert()` as \n`Strings.Insert()`. Only the parameters for source and destination\nare changed to `DynamicString`.\n\nInternally our procedure for `Insert` is a more complicated than\nthe ones we've written so far. It needs to do all the housing \nkeeping for making sure we add the right content in the correct\nspot.  The general idea is to find the record holding the split \npoint. Split that record into two records. The first retains \nthe characters before the insert position. The second holds the \ncharacters after the insert position and points to next record \nin the dynamic string. Once the split is accomplished it then \nis a matter of linking everything up. The record before the \ninsert position is set to point at the dynamic string to be \ninserted, the inserted dynamic string is set to point at the \nrecord that contained the rest of the characters after the \nsplit.\n\nIt is easy to extract a sub-string from an `ARRAY OF CHAR` \nusing the standard `Strings` module.  We can store the characters\nin the `.value` of the record after the split in a temporary \n`ARRAY OF CHAR`.  The temporary `ARRAY OF CHAR` can be used to \ncreate a new dynamic string record which will be linked to the \nrest of our destination dynamic string. The record which held \nthe characters before the insert position needs to be truncated \nand it needs to be linked to the dynamic string we want to \ninsert. NOTE: This will leave a small amount of unused \nmemory.\n\nNOTE: If conserving memory is critical then re-packing the \ndynamic string could be implemented as another procedure. The \ncost would be complexity and time to shift characters between \nlater records and earlier ones replacing excess NULL values.\n\nWe need to find the record where the split will occur. In the \nrecord to be split we need to calculate a relative \nsplit point. We then can copy the excess characters in that \nsplit record to a new record and truncate the `.value`'s \n`ARRAY OF CHAR` to create our split point. Truncating is easy \nin that we replace the CHAR in the `.values` that are not \nneeded with a NULL character. We can do that with a \nsimple loop. Likewise calculating the relative insertion \nposition can be done by taking the modulo of the `vSize` of \n`.value`.\n\nNOTE: In Oberon stings are terminated with a NULL \ncharacter. A NULL character holds the ASCII value `0X`.\n\nOur algorithm:\n\n1. Set `cur` to point to the start of our destination dynamic string\n2. Move `cur` to the record in the link list where the insertion will take place\n3. Calculate the relative split point in `cur.value`\n4. Copy the characters in `cur.value` from relative split point to end of `.value` into a temporary `ARRAY OF CHAR`\n5. Make a new record, `rest`, using the temporary `ARRAY OF CHAR` and update the value of `.next` to match that of `cur.next`\n6. Truncate the record (cur) at the relative split point\n7. Set `cur.next` to point to our `extra` dynamic string.\n8. Move to the end of extra with `cur`\n9. Set the `cur.next` to point at `rest`\n\nOur procedure:\n\n~~~\n\n  PROCEDURE Insert*(extra : DynamicString; \n                    pos : INTEGER; \n                    VAR dest : DynamicString);\n    VAR cur, rest : DynamicString;\n        tmp : ARRAY vSize OF CHAR;\n        i, splitPos : INTEGER; continue : BOOLEAN;\n  BEGIN\n    (* 1. Set `cur` to the start of our `dest` dynamic string *)\n    cur := dest;\n\n    (* 2. Move to the record which holds the split point *)\n    i := 0;\n    continue := (i < pos);\n    WHILE continue DO\n      i := i + Strings.Length(cur.value);\n      continue := (i < pos);\n      IF continue & (cur.next # NIL) THEN\n        cur := cur.next;\n      ELSE\n        continue := FALSE;\n      END;\n    END;\n\n    (* 3. Copy the characters in `cur.value` from relative\n          split point to end of `.value` into a \n          temporary `ARRAY OF CHAR` *)\n    splitPos := pos MOD vSize;\n    Strings.Extract(cur.value, splitPos,\n                    Strings.Length(cur.value), tmp);\n\n    (* 4. Make a new record, `rest`, using the temporary \n          `ARRAY OF CHAR` and update the value of `.next` to\n          match that of `cur.next` *)\n    New(rest); Set(rest, tmp);\n    rest.next := cur.next;\n\n    (* 5. Truncate `cur.value` at the relative split point *)\n    i := splitPos;\n    WHILE i < LEN(cur.value) DO\n      cur.value[i] := 0X;\n      INC(i);\n    END;\n\n    (* 6. Set `cur.next` to point to our `extra`\n          dynamic string. *)\n    cur.next := extra;\n\n    (* 7. Move to the end of extra with `cur` *)\n    WHILE cur.next # NIL DO cur := cur.next; END;\n\n    (* 8. Set the `cur.next` to point at `rest` *)\n    cur.next := rest;\n  END Insert;\n\n~~~\n\nWhile our `Insert` is the longest procedure so far the steps \nare mostly simple. Additionally we can easily extend this to \nsupport inserting a more traditional `ARRAY OF CHAR` using our\npreviously established design pattern of converting a basic type\ninto our dynamic type before calling the dynamic version of the\nfunction.\n\n~~~\n\n  PROCEDURE InsertCharArray*(source : ARRAY OF CHAR; \n                             pos : INTEGER; \n                             VAR dest : DynamicString);\n    VAR extra : DynamicString;\n  BEGIN\n    New(extra); Set(extra, source);\n    Insert(extra, pos, dest);\n  END InsertCharArray;\n\n~~~\n\n## Where to go next\n\nIt is possible to extend our \"DynamicStrings.Mod\" into a drop \nin replacement for the standard `Strings`.  I've included a \nskeleton of that module as links at the end of this article \nwith stubs for the missing implementations such as `Extract`, \n`Replace`, `Pos`, and `Cap`.  I've also included a \n\"DynamicStringsTest.Mod\" for demonstrating how it works.\n\nThe procedure I suggest is to mirror `Strings` replacing the \nparameters that are `ARRAY OF CHAR` with `DynamicString`. It \nwill be helpful to include some bridging procedures that accept \n`ARRAY OF CHAR` as inputs too. These will use similar names \nwith a suffix of `CharArray`.\n\n## Parameter conventions and order\n\nOberon is highly composable. The trick to creating a drop in \nreplacement module is use the same parameter signatures so \nyou only need to make minor changes like updating the `IMPORT` \nstatement and using a module alias to map the old module to the\nnew one.  The parameter signatures in `Strings` follow a \nconvention you'll see in other Oberon modules. The parameter\norder is based on the \"inputs\", \"modify parameters\", and \n\"output parameters\". Inputs are non-`VAR` parameters. The \nremaining are `VAR` parameters. I think of \"modify parameters\" \nas those objects who reflect side effects. I think of \"output\" \nas values that in other languages would be returned by \nfunctions.  This is only a convention. A variation I've \nread in other Oberon modules is \"object\", \"inputs\", \"outputs\". \n\"object\" and \"outputs\" are `VAR` parameters and \"inputs\" are \nnot. This ordering makes sense when we think of records as \nholding an object. In both cases ordering is a convention \nand not enforced by the language.  Convention and consistency is \nhelpful but readability is the most important.  Oberon is a \nreadable language. It does not reward obfuscation. Readability is \na great virtue in a programming language. When creating your own \nmodules choose readability based on the concepts you want to\nemphasize in the module (e.g. procedural, object oriented).\n\n## The modules so far\n\nYou can read the full source for the module discussed along\nwith a test module in the links that follow.\n\n+ [DynamicStrings.Mod](DynamicStrings.Mod)\n+ [DynamicStringsTest.Mod](DynamicStringsTest.Mod)\n\n\n### Next and Previous \n\n+ Next [Procedures as parameters](../../06/20/Procedures-as-parameters.html)\n+ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html) \n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Dynamic types"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2020-05-25"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is the eighth post in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Mostly Oberon"
+              }
+            ],
+            "type": "link",
+            "url": "../../04/11/Mostly-Oberon.html"
+          },
+          {
+            "type": "text",
+            "value": "\nseries. Mostly Oberon documents my exploration of the Oberon Language,\nOberon System and the various rabbit holes I will inevitably fall into."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Dynamic Types in Oberon"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon-07 is a succinct systems language. It provides a minimal\nbut useful set of basic static types. Relying on them addresses\nmany common programming needs. The Oberon compiler ensures\nstatic types are efficiently allocated in memory. One of the\nstrengths of Oberon is this ability to extend the type system.\nThis means when the basic types fall short you can take\nadvantage of Oberon's type  extension features. This includes\ncreating dynamically allocated data structures. In Oberon-07\ncombining Oberon's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "POINTER TO"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "RECORD"
+          },
+          {
+            "type": "text",
+            "value": " types allows us to\ncreate complex and dynamic data structures."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "An example, dynamic strings"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Strings in Oberon-07 are typical declared as an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": "\nwith a specific length. If the length of a string is not\nknown a head of time this presents a challenge. One approach is\nto declare a long array but that would allocate allot of memory\nwhich may not get used. Another approach is to create a dynamic\ndata structure. An example is using a linked list of shorter\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ".  The small fixed strings can combine to\nrepresent much larger strings. When one fills up we add\nanother."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pointers and records, an Oberon idiom"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our data model is a pointer to a record where the record\ncontains an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " and a pointer to the next record.\nA common idiom in Oberon for dynamic types is to declare a\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "POINTER TO"
+          },
+          {
+            "type": "text",
+            "value": " type and declare a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "RECORD"
+          },
+          {
+            "type": "text",
+            "value": " type which contains\nthe "
+          },
+          {
+            "type": "inlineCode",
+            "value": "POINTER TO"
+          },
+          {
+            "type": "text",
+            "value": " type as an attribute.  If you see this idiom\nyou are looking at some sort of dynamic data structure. The\npointer type is usually named for the dynamic type you want\nwork with and the record type is declared using the same name\nwith a \"Desc\" suffix. In our case "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicString"
+          },
+          {
+            "type": "text",
+            "value": " will be the\nname of our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "POINTER TO"
+          },
+          {
+            "type": "text",
+            "value": " type and our record type will be\ncalled "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicStringDesc"
+          },
+          {
+            "type": "text",
+            "value": " following the convention.  In our\nrecord structure we include a \"value\" to holding a short\nfixed length "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": "  and a \"next\" to holding the\npointer to our next record."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In our record the value is declared as a static type. We need\nto know how long our \"short\" string should be? I.e. What length\nis our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": "? It's a question of tuning. If it is too\nshort we spend more time allocating new records, too long and\nwe are wasting memory in each record. A way to make tuning a\nlittle simpler is to use a constant value to describe our array\nlength. Then if we decide our array is too big\nor too small we can adjust the constant knowing that our record\nstructure and the procedures that use that the length\ninformation will continue to work correctly."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's take a look at actual code (NOTE: vSize is our constant value)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    CONST\n      vSize = 128; \n    \n    TYPE\n      DynamicString* = POINTER TO DynamicStringDesc;\n      DynamicStringDesc* = RECORD \n        value : ARRAY vSize OF CHAR; \n        next : DymamicString; \n      END;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Both "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicString"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicStringDesc"
+          },
+          {
+            "type": "text",
+            "value": " are defined\nusing an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "*"
+          },
+          {
+            "type": "text",
+            "value": ". These are public and will be available\nto other modules.  Inside our record "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicStringDesc"
+          },
+          {
+            "type": "text",
+            "value": " we\nhave two private to our module attributes, "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".value"
+          },
+          {
+            "type": "text",
+            "value": " and\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": ".next"
+          },
+          {
+            "type": "text",
+            "value": ". They are private so that we can change our\nimplementation in the future without requiring changes in\nmodules that use our dynamic strings. Likewise our constant "
+          },
+          {
+            "type": "inlineCode",
+            "value": "vSize"
+          },
+          {
+            "type": "text",
+            "value": "\nis private as that is an internal implementation detail. This\npractice is called information hiding."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: The asterisk in Oberon decorates procedures, types, variables\nand constants that are \"public\" to other modules."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Variables are always exported read only."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: With information hiding some details of implementation allow us\nto keep a clean division between implementation inside the module and how\nthat implementation might be used. With out information hiding we often\nhave \"leaky\" abstractions that become brittle and hard to maintain and\nrely on."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Working with DynamicString"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our type definitions describe to the compiler how to layout our\ndata in memory. The type system in Oberon-07 also ensures that\naccess to that memory is restricted to assignments, operations\nand procedures compatible with that type. To be useful from\nother modules we need a few procedures to help work with\nthis new data type. What follows is a minimal set needed to be\nuseful."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "New*(VAR str : DynamicString)"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "New"
+          },
+          {
+            "type": "text",
+            "value": " will initialize a DynamicString object setting "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".value"
+          },
+          {
+            "type": "text",
+            "value": " to\nan empty string."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE New*(VAR str : DynamicString);\n  BEGIN NEW(str);\n    str.value := \"\"; \n    str.next := NIL;\n  END New;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Set*(VAR str : DynamicString; source : ARRAY OF CHAR)"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Set"
+          },
+          {
+            "type": "text",
+            "value": " copies an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " into an existing DynamicString.\nThis requires that we add and link additional records if the\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "source"
+          },
+          {
+            "type": "text",
+            "value": " is longer than our current dynamic string. Set is a\nbridge procedure between an existing datatype, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": "\nand our new data type, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicString"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE Set*(VAR str : DynamicString; source : ARRAY OF CHAR); \n    VAR cur, next : DynamicString; tmp : ARRAY vSize OF CHAR; \n        i, l : INTEGER;\n  BEGIN cur := str; cur.value := \"\";\n    l := Strings.Length(source);\n    i := 0; \n    WHILE i < l DO\n      Strings.Extract(source, i, i + vSize, tmp);\n      Strings.Append(tmp, cur.value);\n      i := i + Strings.Length(tmp);\n      IF (i < l) THEN\n        IF cur.next = NIL THEN\n          New(next); cur.next := next;\n        END;\n        cur := cur.next;\n      END; \n    END;\n  END Set;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "ToCharArray*(str : DynamicString; VAR dest : ARRAY OF CHAR; VAR ok : BOOLEAN)"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "ToCharArray"
+          },
+          {
+            "type": "text",
+            "value": " copies the contents of our dynamic string into an array\nof char setting "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ok"
+          },
+          {
+            "type": "text",
+            "value": " to TRUE on success or FALSE if truncated.\nLike "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Set*"
+          },
+          {
+            "type": "text",
+            "value": " it is a bridge procedure to let us move data output\nour new dynamic string type."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE ToCharArray*(str : DynamicString; \n                         VAR dest : ARRAY OF CHAR; \n                         VAR ok : BOOLEAN);\n    VAR cur : DynamicString; i : INTEGER;\n  BEGIN \n    ok := FALSE;\n    cur := str; i := 0;\n    WHILE cur # NIL DO\n      i := i + Strings.Length(cur.value);\n      Strings.Append(cur.value, dest);\n      cur := cur.next;\n    END;\n    ok := (i = Strings.Length(dest));\n  END ToCharArray;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Two additional procedures will likely be needed-- "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Append"
+          },
+          {
+            "type": "text",
+            "value": " and\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "AppendCharArray"
+          },
+          {
+            "type": "text",
+            "value": ". This first one is trivial, if we want to add\none dynamic string onto another all we need to do is link the\nlast record of the first and point it to a copy of the second string we're appending."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Append*(extra : DynamicString; VAR dest : DynamicString);"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Append"
+          },
+          {
+            "type": "text",
+            "value": " adds the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "extra"
+          },
+          {
+            "type": "text",
+            "value": " dynamic string to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dest"
+          },
+          {
+            "type": "text",
+            "value": " dynamic string. Our\n\"input\" is "
+          },
+          {
+            "type": "inlineCode",
+            "value": "extra"
+          },
+          {
+            "type": "text",
+            "value": " and our output is a modified dynamic string\nnamed "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dest"
+          },
+          {
+            "type": "text",
+            "value": ". This parameter order mimics the standard\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " module's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Append"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Oberon idiom is often input values, modified value and\nresult values. Modified and result values are declared in the parameter\ndefinition using "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Algorithm:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Move to the end of "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "dest"
+                  },
+                  {
+                    "type": "text",
+                    "value": " dynamic string"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Create a new record at "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.next"
+                  },
+                  {
+                    "type": "text",
+                    "value": "."
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Copy "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "extra.value"
+                  },
+                  {
+                    "type": "text",
+                    "value": " info.value "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.next.value"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Advance "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "extra"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", repeating steps 2 to 4 as needed."
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Implemented procedure."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE Append*(extra: DynamicString; VAR dest : DynamicString);\n    VAR cur : DynamicString;  \n  BEGIN\n    (* Move to the end of the dest DynamicString *)\n    cur := dest;\n    WHILE cur.next # NIL DO cur := cur.next; END;\n    (* Starting initial pointer of `extra` copy its records\n       input new records created in `cur`. *)\n    WHILE extra # NIL DO\n      (* Create a new record *)\n      NEW(cur.next);\n      cur.next.value := \"\";\n      cur.next.next := NIL;\n      (* Copy extra.value into new record *)\n      Strings.Extract(extra.value, 0, vSize, cur.next.value);\n      (* Advance to next record for both cur and extra *)\n      extra := extra.next;\n      cur := cur.next;\n    END;\n  END Append;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "A second procedure for appending an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " also\nbecomes trivial. First convert the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " to a dynamic\nstring then append it with the previous procedure."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "AppendCharArray*(src : ARRAY OF CHAR; VAR str : DynamicString);"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This procedure appends an ARRAY OF CHAR to an existing dynamic string."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE AppendCharArray*(extra: ARRAY OF CHAR; VAR dest : DynamicString);\n    VAR extraStr : DynamicString;    \n  BEGIN\n    (* Convert our extra ARRAY OF CHAR into a DynamicString *)\n    New(extraStr); Set(extraStr, extra);\n    (* Now we can append. *)\n    Append(extraStr, dest);\n  END AppendCharArray;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "At some point we will want to know the length of our dynamic string."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Length(str : DynamicString) : INTEGER"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Length"
+          },
+          {
+            "type": "text",
+            "value": " needs to go through our linked list and total up\nthe length of each value. We will use a variable called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "cur"
+          },
+          {
+            "type": "text",
+            "value": "\nto point at the current record and add up our total length as\nwe walk through the list."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE Length*( source : DynamicString) : INTEGER;\n    VAR cur : DynamicString; total : INTEGER;\n  BEGIN\n    total := 0;\n    cur := source;\n    WHILE cur # NIL DO\n      total := total + Strings.Length(cur.value);\n      cur := cur.next;\n    END; \n    RETURN total\n  END Length;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Extending DynamicStrings module"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "With these few procedures we have a basic means of working with\ndynamic strings. Moving beyond this we can look at the standard\nOberon "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " module for inspiration.  If we use similar\nprocedure signatures we can create a drop in replacement\nfor "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicStrings"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: Procedure signatures refer to procedures type along\nwith the order and types of parameters. A quick review of the\nprocedure signatures for the standard module "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Strings"
+              }
+            ],
+            "type": "link",
+            "url": "https://miasap.se/obnc/obncdoc/basic/Strings.def.html"
+          },
+          {
+            "type": "text",
+            "value": " is\nprovided by the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "OBNC"
+              }
+            ],
+            "type": "link",
+            "url": "https://miasap.se/obnc"
+          },
+          {
+            "type": "text",
+            "value": " compiler docs."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's look at recreating "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Insert"
+          },
+          {
+            "type": "text",
+            "value": " as a potential guide to\na more fully featured "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "\"DynamicStrings.Mod\""
+              }
+            ],
+            "type": "link",
+            "url": "DynamicStrings.Mod"
+          },
+          {
+            "type": "text",
+            "value": ".\nIn our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Insert"
+          },
+          {
+            "type": "text",
+            "value": " we modify the procedure signature so the\nsource and destinations are dynamic strings."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "Insert(source : DynamicString; pos : INTEGER; VAR dest : DynamicString)"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Insert"
+          },
+          {
+            "type": "text",
+            "value": " procedure inserts a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "source"
+          },
+          {
+            "type": "text",
+            "value": " dynamic string at the\nposition provided into our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dest"
+          },
+          {
+            "type": "text",
+            "value": " dynamic string. We are implementing\nthe same signature  for our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicStrings.Insert()"
+          },
+          {
+            "type": "text",
+            "value": " as\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings.Insert()"
+          },
+          {
+            "type": "text",
+            "value": ". Only the parameters for source and destination\nare changed to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicString"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Internally our procedure for "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Insert"
+          },
+          {
+            "type": "text",
+            "value": " is a more complicated than\nthe ones we've written so far. It needs to do all the housing\nkeeping for making sure we add the right content in the correct\nspot.  The general idea is to find the record holding the split\npoint. Split that record into two records. The first retains\nthe characters before the insert position. The second holds the\ncharacters after the insert position and points to next record\nin the dynamic string. Once the split is accomplished it then\nis a matter of linking everything up. The record before the\ninsert position is set to point at the dynamic string to be\ninserted, the inserted dynamic string is set to point at the\nrecord that contained the rest of the characters after the\nsplit."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "It is easy to extract a sub-string from an "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": "\nusing the standard "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " module.  We can store the characters\nin the "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".value"
+          },
+          {
+            "type": "text",
+            "value": " of the record after the split in a temporary\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": ".  The temporary "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " can be used to\ncreate a new dynamic string record which will be linked to the\nrest of our destination dynamic string. The record which held\nthe characters before the insert position needs to be truncated\nand it needs to be linked to the dynamic string we want to\ninsert. NOTE: This will leave a small amount of unused\nmemory."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: If conserving memory is critical then re-packing the\ndynamic string could be implemented as another procedure. The\ncost would be complexity and time to shift characters between\nlater records and earlier ones replacing excess NULL values."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We need to find the record where the split will occur. In the\nrecord to be split we need to calculate a relative\nsplit point. We then can copy the excess characters in that\nsplit record to a new record and truncate the "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".value"
+          },
+          {
+            "type": "text",
+            "value": "'s\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " to create our split point. Truncating is easy\nin that we replace the CHAR in the "
+          },
+          {
+            "type": "inlineCode",
+            "value": ".values"
+          },
+          {
+            "type": "text",
+            "value": " that are not\nneeded with a NULL character. We can do that with a\nsimple loop. Likewise calculating the relative insertion\nposition can be done by taking the modulo of the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "vSize"
+          },
+          {
+            "type": "text",
+            "value": " of\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": ".value"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: In Oberon stings are terminated with a NULL\ncharacter. A NULL character holds the ASCII value "
+          },
+          {
+            "type": "inlineCode",
+            "value": "0X"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our algorithm:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Set "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to point to the start of our destination dynamic string"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Move "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to the record in the link list where the insertion will take place"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Calculate the relative split point in "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.value"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Copy the characters in "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.value"
+                  },
+                  {
+                    "type": "text",
+                    "value": " from relative split point to end of "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": ".value"
+                  },
+                  {
+                    "type": "text",
+                    "value": " into a temporary "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "ARRAY OF CHAR"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make a new record, "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "rest"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", using the temporary "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "ARRAY OF CHAR"
+                  },
+                  {
+                    "type": "text",
+                    "value": " and update the value of "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": ".next"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to match that of "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.next"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Truncate the record (cur) at the relative split point"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Set "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.next"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to point to our "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "extra"
+                  },
+                  {
+                    "type": "text",
+                    "value": " dynamic string."
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Move to the end of extra with "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Set the "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "cur.next"
+                  },
+                  {
+                    "type": "text",
+                    "value": " to point at "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "rest"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our procedure:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE Insert*(extra : DynamicString; \n                    pos : INTEGER; \n                    VAR dest : DynamicString);\n    VAR cur, rest : DynamicString;\n        tmp : ARRAY vSize OF CHAR;\n        i, splitPos : INTEGER; continue : BOOLEAN;\n  BEGIN\n    (* 1. Set `cur` to the start of our `dest` dynamic string *)\n    cur := dest;\n\n    (* 2. Move to the record which holds the split point *)\n    i := 0;\n    continue := (i < pos);\n    WHILE continue DO\n      i := i + Strings.Length(cur.value);\n      continue := (i < pos);\n      IF continue & (cur.next # NIL) THEN\n        cur := cur.next;\n      ELSE\n        continue := FALSE;\n      END;\n    END;\n\n    (* 3. Copy the characters in `cur.value` from relative\n          split point to end of `.value` into a \n          temporary `ARRAY OF CHAR` *)\n    splitPos := pos MOD vSize;\n    Strings.Extract(cur.value, splitPos,\n                    Strings.Length(cur.value), tmp);\n\n    (* 4. Make a new record, `rest`, using the temporary \n          `ARRAY OF CHAR` and update the value of `.next` to\n          match that of `cur.next` *)\n    New(rest); Set(rest, tmp);\n    rest.next := cur.next;\n\n    (* 5. Truncate `cur.value` at the relative split point *)\n    i := splitPos;\n    WHILE i < LEN(cur.value) DO\n      cur.value[i] := 0X;\n      INC(i);\n    END;\n\n    (* 6. Set `cur.next` to point to our `extra`\n          dynamic string. *)\n    cur.next := extra;\n\n    (* 7. Move to the end of extra with `cur` *)\n    WHILE cur.next # NIL DO cur := cur.next; END;\n\n    (* 8. Set the `cur.next` to point at `rest` *)\n    cur.next := rest;\n  END Insert;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "While our "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Insert"
+          },
+          {
+            "type": "text",
+            "value": " is the longest procedure so far the steps\nare mostly simple. Additionally we can easily extend this to\nsupport inserting a more traditional "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " using our\npreviously established design pattern of converting a basic type\ninto our dynamic type before calling the dynamic version of the\nfunction."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n  PROCEDURE InsertCharArray*(source : ARRAY OF CHAR; \n                             pos : INTEGER; \n                             VAR dest : DynamicString);\n    VAR extra : DynamicString;\n  BEGIN\n    New(extra); Set(extra, source);\n    Insert(extra, pos, dest);\n  END InsertCharArray;\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Where to go next"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "It is possible to extend our \"DynamicStrings.Mod\" into a drop\nin replacement for the standard "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": ".  I've included a\nskeleton of that module as links at the end of this article\nwith stubs for the missing implementations such as "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Extract"
+          },
+          {
+            "type": "text",
+            "value": ",\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "Replace"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Pos"
+          },
+          {
+            "type": "text",
+            "value": ", and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Cap"
+          },
+          {
+            "type": "text",
+            "value": ".  I've also included a\n\"DynamicStringsTest.Mod\" for demonstrating how it works."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The procedure I suggest is to mirror "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " replacing the\nparameters that are "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "DynamicString"
+          },
+          {
+            "type": "text",
+            "value": ". It\nwill be helpful to include some bridging procedures that accept\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ARRAY OF CHAR"
+          },
+          {
+            "type": "text",
+            "value": " as inputs too. These will use similar names\nwith a suffix of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CharArray"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Parameter conventions and order"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon is highly composable. The trick to creating a drop in\nreplacement module is use the same parameter signatures so\nyou only need to make minor changes like updating the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IMPORT"
+          },
+          {
+            "type": "text",
+            "value": "\nstatement and using a module alias to map the old module to the\nnew one.  The parameter signatures in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Strings"
+          },
+          {
+            "type": "text",
+            "value": " follow a\nconvention you'll see in other Oberon modules. The parameter\norder is based on the \"inputs\", \"modify parameters\", and\n\"output parameters\". Inputs are non-"
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " parameters. The\nremaining are "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " parameters. I think of \"modify parameters\"\nas those objects who reflect side effects. I think of \"output\"\nas values that in other languages would be returned by\nfunctions.  This is only a convention. A variation I've\nread in other Oberon modules is \"object\", \"inputs\", \"outputs\".\n\"object\" and \"outputs\" are "
+          },
+          {
+            "type": "inlineCode",
+            "value": "VAR"
+          },
+          {
+            "type": "text",
+            "value": " parameters and \"inputs\" are\nnot. This ordering makes sense when we think of records as\nholding an object. In both cases ordering is a convention\nand not enforced by the language.  Convention and consistency is\nhelpful but readability is the most important.  Oberon is a\nreadable language. It does not reward obfuscation. Readability is\na great virtue in a programming language. When creating your own\nmodules choose readability based on the concepts you want to\nemphasize in the module (e.g. procedural, object oriented)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The modules so far"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "You can read the full source for the module discussed along\nwith a test module in the links that follow."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "DynamicStrings.Mod"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "DynamicStrings.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "DynamicStringsTest.Mod"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "DynamicStringsTest.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": true,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Next and Previous"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Next "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Procedures as parameters"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../../06/20/Procedures-as-parameters.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Previous "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Oberon-07 and the file system"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../09/Oberon-07-and-the-filesystem.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2020, R. S. Doiel",
+    "date": "2020-05-25",
+    "keywords": [
+      "Oberon",
+      "programming",
+      "type extension",
+      "dynamic data"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 8,
+    "series": "Mostly Oberon",
+    "title": "Dynamic types"
+  }
+}

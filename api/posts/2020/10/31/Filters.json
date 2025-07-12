@@ -1,0 +1,1938 @@
+{
+  "content": "\n\nSoftware Tools, Filters\n=======================\n\nOverview\n--------\n\nThis post is the second in a series revisiting the programs\ndescribed in the 1981 book by Brian W. Kernighan and P. J.\nPlauger's called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is available from the\n[Open Library](https://openlibrary.org/) and physical copies\nare still (2020) commonly available from used book sellers.\nThe book was an late 20th century text on creating portable\ncommand line programs using ISO standard Pascal of the era.\n\nIn this chapter K & P focuses on developing the idea of filters.\nFilters are programs which typically process standard input, do\nsome sort of transformation or calculation and write to standard\noutput.  They are intended to work either standalone or in a pipeline\nto solve more complex problems. I like to think of filters as\nsoftware [LEGO](https://en.wikipedia.org/wiki/Lego).\nFilter programs can be \"snapped\" together creating simple shapes\ndata shapes or combined to for complex compositions.\n\nThe programs from this chapter include:\n\n+ **entab**, respecting tabstops, convert strings of spaces to tabs\n+ **overstrike**, this is probably not useful anymore, it would allow \"overstriking\" characters on devices that supported it. From [wikipedia](https://en.wikipedia.org/wiki/Overstrike), \"In typography, overstrike is a method of printing characters that are missing from the printer's character set. The character was created by placing one character on another one — for example, overstriking \"L\" with \"-\" resulted in printing a \"Ł\" (L with stroke) character.\"\n+ **compress**, an early UNIX style compress for plain text files\n+ **expand**, an early UNIX style expand for plain text files, previously run through with **compress**\n+ **echo**, write echo's command line parameters to standard output, introduces working with command line parameters\n+ **translit**, transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K & P\n\nImplementing in Oberon-07\n------------------------\n\nWith the exception of **echo** (used to introduce command line parameter processing) each program increases in complexity.  The last program **translit**is the most complex in this chapter.  It introducing what we a \"domain specific language\" or \"DSL\".  A DSL is a notation allowing us to describe something implicitly rather than explicitly. All the programs except **translit** follow closely the original Pascal translated to Oberon-07.  **translit** book implementation is very much a result of the constraints of Pascal of the early 1980s as well as the minimalist assumption that could be made about the host operating system. I will focus on revising that program in particular bring the code up to current practice as well as offering insights I've learned.\n\n\nThe program **translit** introduces what is called a \"Domain Specific Language\".Domain specific languages or DSL for short are often simple notations to describe how to solve vary narrow problems.  If you've used any of the popular spreadsheet programs where you've entered a formula to compute something you've used a domain specific language.  If you've ever search for text in a document using a regular expression you've used a domain specific language.  By focusing a notation on a small problem space you can often come up with simple ways of expressing or composing programmatic solutions to get a job done.\n\nIn **translit** the notation let's us describe what we want to translate. At the simplest level the **translit** program takes a character and replaces it with another character. What make increases **translit** utility is that it can take a set of characters and replace it with another.  If you want to change all lower cases letters and replace them with uppercase letters. This \"from set\" and \"to set\" are easy to describe as two ranges, \"a\" to \"z\" and \"A\" to \"Z\".  Our domain notation allows us to express this as \"a-z\" and \"A-Z\".  K & P include several of features in there notation including characters to exclude from a translation as well as an \"escape notation\" for describing characters like new lines, tabs, or the characters that describe a range and exclusion (i.e. dash and caret).\n\n\n\n2.1 Putting Tabs Back\n=====================\n\n[Page 31](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up)\n\nImplementing **entab** in Oberon-07 is straight forward.\nLike my [Detab](Detab.Mod) implementation I am using\na second modules called [Tabs](Tabs.Mod). This removes\nthe need for the `#include` macros used in the K & P version.\nI have used the same loop structure as K & P this time.\nThere is a difference in my `WHILE` loop. I separate the\ncharacter read from the `WHILE` conditional test.  Combining the\ntwo is common in \"C\" and is consistent with the programming style\nother books by Kernighan.  In Oberon-07 doesn't make sense at all.\nOberon's `In.Char()` is not a function returning as in the Pascal\nprimitives implemented for the K & P book or indeed like in the \"C\"\nlanguage. In Oberon's \"In\" module the status of a read operation is\nexposed by `In.Done`. I've chosen to put the next call to\n`In.Char()` at the bottom of my `WHILE` loop because it is clear\nthat it is the last think done before ether iterating again or\nexiting the loop. Other than that the Oberon version looks much\nlike K & P's Pascal.\n\n\nProgram Documentation\n---------------------\n\n[Page 32](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up)\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n  entab\tconvert runs of blanks into tabs\n\nUSAGE\n\n  entab\n\nFUNCTION\n\n  entab copies its input to its output, replacing strings of\n  blanks by tabs so the output is visually the same as the\n  input, but contains fewer characters. Tab stops are assumed\n  to be set every four columns (i.e. 1, 5, 9, ...), so that\n  each sequence of one to four blanks ending on a tab stop\n  is replaced by a tab character\n\nEXAMPLE\n\n  Using -> as visible tab:\n\n    entab\n      col  1   2   34  rest\n    ->col->1->2->34->rest\n\nBUGS\n\n  entab is naive about backspaces, virtical motions, and\n  non-printing characters. entab will convert  a single blank\n  to a tab if it occurs at a tab stop. The entab is not an\n  exact inverse of detab.\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nSource code for **Entab.Mod**\n-----------------------------\n\n~~~\n\nMODULE Entab;\n  IMPORT In, Out, Tabs;\n\nCONST\n  NEWLINE = 10;\n  TAB = 9;\n  BLANK = 32;\n\nPROCEDURE Entab();\nVAR\n  c : CHAR;\n  col, newcol : INTEGER;\n  tabstops : Tabs.TabType;\nBEGIN\n  Tabs.SetTabs(tabstops);\n  col := 1;\n  REPEAT\n    newcol := col;\n    In.Char(c);\n    IF In.Done THEN (* NOTE: We check that the read was successful! *)\n      WHILE (ORD(c) = BLANK) DO\n        newcol := newcol + 1;\n        IF (Tabs.TabPos(newcol, tabstops)) THEN\n          Out.Char(CHR(TAB));\n          col := newcol;\n        END;\n        (* NOTE: Get the next char, check the loop condition\n           and either iterate or exit the loop *)\n        In.Char(c);\n      END;\n      WHILE (col < newcol) DO\n        Out.Char(CHR(BLANK)); (* output left over blanks *)\n        col := col + 1;\n      END;\n      (* NOTE: Since we may have gotten a new char in the first WHILE\n         we need to check again if the read was successful *)\n      IF In.Done THEN\n        Out.Char(c);\n        IF (ORD(c) = NEWLINE) THEN\n          col := 1;\n        ELSE\n          col := col + 1;\n        END;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Entab;\n\nBEGIN\n  Entab();\nEND Entab.\n\n~~~\n\n\n\n2.2 Overstrikes\n===============\n\n\n[Page 34](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up)\n\n\nOverstrike isn't a tool that is useful today but I've included it\nsimply to be follow along the flow of the K & P book. It very much\nreflects an error where teletype like devices where still common and\nprinters printed much like typewriters did. On a 20th century\nmanual type writer you could underline a word or letter by backing\nup the carriage then typing the underscore character. Striking out\na word was accomplished by a similar technique. The mid to late\n20th century computers device retained this mechanism though by\n1980's it was beginning to disappear along with manual typewriters.\nThis program relies on the the nature of ASCII character set and\nreflects some of the non-print character's functionality. I\nfound it did not work on today's terminal emulators reliably. Your\nmileage may very nor do I have a vintage printer to test it on.\n\nOur module follows K & P design almost verbatim. The differences\nare those suggested by differences between Pascal and Oberon-07.\nLike in previous examples we don't need to use an ENDFILE constant\nas we can simply check the value of `In.Done` to determine\nif the last read was successful. This simplifies some of\nthe `IF/ELSE` logic and the termination of the `REPEAT/UNTIL`\nloop.  It makes the `WHILE/DO` loop a little more verbose.\n\nOne thing I would like to point out in the original Pascal of the\nbook is a problem often referred to as the \"dangling else\" problem.\nWhile this is usually discussed in the context of compiler\nimplementation I feel like it is a bigger issue for the person\nreading the source code. It is particularly problematic when you\nhave complex \"IF/ELSE\" sequences that are nested.  This is not\nlimited to the 1980's era Pascal. You see it in other languages\nlike C.  It is a convenience for the person typing the source code\nbut a problem for those who maintain it. We see this ambiguity in\nthe Pascal procedure **overstrike** inside the repeat loop\non [page 35](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up).\nIt is made worse by the fact that K & P have taken advantage of\nomitting the semi-colons where optional. If you type in this\nprocedure and remove the indication if quickly becomes ambiguous\nabout where on \"IF/ELSE\" begins and the next ends. In Oberon-07 it\nis clear when you have a dangling \"IF\" statement. This vintage\nPascal, not so much.\n\nK & P do mention the dangling \"ELSE\" problem later in the text.\nTheir recommend practice was include the explicit final \"ELSE\"\nat a comment to avoid confusion. But you can see how easy an\nomitting the comment is in the **overstrike** program.\n\nLimitations\n-----------\n\nThis is documented \"BUG\" section describes the limitations\nwell, \"**overstrike** is naive about vertical motions and non-\nprinting characters. It produces one over struck line for each\nsequence of backspaces\". But in addition to that most printing\ndevices these days either have their own drivers or expect to work\nwith a standard like Postscript. This limited the usefulness of\nthis program today though controlling character movement in a\n\"vt100\" emulation using old fashion ASCII control codes is\nstill interesting if only for historical reasons.\n\n\nProgram Documentation\n---------------------\n\n[Page 36](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up)\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n  overstrike    replace overstrikes by multiple-lines\n\nUSAGE\n\n  overstrike\n\nFUNCTION\n\n  overstrike copies in input to its output, replacing lines\n  containing backspaces by multiple lines that overstrike\n  to print the same as input, but containing no backspaces.\n  It is assumed that the output is to be printed on a device\n  that takes the first character of each line as a carriage\n  control; a blank carriage control causes normal space before\n  print, while a plus sign '+' suppresses space before print\n  and hence causes the remainder of the line to overstrike\n  the previous line.\n\nEXAMPLE\n\n  Using <- as a visible backspace:\n\n    overstrike\n    abc<-<-<-___\n     abc\n    +___\n\nBUGS\n\n  overstrike is naive about vertical motions and non-printing\n  characters. It produces one over struck line for each sequence\n  of backspaces.\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\nSource code for **Overstrike.Mod**\n----------------------------------\n\n~~~\n\nMODULE Overstrike;\nIMPORT In, Out;\n\nCONST\n  NEWLINE = 10;\n  BLANK = 32;\n  PLUS = 43;\n  BACKSPACE = 8;\n\nPROCEDURE Max(x, y : INTEGER) : INTEGER;\nVAR max : INTEGER;\nBEGIN\n  IF (x > y) THEN\n    max := x\n  ELSE\n    max := y\n  END;\n  RETURN max\nEND Max;\n\nPROCEDURE Overstrike;\nCONST\n  SKIP = BLANK;\n  NOSKIP = PLUS;\nVAR\n  c : CHAR;\n  col, newcol, i : INTEGER;\nBEGIN\n  col := 1;\n  REPEAT\n    newcol := col;\n    In.Char(c);\n    (* NOTE We check In.Done on each loop evalution *)\n    WHILE (In.Done = TRUE) & (ORD(c) = BACKSPACE) DO (* eat the backspaces *)\n      newcol := Max(newcol, 1);\n      In.Char(c);\n    END;\n    (* NOTE: We check In.Done again, since we may have\n       additional reads when eating the backspaces. If\n       the previous while loop has taken us to the end of file.\n       this will be also mean In.Done = FALSE. *)\n    IF In.Done THEN\n      IF (newcol < col) THEN\n        Out.Char(CHR(NEWLINE)); (* start overstrike line *)\n        Out.Char(CHR(NOSKIP));\n        FOR i := 0 TO newcol DO\n          Out.Char(CHR(BLANK));\n        END;\n        col := newcol;\n      ELSIF (col = 1) THEN (* NOTE: In.Done already check for end of file *)\n        Out.Char(CHR(SKIP)); (* normal line *)\n      END;\n      (* NOTE: In.Done already was checked so we are in mid line *)\n      Out.Char(c);    (* normal character *)\n      IF (ORD(c) = NEWLINE) THEN\n        col := 1\n      ELSE\n        col := col + 1\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Overstrike;\n\nBEGIN\n  Overstrike();\nEND Overstrike.\n\n~~~\n\n\n2.3 Text Compression\n====================\n\n[Page 37](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up)\n\nIn 20th century computing everything is expensive, memory,\npersistent storage computational ability in CPU.  If you were\nprimarily working with text you still worried about running out of\nspace in your storage medium. You see it in the units\nof measurement used in that era such as bytes, kilobytes, hertz and\nkilohertz. To day we talk about megabytes, gigabytes, terabytes and\npetabytes. Plain text files are a tiny size compared to must\ndigital objects today but in the late 20th century\ntheir size in storage was still a concern.  One way to solve this\nproblem was to encode your plain text to use less storage space.\nEarly attempts at file compression took advantage of repetition to\nsave space. Many text documents have repeated characters\nwhether spaces or punctuation or other formatting. This is what\ninspired the K & P implementation of **compress** and **expand**.\nToday we'd use other approaches to save space whether we were\nstoring text or a digital photograph.\n\n\nProgram Documentation\n---------------------\n\n[Page ](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up)\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n    compress    compress input by encoding repeated characters\n\nUSAGE\n\n    compress\n\nFUNCTION\n\n    compress copies its input to its output, replacing strings\n    of four or more identical characters by a code sequence so\n    that the output generally contains fewer characters than the\n    input. A run of x's is encoded as -nx, where the count n is\n    a character: 'A' calls for a repetition of one x, 'B' a\n    repetition of two x's, and so on. Runs longer than 26 are\n    broken into several shorter ones. Runs of -'s of any length\n    are encoded.\n\nEXAMPLE\n\n    compress\n    Item     Name           Value\n    Item-D Name-I Value\n    1       car             -$7,000.00\n    1-G car-J -A-$7,000.00\n    <ENDFILE>\n\nBUGS\n\n    The implementation assumes 26 legal characters beginning with A.\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\nSource code for **Compress.Mod**\n--------------------------------\n\n~~~\n\nMODULE Compress;\nIMPORT In, Out;\n\nCONST\n    TILDE = \"~\";\n    WARNING = TILDE;    (* ~ *)\n\n(* Min -- compute minimum of two integers *)\nPROCEDURE Min(x, y : INTEGER) : INTEGER;\nVAR min : INTEGER;\nBEGIN\n    IF (x < y) THEN\n        min := x\n    ELSE\n        min := y\n    END;\n    RETURN min\nEND Min;\n\n(* PutRep -- put out representation of run of n 'c's *)\nPROCEDURE PutRep (n : INTEGER; c : CHAR);\nCONST\n    MAXREP = 26;    (* assuming 'A' .. 'Z' *)\n    THRESH = 4;\nVAR i : INTEGER;\nBEGIN\n    WHILE (n >= THRESH) OR ((c = WARNING) & (n > 0)) DO\n        Out.Char(WARNING);\n        Out.Char(CHR((Min(n, MAXREP) - 1) + ORD(\"A\")));\n        Out.Char(c);\n        n := n - MAXREP;\n    END;\n    FOR i := n TO 1 BY (-1) DO\n        Out.Char(c);\n    END;\nEND PutRep;\n\n(* Compress -- compress standard input *)\nPROCEDURE Compress();\nVAR\n    c, lastc : CHAR;\n    n : INTEGER;\nBEGIN\n    n := 1;\n    In.Char(lastc);\n    WHILE (In.Done = TRUE) DO\n        In.Char(c);\n        IF (In.Done = FALSE) THEN\n            IF (n > 1) OR (lastc = WARNING) THEN\n                PutRep(n, lastc)\n            ELSE\n                Out.Char(lastc);\n            END;\n        ELSIF (c = lastc) THEN\n            n := n + 1\n        ELSIF (n > 1) OR (lastc = WARNING) THEN\n            PutRep(n, lastc);\n            n := 1\n        ELSE\n            Out.Char(lastc);\n        END;\n        lastc := c;\n    END;\nEND Compress;\n\n\nBEGIN\n    Compress();\nEND Compress.\n\n~~~\n\n\n\n2.4 Text Expansion\n==================\n\n[Page 41](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up)\n\nOur procedures map closely to the original Pascal with a few\nsignificant differences.  As previously I've chosen a\n`REPEAT ... UNTIL` loop structure because we are always attempting\nto read at least once. The `IF THEN ELSIF ELSE` logic is a little\ndifferent. In the K & P version they combine retrieving\na character and testing its value.  This is a style common in\nlanguages like C. As previous mentioned I split the read of the\ncharacter from the test.  Aside from the choices imposed by the\n\"In\" module I also feel that retrieving the value, then testing is\na simpler statement to read. There is little need to worry about a\nside effect when you separate the action from the test. It does\nchange the structure of the inner and outer `IF` statements.\n\n\n\nProgram Documentation\n---------------------\n\n[Page 43](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up)\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n    expand  expand compressed input\n\nUSAGE\n\n    expand\n\nFUNCTION\n\n    expand copies its input, which has presumably been encoded by\n    compress, to its output, replacing code sequences -nc by the\n    repeated characters they stand for so that the text output\n    exactly matches that which was originally encoded. The\n    occurrence of the warning character - in the input means that\n    which was originally encoded. The occurrence of the warning\n    character - in the input means that the next character is a\n    repetition count; 'A' calls for one instance of the following\n    character, 'B' calls for two, and so on up to 'Z'.\n\nEXAMPLE\n\n    expand\n    Item~D Name~I Value\n    Item    Name        Value\n    1~G car~J ~A~$7,000.00\n    1       car         -$7,000.00\n    <ENDFILE>\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\nSource code for **Expand.Mod**\n------------------------------\n\n~~~\nMODULE Expand;\nIMPORT In, Out;\n\nCONST\n    TILDE = \"~\";\n    WARNING = TILDE;    (* ~ *)\n    LetterA = ORD(\"A\");\n    LetterZ = ORD(\"Z\");\n\n(* IsUpper -- true if c is upper case letter *)\nPROCEDURE IsUpper (c : CHAR) : BOOLEAN;\nVAR res : BOOLEAN;\nBEGIN\n    IF (ORD(c) >= LetterA) & (ORD(c) <= LetterZ) THEN\n        res := TRUE;\n    ELSE\n        res := FALSE;\n    END\n    RETURN res\nEND IsUpper;\n\n(* Expand -- uncompress standard input *)\nPROCEDURE Expand();\nVAR\n    c : CHAR;\n    n, i : INTEGER;\nBEGIN\n    REPEAT\n        In.Char(c);\n        IF (c # WARNING) THEN\n            Out.Char(c);\n        ELSE\n            In.Char(c);\n            IF IsUpper(c) THEN\n                n := (ORD(c) - ORD(\"A\")) + 1;\n                In.Char(c);\n                IF (In.Done) THEN\n                    FOR i := n TO 1 BY -1 DO\n                        Out.Char(c);\n                    END;\n                ELSE\n                    Out.Char(WARNING);\n                    Out.Char(CHR((n - 1) + ORD(\"A\")));\n                END;\n            ELSE\n                Out.Char(WARNING);\n                IF In.Done THEN\n                    Out.Char(c);\n                END;\n            END;\n        END;\n    UNTIL In.Done # TRUE;\nEND Expand;\n\nBEGIN\n    Expand();\nEND Expand.\n\n~~~\n\n\n2.5 Command Arguments\n=====================\n\n[Page 44](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up)\n\n\nProgram Documentation\n---------------------\n\n[Page 45](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up)\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n    echo    echo arguments to standard output\n\nUSAGE\n\n    echo [ argument ... ]\n\nFUNCTION\n\n    echo copies its command line arguments to its output as a line\n    of text with one space\n    between each argument. IF there are no arguments, no output is\n    produced.\n\nEXAMPLE\n\n    To see if your system is alive:\n\n        echo hello world!\n        hello world!\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\nSource code for **Echo.Mod**\n----------------------------\n\n~~~\n\nMODULE Echo;\nIMPORT Out, Args := extArgs;\n\nCONST\n    MAXSTR = 1024; (* or whatever *)\n    BLANK = \" \";\n\n(* Echo -- echo command line arguments to output *)\nPROCEDURE Echo();\nVAR\n    i, res : INTEGER;\n    argstr : ARRAY MAXSTR OF CHAR;\nBEGIN\n    i := 0;\n    FOR i := 0 TO (Args.count - 1) DO\n        Args.Get(i, argstr, res);\n        IF (i > 0) THEN\n            Out.Char(BLANK);\n        END;\n        Out.String(argstr);\n    END;\n    IF Args.count > 0 THEN\n        Out.Ln();\n    END;\nEND Echo;\n\nBEGIN\n    Echo();\nEND Echo.\n\n~~~\n\n\n2.6 Character Transliteration\n=============================\n\n[Page 47](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up)\n\n\n**translit** is the most complicated program so far in the book.\nMost of the translation process from Pascal to Oberon-07 has\nremained similar to the previous examples.\n\nMy implementation of **translit** diverges from the K & P\nimplementation at several points. Much of this is a result of\nOberon evolution beyond Pascal. First Oberon counts arrays from\nzero instead of one so I have opted to use -1 as a value to\nindicate the index of a character in a string was not found.\nEqually I have simplified the logic in `xindex()` to make it clear\nhow I am handling the index lookup described in `index()` of the\nPascal implementation. K & P implemented `makeset()` and `dodash()`.\n`dodash()` particularly looked troublesome. If you came across the\nfunction name `dodash()` without seeing the code comments\n\"doing a dash\" seems a little obscure.  I have chosen to name\nthat process \"Expand Sequence\" for clarity. I have simplified the\ntask of making sets of characters for translation into three cases\nby splitting the test conditions from the actions. First check to\nsee if we have an escape sequence and if so handle it. Second check\nto see if we have an expansion sequence and if so handle it else\nappend the char found to the end of the set being assembled. This\nresulted in `dodash()` being replaced by `IsSequence()` and\n`ExpandSequence()`.  Likewise `esc()` was replaced with `IsEscape()`\nand `ExpandEscape()`. I renamed `addchar()` to `AppendChar()`\nin the \"Chars\" module as that seemed more specific and clearer.\n\nI choose to advance the value used when expanding a set description\nin the loop inside of my `MakeSet()`. I minimized the side effects\nof the expand functions to the target destination.  It is clearer\nwhile in the `MakeSet()` loop to see the relationship of the test\nand transformation and how to advance through the string. This also\nallowed me to use fewer parameters to procedures which tends to\nmake things more readable as well as simpler.\n\nI have included an additional procedure not included in the K & P\nPascal of this program. `Error()` displays a string and halts.\nK & P provide this as part of their Pascal environment. I have\nchosen to embed it here because it is short and trivial.\n\nTranslit suggested the \"Chars\" module because of the repetition in\nprevious programs. In K & P the approach to code reuse is to create\na separate source file and to included via a pre-processor. In\nOberon we have the module concept.\n\nMy [Chars](Chars.Mod) module provides a useful set of test\nprocedures like `IsAlpha(c)`, `IsUpper(c)`, `IsLower()` in addition\nto the `CharInRange()` and `IsAlphaNum()`.  It also includes\n`AppendChar()` which can be used to append a single character value\nto an end of an array of char.\n\n\nProgram Documentation\n---------------------\n\n[Page 56](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up)\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPROGRAM\n\n    translit    transliterate characters\n\nUSAGE\n\n    translit    [^]src [dest]\n\nFUNCTION\n\n    translit maps its input, on a character by character basis, and\n    writes the translated version to its output.In the simplest case,\n    each character is the argument src is translated to the\n    corresponding character is the argument dest; all other characters\n    are copies as is. Both the src and dest may contain substrings of\n    the form c1 - c2 as shorthand for all the characters in the range\n    c1..c2 and c2 must both be digits, or both be letter of the same\n    case. If dest is absent, all characters represented by src are\n    deleted. Otherwise, if dest is shorter than src, all characters\n    is src that would map to or beyond the last character in\n    dest are mapped to the last character in dest; moreover adjacent\n    instances of such characters in the input are represented in the\n    output by a single instance of the last character in dest. The\n\n        translit 0-9 9\n\n    converts each string of digits to the single digit 9.\n    Finally, if src is precedded by ^, then all but the characters\n    represented by src are taken as the source string; i.e., they are\n    all deleted if dest is absent, or they are all collapsed if the\n    last character in dest is present.\n\nEXAMPLE\n\n    To convert upper case to lower:\n\n        translit A-Z a-z\n\n    To discard punctualtion and isolate words by spaces on each line:\n\n        translit ^a-zA-Z@n \" \"\n        This is a simple-minded test, i.e., a test of translit.\n        This is a simple minded test i e a test of translit\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nPascal Source\n-------------\n\n[translit.p, Page 48](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up)\n\n[makeset.p, Page 52](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up)\n\n\n[addstr.p, Page 53](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up)\n\n[dodash.p, Page 53](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up)\n\n[isalphanum.p, Page 54](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up)\n\n[esc.p, Page 55](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up)\n\n\n[length.p, Page 46](https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up)\n\n\nThe impacts of having a richer language than 1980s ISO Pascal and\nevolution in practice suggest a revision in the K & P approach. I\nhave attempted to keep the spirit of their example program while\nreflecting changes in practice that have occurred in the last four\ndecades.\n\n\nSource code for **Translit.Mod**\n--------------------------------\n\n~~~\nMODULE Translit;\nIMPORT In, Out, Args := extArgs, Strings, Chars;\n\nCONST\n    MAXSTR = 1024; (* or whatever *)\n    DASH = Chars.DASH;\n    ENDSTR = Chars.ENDSTR;\n    ESCAPE = \"@\";\n    TAB* = Chars.TAB;\n\n(* Error -- write an error string to standard out and\n   halt program *)\nPROCEDURE Error(s : ARRAY OF CHAR);\nBEGIN\n    Out.String(s);Out.Ln();\n    ASSERT(FALSE);\nEND Error;\n\n(* IsEscape - this procedure looks to see if we have an\nescape sequence at position in variable i *)\nPROCEDURE IsEscape*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;\nVAR res : BOOLEAN; last : INTEGER;\nBEGIN\n  res := FALSE;\n  last := Strings.Length(src) - 1;\n  IF (i < last) & (src[i] = ESCAPE) THEN\n    res := TRUE;\n  END;\n  RETURN res\nEND IsEscape;\n\n(* ExpandEscape - this procedure takes a source array, a\n   position and appends the escaped value to the destintation\n   array.  It returns TRUE on successuss, FALSE otherwise. *)\nPROCEDURE ExpandEscape*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR res : BOOLEAN; j : INTEGER;\nBEGIN\n res := FALSE;\n j := i + 1;\n IF j < Strings.Length(src)  THEN\n    res := Chars.AppendChar(src[j], dest)\n END\n RETURN res\nEND ExpandEscape;\n\n(* IsSequence - this procedure looks at position i and checks\n   to see if we have a sequence to expand *)\nPROCEDURE IsSequence*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;\nVAR res : BOOLEAN;\nBEGIN\n  res := Strings.Length(src) - i >= 3;\n  (* Do we have a sequence of alphumeric character\n     DASH alpanumeric character? *)\n  IF res & Chars.IsAlphaNum(src[i]) & (src[i+1] = DASH) &\n            Chars.IsAlphaNum(src[i+2]) THEN\n      res := TRUE;\n  END;\n  RETURN res\nEND IsSequence;\n\n(* ExpandSequence - this procedure expands a sequence x\n   starting at i and append the sequence into the destination\n   string. It returns TRUE on success, FALSE otherwise *)\nPROCEDURE ExpandSequence*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR res : BOOLEAN; cur, start, end : INTEGER;\nBEGIN\n  (* Make sure sequence is assending *)\n  res := TRUE;\n  start := ORD(src[i]);\n  end := ORD(src[i+2]);\n  IF start < end THEN\n    FOR cur := start TO end DO\n      IF res THEN\n        res := Chars.AppendChar(CHR(cur), dest);\n      END;\n    END;\n  ELSE\n    res := FALSE;\n  END;\n  RETURN res\nEND ExpandSequence;\n\n\n(* makeset -- make sets based on src expanded into destination *)\nPROCEDURE MakeSet* (src : ARRAY OF CHAR; start : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR i : INTEGER; makeset : BOOLEAN;\nBEGIN\n    i := start;\n    makeset := TRUE;\n    WHILE (makeset = TRUE) & (i < Strings.Length(src)) DO\n        IF IsEscape(src, i) THEN\n            makeset := ExpandEscape(src, i, dest);\n            i := i + 2;\n        ELSIF IsSequence(src, i) THEN\n            makeset := ExpandSequence(src, i, dest);\n            i := i + 3;\n        ELSE\n            makeset := Chars.AppendChar(src[i], dest);\n            i := i + 1;\n        END;\n    END;\n    RETURN makeset\nEND MakeSet;\n\n\n(* Index -- find position of character c in string s *)\nPROCEDURE Index* (VAR s : ARRAY OF CHAR; c : CHAR) : INTEGER;\nVAR\n    i, index : INTEGER;\nBEGIN\n    i := 0;\n    WHILE (s[i] # c) & (s[i] # ENDSTR) DO\n        i := i + 1;\n    END;\n    IF (s[i] = ENDSTR) THEN\n        index := -1; (* Value not found *)\n    ELSE\n        index := i; (* Value found *)\n    END;\n    RETURN index\nEND Index;\n\n(* XIndex -- conditionally invert value found in index *)\nPROCEDURE XIndex* (VAR inset : ARRAY OF CHAR; c : CHAR;\n    allbut : BOOLEAN; lastto : INTEGER) : INTEGER;\nVAR\n    xindex : INTEGER;\nBEGIN\n    (* Uninverted index value *)\n    xindex := Index(inset, c);\n    (* Handle inverted index value *)\n    IF (allbut = TRUE) THEN\n        IF (xindex = -1)  THEN\n            (* Translate as an inverted the response *)\n            xindex := 0; (* lastto - 1; *)\n        ELSE\n            (* Indicate no translate *)\n            xindex := -1;\n        END;\n    END;\n    RETURN xindex\nEND XIndex;\n\n(* Translit -- map characters *)\nPROCEDURE Translit* ();\nCONST\n    NEGATE = Chars.CARET; (* ^ *)\nVAR\n    arg, fromset, toset : ARRAY MAXSTR OF CHAR;\n    c : CHAR;\n    i, lastto : INTEGER;\n    allbut, squash : BOOLEAN;\n    res : INTEGER;\nBEGIN\n    i := 0;\n    lastto := MAXSTR - 1;\n    (* NOTE: We are doing low level of string manimulation. Oberon\n       strings are terminated by 0X, but Oberon compilers do not\n       automatically initialize memory to a specific state. In the\n       OBNC implementation of Oberon-07 assign \"\" to an assignment\n       like `s := \"\";` only writes a 0X to position zero of the\n       array of char. Since we are doing position based character\n       assignment and can easily overwrite a single 0X.  To be safe\n       we want to assign all the positions in the array to 0X so the\n       memory is in a known state.  *)\n    Chars.Clear(arg);\n    Chars.Clear(fromset);\n    Chars.Clear(toset);\n    IF (Args.count = 0) THEN\n        Error(\"usage: translit from to\");\n    END;\n    (* NOTE: I have not used an IF ELSE here because we have\n       additional conditions that lead to complex logic.  The\n       procedure Error() calls ASSERT(FALSE); which in Oberon-07\n       halts the program from further execution *)\n    IF (Args.count > 0) THEN\n        Args.Get(0, arg, res);\n        allbut := (arg[0] = NEGATE);\n        IF (allbut) THEN\n            i := 1;\n        ELSE\n            i := 0;\n        END;\n        IF MakeSet(arg, i, fromset) = FALSE THEN\n            Error(\"from set too long\");\n        END;\n    END;\n    (* NOTE: We have initialized our array of char earlier so we only\n       need to know if we need to update toset to a new value *)\n    Chars.Clear(arg);\n    IF (Args.count = 2) THEN\n        Args.Get(1, arg, res);\n        IF MakeSet(arg, 0, toset) = FALSE THEN\n            Error(\"to set too long\");\n        END;\n    END;\n\n    lastto := Strings.Length(toset);\n    squash := (Strings.Length(fromset) > lastto) OR (allbut);\n    REPEAT\n        In.Char(c);\n        IF In.Done THEN\n            i := XIndex(fromset, c, allbut, lastto);\n            IF (squash) & (i>=lastto) & (lastto>0) THEN (* translate *)\n                Out.Char(toset[lastto]);\n            ELSIF (i >= 0) & (lastto > 0) THEN    (* translate *)\n                Out.Char(toset[i]);\n            ELSIF i = -1 THEN                        (* copy *)\n              (* Do not translate the character *)\n              Out.Char(c);\n              (* NOTE: No else clause needed as not writing out\n\t\t\t     a cut value is deleting *)\n            END;\n        END;\n    UNTIL (In.Done # TRUE);\nEND Translit;\n\nBEGIN\n    Translit();\nEND Translit.\n\n~~~\n\n\n\nIn closing\n==========\n\nIn this chapter we interact with some of the most common features\nof command line programs available on POSIX systems. K & P have given\nus a solid foundation on which to build more complex and ambitious\nprograms. In the following chapters the read will find an\naccelerated level of complexity bit also programs that are\nsignificantly more powerful.\n\nOberon language evolved with the Oberon System which had a very\ndifferent rich text user interface when compared with POSIX.\nFortunately Karl's OBNC comes with a set of modules that make\nOberon-07 friendly for building programs for POSIX operating systems.\nI've taken advantage of his `extArgs` module much in the way\nthat K & P relied on a set of primitive tools to provide a common\nprogramming environment. K & P's version of\n[implementation of primitives](https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up)\nlisted in their appendix. Karl's OBNC extensions modules are\ndescribed on [website](https://miasap.se/obnc/obncdoc/ext/).\nOther Oberon compilers provide similar modules though implementation\nspecific. A good example is Spivey's [Oxford Oberon-2 Compiler](https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).\nK & P chose to target multiple Pascal implementations, I have the\nluxury of targeting one Oberon-07 implementation. That said if you\nadded a pre-processor like K & P did you could also take their approach\nto allow you Oberon-07 code to work across many Oberon compiler\nimplementations. I leave that as an exercise for the reader.\n\nI've chosen to revise some of the code presented in K & P's book. I\nbelieve the K & P implementations still contains wisdom in their\nimplementations. They had different constraints and thus made\ndifferent choices in implementation. Understand the trade offs and\nchallenges to writing portable code capable of running in very\ndivergent set of early 1980's operating systems remains useful today.\n\nCompiling with OBNC:\n\n~~~\n\n    obnc -o entab Entab.Mod\n    obnc -o overstrike Overstrike.Mod\n    obnc -o compress Compress.Mod\n    obnc -o expand Expand.Mod\n    obnc -o echo Echo.Mod\n    obnc -o translit Translit.Mod\n\n~~~\n\n+ [Entab](Entab.Mod)\n    + [Tabs](Tabs.Mod), this one visited this one in last installment.\n+ [Overstrike](Overstrike.Mod)\n+ [Compress](Compress.Mod)\n+ [Expand](Expand.Mod)\n+ [Echo](Echo.Mod)\n+ [Translit](Translit.Mod)\n\t+ [Chars](Chars.Mod)\n\n<!--\nNext and Previous\n-----------------\n\n+ Next: [Files]()\n-->\n\nPrevious\n--------\n\n+ Previous: [Getting Started](../../09/29/Software-Tools-1.html)\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Software Tools, Filters"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Overview"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This post is the second in a series revisiting the programs\ndescribed in the 1981 book by Brian W. Kernighan and P. J.\nPlauger's called "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Software Tools in Pascal"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern"
+          },
+          {
+            "type": "text",
+            "value": ". The book is available from the\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Open Library"
+              }
+            ],
+            "type": "link",
+            "url": "https://openlibrary.org/"
+          },
+          {
+            "type": "text",
+            "value": " and physical copies\nare still (2020) commonly available from used book sellers.\nThe book was an late 20th century text on creating portable\ncommand line programs using ISO standard Pascal of the era."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this chapter K & P focuses on developing the idea of filters.\nFilters are programs which typically process standard input, do\nsome sort of transformation or calculation and write to standard\noutput.  They are intended to work either standalone or in a pipeline\nto solve more complex problems. I like to think of filters as\nsoftware "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "LEGO"
+              }
+            ],
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Lego"
+          },
+          {
+            "type": "text",
+            "value": ".\nFilter programs can be \"snapped\" together creating simple shapes\ndata shapes or combined to for complex compositions."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The programs from this chapter include:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "entab"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", respecting tabstops, convert strings of spaces to tabs"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "overstrike"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", this is probably not useful anymore, it would allow \"overstriking\" characters on devices that supported it. From "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "wikipedia"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://en.wikipedia.org/wiki/Overstrike"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", \"In typography, overstrike is a method of printing characters that are missing from the printer's character set. The character was created by placing one character on another one — for example, overstriking \"L\" with \"-\" resulted in printing a \"Ł\" (L with stroke) character.\""
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "compress"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", an early UNIX style compress for plain text files"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "expand"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", an early UNIX style expand for plain text files, previously run through with "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "compress"
+                      }
+                    ],
+                    "type": "strong"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "echo"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", write echo's command line parameters to standard output, introduces working with command line parameters"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "translit"
+                      }
+                    ],
+                    "type": "strong"
+                  },
+                  {
+                    "type": "text",
+                    "value": ", transliterate characters using a simple from/to substitution with a simple notation to describe character sequences and negation. My implementation diverges from K & P"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Implementing in Oberon-07"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "With the exception of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "echo"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " (used to introduce command line parameter processing) each program increases in complexity.  The last program "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": "is the most complex in this chapter.  It introducing what we a \"domain specific language\" or \"DSL\".  A DSL is a notation allowing us to describe something implicitly rather than explicitly. All the programs except "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " follow closely the original Pascal translated to Oberon-07.  "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " book implementation is very much a result of the constraints of Pascal of the early 1980s as well as the minimalist assumption that could be made about the host operating system. I will focus on revising that program in particular bring the code up to current practice as well as offering insights I've learned."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The program "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " introduces what is called a \"Domain Specific Language\".Domain specific languages or DSL for short are often simple notations to describe how to solve vary narrow problems.  If you've used any of the popular spreadsheet programs where you've entered a formula to compute something you've used a domain specific language.  If you've ever search for text in a document using a regular expression you've used a domain specific language.  By focusing a notation on a small problem space you can often come up with simple ways of expressing or composing programmatic solutions to get a job done."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " the notation let's us describe what we want to translate. At the simplest level the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " program takes a character and replaces it with another character. What make increases "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " utility is that it can take a set of characters and replace it with another.  If you want to change all lower cases letters and replace them with uppercase letters. This \"from set\" and \"to set\" are easy to describe as two ranges, \"a\" to \"z\" and \"A\" to \"Z\".  Our domain notation allows us to express this as \"a-z\" and \"A-Z\".  K & P include several of features in there notation including characters to exclude from a translation as well as an \"escape notation\" for describing characters like new lines, tabs, or the characters that describe a range and exclusion (i.e. dash and caret)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.1 Putting Tabs Back"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 31"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/31/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Implementing "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "entab"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " in Oberon-07 is straight forward.\nLike my "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Detab"
+              }
+            ],
+            "type": "link",
+            "url": "Detab.Mod"
+          },
+          {
+            "type": "text",
+            "value": " implementation I am using\na second modules called "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Tabs"
+              }
+            ],
+            "type": "link",
+            "url": "Tabs.Mod"
+          },
+          {
+            "type": "text",
+            "value": ". This removes\nthe need for the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "#include"
+          },
+          {
+            "type": "text",
+            "value": " macros used in the K & P version.\nI have used the same loop structure as K & P this time.\nThere is a difference in my "
+          },
+          {
+            "type": "inlineCode",
+            "value": "WHILE"
+          },
+          {
+            "type": "text",
+            "value": " loop. I separate the\ncharacter read from the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "WHILE"
+          },
+          {
+            "type": "text",
+            "value": " conditional test.  Combining the\ntwo is common in \"C\" and is consistent with the programming style\nother books by Kernighan.  In Oberon-07 doesn't make sense at all.\nOberon's "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Char()"
+          },
+          {
+            "type": "text",
+            "value": " is not a function returning as in the Pascal\nprimitives implemented for the K & P book or indeed like in the \"C\"\nlanguage. In Oberon's \"In\" module the status of a read operation is\nexposed by "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": ". I've chosen to put the next call to\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Char()"
+          },
+          {
+            "type": "text",
+            "value": " at the bottom of my "
+          },
+          {
+            "type": "inlineCode",
+            "value": "WHILE"
+          },
+          {
+            "type": "text",
+            "value": " loop because it is clear\nthat it is the last think done before ether iterating again or\nexiting the loop. Other than that the Oberon version looks much\nlike K & P's Pascal."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 32"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  entab\tconvert runs of blanks into tabs\n\nUSAGE\n\n  entab\n\nFUNCTION\n\n  entab copies its input to its output, replacing strings of\n  blanks by tabs so the output is visually the same as the\n  input, but contains fewer characters. Tab stops are assumed\n  to be set every four columns (i.e. 1, 5, 9, ...), so that\n  each sequence of one to four blanks ending on a tab stop\n  is replaced by a tab character\n\nEXAMPLE\n\n  Using -> as visible tab:\n\n    entab\n      col  1   2   34  rest\n    ->col->1->2->34->rest\n\nBUGS\n\n  entab is naive about backspaces, virtical motions, and\n  non-printing characters. entab will convert  a single blank\n  to a tab if it occurs at a tab stop. The entab is not an\n  exact inverse of detab.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Entab.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Entab;\n  IMPORT In, Out, Tabs;\n\nCONST\n  NEWLINE = 10;\n  TAB = 9;\n  BLANK = 32;\n\nPROCEDURE Entab();\nVAR\n  c : CHAR;\n  col, newcol : INTEGER;\n  tabstops : Tabs.TabType;\nBEGIN\n  Tabs.SetTabs(tabstops);\n  col := 1;\n  REPEAT\n    newcol := col;\n    In.Char(c);\n    IF In.Done THEN (* NOTE: We check that the read was successful! *)\n      WHILE (ORD(c) = BLANK) DO\n        newcol := newcol + 1;\n        IF (Tabs.TabPos(newcol, tabstops)) THEN\n          Out.Char(CHR(TAB));\n          col := newcol;\n        END;\n        (* NOTE: Get the next char, check the loop condition\n           and either iterate or exit the loop *)\n        In.Char(c);\n      END;\n      WHILE (col < newcol) DO\n        Out.Char(CHR(BLANK)); (* output left over blanks *)\n        col := col + 1;\n      END;\n      (* NOTE: Since we may have gotten a new char in the first WHILE\n         we need to check again if the read was successful *)\n      IF In.Done THEN\n        Out.Char(c);\n        IF (ORD(c) = NEWLINE) THEN\n          col := 1;\n        ELSE\n          col := col + 1;\n        END;\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Entab;\n\nBEGIN\n  Entab();\nEND Entab.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.2 Overstrikes"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 34"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/34/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Overstrike isn't a tool that is useful today but I've included it\nsimply to be follow along the flow of the K & P book. It very much\nreflects an error where teletype like devices where still common and\nprinters printed much like typewriters did. On a 20th century\nmanual type writer you could underline a word or letter by backing\nup the carriage then typing the underscore character. Striking out\na word was accomplished by a similar technique. The mid to late\n20th century computers device retained this mechanism though by\n1980's it was beginning to disappear along with manual typewriters.\nThis program relies on the the nature of ASCII character set and\nreflects some of the non-print character's functionality. I\nfound it did not work on today's terminal emulators reliably. Your\nmileage may very nor do I have a vintage printer to test it on."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our module follows K & P design almost verbatim. The differences\nare those suggested by differences between Pascal and Oberon-07.\nLike in previous examples we don't need to use an ENDFILE constant\nas we can simply check the value of "
+          },
+          {
+            "type": "inlineCode",
+            "value": "In.Done"
+          },
+          {
+            "type": "text",
+            "value": " to determine\nif the last read was successful. This simplifies some of\nthe "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IF/ELSE"
+          },
+          {
+            "type": "text",
+            "value": " logic and the termination of the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "REPEAT/UNTIL"
+          },
+          {
+            "type": "text",
+            "value": "\nloop.  It makes the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "WHILE/DO"
+          },
+          {
+            "type": "text",
+            "value": " loop a little more verbose."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "One thing I would like to point out in the original Pascal of the\nbook is a problem often referred to as the \"dangling else\" problem.\nWhile this is usually discussed in the context of compiler\nimplementation I feel like it is a bigger issue for the person\nreading the source code. It is particularly problematic when you\nhave complex \"IF/ELSE\" sequences that are nested.  This is not\nlimited to the 1980's era Pascal. You see it in other languages\nlike C.  It is a convenience for the person typing the source code\nbut a problem for those who maintain it. We see this ambiguity in\nthe Pascal procedure "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "overstrike"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " inside the repeat loop\non "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "page 35"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/35/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": ".\nIt is made worse by the fact that K & P have taken advantage of\nomitting the semi-colons where optional. If you type in this\nprocedure and remove the indication if quickly becomes ambiguous\nabout where on \"IF/ELSE\" begins and the next ends. In Oberon-07 it\nis clear when you have a dangling \"IF\" statement. This vintage\nPascal, not so much."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "K & P do mention the dangling \"ELSE\" problem later in the text.\nTheir recommend practice was include the explicit final \"ELSE\"\nat a comment to avoid confusion. But you can see how easy an\nomitting the comment is in the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "overstrike"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " program."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Limitations"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is documented \"BUG\" section describes the limitations\nwell, \""
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "overstrike"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " is naive about vertical motions and non-\nprinting characters. It produces one over struck line for each\nsequence of backspaces\". But in addition to that most printing\ndevices these days either have their own drivers or expect to work\nwith a standard like Postscript. This limited the usefulness of\nthis program today though controlling character movement in a\n\"vt100\" emulation using old fashion ASCII control codes is\nstill interesting if only for historical reasons."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 36"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n  overstrike    replace overstrikes by multiple-lines\n\nUSAGE\n\n  overstrike\n\nFUNCTION\n\n  overstrike copies in input to its output, replacing lines\n  containing backspaces by multiple lines that overstrike\n  to print the same as input, but containing no backspaces.\n  It is assumed that the output is to be printed on a device\n  that takes the first character of each line as a carriage\n  control; a blank carriage control causes normal space before\n  print, while a plus sign '+' suppresses space before print\n  and hence causes the remainder of the line to overstrike\n  the previous line.\n\nEXAMPLE\n\n  Using <- as a visible backspace:\n\n    overstrike\n    abc<-<-<-___\n     abc\n    +___\n\nBUGS\n\n  overstrike is naive about vertical motions and non-printing\n  characters. It produces one over struck line for each sequence\n  of backspaces.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Overstrike.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Overstrike;\nIMPORT In, Out;\n\nCONST\n  NEWLINE = 10;\n  BLANK = 32;\n  PLUS = 43;\n  BACKSPACE = 8;\n\nPROCEDURE Max(x, y : INTEGER) : INTEGER;\nVAR max : INTEGER;\nBEGIN\n  IF (x > y) THEN\n    max := x\n  ELSE\n    max := y\n  END;\n  RETURN max\nEND Max;\n\nPROCEDURE Overstrike;\nCONST\n  SKIP = BLANK;\n  NOSKIP = PLUS;\nVAR\n  c : CHAR;\n  col, newcol, i : INTEGER;\nBEGIN\n  col := 1;\n  REPEAT\n    newcol := col;\n    In.Char(c);\n    (* NOTE We check In.Done on each loop evalution *)\n    WHILE (In.Done = TRUE) & (ORD(c) = BACKSPACE) DO (* eat the backspaces *)\n      newcol := Max(newcol, 1);\n      In.Char(c);\n    END;\n    (* NOTE: We check In.Done again, since we may have\n       additional reads when eating the backspaces. If\n       the previous while loop has taken us to the end of file.\n       this will be also mean In.Done = FALSE. *)\n    IF In.Done THEN\n      IF (newcol < col) THEN\n        Out.Char(CHR(NEWLINE)); (* start overstrike line *)\n        Out.Char(CHR(NOSKIP));\n        FOR i := 0 TO newcol DO\n          Out.Char(CHR(BLANK));\n        END;\n        col := newcol;\n      ELSIF (col = 1) THEN (* NOTE: In.Done already check for end of file *)\n        Out.Char(CHR(SKIP)); (* normal line *)\n      END;\n      (* NOTE: In.Done already was checked so we are in mid line *)\n      Out.Char(c);    (* normal character *)\n      IF (ORD(c) = NEWLINE) THEN\n        col := 1\n      ELSE\n        col := col + 1\n      END;\n    END;\n  UNTIL In.Done # TRUE;\nEND Overstrike;\n\nBEGIN\n  Overstrike();\nEND Overstrike.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.3 Text Compression"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 37"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/37/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In 20th century computing everything is expensive, memory,\npersistent storage computational ability in CPU.  If you were\nprimarily working with text you still worried about running out of\nspace in your storage medium. You see it in the units\nof measurement used in that era such as bytes, kilobytes, hertz and\nkilohertz. To day we talk about megabytes, gigabytes, terabytes and\npetabytes. Plain text files are a tiny size compared to must\ndigital objects today but in the late 20th century\ntheir size in storage was still a concern.  One way to solve this\nproblem was to encode your plain text to use less storage space.\nEarly attempts at file compression took advantage of repetition to\nsave space. Many text documents have repeated characters\nwhether spaces or punctuation or other formatting. This is what\ninspired the K & P implementation of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "compress"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "expand"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": ".\nToday we'd use other approaches to save space whether we were\nstoring text or a digital photograph."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page "
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n    compress    compress input by encoding repeated characters\n\nUSAGE\n\n    compress\n\nFUNCTION\n\n    compress copies its input to its output, replacing strings\n    of four or more identical characters by a code sequence so\n    that the output generally contains fewer characters than the\n    input. A run of x's is encoded as -nx, where the count n is\n    a character: 'A' calls for a repetition of one x, 'B' a\n    repetition of two x's, and so on. Runs longer than 26 are\n    broken into several shorter ones. Runs of -'s of any length\n    are encoded.\n\nEXAMPLE\n\n    compress\n    Item     Name           Value\n    Item-D Name-I Value\n    1       car             -$7,000.00\n    1-G car-J -A-$7,000.00\n    <ENDFILE>\n\nBUGS\n\n    The implementation assumes 26 legal characters beginning with A.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Compress.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Compress;\nIMPORT In, Out;\n\nCONST\n    TILDE = \"~\";\n    WARNING = TILDE;    (* ~ *)\n\n(* Min -- compute minimum of two integers *)\nPROCEDURE Min(x, y : INTEGER) : INTEGER;\nVAR min : INTEGER;\nBEGIN\n    IF (x < y) THEN\n        min := x\n    ELSE\n        min := y\n    END;\n    RETURN min\nEND Min;\n\n(* PutRep -- put out representation of run of n 'c's *)\nPROCEDURE PutRep (n : INTEGER; c : CHAR);\nCONST\n    MAXREP = 26;    (* assuming 'A' .. 'Z' *)\n    THRESH = 4;\nVAR i : INTEGER;\nBEGIN\n    WHILE (n >= THRESH) OR ((c = WARNING) & (n > 0)) DO\n        Out.Char(WARNING);\n        Out.Char(CHR((Min(n, MAXREP) - 1) + ORD(\"A\")));\n        Out.Char(c);\n        n := n - MAXREP;\n    END;\n    FOR i := n TO 1 BY (-1) DO\n        Out.Char(c);\n    END;\nEND PutRep;\n\n(* Compress -- compress standard input *)\nPROCEDURE Compress();\nVAR\n    c, lastc : CHAR;\n    n : INTEGER;\nBEGIN\n    n := 1;\n    In.Char(lastc);\n    WHILE (In.Done = TRUE) DO\n        In.Char(c);\n        IF (In.Done = FALSE) THEN\n            IF (n > 1) OR (lastc = WARNING) THEN\n                PutRep(n, lastc)\n            ELSE\n                Out.Char(lastc);\n            END;\n        ELSIF (c = lastc) THEN\n            n := n + 1\n        ELSIF (n > 1) OR (lastc = WARNING) THEN\n            PutRep(n, lastc);\n            n := 1\n        ELSE\n            Out.Char(lastc);\n        END;\n        lastc := c;\n    END;\nEND Compress;\n\n\nBEGIN\n    Compress();\nEND Compress.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.4 Text Expansion"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 41"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/41/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Our procedures map closely to the original Pascal with a few\nsignificant differences.  As previously I've chosen a\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "REPEAT ... UNTIL"
+          },
+          {
+            "type": "text",
+            "value": " loop structure because we are always attempting\nto read at least once. The "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IF THEN ELSIF ELSE"
+          },
+          {
+            "type": "text",
+            "value": " logic is a little\ndifferent. In the K & P version they combine retrieving\na character and testing its value.  This is a style common in\nlanguages like C. As previous mentioned I split the read of the\ncharacter from the test.  Aside from the choices imposed by the\n\"In\" module I also feel that retrieving the value, then testing is\na simpler statement to read. There is little need to worry about a\nside effect when you separate the action from the test. It does\nchange the structure of the inner and outer "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IF"
+          },
+          {
+            "type": "text",
+            "value": " statements."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 43"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n    expand  expand compressed input\n\nUSAGE\n\n    expand\n\nFUNCTION\n\n    expand copies its input, which has presumably been encoded by\n    compress, to its output, replacing code sequences -nc by the\n    repeated characters they stand for so that the text output\n    exactly matches that which was originally encoded. The\n    occurrence of the warning character - in the input means that\n    which was originally encoded. The occurrence of the warning\n    character - in the input means that the next character is a\n    repetition count; 'A' calls for one instance of the following\n    character, 'B' calls for two, and so on up to 'Z'.\n\nEXAMPLE\n\n    expand\n    Item~D Name~I Value\n    Item    Name        Value\n    1~G car~J ~A~$7,000.00\n    1       car         -$7,000.00\n    <ENDFILE>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Expand.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "MODULE Expand;\nIMPORT In, Out;\n\nCONST\n    TILDE = \"~\";\n    WARNING = TILDE;    (* ~ *)\n    LetterA = ORD(\"A\");\n    LetterZ = ORD(\"Z\");\n\n(* IsUpper -- true if c is upper case letter *)\nPROCEDURE IsUpper (c : CHAR) : BOOLEAN;\nVAR res : BOOLEAN;\nBEGIN\n    IF (ORD(c) >= LetterA) & (ORD(c) <= LetterZ) THEN\n        res := TRUE;\n    ELSE\n        res := FALSE;\n    END\n    RETURN res\nEND IsUpper;\n\n(* Expand -- uncompress standard input *)\nPROCEDURE Expand();\nVAR\n    c : CHAR;\n    n, i : INTEGER;\nBEGIN\n    REPEAT\n        In.Char(c);\n        IF (c # WARNING) THEN\n            Out.Char(c);\n        ELSE\n            In.Char(c);\n            IF IsUpper(c) THEN\n                n := (ORD(c) - ORD(\"A\")) + 1;\n                In.Char(c);\n                IF (In.Done) THEN\n                    FOR i := n TO 1 BY -1 DO\n                        Out.Char(c);\n                    END;\n                ELSE\n                    Out.Char(WARNING);\n                    Out.Char(CHR((n - 1) + ORD(\"A\")));\n                END;\n            ELSE\n                Out.Char(WARNING);\n                IF In.Done THEN\n                    Out.Char(c);\n                END;\n            END;\n        END;\n    UNTIL In.Done # TRUE;\nEND Expand;\n\nBEGIN\n    Expand();\nEND Expand.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.5 Command Arguments"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 44"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 45"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n    echo    echo arguments to standard output\n\nUSAGE\n\n    echo [ argument ... ]\n\nFUNCTION\n\n    echo copies its command line arguments to its output as a line\n    of text with one space\n    between each argument. IF there are no arguments, no output is\n    produced.\n\nEXAMPLE\n\n    To see if your system is alive:\n\n        echo hello world!\n        hello world!\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Echo.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "\nMODULE Echo;\nIMPORT Out, Args := extArgs;\n\nCONST\n    MAXSTR = 1024; (* or whatever *)\n    BLANK = \" \";\n\n(* Echo -- echo command line arguments to output *)\nPROCEDURE Echo();\nVAR\n    i, res : INTEGER;\n    argstr : ARRAY MAXSTR OF CHAR;\nBEGIN\n    i := 0;\n    FOR i := 0 TO (Args.count - 1) DO\n        Args.Get(i, argstr, res);\n        IF (i > 0) THEN\n            Out.Char(BLANK);\n        END;\n        Out.String(argstr);\n    END;\n    IF Args.count > 0 THEN\n        Out.Ln();\n    END;\nEND Echo;\n\nBEGIN\n    Echo();\nEND Echo.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "2.6 Character Transliteration"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 47"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/47/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " is the most complicated program so far in the book.\nMost of the translation process from Pascal to Oberon-07 has\nremained similar to the previous examples."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My implementation of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit"
+              }
+            ],
+            "type": "strong"
+          },
+          {
+            "type": "text",
+            "value": " diverges from the K & P\nimplementation at several points. Much of this is a result of\nOberon evolution beyond Pascal. First Oberon counts arrays from\nzero instead of one so I have opted to use -1 as a value to\nindicate the index of a character in a string was not found.\nEqually I have simplified the logic in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "xindex()"
+          },
+          {
+            "type": "text",
+            "value": " to make it clear\nhow I am handling the index lookup described in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "index()"
+          },
+          {
+            "type": "text",
+            "value": " of the\nPascal implementation. K & P implemented "
+          },
+          {
+            "type": "inlineCode",
+            "value": "makeset()"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dodash()"
+          },
+          {
+            "type": "text",
+            "value": ".\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "dodash()"
+          },
+          {
+            "type": "text",
+            "value": " particularly looked troublesome. If you came across the\nfunction name "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dodash()"
+          },
+          {
+            "type": "text",
+            "value": " without seeing the code comments\n\"doing a dash\" seems a little obscure.  I have chosen to name\nthat process \"Expand Sequence\" for clarity. I have simplified the\ntask of making sets of characters for translation into three cases\nby splitting the test conditions from the actions. First check to\nsee if we have an escape sequence and if so handle it. Second check\nto see if we have an expansion sequence and if so handle it else\nappend the char found to the end of the set being assembled. This\nresulted in "
+          },
+          {
+            "type": "inlineCode",
+            "value": "dodash()"
+          },
+          {
+            "type": "text",
+            "value": " being replaced by "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsSequence()"
+          },
+          {
+            "type": "text",
+            "value": " and\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "ExpandSequence()"
+          },
+          {
+            "type": "text",
+            "value": ".  Likewise "
+          },
+          {
+            "type": "inlineCode",
+            "value": "esc()"
+          },
+          {
+            "type": "text",
+            "value": " was replaced with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsEscape()"
+          },
+          {
+            "type": "text",
+            "value": "\nand "
+          },
+          {
+            "type": "inlineCode",
+            "value": "ExpandEscape()"
+          },
+          {
+            "type": "text",
+            "value": ". I renamed "
+          },
+          {
+            "type": "inlineCode",
+            "value": "addchar()"
+          },
+          {
+            "type": "text",
+            "value": " to "
+          },
+          {
+            "type": "inlineCode",
+            "value": "AppendChar()"
+          },
+          {
+            "type": "text",
+            "value": "\nin the \"Chars\" module as that seemed more specific and clearer."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I choose to advance the value used when expanding a set description\nin the loop inside of my "
+          },
+          {
+            "type": "inlineCode",
+            "value": "MakeSet()"
+          },
+          {
+            "type": "text",
+            "value": ". I minimized the side effects\nof the expand functions to the target destination.  It is clearer\nwhile in the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "MakeSet()"
+          },
+          {
+            "type": "text",
+            "value": " loop to see the relationship of the test\nand transformation and how to advance through the string. This also\nallowed me to use fewer parameters to procedures which tends to\nmake things more readable as well as simpler."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I have included an additional procedure not included in the K & P\nPascal of this program. "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Error()"
+          },
+          {
+            "type": "text",
+            "value": " displays a string and halts.\nK & P provide this as part of their Pascal environment. I have\nchosen to embed it here because it is short and trivial."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Translit suggested the \"Chars\" module because of the repetition in\nprevious programs. In K & P the approach to code reuse is to create\na separate source file and to included via a pre-processor. In\nOberon we have the module concept."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "My "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Chars"
+              }
+            ],
+            "type": "link",
+            "url": "Chars.Mod"
+          },
+          {
+            "type": "text",
+            "value": " module provides a useful set of test\nprocedures like "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsAlpha(c)"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsUpper(c)"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsLower()"
+          },
+          {
+            "type": "text",
+            "value": " in addition\nto the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "CharInRange()"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "IsAlphaNum()"
+          },
+          {
+            "type": "text",
+            "value": ".  It also includes\n"
+          },
+          {
+            "type": "inlineCode",
+            "value": "AppendChar()"
+          },
+          {
+            "type": "text",
+            "value": " which can be used to append a single character value\nto an end of an array of char."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Program Documentation"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Page 56"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\nPROGRAM\n\n    translit    transliterate characters\n\nUSAGE\n\n    translit    [^]src [dest]\n\nFUNCTION\n\n    translit maps its input, on a character by character basis, and\n    writes the translated version to its output.In the simplest case,\n    each character is the argument src is translated to the\n    corresponding character is the argument dest; all other characters\n    are copies as is. Both the src and dest may contain substrings of\n    the form c1 - c2 as shorthand for all the characters in the range\n    c1..c2 and c2 must both be digits, or both be letter of the same\n    case. If dest is absent, all characters represented by src are\n    deleted. Otherwise, if dest is shorter than src, all characters\n    is src that would map to or beyond the last character in\n    dest are mapped to the last character in dest; moreover adjacent\n    instances of such characters in the input are represented in the\n    output by a single instance of the last character in dest. The\n\n        translit 0-9 9\n\n    converts each string of digits to the single digit 9.\n    Finally, if src is precedded by ^, then all but the characters\n    represented by src are taken as the source string; i.e., they are\n    all deleted if dest is absent, or they are all collapsed if the\n    last character in dest is present.\n\nEXAMPLE\n\n    To convert upper case to lower:\n\n        translit A-Z a-z\n\n    To discard punctualtion and isolate words by spaces on each line:\n\n        translit ^a-zA-Z@n \" \"\n        This is a simple-minded test, i.e., a test of translit.\n        This is a simple minded test i e a test of translit\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pascal Source"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "translit.p, Page 48"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "makeset.p, Page 52"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/52/mode/2up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "addstr.p, Page 53"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "dodash.p, Page 53"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/53/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "isalphanum.p, Page 54"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/54/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "esc.p, Page 55"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/55/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "length.p, Page 46"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/46/mode/1up"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The impacts of having a richer language than 1980s ISO Pascal and\nevolution in practice suggest a revision in the K & P approach. I\nhave attempted to keep the spirit of their example program while\nreflecting changes in practice that have occurred in the last four\ndecades."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Source code for "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Translit.Mod"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "type": "code",
+        "value": "MODULE Translit;\nIMPORT In, Out, Args := extArgs, Strings, Chars;\n\nCONST\n    MAXSTR = 1024; (* or whatever *)\n    DASH = Chars.DASH;\n    ENDSTR = Chars.ENDSTR;\n    ESCAPE = \"@\";\n    TAB* = Chars.TAB;\n\n(* Error -- write an error string to standard out and\n   halt program *)\nPROCEDURE Error(s : ARRAY OF CHAR);\nBEGIN\n    Out.String(s);Out.Ln();\n    ASSERT(FALSE);\nEND Error;\n\n(* IsEscape - this procedure looks to see if we have an\nescape sequence at position in variable i *)\nPROCEDURE IsEscape*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;\nVAR res : BOOLEAN; last : INTEGER;\nBEGIN\n  res := FALSE;\n  last := Strings.Length(src) - 1;\n  IF (i < last) & (src[i] = ESCAPE) THEN\n    res := TRUE;\n  END;\n  RETURN res\nEND IsEscape;\n\n(* ExpandEscape - this procedure takes a source array, a\n   position and appends the escaped value to the destintation\n   array.  It returns TRUE on successuss, FALSE otherwise. *)\nPROCEDURE ExpandEscape*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR res : BOOLEAN; j : INTEGER;\nBEGIN\n res := FALSE;\n j := i + 1;\n IF j < Strings.Length(src)  THEN\n    res := Chars.AppendChar(src[j], dest)\n END\n RETURN res\nEND ExpandEscape;\n\n(* IsSequence - this procedure looks at position i and checks\n   to see if we have a sequence to expand *)\nPROCEDURE IsSequence*(src : ARRAY OF CHAR; i : INTEGER) : BOOLEAN;\nVAR res : BOOLEAN;\nBEGIN\n  res := Strings.Length(src) - i >= 3;\n  (* Do we have a sequence of alphumeric character\n     DASH alpanumeric character? *)\n  IF res & Chars.IsAlphaNum(src[i]) & (src[i+1] = DASH) &\n            Chars.IsAlphaNum(src[i+2]) THEN\n      res := TRUE;\n  END;\n  RETURN res\nEND IsSequence;\n\n(* ExpandSequence - this procedure expands a sequence x\n   starting at i and append the sequence into the destination\n   string. It returns TRUE on success, FALSE otherwise *)\nPROCEDURE ExpandSequence*(src : ARRAY OF CHAR; i : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR res : BOOLEAN; cur, start, end : INTEGER;\nBEGIN\n  (* Make sure sequence is assending *)\n  res := TRUE;\n  start := ORD(src[i]);\n  end := ORD(src[i+2]);\n  IF start < end THEN\n    FOR cur := start TO end DO\n      IF res THEN\n        res := Chars.AppendChar(CHR(cur), dest);\n      END;\n    END;\n  ELSE\n    res := FALSE;\n  END;\n  RETURN res\nEND ExpandSequence;\n\n\n(* makeset -- make sets based on src expanded into destination *)\nPROCEDURE MakeSet* (src : ARRAY OF CHAR; start : INTEGER; VAR dest : ARRAY OF CHAR) : BOOLEAN;\nVAR i : INTEGER; makeset : BOOLEAN;\nBEGIN\n    i := start;\n    makeset := TRUE;\n    WHILE (makeset = TRUE) & (i < Strings.Length(src)) DO\n        IF IsEscape(src, i) THEN\n            makeset := ExpandEscape(src, i, dest);\n            i := i + 2;\n        ELSIF IsSequence(src, i) THEN\n            makeset := ExpandSequence(src, i, dest);\n            i := i + 3;\n        ELSE\n            makeset := Chars.AppendChar(src[i], dest);\n            i := i + 1;\n        END;\n    END;\n    RETURN makeset\nEND MakeSet;\n\n\n(* Index -- find position of character c in string s *)\nPROCEDURE Index* (VAR s : ARRAY OF CHAR; c : CHAR) : INTEGER;\nVAR\n    i, index : INTEGER;\nBEGIN\n    i := 0;\n    WHILE (s[i] # c) & (s[i] # ENDSTR) DO\n        i := i + 1;\n    END;\n    IF (s[i] = ENDSTR) THEN\n        index := -1; (* Value not found *)\n    ELSE\n        index := i; (* Value found *)\n    END;\n    RETURN index\nEND Index;\n\n(* XIndex -- conditionally invert value found in index *)\nPROCEDURE XIndex* (VAR inset : ARRAY OF CHAR; c : CHAR;\n    allbut : BOOLEAN; lastto : INTEGER) : INTEGER;\nVAR\n    xindex : INTEGER;\nBEGIN\n    (* Uninverted index value *)\n    xindex := Index(inset, c);\n    (* Handle inverted index value *)\n    IF (allbut = TRUE) THEN\n        IF (xindex = -1)  THEN\n            (* Translate as an inverted the response *)\n            xindex := 0; (* lastto - 1; *)\n        ELSE\n            (* Indicate no translate *)\n            xindex := -1;\n        END;\n    END;\n    RETURN xindex\nEND XIndex;\n\n(* Translit -- map characters *)\nPROCEDURE Translit* ();\nCONST\n    NEGATE = Chars.CARET; (* ^ *)\nVAR\n    arg, fromset, toset : ARRAY MAXSTR OF CHAR;\n    c : CHAR;\n    i, lastto : INTEGER;\n    allbut, squash : BOOLEAN;\n    res : INTEGER;\nBEGIN\n    i := 0;\n    lastto := MAXSTR - 1;\n    (* NOTE: We are doing low level of string manimulation. Oberon\n       strings are terminated by 0X, but Oberon compilers do not\n       automatically initialize memory to a specific state. In the\n       OBNC implementation of Oberon-07 assign \"\" to an assignment\n       like `s := \"\";` only writes a 0X to position zero of the\n       array of char. Since we are doing position based character\n       assignment and can easily overwrite a single 0X.  To be safe\n       we want to assign all the positions in the array to 0X so the\n       memory is in a known state.  *)\n    Chars.Clear(arg);\n    Chars.Clear(fromset);\n    Chars.Clear(toset);\n    IF (Args.count = 0) THEN\n        Error(\"usage: translit from to\");\n    END;\n    (* NOTE: I have not used an IF ELSE here because we have\n       additional conditions that lead to complex logic.  The\n       procedure Error() calls ASSERT(FALSE); which in Oberon-07\n       halts the program from further execution *)\n    IF (Args.count > 0) THEN\n        Args.Get(0, arg, res);\n        allbut := (arg[0] = NEGATE);\n        IF (allbut) THEN\n            i := 1;\n        ELSE\n            i := 0;\n        END;\n        IF MakeSet(arg, i, fromset) = FALSE THEN\n            Error(\"from set too long\");\n        END;\n    END;\n    (* NOTE: We have initialized our array of char earlier so we only\n       need to know if we need to update toset to a new value *)\n    Chars.Clear(arg);\n    IF (Args.count = 2) THEN\n        Args.Get(1, arg, res);\n        IF MakeSet(arg, 0, toset) = FALSE THEN\n            Error(\"to set too long\");\n        END;\n    END;\n\n    lastto := Strings.Length(toset);\n    squash := (Strings.Length(fromset) > lastto) OR (allbut);\n    REPEAT\n        In.Char(c);\n        IF In.Done THEN\n            i := XIndex(fromset, c, allbut, lastto);\n            IF (squash) & (i>=lastto) & (lastto>0) THEN (* translate *)\n                Out.Char(toset[lastto]);\n            ELSIF (i >= 0) & (lastto > 0) THEN    (* translate *)\n                Out.Char(toset[i]);\n            ELSIF i = -1 THEN                        (* copy *)\n              (* Do not translate the character *)\n              Out.Char(c);\n              (* NOTE: No else clause needed as not writing out\n\t\t\t     a cut value is deleting *)\n            END;\n        END;\n    UNTIL (In.Done # TRUE);\nEND Translit;\n\nBEGIN\n    Translit();\nEND Translit.\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In closing"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "In this chapter we interact with some of the most common features\nof command line programs available on POSIX systems. K & P have given\nus a solid foundation on which to build more complex and ambitious\nprograms. In the following chapters the read will find an\naccelerated level of complexity bit also programs that are\nsignificantly more powerful."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Oberon language evolved with the Oberon System which had a very\ndifferent rich text user interface when compared with POSIX.\nFortunately Karl's OBNC comes with a set of modules that make\nOberon-07 friendly for building programs for POSIX operating systems.\nI've taken advantage of his "
+          },
+          {
+            "type": "inlineCode",
+            "value": "extArgs"
+          },
+          {
+            "type": "text",
+            "value": " module much in the way\nthat K & P relied on a set of primitive tools to provide a common\nprogramming environment. K & P's version of\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "implementation of primitives"
+              }
+            ],
+            "type": "link",
+            "url": "https://archive.org/details/softwaretoolsinp00kern/page/315/mode/1up"
+          },
+          {
+            "type": "text",
+            "value": "\nlisted in their appendix. Karl's OBNC extensions modules are\ndescribed on "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "website"
+              }
+            ],
+            "type": "link",
+            "url": "https://miasap.se/obnc/obncdoc/ext/"
+          },
+          {
+            "type": "text",
+            "value": ".\nOther Oberon compilers provide similar modules though implementation\nspecific. A good example is Spivey's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Oxford Oberon-2 Compiler"
+              }
+            ],
+            "type": "link",
+            "url": "https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler"
+          },
+          {
+            "type": "text",
+            "value": ".\nK & P chose to target multiple Pascal implementations, I have the\nluxury of targeting one Oberon-07 implementation. That said if you\nadded a pre-processor like K & P did you could also take their approach\nto allow you Oberon-07 code to work across many Oberon compiler\nimplementations. I leave that as an exercise for the reader."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I've chosen to revise some of the code presented in K & P's book. I\nbelieve the K & P implementations still contains wisdom in their\nimplementations. They had different constraints and thus made\ndifferent choices in implementation. Understand the trade offs and\nchallenges to writing portable code capable of running in very\ndivergent set of early 1980's operating systems remains useful today."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Compiling with OBNC:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "code",
+        "value": "\n    obnc -o entab Entab.Mod\n    obnc -o overstrike Overstrike.Mod\n    obnc -o compress Compress.Mod\n    obnc -o expand Expand.Mod\n    obnc -o echo Echo.Mod\n    obnc -o translit Translit.Mod\n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Entab"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Entab.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "Tabs"
+                              }
+                            ],
+                            "type": "link",
+                            "url": "Tabs.Mod"
+                          },
+                          {
+                            "type": "text",
+                            "value": ", this one visited this one in last installment."
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Overstrike"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Overstrike.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Compress"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Compress.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Expand"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Expand.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Echo"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Echo.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Translit"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "Translit.Mod"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "Chars"
+                              }
+                            ],
+                            "type": "link",
+                            "url": "Chars.Mod"
+                          }
+                        ],
+                        "type": "paragraph"
+                      }
+                    ],
+                    "spread": false,
+                    "type": "listItem"
+                  }
+                ],
+                "ordered": false,
+                "spread": false,
+                "type": "list"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "type": "html",
+        "value": "<!--\nNext and Previous\n-----------------\n\n+ Next: [Files]()\n-->"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Previous"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Previous: "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Getting Started"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "../../09/29/Software-Tools-1.html"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2020, R. S. Doiel",
+    "keywords": [
+      "Oberon",
+      "Pascal",
+      "Programming"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 2,
+    "series": "Software Tools",
+    "title": "Software Tools, Filters"
+  }
+}

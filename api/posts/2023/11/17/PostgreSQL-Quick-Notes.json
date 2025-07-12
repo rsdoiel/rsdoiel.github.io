@@ -1,0 +1,390 @@
+{
+  "content": "\n# Postgres Quick Notes, take two\n\nBy R. S. Doiel, 2023-11-17\n\nWhat follows is some quick notes to remind me of the things I do when\nI setup a new instance of PostgreSQL on the various machines I work with.\n\n## Installation approach\n\nIf possible I install Postgres with the system's package manager or follow\nthe directions suggested for installation on the [Postgres website](https://postgres.org).\n\n### macOS and Postgres\n\nFor macOS that's not the route I take if possible is to install via [Postgres App](https://postgresapp.com/).\nThis provides a very nice setup of developing with Postgres on macOS and also allows you to easily\ntest multiple versions of Postgres.  It is not as convenient in the Mac Mini headless configuration\nI also use Postgres on macOS in. In that case I use Mac Ports' package manager to install Postgres.\nUnfortunately just using ports command isn't enough to get running. What follows is my notes on the\nadditional steps I've taken to get things working.\n\nInstall the version of Postgres you want (e.g. PostgreSQL 16) via ports\n\n1. install postgresql16, postgresql16-server, postgres_select\n2. make sure the postgres version is selected using the ports command\n3. make a directory for the default postgres db\n4. make sure the default db directory is owned by the postgres user\n5. run the initialization scripts provided by the posts installer\n6. use the ports command to load the plist\n7. start up the server, make sure the log file is writable\n\nHere's the commands I type in the shell\n\n~~~shell\nsudo port install postgresql16-server postgresql16 postgresql_select\n# Answer y to the prompt\n# After the install completes Ports will suggest the following to complete the process.\nsudo port select postgresql postgresql16\nsudo mkdir -p /opt/local/var/db/postgresql16/defaultdb\nsudo chown postgres:postgres /opt/local/var/db/postgresql16/defaultdb\nsudo -u postgres /bin/sh -c 'cd /opt/local/var/db/postgresql16 && /opt/local/lib/postgresql16/bin/initdb -D /opt/local/var/db/postgresql16/defaultdb'\nsudo port load postgresql16-server\nsudo -u postgres /bin/sh -c '/opt/local/lib/postgresql16/bin/pg_ctl -D /opt/local/var/db/postgresql16/defaultdb -l /opt/local/var/log/postgresql16/postgres.log start'\n~~~\n\n## Database users setup\n\nThis applies to most Postgres installations I do because I am using them to\ndevelop software solutions. In a production setting you'd want a more conservative\nsecurity approach.\n\n1. Make sure you can connect as the postgres user\n2.  For each developer\n    a. Use the Postgres createuser tool to create superuser account(s)\n    b. Use the Postgres createdb tool to create databases for those account(s)\n\nHere's the commands I type in the shell\n\n~~~shell\nsudo -u postgres psql\n~~~\n\nWhen in the psql shell you should be able to use the slash commands like\n\n\\\\l\n: list the databases\n\n\\\\dt\n: list the tables in the database\n\n\\\\d TABLE\\_NAME\n: list the schema for TABLE\\_NAME\n\n\\\\q\n: quit the psql shell\n\nAssuming we have a working Postgres I now create superuser accounts for\ndevelopment and databases that match the username.\n\n~~~shell\nsudo -u postgres createuser --interactive $USER\ncreatedb $USER\n~~~\n\nI should now be able to run the psql shell without specifying the\npostgres username.\n\n~~~shell\npsql\n~~~\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Postgres Quick Notes, take two"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2023-11-17"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "What follows is some quick notes to remind me of the things I do when\nI setup a new instance of PostgreSQL on the various machines I work with."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Installation approach"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If possible I install Postgres with the system's package manager or follow\nthe directions suggested for installation on the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Postgres website"
+              }
+            ],
+            "type": "link",
+            "url": "https://postgres.org"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "macOS and Postgres"
+          }
+        ],
+        "depth": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For macOS that's not the route I take if possible is to install via "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Postgres App"
+              }
+            ],
+            "type": "link",
+            "url": "https://postgresapp.com/"
+          },
+          {
+            "type": "text",
+            "value": ".\nThis provides a very nice setup of developing with Postgres on macOS and also allows you to easily\ntest multiple versions of Postgres.  It is not as convenient in the Mac Mini headless configuration\nI also use Postgres on macOS in. In that case I use Mac Ports' package manager to install Postgres.\nUnfortunately just using ports command isn't enough to get running. What follows is my notes on the\nadditional steps I've taken to get things working."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Install the version of Postgres you want (e.g. PostgreSQL 16) via ports"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "install postgresql16, postgresql16-server, postgres_select"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "make sure the postgres version is selected using the ports command"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "make a directory for the default postgres db"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "make sure the default db directory is owned by the postgres user"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "run the initialization scripts provided by the posts installer"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "use the ports command to load the plist"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "start up the server, make sure the log file is writable"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the commands I type in the shell"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "sudo port install postgresql16-server postgresql16 postgresql_select\n# Answer y to the prompt\n# After the install completes Ports will suggest the following to complete the process.\nsudo port select postgresql postgresql16\nsudo mkdir -p /opt/local/var/db/postgresql16/defaultdb\nsudo chown postgres:postgres /opt/local/var/db/postgresql16/defaultdb\nsudo -u postgres /bin/sh -c 'cd /opt/local/var/db/postgresql16 && /opt/local/lib/postgresql16/bin/initdb -D /opt/local/var/db/postgresql16/defaultdb'\nsudo port load postgresql16-server\nsudo -u postgres /bin/sh -c '/opt/local/lib/postgresql16/bin/pg_ctl -D /opt/local/var/db/postgresql16/defaultdb -l /opt/local/var/log/postgresql16/postgres.log start'"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Database users setup"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This applies to most Postgres installations I do because I am using them to\ndevelop software solutions. In a production setting you'd want a more conservative\nsecurity approach."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Make sure you can connect as the postgres user"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "For each developer\na. Use the Postgres createuser tool to create superuser account(s)\nb. Use the Postgres createdb tool to create databases for those account(s)"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's the commands I type in the shell"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "sudo -u postgres psql"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When in the psql shell you should be able to use the slash commands like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "\\l\n: list the databases"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "\\dt\n: list the tables in the database"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "\\d TABLE_NAME\n: list the schema for TABLE_NAME"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "\\q\n: quit the psql shell"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Assuming we have a working Postgres I now create superuser accounts for\ndevelopment and databases that match the username."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "sudo -u postgres createuser --interactive $USER\ncreatedb $USER"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I should now be able to run the psql shell without specifying the\npostgres username."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "psql"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "A collection of quick notes for setting and Postgres for development.",
+    "byline": "R. S. Doiel, 2023-11-17",
+    "keywords": [
+      "postgres"
+    ],
+    "title": "Postgres Quick Notes, take two"
+  }
+}

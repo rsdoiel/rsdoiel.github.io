@@ -1,0 +1,550 @@
+{
+  "content": "\n\nPandoc Partial Templates\n========================\n\nMost people know about [Pandoc](https://pandoc.org/) from its\nfantastic ability to convert various markup formats from one to\nanother. A little less obvious is Pandoc can be a template engine\nfor rendering static websites allowing you full control over the\nrendered content.\n\nThe main Pandoc documentation of the template engine can be found\nin the [User Guide](https://pandoc.org/MANUAL.html#templates).\nThe documentation is complete in terms of describing the template\ncapabilities but lacks a tutorial for using as a replacement for more\nambitious rendering systems like [Jekyll](https://jekyllrb.com/) or\n[Hugo](https://gohugo.io/). Pandoc takes a vary direct approach and\ncan be deceptively simple to implement.\n\nUse your own template\n---------------------\n\nFirst thing in this tutorial is to use our own template with Pandoc\nwhen rendering a single webpage. You use the `–-template` option to\nprovide your a template name. I think of this as the page level template.\nThis template, as I will show later, can then call other partial\ntemplates as needed.\n\nExample, render the [Pandoc-Partials.txt](Pandoc-Partials.txt) file using the\ntemplate named [index1.tmpl](index1.tmpl):\n\n~~~{.shell}\n\n    pandoc --from=markdown --to=html \\\n        --template=index1.tmpl Pandoc-Partials.txt > index1.htm\n\n~~~\n\nThis is a simple template page level template.\n\n~~~{.html-code}\n\n    <!DOCTYPE html>\n    <html>\n    <head>\n    </head>\n    <body>\n    ${body}\n    </body>\n    </html>\n\n~~~\n\nWhen we run our Pandoc command the file called\n[Pandoc-Partials.txt](Pandoc-Partials.txt) is passed into the template as\nthe \"body\" element where it says `${body}`. See this Pandoc \n[User Guide](https://pandoc.org/MANUAL.html#templates) for the basics.\n\nExample 1 rendered: [index1.htm](index1.htm)\n\nVariables and metadata\n----------------------\n\nPandoc's documentation is good at describing the\nways of referencing a variable or using the built-in\ntemplate functions. Where do the variables get their values?\nThe easiest way I've found is to set the variables values in\na JSON metadata file.  While Pandoc can also use the metadata\ndescribed in YAML front matter Pandoc doesn't support some of the\nother common front matter formats.  If you're using another format\nlike JSON or TOML for front matter there are tools which can split\nthe front matter from the rest of the markdown document. For\nthis example I have created the metadata as JSON in a file\ncalled [metadata.json](metadata.json).\n\nExample [metadata.json](metadata.json):\n\n~~~{.json}\n\n    {\n        \"title\": \"Pandoc Partial Examples\",\n        \"nav\": [\n            {\"label\": \"Pandoc-Partials\", \"href\": \"Pandoc-Partials.html\" },\n            {\"label\": \"Version 1\", \"href\": \"index1.htm\" },\n            {\"label\": \"Version 2\", \"href\": \"index2.htm\" },\n            {\"label\": \"Version 3\", \"href\": \"index3.htm\" }\n        ]\n    }\n\n~~~\n\nLet's modify our initial template to include our simple navigation\nand title.\n\nExample [index2.tmpl](index2.tmpl):\n\n~~~{.html-code}\n\n    <!DOCTYPE html>\n    <html>\n    <head>\n      ${if(title)}<title>${title}</title>${endif}\n    </head>\n    <body>\n    <nav>\n    ${for(nav)}<a href=\"${it.href}\">${it.label}</a>${sep}, ${endfor}\n    </nav>\n    <section>\n    ${body}\n    </section>\n    </body>\n    </html>\n\n~~~\n\nWe would include our navigation metadata with a Pandoc command like\n\n~~~{.shell}\n\n    pandoc --from=markdown --to=html \\\n           --template=index2.tmpl \\\n           --metadata-file=metadata.json Pandoc-Partials.txt > index2.htm\n\n~~~\n\nWhen we render this we now should be able to view a web page\nwith simple navigation driven by the JSON file as well as the\nbody content contained in the Pandoc-Partials.txt file.\n\nExample 2 rendered: [index2.htm](index2.htm)\n\nPartials\n--------\n\nSometimes you have more complex documents. Putting this all in\none template can become tedious. Web designers use a term called\n\"partials\". This usually means a template for a \"part\" of a page.\nIn our initial example we can split our navigation into it's own\ntemplate.\n\nImplementing partials\n---------------------\n\nPandoc will look in the current directory for partials as well\nas in a sub directory called \"templates\" of the current direct.\nIn this example I am going to include my partial template for\nnavigation in the current directory along side my\n[index3.tmpl](index3.tmpl).  My navigation template is called\n[nav.tmpl](nav.tmpl).\n\nHere's my partial template:\n\n~~~{.html-code}\n\n    <nav>\n    ${for(nav)}<a href=\"${it.href}\">${it.label}</a>${sep}, ${endfor}\n    </nav>\n\n~~~\n\nHere's my third iteration of our index template, [index3.tmpl](index3.tmpl).\n\n~~~{.html-code}\n\n    <!DOCTYPE html>\n    <html>\n    <head>\n    ${if(title)}<title>${title}</title>${endif}\n    </head>\n    <body>\n    ${if(nav)}\n    ${nav.tmpl()}\n    ${endif}\n    <section>\n    ${body}\n    </section>\n    </body>\n    </html>\n\n~~~\n\nPandoc only requires you to reference the partial by using\nits base name. Many people will name their templates with the\nextension \".html\". I find this problematic as if you're trying\nto list the templates in the directory you can not easily list\nthem separately. I use the \".tmpl\" extension to identify my templates.\nSince I have other documents that share the base name \"nav\" I\nexplicit call my navigation partial using the full filename followed\nby the open and closed parenthesis. I have also chosen to wrap\nthe template in an \"if\" condition. That way if I don't want navigation\non a page I skip defining it in my metadata file.\n\nInside the partial template we inherit the parent metadata object.\nYou can use all the built-in Pandoc template functions and variables\nprovided by Pandoc in your partial templates.\n\nPutting it all together:\n\n~~~{.shell}\n\n    pandoc --from=markdown --to=html \\\n           --template=index3.tmpl \\\n           --metadata-file=metadata.json Pandoc-Partials.txt > index3.htm\n\n~~~\n\nExample 3 rendered: [index3.htm](index3.htm)\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pandoc Partial Templates"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Most people know about "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Pandoc"
+              }
+            ],
+            "type": "link",
+            "url": "https://pandoc.org/"
+          },
+          {
+            "type": "text",
+            "value": " from its\nfantastic ability to convert various markup formats from one to\nanother. A little less obvious is Pandoc can be a template engine\nfor rendering static websites allowing you full control over the\nrendered content."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The main Pandoc documentation of the template engine can be found\nin the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "User Guide"
+              }
+            ],
+            "type": "link",
+            "url": "https://pandoc.org/MANUAL.html#templates"
+          },
+          {
+            "type": "text",
+            "value": ".\nThe documentation is complete in terms of describing the template\ncapabilities but lacks a tutorial for using as a replacement for more\nambitious rendering systems like "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Jekyll"
+              }
+            ],
+            "type": "link",
+            "url": "https://jekyllrb.com/"
+          },
+          {
+            "type": "text",
+            "value": " or\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Hugo"
+              }
+            ],
+            "type": "link",
+            "url": "https://gohugo.io/"
+          },
+          {
+            "type": "text",
+            "value": ". Pandoc takes a vary direct approach and\ncan be deceptively simple to implement."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Use your own template"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "First thing in this tutorial is to use our own template with Pandoc\nwhen rendering a single webpage. You use the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "–-template"
+          },
+          {
+            "type": "text",
+            "value": " option to\nprovide your a template name. I think of this as the page level template.\nThis template, as I will show later, can then call other partial\ntemplates as needed."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example, render the "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Pandoc-Partials.txt"
+              }
+            ],
+            "type": "link",
+            "url": "Pandoc-Partials.txt"
+          },
+          {
+            "type": "text",
+            "value": " file using the\ntemplate named "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index1.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "index1.tmpl"
+          },
+          {
+            "type": "text",
+            "value": ":"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.shell}",
+        "type": "code",
+        "value": "\n    pandoc --from=markdown --to=html \\\n        --template=index1.tmpl Pandoc-Partials.txt > index1.htm\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is a simple template page level template."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.html-code}",
+        "type": "code",
+        "value": "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    </head>\n    <body>\n    ${body}\n    </body>\n    </html>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When we run our Pandoc command the file called\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Pandoc-Partials.txt"
+              }
+            ],
+            "type": "link",
+            "url": "Pandoc-Partials.txt"
+          },
+          {
+            "type": "text",
+            "value": " is passed into the template as\nthe \"body\" element where it says "
+          },
+          {
+            "type": "inlineCode",
+            "value": "${body}"
+          },
+          {
+            "type": "text",
+            "value": ". See this Pandoc\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "User Guide"
+              }
+            ],
+            "type": "link",
+            "url": "https://pandoc.org/MANUAL.html#templates"
+          },
+          {
+            "type": "text",
+            "value": " for the basics."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 1 rendered: "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index1.htm"
+              }
+            ],
+            "type": "link",
+            "url": "index1.htm"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Variables and metadata"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pandoc's documentation is good at describing the\nways of referencing a variable or using the built-in\ntemplate functions. Where do the variables get their values?\nThe easiest way I've found is to set the variables values in\na JSON metadata file.  While Pandoc can also use the metadata\ndescribed in YAML front matter Pandoc doesn't support some of the\nother common front matter formats.  If you're using another format\nlike JSON or TOML for front matter there are tools which can split\nthe front matter from the rest of the markdown document. For\nthis example I have created the metadata as JSON in a file\ncalled "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "metadata.json"
+              }
+            ],
+            "type": "link",
+            "url": "metadata.json"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "metadata.json"
+              }
+            ],
+            "type": "link",
+            "url": "metadata.json"
+          },
+          {
+            "type": "text",
+            "value": ":"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.json}",
+        "type": "code",
+        "value": "\n    {\n        \"title\": \"Pandoc Partial Examples\",\n        \"nav\": [\n            {\"label\": \"Pandoc-Partials\", \"href\": \"Pandoc-Partials.html\" },\n            {\"label\": \"Version 1\", \"href\": \"index1.htm\" },\n            {\"label\": \"Version 2\", \"href\": \"index2.htm\" },\n            {\"label\": \"Version 3\", \"href\": \"index3.htm\" }\n        ]\n    }\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's modify our initial template to include our simple navigation\nand title."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index2.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "index2.tmpl"
+          },
+          {
+            "type": "text",
+            "value": ":"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.html-code}",
+        "type": "code",
+        "value": "\n    <!DOCTYPE html>\n    <html>\n    <head>\n      ${if(title)}<title>${title}</title>${endif}\n    </head>\n    <body>\n    <nav>\n    ${for(nav)}<a href=\"${it.href}\">${it.label}</a>${sep}, ${endfor}\n    </nav>\n    <section>\n    ${body}\n    </section>\n    </body>\n    </html>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "We would include our navigation metadata with a Pandoc command like"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.shell}",
+        "type": "code",
+        "value": "\n    pandoc --from=markdown --to=html \\\n           --template=index2.tmpl \\\n           --metadata-file=metadata.json Pandoc-Partials.txt > index2.htm\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "When we render this we now should be able to view a web page\nwith simple navigation driven by the JSON file as well as the\nbody content contained in the Pandoc-Partials.txt file."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 2 rendered: "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index2.htm"
+              }
+            ],
+            "type": "link",
+            "url": "index2.htm"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Partials"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Sometimes you have more complex documents. Putting this all in\none template can become tedious. Web designers use a term called\n\"partials\". This usually means a template for a \"part\" of a page.\nIn our initial example we can split our navigation into it's own\ntemplate."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Implementing partials"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pandoc will look in the current directory for partials as well\nas in a sub directory called \"templates\" of the current direct.\nIn this example I am going to include my partial template for\nnavigation in the current directory along side my\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index3.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "index3.tmpl"
+          },
+          {
+            "type": "text",
+            "value": ".  My navigation template is called\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "nav.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "nav.tmpl"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's my partial template:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.html-code}",
+        "type": "code",
+        "value": "\n    <nav>\n    ${for(nav)}<a href=\"${it.href}\">${it.label}</a>${sep}, ${endfor}\n    </nav>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Here's my third iteration of our index template, "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index3.tmpl"
+              }
+            ],
+            "type": "link",
+            "url": "index3.tmpl"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.html-code}",
+        "type": "code",
+        "value": "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    ${if(title)}<title>${title}</title>${endif}\n    </head>\n    <body>\n    ${if(nav)}\n    ${nav.tmpl()}\n    ${endif}\n    <section>\n    ${body}\n    </section>\n    </body>\n    </html>\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Pandoc only requires you to reference the partial by using\nits base name. Many people will name their templates with the\nextension \".html\". I find this problematic as if you're trying\nto list the templates in the directory you can not easily list\nthem separately. I use the \".tmpl\" extension to identify my templates.\nSince I have other documents that share the base name \"nav\" I\nexplicit call my navigation partial using the full filename followed\nby the open and closed parenthesis. I have also chosen to wrap\nthe template in an \"if\" condition. That way if I don't want navigation\non a page I skip defining it in my metadata file."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Inside the partial template we inherit the parent metadata object.\nYou can use all the built-in Pandoc template functions and variables\nprovided by Pandoc in your partial templates."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Putting it all together:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "{.shell}",
+        "type": "code",
+        "value": "\n    pandoc --from=markdown --to=html \\\n           --template=index3.tmpl \\\n           --metadata-file=metadata.json Pandoc-Partials.txt > index3.htm\n"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Example 3 rendered: "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "index3.htm"
+              }
+            ],
+            "type": "link",
+            "url": "index3.htm"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "copyright": "copyright (c) 2020, R. S. Doiel",
+    "keywords": [
+      "Pandoc",
+      "Templates"
+    ],
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "number": 1,
+    "series": "Pandoc Techniques",
+    "title": "Pandoc Partials"
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "content": "\n# Installing Deno via Cargo and other options\n\nBy R. S. Doiel, 2024-12-13\n\nI've recently needed to install Deno on several Debian flavored Linux boxes.  I wanted to install Deno using the `cargo install --locked deno` command. Notice the `--locked` option, you need that for Deno. This worked for the recent Ubuntu 22.04 LTS release. I needed alternatives for Ubuntu 20.04 LTS and Raspberry Pi OS.\n\n## Using Cargo\n\nPrerequisites:\n\n- Rust (install with [Rustup](https://rustup.rs))\n- CMake\n- Clang, LLVM dev, Clang DEV and the lld (clang) linker\n- SQLite3 and LibSQLite3 dev\n- pkg config\n- libssh dev, libssl dev\n\nThe Debian flavors I work with are recent (Dec. 2024) Ubuntu 22.04 LTS release[^1].\n\nRecently when I was installing Deno 2.1.4 I got errors about building the `flate2` module. I had forgotten to include the `--locked` option in my cargo command. I found this solution in Deno GitHub issue [9524](https://github.com/denoland/deno/issues/9524).\n\n```shell\nsudo apt install -y build-essential cmake clang libclang-dev llvm-dev lld \\\n                    sqlite3 libsqlite3-dev pkg-config libssh-dev libssl-dev\nrustup update\ncargo install deno --locked\n```\n\n## Other options\n\nFor Ubuntu 20.04 LTS and Raspberry Pi OS, use `curl -fsSL https://deno.land/install.sh | sh` to install.\n\nFor Windows on ARM64 use `iwr https://deno.land/install.ps1 -useb | iex`.\n\n `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`\nOn Raspberry Pi OS I added a `nice` before calling `cargo`. Without the \"nice\" it failed after the \"spin\" module.\n\n[^1]: I failed to install Deno this way on Ubuntu 20.04 LTS, just use the cURL + sh script.\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Installing Deno via Cargo and other options"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "By R. S. Doiel, 2024-12-13"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I've recently needed to install Deno on several Debian flavored Linux boxes.  I wanted to install Deno using the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "cargo install --locked deno"
+          },
+          {
+            "type": "text",
+            "value": " command. Notice the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "--locked"
+          },
+          {
+            "type": "text",
+            "value": " option, you need that for Deno. This worked for the recent Ubuntu 22.04 LTS release. I needed alternatives for Ubuntu 20.04 LTS and Raspberry Pi OS."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Using Cargo"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Prerequisites:"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Rust (install with "
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Rustup"
+                      }
+                    ],
+                    "type": "link",
+                    "url": "https://rustup.rs"
+                  },
+                  {
+                    "type": "text",
+                    "value": ")"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "CMake"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Clang, LLVM dev, Clang DEV and the lld (clang) linker"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "SQLite3 and LibSQLite3 dev"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "pkg config"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "libssh dev, libssl dev"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": false,
+        "spread": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The Debian flavors I work with are recent (Dec. 2024) Ubuntu 22.04 LTS release[^1]."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Recently when I was installing Deno 2.1.4 I got errors about building the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "flate2"
+          },
+          {
+            "type": "text",
+            "value": " module. I had forgotten to include the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "--locked"
+          },
+          {
+            "type": "text",
+            "value": " option in my cargo command. I found this solution in Deno GitHub issue "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "9524"
+              }
+            ],
+            "type": "link",
+            "url": "https://github.com/denoland/deno/issues/9524"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "sudo apt install -y build-essential cmake clang libclang-dev llvm-dev lld \\\n                    sqlite3 libsqlite3-dev pkg-config libssh-dev libssl-dev\nrustup update\ncargo install deno --locked"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Other options"
+          }
+        ],
+        "depth": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For Ubuntu 20.04 LTS and Raspberry Pi OS, use "
+          },
+          {
+            "type": "inlineCode",
+            "value": "curl -fsSL https://deno.land/install.sh | sh"
+          },
+          {
+            "type": "text",
+            "value": " to install."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For Windows on ARM64 use "
+          },
+          {
+            "type": "inlineCode",
+            "value": "iwr https://deno.land/install.ps1 -useb | iex"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "inlineCode",
+            "value": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+          },
+          {
+            "type": "text",
+            "value": "\nOn Raspberry Pi OS I added a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "nice"
+          },
+          {
+            "type": "text",
+            "value": " before calling "
+          },
+          {
+            "type": "inlineCode",
+            "value": "cargo"
+          },
+          {
+            "type": "text",
+            "value": ". Without the \"nice\" it failed after the \"spin\" module."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "[^1]: I failed to install Deno this way on Ubuntu 20.04 LTS, just use the cURL + sh script."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "Notes on setting up a Debian flavored Linux boxes, macOS and Windows to install Deno via `cargo install deno`,\n`curl -fsSL https://deno.land/install.sh | sh` or\n`iwr https://deno.land/install.ps1 -useb | iex`\n",
+    "byline": "R. S. Doiel, 2024-12-13",
+    "createDate": "2024-12-13",
+    "keywords": [
+      "rust",
+      "deno",
+      "cargo",
+      "Debian",
+      "Linux",
+      "windows",
+      "macOS"
+    ],
+    "title": "Installing Deno via Cargo and other options"
+  }
+}

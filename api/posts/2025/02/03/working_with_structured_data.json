@@ -1,0 +1,232 @@
+{
+  "content": "\n# Working with Structured Data in Deno and TypeScript\n\nOne of the features in Go that I miss in TypeScript is Go's [DSL](https://en.wikipedia.org/wiki/Domain-specific_language \"Domain Specific Language\") for expressing data representations.  Adding JSON, YAML and XML support in Go is simple. Annotating a struct with a string expression. There is no equivalent feature in TypeScript. How do easily support multiple representations in TypeScript?\n\nLet's start with JSON. TypeScript has `JSON.stringify()` and `JSON.parse()`. So getting to JSON representation is trivial, just call the stringify method. Going from text to populated object is done with `JSON.parse`. But there is a catch.\n\nLet's take a simple object I'm defining called \"ObjectN\". The object has a single attribute \"n\". \"n\" holds a number. The initial values is set to zero. What happens when I instantiate my ObjectN then assign it the result from `JSON.parse()`.\n\n~~~TypeScript\nclass ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n}\nlet src = `{\"n\": 1}`;\nlet o: ObjectN = new ObjectN();\no = JSON.parse(src);\n// NOTE: This will fail, addThree method isn't available.\nconsole.log(o.addThree());\n~~~\n\nHuston, we have a problem. No \"addThree\" method. That is because JSON doesn't include method representation. What we really want to do is inspect the object returned by `JSON.parse()` and set the values in our ObjectN accordingly. Let's add a method called `fromObject()`.\n(type the following into the Deno REPL).\n\n~~~TypeScript\nclass ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n    fromObject(o: {[key: string]: any}): boolean {\n        if (o.n === undefined) {\n            return false;\n        }\n        // Validate that o.n is a number before assigning it.\n        const n = (new Number(o.n)).valueOf();\n        if (isNaN(n)) {\n            return false;\n        }\n        this.n = n;\n        return true;\n    }\n}\nlet src = `{\"n\": 1}`;\nlet o: ObjectN = new ObjectN();\nconsole.log(o.addThree());\no.fromObject(JSON.parse(src));\nconsole.log(o.addThree());\n~~~\n\nNow when we run this code we should see a \"3\" and then a \"4\" output. Wait, `o.fromObject(JSON.parse(src));` looks weird. Why not put `JSON.parse()` inside \"fromObject\"? Why not renamed it \"parse\"?\n\nI want to support many types of data conversion like YAML or XML. I can use my \"fromObject\" method with the result of produced from `JSON.parse()`, `yaml.parse()` and `xml.parse()`. One function works with the result of all three. Try adding this.\n\n~~~TypeScript\nimport * as yaml from 'jsr:@std/yaml';\nimport * as xml from \"jsr:@libs/xml\";\nsrc = `n: 2`;\no.fromObject(yaml.parse(src));\nconsole.log(o.addThree());\nsrc = `<n>3</n>`;\no.fromObject(xml.parse(src));\nconsole.log(o.addThree());\n~~~\n\nThat works!\n\nStill it would be nice to have a \"parse\" method too. How do I do that without winding up with a \"parseJSON()\", \"parseYAML()\" and \"parseXML()\"? What I really want is a \"parseWith\" method which accepts the text and a parse function. TypeScript expects type information about the function being passed. I solve that problem by including a \"ObjectParseType\" definition that works across the three parsing objects -- JSON, yaml and xml.\n\n~~~TypeScript\nimport * as yaml from 'jsr:@std/yaml';\nimport * as xml from \"jsr:@libs/xml\";\n\n// This defines my expectations of the parse function provide by JSON, yaml and xml.\ntype ObjectParseType = (arg1: string, arg2?: any) => {[key: string]: any} | unknown;\n\nclass ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n    fromObject(o: {[key: string]: any}) : boolean {\n        if (o.n === undefined) {\n            return false;\n        }\n        // Validate that o.n is a number before assigning it.\n        const n = (new Number(o.n)).valueOf();\n        if (isNaN(n)) {\n            return false;\n        }\n        this.n = n;\n        return true;\n    }\n    parseWith(s: string, fn: ObjectParseType): boolean {\n        return this.fromObject(fn(s) as unknown as {[key: string]: any});\n    }\n}\n\nlet o: ObjectN = new ObjectN();\nconsole.log(`Initial o.addThree() -> ${o.addThree()}`);\nconsole.log(`o.toString() -> ${o.toString()}`);\n\nlet src = `{\"n\": 1}`;\no.parseWith(src, JSON.parse);\nconsole.log(`parse with JSON, o.addThree() -> ${o.addThree()}`);\nconsole.log(`JSON.stringify(o) -> ${JSON.stringify(o)}`);\n\nsrc = `n: 2`;\no.parseWith(src, yaml.parse);\nconsole.log(`parse with yaml, o.addThree() -> ${o.addThree()}`);\nconsole.log(`yaml.stringify(o) -> ${yaml.stringify(o)}`);\n\nsrc = `<?xml version=\"1.0\"?>\n<n>3</n>`;\no.parseWith(src, xml.parse);\nconsole.log(`parse with xml, o.addThree() -> ${o.addThree()}`);\nconsole.log(`xml.stringify(o) -> ${xml.stringify(o)}`);\n~~~\n\nAs long as the parse method returns an object I can now update my ObjectN instance\nfrom the attributes of the object expressed as JSON, YAML, or XML strings. I like this approach because I can add validation and normalization in my \"fromObject\" method and use for any parse method that confirms to how JSON, YAML or XML parse works. The coding cost is the \"ObjectParseType\" type definition and the \"parseWith\" method boiler plate and defining a class specific \"fromObject\". Supporting new representations does require changes to my class definition at all.\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Working with Structured Data in Deno and TypeScript"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "One of the features in Go that I miss in TypeScript is Go's "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "DSL"
+              }
+            ],
+            "title": "Domain Specific Language",
+            "type": "link",
+            "url": "https://en.wikipedia.org/wiki/Domain-specific_language"
+          },
+          {
+            "type": "text",
+            "value": " for expressing data representations.  Adding JSON, YAML and XML support in Go is simple. Annotating a struct with a string expression. There is no equivalent feature in TypeScript. How do easily support multiple representations in TypeScript?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's start with JSON. TypeScript has "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.stringify()"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse()"
+          },
+          {
+            "type": "text",
+            "value": ". So getting to JSON representation is trivial, just call the stringify method. Going from text to populated object is done with "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse"
+          },
+          {
+            "type": "text",
+            "value": ". But there is a catch."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Let's take a simple object I'm defining called \"ObjectN\". The object has a single attribute \"n\". \"n\" holds a number. The initial values is set to zero. What happens when I instantiate my ObjectN then assign it the result from "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse()"
+          },
+          {
+            "type": "text",
+            "value": "."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "TypeScript",
+        "type": "code",
+        "value": "class ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n}\nlet src = `{\"n\": 1}`;\nlet o: ObjectN = new ObjectN();\no = JSON.parse(src);\n// NOTE: This will fail, addThree method isn't available.\nconsole.log(o.addThree());"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Huston, we have a problem. No \"addThree\" method. That is because JSON doesn't include method representation. What we really want to do is inspect the object returned by "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse()"
+          },
+          {
+            "type": "text",
+            "value": " and set the values in our ObjectN accordingly. Let's add a method called "
+          },
+          {
+            "type": "inlineCode",
+            "value": "fromObject()"
+          },
+          {
+            "type": "text",
+            "value": ".\n(type the following into the Deno REPL)."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "TypeScript",
+        "type": "code",
+        "value": "class ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n    fromObject(o: {[key: string]: any}): boolean {\n        if (o.n === undefined) {\n            return false;\n        }\n        // Validate that o.n is a number before assigning it.\n        const n = (new Number(o.n)).valueOf();\n        if (isNaN(n)) {\n            return false;\n        }\n        this.n = n;\n        return true;\n    }\n}\nlet src = `{\"n\": 1}`;\nlet o: ObjectN = new ObjectN();\nconsole.log(o.addThree());\no.fromObject(JSON.parse(src));\nconsole.log(o.addThree());"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Now when we run this code we should see a \"3\" and then a \"4\" output. Wait, "
+          },
+          {
+            "type": "inlineCode",
+            "value": "o.fromObject(JSON.parse(src));"
+          },
+          {
+            "type": "text",
+            "value": " looks weird. Why not put "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse()"
+          },
+          {
+            "type": "text",
+            "value": " inside \"fromObject\"? Why not renamed it \"parse\"?"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "I want to support many types of data conversion like YAML or XML. I can use my \"fromObject\" method with the result of produced from "
+          },
+          {
+            "type": "inlineCode",
+            "value": "JSON.parse()"
+          },
+          {
+            "type": "text",
+            "value": ", "
+          },
+          {
+            "type": "inlineCode",
+            "value": "yaml.parse()"
+          },
+          {
+            "type": "text",
+            "value": " and "
+          },
+          {
+            "type": "inlineCode",
+            "value": "xml.parse()"
+          },
+          {
+            "type": "text",
+            "value": ". One function works with the result of all three. Try adding this."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "TypeScript",
+        "type": "code",
+        "value": "import * as yaml from 'jsr:@std/yaml';\nimport * as xml from \"jsr:@libs/xml\";\nsrc = `n: 2`;\no.fromObject(yaml.parse(src));\nconsole.log(o.addThree());\nsrc = `<n>3</n>`;\no.fromObject(xml.parse(src));\nconsole.log(o.addThree());"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "That works!"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Still it would be nice to have a \"parse\" method too. How do I do that without winding up with a \"parseJSON()\", \"parseYAML()\" and \"parseXML()\"? What I really want is a \"parseWith\" method which accepts the text and a parse function. TypeScript expects type information about the function being passed. I solve that problem by including a \"ObjectParseType\" definition that works across the three parsing objects -- JSON, yaml and xml."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "TypeScript",
+        "type": "code",
+        "value": "import * as yaml from 'jsr:@std/yaml';\nimport * as xml from \"jsr:@libs/xml\";\n\n// This defines my expectations of the parse function provide by JSON, yaml and xml.\ntype ObjectParseType = (arg1: string, arg2?: any) => {[key: string]: any} | unknown;\n\nclass ObjectN {\n    n: number = 0;\n    addThree(): number {\n        return this.n + 3;\n    }\n    fromObject(o: {[key: string]: any}) : boolean {\n        if (o.n === undefined) {\n            return false;\n        }\n        // Validate that o.n is a number before assigning it.\n        const n = (new Number(o.n)).valueOf();\n        if (isNaN(n)) {\n            return false;\n        }\n        this.n = n;\n        return true;\n    }\n    parseWith(s: string, fn: ObjectParseType): boolean {\n        return this.fromObject(fn(s) as unknown as {[key: string]: any});\n    }\n}\n\nlet o: ObjectN = new ObjectN();\nconsole.log(`Initial o.addThree() -> ${o.addThree()}`);\nconsole.log(`o.toString() -> ${o.toString()}`);\n\nlet src = `{\"n\": 1}`;\no.parseWith(src, JSON.parse);\nconsole.log(`parse with JSON, o.addThree() -> ${o.addThree()}`);\nconsole.log(`JSON.stringify(o) -> ${JSON.stringify(o)}`);\n\nsrc = `n: 2`;\no.parseWith(src, yaml.parse);\nconsole.log(`parse with yaml, o.addThree() -> ${o.addThree()}`);\nconsole.log(`yaml.stringify(o) -> ${yaml.stringify(o)}`);\n\nsrc = `<?xml version=\"1.0\"?>\n<n>3</n>`;\no.parseWith(src, xml.parse);\nconsole.log(`parse with xml, o.addThree() -> ${o.addThree()}`);\nconsole.log(`xml.stringify(o) -> ${xml.stringify(o)}`);"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "As long as the parse method returns an object I can now update my ObjectN instance\nfrom the attributes of the object expressed as JSON, YAML, or XML strings. I like this approach because I can add validation and normalization in my \"fromObject\" method and use for any parse method that confirms to how JSON, YAML or XML parse works. The coding cost is the \"ObjectParseType\" type definition and the \"parseWith\" method boiler plate and defining a class specific \"fromObject\". Supporting new representations does require changes to my class definition at all."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "abstract": "A short discourse on working with structured data in TypeScript and easily\nconverting from JSON, YAML and XML representations.\n",
+    "createDate": "2025-02-03",
+    "keywords": [
+      "Deno",
+      "TypeScript",
+      "Structured Data"
+    ],
+    "title": "Working with Structured Data in Deno and TypeScript"
+  }
+}

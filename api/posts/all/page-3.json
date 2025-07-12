@@ -1,0 +1,377 @@
+{
+  "page": 3,
+  "total_pages": 6,
+  "has_more": true,
+  "next_page": "posts/all/page-4.json",
+  "values": [
+    {
+      "content": "\nRust development notes\n======================\n\nby R. S. Doiel, 2022-09-27\n\nI recently wanted to try [ncgopher](https://github.com/jansc/ncgopher) which is a [rust](https://rust-lang.org) based application. I was working on a an M1 Mac mini. I use [Mac Ports](https://www.macports.org) for my userland applications and installed [cargo](https://doc.rust-lang.org/cargo/) to pickup the rust compiler and build tool\n\n```shell\nsudo port install cargo\n```\n\nAll went well until I tried to build ncgopher and got an error as follows\n\n```\ncargo build --release\n    Updating crates.io index\nerror: Unable to update registry `crates-io`\n\nCaused by:\n  failed to fetch `https://github.com/rust-lang/crates.io-index`\n\nCaused by:\n  failed to authenticate when downloading repository: git@github.com:rust-lang/crates.io-index\n\n  * attempted ssh-agent authentication, but no usernames succeeded: `git`\n\n  if the git CLI succeeds then `net.git-fetch-with-cli` may help here\n  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli\n\nCaused by:\n  no authentication available\nmake: *** [build] Error 101\n```\n\nThis seemed odd as I could run `git clone git@github.com:rust-lang/crates.io-index` successfully. Re-reading the error message a dim light went on. I checked the cargo docs and the value `net.git-fetch-with-cli` defaults to false. That meant that cargo was using its own embedded git. OK, that makes sense but how do I fix it. I had no problem using cargo installed via ports on an Intel iMac so what gives? When cargo got installed on the M1 there was now `.cargo/config.toml` file. If you create this and set the value of `git-fetch-with-cli` to true then the problem resolves itself.\n\nIt was good that the error message provided a lead. It's also good that cargo has nice documentation. My experience though still left the taste of [COIK](https://www.urbandictionary.com/define.php?term=coik). Not sure how to improve the situation. It's not really a cargo bug (unless config.taml should be always created), it's not a rust bug and I don't even think it is a ports packaging bug.  If I was a new developer just getting familiar with git I don't think I would have known how to solve my problem even with the documentation provided. Git is something that has always struggled with COIK. While I like it it does make things challenging.\n\nIf I wind up playing with rust more then I'll add somemore notes here in the future.\n\nMy `$HOME/.cargo/config.toml` file looks like to have cargo use the git cli instead of the built in rust library.\n\n```\n[net]\ngit-fetch-with-cli = true\n```\n\n\n\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "keywords": [
+          "rust",
+          "cargo",
+          "M1",
+          "macOS",
+          "ports"
+        ],
+        "pubDate": "2022-09-27",
+        "title": "Rust development notes"
+      },
+      "url": "posts/2022/09/27/rust-development-notes.json"
+    },
+    {
+      "content": "\n# 7:30 AM, Golang: pttk\n\nPost: Monday, September 26, 2022, 7:30 AM\n\nrenamed \"pandoc toolkit\" (pdtk) to \"plain text toolkit\" (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.\n\n",
+      "data": {
+        "keywords": [
+          "pttk"
+        ],
+        "no": 1,
+        "pubDate": "2022-09-26",
+        "series": "Golang",
+        "title": "7:30 AM, Golang: pttk"
+      },
+      "url": "posts/2022/09/26/golang-development-2022-09-26_070730.json"
+    },
+    {
+      "content": "\nPostgreSQL dump and restore\n===========================\n\nThis is a quick note on easily dumping and restoring a specific database\nin Postgres 14.5.  This example has PostgreSQL running on localhost and\n[psql](https://www.postgresql.org/docs/current/app-psql.html) and\n[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.\nOur database administrator username is \"admin\", the database to dump is called \"collections\". The SQL dump\nfile will be named \"collections-dump-2022-09-19.sql\".\n\n```shell\n\tpg_dump --username=admin --column-inserts \\\n\t    collections >collections-dump-2022-09-19.sql\n```\n\nFor the restore process I follow these steps\n\n1. Using `psql` create an empty database to restore into\n2. Using `psql` replay (import) the dump file in the new database to restoring the data\n\nThe database we want to restore our content into is called \"collections_snapshot\"\n\n```shell\n\tpsql -U dbadmin\n\t\\c postgres\n\tDROP DATABASE IF EXISTS collections_snapshot;\n\tCREATE DATABASE collections_snapshot;\n\t\\c collections_snapshots\n\t\\i ./collections-dump-2022-09-19.sql\n\t\\q\n```\n\nOr if you want to stay at the OS shell level\n\n```shell\n\tdropdb collections_snapshot\n\tcreatedb collections_snapshot\n\tpsql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql\n```\n\n\nNOTE: During this restore process `psql` will display some output. This is normal. The two\ntypes of lines output are shown below.\n\n```sql\n\tINSERT 0 1\n\tALTER TABLE\n```\n\nIf you want to stop the input on error you can use the `--set` option to set the error behavior\nto abort the reload if an error is encountered.\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "byline": "R. S. Doiel, 2022-09-19",
+        "draft": true,
+        "keywords": [
+          "PostgreSQL"
+        ],
+        "pubDate": "2022-09-19",
+        "title": "PostgreSQL dump and restore"
+      },
+      "url": "posts/2022/09/19/PostgreSQL-Dump-and-Restore.json"
+    },
+    {
+      "content": "\n# 12:30 PM, SQL: Postgres\n\nPost: Monday, September 19, 2022, 12:30 PM\n\nSetting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users\n\n",
+      "data": {
+        "keywords": [
+          "Postgres"
+        ],
+        "no": 1,
+        "pubDate": "2022-09-19",
+        "series": "SQL",
+        "title": "12:30 PM, SQL: Postgres"
+      },
+      "url": "posts/2022/09/19/rosette-notes-2022-09-19_121230.json"
+    },
+    {
+      "content": "\nOrdering Front Matter\n=====================\n\nBy R. S. Doiel, 2022-08-30\n\nA colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).\n\nThe order he wanted in the front matter was\n\n- title\n- interviewer\n- interviewee\n- abstract\n\nThis was for a collection of oral histories. When my friend use Pandoc's `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.\n\nWe found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes.\n\nHere's the steps we used.\n\n1. create an empty file called \"empty.txt\" (this is just so you pandoc doesn't try to read standard input and processes\nyou metadata.json file with the template supplied)\n2. Create a template with the order you want (see below)\n3. Use pandoc to process your \".txt\" file and your JSON metadata file using the template (it makes it tread it as plain text even though we're going to treat it as markdown later)\n4. Append the content of the word file and run pandoc over your combined file as you would normally to generate your HTML\n\n\nThis is the contents of our [metadata.json](metadata.json) file.\n\n```json\n    {\n        \"title\": \"Interview with Mojo Sam\", \n        \"interviewee\": \"Mojo Sam\", \n        \"interviewer\": \"Tom Lopez\",\n        \"abstract\": \"Interview in three sessions over sevaral decases, 1970 - 20020. The interview was conducted next door to reality via a portal in Old Montreal\"\n    }\n```\n\n[frontmatter.tmpl](frontmatter.tmpl) is the template we used to render ordered front matter.\n\n```\n    ---\n    $if(title)$title: \"$title$\"$endif$\n    $if(interviewee)$interviewee: \"$interviewee$\"$endif$\n    $if(interviewer)$interviewer: \"$interviewer$\"$endif$\n    $if(abstract)$abstract: \"$abstract$\"$endif$\n    ---\n```\n\nHere's the commands we used to generate a \"doc.txt\" file with the \nfront matter in the desired order. Not \"empty.txt\" is just an empty\nfile so Pandoc will not read from standard input and just work with the\nJSON metadata and our template.\n\n```\ntouch empty.txt\npandoc --metadata-file=metadata.json --template=frontmatter.tmpl empty.txt\n```\n\nThe output of the pandoc command looks like this.\n\n```\n    ---\n    title: \"Interview with Mojo Sam\"\n    interviewee: \"Mojo Sam\"\n    interviewer: \"Tom Lopez\"\n    abstract: \"Interview in three sessions over sevaral decases, 1970 -\n    20020. The interview was conducted next door to reality via a portal in\n    Old Montreal\"\n    ---\n```\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "keywords": [
+          "pandoc",
+          "front matter"
+        ],
+        "pubDate": "2022-08-30",
+        "title": "Ordering front matter"
+      },
+      "url": "posts/2022/08/30/Ordering-Frontmatter.json"
+    },
+    {
+      "content": "\nPostgres 14 on Ubuntu 22.04 LTS\n===============================\n\nby R. S. Doiel, 2022-08-26\n\nThis is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include `jane.doe` is in the sudo group\n- `jane.doe` is the one logged in and installing Postgres for machine wide use\n- `jane.doe` will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add `jane.doe` user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n~~~shell\nsudo apt install postgresql postgresql-contrib\nsudo -u createuser --interactive\njane.doe\ny\n~~~\n\nWhat we've accomplished is installing Postgres, we've create a user in Postgres DB environment called \"jane.doe\" and given \"jane.doe\" superuser permissions, i.e. the permissions to manage Postgres databases.\n\nAt this point we have a `jane.doe` Postgres admin user. This means we can run the `psql` shell from the Jane Doe account to do any database manager tasks. To confirm I want to list the databases available\n\n~~~shell\npsql \nSELECT datname FROM pg_database;\n\\quit\n~~~\n\nNOTE: This post is a distilation of what I learned from reading Digital Ocean's [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett.\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel",
+        "byline": "R. S. Doiel",
+        "daft": true,
+        "number": 4,
+        "pubDate": "2022-08-26",
+        "series": "SQL Reflections",
+        "title": "Postgres 14 on Ubuntu 22.04 LTS"
+      },
+      "url": "posts/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.json"
+    },
+    {
+      "content": "\n# 10:30 AM, SQL: Postgres\n\nPost: Friday, August 26, 2022, 10:30 AM\n\nIf you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.\n\n",
+      "data": {
+        "keywords": [
+          "Postgres"
+        ],
+        "no": 2,
+        "pubDate": "2022-08-26",
+        "series": "SQL",
+        "title": "10:30 AM, SQL: Postgres"
+      },
+      "url": "posts/2022/08/26/rosette-notes-2022-08-26_101030.json"
+    },
+    {
+      "content": "\nA Quick intro to PL/pgSQL\n========================\n\nPL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger. \n\nThe Postgres documentation defines and explains the [PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql.html) and how it works.  This document is just a quick orientation with specific examples to provide context.\n\nHello World\n-----------\n\nHere is a \"helloworld\" procedure definition.\n\n```sql\n    CREATE PROCEDURE helloworld() AS $$\n    DECLARE\n    BEGIN\n       RAISE NOTICE 'Hello WORLD!';\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\nLet's take a look this line by line.\n\n1. CREATE PROCEDURE defines the procedure and the starting and ending delimiter for the procedure (e.g. `AS $$` the procedure's text ends when `$$` is encountered an second time.\n2. DECLARE is the block where you would declare the variables used in the procedure, we have none in this example\n3. The BEGIN starts the actual procedure instructions\n4. The `RAISE NOTICE` line is how you can display output to the console when the procedure is run\n5. The END completes the procedure definition\n6. the `$$ LANGUAGE plpgsql;` concludes the text defining the procedure and tells the database engine that procedure is written in PL/pgSQL.\n\nWe can run the procedure using the \"CALL\" query.\n\n```sql\n    CALL helloworld()\n```\n\nNOTE: If you want to change the procedure you can \"DROP\" it first otherwise you'll get an error that it already exists.\n\n```sql\n    DROP PROCEDURE helloworld;\n```\n\nImproving my workflow\n---------------------\n\nSQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system's database. Procedures and functions are created and can be dropped. While they can be manually typed in the database's shell it is easier to maintain them in plain text files outside the RDBM environment.  \n\n1. Write the procedure in a text file.\n2. Load the text file (e.g. FILENAME) into Postgres \n   a. outside the Postgres shell use `psql -f FILENAME` \n   b. inside the Postgres shell used `\\i FILENAME`\n3. Call the procedure to test it\n\nTo turn these steps into a look I use a \"CREATE OR REPLACE\" statement and be able to reload the updated procedure easier see [43.12. Tips for Developing in PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql-development-tips.html).  Note in the revised example the \"-- \" lines are comments.\n\nOur revised [helloworld](helloworld.plpgsql).\n\n```sql\n    --\n    -- Create (or replace) the new \"helloworld\" procedure.\n    -- NOTE: this can be run with \"CALL\"\n    --\n    CREATE OR REPLACE PROCEDURE helloworld() AS $$\n    DECLARE\n    BEGIN\n        RAISE NOTICE 'Hello World!';\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\n\nHi There\n--------\n\n[hithere](hithere.plpgsql) is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a \"VARCHAR\", so this should work as part of a select statement.\n\n```sql\n    --\n    -- This is a \"Hi There\" function. The function takes\n    -- a single parameter and forms a greeting.\n    --\n    CREATE OR REPLACE FUNCTION hithere(name varchar) RETURNS varchar AS $$\n    DECLARE\n      greeting varchar;\n    BEGIN\n        IF name = '' THEN\n            greeting := 'Hi there!';\n        ELSE\n            greeting := 'Hello ' || name || '!';\n        END IF;\n        RETURN greeting;\n    END;\n    $$ LANGUAGE plpgsql;\n```\n\nGiving it a try.\n\n```shell\n    SELECT hithere('Mojo Sam');\n```\n\nFurther reading\n---------------\n\n- [Conditionals](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS)\n- [Loops](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS)\n- [Calling a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE)\n- [Early return from a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE)\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "byline": "R. S. Doiel, 2022-08-24",
+        "keywords": [
+          "postgres",
+          "sql",
+          "psql",
+          "plsql",
+          "plpgsql"
+        ],
+        "number": 3,
+        "pubDate": "2022-08-24",
+        "series": "SQL Reflections",
+        "title": "A Quick into to PL/pgSQL"
+      },
+      "url": "posts/2022/08/24/plpgsql-quick-intro.json"
+    },
+    {
+      "content": "\n# 12:00 PM, SQL: Postgres\n\nPost: Wednesday, August 24, 2022, 12:00 PM\n\nI miss `SHOW TABLES` it's just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%'\n`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's \"SHOW TABLES\". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.\n\n",
+      "data": {
+        "keywords": [
+          "Postgres"
+        ],
+        "no": 3,
+        "pubDate": "2022-08-24",
+        "series": "SQL",
+        "title": "12:00 PM, SQL: Postgres"
+      },
+      "url": "posts/2022/08/24/rosette-notes-2022-08-24_121200.json"
+    },
+    {
+      "content": "\n# 11:30 AM, SQL: Postgres\n\nPost: Monday, August 22, 2022, 11:30 AM\n\nThree things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is \"REPLACE\" is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I've used \"?\" with SQLite and MySQL but with Postgres I need to use \"$1\", \"$2\", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.\n\n",
+      "data": {
+        "keywords": [
+          "Postgres"
+        ],
+        "no": 4,
+        "pubDate": "2022-08-22",
+        "series": "SQL",
+        "title": "11:30 AM, SQL: Postgres"
+      },
+      "url": "posts/2022/08/22/rosette-notes-2022-08-22_111130.json"
+    },
+    {
+      "content": "\nRosette Notes\n=============\n\nBy R. S. Doiel, 2022-08-19\n\n> A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar's rosette\n\nWhat follows are my preliminary notes learning Postgres 12 and 14.\n\nPostgres & MySQL\n----------------\n\nThis is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you're using `psql` to access Postgres and `mysql` to  access MySQL. Values between `<` and `>` should be replaced with an appropriate value.\n\n| Task                    | Postgres 14.5                     | MySQL 8           |\n|-------------------------|------------------------------------|-------------------|\n| show all databases      | `SELECT datname FROM pg_database;` | `SHOW DATABASES;` |\n| select a database       | `\\c <dbname>`                      | `USE <dbname>`    |\n| show tables in database | `\\dt`                              | `SHOW TABLES;`    |\n| show columns in table   | `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '<table_name>';` | `SHOW COLUMNS IN <table_name>` |\n\nReflections\n-----------\n\nThe Postgres shell, `psql`, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the `SHOW TABLES` query. For me `SHOW ...` feels like SQL where as `\\d` or `\\dt` takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. `\\dt` quickly becomes second nature and is shorter to type than `SHOW TABLES`. \n\nConnecting to a database with `\\c` in `psql` is like calling an \"open\" in programming language. The \"connection\" in `psql` is open until explicitly closed or the shell is terminated.  Like `USE ...` in the MySQL shell it make working with multiple database easy.  The difference are apparent when you execute a `DROP DATABASE ...` command. In `psql` you need to `CLOSE` the database first or the `DROP` will fail.  The MySQL shell will happily let you drop the current database you are currently using.\n\nThe challenge I've experienced learning `psql` after knowing MySQL is my lack of familiarity with the metadata Postgres maintains about databases and structures.  On the other hand everything I've learned about standards base SQL applies to managing Postgres once remember the database/table I need to work with.  A steeper learning curve from MySQL's `SHOW` but it also means writing external programs for managing Postgres databases and tables is far easier because everything is visible because that is how you manage Postgres. MySQL's `SHOW` is very convenient but at the cost of hiding some of its internal structures.\n\nBoth MySQL and Postgres support writing programs in SQL. They also support stored procedures, views and triggers. They've converged in the degree in which they have both implemented SQL language standards.  The differences are mostly in approach to managing databases.  There are some differences, necessitated by implementation choices, in the `CREATE DATABASE`, `CREATE TABLE` or `ALTER` statements but you can often use the basic form described in ANSI SQL and get the results you need. When doing performance tuning the dialect differences are more important.\n\nDump & Restore\n--------------\n\nBoth Postgres and MySQL provide command line programs for dumping a database. MySQL provides a single program where as Postgres splits it in two. Check the man pages (or website docs) for details in their options. Both sets of programs are highly configurable allowing you to dump just schema, just data or both with different expectations.\n\n| Postgres 14.5      | MySQL 8                         |\n|--------------------|---------------------------------|\n| `pg_dumpall`       | `mysqldump --all-databases`     |\n| `pg_dump <dbname>` | `mysqldump --database <dbname>` |\n\nThe `pg_dumpall` tool is designed to restore an entire database instance. It includes account and ownership information. `pg_dump` just focuses on the database itself. If you are taking a snapshot production data to use in a test `pg_dump` output is easier to work with. It captures the specific database with out entangling things like the `template1` database or database user accounts and ownership.\n\nYou can restore a database dump in both Postgres and MySQL. The tooling is a little different.\n\n| Postgres 14.5                   | MySQL 8                                      |\n|---------------------------------|----------------------------------------------|\n| `dropdb <dbname>`               | `mysql -execute 'DROP DATABASE <dbname>;'`   |\n| `createdb <dbname>`             | `mysql -execute 'CREATE DATABASE <dbname>;'` |\n| `psql -f <dump_filename>`       |`mysql <dbname> < <dump_filename>`            |\n\nNOTE: These instructions work for a database dumped with `pg_dump` for the Postgres example. In principle it is the same way you can restore from `pg_dumpall` but if you Postgres instance already exists then you're going to run into various problems, e.g. errors about `template1` db.\n\nLessons learned along the way\n-----------------------------\n\n2022-08-22\n\n8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is \"REPLACE\" is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I've used \"?\" with SQLite and MySQL but with Postgres I need to use \"$1\", \"$2\", etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.\n\n\n2022-08-24\n\n11:00 - 12:00; SQL; Postgres; I miss `SHOW TABLES` it's just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's \"SHOW TABLES\". Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.\n\n2022-08-26\n\n9:30 - 10:30; SQL; Postgres; If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \\[Quickstart\\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.\n\n2022-09-19\n\n10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "byline": "R. S. Doiel, 2022-08-19",
+        "keywords": [
+          "postgres",
+          "mysql",
+          "sql",
+          "psql"
+        ],
+        "number": 2,
+        "pubDate": "2022-08-19",
+        "series": "SQL Reflections",
+        "title": "Rosette Notes: Postgres and MySQL",
+        "updated": "2022-09-19"
+      },
+      "url": "posts/2022/08/19/rosette-notes.json"
+    },
+    {
+      "content": "\n# 5:45 PM, Golang: ptdk,  stngo\n\nPost: Monday, August 15, 2022, 5:45 PM\n\nThinking through what a \"post\" from an simple timesheet notation file should look like. One thing occurred to me is that the entry's \"end\" time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the `BlogSTN()` function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog's homepage and that \"title\" is what I use for other posts. Maybe I should just use a command line option to provide a title?\n\n",
+      "data": {
+        "keywords": [
+          "ptdk",
+          "stngo"
+        ],
+        "no": 4,
+        "pubDate": "2022-08-15",
+        "series": "Golang",
+        "title": "5:45 PM, Golang: ptdk,  stngo"
+      },
+      "url": "posts/2022/08/15/golang-development-2022-08-15_170545.json"
+    },
+    {
+      "content": "\nPttk and STN\n============\n\nBy R. S. Doiel, started 2022-08-15\n(updated: 2022-09-26, pdtk was renamed pttk)\n\nThis log is a proof of concept in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation combines two of my personal projects, [stngo](https://github.com/rsdoiel/stngo) and my experimental writing tool [pttk](https://github.com/rsdoiel/pttk). Updating the __pttk__ cli I added a function to the \"blogit\" action that will translates the simple timesheet notation (aka STN) to a short blog post.  My \"short post\" interest is a response to my limited writing time. What follows is the STN markup. See the [Markdown](https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md) source for the unprocessed text.\n\n2022-08-15\n\n16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a \"post\" from an simple timesheet notation file should look like. One thing occurred to me is that the entry's \"end\" time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the `BlogSTN()` function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog's homepage and that \"title\" is what I use for other posts. Maybe I should just use a command line option to provide a title?\n\n2022-08-14\n\n14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I cleaned up stngo a little today, still need to implement a general `Parse()` method that works on a `io.Reader`. After a few initial false starts I realized the \"right\" place for rendering simple timesheet notation as blog posts is in the the \"blogit\" action of [pdtk](https://rsdoiel.github.io/pttk). I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.\n\n2022-08-12\n\n16:00 - 16:30; Golang; stngo; A work slack exchange has perked my interest in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) for very short blog posts. This could be similar to Dave Winer title less posts on [scripting](http://scripting.com). How would this actually map? Should it be a tool in the [stngo](https://rsdoiel.githubio/stngo) project?\n\n2022-09-26\n\n6:30 - 7:30; Golang; pttk; renamed \"pandoc toolkit\" (pdtk) to \"plain text toolkit\" (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.\n",
+      "data": {
+        "author": "R. S. Doiel",
+        "byline": "R. S. Doiel, 2022-08-15",
+        "pubDate": "2022-08-15",
+        "title": "PTTK and STN",
+        "updated": "2022-09-26"
+      },
+      "url": "posts/2022/08/15/golang-development.json"
+    },
+    {
+      "content": "\n# 5:00 PM, Golang: pdtk,  stngo\n\nPost: Sunday, August 14, 2022, 5:00 PM\n\nToday I started an experiment. I cleaned up stngo a little today, still need to implement a general `Parse()` method that works on a `io.Reader`. After a few initial false starts I realized the \"right\" place for rendering simple timesheet notation as blog posts is in the the \"blogit\" action of [pdtk](https://rsdoiel.github.io/pttk). I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.\n\n",
+      "data": {
+        "keywords": [
+          "pdtk",
+          "stngo"
+        ],
+        "no": 3,
+        "pubDate": "2022-08-14",
+        "series": "Golang",
+        "title": "5:00 PM, Golang: pdtk,  stngo"
+      },
+      "url": "posts/2022/08/14/golang-development-2022-08-14_170500.json"
+    },
+    {
+      "content": "\n# 4:30 PM, Golang: stngo\n\nPost: Friday, August 12, 2022, 4:30 PM\n\nA work slack exchange has perked my interest in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) for very short blog posts. This could be similar to Dave Winer title less posts on [scripting](http://scripting.com). How would this actually map? Should it be a tool in the [stngo](https://rsdoiel.githubio/stngo) project?\n\n",
+      "data": {
+        "keywords": [
+          "stngo"
+        ],
+        "no": 2,
+        "pubDate": "2022-08-12",
+        "series": "Golang",
+        "title": "4:30 PM, Golang: stngo"
+      },
+      "url": "posts/2022/08/12/golang-development-2022-08-12_160430.json"
+    },
+    {
+      "content": "\n\nOPML to Markdown and back\n=========================\n\nBy R. S. Doiel 2016-05-28\n\n## Overview\n\nI wrote a Go language package to sort [OPML](http://dev.opml.org/spec2.html) outlines. \nI wrote this because my preferred [feed reader ](http://goread.io) supports manual \nsorting but not automatic alpha sorting by the _outline_ element's _text_ attribute. \n\n## Observations\n\nOut of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,\nscripts, basic metadata (create, modified, authorship), and even directory structures.\n\n[Fargo](http://fargo.io) allows user defined attributes to be applied to the _outline_ \nelement in OPML. This could be used in support some of the \n[Scrivener](https://www.literatureandlatte.com/scrivener.php)\nfeatures I miss such as describing how to render a project to various formats such as\nrtf, pdf, ePub, web pages or even [Final Draft fdx](https://www.finaldraft.com/) files.\n\nI write allot of Markdown formatted text.  Markdown is simple to index, \nsearch and convert into useful formats. Markdown is not good at expressing more\ncomplex structures such as metadata. Website generators that use markdown often\nrequire a preamble or _front matter_ in the markdown to provide any metadata. This\nleaves your document head cluttered and less human readable.\n\nAnother approach is to include a parallel document with the metadata.  It occurred to me \nthat an OPML file could easily hold that metadata. It can even hold Markdown content.\nThe trouble with OPML is that it is not quick to edit by hand.\n\n    Is there a round trip semantic mapping between OPML and Markdown?\n\n\n## Germination of an idea\n\nEntering a web link in Fargo the link is URL encoded and saved in the _text_ attribute of the \n_outline_ element.\n\nThe source view of a web links in Fargo's _outline_ element looks like\n\n```OPML\n    <outline text=\"&gt; href=&quot;http://example.org&quot;&lt;My example.org&gt;/a&lt;\" />\n```\n\nThat _outline_ element might render in Markdown as\n\n```\n    + [My element.org](http://example.org)\n```\n\nThe steps to create the Markdown view are simple\n\n1. URL decode the _text_ attribute\n2. Convert HTML to Markdown\n\nMaking a round trip could be done by\n\n3. Convert Markdown into HTML\n4. For each _li_ element covert to an _outline_ element URL encoding the inner HTML of the _li_\n\nSo far so good. What about something more complex?\n\n\nHere's an _outline_ element example from http://hosting.opml.org/dave/spec/directory.opml \n\n```OPML\n    <outline text=\"Scripting News sites\" created=\"Sun, 16 Oct 2005 05:56:10 GMT\" type=\"link\" url=\"http://hosting.opml.org/dave/mySites.opml\"/>\n```\n\nTo me that should look like \n\n```\n    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml)\n```\n\nWhat about the _created_ attribute? Could we render this case as an additional set of anchors using data uri?\n\nThis suggest a rule like\n\n+ if the _text_ attribute contains HTML markup\n    + URL decode into HTML\n    + Convert HTML to Markdown\n+ else render attributes as additional anchors using data URI\n\nThis might work as follows. \n\n```OPML\n    <outline text=\"Scripting News sites\" \n        created=\"Sun, 16 Oct 2005 05:56:10 GMT\" \n        type=\"link\" \n        url=\"http://hosting.opml.org/dave/mySites.opml\"/>\n```\n\nWould become \n\n```Markdown\n    + [Scripting News Sites](http://hosting.opml.org/dave/mySites.opml) [type](data:text/plain;link) [created](data:text/date;Sun, 16 Oct 2005 05:56:10 GMT)\n```\n\nIn HTML this would look like\n\n```HTML\n    <li><a href=\"http://histing.opml.org/dave/mySites.opml\">Scripting News Sites</a>\n        <a href=\"data:text/plain;link\">type</a>\n        <a href=\"data:text/date;Sun, 16 Oct 2005 05:56:10 GMT\">created</a></li>\n```\n\n### Markdown to OPML\n\nComing back to OPML from Markdown then becomes\n\n+ Convert Markdown to HTML\n+ For each _li_ element inspect anchors, \n    + if anchors contain data URI then map _outline_ element\n    + else URL encode and embed in _outline_ _text_ attribute\n\nIs this viable? Does it have any advantages?\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-05-28",
+        "keywords": [
+          "golang",
+          "opml",
+          "markdown"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "OPML to Markdown and back"
+      },
+      "url": "posts/2016/05/28/OPML-to-Markdown-and-back.json"
+    },
+    {
+      "content": "\n\n# Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph\n\nBy R. S. Doiel 2016-05-30\n\n## The problem\n\nThe web has gotten slow. In [2016](http://httparchive.org/trends.php) the \naverage page weight is in multi-megabytes and the average number of network \nrequests needed to deliver the content is counted in \nthe hundreds. In the mix are saturated networks and a continued public \nexpectation of responsiveness (web wisdom suggests you have about 3 seconds \nbefore people give up).  The odd thing is we've known how to build fast \nwebsites for a [decade](https://www.stevesouders.com/) or so.  \nCollectively we don't build them [fast](https://www.sitepoint.com/average-page-weight-increased-another-16-2015/). \n\n\n## Meet the new abstractions\n\nCorporations believe they have the answer and they are providing us \nwith another set of abstractions. In a few years maybe these will \nget distilled down to a shared common view but in the mean time disc \ncosts remain reasonably priced and generating these new forms of \npages or feeds is a template or so away.\n\n+ [Twitter Cards](https://dev.twitter.com/cards/overview) and [Open Graph](http://ogp.me/)\n  + Exposing your content via social media, search results or embedded in pages via an aside element\n+ [Accelerated Mobile Pages](https://www.ampproject.org/) (also called AMP)\n  + A simplification in content delivery to improve web reading experience\n  + Its usefulness is it proscribes an approach to leverage what we have\n  + AMP works well with Twitter Cards, Open Graph and can leverage Web Components\n+ [Instant Articles](https://instantarticles.fb.com/)\n  + a format play to feed the walled garden of Facebook for iOS and Android devices\n\n\n## The players \n\n### Twitter Cards and Open Graph\n\nTwitter's Titter Cards and Facebook's Open Graph offer approaches to \nbuild off of our existing meta elements in an HTML page's document \nhead.  They are named space to avoid collisions but supporting both \nwill still result in some content duplication. The k-weight \ndifference in the resulting HTML pages isn't too bad. \n\nAdopting either or both is a matter of adjusting how your render your \nweb page's head block.  It is easy enough to do manually but easier \nstill using some sort of template system that renders the appropriate \nmeta elements based on the content type and contents in the page \nbeing rendered.  \n\nGoogle and other search engines can leverage this richer meta \ndata and integrate it into their results. Google's Now application can \nrender content cards based on either semantic. It also appears that \ncontent cards are being leverage selectively for an aside and related \ncontent on Google search results pages. You could even built this into \nyour own indexing process for use with the Solr or Elasticsearch.\n\nContent Cards offer intriguing opportunity for web crawlers and search \nengines.  This is particularly true when combined with mature feed \nformats like RSS, OPML, Atom and the maturing efforts in the linked \ndata community around JSON-LD.\n\n\n### AMP - Accelerated Mobile Pages\n\nThe backers of AMP (not to be confused with Apache+MySQL+PHP) are largely\npublishers including major news outlets and web media\ncompanies in the US and Europe. This is an abridged list from 2015--\n\n+ BBC\n+ Atlantic Media\n+ Vox Media\n+ Conde Nast\n+ New York Times\n+ Wall Street Journal\n+ The Daily Mail\n+ Huffington Post\n+ Gannet\n+ The Guardian\n+ The Economist\n+ The Financial Times\n\nIn additional to the publishers there is participation by tech companies\nsuch as Google, Pinterest, Twitter, LinkedIn and Wordpress.com.  Accelerated\nMobile Pages offer benefits for web crawlers and search engines supporting\nsurfacing content is clearly and enabling easier distinction from \nadvertisements. \n\n\n### Instant Articles\n\nIn additional to Open Graph Facebook has put forward [Instant Articles](https://developers.facebook.com/docs/instant-articles).\nLike AMP it is targeting content delivery for mobile. Unlike AMP Instant Articles is an\nexplicit binding into Facebook's walled garden only exposing the content on supported\nversions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when  \nyou browse from a desktop web browser.  Unlike the previous\nexamples you actually need to sign up to participate in the Instant Article publishing\nprocess.  Sign up cost is having a Facebook account, being approved by Facebook and compliance\nwith their terms of service. Facebook does provide some publishing tools, publishing controls\nas well as some analytics. They do allow 3rd party ads as well as encourage access to\ntheir advertising network.  Once approved the burden on your content manage process \nappears manageable.  \n\nYou can submit Instant Articles via a modified RSS feed or directly through their API. \nIn this sense the overhead is about the same as that for implementing support for Twitter Cards\nOpen Graph, and AMP. Facebook does a good job of quickly propagating changes to your\nInstant Articles across their platform. That's nice.\n\nWhy go through the trouble? If you're a content producer and your audience lives on Facebook\nFacebook commands the attention of a lot of eye balls.  Instant Articles provides \nanother avenue to reach them.  For some Facebook effectively controls the public view of the \nweb much as America Online and Prodigy did decades ago. [Dave Winer](https://twitter.com/davewiner) \nhas written extensively on how he implemented Instant Article support along with \nsome very reasoned pros and cons for doing so. The landscape is evolving and \n[Dave's river of news](http://scripting.com) is worth following.\n\n\n## Impact on building content\n\nThese approaches require changes in your production of your HTML and RSS sent to the browser.\nTwitter Cards and Open Graph change what you put in the HEAD element of the HTML\npages.  AMP proscribes what you should put in the BODY element of the webpage.\nInstant Articles tweaks your RSS output.  Not surprisingly the major content management \nsystems Wordpress and Drupal have plugins for this.  All can be implemented via your template \nsystem or page generation process.\n\n\n## Whither adopt?\n\nBecause these approaches boil down to content assembly the adoption risk \nis low.  If your audience views Twitter, Facebook or Google search results \nthen it is probably worth doing.  All allow you to continue to publish your \nown content and own your URLs as opposed to being a tenant on one or another \nplatform. That benefits the open web.\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-05-30",
+        "keywords": [
+          "structured data",
+          "amp",
+          "opengraph",
+          "twitter",
+          "google",
+          "facebook",
+          "instant pages"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph"
+      },
+      "url": "posts/2016/05/30/amp-cards-and-open-graph.json"
+    },
+    {
+      "content": "\n\nHow to make a Pi-Top more Raspbian\n==================================\n\nBy R. S. Doiel, 2016-07-04\n\nI have a first generation Pi-Top.  I like the idea but found I didn't use it much due to a preference for\nbasic Raspbian. With the recent Pi-TopOS upgrades I realized getting back to basic Raspbian was relatively\nstraight forward.\n\n## The recipe\n\n1. Make sure you're running the latest Pi-TopOS based on Jessie\n2. Login into your Pi-Top normally\n3. From the Pi-Top dashboard select the \"Desktop\" icon\n4. When you see the familiar Raspbian desktop click on the following things\n\t+ Click on the Raspberry Menu (upper left corner)\n\t+ Click on Preferences\n\t+ Click on Raspberry Pi Configuration\n5. I made the following changes to my System configuration\n\t+ Under *Boot* I selected \"To CLI\"\n\t+ I unchecked *login as user \"pi\"*\n6. Restart your Pi Top\n\t+ Click on Raspberry Menu in the upper left of the desktop\n\t+ Click on shutdown\n\t+ Select *reboot*\n7. When you restart you'll see an old school console login, login as the pi user using your Pi-Top password\n8. Remove the following program use the *apt* command\n\t+ ceed-universe\n\t+ pt-dashboard\n\t+ pt-splashscreen\n\n```\n    sudo apt purge ceed-universe pt-dashboard pt-splashscreen\n```\n\nNote: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably\nwant to keep them.\n\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-07-04",
+        "keywords": [
+          "Raspberry Pi",
+          "Pi-Top",
+          "Rasbian",
+          "Raspberry Pi OS",
+          ":operating systems"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "How to make a Pi-Top more Raspbian"
+      },
+      "url": "posts/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.json"
+    },
+    {
+      "content": "\n\n# Exploring Bash for Windows 10 Pro\n\nBy R. S. Doiel 2016-08-15\n\n    UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under \n    Windows 10 Pro I've am getting compile errors when the \n    assembler is being built.  I can compile go1.4.3 but see errors \n    in some of the tests results.\n\n## Initial Setup and configuration\n\nI am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps\n\n+ Search with Bing for \"Bash for Windows\" \n    + Bing returns http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/\n+ Switch on developer mode for Windows\n+ Turned on Linux Subsystem Beta (searched for \"Turning on Features\")\n+ Reboot\n+ Search for \"Bash\" and clicked on \"Run Bash command\"\n+ Answered \"y\"\n+ Waited for download and extracted file system\n+ When prompted setup developer account with username/password\n    + Documentation can be found at https://aka.ms/wsldocs\n+ Exit root install shell\n+ Search for \"Bash\" locally\n+ Launched \"Bash on Ubuntu on Windows\"\n+ Authenticate with your username/password\n\n\n## Setting up Go under Bash for Windows 10\n\nWith Bash installed these are the steps I took to compile Go\nunder Bash on Ubuntu on Windows.\n\n```shell\n    sudo apt-get update && sudo apt-get upgrade -y\n    sudo apt-get autoremove\n    sudo apt-get install build-essential clang git-core unzip zip -y\n    export CGO_ENABLE=0\n    git clone https://github.com/golang/go go1.4\n    git clone https://github.com/golang/go go\n    cd go1.4\n    git checkout go1.4.3\n    cd src\n    ./all.bash\n    cd\n    export PATH=$PATH:$HOME/go1.4/bin\n    cd go\n    git checkout go1.7\n    cd src\n    ./all.bash\n    cd\n    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME\n```\n\nNote some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed\naround network sockets.  This is probably a result of the limitations in the Linux subsystem\nunder Windows.\n\nIf successful you should be able to run `go version` as well as install additional Go based software\nwith the usual `go get ...` syntax.\n\nIn your `.bashrc` or `.profile` add the following\n\n```shell\n    export PATH=$HOME/go/bin:$HOME/bin:$PATH\n    export GOPATH=$HOME\n```\n\n\n## Improved vim setup\n\nI like the vim-go packages for editing Go code in vim. They are easy to setup.\n\n```shell\n     mkdir -p ~/.vim/autoload ~/.vim/bundle \n     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim\n     git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go\n```\n\nExample $HOME/.vimrc\n\n```vimrc\n    execute pathogen#infect()\n    syntax on\n    filetype plugin on\n    set ai\n    set nu\n    set smartindent\n    set tabstop=4\n    set shiftwidth=4\n    set expandtab\n    let &background = ( &background == \"dark\"? \"light\" : \"dark\" )\n    let g:vim_markdown_folding_disabled=1\n```\n\nColor schemes are browsable at [vimcolors.com](http://vimcolors.com). They can be installed in\n$HOME/.vim/colors.\n\n1. git clone and place the colorscheme\n2. place the *.vim file holding the color scheme into $HOME/.vim/colors\n3. start vim and at the : do colorscheme NAME where NAME is the scheme you want to try\n\nYou can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number\ne.g. /usr/share/vim/vim74/colors.\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-08-15",
+        "keywords": [
+          "Golang",
+          "Windows",
+          "Bash",
+          "Linux Subsystem"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "Exploring Bash for Windows 10 Pro"
+      },
+      "url": "posts/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.json"
+    },
+    {
+      "content": "\n\nFrom Markdown and Bash to mkpage\n================================\n\nBy R. S. Doiel 2016-08-16\n\nWhen I started maintaining a website on GitHub a few years ago my needs\nwere so simple I hand coded the HTML.  Eventually I adopted \na markdown processor for maintaining the prose. My \"theme\" was a\nCSS file and some HTML fragments to wrap the markdown output. If I needed \ninteractivity I used JavaScript to access content via a web API. \nLife was simple, all I had to learn to get started was Git and how to\npopulate a branch called \"gh-pages\".\n\n\n## Deconstructing Content Management Systems\n\nRecently my website needs have grown. I started experimenting with static\nsite generators thinking an existing system would be the right fit. \nWhat I found were feature rich systems that varied primarily in \nimplementation language and template engine. Even though I wasn't\nrequired to run Apache, MySQL and PHP/Perl/Python/Ruby/Tomcat it felt \nlike the static site generators were racing to fill a complexity \nvacuum. In the end they were interesting to explore but far more\nthan I was willing to run. I believe modern content management systems can\nbe deconstruct into something simpler.\n\nSome of the core elements of modern content management systems are\n\n+ creation and curation of data sources (including metadata)\n+ transforming data sources if needed\n+ mapping a data source to appropriate template set\n+ rendering template sets to produce a final website\n\nModern static site generators leave creation and curation to your \ntext editor and revision control system (e.g. vi and git). \n\nMost static site generators use a simplified markup. A populate one is\ncalled [Markdown](https://en.wikipedia.org/wiki/Markdown). This \"markup\"\nis predictable enough that you can easily convert the results to HTML and\nother useful formats with tools like [pandoc](http://pandoc.org/). In most \nstatic site generators your content is curated in Markdown and when the \npages are built it is rendered to HTML for injection into your website's \ntemplate and theme.\n\nMapping the data sources to templates, combining the templates and rendering \nthe final website is where most systems introduce a large amount of complexity.\nThis is true of static site generators like [Jekill](https://jekyllrb.com) and \n[Hugo](https://gohugo.io).\n\n\n## An experimental deconstruction\n\nI wanted a simple command line tool that would make a single web page.\nIt would take a few data sources and formats and run them through a\ntemplate system. The template system needed to be simple but support\nthe case where data might not be available. It would be nice if it handled\nthe case of repetitious data like that used in tables or lists. Ideally\nI could render many pages from a single template assuming a simple website\nand layout.\n\n### A single page generator\n\n[mkpage](https://github.com/rsdoiel/mkpage) started as an experiment in\nbuilding a simple single page generator. It's responsibilities\ninclude mapping data sources to the template, transforming data if needed\nand rendering the results. After reviewing the websites I've setup in\nthe last year or two I realized I had three common types of data.\n\n1. Plain text or content that did not need further processing\n2. Markdown content (e.g. page content, navigation lists)\n3. Occasionally I include content from JSON feeds\n\nI also realized I only needed to handle three data sources.\n\n1. strings\n2. files\n3. web resources\n\nEach of these sources might provide plain text, markdown or JSON data formats.\n\nThat poses the question of how to express the data format and the data \nsource when mapping the content into a template. The web resources are\neasy in the sense that the web responses include content type information.\nFiles can be simple too as the file extension indicates their\nformat (e.g. \".md\" for Markdown, \".json\" for JSON documents). What remained\nwas how to identify a text string's format.  I opted for a prefix ending in \na colon (e.g. \"text:\" for plain text, \"markdown:\" for markdown \nand \"json:\" for JSON). This mapping allows for a simple key/value\nrelationship to be expressed easily on the command line.\n\n### mkpage in action\n\nDescribing how to build \"mypage.html\" from \"mypage.md\" and \"nav.md\" \n(containing links for navigating the website) is as easy as typing\n\n```shell\n    mkpage \"content=mypage.md\" \"navigation=nav.md\" page.tmpl > mypage.html\n```\n\nIn this example the template is called \"page.tmpl\" and we redirect the \noutput to \"mypage.html\".\n\n\nAdding a custom page title is easy too.\n\n```shell\n    mkpage \"title=text:My Page\" \\\n        \"content=mypage.md' \"navigation=nav.md\" \n        page.tmpl \\\n        > mypage.html\n```\n\nLikewise integrating some JSON data from weather.gov is relatively straight\nforward. The hardest part is discovering the [URL](http://forecast.weather.gov/MapClick.php?lat=34.0522&lon=118.2437&DFcstType=json) \nthat returns JSON!  Notice I have added a weather field and the URL. When data\nis received back from weather.gov it is JSON decoded and then passed to the\ntemplate for rendering using the \"range\" template function.\n\n```shell\n    mkpage \"title=My Page\" \\\n        \"content=mypage.md\" \\\n        \"navigation=nav.md\" \\\n        \"weather=http://forecast.weather.gov/MapClick.php?lat=34.0522&lon=118.2437&DFcstType=json\" \\\n        page.tmpl \\\n        > mypage.html\n```\n\nWhat is *mkpage* doing?\n\n1. Reading the data sources and formats from the command line\n2. Transforming the Markdown and JSON content appropriately\n3. Applying them to the template (e.g. page.tmpl)\n4. Render the results to stdout\n\nBuilding a website then is only a matter of maintaining navigation in\n*nav.md* and identifying the pages needing to be created. I can easily \nautomated that using the Unix find, grep, cut and sort. Also with find \nI can iteratively process each markdown file applying a \ntemplate and rendering the related HTML file.  This can be done for a site \nof a few pages (e.g. about, resume and cv) to more complex websites like \nblogs and repository activities.\n\nHere's an example template that would be suitable for the previous\ncommand line example. It's mostly just HTML and some curly bracket notation \nsprinkled in.\n\n```html\n    <!DOCTYPE html>\n    <html>\n    <head>\n        {{with .title}}<title>{{- . -}}</title>{{end}}\n        <link rel=\"stylesheet\" href=\"css/site.css\">\n    </head>\n    <body>\n        <nav>\n        {{ .navigation }}\n        </nav>\n        <section>\n        {{ .content }}\n        </section>\n        <aside>\n        Weather Demo<br />\n        <ul>\n        {{range .weather.data.text}}\n            <li>{{ . }}</li>\n        {{end}}\n        </ul>\n        </aside>\n\n    </body>\n    </html>\n```\n\nYou can find out more about [mkpage](https://github.com/rsdoiel/mkpage)\n[rsdoiel.github.io/mkpage](https://rsdoiel.github.io/mkpage).\n\nTo learn more about Go's text templates see \n[golang.org/pkg/text/template](https://golang.org/pkg/text/template/). \n\nIf your site generator needs are more than *mkpage* I suggest [Hugo](https://gohugo.io). \nIt's what I would probably reach for if I was building a large complex organizational\nsite or news site.\n\nIf you're looking for an innovative and rich author centric content system\nI suggest Dave Winer's [Fargo](http://fargo.io) outliner and [1999.io](https://1999.io).\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-08-16",
+        "keywords": [
+          "Bash",
+          "Markdown",
+          "site generator",
+          "mkpage",
+          "pandoc"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "From Markdown and Bash to mkpage"
+      },
+      "url": "posts/2016/08/16/From-Markdown-and-Bash-to-mkpage.json"
+    },
+    {
+      "content": "\n\n# Android, Termux and Dev Environment\n\nBy R. S. Doiel 2016-09-20\n\nRecently I got a new Android 6 tablet. I got a case with a tiny Bluetooth keyboard. I started wondering if I could use it as a development device when on the road. So this is my diary of that test.\n\n## Challenges\n\n1. Find a way to run Bash without rooting my device\n2. See if I could use my normal web toolkit\n\t+ curl\n\t+ jq\n\t+ sed\n\t+ grep\n3. See if I could compile or add my own custom Golang programs\n4. Test setup by running a local static file server, mkpage and update my website\n\n## Searching for Android packages and tools of my toolbox\n\nAfter searching with Duck Duck Go and Google I came across the [termux](https://termux.com). Termux provides a minimal Bash shell environment with support for adding\npackages with _apt_ and _dpkg_.  The repositories visible to *termux* include\nmost of the C tool chain (e.g. clang, make, autoconf, etc) as well as my old Unix favorites _curl_, _grep_, _sed_, _gawk_ and a new addition to my toolkit _jq_.  Additionally you'll find recent versions (as of Sept. 2016) versions of _Golang_, _PHP_, _python_, and _Ruby_.\n\nThis quickly brought me through step 3.  Installing _go_, _git_, and _openssh_ completed what I needed to test static site development with some of the tools in our incubator at [Caltech Library](https://caltechlibrary.github.io).\n\n## Setting up for static site development\n\nAfter configuring _git_, adding my public key to GitHub and running _go get_ on my\ncustom static site tools I confirmed I could build and test static websites from my Android tablet using *Termux*.\n\nHere's the list of packages I installed under *Termux* to provide a suitable shell environment for writing and website constructions.\n\n```shell\n    apt install autoconf automake bash-completion bc binutils-dev bison \\\n        bzip2 clang cmake coreutils ctags curl dialog diffutils dos2unix \\\n        expect ffmpeg findutils gawk git gnutls golang grep gzip \\\n\timagemagick jq less lynx m4 make-dev man-dev nano nodejs \\\n        openssh patch php-dev python readline-dev rlwrap rsync ruby-dev \\\n        sed sensible-utils sharutils sqlite tar texinfo tree unzip vim \\\n        w3m wget zip\n```\n\nThis then allowed me to setup my *golang* environment variables and install\nmy typical custom written tools\n\n```shell\n    export PATH=$HOME/bin:$PATH\n    export GOPATH=$HOME\n    export GOBIN=$HOME/bin\n    go get github.com/rsdoiel/shelltools/...\n    go get github.com/caltechlibrary/mkpage/...\n    go get github.com/caltechlibrary/md2slides/...\n    go get github.com/caltechlibrary/ws/...\n```\n\nFinally pulled down some content to test.\n\n```shell\n    cd\n    mkdir Sites\n    git clone https://github.com/rsdoiel/rsdoiel.github.io.git Sites/rsdoiel.github.io\n    cd  Sites/rsdoiel.github.io\n    ws\n```\n\nThis started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000 and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-09-20",
+        "keywords": [
+          "Bash",
+          "cURL",
+          "jq",
+          "sed",
+          "grep",
+          "search",
+          "golang",
+          "Android"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "Android, Termux and Dev Environment"
+      },
+      "url": "posts/2016/09/20/Android-Termux-Dev-environment.json"
+    },
+    {
+      "content": "\n\n# Cross compiling Go 1.8.3 for Pine64 Pinebook\n\nBy R. S. Doiel 2017-06-16\n\nPine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is \nnot the same ARM processor found on a Raspberry Pi 3. As a \nresult it needs its own compiled version of Go. Fortunately cross \ncompiling Go is very straight forward. I found two helpful Gists\non GitHub discussing compiling Go for a 64-Bit ARM processor. \n\n+ [conoro's gist](https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca)\n+ [truedat101's gist](https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802)\n\nI am using a Raspberry Pi 3, raspberrypi.local, as my cross compile \nhost. Go 1.8.3 is already compiled and available.  Inspired by the \ngists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.\n\n```shell\n    cd\n    mkdir -p gobuild\n    cd gobuild\n    git clone https://github.com/golang/go.git go1.8.3\n    cd go1.8.3\n    git checkout go1.8.3\n    export GOHOSTARCH=arm\n    export GOARCH=arm64\n    export GOOS=linux\n    cd src\n    ./bootstrap.bash\n```\n\nAfter the bootstrap compile is finished I switch to my Pinebook,\ncopy the bootstrap compiler to my Pinebook and use it to compile\na new go1.8.3 for Pine64.\n\n```shell\n    cd\n    scp -r raspberrypi.local:gobuild/*.tbz ./\n    tar jxvf go-linux-arm64-bootstrap.tbz\n    export GOROOT=go-linux-arm64-bootstrap\n    go-linux-arm64-bootstrap/bin/go version\n    unset GOROOT\n    git clone https://github.com/golang/go\n    cd go\n    git checkout go1.8.3\n    export GOROOT_BOOTSTRAP=$HOME/go-linux-arm64-bootstrap\n    cd src\n    ./all.bash\n```\n\n_all.bash_ will successfully compile _go_ and _gofmt_ but fail on \nthe tests. It's not perfect but appears to work as I explore\nbuilding Go applications on my Pinebook. Upcoming Go releases should\nprovide better support for 64 bit ARM.\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2016, R. S. Doiel",
+        "date": "2016-06-16",
+        "keywords": [
+          "Golang",
+          "Pine64",
+          "ARM"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "Cross compiling Go 1.8.3 for Pine64 Pinebook"
+      },
+      "url": "posts/2017/06/16/cross-compiling-go.json"
+    },
+    {
+      "content": "\n\n# NodeJS, NPM, Electron\n\nBy R. S. Doiel 2017-10-20\n\nElectron is an app platform leveraging web technologies. Conceptually it is a\nmashup of NodeJS and Chrome browser. [Electron](https://electron.atom.io/) site\nhas a nice starter app. It displays a window with Electron version info and\n'hello world'.\n\nBefore you can get going with _Electron_ you need to have a\nworking _NodeJS_ and _NPM_. I usually compile from source and this\nwas my old recipe (adjusted for v8.7.0).\n\n```shell\n    cd\n    git clone https://github.com/nodejs/node.git\n    cd node\n    git checkout v8.7.0\n    ./configure --prefix=$HOME\n    make && make install\n```\n\nTo install an _Electron Quick Start_ I added the additional steps.\n\n```shell\n    cd\n    git clone https://github.com/electron/electron-quick-start\n    cd electron-quick-start\n    npm install\n    npm start\n```\n\nNotice _Electron_ depends on a working _node_ and _npm_.  When I\ntried this recipe it failed on `npm install` with errors regarding\ninternal missing node modules.\n\nAfter some fiddling I confirmed my node/npm install failed because\nI had install the new version of over a partially installed previous\nversion. This causes the node_modules to be populated with various\nconflicting versions of internal modules.\n\nSorting that out allowed me to test the current version of\n*electron-quick-start* cloned on 2017-10-20 under _NodeJS_ v8.7.0.\n\n## Avoiding Setup Issues in the future\n\nThe *Makefile* for _NodeJS_ includes an 'uninstall' option. Revising\nmy _NodeJS_ install recipe above I now do the following to setup a machine\nto work with _NodeJS_ or _Electron_.\n\n```shell\n    git clone git@github.com:nodejs/node.git\n    cd node\n    ./configure --prefix=$HOME\n    make uninstall\n    make clean\n    make -j 5\n    make install\n```\n\nIf I am on a device with a multi-core CPU (most of the time) you can speed\nup the make process using a `-j CPU_CORE_COUNT_PLUS_ONE` option (e.g. `-j 5`\nfor my 4 core x86 laptop).\n\nOnce _node_ and _npm_ were working normally the instructions in the\n*electron-quick-start* worked flawlessly on my x86.\n\nI have tested the node install recipe change on my Pine64 Pinebook, on \nseveral Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.\n\nI have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi's yet. \n`npm install` outputs errors suggesting that it is expecting an x86 architecture.\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2017, R. S. Doiel",
+        "date": "2017-10-20",
+        "keywords": [
+          "Javascript",
+          "NodeJS",
+          "Electron"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "NodeJS, NPM, Electron"
+      },
+      "url": "posts/2017/10/20/node-npm-electron.json"
+    },
+    {
+      "content": "\n\n# Harvesting my Gists from GitHub\n\nBy R. S. Doiel 2017-12-10\n\nThis is a just quick set of notes on harvesting my Gists on GitHub so I\nhave an independent copy for my own website. \n\n## Assumptions\n\nIn this gist I assume you are using Bash on a POSIX system (e.g. Raspbian \non a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut, \nsed, curl). I also use Stephen Dolan's [jq](https://github.com/stedolan/jq)\nas well as Caltech Library's [datatools](https://github.com/caltechlibrary/datatools).\nSee the respective GitHub repositories for installation instructions.\nThe gist harvest process was developed against GitHub's v3 API\n(see developer.github.com). \n\nIn the following examples \"USER\" is assumed to hold your GitHub user id \n(e.g. rsdoiel for https://github.com/rsdoiel).\n\n## Getting my basic profile\n\nThis retrieves the public view of your profile.\n\n```shell\n    curl -o USER \"https://api.github.com/users/USER\"\n```\n\n## Find the urL for your gists\n\nGet the gists url from `USER.json.\n\n```shell\n    GISTS_URL=$(jq \".gists_url\" \"USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\"\n```\n\nNow `gists.json` should hold a JSON array of objects representing your Gists.\n\n## Harvesting the individual Gists.\n\nWhen you look at _gists.json_ you'll see a multi-level JSON structure.  It has been\nformatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library\nhas some nice utilities for working with JSON I'll use *jsonrange* and *jq* to pull out a list\nof individual Gists URLS.\n\n```shell\n    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | sed -E 's/\"//g'\n    done\n```\n\nExpanding this we can now curl each individual gist metadata to find URL to the raw file.\n\n\n```shell\n    jsonrange -i gists.json | while read I; do \n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g'; \n        done;\n    done\n```\n\nNow that we have URLs to the raw gist files we can use curl again to fetch each.\n\nWhat do we want to store with our harvested gists?  The raw files, metadata\nabout the Gist (e.g. when it was created), the Gist ID. Putting it all together\nwe have the following script.\n\n```shell\n    #!/bin/bash\n    if [[ \"$1\" = \"\" ]]; then\n        echo \"USAGE: $(basename \"$0\") GITHUB_USERNAME\"\n        exit 1\n    fi\n\n    USER=\"$1\"\n    curl -o \"$USER.json\" \"https://api.github.com/users/$USER\"\n    if [[ ! -s \"$USER.json\" ]]; then\n        echo \"Someting went wrong getting https://api.github.cm/users/${USER}\"\n        exit 1\n    fi\n\n    GISTS_URL=$(jq \".gists_url\" \"$USER.json\" | sed -E 's/\"//g' | cut -d '{' -f 1)\n    curl -o gists.json \"${GISTS_URL}\"\n    if [[ ! -s gists.json ]]; then\n        echo \"Someting went wrong getting ${GISTS_URL}\"\n        exit 1\n    fi\n\n    # For each gist harvest our file\n    jsonrange -i gists.json | while read I; do\n        GIST_ID=$(jq \".[$I].id\" gists.json | sed -E 's/\"//g')\n        mkdir -p \"gists/$GIST_ID\"\n        echo \"Saving gists/$GIST_ID/metadata.json\"\n        jq \".[$I]\" gists.json > \"gists/$GIST_ID/metadata.json\"\n        jq \".[$I].files\" gists.json | jsonrange -i - | while read FNAME; do\n            URL=$(jq \".[$I].files[\\\"$FNAME\\\"].raw_url\" gists.json | sed -E 's/\"//g')\n            echo \"Saving gist/$GIST_ID/$FNAME\"\n            curl -o \"gists/$GIST_ID/$FNAME\" \"$URL\"\n        done;\n    done\n```\n\n\n\n\n\n\n\n",
+      "data": {
+        "author": "rsdoiel@gmail.com (R. S. Doiel)",
+        "copyright": "copyright (c) 2017, R. S. Doiel",
+        "date": "2017-12-10",
+        "keywords": [
+          "GitHub",
+          "Gists",
+          "JSON"
+        ],
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "title": "Harvesting my Gists from GitHub"
+      },
+      "url": "posts/2017/12/10/harvesting-my-gists-from-github.json"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "content": "\nPostgreSQL dump and restore\n===========================\n\nThis is a quick note on easily dumping and restoring a specific database\nin Postgres 14.5.  This example has PostgreSQL running on localhost and\n[psql](https://www.postgresql.org/docs/current/app-psql.html) and\n[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.\nOur database administrator username is \"admin\", the database to dump is called \"collections\". The SQL dump\nfile will be named \"collections-dump-2022-09-19.sql\".\n\n```shell\n\tpg_dump --username=admin --column-inserts \\\n\t    collections >collections-dump-2022-09-19.sql\n```\n\nFor the restore process I follow these steps\n\n1. Using `psql` create an empty database to restore into\n2. Using `psql` replay (import) the dump file in the new database to restoring the data\n\nThe database we want to restore our content into is called \"collections_snapshot\"\n\n```shell\n\tpsql -U dbadmin\n\t\\c postgres\n\tDROP DATABASE IF EXISTS collections_snapshot;\n\tCREATE DATABASE collections_snapshot;\n\t\\c collections_snapshots\n\t\\i ./collections-dump-2022-09-19.sql\n\t\\q\n```\n\nOr if you want to stay at the OS shell level\n\n```shell\n\tdropdb collections_snapshot\n\tcreatedb collections_snapshot\n\tpsql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql\n```\n\n\nNOTE: During this restore process `psql` will display some output. This is normal. The two\ntypes of lines output are shown below.\n\n```sql\n\tINSERT 0 1\n\tALTER TABLE\n```\n\nIf you want to stop the input on error you can use the `--set` option to set the error behavior\nto abort the reload if an error is encountered.\n\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "PostgreSQL dump and restore"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "This is a quick note on easily dumping and restoring a specific database\nin Postgres 14.5.  This example has PostgreSQL running on localhost and\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "psql"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.postgresql.org/docs/current/app-psql.html"
+          },
+          {
+            "type": "text",
+            "value": " and\n"
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "pg_dump"
+              }
+            ],
+            "type": "link",
+            "url": "https://www.postgresql.org/docs/current/app-pgdump.html"
+          },
+          {
+            "type": "text",
+            "value": " are both available.\nOur database administrator username is \"admin\", the database to dump is called \"collections\". The SQL dump\nfile will be named \"collections-dump-2022-09-19.sql\"."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "\tpg_dump --username=admin --column-inserts \\\n\t    collections >collections-dump-2022-09-19.sql"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "For the restore process I follow these steps"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Using "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "psql"
+                  },
+                  {
+                    "type": "text",
+                    "value": " create an empty database to restore into"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Using "
+                  },
+                  {
+                    "type": "inlineCode",
+                    "value": "psql"
+                  },
+                  {
+                    "type": "text",
+                    "value": " replay (import) the dump file in the new database to restoring the data"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "spread": false,
+            "type": "listItem"
+          }
+        ],
+        "ordered": true,
+        "spread": false,
+        "start": 1,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "The database we want to restore our content into is called \"collections_snapshot\""
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "\tpsql -U dbadmin\n\t\\c postgres\n\tDROP DATABASE IF EXISTS collections_snapshot;\n\tCREATE DATABASE collections_snapshot;\n\t\\c collections_snapshots\n\t\\i ./collections-dump-2022-09-19.sql\n\t\\q"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Or if you want to stay at the OS shell level"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "shell",
+        "type": "code",
+        "value": "\tdropdb collections_snapshot\n\tcreatedb collections_snapshot\n\tpsql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "NOTE: During this restore process "
+          },
+          {
+            "type": "inlineCode",
+            "value": "psql"
+          },
+          {
+            "type": "text",
+            "value": " will display some output. This is normal. The two\ntypes of lines output are shown below."
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "lang": "sql",
+        "type": "code",
+        "value": "\tINSERT 0 1\n\tALTER TABLE"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "If you want to stop the input on error you can use the "
+          },
+          {
+            "type": "inlineCode",
+            "value": "--set"
+          },
+          {
+            "type": "text",
+            "value": " option to set the error behavior\nto abort the reload if an error is encountered."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "author": "rsdoiel@gmail.com (R. S. Doiel)",
+    "byline": "R. S. Doiel, 2022-09-19",
+    "draft": true,
+    "keywords": [
+      "PostgreSQL"
+    ],
+    "pubDate": "2022-09-19",
+    "title": "PostgreSQL dump and restore"
+  }
+}

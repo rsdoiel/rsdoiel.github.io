@@ -1,0 +1,76 @@
+{
+  "content": "\n# 5:00 PM, Golang: pdtk,  stngo\n\nPost: Sunday, August 14, 2022, 5:00 PM\n\nToday I started an experiment. I cleaned up stngo a little today, still need to implement a general `Parse()` method that works on a `io.Reader`. After a few initial false starts I realized the \"right\" place for rendering simple timesheet notation as blog posts is in the the \"blogit\" action of [pdtk](https://rsdoiel.github.io/pttk). I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.\n\n",
+  "content_ast": {
+    "children": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "5:00 PM, Golang: pdtk,  stngo"
+          }
+        ],
+        "depth": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Post: Sunday, August 14, 2022, 5:00 PM"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Today I started an experiment. I cleaned up stngo a little today, still need to implement a general "
+          },
+          {
+            "type": "inlineCode",
+            "value": "Parse()"
+          },
+          {
+            "type": "text",
+            "value": " method that works on a "
+          },
+          {
+            "type": "inlineCode",
+            "value": "io.Reader"
+          },
+          {
+            "type": "text",
+            "value": ". After a few initial false starts I realized the \"right\" place for rendering simple timesheet notation as blog posts is in the the \"blogit\" action of "
+          },
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "pdtk"
+              }
+            ],
+            "type": "link",
+            "url": "https://rsdoiel.github.io/pttk"
+          },
+          {
+            "type": "text",
+            "value": ". I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be."
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "root"
+  },
+  "data": {
+    "keywords": [
+      "pdtk",
+      "stngo"
+    ],
+    "no": 3,
+    "pubDate": "2022-08-14",
+    "series": "Golang",
+    "title": "5:00 PM, Golang: pdtk,  stngo"
+  }
+}
