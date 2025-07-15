@@ -126,7 +126,6 @@ blog: .FORCE
 
 api: .FORCE
 	-flatlake
-	git add api
 
 rssfeed.html: nav.include footer.include rssfeed.md
 	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
