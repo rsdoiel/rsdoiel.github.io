@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Simplifying BlogIt](/blog/2025/07/21/Simplifying_BlogIt.md), 2025-07-21
 - [Build a Static Web Server with Deno](/blog/2025/06/30/Build_a_Static_Web_Server.md), 2025-06-30
 - [Rethinking REST](/blog/2025/06/07/Rethinking-REST.md), 2025-06-07
 - [PowerShell and Edit for macOS, Linux and Windows](/blog/2025/06/05/PowerShell_and_Edit.md), 2025-06-05

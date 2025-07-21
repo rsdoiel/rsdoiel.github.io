@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="language" content="EN">
+  <title>Simplifying_BlogIt</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/tables.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <meta name="keywords" content="font matter, CommonMark, blog">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/07/21/Simplifying_BlogIt.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="search.osdx">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/">R. S. Doiel</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/cv.html">CV</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/library-terminology.html">Library Jargon</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/resume.html">Resume</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="/series/">Series</a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="simplifying-blogit">Simplifying BlogIt</h1>
+<p><strong>BlogIt</strong> is a command I’ve written many times over the
+years. Previous it was intended to perform two tasks.</p>
+<ol type="1">
+<li>Copy CommonMark documents into a blog directory tree</li>
+<li>Aggregate metadata from the document (front matter) for my blog</li>
+</ol>
+<p>I am updating the way my website and blog are is built. I am adopting
+<a href="https://flatlake.app">FlatLake</a> for fulfill the role of
+aggregator. This changes the role <strong>BlogIt</strong> plays. Since I
+am relying on an off the shelf tool to perform front matter aggregation
+it becomes more important to make the front matter consist. The new
+priorities for <strong>BlogIt</strong> are.</p>
+<ol type="1">
+<li>Curating the front matter of CommonMark documents</li>
+<li>Publishing (staging) CommonMark documents in the blog directory
+tree</li>
+</ol>
+<p>With curating front matter the priority some additional features will
+be helpful.</p>
+<ul>
+<li>check a file for well formed front matter with the minimum field
+requirements</li>
+<li>check directories for CommonMark documents and their front
+matter</li>
+</ul>
+<h2 id="blogit-command-line">BlogIt command line</h2>
+<p>Here’s what that might look like on the command line.</p>
+<pre class="shell"><code>blogit [OPTIONS] ACTION COMMONMARK_FILE [DATE_OF_POST]</code></pre>
+<h2 id="options">OPTIONS</h2>
+<ul>
+<li>help</li>
+<li>version</li>
+<li>license</li>
+<li>prefix BLOG_BASE_PATH (to set an explicit path to the “blog”
+directory)</li>
+<li>process (run the processor over the CommonMark document)</li>
+</ul>
+<h2 id="action">ACTION</h2>
+<p>The following actions need to be supported in the new
+implementation.</p>
+<ul>
+<li>check COMMONMARK_FILE | DIRECTORY
+<ul>
+<li>validate the front matter in a file or directory of CommonMark
+documents</li>
+</ul></li>
+<li>draft
+<ul>
+<li>set the front matter draft attribute to true, clear the published
+date</li>
+</ul></li>
+<li>edit COMMONMARK_FILE [FRONT_MATTER_FIELD …]
+<ul>
+<li>edit all or a subset of standard front matter fields</li>
+</ul></li>
+<li>process COMMONMARK_FILE
+<ul>
+<li>resolve the links to markdown files with HTML links</li>
+<li>include embedded code blocks</li>
+</ul></li>
+<li>publish COMMONMARK_FILE
+<ul>
+<li>read front matter</li>
+<li>set draft to false</li>
+<li>set publish date and update modified date</li>
+<li>validate front matter</li>
+<li>on success, save the updates then copy into blog directory tree</li>
+</ul></li>
+</ul>
+<h2 id="editing-front-matter">Editing front matter</h2>
+<p><strong>BlogIt</strong> is a terminal application. The programs scans
+the source CommonMark file for existing front matter. For each expected
+element the current (or default) value of the element is displayed with
+a prompt to edit it. If editing is chosen then the value is presented in
+the default editor for update. The saved value is then used to update
+the front matter element. A temporary file is used to communicate
+between <strong>BlogIt</strong> and the system provided text editor.</p>
+<p>Complex fields like keywords are provided to the text edit as YAML.
+The default should show the desired structure as YAML with placeholder
+values to be edited.</p>
+<h2 id="front-matter">Front Matter</h2>
+<p>The basic front matter I want to use is straight forward as my blog
+started almost a decade ago. Essentially it is title, author, abstract,
+dateCreated, dateModified, datePublished and keywords. Some blog items
+have a series name and number so I will support those fields as
+well.</p>
+<p><strong>BlogIt</strong> will be written in TypeScript this time so I
+can cover my bases with the following interfaces.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* This describes the front matter metadata object */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Metadata {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    title<span class="op">:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* Optional because they are optional in RSS 2 */</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    author<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    abstract<span class="op">:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* Maps to description in RSS 2 */</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    dateCreated<span class="op">:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* ISO 8601 date */</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    dateModified<span class="op">:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* ISO 8601 date */</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    datePublished<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* ISO 8601 date */</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    draft<span class="op">?:</span> <span class="dt">boolean</span> <span class="co">/* if true then BlogIt processes document as a draft */</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    keywords<span class="op">?:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    series<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    seriesNo<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    copyrightYear<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* Four digit year */</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    copyrightHolder<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    license<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">/* Text of license or a URL pointing at the license */</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>BlogIt expectations</p>
+<ul>
+<li>working directory contains a directory called “blog” (this is
+customary but not always the place the blog resides)
+<ul>
+<li>An explicit blog directory can be set using the <code>prefix</code>
+option</li>
+</ul></li>
+<li>The directory structure is formed as
+<code>&lt;prefix&gt;/&lt;YEAR&gt;/&lt;MONTH&gt;/&lt;DAY&gt;</code> where
+year is four digits, month and day are two digits (zero padded).</li>
+<li>the default date is today, may explicitly be provided by the front
+matter as <code>.datePublished</code></li>
+<li>the date fields automatically supported are
+<code>dateCreated</code>, <code>dateModified</code> and
+<code>datePublished</code>. The <code>dateModified</code> should be
+updated automatically each time <strong>BlogIt</strong> changes the
+document. <code>dateCreated</code> is set the first time the front
+matter is created or edited. <code>datePublished</code> is set the first
+time the CommonMark document is “published” into the blog directory
+tree. This also results in the draft field being removed.</li>
+</ul>
+<p>Recursive blog maintenance could be supported by allowing the tool to
+walk a directory tree and when it encounters CommonMark document it
+checks and validates the front matter. This feature would ensure that
+the CommonMark documents are ready for FlatLake processing as I migrate
+my site build process.</p>
+<h2 id="checking-for-front-matter">Checking for Front Matter</h2>
+<p>Front Matter traditionally is found at the start of the CommonMark
+file. It starts with the a line matching <code>---</code> and terminates
+with same <code>---</code> line. Anything between the two is treated as
+YAML. Checking the front matter means identifying the YAML source,
+parsing it and the walking the object produced to compare it with the
+interface expected. If an expected field is missing then prompt for it
+and if the response is “y” create a temp file of the content (or example
+content) and invoke a default editor for the system. When the editor is
+exited the source is read back in and the front matter is updated.</p>
+<h2 id="processing-the-front-matter">Processing the Front Matter</h2>
+<p>Aside from extracting the YAML front matter from the text, the
+standard Deno library (<code>@std/yaml</code>) can be used to populate
+the interface for validation and editing.</p>
+<p>The task for <strong>BlogIt</strong> is primarily orchestrating the
+use of existing Deno TypeScript modules implementing the functionality I
+want from <strong>BlogIt</strong>.</p>
+<h2 id="rewriting-the-commonmark-document">Rewriting the CommonMark
+document</h2>
+<p>If the front matter changes then the CommonMark document should be
+written to a backup file (e.g. “.bak”). If changes are made the
+interface should prompt before saving the backup and writing out the
+updates to the source CommonMark document.</p>
+<h2 id="draft-versus-datepublished">Draft versus datePublished</h2>
+<p>If the front matter includes the value <code>draft: true</code>
+<strong>BlogIt</strong> will exit after updating the front matter. If
+<code>draft: true</code> is not in the front matter
+(e.g. <code>draft: false</code> or doesn’t exist), the value of
+<code>datePublished</code> needs to be set to the current date if not
+already populated. The <code>datePublished</code> is used to calculate
+the target path for coping the CommonMark document.</p>
+<p>The action “draft” will set the <code>draft</code> value to
+<code>true</code> and clear <code>datePublished</code>.</p>
+<p>The action “publish” will remove the <code>draft</code> attribute
+setting the publication and modification dates. If the front matter is
+valid then it will save the updated metadata and proceed to copy the
+revised CommonMark document into the blog tree.</p>
+<h2 id="the-program">The Program</h2>
+<h3 id="editor-module">editor module</h3>
+<p>Calling out to the system’s text editor and running the editor as a
+sub process should be implemented as it’s own module. This will allow me
+to improve the process independently and potentially use it in other
+applications.</p>
+<p><span class="citation"
+data-cites="insert-code-block">@insert-code-block</span> src/editor.ts
+TypeScript</p>
+<h3 id="front-matter-1">Front Matter</h3>
+<p>The front matter handling is implemented as it’s own TypeScript
+module, <code>frontMatter.ts</code>. This module defines all the front
+matter schema and the operations that maybe performed on it including
+the interactive prompts.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * frontMatterEditor.ts module curates front matter for Common Mark or Markdown documents. It is part of the BlogIt project. </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> *  Copyright (C) 2025  R. S. Doiel</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is free software: you can redistribute it and/or modify</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"> *  it under the terms of the GNU Affero General Public License as</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"> *  published by the Free Software Foundation, either version 3 of the</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"> *  License, or (at your option) any later version.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is distributed in the hope that it will be useful,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"> *  GNU Affero General Public License for more details.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"> *  You should have received a copy of the GNU Affero General Public License</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"> *  along with this program.  If not, see </span><span class="kw">&lt;https:</span><span class="ot">//www.gnu.org/licenses</span><span class="kw">/&gt;</span><span class="co">.</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { parse<span class="op">,</span> stringify } <span class="im">from</span> <span class="st">&quot;@std/yaml&quot;</span><span class="op">;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { CommonMarkDoc } <span class="im">from</span> <span class="st">&quot;./commonMarkDoc.ts&quot;</span><span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { editTempData } <span class="im">from</span> <span class="st">&quot;./editor.ts&quot;</span><span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> metadataFields<span class="op">:</span> <span class="bu">Array</span><span class="op">&lt;</span><span class="kw">keyof</span> Metadata<span class="op">&gt;</span> <span class="op">=</span> [</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;title&quot;</span><span class="op">,</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;author&quot;</span><span class="op">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;contributor&quot;</span><span class="op">,</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;abstract&quot;</span><span class="op">,</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;draft&quot;</span><span class="op">,</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;dateCreated&quot;</span><span class="op">,</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;dateModified&quot;</span><span class="op">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;datePublished&quot;</span><span class="op">,</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;keywords&quot;</span><span class="op">,</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;series&quot;</span><span class="op">,</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;seriesNo&quot;</span><span class="op">,</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;pubType&quot;</span><span class="op">,</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;copyrightYear&quot;</span><span class="op">,</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;copyrightHolder&quot;</span><span class="op">,</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;license&quot;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">interface</span> Metadata {</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  title<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  author<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  contributor<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  abstract<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  dateCreated<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  dateModified<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  datePublished<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  draft<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  keywords<span class="op">?:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  series<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  seriesNo<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  pubType<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  copyrightYear<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  copyrightHolder<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  license<span class="op">?:</span> <span class="dt">string</span> <span class="op">|</span> URL<span class="op">;</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">yyyymmdd</span>(s<span class="op">:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dateFormatRegex <span class="op">=</span> <span class="ss">/</span><span class="sc">^\d{4}</span><span class="ss">-</span><span class="sc">\d{2}</span><span class="ss">-</span><span class="sc">\d{2}$</span><span class="ss">/</span><span class="op">;</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> dateFormatRegex<span class="op">.</span><span class="fu">test</span>(s)<span class="op">;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">assignValue</span><span class="op">&lt;</span>T <span class="kw">extends</span> <span class="kw">keyof</span> Metadata<span class="op">&gt;</span>(</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  frontMatter<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;,</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  field<span class="op">:</span> T<span class="op">,</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  newValue<span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> seriesNo <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (newValue<span class="op">.</span><span class="fu">trim</span>() <span class="op">===</span> <span class="st">&#39;&#39;</span>) {</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span> frontMatter[field]<span class="op">;</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (field) {</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;abstract&quot;</span><span class="op">:</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>      frontMatter[field] <span class="op">=</span> newValue<span class="op">;</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;draft&quot;</span><span class="op">:</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (newValue<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">===</span> <span class="st">&quot;true&quot;</span>) {</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        frontMatter[field] <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;keywords&quot;</span><span class="op">:</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>      frontMatter[field] <span class="op">=</span> <span class="fu">parse</span>(newValue)<span class="op">;</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>      <span class="co">//</span><span class="al">FIXME</span><span class="co">: if there are no keywords then we could remove the field</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;series&quot;</span><span class="op">:</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>      frontMatter[field] <span class="op">=</span> newValue<span class="op">;</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;seriesNo&quot;</span><span class="op">:</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>      seriesNo <span class="op">=</span> <span class="bu">Number</span>(newValue) <span class="op">||</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (seriesNo <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        frontMatter<span class="op">.</span><span class="at">seriesNo</span> <span class="op">=</span> seriesNo<span class="op">;</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> frontMatter<span class="op">.</span><span class="at">seriesNo</span><span class="op">;</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;copyrightYear&quot;</span><span class="op">:</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (newValue<span class="op">.</span><span class="fu">trim</span>() <span class="op">===</span> <span class="st">&#39;&#39;</span>) {</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> frontMatter<span class="op">.</span><span class="at">copyrightYear</span><span class="op">;</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>        frontMatter[field] <span class="op">=</span> <span class="bu">Number</span>(newValue)<span class="op">;</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;dateCreated&quot;</span><span class="op">:</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;dateModified&quot;</span><span class="op">:</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;datePublished&quot;</span><span class="op">:</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (newValue<span class="op">.</span><span class="fu">trim</span>() <span class="op">!==</span> <span class="st">&#39;&#39;</span> <span class="op">&amp;&amp;</span> <span class="fu">yyyymmdd</span>(newValue<span class="op">.</span><span class="fu">trim</span>())) {</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>        frontMatter[field] <span class="op">=</span> newValue<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> frontMatter[field]<span class="op">;</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>      <span class="co">//frontMatter[field] = new Date(newValue).toISOString().split(&quot;T&quot;)[0];</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>      frontMatter[field] <span class="op">=</span> newValue<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getDefaultValueAsString</span>(field<span class="op">:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (field) {</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;draft&quot;</span><span class="op">:</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>      <span class="co">//</span><span class="al">NOTE</span><span class="co">: The default value is draft === true</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="st">&quot;true&quot;</span><span class="op">;</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;dateCreated&quot;</span><span class="op">:</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;dateModified&quot;</span><span class="op">:</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> (<span class="kw">new</span> <span class="bu">Date</span>())<span class="op">.</span><span class="fu">toISOString</span>()<span class="op">.</span><span class="fu">split</span>(<span class="st">&quot;T&quot;</span>)[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getAttributeAsString</span>(</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>  frontMatter<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;,</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>  field<span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (frontMatter[field] <span class="op">===</span> <span class="kw">undefined</span>) {</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&#39;&#39;</span><span class="op">;</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (field) {</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;keywords&quot;</span><span class="op">:</span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="fu">stringify</span>(frontMatter[field])<span class="op">;</span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;seriesNo&quot;</span><span class="op">:</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;copyrightYear&quot;</span><span class="op">:</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;draft&quot;</span><span class="op">:</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>frontMatter[field]<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> frontMatter[field] <span class="im">as</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">promptToEditFields</span>(</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>  cmarkDoc<span class="op">:</span> CommonMarkDoc<span class="op">,</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>  fields<span class="op">:</span> <span class="bu">Array</span><span class="op">&lt;</span><span class="kw">keyof</span> Metadata<span class="op">&gt;,</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> keys <span class="op">=</span> metadataFields<span class="op">;</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (fields<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>    keys <span class="op">=</span> fields<span class="op">;</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> changed <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> key <span class="kw">of</span> keys) {</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (cmarkDoc<span class="op">.</span><span class="at">frontMatter</span>[key] <span class="op">===</span> <span class="kw">undefined</span>) {</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>      <span class="fu">assignValue</span>(cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">,</span> key<span class="op">,</span> <span class="fu">getDefaultValueAsString</span>(key))<span class="op">;</span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: draft and pub date are connected. A draft can&#39;t have a datePublished</span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (key <span class="op">===</span> <span class="st">&#39;draft&#39;</span> <span class="op">&amp;&amp;</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">draft</span>)  {</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>      <span class="kw">delete</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">datePublished</span><span class="op">;</span></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: Need to handle the case where draft has been set to false and a pub date is not yet set.</span></span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>    <span class="co">// It should default to today like dateCreated and dateModified do.</span></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (key <span class="op">===</span> <span class="st">&#39;datePublished&#39;</span> <span class="op">&amp;&amp;</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">datePublished</span> <span class="op">===</span> <span class="st">&#39;&#39;</span>) {</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">draft</span> <span class="op">===</span> <span class="kw">undefined</span> <span class="op">||</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">draft</span> <span class="op">===</span> <span class="kw">false</span>) {</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>        cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">datePublished</span> <span class="op">=</span> (<span class="kw">new</span> <span class="bu">Date</span>())<span class="op">.</span><span class="fu">toISOString</span>()<span class="op">.</span><span class="fu">split</span>(<span class="st">&quot;T&quot;</span>)[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: we need to display the value in string form to prompt for editing.</span></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> val<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="fu">getAttributeAsString</span>(cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">,</span> key)<span class="op">;</span></span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">confirm</span>(<span class="vs">`</span><span class="sc">${</span>key<span class="sc">}</span><span class="vs">:</span><span class="sc">\n${</span>val<span class="sc">}\n</span><span class="vs">edit </span><span class="sc">${</span>key<span class="sc">}</span><span class="vs">?`</span>)) {</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> oldVal <span class="op">=</span> val<span class="op">;</span></span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>      <span class="co">//</span><span class="al">FIXME</span><span class="co">: call the editor to edit the value then convert it back usign assignValue</span></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>      val <span class="op">=</span> <span class="cf">await</span> <span class="fu">editTempData</span>(val)<span class="op">;</span></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (oldVal <span class="op">!==</span> val) {</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>        changed <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assignValue</span>(cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">,</span> key<span class="op">,</span> val)<span class="op">;</span></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>  cmarkDoc<span class="op">.</span><span class="at">changed</span> <span class="op">=</span> changed<span class="op">;</span></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Make sure that date modified is updated on change</span></span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cmarkDoc<span class="op">.</span><span class="at">changed</span> <span class="op">&amp;&amp;</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span> <span class="op">!==</span> <span class="kw">undefined</span> <span class="op">&amp;&amp;</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">dateModified</span> <span class="op">!==</span> <span class="st">&quot;&quot;</span>) {</span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>    cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">dateModified</span> <span class="op">=</span> (<span class="kw">new</span> <span class="bu">Date</span>())<span class="op">.</span><span class="fu">toISOString</span>()<span class="op">.</span><span class="fu">split</span>(<span class="st">&quot;T&quot;</span>)[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fu">editFrontMatter</span>(</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>  cmarkDoc<span class="op">:</span> CommonMarkDoc<span class="op">,</span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>  fields<span class="op">:</span> <span class="bu">Array</span><span class="op">&lt;</span><span class="kw">keyof</span> Metadata<span class="op">&gt;,</span></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">promptToEditFields</span>(cmarkDoc<span class="op">,</span> fields)<span class="op">;</span></span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="commonmark-module">CommonMark module</h3>
+<p>My website is implemented using CommonMark documents that include
+front matter. It is helpful to be able to handle the documents in a
+uniform way. This is accomplished through a TypeScript module called
+<code>commonMarkDoc.ts</code>. It defines an interface,
+<code>CommonMarkDoc</code> that contains three attributes,
+<code>frontMatter</code>, <code>markdown</code> and
+<code>changed</code>. The latter is a boolean flag that is set when
+something changes in the either <code>frontMatter</code> or
+<code>markdown</code>.</p>
+<p>The module also supports an Object called CMarkDoc that include a
+pre-processor function called <code>process</code> providing two useful
+features.</p>
+<ul>
+<li>mapping of “.md” file links to “.html” file links</li>
+<li>including code blocks from external files</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * commonMarkDoc.ts is a module for handling CommomMark and Markdown documents with front matter.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * It is part of the BlogIt project.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"> *  Copyright (C) 2025  R. S. Doiel</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is free software: you can redistribute it and/or modify</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"> *  it under the terms of the GNU Affero General Public License as</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"> *  published by the Free Software Foundation, either version 3 of the</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *  License, or (at your option) any later version.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is distributed in the hope that it will be useful,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"> *  GNU Affero General Public License for more details.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"> *  You should have received a copy of the GNU Affero General Public License</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"> *  along with this program.  If not, see </span><span class="kw">&lt;https:</span><span class="ot">//www.gnu.org/licenses</span><span class="kw">/&gt;</span><span class="co">.</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { parse<span class="op">,</span> stringify } <span class="im">from</span> <span class="st">&quot;@std/yaml&quot;</span><span class="op">;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">interface</span> CommonMarkDoc {</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  frontMatter<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  markdown<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  changed<span class="op">:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"> * stringToCommonMarkDoc takes a string and splits it into a record with frontmatter and markdown</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">content</span><span class="co"> string, the text string to transform into a CommonMarkDoc type.</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@return</span><span class="co"> `{frontMatter: Record</span><span class="kw">&lt;string</span><span class="ot">, unknown</span><span class="kw">&gt;</span><span class="co">; markdown: string }`</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">stringToCommonMarkDoc</span>(</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  content<span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>)<span class="op">:</span> CommonMarkDoc {</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> frontMatterRegex <span class="op">=</span> <span class="ss">/</span><span class="sc">^</span><span class="ss">---</span><span class="sc">([\s\S]+?)</span><span class="ss">---/</span><span class="op">;</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> match <span class="op">=</span> content<span class="op">.</span><span class="fu">match</span>(frontMatterRegex)<span class="op">;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> frontMatter<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;</span> <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> markdown<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> content<span class="op">;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (match) {</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    frontMatter <span class="op">=</span> <span class="fu">parse</span>(match[<span class="dv">1</span>]) <span class="im">as</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    markdown <span class="op">=</span> content<span class="op">.</span><span class="fu">slice</span>(match[<span class="dv">0</span>]<span class="op">.</span><span class="at">length</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { frontMatter<span class="op">:</span> frontMatter<span class="op">,</span> markdown<span class="op">:</span> markdown<span class="op">,</span> changed<span class="op">:</span> <span class="kw">false</span> }<span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co"> * commonMarkDocToString takes a CommonMarkDoc object and renders it into string prefixed by the front matter block.</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">cmarkDoc</span><span class="co"> CommonMarkDoc</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@return</span><span class="co"> string</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">commonMarkDocToString</span>(</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  cmarkDoc<span class="op">:</span> CommonMarkDoc<span class="op">,</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(cmarkDoc<span class="op">.</span><span class="at">frontMatter</span>)<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`---</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span><span class="fu">stringify</span>(cmarkDoc<span class="op">.</span><span class="at">frontMatter</span>)<span class="sc">}</span><span class="vs">---</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span>cmarkDoc<span class="op">.</span><span class="at">markdown</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> cmarkDoc<span class="op">.</span><span class="at">markdown</span><span class="op">;</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co"> * commonMarkDocPreprocessor takes a CommonMarkDoc object and maps the &quot;.md&quot; links to &quot;.html&quot; links</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co"> * and includes code blocks using the `</span><span class="an">@include-code-block`</span><span class="co"> directive.</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">cmarkDoc:</span><span class="co"> CommmonMarkDoc</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@return</span><span class="co"> string</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">commonMarkDocPreprocessor</span>(</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  cmarkDoc<span class="op">:</span> CommonMarkDoc<span class="op">,</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Convert markdown links to HTML links</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> markdownLinkRegex <span class="op">=</span> <span class="ss">/</span><span class="sc">\[([^\]]+)\]\(([^)]+\.</span><span class="ss">md</span><span class="sc">)\)</span><span class="ss">/g</span><span class="op">;</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> processedMarkdown <span class="op">=</span> cmarkDoc<span class="op">.</span><span class="at">markdown</span><span class="op">.</span><span class="fu">replace</span>(markdownLinkRegex<span class="op">,</span> (_fullMatch<span class="op">,</span> linkText<span class="op">,</span> filePath) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> htmlFilePath <span class="op">=</span> filePath<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">md</span><span class="sc">$</span><span class="ss">/</span><span class="op">,</span> <span class="st">&#39;.html&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="vs">`[</span><span class="sc">${</span>linkText<span class="sc">}</span><span class="vs">](</span><span class="sc">${</span>htmlFilePath<span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Insert code blocks from external files</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> insertBlockRegex <span class="op">=</span> <span class="ss">/@include-code-block</span><span class="sc">\s+([^\s]+)(?</span><span class="ss">:</span><span class="sc">\s+(\w+))?</span><span class="ss">/g</span><span class="op">;</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    processedMarkdown <span class="op">=</span> processedMarkdown<span class="op">.</span><span class="fu">replace</span>(insertBlockRegex<span class="op">,</span> (_fullMatch<span class="op">,</span> filePath<span class="op">,</span> language <span class="op">=</span> <span class="st">&#39;&#39;</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> fileContent <span class="op">=</span> Deno<span class="op">.</span><span class="fu">readTextFileSync</span>(filePath)<span class="op">;</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (fileContent) {</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="vs">`~~~</span><span class="sc">${</span>language<span class="sc">}\n${</span>fileContent<span class="sc">}\n</span><span class="vs">~~~`</span><span class="op">;</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="vs">`Error inserting block from </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (processedMarkdown <span class="op">!==</span> cmarkDoc<span class="op">.</span><span class="at">markdown</span>) {</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="fu">commonMarkDocToString</span>({</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>          frontMatter<span class="op">:</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">,</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>          markdown<span class="op">:</span> processedMarkdown<span class="op">,</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>          changed<span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">commonMarkDocToString</span>(cmarkDoc)<span class="op">;</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="co"> * CMarkDoc implements the interface CommonMarkDoc</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co"> * It supports working with CommonMark documents that contain front matter</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> CMarkDoc <span class="kw">implements</span> CommonMarkDoc {</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>  frontMatter<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">unknown</span><span class="op">&gt;</span> <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>  markdown<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>  changed<span class="op">:</span> <span class="dt">boolean</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>  <span class="co">/**</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co">   * parse takes a string hold CommonMark text and parses it into the CMarkDoc object structure.</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">parse</span>(src<span class="op">:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="dt">boolean</span> {</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> cmarkDoc<span class="op">:</span> CommonMarkDoc <span class="op">=</span> <span class="fu">stringToCommonMarkDoc</span>(src)<span class="op">;</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">frontMatter</span> <span class="op">=</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">;</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">markdown</span> <span class="op">=</span> cmarkDoc<span class="op">.</span><span class="at">markdown</span><span class="op">;</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="kw">this</span><span class="op">.</span><span class="at">markdown</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>  <span class="co">/**</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="co">   * stringify takes this object and returns a CommonMark representation including front matter.</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stringify</span>()<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">commonMarkDocToString</span>(<span class="kw">this</span>)<span class="op">;</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>  <span class="co">/**</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="co">   * processSync is a CommonMark pre-processor implementing two features. It performs two</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="co">   * fucntions.</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="co">   *   1. converts links to markdown files (ext. &quot;.md&quot;) to their HTML file counter parts</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="co">   *   2. Any `</span><span class="an">@insert-code-block`</span><span class="co"> will include a source code file block in the resulting</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="co">   *      source document.</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">processSync</span>()<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">commonMarkDocPreprocessor</span>(<span class="kw">this</span>)<span class="op">;</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<h3 id="main">Main</h3>
+<p>The main module, <code>mod.ts</code>, will allow for processing the
+command line option and performing the requested actions.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * mod.ts - The main entry point for BlogIt, a Common Mark front matter validator and curation tool. It is part of the BlogIt project.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"> *  Copyright (C) 2025  R. S. Doiel</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is free software: you can redistribute it and/or modify</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"> *  it under the terms of the GNU Affero General Public License as</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"> *  published by the Free Software Foundation, either version 3 of the</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"> *  License, or (at your option) any later version.</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"> *  This program is distributed in the hope that it will be useful,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"> *  GNU Affero General Public License for more details.</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"> *  You should have received a copy of the GNU Affero General Public License</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"> *  along with this program.  If not, see </span><span class="kw">&lt;https:</span><span class="ot">//www.gnu.org/licenses</span><span class="kw">/&gt;</span><span class="co">.</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">// mod.ts</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { parse <span class="im">as</span> parseArgs } <span class="im">from</span> <span class="st">&quot;@std/flags&quot;</span><span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { exists } <span class="im">from</span> <span class="st">&quot;@std/fs/exists&quot;</span><span class="op">;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { checkDirectory<span class="op">,</span> checkFile<span class="op">,</span> createBackup<span class="op">,</span> publishFile } <span class="im">from</span> <span class="st">&quot;./src/blogit.ts&quot;</span><span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Metadata<span class="op">,</span> editFrontMatter } <span class="im">from</span> <span class="st">&quot;./src/frontMatter.ts&quot;</span><span class="op">;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  CommonMarkDoc<span class="op">,</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  commonMarkDocPreprocessor<span class="op">,</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  commonMarkDocToString<span class="op">,</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  stringToCommonMarkDoc<span class="op">,</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>} <span class="im">from</span> <span class="st">&quot;./src/commonMarkDoc.ts&quot;</span><span class="op">;</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { licenseText<span class="op">,</span> releaseDate<span class="op">,</span> releaseHash<span class="op">,</span> version } <span class="im">from</span> <span class="st">&quot;./version.ts&quot;</span><span class="op">;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { helpText<span class="op">,</span> fmtHelp } <span class="im">from</span> <span class="st">&quot;./helptext.ts&quot;</span><span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">main</span>() {</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> appName <span class="op">=</span> <span class="st">&#39;BlogIt&#39;</span><span class="op">;</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> args <span class="op">=</span> <span class="fu">parseArgs</span>(Deno<span class="op">.</span><span class="at">args</span><span class="op">,</span> {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    boolean<span class="op">:</span> [<span class="st">&quot;help&quot;</span><span class="op">,</span> <span class="st">&quot;version&quot;</span><span class="op">,</span> <span class="st">&quot;license&quot;</span><span class="op">,</span> <span class="st">&quot;draft&quot;</span><span class="op">,</span> <span class="st">&quot;check&quot;</span><span class="op">,</span> <span class="st">&quot;edit&quot;</span><span class="op">,</span> <span class="st">&quot;publish&quot;</span><span class="op">,</span> <span class="st">&quot;process&quot;</span> ]<span class="op">,</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    string<span class="op">:</span> [<span class="st">&quot;prefix&quot;</span>]<span class="op">,</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    alias<span class="op">:</span> {</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>      h<span class="op">:</span> <span class="st">&quot;help&quot;</span><span class="op">,</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>      v<span class="op">:</span> <span class="st">&quot;version&quot;</span><span class="op">,</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>      l<span class="op">:</span> <span class="st">&quot;license&quot;</span><span class="op">,</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>      p<span class="op">:</span> <span class="st">&quot;prefix&quot;</span><span class="op">,</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>      c<span class="op">:</span> <span class="st">&quot;check&quot;</span><span class="op">,</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>      d<span class="op">:</span> <span class="st">&quot;draft&quot;</span><span class="op">,</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>      e<span class="op">:</span> <span class="st">&quot;edit&quot;</span><span class="op">,</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>      pp<span class="op">:</span> <span class="st">&quot;process&quot;</span><span class="op">,</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span> {</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>      prefix<span class="op">:</span> <span class="st">&quot;blog&quot;</span><span class="op">,</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">help</span>) {</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fmtHelp</span>(helpText<span class="op">,</span> appName<span class="op">,</span> version<span class="op">,</span> releaseDate<span class="op">,</span> releaseHash)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">version</span>) {</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`</span><span class="sc">${</span>appName<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>version<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>releaseDate<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>releaseHash<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">license</span>) {</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(licenseText)<span class="op">;</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Handle verb commands without dash prefix.</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (args<span class="op">.</span><span class="at">_</span>[<span class="dv">0</span>] <span class="im">as</span> <span class="dt">string</span>) {</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;check&quot;</span><span class="op">:</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">check</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">shift</span>()<span class="op">;</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;edit&quot;</span><span class="op">:</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">edit</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">shift</span>()<span class="op">;</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;draft&quot;</span><span class="op">:</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">draft</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">shift</span>()<span class="op">;</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;process&quot;</span><span class="op">:</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">process</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">shift</span>()<span class="op">;</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">&quot;publish&quot;</span><span class="op">:</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">publish</span> <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>      args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">shift</span>()<span class="op">;</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> filePath <span class="op">=</span> args<span class="op">.</span><span class="at">_</span>[<span class="dv">0</span>] <span class="im">as</span> <span class="dt">string</span><span class="op">;</span> <span class="co">// Explicitly assert filePath as string</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dateOfPost <span class="op">=</span> args<span class="op">.</span><span class="at">_</span>[<span class="dv">1</span>] <span class="im">as</span> <span class="dt">string</span> <span class="op">|</span> <span class="dt">undefined</span><span class="op">;</span> <span class="co">// Explicitly assert dateOfPost as string or undefined</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">check</span>) {</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="cf">await</span> <span class="fu">exists</span>(filePath<span class="op">,</span> {isDirectory<span class="op">:</span> <span class="kw">true</span>})) {</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Checking the directory </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>      <span class="cf">await</span> <span class="fu">checkDirectory</span>(filePath)<span class="op">;</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="cf">await</span> <span class="fu">exists</span>(filePath<span class="op">,</span> { isFile<span class="op">:</span> <span class="kw">true</span>})) {</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Checking the file </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>      <span class="cf">await</span> <span class="fu">checkFile</span>(filePath)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>filePath) {</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&quot;No file specified.&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Make sure file exists and is readable before proceeding.</span></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="cf">await</span> <span class="fu">exists</span>(filePath<span class="op">,</span> { isFile<span class="op">:</span> <span class="kw">true</span><span class="op">,</span> isReadable<span class="op">:</span> <span class="kw">true</span> })) {</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="vs">`Cannot find </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> content <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">readTextFile</span>(filePath)<span class="op">;</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cmarkDoc<span class="op">:</span> CommonMarkDoc <span class="op">=</span> <span class="fu">stringToCommonMarkDoc</span>(content)<span class="op">;</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">draft</span> <span class="op">||</span> args<span class="op">.</span><span class="at">edit</span>) {</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set to draft is args.draft is true</span></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (args<span class="op">.</span><span class="at">draft</span>) {</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">draft</span> <span class="op">===</span> <span class="kw">false</span>) {</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>        cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">draft</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> cmarkDoc<span class="op">.</span><span class="at">frontMatter</span><span class="op">.</span><span class="at">datePublished</span><span class="op">;</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>        cmarkDoc<span class="op">.</span><span class="at">changed</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>    <span class="co">// if args.edit then edit the front matter</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (args<span class="op">.</span><span class="at">edit</span>) {</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> fields <span class="op">=</span> args<span class="op">.</span><span class="at">_</span><span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>) <span class="im">as</span> <span class="bu">Array</span><span class="op">&lt;</span><span class="kw">keyof</span> Metadata<span class="op">&gt;;</span> <span class="co">// Explicitly assert fields as string array</span></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>      <span class="cf">await</span> <span class="fu">editFrontMatter</span>(cmarkDoc<span class="op">,</span> fields)<span class="op">;</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: either edit or draft setting caused a change, backup, write it out and exit</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (cmarkDoc<span class="op">.</span><span class="at">changed</span>) {</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">confirm</span>(<span class="vs">`save </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">?`</span>)) {</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Backup original file</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> <span class="fu">createBackup</span>(filePath)<span class="op">;</span></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Write output updated version</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">writeTextFile</span>(filePath<span class="op">,</span> <span class="fu">commonMarkDocToString</span>(cmarkDoc))<span class="op">;</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Wrote </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">publish</span>) {</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>    <span class="co">// OK, we must intend to engage the publication process.</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> <span class="fu">publishFile</span>(filePath<span class="op">,</span> args<span class="op">.</span><span class="at">prefix</span><span class="op">,</span> args<span class="op">.</span><span class="at">process</span><span class="op">,</span> dateOfPost)<span class="op">;</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>    Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>  <span class="co">// If args.process then run the preprocessor and write the output to standard out</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">process</span>) {</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> src<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>      src <span class="op">=</span> <span class="fu">commonMarkDocPreprocessor</span>(cmarkDoc)<span class="op">;</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span> (err) {</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(err)<span class="op">;</span></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>      Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (src <span class="op">===</span> <span class="st">&#39;&#39;</span>) {</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="vs">`no content after preprocessor ran for </span><span class="sc">${</span>filePath<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>      Deno<span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(src)<span class="op">;</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) {</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">main</span>()<span class="op">.</span><span class="fu">catch</span>(<span class="bu">console</span><span class="op">.</span><span class="fu">error</span>)<span class="op">;</span></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    elem.classList.add("linenums");/**/
+    elem.classList.add("json"); /**/
+});
+</script>
+<style>
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/prettify.css">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_
+prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
