@@ -1,12 +1,26 @@
 ---
-title: "Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-05-30"
-keywords: [ "structured data", "amp", "opengraph", "twitter", "google", "facebook", "instant pages" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: 'Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-05-30'
+keywords:
+  - structured data
+  - amp
+  - opengraph
+  - twitter
+  - google
+  - facebook
+  - instant pages
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  This post explores Twitter Cards, Facebook Open Graph, AMP and what
+  implementations they have for page weight and usage.
+dateCreated: '2016-05-30'
+dateModified: '2025-07-21'
+datePublished: '2016-05-30'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
 ---
-
 
 # Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph
 
@@ -142,4 +156,3 @@ is low.  If your audience views Twitter, Facebook or Google search results
 then it is probably worth doing.  All allow you to continue to publish your 
 own content and own your URLs as opposed to being a tenant on one or another 
 platform. That benefits the open web.
-

@@ -16,12 +16,15 @@ abstract: |
 
   Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).
 dateCreated: 2025-07-12T00:00:00.000Z
-dateModified: '2025-07-21'
+dateModified: '2025-07-22'
 keywords:
   - font matter
   - CommonMark
   - blog
 datePublished: '2025-07-21'
+series: |
+  Deno and TypeScript
+seriesNo: 9
 ---
 
 # Simplifying BlogIt
@@ -267,7 +270,7 @@ function assignValue<T extends keyof Metadata>(
       } else {
         delete frontMatter[field];
       }
-      //frontMatter[field] = new Date(newValue).toISOString().split("T")[0];
+      //frontMatter[field] = (new Date(newValue)).toISOString().split("T")[0];
       break;
     default:
       frontMatter[field] = newValue.trim();

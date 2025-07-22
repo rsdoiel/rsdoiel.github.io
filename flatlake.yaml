@@ -1,5 +1,5 @@
 global:
-  sort_key: pubDate
+  sort_key: datePublished
   sort_direction: desc
   outputs:
     - "single"
@@ -7,12 +7,11 @@ global:
 collections:
   - output_key: "posts"
     page_size: 24
-    sort_key: "pubDate"
+    sort_key: "datePublished"
     sort_direction: "desc"
     single_elements:
       - "data"
       - "content"
-      - "content_ast"
     list_elements:
       - "data"
       - "content"

@@ -1,12 +1,27 @@
 ---
-title: "Exploring Bash for Windows 10 Pro"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-08-15"
-keywords: [ "Golang", "Windows", "Bash", "Linux Subsystem" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: Exploring Bash for Windows 10 Pro
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-08-15'
+keywords:
+  - Golang
+  - Windows
+  - Bash
+  - Linux Subsystem
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  "_Exploring Bash for Windows 10 Pro_" coverse the process of setting up and
+  configuring Bash on Windows 10 Pro within a Virtual Box environment. The setup
+  involves enabling 
 
+  developer mode, activating the Linux Subsystem Beta, and installing Bash on
+  Ubuntu on Windows. Also covered is setting Go for this environment.
+dateCreated: '2016-08-15'
+dateModified: '2025-07-21'
+datePublished: '2016-08-15'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
+---
 
 # Exploring Bash for Windows 10 Pro
 
@@ -114,5 +129,3 @@ $HOME/.vim/colors.
 
 You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number
 e.g. /usr/share/vim/vim74/colors.
-
-

@@ -1,12 +1,23 @@
 ---
-title: "How to make a Pi-Top more Raspbian"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-07-04"
-keywords: [ "Raspberry Pi", "Pi-Top", "Rasbian", "Raspberry Pi OS", ":operating systems" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: How to make a Pi-Top more Raspbian
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-07-04'
+keywords:
+  - Raspberry Pi
+  - Pi-Top
+  - Rasbian
+  - Raspberry Pi OS
+  - operating systems
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  This post explore making a PiTop a little more Raspbian.
+dateCreated: '2016-07-04'
+dateModified: '2025-07-21'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
+draft: true
 ---
-
 
 How to make a Pi-Top more Raspbian
 ==================================
@@ -45,6 +56,3 @@ straight forward.
 
 Note: pi-battery, pt-hub-controller, pt-ipc, pt-speaker are hardware drivers specific to your Pi-Top so you probably
 want to keep them.
-
-
-

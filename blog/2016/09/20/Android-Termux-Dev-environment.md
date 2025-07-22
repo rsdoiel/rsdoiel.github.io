@@ -1,12 +1,27 @@
 ---
-title: "Android, Termux and Dev Environment"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-09-20"
-keywords: [ "Bash", "cURL", "jq", "sed", "grep", "search", "golang", "Android" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: 'Android, Termux and Dev Environment'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-09-20'
+keywords:
+  - Bash
+  - cURL
+  - jq
+  - sed
+  - grep
+  - search
+  - golang
+  - Android
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  In this post I explore getting a terminal setup configured on an Android
+  tablet.
+dateCreated: '2016-09-20'
+dateModified: '2025-07-21'
+datePublished: '2016-09-20'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
 ---
-
 
 # Android, Termux and Dev Environment
 
@@ -74,5 +89,3 @@ Finally pulled down some content to test.
 ```
 
 This started the local static site webserver and I pointed by Firefox for Android at http://localhost:8000 and saw a local copy of my personal website. From there I wrote this article and updated it just as if I was working on a Raspberry Pi or standard Linux laptop.
-
-

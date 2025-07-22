@@ -1,12 +1,25 @@
 ---
-title: "Raspbian Stretch on DELL E4310 Laptop"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2017-12-18"
-keywords: [ "Raspbian", "Raspberry Pi OS", "amd64", "i386", "operating systems" ]
-copyright: "copyright (c) 2017, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: Raspbian Stretch on DELL E4310 Laptop
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2017-12-18'
+keywords:
+  - Raspbian
+  - Raspberry Pi OS
+  - amd64
+  - i386
+  - operating systems
+copyright: 'copyright (c) 2017, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  This post talks about a used Dell E4310 I purchased. It covers setting it up
+  with [Raspbian Stretch](https://www.raspberrypi.org/blog/raspbian-stretch/)
+  and configuring it so I can share it with my family.
+dateCreated: '2017-12-18'
+dateModified: '2025-07-22'
+datePublished: '2017-12-18'
+copyrightYear: 2017
+copyrightHolder: R. S. Doiel
 ---
-
 
 # Raspbian Stretch on DELL E4310 Laptop
 
@@ -71,4 +84,3 @@ Raspbian Stretch is the way to go.
 + Used a spare WiFi dongle initially to fetch the non-free iwlwifi modules
 + Updated my source list, re-run apt update and upgrade
 + Rebooted and everything came up and is running
-

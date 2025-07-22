@@ -1,12 +1,26 @@
 ---
-title: "From Markdown and Bash to mkpage"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-08-16"
-keywords: [ "Bash", "Markdown", "site generator", "mkpage", "pandoc" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: From Markdown and Bash to mkpage
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-08-16'
+keywords:
+  - Bash
+  - Markdown
+  - site generator
+  - mkpage
+  - pandoc
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  In this port I explore deconstructing functionality typically found in content
+  management systems. It explores an approach to publishing a website hosted via
+  GitHub. Covered the [MkPage](https://github.com/rsdoiel/mkpage) tools I
+  developed.
+dateCreated: '2016-08-16'
+dateModified: '2025-07-21'
+datePublished: '2016-08-16'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
 ---
-
 
 From Markdown and Bash to mkpage
 ================================
@@ -193,5 +207,3 @@ site or news site.
 
 If you're looking for an innovative and rich author centric content system
 I suggest Dave Winer's [Fargo](http://fargo.io) outliner and [1999.io](https://1999.io).
-
-

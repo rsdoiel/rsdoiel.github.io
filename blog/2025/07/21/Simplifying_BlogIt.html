@@ -333,7 +333,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-
 <span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
 <span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> frontMatter[field]<span class="op">;</span></span>
 <span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>      <span class="co">//frontMatter[field] = new Date(newValue).toISOString().split(&quot;T&quot;)[0];</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>      <span class="co">//frontMatter[field] = (new Date(newValue)).toISOString().split(&quot;T&quot;)[0];</span></span>
 <span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
 <span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
 <span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>      frontMatter[field] <span class="op">=</span> newValue<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>

@@ -1,12 +1,22 @@
 ---
-title: "OPML to Markdown and back"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-05-28"
-keywords: [ "golang", "opml", "markdown" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: OPML to Markdown and back
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-05-28'
+keywords:
+  - golang
+  - opml
+  - markdown
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  This post covers developing a Go package for
+  [OPML](http://dev.opml.org/spec2.html) and it's features.
+dateCreated: '2016-05-28'
+dateModified: '2025-07-21'
+datePublished: '2016-05-28'
+copyrightYear: 2016
+copyrightHolder: R. S. Doiel
 ---
-
 
 OPML to Markdown and back
 =========================
@@ -127,4 +137,3 @@ Coming back to OPML from Markdown then becomes
     + else URL encode and embed in _outline_ _text_ attribute
 
 Is this viable? Does it have any advantages?
-

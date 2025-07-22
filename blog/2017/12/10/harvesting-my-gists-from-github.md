@@ -1,12 +1,22 @@
 ---
-title: "Harvesting my Gists from GitHub"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2017-12-10"
-keywords: [ "GitHub", "Gists", "JSON" ]
-copyright: "copyright (c) 2017, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: Harvesting my Gists from GitHub
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2017-12-10'
+keywords:
+  - GitHub
+  - Gists
+  - JSON
+copyright: 'copyright (c) 2017, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  This is a just quick set of notes on harvesting my Gists on GitHub so I
+  have an independent copy for my own website. 
+dateCreated: '2017-12-10'
+dateModified: '2025-07-22'
+datePublished: '2017-12-10'
+copyrightYear: 2017
+copyrightHolder: R. S. Doiel
 ---
-
 
 # Harvesting my Gists from GitHub
 
@@ -111,10 +121,3 @@ we have the following script.
         done;
     done
 ```
-
-
-
-
-
-
-

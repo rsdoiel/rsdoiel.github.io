@@ -1,12 +1,21 @@
 ---
-title: "Cross compiling Go 1.8.3 for Pine64 Pinebook"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2016-06-16"
-keywords: [ "Golang", "Pine64", "ARM" ]
-copyright: "copyright (c) 2016, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: Cross compiling Go 1.8.3 for Pine64 Pinebook
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2016-06-16'
+keywords:
+  - Golang
+  - Pine64
+  - ARM
+copyright: 'copyright (c) 2016, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  This is a post on setting cross compilation for a Pine64 Pinebook.
+dateCreated: '2017-06-16'
+dateModified: '2025-07-22'
+datePublished: '2017-06-16'
+copyrightYear: 2017
+copyrightHolder: R. S. Doiel
 ---
-
 
 # Cross compiling Go 1.8.3 for Pine64 Pinebook
 

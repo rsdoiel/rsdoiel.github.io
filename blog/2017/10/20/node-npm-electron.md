@@ -1,12 +1,21 @@
 ---
-title: "NodeJS, NPM, Electron"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2017-10-20"
-keywords: [ "Javascript", "NodeJS", "Electron" ]
-copyright: "copyright (c) 2017, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: 'NodeJS, NPM, Electron'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2017-10-20'
+keywords:
+  - Javascript
+  - NodeJS
+  - Electron
+copyright: 'copyright (c) 2017, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  This post discusses nodeJS and Electron.
+dateCreated: '2017-10-20'
+dateModified: '2025-07-22'
+datePublished: '2017-10-20'
+copyrightYear: 2017
+copyrightHolder: R. S. Doiel
 ---
-
 
 # NodeJS, NPM, Electron
 
@@ -80,4 +89,3 @@ several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.
 
 I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi's yet. 
 `npm install` outputs errors suggesting that it is expecting an x86 architecture.
-
