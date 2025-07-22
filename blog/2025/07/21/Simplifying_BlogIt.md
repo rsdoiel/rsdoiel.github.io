@@ -700,4 +700,4 @@ if (import.meta.main) {
 ## Reference
 
 - <https://github.com/rsdoiel/BlogIt>
-- [Website](https://rsdoiel/github.com/BlogIt)
+- [Website](https://rsdoiel.github.io/BlogIt)
