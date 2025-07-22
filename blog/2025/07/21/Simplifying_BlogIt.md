@@ -15,16 +15,15 @@ abstract: |
   2. Copy CommonMark files into the blog directory tree
 
   Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).
+series: Deno and TypeScript
+seriesNo: 9
 dateCreated: 2025-07-12T00:00:00.000Z
-dateModified: '2025-07-22'
+dateModified: '2025-07-21'
 keywords:
   - font matter
   - CommonMark
   - blog
 datePublished: '2025-07-21'
-series: |
-  Deno and TypeScript
-seriesNo: 9
 ---
 
 # Simplifying BlogIt
@@ -190,7 +189,6 @@ export const metadataFields: Array<keyof Metadata> = [
   "keywords",
   "series",
   "seriesNo",
-  "pubType",
   "copyrightYear",
   "copyrightHolder",
   "license"
@@ -698,3 +696,8 @@ if (import.meta.main) {
 }
 
 ~~~
+
+## Reference
+
+- <https://github.com/rsdoiel/BlogIt>
+- [Website](https://rsdoiel/github.com/BlogIt)
