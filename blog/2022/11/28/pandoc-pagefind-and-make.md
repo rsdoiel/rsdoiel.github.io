@@ -1,7 +1,50 @@
 ---
-title: "Pandoc, Pagefind and Make"
-pubDate: 2022-11-30
-keywords: [ "Pandoc", "Pagefind", "make", "static site" ]
+title: 'Pandoc, Pagefind and Make'
+pubDate: 2022-11-30T00:00:00.000Z
+keywords:
+  - Pandoc
+  - Pagefind
+  - make
+  - static site
+author: R. S. Doiel
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  Recently I've refresh my approach to website generation using three programs.
+
+
+  - [Pandoc](https://pandoc.org)
+
+  - [Pagefind](https://pagefind.app) for providing a full text search of
+  documentation
+
+  - [GNU Make](https://www.gnu.org/software/make/)
+      - [website.mak](website.mak) Makefile
+
+  Pandoc does the heavy lifting. It renders all the HTML pages, CITATION.cff
+  (from the projects [codemeta.json](codemeta.github.io "codemeta.json is a
+  metadata documentation schema for documenting software projects")) and
+  rendering an about.md file (also from the project's codemeta.json). This is
+  done with three Pandoc templates. Pandoc can also be used to rendering man
+  pages following a simple page recipe.
+
+
+  I've recently adopted Pagefind for indexing the HTML for the project's website
+  and providing the full text search UI suitable for a static website. The
+  Pagefind indexes can be combined with your group or organization's static
+  website providing a rich cross project search (exercise left for another
+  post).
+
+
+  Finally I orchestrate the site construction with GNU Make. I do this with a
+  simple dedicated Makefile called [website.mak](#website.mak).
+
+
+  ...
+dateCreated: '2022-11-30'
+dateModified: '2025-07-22'
+datePublished: '2022-11-30'
 ---
 
 # Pandoc, Pagefind and Make

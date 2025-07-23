@@ -1,14 +1,47 @@
 ---
-title: "Procedures in records"
-series: "Mostly Oberon"
+title: Procedures in records
+series: Mostly Oberon
 number: 10
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-07-07"
-keywords: [ "Oberon", "procedures", "record procedures", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/" 
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-07-07'
+keywords:
+  - Oberon
+  - procedures
+  - record procedures
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+  series.
 
+  Mostly Oberon documents my exploration of the Oberon Language, Oberon System
+  and the 
+
+  various rabbit holes I will inevitably fall into.
+
+
+  In my last post I looked at how Oberon-07 supports the passing of procedures
+  as parameters in a procedure. In this one I am looking at how we can
+
+  include procedures as a part of an Oberon RECORD. 
+
+
+  Let's modify our module name [Noises.Mod](Noises.Mod) to explore this.
+
+  Copy "Noises.Mod" to "Creatures.Mod". Replace the "MODULE Noises;" line with
+
+  "MODULE Creatures;" and the final "END Noises." statement with "END
+  Creatures.".
+
+
+dateCreated: '2020-07-07'
+dateModified: '2025-07-22'
+datePublished: '2020-07-07'
+seriesNo: 10
+---
 
 # Procedures in records
 
@@ -156,6 +189,4 @@ that would let you change the noise procedure to something new.
 ### Next and Previous 
 
 + Next [Portable Oberon-07](../../08/15/Portable-Oberon-07.html)
-+ Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.html) 
-
-
++ Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.html)

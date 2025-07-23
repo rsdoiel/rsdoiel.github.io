@@ -1,12 +1,46 @@
 ---
-title: "Review: Software Tools in Pascal"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2018-07-22"
-keywords: [ "Pascal", "programming", "book review" ]
-copyright: "copyright (c) 2018, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: 'Review: Software Tools in Pascal'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2018-07-22'
+keywords:
+  - Pascal
+  - programming
+  - book review
+copyright: 'copyright (c) 2018, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2018
+copyrightHolder: R. S. Doiel
+abstract: >
+  Book Review: This book is by Brian W. Kernighan and P. J. Plauger. It is an
 
+  example of the type of books I find I re-read and want in my
+
+  personal library. The book covers software construction through 
+
+  a series of programs written in pascal. It is about how these 
+
+  programs work, how to approach problems and write sound software.
+
+  I was surprised I did not know about this book when I was browsing 
+
+  the [Open Library](https://openlibrary.org) this weekend.  While 
+
+  Pascal was a popular in the 1980's it has faded for most people in the 
+
+  early 21st century.  This review maybe a small bit of nostalgia. 
+
+  On the other hand I suspect 
+
+  ["Software Tools in
+  Pascal"](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)
+
+  is one of the short list of computer books that will remain useful
+
+  over the long run.
+dateCreated: '2018-07-22'
+dateModified: '2025-07-22'
+datePublished: '2018-07-22'
+---
 
 # Review: Software Tools in Pascal
 

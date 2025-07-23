@@ -1,8 +1,30 @@
 ---
-title: Updated recipe, compiling PostgREST 12.0.2 (M1)
-pubDate: 2024-01-04
+title: 'Updated recipe, compiling PostgREST 12.0.2 (M1)'
+pubDate: 2024-01-04T00:00:00.000Z
 author: R. S. Doiel
-keywords: [ 'PostgREST', 'M1' ]
+keywords:
+  - PostgREST
+  - M1
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  These are my updated "quick notes" for compiling PostgREST v12.0.2 on a M1 Mac
+  Mini using the current recommended
+
+  versions of ghc, cabal and stack supplied
+  [GHCup](https://www.haskell.org/ghcup).  When I recently tried to use
+
+  my previous [quick
+  recipe](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md) I was
+  disappointed it failed with errors like 
+
+
+
+  ...
+dateCreated: '2024-01-04'
+dateModified: '2025-07-23'
+datePublished: '2024-01-04'
 ---
 
 # Updated recipe, compile PostgREST 12.0.2 (M1)
@@ -78,5 +100,3 @@ cabal install --overwrite-policy=always
 
 This will install PostgREST in your `$HOME/.cabal/bin` directory. Make sure
 it is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).
-
-

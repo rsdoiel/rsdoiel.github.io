@@ -1,10 +1,38 @@
 ---
-title: "Setting up FreeDOS 1.3rc4 with Qemu"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-11-27"
-copyright: "copyright (c) 2021, R. S. Doiel"
-keywords: [ "FreeDOS", "Qemu" ]
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: Setting up FreeDOS 1.3rc4 with Qemu
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-11-27'
+copyright: 'copyright (c) 2021, R. S. Doiel'
+keywords:
+  - FreeDOS
+  - Qemu
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: |
+  In this article I'm going explore setting up FreeDOS with Qemu
+  on my venerable Dell 4319 running Raspberry Pi Desktop OS (Debian
+  GNU/Linux).  First step is to download FreeDOS "Live CD" in the
+  1.3 RC4 release. See http://freedos.org/download/ for that.
+
+  ## Installing Qemu
+
+  I needed to install Qemu in my laptop. It runs the Raspberry Pi
+  Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install
+  the "qemu-system" package since I will likely use qemu for other
+  things besides FreeDOS. The qemu-system package contains all the
+  various systems I might want to emulate in other projects as well
+  as several qemu utilities that are handy.  Here's the full sequence
+  of `apt` commands I ran (NOTE: these included making sure my laptop
+  was up to date before I installed qemu-system).
+
+  ...
+dateCreated: '2021-11-27'
+dateModified: '2025-07-22'
+datePublished: '2021-11-27'
+series: |
+  Exploring FreeDOS
+seriesNo: 1
 ---
 
 Setting up FreeDOS 1.3rc4 with Qemu
@@ -214,5 +242,3 @@ Reference material
 
 My inspiration for this was the description of manual install in
 the FreeDOS book section of the website, [Manual Install](https://www.freedos.org/books/get-started/june14-manual-install.html).
-
-

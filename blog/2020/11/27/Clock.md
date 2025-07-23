@@ -1,5 +1,27 @@
 ---
 title: Clock
+author: R. S. Doiel
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  This is a C time library wrapper for getting system time
+  to support Dates.Mod. The procedures are read only as
+  setting time is non-standard on many Unix-like systems[^1].
+  The two procedures follow the A2 style procedure signatures
+  adjusted for Oberon-07.
+
+  ...
+dateCreated: '2020-11-27'
+dateModified: '2025-07-22'
+datePublished: '2020-11-27'
+keywords:
+  - Oberon-07
+  - C
+  - shared libraries
+series: |
+  Mostly Oberon
+seriesNo: 23
 ---
 
 Clock

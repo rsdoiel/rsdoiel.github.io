@@ -1,13 +1,36 @@
 ---
-title: "Software Tools, Filters"
-series: "Software Tools"
+title: 'Software Tools, Filters'
+series: Software Tools
 number: 2
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-keywords: [ "Oberon", "Pascal", "Programming"]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+keywords:
+  - Oberon
+  - Pascal
+  - Programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  This post is the second in a series revisiting the programs
+  described in the 1981 book by Brian W. Kernighan and P. J.
 
+  Plauger's called [Software Tools in
+  Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is
+  available from the
+
+  [Open Library](https://openlibrary.org/) and physical copies
+  are still (2020) commonly available from used book sellers.
+  The book was an late 20th century text on creating portable
+  command line programs using ISO standard Pascal of the era.
+  
+  ...
+
+dateCreated: '2020-10-31'
+dateModified: '2025-07-22'
+datePublished: '2020-10-31'
+seriesNo: 2
+---
 
 Software Tools, Filters
 =======================

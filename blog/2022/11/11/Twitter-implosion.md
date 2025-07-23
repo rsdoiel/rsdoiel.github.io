@@ -1,13 +1,52 @@
 ---
-title: "Twitter's pending implosion"
-pubDate: 2022-11-11
-byline: "R. S. Doiel"
-author: "rsdoiel@sdf.org (R. S. Doiel)"
+title: Twitter's pending implosion
+pubDate: 2022-11-11T00:00:00.000Z
+byline: R. S. Doiel
+author: rsdoiel@sdf.org (R. S. Doiel)
 keywords:
-    - "small web"
-    - "twtxt"
-    - "micro blogging"
-    - "social networks"
+  - small web
+  - twtxt
+  - micro blogging
+  - social networks
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  It looks like Twitter continues to implode as layoffs and resignations
+  continue. If bankers, investors and lenders call in the loans [bankruptcy
+  appears to be
+  possible](https://www.reuters.com/technology/twitter-information-security-chief-kissner-decides-leave-2022-11-10/).
+  So what's next?
+
+
+
+  Twitter has been troubled for some time. The advertising model corrodes
+  content. Twitter is effectively a massive RSS-like distribution system. It has
+  stagnated as the APIs became more restrictive. The Advertising Business Model
+  via [Ad-tech](https://pluralistic.net/tag/adtech/ "per Cory Doctorow
+  'ad-fraud'") encourages decay regardless of system.  Non-Twitter examples
+  include commercial search engines (e.g. Google, Bing et el). Their usefulness
+  usefulness declines over time. I believe this due to the increase in "noise"
+  in the signal. The "noise" is driven be business models. That usually boils
+  down to content who's function is to attract your attention so it can be sold
+  for money. A corollary is [fear based
+  journalism](https://medium.com/@oliviacadby/fear-mongering-journalisms-downfall-aac1f4f5756d).
+  That has even caught the attention of a
+  [Pope](https://www.9news.com.au/world/fear-based-journalism-is-terrorism-pope/4860b502-5dbb-4eef-abcf-57582445fc2c).
+  Not fun.
+
+
+  I suspect business models don't encourage great content. Business models are
+  generally designed to turn a profit. They tend to get refined and tuned to
+  that purpose. The evolution of Twitter and Google's search engine would make
+  good case studies in that regard.
+
+
+
+  ...
+dateCreated: '2022-11-11'
+dateModified: '2025-07-22'
+datePublished: '2022-11-11'
 ---
 
 Twitter's pending implosion
@@ -88,5 +127,3 @@ Things to watch
 - [Mastodon](https://joinmastodon.org/)
 - [Gopherspace](http://gopher.floodgap.com/gopher/gw?a=gopher%3A%2F%2Fgopher.floodgap.com%2F1%2Fworld), see [Gopherspace in 2020](https://cheapskatesguide.org/articles/gopherspace.html) as a nice orientation to see the internet through lynx and text
 - Even [Project Gemini](https://gemini.circumlunar.space/)
-
-

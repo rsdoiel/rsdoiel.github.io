@@ -1,7 +1,23 @@
 ---
 title: Chars
----
+author: R. S. Doiel
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  Source code for Chars.Mod.
 
+  ...
+dateCreated: '2020-11-27'
+dateModified: '2025-07-22'
+datePublished: '2020-11-27'
+keywords:
+  - Oberon-07
+  - C-shared
+series: |
+  Mostly Oberon
+seriesNo: 24
+---
 
 Chars
 =====
@@ -382,5 +398,3 @@ END TrimSuffix;
 END Chars.
 
 ~~~
-
-

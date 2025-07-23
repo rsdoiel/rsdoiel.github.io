@@ -1,9 +1,9 @@
 ---
-title: "A Quick into to PL/pgSQL"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-byline: "R. S. Doiel, 2022-08-24"
-pubDate: 2022-08-24
-series: "SQL Reflections"
+title: A Quick into to PL/pgSQL
+author: rsdoiel@gmail.com (R. S. Doiel)
+byline: 'R. S. Doiel, 2022-08-24'
+pubDate: 2022-08-24T00:00:00.000Z
+series: SQL Reflections
 number: 3
 keywords:
   - postgres
@@ -11,6 +11,29 @@ keywords:
   - psql
   - plsql
   - plpgsql
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  L/pgSQL is a procedure language extended from SQL. It adds flow control and
+  local state for procedures, functions and triggers. Procedures, functions and
+  triggers are also the compilation unit. Visually PL/pgSQL looks similar to the
+  MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like
+  the unit of compilation, the unit of execution is also procedure, function or
+  trigger. 
+
+
+  The Postgres documentation defines and explains the
+  [PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql.html) and how it works. 
+  This document is just a quick orientation with specific examples to provide
+  context.
+
+
+  ...
+dateCreated: '2022-08-24'
+dateModified: '2025-07-22'
+datePublished: '2022-08-24'
+seriesNo: 3
 ---
 
 A Quick intro to PL/pgSQL
@@ -121,4 +144,3 @@ Further reading
 - [Loops](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS)
 - [Calling a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-CALLING-PROCEDURE)
 - [Early return from a procedure](https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING-PROCEDURE)
-

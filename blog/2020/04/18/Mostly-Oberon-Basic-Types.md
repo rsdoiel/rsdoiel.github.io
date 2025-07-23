@@ -1,14 +1,40 @@
 ---
-title: "Oberon Basic Types"
+title: Oberon Basic Types
 number: 3
-series: "Mostly Oberon"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-04-18"
-keywords: [ "Oberon", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+series: Mostly Oberon
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-04-18'
+keywords:
+  - Oberon
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html)
+  series. Mostly Oberon documents my exploration of the Oberon Language, Oberon
+  System and the various rabbit wholes I inevitably fell into.
 
+
+  ## Simple Types
+
+
+  Oberon is a small systems language. It provides a useful but 
+
+  limited umber of basic types. These can be be
+
+  thought of as simple types mapping to specific memory locations
+
+  and more complex types composed of multiple memory locations.
+
+
+  ...
+dateCreated: '2020-04-18'
+dateModified: '2025-07-22'
+datePublished: '2020-04-18'
+seriesNo: 3
+---
 
 Oberon Basic Types
 ==================
@@ -522,4 +548,3 @@ is available from his personal website in PDF.
 
 + Next [Loops and Conditions](../19/Mostly-Oberon-Loops-and-Conditions.html)
 + Previous [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
-

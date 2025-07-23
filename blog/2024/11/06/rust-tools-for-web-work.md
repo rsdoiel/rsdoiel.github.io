@@ -1,10 +1,11 @@
 ---
 title: Rust tools for Web Work
-abstract: |
-  A quick review of a PageFind and FlatLake by Cloud Cannon. A brief description of how I use them.
-pubDate: 2024-11-06
-created: 2024-11-05
-updated: 2024-11-06
+abstract: >
+  A quick review of a PageFind and FlatLake by Cloud Cannon. A brief description
+  of how I use them.
+pubDate: 2024-11-06T00:00:00.000Z
+created: 2024-11-05T00:00:00.000Z
+updated: 2024-11-06T00:00:00.000Z
 byline: R. S. Doiel
 keywords:
   - web
@@ -12,6 +13,13 @@ keywords:
   - search
   - JSON API
   - Cloud Cannon
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-11-05'
+dateModified: '2025-07-23'
+datePublished: '2024-11-06'
 ---
 
 # Two Rust command line tools for web work

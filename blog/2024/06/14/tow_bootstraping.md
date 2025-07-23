@@ -1,11 +1,39 @@
 ---
 title: Bootstrapping a Text Oriented Web
-byline: R. S. Doiel, 2024-06-14
-created: 2024-06-14
-pubDate: 2024-06-14
+byline: 'R. S. Doiel, 2024-06-14'
+created: 2024-06-14T00:00:00.000Z
+pubDate: 2024-06-14T00:00:00.000Z
 keywords:
   - text oriented web
   - tow
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  First order of business is to shorten "text oriented web" to TOW.  It's easier
+  to type and say.  I'm considering the bootstrapping process from three vantage
+  points. 
+
+
+  1. content author
+
+  2. the server software
+
+  3. client software 
+
+
+  The TOW approach is avoids invention in favor of reuse. HTTP protocol is well
+  specified and proven. [Common Mark](https://commonmark.org) has a
+  specification as does [YAML](https://yaml.org/). TOW documents are UTF-8
+  encoded. A TOW document is a composite of Common Mark with YAML blocks. TOW
+  documents combined with HTTP provide a simplified hypertext platform. 
+
+
+  ...
+dateCreated: '2024-06-14'
+dateModified: '2025-07-23'
+datePublished: '2024-06-14'
 ---
 
 # Bootstrapping a Text Oriented Web
@@ -57,4 +85,3 @@ towtruck
 
 towby
 : A [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps) based TOW browser proof of concept
-

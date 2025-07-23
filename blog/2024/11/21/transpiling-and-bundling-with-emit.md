@@ -1,6 +1,6 @@
 ---
 title: Transpiling & Bundling with Emit
-byline: R. S. Doiel, 2024-11-21
+byline: 'R. S. Doiel, 2024-11-21'
 abstract: |
   A brief discussion of using the Deno emit module to transpile and bundle
   TypeScript.
@@ -9,6 +9,13 @@ keywords:
   - TypeScript
   - transpile
   - bundle
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-11-21'
+dateModified: '2025-07-23'
+datePublished: '2024-11-21'
 ---
 
 # Transpiling & Bundling with Emit

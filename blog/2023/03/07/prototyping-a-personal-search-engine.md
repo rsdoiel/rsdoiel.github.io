@@ -1,11 +1,46 @@
 ---
-title: "Prototyping a personal search engine"
-pubDate: 2023-03-07
-updated: 2023-11-29
-series: "Personal Search Engine"
+title: Prototyping a personal search engine
+pubDate: 2023-03-07T00:00:00.000Z
+updated: 2023-11-29T00:00:00.000Z
+series: Personal Search Engine
 number: 1
-author: "R. S. Doiel"
-keywords: [ "personal search engine", "search", "indexing", "web", "pagefind" ]
+author: R. S. Doiel
+keywords:
+  - personal search engine
+  - search
+  - indexing
+  - web
+  - pagefind
+copyrightYear: 2023
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  > Do we really need a search engine to index the "whole web"? Maybe a curated
+  subset is better.
+
+
+  Alex Schreoder's post [A Vision for
+  Search](https://alexschroeder.ch/wiki/2023-03-07_A_vision_for_search) prompted
+  me to write up an idea I call a "personal search engine".   I've been thinking
+  about a "a personal search engine" for years, maybe a decade.
+
+
+  With the current state of brokenness in commercial search engines, especially
+  with the implosion of the commercial social media platforms, we have an
+  opportunity to re-think search on a more personal level.
+
+
+  The tooling around static site generation where a personal search is an
+  extension of your own website suggests a path out of the quagmire of
+  commercial search engines.  Can techniques I use for my own site search, be
+  extended into a personal search engine?
+
+
+  ...
+dateCreated: '2023-03-07'
+dateModified: '2025-07-22'
+datePublished: '2023-03-07'
+seriesNo: 1
 ---
 
 # Prototyping a personal search engine
@@ -152,4 +187,3 @@ Observations that maybe helpful for a successful prototype
 5. I am only indexing HTML, Pagefind can limit the elements it indexes
 
 A prototype of a personal search engine seems possible. The challenge will be finding the time to implement it.
-

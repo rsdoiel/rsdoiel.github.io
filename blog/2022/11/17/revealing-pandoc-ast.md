@@ -1,10 +1,49 @@
 ---
-title: "Revealing the Pandoc AST"
-series: "Pandoc Techniques"
+title: Revealing the Pandoc AST
+series: Pandoc Techniques
 number: 4
-keywords: [ "Pandoc", "filter" ]
-copyright: "copyright (c) 2022, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+keywords:
+  - Pandoc
+  - filter
+copyright: 'copyright (c) 2022, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+author: R. S. Doiel
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+abstract: >
+  I've used Pandoc for a number of years, probably a decade. It's been wonderful
+
+  watching it grow in capability. When Pandoc started accepting JSON documents
+  as
+
+  a support metadata file things really started to click for me. Pandoc became
+
+  my go to tool for rendering content in my writing and documentation projects.
+
+
+  Recently I've decided I want a little bit more from Pandoc. I've become
+  curious
+
+  about prototyping some document conversion via Pandoc's filter mechanism. To
+  do
+
+  that you need to understand the AST, aka abstract syntax tree. 
+
+  How is the AST structure? 
+
+
+  It turns out I just wasn't thinking simply enough (or maybe just not paying
+
+  enough attention while I skimmed Pandoc's documentation). Pandoc's processing
+
+  model looks like
+
+
+  ...
+dateCreated: '2022-11-17'
+dateModified: '2025-07-22'
+datePublished: '2022-11-17'
+seriesNo: 4
 ---
 
 Revealing the Pandoc AST
@@ -73,4 +112,3 @@ an example piping through [jq](https://stedolan.github.io/jq/).
 
 Writing filters makes much sense to me now. I can see the AST and see
 how the documentation describes writing hooks in Lua to process it.
-

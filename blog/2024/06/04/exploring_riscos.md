@@ -1,7 +1,7 @@
 ---
 title: Exploring RISC OS 5.30 on a Raspberry Pi Zero W
-byline: R. S. Doiel, 2024-06-04
-pubDate: 2024-06-04
+byline: 'R. S. Doiel, 2024-06-04'
+pubDate: 2024-06-04T00:00:00.000Z
 abstract: |
   In this post I talk about my exploration of using a Raspberry Pi Zero W
   as a desktop computer. This was made possible by the efficiency of 
@@ -9,6 +9,13 @@ abstract: |
 keywords:
   - RISC OS
   - Raspberry Pi
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-06-04'
+dateModified: '2025-07-23'
+datePublished: '2024-06-04'
 ---
 
 # Exploring RISC OS 5.30 on a Raspberry Pi Zero W

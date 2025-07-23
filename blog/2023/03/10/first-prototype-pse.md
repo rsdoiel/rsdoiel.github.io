@@ -1,11 +1,48 @@
 ---
-title: "First Personal Search Engine Prototype"
-pubDate: 2023-03-10
-updated: 2023-11-29
-author: "R. S. Doiel"
-series: "Personal Search Engine"
+title: First Personal Search Engine Prototype
+pubDate: 2023-03-10T00:00:00.000Z
+updated: 2023-11-29T00:00:00.000Z
+author: R. S. Doiel
+series: Personal Search Engine
 number: 2
-keywords: [ "personal search engine", "search", "indexing", "web", "pagefind" ]
+keywords:
+  - personal search engine
+  - search
+  - indexing
+  - web
+  - pagefind
+copyrightYear: 2023
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  've implemented a first prototype of my personal search engine which
+
+  I will abbreviate as "pse" from here on out. I implemented it using 
+
+  three [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) scripts
+
+  relying on [sqlite3](https://sqlite.org),
+  [wget](https://en.wikipedia.org/wiki/Wget) and
+  [PageFind](https://pagefind.app) to do the heavy lifting.
+
+
+  Both Firefox and newsboat store useful information in sqlite databases. 
+  Firefox's `moz_places.sqlite` holds both all the URLs visited as well as those
+  that are associated with bookmarks (i.e. the SQLite database
+  `moz_bookmarks.sqlite`).  I had about 2000 bookmarks, less than I thought with
+  many being stale from link rot. Stale page URLs really slow down the harvest
+  process because of the need for wget to wait on various timeouts (e.g. DNS,
+  server response, download times).  The "history" URLs would make an
+  interesting collection to spider but you'd probably want to have an exclude
+  list (e.g. there's no point in saving queries to search engines, web mail,
+  shopping sites). Exploring that will wait for another prototype.
+
+
+  ...
+dateCreated: '2023-03-10'
+dateModified: '2025-07-22'
+datePublished: '2023-03-10'
+seriesNo: 2
 ---
 
 # First Personal Search Engine Prototype
@@ -172,5 +209,3 @@ Another approach would be to work with my full web browsers' history as
 well as it's bookmarks. This would significantly expand the corpus. If I did this I could also check the "head" of the HTML for references to feeds that could be folded into my feed link harvests. This would have the advantage of capture content from sources I find useful to read but would catch blog posts I might have skipped due to limited reading time.
 
 I use Pocket to read the pages I find interesting in my feed reader.  Pocket has an API and I could get some additional interesting pages from it. Pocket also has various curated lists and they might have interesting pages to harvest and index. I think the trick would be to use those suggests against an exclude list of some sort. E.g. Makes not sense to try to harvest paywall stuff or commercial sites more generally. One of the values I see in pse is that it is a personal search engine not a replacement for commercial search engines generally.
-
-

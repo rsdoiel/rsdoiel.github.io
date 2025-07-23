@@ -1,14 +1,63 @@
 ---
-title: "Combining Oberon-07 and C with OBNC"
-series: "Mostly Oberon"
+title: Combining Oberon-07 and C with OBNC
+series: Mostly Oberon
 number: 5
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-05-01"
-keywords: [ "Oberon", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-05-01'
+keywords:
+  - Oberon
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
 
+  series. Mostly Oberon documents my exploration of the Oberon
+
+  Language, Oberon System and the various rabbit holes I will
+
+  inevitably fall into.
+
+
+  In my day job I write allot of code in Go and
+
+  orchestration code in Python.  It's nice having
+
+  the convenience of combining code written one
+
+  language with an another.  You can do the same
+
+  with [OBNC](https://miasap.se/obnc/).  The OBNC
+
+  compiler supports inclusion of C code in a
+
+  straight forward manner. In fact Karl's compiler
+
+  will generate the C file for you!
+
+
+  In learning how to combine C code and Oberon-07
+
+  I started by reviewing Karl's [manual
+  page](https://miasap.se/obnc/man/obnc.txt).
+
+  The bottom part of that manual page describes
+
+  the steps I will repeat below. The description
+
+  sounds more complicated but when you walk through
+
+  the steps it turns out to be pretty easy.
+
+
+  ...
+dateCreated: '2020-05-01'
+dateModified: '2025-07-22'
+datePublished: '2020-05-01'
+seriesNo: 5
+---
 
 # Combining Oberon-07 and C with OBNC
 
@@ -246,5 +295,3 @@ Recompile and test.
 
 + Next [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.html)
 + Previously [Oberon Loops and Conditions](../../04/19/Mostly-Oberon-Loops-and-Conditions.html)
-
-

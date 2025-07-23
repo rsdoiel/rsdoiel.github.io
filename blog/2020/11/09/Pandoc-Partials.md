@@ -1,13 +1,35 @@
 ---
-title: "Pandoc Partials"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-series: "Pandoc Techniques"
+title: Pandoc Partials
+author: rsdoiel@gmail.com (R. S. Doiel)
+series: Pandoc Techniques
 number: 1
-keywords: [ "Pandoc", "Templates" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+keywords:
+  - Pandoc
+  - Templates
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: |+
+  Most people know about [Pandoc](https://pandoc.org/) from its
+  fantastic ability to convert various markup formats from one to
+  another. A little less obvious is Pandoc can be a template engine
+  for rendering static websites allowing you full control over the
+  rendered content.
 
+  The main Pandoc documentation of the template engine can be found
+  in the [User Guide](https://pandoc.org/MANUAL.html#templates).
+  The documentation is complete in terms of describing the template
+  capabilities but lacks a tutorial for using as a replacement for more
+  ambitious rendering systems like [Jekyll](https://jekyllrb.com/) or
+  [Hugo](https://gohugo.io/). Pandoc takes a vary direct approach and
+  can be deceptively simple to implement.
+
+dateCreated: '2020-11-09'
+dateModified: '2025-07-22'
+datePublished: '2020-11-09'
+seriesNo: 1
+---
 
 Pandoc Partial Templates
 ========================
@@ -214,5 +236,3 @@ Putting it all together:
 ~~~
 
 Example 3 rendered: [index3.htm](index3.htm)
-
-

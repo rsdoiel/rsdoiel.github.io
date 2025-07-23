@@ -1,12 +1,38 @@
 ---
-title: "RetroFlag GPi Case Setup"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-12-24"
-keywords: [ "raspberry pi", "retro games", "case" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: RetroFlag GPi Case Setup
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-12-24'
+keywords:
+  - raspberry pi
+  - retro games
+  - case
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  These are my notes for setting up a RetroFlag GPi case using Recalbox
 
+  distribution for retro gaming.
+
+
+  + RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)
+
+  + A computer to setup the SD Card  and the Raspberry Pi Imager v1.5
+
+
+  We will be installing [Recalbox](https://www.recalbox.com/ "the all-in-one
+  retro gaming console")
+
+  v7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro
+
+  Gaming Linux distribution.
+
+
+dateCreated: '2020-12-24'
+dateModified: '2025-07-22'
+datePublished: '2020-12-24'
+---
 
 Setting up a RetroFlag GPi Case
 ===============================
@@ -82,8 +108,3 @@ Booting the Pi Zero W with the SD Card
 5. Plug the barrel USB cable into a USB Power supply , 
 6. Turn the power switch to "ON" on the top of the GPi case
 7. Wait patiently, it's going to take several minutes to boot the first time
-
-
-
-
-

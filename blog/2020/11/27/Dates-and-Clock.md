@@ -1,14 +1,52 @@
 ---
-title: "Dates & Clock"
-series: "Mostly Oberon"
+title: Dates & Clock
+series: Mostly Oberon
 number: 14
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-11-27"
-keywords: [ "Oberon-07", "C-shared", "obnc" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-11-27'
+keywords:
+  - Oberon-07
+  - C-shared
+  - obnc
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  The
+  [Oakwood](http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines)
 
+  guidelines specified a common set of modules for Oberon-2 for writing
+
+  programs outside of an Oberon System. A missing module from the Oakwood
+
+  guidelines is modules for working with dates and the system clock.
+
+  Fortunately the A2 Oberon System[^1] provides a template for that
+
+  functionality. In this article I am exploring implementing the
+
+  [Dates](Dates.Mod) and [Clock](Clock.Mod) modules for Oberon-07. I
+
+  also plan to go beyond the A2 implementations and provide additional
+
+  functionality such as parsing procedures and the ability to work with
+
+  either the date or time related attributes separately in the
+
+  `Dates.DateTime` record.
+
+
+  [^1]: A2 information can be found in the [Oberon
+  wikibook](https://en.wikibooks.org/wiki/Oberon#In_A2)
+
+
+  ...
+dateCreated: '2020-11-27'
+dateModified: '2025-07-22'
+datePublished: '2020-11-27'
+seriesNo: 14
+---
 
 Dates and Clock
 ===============
@@ -1138,4 +1176,3 @@ for Oberon-07. Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
 
 + Next [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html)
 + Previous [Assemble Pages](/blog/2020/10/19/Assemble-pages.html)
-

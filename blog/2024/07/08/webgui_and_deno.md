@@ -1,7 +1,7 @@
 ---
 title: Web GUI and Deno
-pubDate: 2024-07-08
-created: 2024-07-07
+pubDate: 2024-07-08T00:00:00.000Z
+created: 2024-07-07T00:00:00.000Z
 abstract: |
   My notes on two Web GUI modules available for Deno.
 keywords:
@@ -9,6 +9,13 @@ keywords:
   - TypeScript
   - webui
   - webview
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-07-07'
+dateModified: '2025-07-23'
+datePublished: '2024-07-08'
 ---
 
 # Web GUI and Deno

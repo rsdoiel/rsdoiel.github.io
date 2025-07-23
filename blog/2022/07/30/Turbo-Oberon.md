@@ -1,11 +1,49 @@
 ---
-title: Turbo Oberon, the dream
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: 2022-07-30
-byline: "R. S. Doiel"
-keywords: [ "Oberon", "Wirth", "ETH", "dreams", "compilers", "operating systems" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: 'Turbo Oberon, the dream'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: 2022-07-30T00:00:00.000Z
+byline: R. S. Doiel
+keywords:
+  - Oberon
+  - Wirth
+  - ETH
+  - dreams
+  - compilers
+  - operating systems
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+abstract: >
+  Sometimes I have odd dreams and that was true last night through early this
+  morning. The dream was set in the future. I was already retired. It was a
+  dream about "Turbo Oberon".
+
+
+  "Turbo Oberon" was an Oberon language. The language compiler was named "TO" in
+  my dream. A module's file extension was ".tom", in honor of Tom Lopez
+  (Meatball Fulton) of ZBS. There were allot of ZBS references in the dream.
+
+
+  "TO" was very much a language in the Oberon-07 tradition with minor extensions
+  when it came to bringing in modules. It allowed for a multi path search for
+  module names. You could also express a Module import as a string allowing
+  providing paths to the imported module.
+
+
+  Compilation was similar to Go. Cross compilation was available out of the box
+  by setting a few environment variables. I remember answering questions about
+  the language and its evolution. I remember mentioning in the conversation
+  about how I thought Go felling into the trap of complexity like Rust or C/C++
+  before it. The turning point for Go was generics. Complexity was the siren
+  song to be resisted in "Turbo Oberon". Complexity is seductive to language
+  designers and implementers. I was only an implementer.
+
+
+  ...
+dateCreated: '2022-07-30'
+dateModified: '2025-07-22'
+datePublished: '2022-07-30'
 ---
 
 Turbo Oberon, the dream

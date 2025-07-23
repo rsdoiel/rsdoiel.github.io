@@ -1,10 +1,40 @@
 ---
 title: vis for vi and fun
-byline: R. S. Doiel, 2024-01-31
-keywords: [ "editors", "vi" ]
-pubDate: 2024-01-31
-created: 2024-01-31
-updated: 2024-02-02
+byline: 'R. S. Doiel, 2024-01-31'
+keywords:
+  - editors
+  - vi
+pubDate: 2024-01-31T00:00:00.000Z
+created: 2024-01-31T00:00:00.000Z
+updated: 2024-02-02T00:00:00.000Z
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+
+  I've been looking for a `vi` editor that my fingers would be happy with. I
+  learned `vi` when I first encountered Unix in University (1980s). I was a
+  transfer student so didn't get the "introduction to Unix and Emacs" lecture.
+  Everyone used Emacs to edit programs but Emacs to me was not intuitive. I
+  recall having a heck of a time figuring out how to exit the editor! I knew I
+  needed to learn an editor and Unix fast to do my school work. I head to my
+  college bookstore and found two spiral bound books [Unix in a
+  Nutshell](https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M)
+  and "Vi/Ed in a Nutshell". They helped remedy my ignorance. I spent the
+  afternoon getting comfortable with Unix and learning the basics in Vi. It
+  became my go to text editor. Somewhere along the line `nvi` came along I used
+  that. Eventually `vim` replaced `nvi` as the default "vi" for most Linux
+  system and adapted again.  I like one featured about `vim` over `nvi`. `vim`
+  does syntax highlighting. I routinely get frustrate with `vim` (my old muscle
+  memory throws me into the help systems, very annoying) so I tend to bounce
+  between `nvi` and `vim` depending on how my eyes feel and frustration level. 
+
+
+  ...
+dateCreated: '2024-01-31'
+dateModified: '2025-07-23'
+datePublished: '2024-01-31'
 ---
 
 # vis for vi and fun
@@ -57,4 +87,3 @@ I'd like to say thank you to [Marc André Tanner](https://github.com/martanne) f
 - [Vis Wiki](https://github.com/martanne/vis/wiki)
 - [GitHub Topic](https://github.com/topics/vis-editor)
 - [Plugin collection](https://erf.github.io/vis-plugins/)
-

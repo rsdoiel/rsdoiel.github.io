@@ -1,12 +1,27 @@
 ---
-title: "Go, Bleve and Library oriented software"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2018-02-19"
-keywords: [ "Golang", "Bleve", "search" ]
-copyright: "copyright (c) 2018, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: 'Go, Bleve and Library oriented software'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2018-02-19'
+keywords:
+  - Golang
+  - Bleve
+  - search
+copyright: 'copyright (c) 2018, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2018
+copyrightHolder: R. S. Doiel
+abstract: |
+  In 2016, Stephen Davison, asked me, "Why use Go and Blevesearch for
+  our library projects?" After our conversation I wrote up some notes so
+  I would remember. It is now 2018 and I am revising these notes. I
+  think our choice paid off.  What follows is the current state of my
+  reflection on the background, rational, concerns, and risk mitigation
+  strategies so far for using [Go](https://golang.org) and
+  [Blevesearch](https://blevesearch.com) for Caltech Library projects.
+dateCreated: '2018-02-19'
+dateModified: '2025-07-22'
+datePublished: '2018-02-19'
 ---
-
 
 # Go, Bleve and Library oriented software
 

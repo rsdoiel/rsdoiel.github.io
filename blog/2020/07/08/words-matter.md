@@ -1,12 +1,38 @@
 ---
-title: "Words Matter"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-07-08"
-keywords: [ "civil rights", "diversity", "equality" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/" 
----
+title: Words Matter
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-07-08'
+keywords:
+  - civil rights
+  - diversity
+  - equality
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: |+
+  **Why does software development use the vocabulary of slavery and
+  Jim Crow to describe our creations?** What we call things matters.
+  This is especially true of the words we use day to day without thinking.
 
+  ```shell
+      git pull origin master
+  ```
+
+  "Naming things is a hard problem in computer science." That is
+  a phrase I remember from my student days. We name variables,
+  programs and algorithms. We name architectures. Naming is a choice.
+  The names convey meaning and intent. Names and terms are a human
+  communication. They matter.
+
+  ```shell
+      git push origin master
+  ```
+
+dateCreated: '2020-07-08'
+dateModified: '2025-07-22'
+datePublished: '2020-07-08'
+---
 
 # Words Matter
 
@@ -158,4 +184,3 @@ software and architectures is like polishing a statue to the old
 Confederacy. It can and should be change. We can communicate better
 without perpetuating the vocabulary of Jim Crow, segregation, slavery
 and oppression.
-

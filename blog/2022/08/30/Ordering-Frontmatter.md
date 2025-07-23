@@ -1,8 +1,48 @@
 ---
-title: "Ordering front matter"
-pubDate: 2022-08-30
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-keywords: [ "pandoc", "front matter" ]
+title: Ordering front matter
+pubDate: 2022-08-30T00:00:00.000Z
+author: rsdoiel@gmail.com (R. S. Doiel)
+keywords:
+  - pandoc
+  - front matter
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  A colleague of mine ran into an interesting Pandoc behavior. He was combining
+  a JSON metadata document and a converted word document and wanted the YAML
+  front matter to have a specific order of fields (makes it easier for us humans
+  to quickly scan it and see what the document was about).
+
+
+  The order he wanted in the front matter was
+
+
+  - title
+
+  - interviewer
+
+  - interviewee
+
+  - abstract
+
+
+  This was for a collection of oral histories. When my friend use Pandoc's
+  `--metadata-json` to read the JSON metadata it rendered the YAML fine except
+  the attributes were listed in alphabetical order.
+
+
+  We found a solution by getting Pandoc to treat the output not as Markdown
+  plain text so that we could template the desired order of attributes.
+
+
+  Here's the steps we used.
+
+
+  ...
+dateCreated: '2022-08-30'
+dateModified: '2025-07-22'
+datePublished: '2022-08-30'
 ---
 
 Ordering Front Matter

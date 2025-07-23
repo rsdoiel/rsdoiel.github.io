@@ -1,11 +1,41 @@
 ---
-title: "Revisiting Files"
+title: Revisiting Files
 number: 20
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-11-12"
-copyright: "copyright (c) 2021, R. S. Doiel"
-keywords: [ "Oberon", "Files", "plain text" ]
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-11-12'
+copyright: 'copyright (c) 2021, R. S. Doiel'
+keywords:
+  - Oberon
+  - Files
+  - plain text
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: >
+  In October I had an Email exchange with Algojack regarding a buggy example in
+  [Oberon-07 and the file
+  system](../../../2020/05/09/Oberon-07-and-the-filesystem.html). The serious
+  bug was extraneous non-printable characters appearing a plain text file
+  containing the string "Hello World". The trouble with the example was a result
+  of my misreading the Oakwood guidelines and how **Files.WriteString()** is
+  required to work. The **Files.WriteString()** procedure is supposed to write
+  every element of a string to a file. This __includes the trailing Null
+  character__. The problem for me is **Files.WriteString()** litters plain text
+  files with tailing nulls. What I should have done was write my own
+  **WriteString()** and **WriteLn()**. The program
+  [HelloworldFile](./HelloworldFile.Mod) below is a more appropriate solution to
+  writing strings and line endings than relying directly on **Files**. In a
+  future post I will explorer making this more generalized in a revised "Fmt"
+  module.
+
+
+  ...
+dateCreated: '2021-11-22'
+dateModified: '2025-07-22'
+series: |
+  Mostly Oberon
+seriesNo: 20
+datePublished: '2021-11-22'
 ---
 
 Revisiting Files

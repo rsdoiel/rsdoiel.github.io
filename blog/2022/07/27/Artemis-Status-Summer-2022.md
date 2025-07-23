@@ -1,12 +1,29 @@
 ---
-title: Artemis Project Status, 2022
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: 2022-07-27
-keywords: [ "Oberon", "Oberon-07", "Artemis" ]
-copyright: "copyright (c) 2022, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
-series: "Mostly Oberon"
+title: 'Artemis Project Status, 2022'
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: 2022-07-27T00:00:00.000Z
+keywords:
+  - Oberon
+  - Oberon-07
+  - Artemis
+copyright: 'copyright (c) 2022, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+series: Mostly Oberon
 number: 22
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+abstract: >
+  t's been a while since I wrote an Oberon-07 post and even longer since I've
+  worked on Artemis. Am I done with Oberon-07 and abandoning Artemis?  No. Life
+  happens and free time to just hasn't been available. I don't know when that
+  will change.
+
+
+  What's the path forward? ...
+dateCreated: '2022-07-27'
+dateModified: '2025-07-22'
+datePublished: '2022-07-27'
+seriesNo: 22
 ---
 
 Artemis Project Status, 2022
@@ -28,5 +45,3 @@ Since I plan to continue working Artemis I need to find a way forward in much le
 These constraints imply Artemis is currently too broadly scoped. I think I need to focus on what works in OBNC for now. Once I have a clear set of modules then I can revisit portability to other compilers.
 
 What modules do I think I need? If I look at my person projects I tend to work allot with text, often structured text (e.g. XML, JSON, CSV). I also tend to be working with network services. Occasionally I need to interact with database (e.g. SQLite3, MySQL, Postgres).  Artemis should provide modules to make it easy to write code in Oberon-07 that works in those areas. Some of that I can do by wrapping existing C libraries. Some I can simply write from scratch in Oberon-07 (e.g. a JSON encoder/decoder). That's going to me my focus as my hobby time becomes available and then.
-
-

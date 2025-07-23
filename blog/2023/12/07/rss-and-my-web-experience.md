@@ -1,11 +1,25 @@
 ---
 title: RSS and my web experience
-byline: R. S. Doiel, 2023-12-07
-created: 2023-12-07
-abstract: RSS is alive and kicking and Bluesky should support it too. Explore my recipe for reading web news.
+byline: 'R. S. Doiel, 2023-12-07'
+created: 2023-12-07T00:00:00.000Z
+abstract: >-
+  RSS is alive and kicking and Bluesky should support it too. Explore my recipe
+  for reading web news.
 series: Simplification and the Web
 numnber: 1
-keywords: [ "RSS", "Feeds", "Social Media", "news" ]
+keywords:
+  - RSS
+  - Feeds
+  - Social Media
+  - news
+author: R. S. Doiel
+copyrightYear: 2023
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2023-12-07'
+dateModified: '2025-07-22'
+datePublished: '2023-12-07'
+seriesNo: 1
 ---
 
 # RSS and my web experience

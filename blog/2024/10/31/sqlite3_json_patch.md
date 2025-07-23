@@ -3,11 +3,17 @@ title: SQLite3 json_patch is a jewel
 abstract: Quick note about json_path function in SQLite3
 author: R. S. Doiel
 byline: R. S. Doiel
-created: 2024-10-31
-pubDate: 2024-10-31
+created: 2024-10-31T00:00:00.000Z
+pubDate: 2024-10-31T00:00:00.000Z
 keywords:
   - sql
   - SQLite3
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-10-31'
+dateModified: '2025-07-23'
+datePublished: '2024-10-31'
 ---
 
 # SQLite3 json_patch is a jewel
@@ -29,4 +35,3 @@ select
   json_patch(json_object('key', _key, 'updated', updated, 'created', created), src) as object
   from data;
 ~~~
-

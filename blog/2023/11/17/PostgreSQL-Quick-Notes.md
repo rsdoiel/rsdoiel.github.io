@@ -1,8 +1,16 @@
 ---
-title: Postgres Quick Notes, take two
-keywords: [ "postgres" ]
-byline: R. S. Doiel, 2023-11-17
+title: 'Postgres Quick Notes, take two'
+keywords:
+  - postgres
+byline: 'R. S. Doiel, 2023-11-17'
 abstract: A collection of quick notes for setting and Postgres for development.
+author: R. S. Doiel
+copyrightYear: 2023
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2023-11-17'
+dateModified: '2025-07-22'
+datePublished: '2023-11-17'
 ---
 
 # Postgres Quick Notes, take two

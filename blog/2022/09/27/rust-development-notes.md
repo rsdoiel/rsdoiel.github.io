@@ -1,8 +1,38 @@
 ---
-title: "Rust development notes"
-pubDate: 2022-09-27
-author: 'rsdoiel@gmail.com (R. S. Doiel)'
-keywords: [ 'rust', 'cargo', 'M1', 'macOS', 'ports' ]
+title: Rust development notes
+pubDate: 2022-09-27T00:00:00.000Z
+author: rsdoiel@gmail.com (R. S. Doiel)
+keywords:
+  - rust
+  - cargo
+  - M1
+  - macOS
+  - ports
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  I recently wanted to try [ncgopher](https://github.com/jansc/ncgopher) which
+  is a [rust](https://rust-lang.org) based application. I was working on a an M1
+  Mac mini. I use [Mac Ports](https://www.macports.org) for my userland
+  applications and installed [cargo](https://doc.rust-lang.org/cargo/) to pickup
+  the rust compiler and build tool
+
+
+  ```shell
+
+  sudo port install cargo
+
+  ```
+
+
+  All went well until I tried to build ncgopher and got an error as follows
+
+
+  ...
+dateCreated: '2022-09-27'
+dateModified: '2025-07-22'
+datePublished: '2022-09-27'
 ---
 
 Rust development notes
@@ -51,8 +81,3 @@ My `$HOME/.cargo/config.toml` file looks like to have cargo use the git cli inst
 [net]
 git-fetch-with-cli = true
 ```
-
-
-
-
-

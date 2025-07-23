@@ -1,12 +1,34 @@
 ---
-title: "Compiling OBNC on macOS"
-series: "Mostly Oberon"
+title: Compiling OBNC on macOS
+series: Mostly Oberon
 number: 6
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-05-06"
-keywords: [ "Oberon", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-05-06'
+keywords:
+  - Oberon
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  This is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+  series. Mostly Oberon documents my exploration of the Oberon Language, Oberon
+  System and the various rabbit holes I will inevitably fall into.
+
+
+  Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) 
+
+  is straight forward if you have the required dependencies and 
+
+  environment setup up. Below are my notes to get everything working.
+
+
+  ...
+dateCreated: '2020-05-06'
+dateModified: '2025-07-22'
+datePublished: '2020-05-06'
+seriesNo: 6
 ---
 
 Compiling OBNC on macOS 
@@ -104,4 +126,3 @@ install location and local home directory location.
 
 + Next [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html)
 + Previous [Combining Oberon-07 and C](../01/Combining-Oberon-and-C.html)
-

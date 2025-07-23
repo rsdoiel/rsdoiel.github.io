@@ -1,16 +1,32 @@
 ---
-title: "Rosette Notes: Postgres and MySQL"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-byline: "R. S. Doiel, 2022-08-19"
-pubDate: 2022-08-19
-updated: 2022-09-19
-series: "SQL Reflections"
+title: 'Rosette Notes: Postgres and MySQL'
+author: rsdoiel@gmail.com (R. S. Doiel)
+byline: 'R. S. Doiel, 2022-08-19'
+pubDate: 2022-08-19T00:00:00.000Z
+updated: 2022-09-19T00:00:00.000Z
+series: SQL Reflections
 number: 2
 keywords:
   - postgres
   - mysql
   - sql
   - psql
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  > A dance around two relational databases, piecing together similarities as
+  with the tiny mosaic tiles of a guitar's rosette
+
+
+  What follows are my preliminary notes learning Postgres 12 and 14.
+
+
+  ...
+dateCreated: '2022-08-19'
+dateModified: '2025-07-22'
+datePublished: '2022-08-19'
+seriesNo: 2
 ---
 
 Rosette Notes
@@ -86,4 +102,3 @@ Lessons learned along the way
 2022-09-19
 
 10:30 - 12:30; SQL; Postgres; Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users
-

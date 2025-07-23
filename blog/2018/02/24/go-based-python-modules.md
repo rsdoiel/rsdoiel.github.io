@@ -1,12 +1,28 @@
 ---
-title: "Go based Python modules"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2018-02-24"
-keywords: [ "Golang", "Python", "shared libraries" ]
-copyright: "copyright (c) 2018, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: Go based Python modules
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2018-02-24'
+keywords:
+  - Golang
+  - Python
+  - shared libraries
+copyright: 'copyright (c) 2018, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2018
+copyrightHolder: R. S. Doiel
+abstract: |+
+  I have written a number of Go packages at work.
+  My colleagues know Python and I'd like them to be able to use the
+  packages without resorting to system calls from Python to the
+  command line implementations. The solution is create a C-Shared
+  library from my Go packages, using Go's _C_ package and combine it
+  with Python's _ctypes_ package.  What follows is a series of 
+  simple recipes I used to understand the details of how that worked.
 
+dateCreated: '2018-02-24'
+dateModified: '2025-07-22'
+datePublished: '2018-02-24'
+---
 
 # Go based Python modules
 
@@ -421,4 +437,3 @@ will need to be able to find the module and shared library. For
 simplicity I've put all the code in the same directory. If your Python
 code is spread across multiple directories you'll need to make some 
 adjustments.
-

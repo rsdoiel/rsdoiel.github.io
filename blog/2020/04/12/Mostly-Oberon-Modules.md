@@ -1,14 +1,43 @@
 ---
-title: "Oberon Modules and Procedures"
+title: Oberon Modules and Procedures
 number: 2
-series: "Mostly Oberon"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-04-12"
-keywords: [ "Oberon", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+series: Mostly Oberon
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-04-12'
+keywords:
+  - Oberon
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html)
+  series. Mostly Oberon documents my exploration of the Oberon Language, Oberon
+  System and the various rabbit wholes I inevitably fell into.
 
+
+  ## Modules
+
+
+  The module is a primary code unit of Oberon language. Modules allow you to
+  focus on functional units of code and can be readily composed into larger
+  solutions.
+
+  A module's name should match the filename you are saving it under. A module
+  starts with declaring it's name and ends the declaration with a semicolon
+
+  the statement separator in Oberon. Our simple "Hello World" example 
+
+  shows the basic code shape.
+
+
+  ...
+dateCreated: '2020-04-12'
+dateModified: '2025-07-22'
+datePublished: '2020-04-12'
+seriesNo: 2
+---
 
 Oberon Modules and Procedures
 =============================
@@ -495,4 +524,3 @@ other programs.
 
 + Next [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
 + Previous [Mostly Oberon](../11/Mostly-Oberon.html)
-

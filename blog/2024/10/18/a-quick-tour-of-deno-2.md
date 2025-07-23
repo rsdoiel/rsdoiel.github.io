@@ -1,16 +1,28 @@
 ---
 title: Quick tour of Deno 2.0.2
-abstract: |
-  A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,
-  ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile
-  TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
-created: 2024-10-18
-updated: 2024-10-21
-pubDate: 2024-10-18
-byline: R. S. Doiell, 2024-10-18
+abstract: >
+  A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful
+  tooling, good language support,
+
+  ECMAScript module support and a good standard library. Deno has the advantage
+  of being able to cross compile
+
+  TypeScript to an executable which makes deployment of web services as easy for
+  me as it is with Go.
+created: 2024-10-18T00:00:00.000Z
+updated: 2024-10-21T00:00:00.000Z
+pubDate: 2024-10-18T00:00:00.000Z
+byline: 'R. S. Doiell, 2024-10-18'
 keywords:
   - development
   - languages
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-10-18'
+dateModified: '2025-07-23'
+datePublished: '2024-10-18'
 ---
 
 # Quick tour of Deno 2.0.2
@@ -260,4 +272,3 @@ Switching from Go to Deno/TypeScript has been largely a matter of getting famili
 Python, Rust, Go and Deno + TypeScript all support creating and running WASM modules.  Of those languages Rust has the best story and most complete experience. Deno runs a close second. Largely because it is written in Rust so what you learn about WASM in rust carries over nicely. The Python story is better than Go at this time. This is largely a result of how garbage collection is integrated into Go.  If I write a Go WASM module there is a penalty paid when you move between the Go runtime space and the hosts WASM runtime space. This will improve over time but it isn't something I've felt comfortable using in my day to day Go work (October 2024, Go v1.23.2).
 
 Deno makes TypeScript is a serious application language. I suspect more work projects to be implemented in TypeScript where shared server and browser code is needed. I has be useful exploring Deno and TypeScript.
-

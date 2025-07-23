@@ -1,14 +1,32 @@
 ---
-title: "Portable Oberon-07"
-series: "Mostly Oberon"
+title: Portable Oberon-07
+series: Mostly Oberon
 number: 11
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-08-15"
-keywords: [ "Oberon", "portable", "stdin" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-08-15'
+keywords:
+  - Oberon
+  - portable
+  - stdin
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  This is the eleventh post in the [Mostly
+  Oberon](../../04/11/Mostly-Oberon.html) series.
 
+  Mostly Oberon documents my exploration of the Oberon Language, Oberon System
+  and the
+
+  various rabbit holes I will inevitably fall into.
+
+
+dateCreated: '2020-08-15'
+dateModified: '2025-07-22'
+datePublished: '2020-08-15'
+seriesNo: 11
+---
 
 # Portable Oberon-07
 
@@ -366,4 +384,3 @@ project.
 
 + Next [Oberon to Markdown](../../10/03/Oberon-to-markdown.html)
 + Previous [Procedures in records](../..//07/07/Procedures-in-records.html)
-

@@ -1,9 +1,32 @@
 ---
-title: "PTTK and STN"
-pubDate: 2022-08-15
-updated: 2022-09-26
-author: "R. S. Doiel"
-byline: "R. S. Doiel, 2022-08-15"
+title: PTTK and STN
+pubDate: 2022-08-15T00:00:00.000Z
+updated: 2022-09-26T00:00:00.000Z
+author: R. S. Doiel
+byline: 'R. S. Doiel, 2022-08-15'
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+
+  This log is a proof of concept in using [simple timesheet
+  notation](https://rsdoiel.github.io/stngo/docs/stn.html) as a source for very
+  short blog posts. The tooling is written in Golang (though eventually I hope
+  to port it to Oberon-07).  The implementation combines two of my personal
+  projects, [stngo](https://github.com/rsdoiel/stngo) and my experimental
+  writing tool [pttk](https://github.com/rsdoiel/pttk). Updating the __pttk__
+  cli I added a function to the "blogit" action that will translates the simple
+  timesheet notation (aka STN) to a short blog post.  My "short post" interest
+  is a response to my limited writing time. What follows is the STN markup. See
+  the
+  [Markdown](https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md)
+  source for the unprocessed text.
+
+
+  ...
+dateCreated: '2022-08-15'
+dateModified: '2025-07-22'
+datePublished: '2022-08-15'
 ---
 
 Pttk and STN

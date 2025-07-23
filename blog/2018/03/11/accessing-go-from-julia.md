@@ -1,12 +1,31 @@
 ---
-title: "Accessing Go from Julia"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2018-03-11"
-keywords: [ "Golang", "Julia", "shared libraries" ]
-copyright: "copyright (c) 2018, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: Accessing Go from Julia
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2018-03-11'
+keywords:
+  - Golang
+  - Julia
+  - shared libraries
+copyright: 'copyright (c) 2018, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2018
+copyrightHolder: R. S. Doiel
+abstract: >+
+  The problem: I've started exploring Julia and I would like to leverage
+  existing
 
+  code I've written in Go. Essentially this is a revisit to the problem in my
+
+  last post [Go based Python
+  Modules](https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html) 
+
+  but with the language pairing of Go and Julia.
+
+
+dateCreated: '2018-03-11'
+dateModified: '2025-07-22'
+datePublished: '2018-03-11'
+---
 
 # Accessing Go from Julia
 
@@ -338,5 +357,3 @@ Julia code is in the same directory as your shared C library. Julia, like Python
 has a feature rich module and Package system. If you are creating a serious Julia
 project then you need to be familiar with how Julia's package and module system works
 and place your code and shared libraries appropriately.
-
-

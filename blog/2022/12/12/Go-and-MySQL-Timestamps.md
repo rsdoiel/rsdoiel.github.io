@@ -1,8 +1,36 @@
 ---
-title: "Go and MySQL timestamps"
-author: "rsdoiel@sdf.org (R. S. Doiel)"
-pubDate: 2022-12-12
-keywords: [ "golang", "sql", "timestamps" ]
+title: Go and MySQL timestamps
+author: rsdoiel@sdf.org (R. S. Doiel)
+pubDate: 2022-12-12T00:00:00.000Z
+keywords:
+  - golang
+  - sql
+  - timestamps
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  The Go [sql](https://pkg.go.dev/database/sql) package provides a nice
+  abstraction for working with SQL databases. The underlying drivers and DBMS
+  can present some quirks that are SQL dialect and driver specific such as the
+  [MySQL driver](github.com/go-sql-driver/mysql).  Sometimes that is not a big
+  deal. [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well
+  as a modified timestamp easily via the SQL schema definition for the field.
+  Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g.
+  display the timestamp in a useful way) the int64 provided via the driver isn't
+  compatible with the `int64` used in Go's `time.Time`. To work around this
+  limitation I've found it necessary to convert the MySQL timestamp to a
+  formatted string using
+  [DATE_FORMAT](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+  "DATE_FORMAT is a MySQL date/time function returning a string value") and from
+  the Go side convert the formatted string into a `time.Time` using
+  `time.Parse()`. Below is some Golang pseudo code showing this approach.
+
+
+  ...
+dateCreated: '2022-12-12'
+dateModified: '2025-07-22'
+datePublished: '2022-12-12'
 ---
 
 # Go and MySQL timestamps

@@ -1,12 +1,32 @@
 ---
-title: "A2 Oberon on VirtualBox 6.1"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-04-02"
-keywords: [ "FreeDOS 1.2", "VirtualBox 6.1", "A2 Oberon"  ]
-copyright: "copyright (c) 2021, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+title: A2 Oberon on VirtualBox 6.1
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-04-02'
+keywords:
+  - FreeDOS 1.2
+  - VirtualBox 6.1
+  - A2 Oberon
+copyright: 'copyright (c) 2021, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: >
+  This is a short article documenting how I install A2 Oberon
 
+  in VirtualBox using the [FreeDOS 1.2](https://freedos.org),
+
+  the A2 [ISO](https://sourceforge.net/projects/a2oberon/files/) cd image and
+  [VirtualBox 6.1](https://virtualbox.org).
+
+
+  ...
+dateCreated: '2021-04-02'
+dateModified: '2025-07-22'
+datePublished: '2021-04-02'
+series: |
+  Mostly Oberon
+seriesNo: 26
+---
 
 A2 Oberon on VirtualBox 6.1
 ===========================
@@ -173,4 +193,3 @@ I recommend looking at the [Oberon Wikibook](https://en.wikibooks.org/wiki/Obero
 
 One nice feature of A2 is it includes a full "NativeOberon"
 or ETH Oberon as an A2 Application.
-

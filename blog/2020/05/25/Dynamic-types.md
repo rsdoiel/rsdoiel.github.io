@@ -1,14 +1,42 @@
 ---
-title: "Dynamic types"
-series: "Mostly Oberon"
+title: Dynamic types
+series: Mostly Oberon
 number: 8
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-05-25"
-keywords: [ "Oberon", "programming", "type extension", "dynamic data" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/" 
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-05-25'
+keywords:
+  - Oberon
+  - programming
+  - type extension
+  - dynamic data
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: |
+  This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+  series. Mostly Oberon documents my exploration of the Oberon Language, 
+  Oberon System and the various rabbit holes I will inevitably fall into.
 
+  ## Dynamic Types in Oberon
+
+  Oberon-07 is a succinct systems language. It provides a minimal
+  but useful set of basic static types. Relying on them addresses 
+  many common programming needs. The Oberon compiler ensures 
+  static types are efficiently allocated in memory. One of the 
+  strengths of Oberon is this ability to extend the type system. 
+  This means when the basic types fall short you can take 
+  advantage of Oberon's type  extension features. This includes 
+  creating dynamically allocated data structures. In Oberon-07 
+  combining Oberon's `POINTER TO` and `RECORD` types allows us to
+  create complex and dynamic data structures. 
+
+  ...
+dateCreated: '2020-05-25'
+dateModified: '2025-07-22'
+datePublished: '2020-05-25'
+seriesNo: 8
+---
 
 # Dynamic types
 
@@ -509,4 +537,4 @@ with a test module in the links that follow.
 ### Next and Previous 
 
 + Next [Procedures as parameters](../../06/20/Procedures-as-parameters.html)
-+ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html) 
++ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html)

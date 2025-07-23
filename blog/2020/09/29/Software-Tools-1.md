@@ -1,14 +1,61 @@
 ---
-title: "Software Tools, Getting Started"
-series: "Software Tools"
+title: 'Software Tools, Getting Started'
+series: Software Tools
 number: 1
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-09-29"
-keywords: [ "Oberon", "Pascal", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-09-29'
+keywords:
+  - Oberon
+  - Pascal
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  This post is the first in a series revisiting the
 
+  programs described in the 1981 book by Brian W. Kernighan and
+
+  P. J. Plauger's called [Software Tools in
+  Pascal](https://archive.org/details/softwaretoolsinp00kern).
+
+  The book is available from the [Open Library](https://openlibrary.org/)
+
+  and physical copies are still (2020) commonly available from used book
+
+  sellers.  The book was an early text on creating portable command
+
+  line programs.  
+
+
+  In this series I present the K & P (i.e. Software Tools in Pascal)
+
+  programs re-implemented in Oberon-07. I have testing my implementations
+
+  using Karl Landström's [OBNC](http://miasap.se/obnc/)
+
+  compiler and his implementation of the Oakwood Guide's modules
+
+  for portable Oberon programs. Karl also provides a few additional
+
+  modules for working in a POSIX environment (e.g. BSD, macOS, Linux,
+
+  Windows 10 with Linux subsystem). I have also tested these
+
+  programs with Mike Spivey's [Oxford Oberon
+  Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler) an
+  aside
+
+  from the differences file extensions that both compilers use
+
+  the source code works the same. 
+
+dateCreated: '2020-09-29'
+dateModified: '2025-07-22'
+datePublished: '2020-09-29'
+seriesNo: 1
+---
 
 # Software Tools, Getting Started
 
@@ -660,5 +707,3 @@ local modules need to become before the module calling them.
 # Next
 
 + [Filters](../../10/31/Filters.html)
-
-

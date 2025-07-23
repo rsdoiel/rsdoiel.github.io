@@ -1,14 +1,21 @@
 ---
-title: When Deno+TypeScript, when Go?
-createDate: 2024-11-06
-pubDate: 2024-11-06
-byline: R. S. Doiel, 2024-11-06
+title: 'When Deno+TypeScript, when Go?'
+createDate: 2024-11-06T00:00:00.000Z
+pubDate: 2024-11-06T00:00:00.000Z
+byline: 'R. S. Doiel, 2024-11-06'
 abstract: |
   Brief discussion of when I choose Deno+TypeScript versus Go for work projects.
 keywords:
   - Go
   - TypeScript
   - Programming Languages
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-11-06'
+dateModified: '2025-07-22'
+datePublished: '2024-11-06'
 ---
 
 # When Deno+TypeScript, when Go?

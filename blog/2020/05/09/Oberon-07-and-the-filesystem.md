@@ -1,15 +1,28 @@
 ---
-title: "Oberon-07 and the file system"
-series: "Mostly Oberon"
+title: Oberon-07 and the file system
+series: Mostly Oberon
 number: 7
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-05-09"
-updated: "2021-10-29"
-keywords: [ "Oberon", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-05-09'
+updated: '2021-10-29'
+keywords:
+  - Oberon
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  This is the seventh post in the [Mostly
+  Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my
+  exploration of the Oberon Language, Oberon System and the various rabbit holes
+  I will inevitably fall into.
 
+dateCreated: '2020-05-09'
+dateModified: '2025-07-22'
+datePublished: '2020-05-09'
+seriesNo: 7
+---
 
 # Oberon-07 and the file system
 
@@ -317,4 +330,3 @@ On October 29, 2021 I had an email conversation with Jules. It pointed out a pro
 
 + Next [Dynamic Types](../25/Dynamic-types.html)
 + Previous [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.html)
-

@@ -1,8 +1,52 @@
 ---
-title: "Skimmer"
-pubDate: 2023-10-06
-keywords: [ "feeds", "reader", "rss", "atom", "jsonfeed" ]
+title: Skimmer
+pubDate: 2023-10-06T00:00:00.000Z
+keywords:
+  - feeds
+  - reader
+  - rss
+  - atom
+  - jsonfeed
+author: R. S. Doiel
+copyrightYear: 2023
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >2
+   have a problem. I like to read my feeds in newsboat but I can't seem to get it working on a few machines I use.
+  I miss having access to read feeds. Additionally there are times I would like
+  to read my feeds in the same way
+
+  I read twtxt feeds using `yarnc timeline | less -R`. Just get a list of all
+  items in reverse chronological order.
+
+
+  I am not interested in reinventing newsboat, it does a really good job, but I
+  do want an option where newsboat isn't
+
+  available or is not not convenient to use.  This lead me to think about an
+  experiment I am calling skimmer
+
+  . Something that works with RSS, Atom and jsonfeeds in the same way I use
+  `yarnc timeline | less -R`.  
+
+  I'm also inspired by Dave Winer's a river of news site and his outline
+  tooling. But in this case I don't want
+
+  an output style output, just a simple list of items in reverse chronological
+  order. I'm thinking of a more
+
+  ephemeral experience in reading.
+
+
+  This has left me with some questions.
+
+
+  ...
+dateCreated: '2023-10-06'
+dateModified: '2025-07-22'
+datePublished: '2023-10-06'
 ---
+
 # skimmer
 
 By R. S. Doiel, 2023-10-06
@@ -96,4 +140,3 @@ That seems a like a good set of design features for an initial experiment.
 Spending a little time this evening. I've release a proof of concept on GitHub
 at <https://github.com/rsdoiel/skimmer>, you can read the initial documentation
 at [skimmer](https://rsdoiel.github.io/skimmer).
-

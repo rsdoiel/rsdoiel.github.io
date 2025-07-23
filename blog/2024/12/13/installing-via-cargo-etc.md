@@ -1,10 +1,13 @@
 ---
 title: Installing Deno via Cargo and other options
-byline: R. S. Doiel, 2024-12-13
-createDate: 2024-12-13
-abstract: |
-  Notes on setting up a Debian flavored Linux boxes, macOS and Windows to install Deno via `cargo install deno`,
+byline: 'R. S. Doiel, 2024-12-13'
+createDate: 2024-12-13T00:00:00.000Z
+abstract: >
+  Notes on setting up a Debian flavored Linux boxes, macOS and Windows to
+  install Deno via `cargo install deno`,
+
   `curl -fsSL https://deno.land/install.sh | sh` or
+
   `iwr https://deno.land/install.ps1 -useb | iex`
 keywords:
   - rust
@@ -14,6 +17,13 @@ keywords:
   - Linux
   - windows
   - macOS
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-12-13'
+dateModified: '2025-07-22'
+datePublished: '2024-12-13'
 ---
 
 # Installing Deno via Cargo and other options

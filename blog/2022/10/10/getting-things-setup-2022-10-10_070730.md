@@ -1,10 +1,26 @@
 ---
-title: "7:30 AM, Gopher: Setup"
-pubDate: 2022-10-10
-series: "Gopher"
-no: 1
+title: '7:30 AM, Gopher: Setup'
+pubDate: 2022-10-10T00:00:00.000Z
+series: Gopher
+'no': 1
 keywords:
-  - "Setup"
+  - Setup
+author: R. S. Doiel
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |+
+  # 7:30 AM, Gopher: Setup
+
+  Post: Monday, October 10, 2022, 7:30 AM
+
+  Account verified, Yippee!
+
+
+dateCreated: '2022-10-10'
+dateModified: '2025-07-22'
+datePublished: '2022-10-10'
+seriesNo: 1
 ---
 
 # 7:30 AM, Gopher: Setup
@@ -12,4 +28,3 @@ keywords:
 Post: Monday, October 10, 2022, 7:30 AM
 
 Account verified, Yippee!
-

@@ -1,11 +1,71 @@
 ---
-title: "Beyond Oakwood, Modules and Aliases"
+title: 'Beyond Oakwood, Modules and Aliases'
 number: 18
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-05-16"
-copyright: "copyright (c) 2021, R. S. Doiel"
-keywords: [ "Oberon", "Modules", "Oakwood", "Strings", "Chars" ]
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-05-16'
+copyright: 'copyright (c) 2021, R. S. Doiel'
+keywords:
+  - Oberon
+  - Modules
+  - Oakwood
+  - Strings
+  - Chars
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: >
+  Oakwood is the name used to refer to an early Oberon language
+
+  standardization effort in the late 20th century.  It's the name
+
+  of a hotel where compiler developers and the creators of Oberon
+
+  and the Oberon System met to discuss compatibility. The lasting
+
+  influence on the 21st century Oberon-07 language can be seen
+
+  in the standard set of modules shipped with POSIX based Oberon-07
+
+  compilers like
+
+  [OBNC](https://miasap.se/obnc/), [Vishap Oberon
+  Compiler](https://github.com/vishaps/voc) and the 
+
+  [Oxford Oberon
+  Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).
+
+
+  The Oakwood guidelines described a minimum expectation for
+
+  a standard set of modules to be shipped with compilers.
+
+  The modules themselves are minimalist in implementation.
+
+  Minimalism can assist in easing the learning curve
+
+  and encouraging a deeper understanding of how things work.
+
+
+  The Oberon-07 language is smaller than the original Oberon language
+
+  and the many dialects that followed.  I think of Oberon-07 as the
+
+  distillation of all previous innovation.  It embodies the
+
+  spirit of "Simple but not simpler than necessary". Minimalism is
+
+  a fit description of the adaptions of the Oakwood modules for 
+
+  Oberon-07 in the POSIX environment.
+
+
+  ...
+dateCreated: '2021-05-16'
+dateModified: '2025-07-22'
+datePublished: '2021-05-16'
+series: |
+  Mostly Oberon
+seriesNo: 18
 ---
 
 Beyond Oakwood, Modules and Aliases
@@ -305,4 +365,3 @@ with Oberon-07 in a POSIX envinronment.
 
 + Next [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
 + Prev [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.html)
-

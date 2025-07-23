@@ -1,14 +1,29 @@
 ---
-title: "Oberon to Markdown"
-series: "Mostly Oberon"
+title: Oberon to Markdown
+series: Mostly Oberon
 number: 12
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-10-03"
-keywords: [ "Oberon", "portable", "markdown", "programming" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-10-03'
+keywords:
+  - Oberon
+  - portable
+  - markdown
+  - programming
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >+
+  This is the twelfth post in the [Mostly
+  Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series.
+  Mostly Oberon documents my exploration of the Oberon Language, Oberon System
+  and the various rabbit holes I will inevitably fall into.
 
+dateCreated: '2020-10-03'
+dateModified: '2025-07-22'
+datePublished: '2020-10-03'
+seriesNo: 12
+---
 
 Oberon to Markdown
 ==================

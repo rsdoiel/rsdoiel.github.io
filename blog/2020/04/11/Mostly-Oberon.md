@@ -1,15 +1,46 @@
 ---
-title: "Mostly Oberon"
+title: Mostly Oberon
 number: 1
-series: "Mostly Oberon"
-byline: "R. S. Doiel"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2020-04-11"
-keywords: [ "Oberon", "Wirth", "Gutknecht", "ETH", "Parc", "programming", "operating systems" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+series: Mostly Oberon
+byline: R. S. Doiel
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2020-04-11'
+keywords:
+  - Oberon
+  - Wirth
+  - Gutknecht
+  - ETH
+  - Parc
+  - programming
+  - operating systems
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: >
+  **Mostly Oberon** is a series of blog posts documenting my exploration of the
+  Oberon Language, Oberon System and the various rabbit wholes I inevitably fell
+  into.
 
+
+  ## Overview
+
+
+  Oberon is a classical computer language and operating system originated by
+  Professors Niklaus Wirth and Jürg Gutknecht at
+  [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired
+  by their experiences in California at the [Xerox Palo Alto Research
+  Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog
+  posts are my meandering exploration of Oberon-07 language based on [Project
+  Oberon 2013](http://www.projectoberon.com/).
+
+
+  ...
+dateCreated: '2020-04-11'
+dateModified: '2025-07-22'
+datePublished: '2020-04-11'
+seriesNo: 1
+---
 
 Mostly Oberon
 =============
@@ -112,4 +143,3 @@ The online community for Oberon and Oberon System seems mostly centered around a
 ### Next
 
 + Next [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
-

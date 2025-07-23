@@ -1,13 +1,27 @@
 ---
-title: "FreeDOS 1.2 to Oberon System 3"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2019-07-28"
-updated: "2021-03-16"
-keywords: [ "FreeDOS", "Oberon System" ]
-copyright: "copyright (c) 2018, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: FreeDOS 1.2 to Oberon System 3
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2019-07-28'
+updated: '2021-03-16'
+keywords:
+  - FreeDOS
+  - Oberon System
+copyright: 'copyright (c) 2018, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2019
+copyrightHolder: R. S. Doiel
+abstract: |
+  What follows are notes on getting a FreeDOS 1.2[^1] and 
+  then Native Oberon[^2] running under VirtualBox 6.0. You might 
+  wonder why these two are together. While it was
+  easy to run the Native Oberon installation process that process
+  assumes you have a properly partitioned hard disk and VirtualBox
+  seems to skip that process. I found taking advantage of FreeDOS
+  simplified things for me.
+dateCreated: '2019-07-28'
+dateModified: '2025-07-22'
+datePublished: '2019-07-28'
 ---
-
 
 FreeDOS to Oberon System 3
 ==========================

@@ -1,11 +1,29 @@
 ---
-title: "Getting things setup"
-pubDate: 2022-10-09
-byline: R. S. Doiel, 2022-10-09
-author: "rsdoiel@sdf.org (R. S. Doiel)"
-keywords: [ "gopher", "public unix" ]
----
+title: Getting things setup
+pubDate: 2022-10-09T00:00:00.000Z
+byline: 'R. S. Doiel, 2022-10-09'
+author: rsdoiel@sdf.org (R. S. Doiel)
+keywords:
+  - gopher
+  - public unix
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  I'm digging my [gopherhole on sdf.org](gopher://sdf.org:70/0/users/rsdoiel)
+  as I wait for my validation to go through.  The plan is to migrate content
+  from rsdoiel.github.io to here and host it in a Gopher context.  It's
+  interesting learning my way around sdf.org. Reminds me of my student days
+  when I first had access to a Unix system.  Each Unix has it own flavors and
+  even for the same Unix type/version each system has it's own particular
+  variation. Unix lends itself to customization and that why one system can
+  "feel" or "look" different than the next.
 
+  ...
+dateCreated: '2022-10-09'
+dateModified: '2025-07-22'
+datePublished: '2022-10-09'
+---
 
 Getting things setup
 ====================

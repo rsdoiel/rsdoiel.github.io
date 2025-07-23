@@ -1,12 +1,21 @@
 ---
 title: Limit and offset for row pruning
-abstract: Noted are how to combine a select statement with limit and offset clauses with a delete statement to prune rows.
+abstract: >-
+  Noted are how to combine a select statement with limit and offset clauses with
+  a delete statement to prune rows.
 byline: R. S. Doiel
-created: 2024-10-31
-pubDate: 2024-10-31
+created: 2024-10-31T00:00:00.000Z
+pubDate: 2024-10-31T00:00:00.000Z
 keywords:
   - sql
   - SQLite3
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-10-31'
+dateModified: '2025-07-23'
+datePublished: '2024-10-31'
 ---
 
 # Limit and offset for row pruning
@@ -61,4 +70,3 @@ delete from reports
 ~~~
 
 The nice thing is I can run this regularly. It will never delete the most recent row because the offset value is one.
-

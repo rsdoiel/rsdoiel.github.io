@@ -1,9 +1,42 @@
 ---
-title: "Compiling Pandoc from source"
-author: "rsdoiel@sdf.org (R. S. Doiel)"
-byline: "R. S. Doiel, 2022-11-07"
-pubDate: 2022-11-07
-keywords: [ "pandoc", "pandoc-server", "pandoc-citeproc", "haskell-stack", "cabal", "ghc" ]
+title: Compiling Pandoc from source
+author: rsdoiel@sdf.org (R. S. Doiel)
+byline: 'R. S. Doiel, 2022-11-07'
+pubDate: 2022-11-07T00:00:00.000Z
+keywords:
+  - pandoc
+  - pandoc-server
+  - pandoc-citeproc
+  - haskell-stack
+  - cabal
+  - ghc
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  I started playing around with Pandoc's __pandoc-server__ last Friday. I want
+  to play with the latest version of Pandoc.  When I gave it a try this weekend
+  I found that my Raspberry Pi 400's SD card was too small. This lead me to
+  giving the build process a try on my Ubuntu desktop. These are my notes about
+  how I going about building from scratch.  I am not a Haskell programmer and
+  don't know the tool chain or language. Take everything that follows with a
+  good dose of salt but this is what I did to get everything up and running. I
+  am following the compile from source instructions in Pandoc's
+  [INSTALL.md](https://github.com/jgm/pandoc/blob/master/INSTALL.md)
+
+
+  I'm running this first on an Intel Ubuntu box because I have the disk space
+  available there. If it works then I'll try it directly on my Raspberry Pi 400
+  with an upgrade SD card and running the 64bit version of Raspberry Pi OS.
+
+
+  I did not have Haskell or Cabal installed when I started this process.
+
+
+  ...
+dateCreated: '2022-11-07'
+dateModified: '2025-07-22'
+datePublished: '2022-11-07'
 ---
 
 Compiling Pandoc from source
@@ -93,5 +126,3 @@ Additional notes
 [Hackage](https://hackage.haskell.org/) is a central repository of Haskell packages. 
 
 [Stackage](https://www.stackage.org/) is a curated subset of Hackage packages. It appears to be the preferred place for __stack__ to pull from.
-
-

@@ -1,10 +1,51 @@
 ---
-title: "Ofront on Raspberry Pi OS"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-04-25"
-keywords: [ "Oberon", "Raspberry Pi OS", "Ofront", "Mostly Oberon", "V4", "Linz" ]
-copyright: "copyright (c) 2021, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+title: Ofront on Raspberry Pi OS
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-04-25'
+keywords:
+  - Oberon
+  - Raspberry Pi OS
+  - Ofront
+  - Mostly Oberon
+  - V4
+  - Linz
+copyright: 'copyright (c) 2021, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: >
+
+  This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2].
+
+  Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3]
+
+  development environment. There are additional clever tools like `ocat`
+
+  that are helpful working with the differences in text file formats between
+
+  Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of
+
+  POSIX with minimal compromises that distract from the Oberon experience.
+
+
+  [^1]: Ofront was developed by Joseph Templ, see
+  http://www.software-templ.com/ 
+
+
+  [^2]: see https://www.raspberrypi.org/software/ (a 32 bit Debian based Linux
+  for both i386 and ARM)
+
+
+  [^3]: see https://ssw.jku.at/Research/Projects/Oberon.html
+
+
+  ...
+dateCreated: '2021-04-25'
+dateModified: '2025-07-22'
+datePublished: '2021-04-25'
+series: |
+  Mostly Oberon
+seriesNo: 22
 ---
 
 Ofront on Raspberry Pi OS
@@ -281,4 +322,3 @@ Not sure I'll get the time or have the energy to do these things but
 they are certainly seem feasible with Ofront as it stands now.
 
 [^8]: See https://brailleinstitute.org/freefont
-

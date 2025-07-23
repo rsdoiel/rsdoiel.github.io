@@ -1,13 +1,39 @@
 ---
-title: "Pandoc & Metadata"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-series: "Pandoc Techniques"
+title: Pandoc & Metadata
+author: rsdoiel@gmail.com (R. S. Doiel)
+series: Pandoc Techniques
 number: 2
-keywords: [ "Pandoc", "Metadata", "Templates" ]
-copyright: "copyright (c) 2020, R. S. Doiel"
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
----
+keywords:
+  - Pandoc
+  - Metadata
+  - Templates
+copyright: 'copyright (c) 2020, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2020
+copyrightHolder: R. S. Doiel
+abstract: |
+  Pandoc supports three ways of providing metadata to its template
+  engine. 
 
+  1. Front matter
+  2. Command line optional metadata
+  3. A JSON metadata file.
+
+  Front matter is a community term that comes from physical world
+  of paper books and articles.  It is the information that comes 
+  before the primary content.  This information might be things 
+  like title, author, publisher and publication date. These days 
+  it'll also include things like identifiers like ISSN, ISBN possibly 
+  newer identifiers like DOI or ORCID. In the library and programming
+  community we refer to this type of structured information as
+  metadata.  Data about the publication or article.
+
+  ...
+dateCreated: '2020-11-11'
+dateModified: '2025-07-22'
+datePublished: '2020-11-11'
+seriesNo: 2
+---
 
 Pandoc & Metadata 
 =================
@@ -195,5 +221,3 @@ U. S. Constitution you could use the following Pandoc command:
 ~~~
 
 See [Magna Carta](magnacarta.html), [The Declaration of Independence](independence.html), [U. S. Constitution](constitution.html)
-
-

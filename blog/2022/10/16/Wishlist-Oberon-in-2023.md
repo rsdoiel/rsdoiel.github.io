@@ -1,9 +1,29 @@
 ---
-title: "Wish list for Oberon in 2023"
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-byline: "R. S. Doiel, 2022-10-16"
-pubDate: 2022-10-16
-keywords: [ "Oberon", "Oberon-07", "Oberon System", "Artemis" ]
+title: Wish list for Oberon in 2023
+author: rsdoiel@gmail.com (R. S. Doiel)
+byline: 'R. S. Doiel, 2022-10-16'
+pubDate: 2022-10-16T00:00:00.000Z
+keywords:
+  - Oberon
+  - Oberon-07
+  - Oberon System
+  - Artemis
+copyrightYear: 2022
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  Next year will be ten years since Prof. Wirth and Paul Reed released [Project
+  Oberon 2013](https://www.projectoberon.com).  It took me most of that decade
+  to stumble on the project and community.  I am left wondering if Prof. Wirth
+  and Paul Reed sat down today what would they design? I think only minor
+  changes are needed and those mostly around assumptions.
+
+
+
+  ...
+dateCreated: '2022-10-16'
+dateModified: '2025-07-22'
+datePublished: '2022-10-16'
 ---
 
 Wish list for Oberon in 2023

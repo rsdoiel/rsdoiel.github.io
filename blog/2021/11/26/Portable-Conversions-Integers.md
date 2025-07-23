@@ -1,11 +1,38 @@
 ---
-title: "Portable Conversions (Integers)"
+title: Portable Conversions (Integers)
 number: 21
-author: "rsdoiel@gmail.com (R. S. Doiel)"
-date: "2021-11-26"
-copyright: "copyright (c) 2021, R. S. Doiel"
-keywords: [ "Oberon", "Modules", "Types", "conversion" ]
-license: "https://creativecommons.org/licenses/by-sa/4.0/"
+author: rsdoiel@gmail.com (R. S. Doiel)
+date: '2021-11-26'
+copyright: 'copyright (c) 2021, R. S. Doiel'
+keywords:
+  - Oberon
+  - Modules
+  - Types
+  - conversion
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2021
+copyrightHolder: R. S. Doiel
+abstract: >
+  An area in working with Oberon-07 on a POSIX machine that has proven
+  problematic is type conversion. In particular converting to and from INTEGER
+  or REAL and ASCII.  None of the three compilers I am exploring provide a
+  common way of handling this. I've explored relying on C libraries but that
+  approach has it's own set of problems.  I've become convinced a better
+  approach is a pure Oberon-07 library that handles type conversion with a
+  minimum of assumptions about the implementation details of the Oberon compiler
+  or hardware. I'm calling my conversion module "Types". The name is short and
+  descriptive and seems an appropriate name for a module consisting of type
+  conversion tests and transformations.  My initial implementation will focusing
+  on converting integers to and from ASCII.
+
+
+  ...
+dateCreated: '2021-11-26'
+dateModified: '2025-07-22'
+datePublished: '2021-11-26'
+series: |
+  Mostly Oberon
+seriesNo: 19
 ---
 
 Portable conversions (Integers)
@@ -373,5 +400,3 @@ Previous
 --------
 
 - [Revisiting Files](../../11/22/Revisiting-Files.html)
-
-

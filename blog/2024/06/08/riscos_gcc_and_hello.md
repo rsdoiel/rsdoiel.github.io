@@ -1,7 +1,7 @@
 ---
-title: RISC OS 5.30, GCC 4.7 and Hello World
-created: 2024-06-08
-pubDate: 2024-06-08
+title: 'RISC OS 5.30, GCC 4.7 and Hello World'
+created: 2024-06-08T00:00:00.000Z
+pubDate: 2024-06-08T00:00:00.000Z
 abstract: |
   These are my notes on learning to program a Raspberry Pi Zero W
   under RISC OS using GCC 4.7 and RISC OS 5.30
@@ -11,8 +11,15 @@ keywords:
   - GCC
   - C Programming
 references:
-  - Steve Fryatt's tutorial <https://www.stevefryatt.org.uk/risc-os/wimp-prog>
+  - 'Steve Fryatt''s tutorial <https://www.stevefryatt.org.uk/risc-os/wimp-prog>'
   - James Hobson's YouTUBE Video showing a summary of Steve Fryatt's tutorial
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2024-06-08'
+dateModified: '2025-07-23'
+datePublished: '2024-06-08'
 ---
 
 # RISC OS 5.30, GCC 4.7 and Hello World
@@ -166,4 +173,3 @@ and `!Cleanup`
 Set HelloWorld$Dir <Obey$Dir>
 Delete !HelloWorld
 ~~~
-
