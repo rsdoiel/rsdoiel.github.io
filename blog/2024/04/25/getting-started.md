@@ -1,8 +1,33 @@
 ---
 title: Getting Started with Miranda
-byline: R. S. Doiel, 2024-04-25
-keywords: [ "functional", "miranda" ]
-pubDate: 2024-04-25
+byline: 'R. S. Doiel, 2024-04-25'
+keywords:
+  - functional
+  - miranda
+pubDate: 2024-04-25T00:00:00.000Z
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  I've been interested in exploring the Miranda programming language. Miranda
+  influenced Haskell. Haskell was used for programs I use almost daily such as
+  [Pandoc](https://pandoc.org) and [shellcheck](https://www.shellcheck.net/).
+  I've given a quick review of [miranda.org.uk](https://miranda.org.uk) to get a
+  sense of the language but to follow along with the [Miranda: The Craft of
+  Functional
+  Programming](https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/) it is
+  really helpful to have Miranda available on my machine. Today that machine is
+  a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode
+  C tool chain.  I ran into to minor hiccups in compilation and installation.
+  Both easy to overcome but ones I will surely forget in the future. Thus I
+  write myself another blog post.
+
+
+  ...
+dateCreated: '2024-04-25'
+dateModified: '2025-07-23'
+datePublished: '2024-04-25'
 ---
 
 # Getting Started with Miranda
@@ -64,5 +89,3 @@ MAN=$(HOME)/man/man1
 ~~~
 
 In my `.profile` I set the `MIRALIB` variable to point at `$HOME/lib/miralib`. I opened a new terminal session and ran `mira` and the interpreter was up and running.
-
-

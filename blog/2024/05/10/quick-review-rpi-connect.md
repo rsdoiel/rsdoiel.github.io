@@ -1,8 +1,20 @@
 ---
 title: A quick review of Raspberry Pi Connect
-byline: R. S. Doiel, 2024-05-10
-keywords: [ "raspberry pi" ]
-pubDate: 2024-05-10
+byline: 'R. S. Doiel, 2024-05-10'
+keywords:
+  - raspberry pi
+  - connect
+  - realvnc
+pubDate: 2024-05-10T00:00:00.000Z
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: |
+  A review of Raspberry Pi Connect as an alternative to using RealVNC.
+dateCreated: '2024-05-10'
+dateModified: '2025-07-23'
+datePublished: '2024-05-10'
 ---
 
 # A quick review of Raspberry Pi Connect
@@ -44,4 +56,3 @@ If I was setting up a new set of Raspberry Pi 4/400 or 5s then I'd probably skip
 Is screen sharing the only thing Raspberry Pi Connect provides?
 
 I expect if Raspberry Pi Connect proves successful we'll see other enhancements. One of the ones mentioned in the forums was SSH services without the hassle of dealing with setting up tunnels. The folks in the Raspberry Pi company, foundation and community are pretty creative. It'll be interesting to see where this leads.
-

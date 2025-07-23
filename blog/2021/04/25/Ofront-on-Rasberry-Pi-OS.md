@@ -13,35 +13,18 @@ copyright: 'copyright (c) 2021, R. S. Doiel'
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 copyrightYear: 2021
 copyrightHolder: R. S. Doiel
-abstract: >
+abstract: |
 
-  This post is about getting Ofront[^1] up and running on Raspberry Pi OS[^2].
-
-  Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4[^3]
-
+  This post is about getting Ofront up and running on Raspberry Pi OS.
+  Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4
   development environment. There are additional clever tools like `ocat`
-
   that are helpful working with the differences in text file formats between
-
   Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of
-
   POSIX with minimal compromises that distract from the Oberon experience.
-
-
-  [^1]: Ofront was developed by Joseph Templ, see
-  http://www.software-templ.com/ 
-
-
-  [^2]: see https://www.raspberrypi.org/software/ (a 32 bit Debian based Linux
-  for both i386 and ARM)
-
-
-  [^3]: see https://ssw.jku.at/Research/Projects/Oberon.html
-
 
   ...
 dateCreated: '2021-04-25'
-dateModified: '2025-07-22'
+dateModified: '2025-07-23'
 datePublished: '2021-04-25'
 series: |
   Mostly Oberon

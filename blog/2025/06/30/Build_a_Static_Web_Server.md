@@ -4,17 +4,21 @@ author: R. S. Doiel
 byline: R. S. Doiel
 abstract: |
   This post discusses static web server implementation using Deno.
-dateCreated: 2025-06-30
-pubDate: 2025-06-30
-dateModified: 2025-07-01
+dateCreated: '2025-06-30'
+pubDate: 2025-06-30T00:00:00.000Z
+dateModified: '2025-07-23'
 series: Deno and TypeScript
 number: 8
 keywords:
   - web service
   - static web site
   - JavaScript
-copyright: copyright (c) 2025, R. S. Doiel
-license: https://creativecommons.org/licenses/by-sa/4.0/
+copyright: 'copyright (c) 2025, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+datePublished: '2025-06-30'
+seriesNo: 8
 ---
 
 # Build your own static web server with Deno
@@ -438,4 +442,3 @@ webserver
 ~~~
 
 There you have it. I have a new convenient static web server for serving static content on localhost.
-

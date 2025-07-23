@@ -1,14 +1,23 @@
 ---
-title: Deno 2.1.7, Points of Friction
+title: 'Deno 2.1.7, Points of Friction'
 byline: R. S. Doiel
-abstract: |
-  A short discussion of working with file input in TypeScript+Deno coming from the
+abstract: >
+  A short discussion of working with file input in TypeScript+Deno coming from
+  the
+
   perspective of Go's idiomatic use of io buffers.
-createdDate: 2025-01-26
+createdDate: 2025-01-26T00:00:00.000Z
 keywords:
   - deno
   - text
   - input
+author: R. S. Doiel
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-01-26'
+dateModified: '2025-07-23'
+datePublished: '2025-01-26'
 ---
 
 # Deno 2.1.7, Points of Friction
@@ -156,5 +165,3 @@ if (import.meta.main) main();
 ~~~
 
 The "any" type feels a little ugly but since I am assinging the default value is `Deno.stdin` it covers that case where the `Deno.FsFile` covers the case of a name file.  Where does this leave me? I have a nice clean idiom that does what I want for interacting with standard input or a file stream.  Not necessarily the fast thing on the planet but it works.
-
-

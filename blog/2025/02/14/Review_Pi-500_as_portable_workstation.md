@@ -1,14 +1,20 @@
 ---
-title: Setting up my Raspberry Pi 500, a Portable Workstation
+title: 'Setting up my Raspberry Pi 500, a Portable Workstation'
 author: R. S. Doiel
-byline: R. S. Doiel, 2025-02-14
-dateCreated: 2025-02-14
-abstract: |
-  Quick notes on configuring a Raspberry Pi 500 as a portable workstation along with a price list.
+byline: 'R. S. Doiel, 2025-02-14'
+dateCreated: '2025-02-14'
+abstract: >
+  Quick notes on configuring a Raspberry Pi 500 as a portable workstation along
+  with a price list.
 keywords:
   - Raspberry Pi
   - Workstation
   - Review
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateModified: '2025-07-23'
+datePublished: '2025-02-14'
 ---
 
 # Setting up my Raspberry Pi 500, a Portable Workstation
@@ -63,4 +69,3 @@ I this setup as a portable  workstation. It feels quick and snappy but is small 
 With a connection to my home WiFi network (not a fast connection) it took me about an hour or so to download and install all my extras. This was quicker than the last time I setup a Pi. Some of the time saved was the better hardware and net work performance but much of the time saved was due to the fact that I did not have to compile software from scratch. That was a change from the last time I setup a Pi up.  I guess  Pi and aarch64 processors are common enough that projects are now including it in their regular builds.
 
 If  I pickup the right capacity battery I suspect I will have a lovely deconstructed Laptop to use as a portable workstation.
-

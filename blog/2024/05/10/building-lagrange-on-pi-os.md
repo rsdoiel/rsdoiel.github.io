@@ -1,8 +1,31 @@
 ---
 title: Building Lagrange on Raspberry Pi OS
-pubDate: 2024-05-10
+pubDate: 2024-05-10T00:00:00.000Z
 author: R. S. Doiel
-byline: R. S. Doiel, 2024-05-10
+byline: 'R. S. Doiel, 2024-05-10'
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  These are my quick notes on building the Lagrange Gemini browser on Raspberry
+  Pi OS. They are based on instructions I found at
+  <gemini://home.gegeweb.org/install_lagrange_linux.gmi>. These are in French
+  and I don't speak or read French. My loss. The author kindly provided the
+  specific command sequence in shell that I could read those. That was all I
+  needed. When I read the site today I had to click through an expired
+  certificate. That's why I think it is a good idea to capture the instructions
+  here for the next time I need them.  I made single change to his instructions.
+  I have cloned the repository from <https://github.com/skyjake/lagrange>.
+
+
+  ...
+dateCreated: '2024-05-10'
+dateModified: '2025-07-23'
+datePublished: '2024-05-10'
+keywords:
+  - Gopher
+  - Gemini
+  - Browsers
 ---
 
 # Building Lagrange on Raspberry Pi OS
@@ -34,4 +57,3 @@ lagrange &
 ~~~
 
 That's about it. It worked without a hitch. I'd like to thank Gérald Niel who I think created the page on gegeweb.org. I attempted to leave a thank you via the web form but couldn't get past the spam screener since I didn't understand the instructions. C'est la vie.
-

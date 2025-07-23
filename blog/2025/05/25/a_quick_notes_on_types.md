@@ -1,12 +1,35 @@
 ---
 title: A quick note on types in Deno+TypeScript
-pubDate: 2025-05-25
+pubDate: 2025-05-25T00:00:00.000Z
 author: R. S. Doiel
-byline: R. S. Doiel, 2025-05-25
+byline: 'R. S. Doiel, 2025-05-25'
 series: Deno+TypeScript
 keywords:
   - TypeScript
   - Deno
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  Understanding the plumbing of a program that is built with Deno in TypeScript
+  can be challenging if you can't identify the type of variables or constants. 
+  TypeScript inherits the JavaScript function, `typeof`. This works nicely for
+  simple types like `string`, `boolean`, `number` but is  less useful when
+  compared to a class or interface name of a data structure.
+
+
+  There are three approaches I've found helpful in my exploration of type
+  metadata when working with Deno+TypeScript. (NOTE: in the following
+
+  the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are
+  querying for type metadata)
+
+
+  ...
+dateCreated: '2025-05-25'
+datePublished: '2025-05-25'
+seriesNo: 3
+dateModified: '2025-07-23'
 ---
 
 # A quick note on types in Deno+TypeScript
@@ -39,6 +62,3 @@ Here's the three types in action.
   console.log(Object.prototype.toString.call(t);
   console.log(t.constructor.name);
 ~~~
-
-
-

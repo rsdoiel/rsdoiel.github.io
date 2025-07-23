@@ -1,7 +1,64 @@
 ---
-title: Two missing features from HTML5, an enhanced form.enctype and a list input type
+title: >-
+  Two missing features from HTML5, an enhanced form.enctype and a list input
+  type
 author: R. S. Doiel
-keywords: [ "html", "web forms", "encoding" ]
+keywords:
+  - html
+  - web forms
+  - encoding
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  I wish the form element supported a `application/json` encoding type and there
+  was such a thing as a `list-input` element.
+
+
+  I've been thinking about how we can get back to basic HTML documents and move
+  away from JavaScript required to render richer web forms. When web forms
+  arrived on scene in the early 
+
+  1990s they included a few basic input types. Over the years a few have been
+  added but by and large the data model has remained relatively flat. The
+  exception being the select 
+
+  element with `multiple` attribute set. I believe we are being limited by the
+  original choice of urlencoding web forms and then resort to JavaScript to
+  address it's limitations.
+
+
+  What does the encoding of a web form actually look like?  The web generally
+  encodes the form using urlencoding. It presents a stream of key value pairs
+  where the keys are the form's 
+
+  input names and the values are the value of the input element. With a
+  multi-select element the browser simply repeats the key and adds the next
+  value in the selection list to that 
+
+  key.  In Go you can describe this simple data structure as a
+  `map[string][]string`. Most of the time a key points to a single element array
+  of string but sometimes it can have 
+
+  multiple elements using that key and then the array expands to accommodate.
+  Most of the time we don't think about this as web developers. The library
+  provided with your programming 
+
+  language decodes the form into a more programmer friendly representation. But
+  still I believe this simple urlencoding has held us back. Let me illustrate
+  the problem through a 
+
+  series of simple form examples.
+
+
+  Here's an example of a simple form with a multi select box. It is asking for
+  your choice of ice cream flavors.
+
+
+  ...
+dateCreated: '2024-02-23'
+dateModified: '2025-07-23'
+datePublished: '2024-02-23'
 ---
 
 # Two missing features from HTML5, an enhanced form.enctype and a list input type
@@ -159,4 +216,3 @@ Which flavor goes with which dish?  That's the problem with urlencoding a list i
 ~~~
 
 Suddenly the alignment problem goes away. There is precedence for controlling behavior of the web browser submission through the `enctype` attribute. File upload was addressed by adding support for `multipart/form-data`.  In 2024 and for over the last decade it has been common practice in web services to support JSON data submission. I believe it is time that the web browser also supports this directly. This would allow us to decouple the necessity of using JavaScript in browser as we require today. The form elements already map well to a JSON encoding. If JSON encoding was enabled then adding a element like my "list-input" would make sense.  Otherwise we remain stuck in a world where hypertext markup language remains very limited and can't live without JavaScript.
-

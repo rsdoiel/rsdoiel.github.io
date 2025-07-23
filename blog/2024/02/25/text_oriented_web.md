@@ -1,10 +1,30 @@
 ---
 title: A Text Oriented Web
-createdDate: 2024-02-25
-pubDate: 2024-02-25
+createdDate: 2024-02-25T00:00:00.000Z
+pubDate: 2024-02-25T00:00:00.000Z
 author: R. S. Doiel
-byline: R. S. Doiel, 2024-02-25
-keywords: [ "web", "text" ]
+byline: 'R. S. Doiel, 2024-02-25'
+keywords:
+  - web
+  - text
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  The web is a busy place. There seems to be a gestalt resonant at the moment on
+  the web that can be summarized by two phrases, "back to basics" and
+  "simplification". It is not the first time I've seen this nor is it likely the
+  last. This blog post describes a thought experiment about a simplification
+  with minimal invention and focus on feature elimination. It's a way to think
+  about the web status quo a little differently. My intention is to explore the
+  implications of a more text centered web experience that could coexist as a
+  subset of today's web.
+
+
+  ...
+dateCreated: '2024-02-25'
+dateModified: '2025-07-23'
+datePublished: '2024-02-25'
 ---
 
 # A Text oriented web
@@ -58,5 +78,3 @@ From a thought experiment I can see how to implement this both from a proof of c
 ## Why not Gopher or Gemini?
 
 Tow is not there to replace anything, not Gopher, Not Gemini, the WWW. It is an exploration of a subset of the WWW protocols with a specific focused on textual interaction. I don't see why a server or browser couldn't support Gopher and Gemini as well as Tow. Given that Markdown can easily be rendered into Gem Text, and Markdown can be treated as plain text I suspect you should be able to support all three text rich systems from the same copy and easily derive a full HTML results if desired too.
-
-

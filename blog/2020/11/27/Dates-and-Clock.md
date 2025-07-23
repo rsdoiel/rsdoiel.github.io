@@ -22,7 +22,7 @@ abstract: >
 
   guidelines is modules for working with dates and the system clock.
 
-  Fortunately the A2 Oberon System[^1] provides a template for that
+  Fortunately the A2 Oberon System provides a template for that
 
   functionality. In this article I am exploring implementing the
 
@@ -37,13 +37,9 @@ abstract: >
   `Dates.DateTime` record.
 
 
-  [^1]: A2 information can be found in the [Oberon
-  wikibook](https://en.wikibooks.org/wiki/Oberon#In_A2)
-
-
   ...
 dateCreated: '2020-11-27'
-dateModified: '2025-07-22'
+dateModified: '2025-07-23'
 datePublished: '2020-11-27'
 seriesNo: 14
 ---

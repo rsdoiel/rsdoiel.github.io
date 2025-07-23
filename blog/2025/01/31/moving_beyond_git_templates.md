@@ -1,18 +1,26 @@
 ---
 title: Moving beyond git template repositories with CodeMeta
-createDate: 2025-01-30
-updateDate: 2025-02-03
-pubDate: 2025-01-31
+createDate: 2025-01-30T00:00:00.000Z
+updateDate: 2025-02-03T00:00:00.000Z
+pubDate: 2025-01-31T00:00:00.000Z
 byline: R. S. Doiel
 author: R. S. Doiel
-abstract: |
-  An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.
+abstract: >
+  An exploration of using CodeMeta objects to generate of software artifacts as
+  an alternative to Git template repositories.
 series: Code Generation
 series_no: 1
 keywords:
   - software development
   - programming
   - CodeMeta
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-01-30'
+dateModified: '2025-07-23'
+datePublished: '2025-01-31'
+seriesNo: 1
 ---
 
 # Moving beyond git template repositories with CodeMeta

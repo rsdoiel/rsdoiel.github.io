@@ -1,12 +1,34 @@
 ---
-title: PowerShell and Edit for macOS, Linux and Windows
+title: 'PowerShell and Edit for macOS, Linux and Windows'
 author: R. S. Doiel
-dateCreated: 2025-06-05
-pubDate: 2025-06-05
+dateCreated: '2025-06-05'
+pubDate: 2025-06-05T00:00:00.000Z
 keywords:
   - Windows
   - macOS
   - Linux
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  One of the challenges of multi platform support is the variance in tools. Unix
+  and related operating systems are pretty unified these days. The differences
+  are minor today as opposed to twenty years ago. If you need to support Windows
+  too it's a whole different story. You can jump to Linux Subsystem for Windows
+  but that is really like using a container inside Windows and doesn't solve the
+  problem when you need to work across the whole system. 
+
+
+  Windows' shell experience is varied. Originally it was command com,
+  essentially a enhanced CP/M shell. Much later as Windows moved beyond then
+  replaced MS-DOS they invented PowerShell. Initially a Windows only system.
+  Fast forward today things have change. PowerShell runs across Windows, macOS
+  and Linux. It is even licensed under an MIT style license.
+
+
+  ...
+dateModified: '2025-07-23'
+datePublished: '2025-06-05'
 ---
 
 # PowerShell and Edit on Windows, macOS and Linux

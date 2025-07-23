@@ -1,10 +1,64 @@
 ---
 title: Installing pgloader from source
-byline: R. S. Doiel, 2024-02-01
-keywords: [ "SQL", "Postgres", "PostgreSQL", "MySQL", "pgloader", "lisp", "macos", "ecl", "sbcl" ]
-pubDate: 2024-02-01
-series: "SQL Reflections"
+byline: 'R. S. Doiel, 2024-02-01'
+keywords:
+  - SQL
+  - Postgres
+  - PostgreSQL
+  - MySQL
+  - pgloader
+  - lisp
+  - macos
+  - ecl
+  - sbcl
+pubDate: 2024-02-01T00:00:00.000Z
+series: SQL Reflections
 number: 6
+author: R. S. Doiel
+copyrightYear: 2024
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+abstract: >
+  I'm working on macOS at the moment but I don't use Home Brew so the
+  instructions to install pgloader are problematic for me. Except I know
+  pgloader is a Lisp program and once upon a time I had three different Lisps
+  running on a previous Mac.  So what follows is my modified instructions for
+  bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with
+  Xcode already installed.
+
+
+  ## Getting your Lisps in order
+
+
+  pgloader is written in common list but the instructions at
+  https://pgloader.readthedocs.io/en/latest/install.html specifically mention
+  compiling with [SBCL](https://sbcl.org) which is one of the Lisps I've used in
+  the past. But SBCL isn't (yet) installed on my machine and SBCL is usually
+  compiled using SBCL but can be compiled using other common lists.  Enter
+  [ECL](https://ecl.common-lisp.dev/), aka Embedded Common-Lisp. ECL compiles
+  via a C compiler including the funky setup that macOS has. This means the prep
+  for my machine should look something like
+
+
+  1. Compile then install ECL
+
+  2. Use ECL to compile SBCL
+
+  3. Install SBCL
+
+  4. Now that we have a working SBCL, follow the instructions to compile
+  pgloader and install
+
+
+  NOTE: pgloader requires some specific configuration of SBCL when SBCL is
+  compiled
+
+
+  ...
+dateCreated: '2024-02-01'
+dateModified: '2025-07-23'
+datePublished: '2024-02-01'
+seriesNo: 6
 ---
 
 # Installing pgloader from source
@@ -136,5 +190,3 @@ cp ./build/bin/pgloader $HOME/bin/
 
 Happy Loading.
 , "PostgreSQL"
-
-

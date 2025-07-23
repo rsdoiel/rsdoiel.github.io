@@ -1,17 +1,24 @@
 ---
 title: Building Web Components using Large Language Models
 byline: R. S. Doiel
-author: Doiel, R. S.
-abstract: |
-  Quick discussion of my recent experience bootstrapping the CL-web-components project
-dateCreated: 2025-03-13
-pubDate: 2025-03-13
+author: 'Doiel, R. S.'
+abstract: >
+  Quick discussion of my recent experience bootstrapping the CL-web-components
+  project
+dateCreated: '2025-03-13'
+pubDate: 2025-03-13T00:00:00.000Z
 series: Code Generation
 number: 2
 keywords:
   - LLM
   - Web Components
   - JavaScript
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+datePublished: '2025-03-13'
+seriesNo: 2
+dateModified: '2025-07-23'
 ---
 
 # Building Web Components using Large Language Models
@@ -97,4 +104,3 @@ To solve the rabbit hole problem I adopted the following practices. Keep all my 
 Be willing to throw away the LLM results and start over. This is important in exploratory programming but also when you're using LLM generated code to solve a known problem. If you can tolerate the process of writing and refining the prompts in your native language the LLM will happily attempt to generate code for them. I'd love to get some English and Philosophy graduates using LLM for code generation. It'd be interesting to see how their skills may out perform those of traditionally educated software engineering graduates. I think the humanities fields that could benefit from a quantitative approach may find LLM to generate code to do analysis really compelling.
 
 While I like the results I got for this specific tests I remain on the fence about **general usefulness** of LLM in the area of code generation. I suspect it'll take time before the shared knowledge and practice in using them emerges. There is also the problem of energy consumption.  This feels like the whole "proof of work" problem consuming massive amounts of electricity in the block chain tech. That alone was enough to turn me off of block chain for most of its proposed applications. Hopefully alternatives will be developed to avoid that outcome with large language models.
-

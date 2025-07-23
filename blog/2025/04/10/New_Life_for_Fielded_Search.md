@@ -1,15 +1,15 @@
 ---
 title: New Life for Fielded Search
-pubDate: 2025-04-10
+pubDate: 2025-04-10T00:00:00.000Z
 author: R. S. Doiel
 abstract: |
   A day dreaming in response to a Simon Willison post on using language models
   to convert queries into fielded searches. In this post I extrapolate how this
   could result in a more private search experience and allow for an enhanced
   search experience for static websites.
-dateCreated: 2025-04-10
-dateModified: 2025-04-10
-series: "Personal Search Engine"
+dateCreated: '2025-04-10'
+dateModified: '2025-07-23'
+series: Personal Search Engine
 number: 3
 keywords:
   - search
@@ -17,6 +17,11 @@ keywords:
   - Ollama
   - PageFind
   - FlatLake
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+datePublished: '2025-04-10'
+seriesNo: 3
 ---
 
 # New Life for Fielded Searches
@@ -57,4 +62,3 @@ I first encounter browser side search solution with Oliver Nightingale's [Lunrjs
 **Could a PageFind approach work for migrating the language model service browser side?**
 
 If the answer were yes, then would be a huge win for privacy. It would benefit libraries, archives and museums by allowing them to host rich search experiences while also taking advantage of the low cost and defensibilty of static site deployments.
-

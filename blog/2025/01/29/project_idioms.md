@@ -1,13 +1,21 @@
 ---
-title: Deno 2.1.7, Project Idioms
+title: 'Deno 2.1.7, Project Idioms'
 byline: R. S. Doiel
 author: R. S. Doiel
-abstract: Notes on some of the file and code idioms I'm using with Deno+TypeScript projects.
-createDate: 2025-01-29
+abstract: >-
+  Notes on some of the file and code idioms I'm using with Deno+TypeScript
+  projects.
+createDate: 2025-01-29T00:00:00.000Z
 keywords:
   - Deno
   - TypeScript
   - Projects
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-01-29'
+dateModified: '2025-07-23'
+datePublished: '2025-01-29'
 ---
 
 # Deno 2.1.7, Project Idioms

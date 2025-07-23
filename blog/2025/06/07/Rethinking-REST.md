@@ -2,17 +2,27 @@
 title: Rethinking REST
 author: R. S. Doiel
 byline: R. S. Doiel
-abstract: |
-  I am re-thinking my reliance on REST's implementation of the CRUD abstraction in favor of the simpler
-  read write file abstraction in my web application. This can be accomplished in SQL easily. This post
-  covers an example of doing this in SQLite3 while also implementing JSON object versioning.
+abstract: >
+  I am re-thinking my reliance on REST's implementation of the CRUD abstraction
+  in favor of the simpler
 
-  Coverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3's
-  `on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.
+  read write file abstraction in my web application. This can be accomplished in
+  SQL easily. This post
+
+  covers an example of doing this in SQLite3 while also implementing JSON object
+  versioning.
+
+
+  Coverted are implenting the write abstraction using an upsert operation based
+  on `insert` and SQLite3's
+
+  `on conflict` clause. The object versioning is implemented using a simple
+  trigger on the JSON column.
+
   The trigger maintains the version number and updated timestamp.
-dateCreated: 2025-05-31
-dateModified: 2025-06-09
-pubDate: 2025-06-08
+dateCreated: '2025-05-31'
+dateModified: '2025-07-23'
+pubDate: 2025-06-08T00:00:00.000Z
 series: SQL Reflections
 number: 7
 keywords:
@@ -23,8 +33,12 @@ keywords:
   - read write web
   - SQL
   - SQLite3
-copyright: copyright (c) 2025, R. S. Doiel
-license: https://creativecommons.org/licenses/by-sa/4.0/
+copyright: 'copyright (c) 2025, R. S. Doiel'
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+datePublished: '2025-06-08'
+seriesNo: 7
 ---
 
 # Rethinking REST

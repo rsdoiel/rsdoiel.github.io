@@ -3,10 +3,16 @@ title: LLM first impressions a few weeks in
 abstract: |
   A first take of LLM use for coding projects.
 author: R. S. Doiel
-byline: R. S. Doiel, 2025-03-30
-dateCreated: 2025-03-30
-dateModified: 2025-03-30
-pubDate: 2025-03-30
+byline: 'R. S. Doiel, 2025-03-30'
+dateCreated: '2025-03-30'
+dateModified: '2025-07-23'
+pubDate: 2025-03-30T00:00:00.000Z
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+datePublished: '2025-03-30'
+keywords:
+  - LLM
 ---
 
 # LLM first impressions a few weeks in
@@ -35,7 +41,3 @@ The first step in my current approach is well suited to adopting an LLM for code
 An intriguing analog to developing with an LLM environment is [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) advocated by [Knuth](https://en.wikipedia.org/wiki/Donald_Knuth). The LLM I've tried have used a chat interface. Even if the chat conversation is read back there is allot of duplicate text to listen to. Current chat responses are usually presented in Markdown with embedded code blocks. This is feels like a simplified version of Knuth's approach using TeX with embedded code blocks. It feels familiar to me. The Chat UI model presents many of the challenges I remember trying out literate programming. For some people a literate approach resulted in better code. I'm not sure it was true for everyone. For some an LLM might encourage more thinking as dialog can be useful that way. It might be easier to be more objectively when vetting because the ego isn't challenged in the generated code. It is hard to say with certainty.
 
 I have found one significant advantage of the LLM generated code. It is a byproduct of large training sets. The generated code tends to look average. It tends to avoid obfuscation. It mostly is reasonably readable. If the computing resources were significantly lower I'd feel more comfortable with this approach over the long run. The current state needs radical simplification. The LLM development environment is overly complex. If it is running on my hardware why does it need to be implemented as a web service at all? I think allot of the complexity is intentional. It benefits consolidation of tooling in the cloud. The cloud where we rent the tools of our trade. LLM development environment's complexity and energy consumption weight heavily on me as I explore this approach. It is too early to tell if it should be a regular tool in my toolbox. It is too early to know if it is useful for sustainable software practices.
-
-
-
-

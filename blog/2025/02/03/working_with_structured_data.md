@@ -1,13 +1,20 @@
 ---
 title: Working with Structured Data in Deno and TypeScript
-createDate: 2025-02-03
+createDate: 2025-02-03T00:00:00.000Z
 abstract: |
   A short discourse on working with structured data in TypeScript and easily
   converting from JSON, YAML and XML representations.
 keywords:
-    - Deno
-    - TypeScript
-    - Structured Data
+  - Deno
+  - TypeScript
+  - Structured Data
+author: R. S. Doiel
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-02-03'
+datePublished: '2025-02-03'
+dateModified: '2025-07-23'
 ---
 
 # Working with Structured Data in Deno and TypeScript

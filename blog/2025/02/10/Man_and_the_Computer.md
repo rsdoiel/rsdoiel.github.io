@@ -1,12 +1,15 @@
 ---
-title: Book review, "Man and the Computer"
+title: 'Book review, "Man and the Computer"'
 author: R. S. Doiel
-byline: R. S. Doiel, 2025-02-10
-abstract: |
+byline: 'R. S. Doiel, 2025-02-10'
+abstract: >
   A book review of a vintage computer publication, "Man and the Computer" by
+
   John G. Kemeny, published 1972, ISBN: 0684130092
-  Read at the Open Library, <https://openlibrary.org/books/OL5282840M/Man_and_the_computer> 
-createDate: 2025-02-10
+
+  Read at the Open Library,
+  <https://openlibrary.org/books/OL5282840M/Man_and_the_computer> 
+createDate: 2025-02-10T00:00:00.000Z
 series: books
 keywords:
   - book review
@@ -14,6 +17,13 @@ keywords:
   - basic
   - time-sharing
   - John G. Kemeny
+copyrightYear: 2025
+copyrightHolder: R. S. Doiel
+license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-02-10'
+datePublished: '2025-02-10'
+dateModified: '2025-07-23'
+seriesNo: 1
 ---
 
 # Book review, "Man and the Computer"

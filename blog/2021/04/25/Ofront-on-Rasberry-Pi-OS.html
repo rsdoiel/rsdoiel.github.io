@@ -37,12 +37,12 @@ Oberon, V4, Linz">
   <article>
 <h1 id="ofront-on-raspberry-pi-os">Ofront on Raspberry Pi OS</h1>
 <p>By R. S. Doiel, 2021-04-25</p>
-<p>This post is about getting Ofront<a href="#fn4" class="footnote-ref"
-id="fnref4" role="doc-noteref"><sup>4</sup></a> up and running on
-Raspberry Pi OS<a href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>. Ofront provides a Oberon-2 to C
-transpiler as well as a Oberon V4<a href="#fn6" class="footnote-ref"
-id="fnref6" role="doc-noteref"><sup>6</sup></a> development environment.
+<p>This post is about getting Ofront<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> up and running on
+Raspberry Pi OS<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>. Ofront provides a Oberon-2 to C
+transpiler as well as a Oberon V4<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> development environment.
 There are additional clever tools like <code>ocat</code> that are
 helpful working with the differences in text file formats between Oberon
 System 3, V4 and POSIX. The V4 implementation sits nicely on top of
@@ -50,8 +50,8 @@ POSIX with minimal compromises that distract from the Oberon
 experience.</p>
 <h2 id="an-initial-impression">An Initial Impression</h2>
 <p>I first heard of running Ofront/V4 via the ETH Oberon Mail list<a
-href="#fn7" class="footnote-ref" id="fnref7"
-role="doc-noteref"><sup>7</sup></a>. What caught my eye is the reference
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>. What caught my eye is the reference
 to running on Raspberry Pi. Prof. Templ provides two flavors of Ofront.
 One targets the Raspberry Pi OS on ARM hardware the second Linux on
 i386. The Raspberry Pi OS for Intel is an i386 variant. I downloaded the
@@ -96,8 +96,8 @@ Raspberry Pi OS.</p>
 <p>The following software is usually already installed on your Raspberry
 Pi OS.</p>
 <ul>
-<li>curl to download the files<a href="#fn8" class="footnote-ref"
-id="fnref8" role="doc-noteref"><sup>8</sup></a></li>
+<li>curl to download the files<a href="#fn5" class="footnote-ref"
+id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
 <li>gunzip to uncompressed the archive file</li>
 <li>tar to unpack the archive file</li>
 </ul>
@@ -131,8 +131,8 @@ font rendering with be very slow).</p>
     ./oberon.bash</code></pre>
 <p>You can exit the V4 environment by closing the window or typing
 <code>System.Quit ~</code> in an Oberon viewer and middle clicking with
-your mouse<a href="#fn9" class="footnote-ref" id="fnref9"
-role="doc-noteref"><sup>9</sup></a>.</p>
+your mouse<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a>.</p>
 <p>The reason the system is so slow is that X is having to write bitmaps
 a pixel at a time in the window holding our Oberon System. What we want
 X to do is render an X Window font. Joseph as provided us with the
@@ -197,8 +197,8 @@ coloring and that is treated as normal text. End of line characters are
 represented as a carriage return. In POSIX environments we have “plain
 text” without specific font directives and we use a line feed to
 terminate lines. Fortunately Prof. Templ provided a program called
-<code>ocat</code><a href="#fn10" class="footnote-ref" id="fnref10"
-role="doc-noteref"><sup>10</sup></a> that makes short work of converting
+<code>ocat</code><a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> that makes short work of converting
 an Oberon text into a POSIX friendly format. On the Oberon side of
 things it’s also easy because Oberon will treat an ASCII file as a text
 we only need to convert the line endings and in the Ofront
@@ -246,8 +246,8 @@ list, for now I am content exploring the system as is.</p>
 <h2 id="someday-maybe">Someday, Maybe</h2>
 <p>Things that come to mind after initial exploration include–</p>
 <ul>
-<li>Figure out how to make Atkinson-Hyperlegible<a href="#fn11"
-class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>
+<li>Figure out how to make Atkinson-Hyperlegible<a href="#fn8"
+class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>
 available to V4</li>
 <li>Replace the X11 integration with SDL 2 integration and run under
 macOS or Windows</li>
@@ -268,29 +268,21 @@ Debian based Linux for both i386 and ARM)<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>see https://ssw.jku.at/Research/Projects/Oberon.html<a
 href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>Ofront was developed by Joseph Templ, see
-http://www.software-templ.com/<a href="#fnref4" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>see https://www.raspberrypi.org/software/ (a 32 bit
-Debian based Linux for both i386 and ARM)<a href="#fnref5"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>see https://ssw.jku.at/Research/Projects/Oberon.html<a
-href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>See Hans Klaver’s message:
+<li id="fn4"><p>See Hans Klaver’s message:
 http://lists.inf.ethz.ch/pipermail/oberon/2021/015514.html<a
-href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>If not try <code>sudo apt install curl</code> from the
-command line<a href="#fnref8" class="footnote-back"
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>If not try <code>sudo apt install curl</code> from the
+command line<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Oberon Systems expect a three button mouse, with a two
+<li id="fn6"><p>Oberon Systems expect a three button mouse, with a two
 button mouse you hold the alt key and press the left button. Note that
-command in Oberon are case sensitive.<a href="#fnref9"
+command in Oberon are case sensitive.<a href="#fnref6"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>In the <code>ofront_1.4</code> directory run
-<code>man man1/ocat.1</code> to find out more<a href="#fnref10"
+<li id="fn7"><p>In the <code>ofront_1.4</code> directory run
+<code>man man1/ocat.1</code> to find out more<a href="#fnref7"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>See https://brailleinstitute.org/freefont<a
-href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>See https://brailleinstitute.org/freefont<a
+href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </article>
