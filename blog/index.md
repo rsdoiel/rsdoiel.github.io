@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Signed Binaries and Business Models](/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.md), 2025-07-24
 - [Simplifying BlogIt](/blog/2025/07/21/Simplifying_BlogIt.md), 2025-07-21
 - [Build a Static Web Server with Deno](/blog/2025/06/30/Build_a_Static_Web_Server.md), 2025-06-30
 - [Rethinking REST](/blog/2025/06/07/Rethinking-REST.md), 2025-06-07
