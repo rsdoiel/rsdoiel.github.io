@@ -27,7 +27,7 @@ Apple's insistence on requiring payment is a little rich. Apple's operating syst
 
 ## Why no signed binaries for other companies?
 
-When Robert considered Apple's policies and he rejected the fee to write software. When Microsoft, Google, et el. followed a similar path Robert's eye brows raised in extreme skepticism. Robert was concerned for his eye brows. Robert's perception is this is less about actual security and more about business models and the potential to enable vendor lock in. This seems incredibly silly to Robert. Robert is stubborn person. Robert isn't going along with this practice. Robert apologizes for the inconvenience but insist he doesn't like the feeling of being extorted for lunch money. Robert feels he should be free to practice his vocation of writing open source software without being required to participate in business models that neither benefit his employer, community or himself.
+When Robert considered Apple's policies and he rejected the fee to write software. When Microsoft, Google, et el. followed a similar path Robert's eye brows raised in extreme skepticism. Robert was concerned for his eye brows. Robert's perception is this is less about actual security and more about business models and the potential to enable vendor lock in. This seems incredibly silly to Robert. Robert is a stubborn person. Robert isn't going along with this practice. Robert apologizes for the inconvenience but insist he doesn't like the feeling of being extorted for lunch money. Robert feels he should be free to practice his vocation of writing open source software without being required to participate in business models that neither benefit his employer, community or himself.
 
 ## What are your options to use the software?
 
