@@ -21,7 +21,7 @@ datePublished: '2025-07-24'
 
 ## Why no Apple signed binaries?
 
-To sign the binaries I would need to be an "Apple Developer". To be an "Apple Developer", I or someone on his behalf would need to pay an annual fee. I, Robert, thinks this is ridiculous. Why do you need to pay someone to write software for hardware that was already paid for? It feels like being extorted for your lunch money. Robert is stubborn and refuses to be an Apple Developer. Robert writes Open Source software so anyone can compile should they choose including Apple employees. He does not extort lunch money from them.
+To sign the binaries I would need to be an "Apple Developer". To be an "Apple Developer", I or someone on his behalf would need to pay an annual fee. I, Robert, thinks this is ridiculous. Why do you need to pay someone to write software for hardware that was already paid for? It feels like being extorted for your lunch money. I am stubborn and refuse to be an Apple Developer. I write Open Source software so anyone can compile should they choose including Apple employees. I does not extort lunch money from them.
 
 Apple's insistence on requiring payment is a little rich. Apple's operating systems, macOS and iOS, are derived from Open Source software. Apple's current operating systems are derived form the Mach kernel and BSD. The developer tools are derived from Clang, another open source software ecosystem. The software I write is also open source. There's a trend somewhere on that path.
 
