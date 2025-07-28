@@ -29,6 +29,8 @@ atTags:
 
 # Building a CommonMark Processor in Deno+TypeScript
 
+By R. S. Doiel, 2025-07-26
+
 CommonMark and Markdown are easier to proof read and edit than HTML. CommonMark is a super set of John Grubber's original Markdown. It incorporates common practices and extensions to the original Markdown. I've found over the years the "Markdown" I type is really "CommonMark". I use [Pandoc](https://pandoc.org) for processing my CommonMark documents into HTML. There are a few transforms I'd like to make before I send the text off to Pandoc. That is what I'll be covering.
 
 My CommonMark Processor will be responsible for several things. The features I miss are simple. Here's the short list.

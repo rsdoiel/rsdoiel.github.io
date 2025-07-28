@@ -15,11 +15,11 @@ copyrightHolder: R. S. Doiel
 dateModified: '2025-07-28'
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 datePublished: '2025-07-24'
-hashTags: []
-atTags: []
 ---
 
 # Thoughts on signed binaries and business models
+
+By R. S. Doiel, 2025-07-24
 
 ## Why no Apple signed binaries?
 
