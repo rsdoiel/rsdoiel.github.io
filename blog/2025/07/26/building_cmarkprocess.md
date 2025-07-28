@@ -9,7 +9,6 @@ abstract: >
 
     - support `@include-code-block` for including code samples as code blocks
     - support `@include-text-block` for include plain text into a CommonMark document
-    - support mapping links with file extension ".md" to ".html"
     - transform Hashtags into front matter
     - transform @Tags into front matter
 keywords:
@@ -17,7 +16,7 @@ keywords:
   - Markdown
   - Front Matter
 dateCreated: 2025-07-26T00:00:00.000Z
-dateModified: 2025-07-26T00:00:00.000Z
+dateModified: 2025-07-28T00:00:00.000Z
 datePublished: 2025-07-26T00:00:00.000Z
 author: R. S. Doiel
 copyrightYear: 2025
@@ -28,11 +27,9 @@ atTags:
   - '@include'
 ---
 
-# Building cmarkprocess
+# Building a CommonMark Processor in Deno+TypeScript
 
-## Building a CommonMark Processor in Deno+TypeScript
-
-CommonMark and Markdown are easier to proof read and edit than HTML. CommonMark is a super set of John Grubber's original Markdown. It incorporates common practices and extensions to the original Markdown. I've found over the years the "Markdown" I type is really "CommonMark". I depend on those extensions. While I enjoying using [Pandoc](https://pandoc.org) for processing my CommonMark documents I also have found there are a few transforms I'd like to make before I send the text off to Pandoc. That is what I'll be covering here.
+CommonMark and Markdown are easier to proof read and edit than HTML. CommonMark is a super set of John Grubber's original Markdown. It incorporates common practices and extensions to the original Markdown. I've found over the years the "Markdown" I type is really "CommonMark". I use [Pandoc](https://pandoc.org) for processing my CommonMark documents into HTML. There are a few transforms I'd like to make before I send the text off to Pandoc. That is what I'll be covering.
 
 My CommonMark Processor will be responsible for several things. The features I miss are simple. Here's the short list.
 
@@ -41,9 +38,8 @@ My CommonMark Processor will be responsible for several things. The features I m
 - transform Hashtags into front matter
 - transform web Mentions into front matter
 
-I commonly need to include source code in my blog posts.  That lead me to think about an include mechanism that would pull in the source code and form a CommonMark code block. On my homepage the index CommonMark page is built from plain text files. Some of the files are generated and some are text I edit by hand. Finally I've been thinking allot about [Hashtag](https://en.wikipedia.org/wiki/Hashtag) and web [Mentions](https://en.wikipedia.org/wiki/Mention_(blogging)). I think both offer possibilities for evolving my site. I a think they might be useful for generating feeds, tag clouds, topic indexes or facets used in search results. Overtime I'll explore new features. The `commonMarkDoc.ts` module needs to be simple to extend.
-
-The Hashtag and Mentions are standardized. A regular expression should be suitable to pick them out. The difference between extracting a Hashtag or Mentions is only in the prefix, "#" or "@". A regular expression should due nicely here too.
+My homepage is built from a sequence of plain text files.
+I also commonly need to include source code in my blog posts.  That has lead me to think about an include mechanisms. A source file should be included in a CommonMark code block while plain text can be included as is. 
 
 The include blocks, text and code, can also be detected through regular expression. The difference for those is they require reading files from disk. That needs to be handled.
 
@@ -53,11 +49,15 @@ Here's the syntax I'd use for code block and included texts.
 
   > `@include-text-block` `FILEPATH`
 
-Since I want to easily extend the processor I'll create each of these as modules. Each will include a function that implements the transform. The `process` method will be responsible for handling the function results.
+Finally I'd to add support for [Hashtags](https://en.wikipedia.org/wiki/Hashtag) and web [Mentions](https://en.wikipedia.org/wiki/Mention_(blogging)). I want to explore integrating both with facets in search results, for that I'll need to track them in the front matter. Overtime I'll explore new features. The `commonMarkDoc.ts` module needs to be simple to extend.
 
-Let's take a look at the CommonMark document object. I need to take text, parse it and have the object holding the CommonMark document split it into front matter and content. Similarly I will need to reassemble the parts into back into a CommonMark text.  Those functions will be called `parse` and `stringify` as idioms established in TypeScript and JavaScript. The object type will be called `CommonMarkDoc`.
+How do I extract Hashtags and Mentions? Both are function similar though are used for different purposes. A regular expression should be suitable to pick them out. The difference between extracting a Hashtag or a Mention is the prefix, "#" or "@". A function that code use the supplied text and prefix could return a list of tagged results.
 
-Heres the basic outline of the `CommonMarkDoc` object.
+I want to easily extend the processor. I can create modules based on the transforms I need. Each module will include a function that implements the transform. The `process` method will be responsible for sequencing the transforms and updating the CommonMark object with the results.
+
+What do I need in my CommonMark document object? I need to take the markup, parse it and have the object holding the CommonMark document split into front matter and content. Similarly I will need to reassemble the parts into back into a CommonMark text.  Those functions will be called `parse` and `stringify`. These names are idiomatic in JavaScript and TypeScript. The object type will be called `CommonMarkDoc`.
+
+Here is the basic outline of the `CommonMarkDoc` object without the `process` method.
 
 ~~~TypeScript
 /**
@@ -122,57 +122,21 @@ ${this.content}`;
 
 ~~~
 
-This establishes an object that makes it easy to work with front matter and the content part of a CommonMark document. The `parse` and `stringify` methods bookend the processing and transformation. The middle method will be called `process`. 
+This object makes it easy to work the front matter and the main content parts of a CommonMark document. The `parse` and `stringify` methods can bookend the `process` method implementing the transform sequence. This provides the functionality needed to implement a CommonMark Processor.
 
-The `process` method is where I need to minimize complexity. It will evolve overtime. To keep `process` simple I will implement each transform as it's own module. The `process` module only needs to manage the sequence of transforms.
+The `process` method will evolve overtime. I need to minimize its complexity. The `process` method is only responsible for sequencing the transforms defined in their own modules.
 
-One transform in the `process` method will be extracting the Hashtags and Mentions. Both Hashtags and Mentions are similar. They have a prefix, "#" or "@" followed by a sequence of alphanumeric characters, period and underscores. Trailing periods are stripped. They should be kept separate in the front matter. Each plays different content roles. 
+## Inclusion mechanisms
 
-Collecting  tags in the text is easy using a regular expression. I have to make a choice about the resulting list. One approach would just be list a  tag each time it is encountered. This will mean repeated tags would be duplicated in the resulting list. That seems problematic. Instead I would like the list of tags returned to be a unique list of strings. The extraction function will need a parameter for the source text, the prefix and it should return a list of unique tags found. I'm going to call this function, `extractTags`.
+Before writing the `process` method I will work through the transform modules.
 
-As I collect tags I will need an ability to merge tag lists. That suggestions a merge function. That function will take one or more lists of tags an return a single list of unique tags.  I'm going to call these function `mergeTags`. Both relate to tags and exist because of extraction.  I'll put them in a module called `extractTags.ts`.  Let's see how that could be implemented.
-
-~~~TypeScript
-// Extract tags. By default it extracts HashTags. You may provide
-// another prefix like '@' to extract @Tags.
-export function extractTags(text: string, prefix: string = "#"): string[] {
-  // Regular expression to match tags based on the prefix, including alphanumeric,
-  // periods, and underscores.
-  const regex = new RegExp(`${prefix}[\\w.]+`, "g");
-  //const regex = new RegExp(`${prefix}[\\w.]+?(?=\\s|$|[^\\w.])`, 'g');
-  const tags = text.match(regex);
-  if (tags === null) {
-    return [];
-  }
-  // Further process the tags to remove any trailing periods
-  return tags.map((tag) => tag.replace(/\.$/, ""));
-}
-
-// mergeTags takes a list of tag lists and merges them
-// into a single list of unique tags.
-export function mergeTags(...tagLists: string[][]): string[] {
-  // Use a Set to automatically handle uniqueness
-  const uniqueTags = new Set<string>();
-
-  // Iterate over each list of tags
-  tagLists.forEach((tagList) => {
-    // Add each tag to the Set
-    tagList.forEach((tag) => uniqueTags.add(tag));
-  });
-
-  // Convert the Set back to an array and return it
-  return Array.from(uniqueTags);
-}
-
-~~~
-
-The next thing to implement will be the include text block transformation. The one includes a text file without wrapping the text in other markup. 
+I need two inclusion mechanisms. One will support plain text file inclusion. The other will wrap the included file in the CommonMark markup for code blocks. Here's the syntax I want to use in my CommonMark document.
 
 > `@include-text-block` `FILENAME`
 
 > `@include-code-block` `FILENAME LANGUAGE`
 
-Each of these will be implemented in their own module. Let's look at the one for `@include-text-block`. In like our tags module I'm keep them separate. They may evolve independently and I might want to include them in other projects. Here's what the include text module looks like.
+Each of these will be implemented in their own module. Let's look at the one for `@include-text-block`. Here's what the include text module looks like.
 
 ~~~TypeScript
 /**
@@ -268,9 +232,53 @@ function replaceCodeBlock(_fullMatch:string, filePath: string, language:string =
 
 ~~~
 
-Again these are very similar. I could have written them usising a parameter to pick behavior. That fealt like it entangled the two functions unnecessarily. As an example, in the future I may wish to embed the text inside an HTML element with an associated class. Keeping thing simple in separate modules aligns with that.
+These modules are very similar. I've implemented them as separate modules because I want the option of evolving them independently. I don't want to entangled the two functions unnecessarily. Keeping both simple in separate modules aligns with that.
 
-Now we have the set  of transforms I want to support in the initial version of the CommonMark "process" method. Look at the internals of `process` as asequence of transforms. 
+## Hashtags and Mentions
+
+The other transforms needed in the `process` method are extracting the Hashtags and Mentions which will be used to update the front matter. Both Hashtags and Mentions are similar. They have a prefix, "#" or "@" followed by a sequence of alphanumeric characters, period and underscores. Trailing periods are stripped. They should be kept separate in the front matter. Each plays different content roles. 
+
+Collecting  tags in the text is easy using a regular expression. I have to make a choice about the resulting list. One approach would just be list a tag each time it is encountered. This will result in repeated tags. That can be problematic. Instead I would like the list of tags returned to be a unique list. The extraction function will need a parameter for the source text and the prefix. It should return a list of unique tags. I'm going to call this function, `extractTags`.
+
+As I collect tags I will need an ability to merge the unique tag. That suggestions a merge function. That function will take one or more lists of tags and return a single list of unique tags.  I'm going to call these function `mergeTags`. Both relate to tags and exist because of extraction.  I'll put them in a module called `extractTags.ts`.  Here is my implementation.
+
+~~~TypeScript
+// Extract tags. By default it extracts HashTags. You may provide
+// another prefix like '@' to extract @Tags.
+export function extractTags(text: string, prefix: string = "#"): string[] {
+  // Regular expression to match tags based on the prefix, including alphanumeric,
+  // periods, and underscores.
+  const regex = new RegExp(`${prefix}[\\w.]+`, "g");
+  //const regex = new RegExp(`${prefix}[\\w.]+?(?=\\s|$|[^\\w.])`, 'g');
+  const tags = text.match(regex);
+  if (tags === null) {
+    return [];
+  }
+  // Further process the tags to remove any trailing periods
+  return tags.map((tag) => tag.replace(/\.$/, ""));
+}
+
+// mergeTags takes a list of tag lists and merges them
+// into a single list of unique tags.
+export function mergeTags(...tagLists: string[][]): string[] {
+  // Use a Set to automatically handle uniqueness
+  const uniqueTags = new Set<string>();
+
+  // Iterate over each list of tags
+  tagLists.forEach((tagList) => {
+    // Add each tag to the Set
+    tagList.forEach((tag) => uniqueTags.add(tag));
+  });
+
+  // Convert the Set back to an array and return it
+  return Array.from(uniqueTags);
+}
+
+~~~
+
+## The `process` method
+
+I have the set of transforms I want. I will need to sequence them in the `process` method.  Here is a look at the internals of the `process` method.
 
 ~~~TypeScript
 
@@ -330,7 +338,9 @@ import { includeTextBlock } from "./includeTextBlock.ts";
 
 ~~~
 
-Now I'm ready to implement a complete `commonMarkDoc.ts` module.
+## The complete CommonMark processor module
+
+Here is the complete `commonMarkDoc.ts` module.
 
 ~~~TypeScript
 import * as yaml from "@std/yaml";
@@ -416,7 +426,9 @@ ${this.content}`;
 
 ~~~
 
-To use this module I need to wrap it so I can execute it from the common line. My processor is going to be called `cmarkprocess` so I'll name the module that becomes the command line program is `cmarkprocess.ts`. This module will include a "main" function, that function will handle command line options and parameters as well as read data from either standard input or a file.  It'll use the `CommonMarkDoc` `process` method and write the results to the standard out.
+## The CommonMark processor application
+
+To use this module I need to wrap it so I can execute it from the command line. My processor is going to be called `cmarkprocess` so I'll name the module that becomes the command line program is `cmarkprocess.ts`. This module will include a "main" function, that function will handle command line options and parameters as well as read data from either standard input or a file.  It'll use the `CommonMarkDoc` `process` method and write the results to standard out.
 
 ~~~TypeScript
 import * as yaml from "@std/yaml";

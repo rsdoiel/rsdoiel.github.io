@@ -15,28 +15,31 @@ abstract: |
   2. Copy CommonMark files into the blog directory tree
 
   Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).
-series: Deno and TypeScript
-seriesNo: 9
 dateCreated: 2025-07-12T00:00:00.000Z
-dateModified: '2025-07-21'
+dateModified: '2025-07-28'
 keywords:
   - font matter
   - CommonMark
   - blog
+  - CommonMarkDoc
 datePublished: '2025-07-21'
 ---
 
 # Simplifying BlogIt
 
-__BlogIt__ is a command I've written many times over the years. Previous it was intended to perform two tasks.
+By R. S. Doiel, 2025-07-21
+
+NOTE: This post was updated to include minor bug fixes, RSD 2025-07-28.
+
+__BlogIt__ is a command I've written many times over the years. Previously it was intended to perform two tasks.
 
 1. Copy CommonMark documents into a blog directory tree
-2. Aggregate metadata from the document (front matter) for my blog
+2. Aggregate metadata from the document for my blog
 
 I am updating the way my website and blog are is built. I am adopting [FlatLake](https://flatlake.app) for fulfill the role of aggregator. This changes the role __BlogIt__ plays.  Since I am relying on an off the shelf tool to perform front matter aggregation it becomes more important to make the front matter consist. The new priorities for __BlogIt__ are.
 
-1. Curating the front matter of CommonMark documents
-2. Publishing (staging) CommonMark documents in the blog directory tree
+1. Curating the front matter of the CommonMark document
+2. When ready to publish, update the front matter and Copy CommonMark document into the blog directory tree
 
 With curating front matter the priority some additional features will be helpful.
 
@@ -57,7 +60,6 @@ blogit [OPTIONS] ACTION COMMONMARK_FILE [DATE_OF_POST]
 - version
 - license
 - prefix BLOG_BASE_PATH (to set an explicit path to the "blog" directory)
-- process (run the processor over the CommonMark document)
 
 ## ACTION
 
@@ -69,15 +71,13 @@ The following actions need to be supported in the new implementation.
   -  set the front matter draft attribute to true, clear the published date
 - edit COMMONMARK_FILE [FRONT_MATTER_FIELD ...]
   - edit all or a subset of standard front matter fields
-- process COMMONMARK_FILE
-  - resolve the links to markdown files with HTML links
-  - include embedded code blocks
 - publish COMMONMARK_FILE
   - read front matter
   - set draft to false
   - set publish date and update modified date
   - validate front matter
   - on success, save the updates then copy into blog directory tree
+    - prompt if it will overwrite a file
 
 ## Editing front matter
 
@@ -89,7 +89,7 @@ Complex fields like keywords are provided to the text edit as YAML. The default 
 
 The basic front matter I want to use is straight forward as my blog started almost a decade ago. Essentially it is title, author, abstract, dateCreated, dateModified, datePublished and keywords. Some blog items have a series name and number so I will support those fields as well.
 
-__BlogIt__ will be written in TypeScript this time so I can cover my bases with the following interfaces.
+__BlogIt__ will be written in TypeScript this time. I can cover my bases with the following interfaces.
 
 ~~~TypeScript
 /* This describes the front matter metadata object */
@@ -118,11 +118,11 @@ BlogIt expectations
 - the default date is today, may explicitly be provided by the front matter as `.datePublished`
 - the date fields automatically supported are `dateCreated`, `dateModified` and `datePublished`. The `dateModified` should be updated automatically each time __BlogIt__ changes the document. `dateCreated` is set the first time the front matter is created or edited.  `datePublished` is set the first time the CommonMark document  is "published" into the blog directory tree. This also results in the draft field being removed.
 
-Recursive blog maintenance could be supported by allowing the tool to walk a directory tree and when it encounters CommonMark document it checks and validates the front matter. This feature would ensure that the CommonMark documents are ready for FlatLake processing as I migrate my site build process.
+Recursive blog maintenance could be supported by allowing the tool to walk a directory tree and when it encounters CommonMark documents the front matter is validate. Errors are written to standard out. This feature would ensure that the CommonMark documents are ready for processing by the website build process.
 
 ## Checking for Front Matter
 
-Front Matter traditionally is found at the start of the CommonMark file. It starts with the a line matching `---` and terminates with same `---` line. Anything between the two is treated as YAML.  Checking the front matter means identifying the YAML source, parsing it and the walking the object produced to compare it with the interface expected. If an expected field is missing then prompt for it and if the response is "y" create a temp file of the content (or example content) and invoke a default editor for the system. When the editor is exited the source is read back in and the front matter is updated.
+Front Matter traditionally is found at the start of the CommonMark file. It starts with the a line matching `---` and terminates with same `---` line. Anything between the two is treated as YAML.  Checking the front matter means identifying the YAML source, parsing it and comparing the result with the interface definition. If an expected field is missing then prompt for it and if the response is "y" create a temp file of the content and invoke a default editor for the system. When the editor is exited the source is read back in and the front matter is updated.
 
 ## Processing the Front Matter
 
@@ -148,7 +148,105 @@ The action "publish" will remove the `draft` attribute setting the publication a
 
 Calling out to the system's text editor and running the editor as a sub process should be implemented as it's own module. This will allow me to improve the process independently and potentially use it in other applications.
 
-@insert-code-block src/editor.ts TypeScript
+~~~TypeScript
+/**
+ * editor.ts module handles the setup and access to a text editor for updating front matter. It is part of BlogIt program.
+ *
+ *  Copyright (C) 2025  R. S. Doiel
+ * 
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+import { exists } from '@std/fs/exists';
+
+/**
+ * pickEditor
+ * @return string
+ */
+function pickEditor(): string {
+  let editor: string | undefined = Deno.env.get("EDITOR");
+  if (editor === undefined) {
+    if (Deno.build.os === "windows") {
+      editor = "notepad.exe";
+    } else {
+      editor = "nano";
+    }
+  }
+  return editor as string;
+}
+
+export function getEditorFromEnv(envVar?: string): string {
+  const editor: string | undefined = (envVar === undefined)
+    ? undefined
+    : Deno.env.get(envVar);
+  if (editor === undefined) {
+    return pickEditor();
+  }
+  return editor as string;
+}
+
+// editor.ts assumes Micro Editor in order to simplify testing.
+const editor: string = pickEditor();
+
+// editFile takes an editor name and filename. It runs the editor using the
+// filename (e.g. micro, nano, code) and returns success or failure based on
+// the the exit status code. If the exit statuss is zero then true is return,
+// otherwise false is returned.
+export async function editFile(
+  editor: string,
+  filename: string,
+): Promise<{ ok: boolean; text: string }> {
+  const command = new Deno.Command(editor, {
+    args: [filename],
+    stdin: "inherit",
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  const child = command.spawn();
+  const status = await child.status;
+  if (status.success) {
+    const txt = await Deno.readTextFile(filename);
+    return { ok: status.success, text: txt };
+  }
+  return { ok: status.success, text: "" };
+}
+
+// editTempData will take data in string form, write it
+// to a temp file, open the temp file for editing and
+// return the result. If a problem occurs then an undefined
+// value is returns otherwise is the contents of the text file
+// as a string.
+export async function editTempData(val: string): Promise<string> {
+  const tmpFilename = await Deno.makeTempFile({
+    dir: "./",
+    prefix: "blogit_",
+    suffix: ".tmp",
+  });
+  if (val !== "") {
+    await Deno.writeTextFile(tmpFilename, val);
+  }
+  const res = await editFile(editor, tmpFilename);
+  if (await exists(tmpFilename, {isFile: true})) {
+    await Deno.remove(tmpFilename);
+  }
+  if (res.ok) {
+    // NOTE: string is returned via standard out not the text of the file.
+    return res.text;
+  }
+  return val;
+}
+
+~~~
 
 ### Front Matter
 
@@ -265,21 +363,25 @@ function assignValue<T extends keyof Metadata>(
     case "datePublished":
       if (newValue.trim() !== '' && yyyymmdd(newValue.trim())) {
         frontMatter[field] = newValue.trim();
+        delete frontMatter['draft'];
       } else {
         delete frontMatter[field];
       }
-      //frontMatter[field] = (new Date(newValue)).toISOString().split("T")[0];
       break;
     default:
       frontMatter[field] = newValue.trim();
+      break;
   }
 }
 
-function getDefaultValueAsString(field: string): string {
+function getDefaultValueAsString(frontMatter: Record<string, unknown>, field: string): string {
   switch (field) {
     case "draft":
-      //NOTE: The default value is draft === true
-      return "true";
+	  if (frontMatter.datePublished === undefined || frontMatter.datePublished === null || frontMatter.datePublished === '') {
+      	//NOTE: The default value is draft === true
+      	return "true";
+	  }
+	  return '';
     case "dateCreated":
     case "dateModified":
       return (new Date()).toISOString().split("T")[0];
@@ -317,8 +419,12 @@ async function promptToEditFields(
 
   let changed = false;
   for (const key of keys) {
+    // dateModified gets updated when the changed record is saved. We can skip it.
+    if (key === 'dateModified') {
+      continue
+    }
     if (cmarkDoc.frontMatter[key] === undefined) {
-      assignValue(cmarkDoc.frontMatter, key, getDefaultValueAsString(key));
+      assignValue(cmarkDoc.frontMatter, key, getDefaultValueAsString(cmarkDoc.frontMatter, key));
     }
     // NOTE: draft and pub date are connected. A draft can't have a datePublished
     if (key === 'draft' && cmarkDoc.frontMatter.draft)  {
@@ -357,12 +463,35 @@ export async function editFrontMatter(
   await promptToEditFields(cmarkDoc, fields);
 }
 
+export function applyDefaults(cmarkDoc: CommonMarkDoc, defaults: Record<string, unknown>) {
+  for (const k of Object.keys(defaults)) {
+    switch (cmarkDoc.frontMatter[k]) {
+      case undefined:
+        cmarkDoc.frontMatter[k] = defaults[k];
+        cmarkDoc.changed = true;
+        break;
+      case null:
+        cmarkDoc.frontMatter[k] = defaults[k];
+        cmarkDoc.changed = true;
+        break;
+      case '':
+        cmarkDoc.frontMatter[k] = defaults[k];
+        cmarkDoc.changed = true;
+        break;
+      case 0:
+        cmarkDoc.frontMatter[k] = defaults[k];
+        cmarkDoc.changed = true;
+        break;
+    }
+  }
+}
+
 ~~~
 
 ### CommonMark module
 
 My website is implemented using CommonMark documents that include front matter. It is helpful to be able to handle the documents 
-in a uniform way. This is accomplished through a TypeScript module called `commonMarkDoc.ts`.  It defines an interface, `CommonMarkDoc` that contains three attributes, `frontMatter`, `markdown` and `changed`. The latter is a boolean flag that is set when something changes in the either `frontMatter` or `markdown`.
+in a uniform way. This is accomplished through a TypeScript module called `commonMarkDoc.ts`.  It defines an interface, `CommonMarkDoc` that contains three attributes, `frontMatter`, `markdown` and `changed`. The latter is a boolean flag that is set when something changes in either `frontMatter` or `markdown`.
 
 The module also supports an Object called CMarkDoc that include a pre-processor function called `process` providing two useful features.
 
@@ -450,12 +579,32 @@ export function commonMarkDocPreprocessor(
       return `[${linkText}](${htmlFilePath})`;
     });
 
-    // Insert code blocks from external files
-    const insertBlockRegex = /@include-code-block\s+([^\s]+)(?:\s+(\w+))?/g;
-    processedMarkdown = processedMarkdown.replace(insertBlockRegex, (_fullMatch, filePath, language = '') => {
-      const fileContent = Deno.readTextFileSync(filePath);
-      if (fileContent) {
+    // include code blocks from external files
+    const insertCodeBlockRegex = /@include-code-block\s+([^\s]+)(?:\s+(\w+))?/g;
+    processedMarkdown = processedMarkdown.replace(insertCodeBlockRegex, (_fullMatch, filePath, language = '') => {
+      let fileContent = '';
+      try {
+        fileContent = Deno.readTextFileSync(filePath);
+      } catch (error) {
+        return `Error reading ${filePath}, ${error}`;
+      }
+      if (fileContent !== '') {
         return `~~~${language}\n${fileContent}\n~~~`;
+      } else {
+        return `Error inserting block from ${filePath}`;
+      }
+    });
+    // include code blocks from external files
+    const insertTextBlockRegex = /@include-text-block\s+([^\s]+)(?:\s+(\w+))?/g;
+    processedMarkdown = processedMarkdown.replace(insertTextBlockRegex, (_fullMatch, filePath, language = '') => {
+      let fileContent = '';
+      try {
+        fileContent = Deno.readTextFileSync(filePath);
+      } catch (error) {
+        return `Error reading ${filePath}, ${error}`;
+      }
+      if (fileContent !== '') {
+        return fileContent;
       } else {
         return `Error inserting block from ${filePath}`;
       }
@@ -500,7 +649,7 @@ export class CMarkDoc implements CommonMarkDoc {
    * processSync is a CommonMark pre-processor implementing two features. It performs two
    * fucntions.
    *   1. converts links to markdown files (ext. ".md") to their HTML file counter parts
-   *   2. Any `@insert-code-block` will include a source code file block in the resulting
+   *   2. Any `@include-code-block` will include a source code file block in the resulting
    *      source document.
    */
   processSync(): string {
@@ -537,8 +686,9 @@ The main module, `mod.ts`, will allow for processing the command line option and
 // mod.ts
 import { parse as parseArgs } from "@std/flags";
 import { exists } from "@std/fs/exists";
-import { checkDirectory, checkFile, createBackup, publishFile } from "./src/blogit.ts";
-import { Metadata, editFrontMatter } from "./src/frontMatter.ts";
+import * as yaml from "@std/yaml";
+import { checkDirectory, checkFile, createBackup, publishFile, showFrontMatter } from "./src/blogit.ts";
+import { Metadata, editFrontMatter, applyDefaults } from "./src/frontMatter.ts";
 import {
   CommonMarkDoc,
   commonMarkDocPreprocessor,
@@ -551,20 +701,23 @@ import { helpText, fmtHelp } from "./helptext.ts";
 async function main() {
   const appName = 'BlogIt';
   const args = parseArgs(Deno.args, {
-    boolean: ["help", "version", "license", "draft", "check", "edit", "publish", "process" ],
-    string: ["prefix"],
+    boolean: ["help", "version", "license", "draft", "check", "edit", "publish", "process", "show" ],
+    string: ["prefix", "apply"],
     alias: {
       h: "help",
       v: "version",
       l: "license",
+      a: "apply",
       p: "prefix",
       c: "check",
       d: "draft",
       e: "edit",
-      pp: "process",
+      P: "process",
+      s: "show",
     },
     default: {
       prefix: "blog",
+      apply: "",
     },
   });
 
@@ -587,6 +740,16 @@ async function main() {
 
   // Handle verb commands without dash prefix.
   switch (args._[0] as string) {
+    case "apply":
+      // Shift "apply" off the args, then assign the value from the next parameter
+      args._.shift();
+      if (args._[0] !== undefined) {
+        args.apply = args._.shift() as string;
+      } else {
+        console.error(`Missing defaults YAML filename`);
+        Deno.exit(1);
+      }
+      break;
     case "check":
       args.check = true;
       args._.shift();
@@ -605,6 +768,10 @@ async function main() {
       break;
     case "publish":
       args.publish = true
+      args._.shift();
+      break;
+    case "show":
+      args.show = true
       args._.shift();
       break;
   }
@@ -639,7 +806,7 @@ async function main() {
   const content = await Deno.readTextFile(filePath);
   const cmarkDoc: CommonMarkDoc = stringToCommonMarkDoc(content);
 
-  if (args.draft || args.edit) {
+  if (args.draft || args.edit || args.apply !== "") {
     // Set to draft is args.draft is true
     if (args.draft) {
       if (cmarkDoc.frontMatter.draft === false) {
@@ -649,12 +816,21 @@ async function main() {
       }
     }
 
+    // Apply defaults if requested
+    if (args.apply !== "") {
+      const data = await Deno.readTextFile(args.apply);
+      const dafaults: Record<string, unknown> = yaml.parse(data) as Record<string, unknown>;
+      applyDefaults(cmarkDoc, dafaults);
+    }
+
     // if args.edit then edit the front matter
     if (args.edit) {
       const fields = args._.slice(1) as Array<keyof Metadata>; // Explicitly assert fields as string array
       await editFrontMatter(cmarkDoc, fields);
     }
 
+  	// Display the front matter
+    showFrontMatter(cmarkDoc);
     // NOTE: either edit or draft setting caused a change, backup, write it out and exit
     if (cmarkDoc.changed) {
       if (confirm(`save ${filePath}?`)) {
@@ -665,6 +841,12 @@ async function main() {
         console.log(`Wrote ${filePath}`);
       }
     }
+    Deno.exit(0);
+  }
+
+  if (args.show) {
+    // Display the front matter
+    showFrontMatter(cmarkDoc);
     Deno.exit(0);
   }
 
@@ -688,6 +870,7 @@ async function main() {
       Deno.exit(1);
     }
     console.log(src);
+    Deno.exit(0);
   }
 }
 
