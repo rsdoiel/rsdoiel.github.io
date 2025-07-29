@@ -12,6 +12,8 @@
 
 ### Additional text rendering/formatting tools
 
+- [commonMarkDoc](https://rsdoiel.github.io/commonMarkDoc) - a TypeScript module for working with CommonMark documents
+- [BlogIt](https://rsdoiel.github.io/BlogIt) - this will be the successor "blogit" as I work to replace pttk.
 - [pttk](https://rsdoiel.github.io/pttk/) - a deconstructed content manage system for managing this site
 - [shorthand](https://rsdoiel.github.io/shorthand/) - a text label expander with markdown support
 - [stngo](https://rsdoiel.github.io/stngo/) - Standard Timesheet Notation processor for my personal project time logs
