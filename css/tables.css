@@ -1,37 +1,51 @@
+:root {
+    /* Color Variables for Tables */
+    --table-text-color: white; /* Text color for tables */
+    --table-bg-color: darkblue; /* Background color for tables */
+    --table-odd-row-text-color: blue; /* Text color for odd rows in the table body */
+    --table-odd-row-bg-color: white; /* Background color for odd rows in the table body */
+    --table-even-row-text-color: white; /* Text color for even rows in the table body */
+    --table-even-row-bg-color: blue; /* Background color for even rows in the table body */
+    --table-caption-text-color: black; /* Text color for table captions */
+    --table-caption-bg-color: white; /* Background color for table captions */
+
+    /* Font Variables for Tables */
+    --table-header-font-family: comic, cursive, helvetica; /* Font family for table headers */
+    --table-body-font-family: monospace, courier, serif; /* Font family for table body cells */
+}
+
 table {
-  table-layout: fixed;
-  width: 80%;
-  border-collapse: collapse;
-  color: white;
-  background-color: darkblue;
-  /* border: 3px solid #5f0202; */
-  caption-side: bottom;
+    table-layout: fixed;
+    width: 80%;
+    border-collapse: collapse;
+    color: var(--table-text-color);
+    background-color: var(--table-bg-color);
+    caption-side: bottom;
 }
 
 th, td {
-  font-family: comic, cursive, helvetica;
-  padding: 0.72em;
+    font-family: var(--table-header-font-family);
+    padding: 0.72em;
 }
 
 tr, td {
-  font-family: monospace, courier, serif;
+    font-family: var(--table-body-font-family);
 }
 
 tbody tr:nth-child(odd) {
-  color: blue;
-  background-color: white;
+    color: var(--table-odd-row-text-color);
+    background-color: var(--table-odd-row-bg-color);
 }
 
 tbody tr:nth-child(even) {
-  color: white;
-  background-color: blue;
+    color: var(--table-even-row-text-color);
+    background-color: var(--table-even-row-bg-color);
 }
 
 caption {
-    color: black;
-    background-color: white;
+    color: var(--table-caption-text-color);
+    background-color: var(--table-caption-bg-color);
     text-align: left;
     text-transform: lowercase;
     font-size: smaller;
 }
-
