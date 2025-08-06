@@ -1,31 +1,4 @@
-:root {
-    /* Color Variables */
-    --main-text-color: black; /* Standard text color */
-    --main-bg-color: white; /* Standard background color */
-    --link-color: darkgreen; /* Color for standard links */
-    --link-hover-color: maroon; /* Color for links when hovered */
-    --nav-text-color: white; /* Text color in navigation */
-    --nav-bg-color: #5f0202; /* Background color for navigation */
-    --nav-hover-color: orange; /* Color for navigation links when hovered */
-    --footer-text-color: white; /* Text color in footer */
-    --footer-bg-color: black; /* Background color for footer */
-    --footer-link-color: #FF6E1E; /* Color for links in footer */
-    --footer-link-hover-color: lightgreen; /* Color for footer links when hovered */
-    --and-or-red: red; /* Color for AndOr specific elements */
-
-    /* Font Variables */
-    --main-font-family: sans-serif; /* Main font family for the body */
-    --footer-font-family: 'Dosis', sans-serif; /* Font family for footer */
-
-    /* Font Size Variables */
-    --base-font-size: 1em; /* Base font size */
-    --link-font-size: 1.1em; /* Font size for links */
-    --h1-font-size: 2em; /* Font size for h1 elements */
-    --h2-font-size: 1.7em; /* Font size for h2 elements */
-    --h3-font-size: 1.2em; /* Font size for h3 elements */
-    --h4-font-size: 1em; /* Font size for h4 elements */
-    --footer-font-size: 0.82em; /* Font size for footer text */
-}
+@import url('variables.css');
 
 body {
     font-family: var(--main-font-family);
@@ -146,7 +119,6 @@ footer {
     height: auto;
     color: var(--footer-text-color);
     background-color: var(--footer-bg-color);
-    font-family: var(--footer-font-family);
 }
 
 footer p {
@@ -155,6 +127,7 @@ footer p {
     height: auto;
     padding: 0;
     margin: 0;
+    font-family: var(--footer-font-family);
     font-size: var(--footer-font-size);
     font-weight: lighter;
     margin-top: 0.32em;

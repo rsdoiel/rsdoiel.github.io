@@ -1,3 +1,54 @@
+@import url('variables.css');
+
+pre {
+    border: 2px solid var(--code-border-color);
+    border-radius: 5px;
+    background-color: var(--code-background-color);
+    padding: 1em;
+    margin: 0.5em 0;
+    overflow-x: auto;
+    max-width: 100%;
+    position: relative;
+}
+
+pre > code {
+    font-family: var(--code-font-family);
+    line-height: 1.5;
+    white-space: pre;
+    display: block;
+}
+
+.copy-button {
+    background-color: var(--copy-button-bg-color);
+    border: 1px solid var(--copy-button-border-color);
+    color: var(--copy-button-text-color);
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.copy-button:hover {
+    background-color: var(--copy-button-hover-bg-color);
+}
+
+.copy-button:hover::after {
+    content: 'Copy to Clipboard';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    background-color: var(--copy-button-hover-bg-color);
+    color: var(--copy-button-text-color);
+    border: 1px solid var(--copy-button-border-color);
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    white-space: nowrap;
+    transform: translateY(-50%);
+}
 /* code-blocks.css */
 /* CSS variables for code block */
 :root {

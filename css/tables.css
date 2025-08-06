@@ -1,18 +1,4 @@
-:root {
-    /* Color Variables for Tables */
-    --table-text-color: white; /* Text color for tables */
-    --table-bg-color: darkblue; /* Background color for tables */
-    --table-odd-row-text-color: blue; /* Text color for odd rows in the table body */
-    --table-odd-row-bg-color: white; /* Background color for odd rows in the table body */
-    --table-even-row-text-color: white; /* Text color for even rows in the table body */
-    --table-even-row-bg-color: blue; /* Background color for even rows in the table body */
-    --table-caption-text-color: black; /* Text color for table captions */
-    --table-caption-bg-color: white; /* Background color for table captions */
-
-    /* Font Variables for Tables */
-    --table-header-font-family: comic, cursive, helvetica; /* Font family for table headers */
-    --table-body-font-family: monospace, courier, serif; /* Font family for table body cells */
-}
+@import url('variables.css');
 
 table {
     table-layout: fixed;
