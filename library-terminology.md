@@ -2,9 +2,6 @@
 title : "Robert's Library Terminology and Jargon List"
 ---
 
-<a href="/" text="When I press keys letters and punctuation sometimes appear on the surface."><img src="media/Wee-Free-Doiels-Summer-Reading.jpg" alt="When I press keys letters and punctuation sometimes appear on the surface."></a>
-
-
 Robert's Library Terminology and Jargon list
 --------------------------------------------
 

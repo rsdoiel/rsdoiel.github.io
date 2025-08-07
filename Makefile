@@ -36,8 +36,8 @@ projects.html: projects.md
 	$(PANDOC) --template page.tmpl projects.md > projects.html
 	git add projects.html
 
-about.html: nav.include footer.include author.md bio.md index.tmpl
-	$(PANDOC) --template page.tmpl author.md bio.md > about.html
+about.html: nav.include footer.include bio.md index.tmpl
+	$(PANDOC) --template page.tmpl bio.md > about.html
 	git add about.html
 
 search.html: nav.include footer.include search.md search.tmpl

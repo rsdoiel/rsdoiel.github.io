@@ -1,8 +1,6 @@
 
-<a href="/" text="When I press keys letters and punctuation sometimes appear on the surface."><img src="media/Wee-Free-Doiels-Summer-Reading.jpg" alt="When I press keys letters and punctuation sometimes appear on the surface."></a>
-
 Welcome
 =======
 
-> I am a human. I wrote music and prose. I write software. 
+> <a href="/media/Wee-Free-Doiels-Summer-Reading.jpg" title="When I press keys with letters, numbers or punctuation symbols they appear the surface. Take me home please, R. S. Doiel"><img style="height: 4.0em; width: auto;" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a> I am a human. I wrote music and prose. I write software.  
 

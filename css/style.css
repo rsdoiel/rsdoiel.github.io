@@ -193,3 +193,13 @@ header blockquote {
     padding: 0em;
     margin-left: 2.48em;
 }
+
+img.blog-logo {
+  max-height: 2.0em; /* Set the maximum height to that of one line of text */
+  height: auto; /* Allow the height to adjust based on the width, maintaining aspect ratio */
+  width: auto; /* Allow the width to adjust based on the height */
+  padding: 0; /* Remove any padding */
+  margin: 0; /* Remove any margin */
+  vertical-align: bottom; /* Align the image vertically with the text */
+  display: inline-block; /* Ensure the image behaves like inline text */
+}
