@@ -1,0 +1,45 @@
+/* cartoon-blockquote.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+blockquote.cartoon {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+blockquote.cartoon img {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+blockquote.cartoon span {
+  font-family: 'Fredoka One', cursive;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 10px 15px;
+  position: relative;
+  max-width: 200px;
+  display: inline-block;
+}
+
+blockquote.cartoon span:after {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 15px;
+  border-width: 8px 15px 8px 0;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent;
+}
+
+blockquote.cartoon span:before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 14px;
+  border-width: 9px 16px 9px 0;
+  border-style: solid;
+  border-color: transparent #000 transparent transparent;
+}
