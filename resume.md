@@ -21,7 +21,7 @@ Technical Skills
 - C
 - Git
 - Go
-- JavaScript/Typescript (Deno)
+- JavaScript/Typescript
 - Make
 - Oberon
 - Pascal
@@ -77,10 +77,12 @@ Code samples
 
 Projects at Caltech Library
 
-- [newt](https://github.com/caltechlibrary/newt) - tooling for rapid development of gallary, library, archive and museam metadata tools
-- [irdmtools](https://github.com/caltechlibrary/irdmtools) - Institutional Repository Management Tools
+- [CL-web-componetns](https://github.com/caltechlibrary/CL-web-components) - Browser side components written in JavaScript and TypeScript
+- [CMTools](https://github.com/caltechlibrary/CMTools) - Bootstraping, managing projects using [CodeMeta](https://codemeta.github.io/) data
+- [COLD](https://github.com/caltechlibrary/COLD) - Crontrolled Object Lists and Datum, metadata management tools for use with our Caltech Library systems
 - [dataset](https://github.com/caltechlibrary/dataset) - a JSON document store
 - [datatools](https://github.com/caltechlibrary/datatools) - a collection of command line utilities for scripting batch processing of large datasets in JSON, CSV and Excel Workbook formats
+- [irdmtools](https://github.com/caltechlibrary/irdmtools) - Institutional Repository Management Tools
 
 Personal projects
 

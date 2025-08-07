@@ -27,7 +27,7 @@ Technical Skills
 - C
 - Git
 - Go
-- JavaScript/Typescript (Deno)
+- JavaScript/Typescript
 - Make
 - Oberon
 - Pascal
@@ -51,7 +51,6 @@ Current Projects
   - [CMTools](https://caltechlibrary.github.io/CMTools) - CodeMeta Tools
   - [COLD](https://caltechlibrary.github.io/COLD) - Controlled Object Lists and Datum
   - [metadatatools](https://caltechlibrary.github.io/metadatatools) - identifier validation, normalization verification for Deno+TypeScript
-  - [newt](https://caltechlibrary.github.io/newt) - a rapid development platform for metadata application used by galleries, libraries, archives and museums
   - [irdmtools](https://caltechlibrary.github.io/irdmtools) - a collection of tools for migrating, managing and interacting with Invenio-RDM and EPrints repository software and metadata
   - [dataset](https://caltechlibrary.github.io/dataset) - a tool for managing JSON documents on local disc or as a localhost web service
   - [datatools](https://caltechlibrary.github.io/datatools) - a collection of command line utilities for working with CSV, JSON and Excel Workbooks
@@ -59,7 +58,7 @@ Current Projects
 Past responsibilities
 ---------------------
 
-- Data migration for old Caltech Archives system to ArchivesSpace
+- Data migration for old Caltech Archives system to ArchivesSpace and Invenio RDM
 - Senior Software Engineer for [Web Services](http://www.usc.edu/web), [Technology Enhanced Learning](http://tel.usc.edu) Division, [Information Technology Services](http://itservices.usc.edu) at the [University of Southern California](http://www.usc.edu).
 - Software architecture and implementation for applications, APIs and data services for web and mobile devices
 - Technology evaluation
@@ -112,6 +111,7 @@ Past Projects
 Presentations
 -------------
 
+- [A recipe for applications: Dataset & Web Components (Part I)](https://caltechlibrary.github.io/t2t3_dataset_web_apps/presentation1.html), 2025-06-12
 - [COLD - curating objects with Deno, Dataset and SQLite3](https://caltechlibrary.github.io/cold/presentations/presentation1.html), Code4Lib SoCal meetup at Caltech, 2024-11-15
 - [Newt, the second prototype](https://caltechlibrary.github.io/newt/presentation2/), Code4Lib SoCal meetup at USC, 2024-04-19
 - [Newt, a small system experiment](https://caltechlibrary.github.io/newt/presentation/), Code4Lib SoCal meetup at UCLA, 2023-07-14
