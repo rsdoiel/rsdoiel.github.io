@@ -1,5 +1,35 @@
 @import url('variables.css');
 
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--main-font-family);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-direction: column;
+}
+
+section, article {
+    flex: 1;
+}
+
+footer {
+    font-size: var(--footer-font-size);
+    font-weight: lighter;
+    padding: 1em;
+    margin-top: auto; /* This will push the footer to the bottom */
+    width: 100%;
+    color: var(--footer-text-color);
+    background-color: var(--footer-bg-color);
+}
+
 body {
     font-family: var(--main-font-family);
     padding: 0;
@@ -34,6 +64,8 @@ nav {
     width: 100%;
     height: auto;
     padding: 0.20em;
+    padding-bottom: 1.24em;
+    margin-bottom: 1.24em;
     color: var(--nav-text-color);
     background-color: var(--nav-bg-color);
 }
@@ -77,6 +109,10 @@ section, article {
     padding: 1.24em;
     margin-top: 1.24em;
     margin-bottom: 0.24em;
+}
+
+section h1 {
+    padding-top: 1.24em;
 }
 
 img.rss-valid {

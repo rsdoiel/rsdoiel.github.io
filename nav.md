@@ -1,11 +1,7 @@
-+ <a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a>
-+ [About](/about.md)
-+ [Blog](/blog/)
-+ [CV](/cv.html)
-+ [GitHub](https://github.com/rsdoiel)
-+ [Library Jargon](/library-terminology.md)
-+ [Presentations](/presentations.md)
-+ [Projects](/projects.md)
-+ [Resume](/resume.md)
-+ [Search](/search.md)
-+ [Series](/series/)
+- <a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a>
+- [About](/about.md)
+- [Blog](/blog/)
+- [Presentations](/presentations.md)
+- [Search](/search.md)
+- [Series](/series/)
+- [GitHub](https://github.com/rsdoiel)
