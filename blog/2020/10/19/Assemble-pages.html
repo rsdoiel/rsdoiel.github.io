@@ -39,7 +39,7 @@ href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly
 Oberon</a> series. Mostly Oberon documents my exploration of the Oberon
 Language, Oberon System and the various rabbit holes I will inevitably
 fall into.</p>
-<h2 id="pandoc-and-json">Pandoc and JSON</h2>
+<h2><a name="pandoc-and-json">Pandoc and JSON</a></h2>
 <p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown
 documents. I like to keep my front matter in JSON rather than Pandoc’s
 YAML. Fortunately Pandoc does support working with JSON as a metadata
@@ -57,8 +57,7 @@ href="AssemblePage.Mod">AssemblePage</a> automates this process.</p>
       --standalone \
       document.md &gt;MyText.html
 </code></pre>
-<h2 id="source-code-for-assemblepage.mod">Source code for
-<strong>AssemblePage.Mod</strong></h2>
+<h2><a name="source-code-for-assemblepagemod">Source code for AssemblePage.Mod</a></h2>
 <pre><code>
 MODULE AssemblePage;
   IMPORT Out, Strings, Files, Args := extArgs;

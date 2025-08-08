@@ -63,7 +63,7 @@ takes case of extArgs and extEnv.</p>
 I’ve create C code to perform the needed tasks based on Karl’s examples
 and used Mike’s share library compilation instructions to make it
 available inside his run time.</p>
-<h2 id="background-material">Background material</h2>
+<h2><a name="background-material">Background material</a></h2>
 <ul>
 <li><a
 href="https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Obc-3
@@ -81,7 +81,7 @@ Manual</a></li>
 </ul></li>
 <li><a href="http://github.com/Spivoxity/obc-3">Obc-3 at GitHub</a></li>
 </ul>
-<h2 id="differences-obnc-and-obc-3">Differences: OBNC and Obc-3</h2>
+<h2><a name="differences-obnc-and-obc3">Differences: OBNC and Obc-3</a></h2>
 <p>The OBNC compiler written by Karl takes the approach of translating
 Oberon-07 code to C and then calling the C tool chain to convert that
 into a executable. Karl’s compiler is largely written in C with some
@@ -113,15 +113,14 @@ extension but also accepts <code>.Mod</code>. In Mike’s he uses
 <code>.m</code> and also accepts <code>.Mod</code>. In this article I
 will be using <code>.m</code> as that simplified the recipe of building
 and integrating the shared C libraries.</p>
-<h2 id="similarities-of-obnc-and-obc-3">Similarities of OBNC and
-Obc-3</h2>
+<h2><a name="similarities-of-obnc-and-obc3">Similarities of OBNC and Obc-3</a></h2>
 <p>Both compilers provide for compiling Oberon-07 code, Mike’s requires
 the <code>-07</code> option to be used to switch from Oberon-2. Both
 offer the ability to extend reach into the host POSIX system by wrapping
 C shared libraries. Both run on a wide variety of POSIX systems and you
 can read the source code at your leisure. This last bit is
 important.</p>
-<h2 id="args-extargs-and-extenv.">Args, extArgs and extEnv.</h2>
+<h2><a name="args-extargs-and-extenv">Args, extArgs and extEnv.</a></h2>
 <p>Mike provides two features in his Args module. The first is access to
 the command line arguments of the compiled program. The second feature
 is to provide access to the host environment variables. In Karl’s
@@ -200,8 +199,7 @@ BEGIN
 END Get;
 
 END extEnv.</code></pre>
-<h2 id="extconvert-requires-more-work">extConvert requires more
-work</h2>
+<h2><a name="extconvert-requires-more-work">extConvert requires more work</a></h2>
 <p>Mike provides a module called <code>Conv.m</code> for converting
 numbers to strings. It is a little minimal for my current purpose. That
 is easy enough to solve as Mike, like Karl provides a means of extending
@@ -365,7 +363,7 @@ one the command line along with your program module).</p>
 ./converttest</code></pre>
 <p>Source code for these modules is available on GitHub at <a
 href="https://github.com/rsdoiel/obc-3-libext">github.com/rsdoiel/obc-3-libest</a></p>
-<h2 id="next-previous">Next &amp; Previous</h2>
+<h2><a name="next-previous">Next & Previous</a></h2>
 <ul>
 <li>Next <a href="../../11/22/Revisiting-Files.html">Revisiting
 Files</a></li>

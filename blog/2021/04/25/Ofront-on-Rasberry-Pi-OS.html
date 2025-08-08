@@ -47,7 +47,7 @@ helpful working with the differences in text file formats between Oberon
 System 3, V4 and POSIX. The V4 implementation sits nicely on top of
 POSIX with minimal compromises that distract from the Oberon
 experience.</p>
-<h2 id="an-initial-impression">An Initial Impression</h2>
+<h2><a name="an-initial-impression">An Initial Impression</a></h2>
 <p>I first heard of running Ofront/V4 via the ETH Oberon Mail list<a
 href="#fn4" class="footnote-ref" id="fnref4"
 role="doc-noteref"><sup>4</sup></a>. What caught my eye is the reference
@@ -71,7 +71,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 didn’t need the Oberon fonts outside of V4 I added the <code>xset</code>
 command to the “oberon.bash” script just before it invokes the
 <code>oberon</code> command.</p>
-<h2 id="goals-in-my-setup">Goals in my setup</h2>
+<h2><a name="goals-in-my-setup">Goals in my setup</a></h2>
 <p>I had three goals in wanting to play with Ofront and running the V4
 Oberon.</p>
 <ol type="1">
@@ -83,7 +83,7 @@ evolution</li>
 </ol>
 <p>Ofront address all three once you get the X Window side setup
 correctly.</p>
-<h2 id="setting-up-ofront-and-v4">Setting up Ofront and V4</h2>
+<h2><a name="setting-up-ofront-and-v4">Setting up Ofront and V4</a></h2>
 <p>First we need to boot up a Raspberry Pi OS device (or an i386 Linux
 with X11). We need to retrieve the software from Joseph Templ’s <a
 href="https://software-templ.com">software-templ.com</a>. Two 1.4
@@ -91,7 +91,7 @@ versions are available precompiled. The first is for ARM running
 Raspberry Pi OS and the second is for generic Linux i386 with X11. I
 initially tested this on an old laptop where running the i386 version of
 Raspberry Pi OS.</p>
-<h2 id="what-we-need">What we need</h2>
+<h2><a name="what-we-need">What we need</a></h2>
 <p>The following software is usually already installed on your Raspberry
 Pi OS.</p>
 <ul>
@@ -100,7 +100,7 @@ id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
 <li>gunzip to uncompressed the archive file</li>
 <li>tar to unpack the archive file</li>
 </ul>
-<h2 id="what-we-do">What we do</h2>
+<h2><a name="what-we-do">What we do</a></h2>
 <ol type="1">
 <li>Download the appropriate tar file
 <ol type="a">
@@ -137,11 +137,11 @@ a pixel at a time in the window holding our Oberon System. What we want
 X to do is render an X Window font. Joseph as provided us with the
 Oberon fonts already converted for X! We just need to let the X Window
 system know where to look.</p>
-<h2 id="what-we-need-1">What we need</h2>
+<h2><a name="what-we-need">What we need</a></h2>
 <ul>
 <li>an editor for editing <code>oberon.bash</code></li>
 </ul>
-<h2 id="what-well-do">What we’ll do</h2>
+<h2><a name="what-well-do">What we’ll do</a></h2>
 <ol type="1">
 <li>Exit the running Oberon System using <code>System.Quit ~</code> or
 just close the window</li>
@@ -179,7 +179,7 @@ improve the integration with your Linux setup. These are covered in the
 man pages for the tools that come with Ofront. Additional information is
 also provided in the Oberon Texts and Tools files in the V4 environment.
 All are worth reading.</p>
-<h2 id="what-does-this-setup-provide">What does this setup provide?</h2>
+<h2><a name="what-does-this-setup-provide">What does this setup provide?</a></h2>
 <p>At the point we have V4 available we have a rich development and text
 environment. One which I feel is conducive to both writing in general
 and programming specifically. You are running under an adapted Oberon
@@ -209,7 +209,7 @@ Oberon text. If you need to have a plain text version use
 environment then they remain plain text files but V4 takes care of
 translating the POSIX line ending to ones that are displayed nicely in
 Oberon.</p>
-<h2 id="what-to-explore-next">What to explore next?</h2>
+<h2><a name="what-to-explore-next">What to explore next?</a></h2>
 <p>Now that we have a fast running V4 system we have some choices for
 development. Joseph Templ has adapted the display for X and also the
 file system so the files are visible from the Unix shell. This is a
@@ -242,7 +242,7 @@ I fork Templ’s version or GitHub I will probably update the
 “oberon.bash” file included to check to see if the X fonts are available
 and if not add them via <code>xset</code>. That’s on a someday maybe
 list, for now I am content exploring the system as is.</p>
-<h2 id="someday-maybe">Someday, Maybe</h2>
+<h2><a name="someday-maybe">Someday, Maybe</a></h2>
 <p>Things that come to mind after initial exploration include–</p>
 <ul>
 <li>Figure out how to make Atkinson-Hyperlegible<a href="#fn8"

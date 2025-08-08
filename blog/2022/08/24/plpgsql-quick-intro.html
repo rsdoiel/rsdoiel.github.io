@@ -44,7 +44,7 @@ the unit of execution is also procedure, function or trigger.</p>
 href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and
 how it works. This document is just a quick orientation with specific
 examples to provide context.</p>
-<h2 id="hello-world">Hello World</h2>
+<h2><a name="hello-world">Hello World</a></h2>
 <p>Here is a “helloworld” procedure definition.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> helloworld() <span class="kw">AS</span> $$</span>
@@ -75,7 +75,7 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#c
 otherwise you’ll get an error that it already exists.</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">DROP</span> <span class="kw">PROCEDURE</span> helloworld;</span></code></pre></div>
-<h2 id="improving-my-workflow">Improving my workflow</h2>
+<h2><a name="improving-my-workflow">Improving my workflow</a></h2>
 <p>SQL procedures are generally stored in the RDBMs in database
 environment. You can think of them as records in the system’s database.
 Procedures and functions are created and can be dropped. While they can
@@ -107,7 +107,7 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#c
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        RAISE NOTICE <span class="st">&#39;Hello World!&#39;</span>;</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>;</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
-<h2 id="hi-there">Hi There</h2>
+<h2><a name="hi-there">Hi There</a></h2>
 <p><a href="hithere.plpgsql">hithere</a> is similar to our helloworld
 example except it is a function that takes a parameter of the person’s
 name. The function returns a “VARCHAR”, so this should work as part of a
@@ -131,7 +131,7 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#c
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    $$ LANGUAGE plpgsql;</span></code></pre></div>
 <p>Giving it a try.</p>
 <pre class="shell"><code>    SELECT hithere(&#39;Mojo Sam&#39;);</code></pre>
-<h2 id="further-reading">Further reading</h2>
+<h2><a name="further-reading">Further reading</a></h2>
 <ul>
 <li><a
 href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Conditionals</a></li>

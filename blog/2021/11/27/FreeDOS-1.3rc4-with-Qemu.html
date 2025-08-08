@@ -33,14 +33,13 @@
 
 <section>
   <article>
-<h2 id="setting-up-freedos-1.3rc4-with-qemu">Setting up FreeDOS 1.3rc4
-with Qemu</h2>
+<h2><a name="setting-up-freedos-13rc4-with-qemu">Setting up FreeDOS 1.3rc4 with Qemu</a></h2>
 <p>By R. S. Doiel, 2021-11-27</p>
 <p>In this article I’m going explore setting up FreeDOS with Qemu on my
 venerable Dell 4319 running Raspberry Pi Desktop OS (Debian GNU/Linux).
 First step is to download FreeDOS “Live CD” in the 1.3 RC4 release. See
 http://freedos.org/download/ for that.</p>
-<h2 id="installing-qemu-1">Installing Qemu</h2>
+<h2><a name="installing-qemu">Installing Qemu</a></h2>
 <p>I needed to install Qemu in my laptop. It runs the Raspberry Pi
 Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install the
 “qemu-system” package since I will likely use qemu for other things
@@ -54,7 +53,7 @@ sudo apt upgrade
 sudo apt install qemu-system</code></pre>
 <p>Now that I had the software available it was time to figure out how
 to actually knit things together and run FreeDOS.</p>
-<h2 id="obtaining-freedos-1.3rc4">Obtaining FreeDOS 1.3rc4</h2>
+<h2><a name="obtaining-freedos-13rc4">Obtaining FreeDOS 1.3rc4</a></h2>
 <p>Before I get started I create a folder in my home directory for
 running everything. You can name it what you want but I called mine
 <code>FreeDOS_13</code> and changed into that folder for the work in
@@ -72,7 +71,7 @@ unzip FD13-FullUSB.zip</code></pre>
 and readme files if you list the directory out. I’m going to use the
 “vmdk” file to install FreeDOS on my virtual harddrive freedos.img.</p>
 <pre><code>ls -l </code></pre>
-<h2 id="prepping-my-virtual-machine">Prepping my virtual machine</h2>
+<h2><a name="prepping-my-virtual-machine">Prepping my virtual machine</a></h2>
 <p>A virtual machine is not just a CPU and some random access memory. A
 machine can include storage devices. For the retro “DOS” experience you
 might looking virtual devices for a “harddrive”, “floppy drive” and
@@ -89,7 +88,7 @@ standards) 750 megabyte harddrive seems appropriate.</p>
 <p>For my purposes I need a harddrive so I stopped there. You can always
 create other drives and then restart your virtual machine with the
 appropriate options.</p>
-<h2 id="bring-up-my-freedos-box">Bring up my FreeDOS box</h2>
+<h2><a name="bring-up-my-freedos-box">Bring up my FreeDOS box</a></h2>
 <p>Now I was ready to boot from installation media and install FreeDOS
 1.3rc4 on my virtual harddrive. For that I use a “qemu” command for the
 system I want to emulate. I picked <code>qemu-system-i386</code> (see
@@ -136,7 +135,7 @@ qemu-system-i386 \
     -boot menu=on,strict=on \
     -hda freedos.img</code></pre>
 <p>Next step, explore FreeDOS and see what I can build.</p>
-<h2 id="putting-everything-together">Putting everything together</h2>
+<h2><a name="putting-everything-together">Putting everything together</a></h2>
 <p>Below is a <a href="run-freedos-1.3rc4.bash">script</a> I developed
 automating either building or running your FreeDOS setup.</p>
 <pre><code>#!/bin/bash
@@ -177,7 +176,7 @@ else
       -vga cirrus \
       -display gtk
 fi</code></pre>
-<h2 id="reference-material">Reference material</h2>
+<h2><a name="reference-material">Reference material</a></h2>
 <p>My inspiration for this was the description of manual install in the
 FreeDOS book section of the website, <a
 href="https://www.freedos.org/books/get-started/june14-manual-install.html">Manual

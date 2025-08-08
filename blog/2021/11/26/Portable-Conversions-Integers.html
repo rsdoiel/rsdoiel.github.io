@@ -48,8 +48,7 @@ module “Types”. The name is short and descriptive and seems an
 appropriate name for a module consisting of type conversion tests and
 transformations. My initial implementation will focusing on converting
 integers to and from ASCII.</p>
-<h2 id="integer-to-ascii-and-back-again">INTEGER to ASCII and back
-again</h2>
+<h2><a name="integer-to-ascii-and-back-again">INTEGER to ASCII and back again</a></h2>
 <p>I don’t want to rely on the representation of the INTEGER value in
 the compiler or at the machine level. That has lead me to think in terms
 of an INTEGER as a signed whole number.</p>
@@ -119,7 +118,7 @@ language. These are for working with the encoding and decoding values as
 integers. This is not the same thing as the meaning of “0” versus the
 value of 0. Getting to and from the encoding to the meaning of the
 presentation can be done with some simple arithmetic.</p>
-<h2 id="putting-it-all-together">Putting it all together</h2>
+<h2><a name="putting-it-all-together">Putting it all together</a></h2>
 <pre><code>(* DigitToChar converts an INTEGER less than to a character. E.g.
    0 should return &quot;0&quot;, 3 returns &quot;3&quot;, 0 returns &quot;9&quot; *)
 PROCEDURE DigitToChar*(i : INTEGER) : CHAR;
@@ -373,14 +372,14 @@ END Atoi;
      Out.String(&quot;Something went wrong&quot;);Out.Ln;
    END;
 </code></pre>
-<h2 id="references-and-resources">References and resources</h2>
+<h2><a name="references-and-resources">References and resources</a></h2>
 <p>Implementations for modules for this article are linked here <a
 href="./Types.Mod">Types</a>, <a href="./TypesTest.Mod">TypesTest</a>
 and <a href="./Tests.Mod">Tests</a>.</p>
 <p>Expanded versions of the <code>Types</code> module will be available
 as part of Artemis Project – <a
 href="https://github.com/rsdoiel/Artemis">github.com/rsdoiel/Artemis</a>.</p>
-<h2 id="previous">Previous</h2>
+<h2><a name="previous">Previous</a></h2>
 <ul>
 <li><a href="../../11/22/Revisiting-Files.html">Revisiting
 Files</a></li>

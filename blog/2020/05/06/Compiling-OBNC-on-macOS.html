@@ -42,7 +42,7 @@ and the various rabbit holes I will inevitably fall into.</p>
 <p>Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) is
 straight forward if you have the required dependencies and environment
 setup up. Below are my notes to get everything working.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+<h2><a name="prerequisites">Prerequisites</a></h2>
 <ul>
 <li>OBNC v0.16.1</li>
 <li>SDL v1.2</li>
@@ -78,7 +78,7 @@ on my machine. It can be a bit of a pain at times with obscure errors,
 particularly with regards to the linker. Your milleage may very. I know
 you can install other C compilers (e.g. Clang) but I haven’t tried them
 yet.</p>
-<h2 id="setting-up-my-environment">Setting up my environment</h2>
+<h2><a name="setting-up-my-environment">Setting up my environment</a></h2>
 <p>You need to update your CC variables to find the header and shared
 library files for compilation of obnc with <code>build</code>. (I added
 these to my <code>.bash_profile</code>). New Macs ships with zsh and
@@ -89,7 +89,7 @@ libraries under the <code>/opt/local</code> directory.</p>
     export LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
     export LD_LIBRARY_PATH=&quot;/usr/lib:/usr/local/lib:/opt/local/lib&quot;
 </code></pre>
-<h2 id="obnc-environment-variables">OBNC environment variables</h2>
+<h2><a name="obnc-environment-variables">OBNC environment variables</a></h2>
 <p>This follows’ Karl’s docs.  Additionally if you install OBNC extlib
 so you can do POSIX shell programs you’ll need to set your
 <code>OBNC_IMPORT_PATH</code> environment. An example of including a

@@ -34,12 +34,12 @@
 <section>
   <article>
 <h1 id="portable-oberon-07">Portable Oberon-07</h1>
-<h2 id="using-obnc-modules">using OBNC modules</h2>
+<h2><a name="using-obnc-modules">using OBNC modules</a></h2>
 <p>This is the eleventh post in the <a
 href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
 Oberon documents my exploration of the Oberon Language, Oberon System
 and the various rabbit holes I will inevitably fall into.</p>
-<h2 id="working-with-standard-input">Working with standard input</h2>
+<h2><a name="working-with-standard-input">Working with standard input</a></h2>
 <p>By R. S. Doiel, 2020-08-15 (updated: 2020-09-05)</p>
 <p>Karl Landström’s <a href="https://miasap.se/obnc/">OBNC</a>,
 Oberon-07 compiler, comes with an Oberon-2 inspired set of modules
@@ -66,8 +66,7 @@ while still being able to read the lines. The program we’ll build in
 this post is “SlowCat” which accepts a command line parameter indicating
 the delay in seconds between display each line read from standard
 input.</p>
-<h2 id="working-with-standard-input-and-output">Working with Standard
-Input and Output</h2>
+<h2><a name="working-with-standard-input-and-output">Working with Standard Input and Output</a></h2>
 <p>The Oakwood guides for Oberon-2 describe two modules particularly
 useful for working with standard input and output. They are
 appropriately called <code>In</code> and <code>Out</code>. On many
@@ -136,8 +135,7 @@ POSIX shell based application. In the case of “SlowCat” I’ve stuck with
 <code>Input</code> as I am only accessing time I’ve stuck with
 <code>Input</code> to make my source code more portable if you’re using
 another Oberon compiler.</p>
-<h2 id="working-with-karls-extensions">Working with Karl’s
-extensions</h2>
+<h2><a name="working-with-karls-extensions">Working with Karl’s extensions</a></h2>
 <p>This is the part of my code which is not portable between compiler
 implementations and with Oberon Systems. Karl provides a number of
 extension module wrapping various POSIX calls. We are going to use two,
@@ -150,7 +148,7 @@ change my code example. I use <code>extArgs</code> to access the command
 line parameters included in my POSIX shell invocation and I’ve used
 <code>extConvert</code> to convert the string presentation of the delay
 to an integer value for my delay.</p>
-<h2 id="our-approach">Our Approach</h2>
+<h2><a name="our-approach">Our Approach</a></h2>
 <p>To create “SlowCat” we need four procedures and one global
 variable.</p>
 <dl>
@@ -178,24 +176,24 @@ by ProcessArgs()
 </dl>
 <h3 id="usage">Usage</h3>
 <p>Usage just wraps helpful text and display it to standard out.</p>
-<h2 id="processargs">ProcessArgs()</h2>
+<h2><a name="processargs">ProcessArgs()</a></h2>
 <p>This a functional procedure. It uses two of Karl’s extension modules.
 It uses <code>extArgs</code> to retrieve the command line parameters and
 <code>extConvert</code> the string value retrieved into an integer.
 <code>ProcessArgs()</code> returns TRUE if we can successful convert the
 command line parameter and set the value of count otherwise return
 FALSE.</p>
-<h2 id="delayvar-count-integer">Delay(VAR count : INTEGER)</h2>
+<h2><a name="delayvar-count-integer">Delay(VAR count : INTEGER)</a></h2>
 <p>This procedure uses <code>Input0</code> to fetch the current epoch
 time and counts the number of seconds until we’ve reached our delay
 value. It’s a busy loop which isn’t ideal but does keep the program
 simple.</p>
-<h2 id="slowcatvar-count-integer">SlowCat(VAR count: INTEGER);</h2>
+<h2><a name="slowcatvar-count-integer">SlowCat(VAR count: INTEGER);</a></h2>
 <p>This is the heart of our command line program. It reads a line of
 text from standard input, if successful writes it to standard out and
 then waits using delay before repeating this process. The delay is only
 invoked when a reading a line was successful.</p>
-<h2 id="putting-it-all-together">Putting it all together</h2>
+<h2><a name="putting-it-all-together">Putting it all together</a></h2>
 <p>Here’s a “SlowCat” program.</p>
 <pre><code>
     MODULE SlowCat;
@@ -272,7 +270,7 @@ invoked when a reading a line was successful.</p>
       END;
     END SlowCat.
 </code></pre>
-<h2 id="compiling-and-trying-it-out">Compiling and trying it out</h2>
+<h2><a name="compiling-and-trying-it-out">Compiling and trying it out</a></h2>
 <p>To compile our program and try it out reading our source code do the
 following.</p>
 <pre><code>
@@ -280,7 +278,7 @@ following.</p>
     # If successful
     ./SlowCat 2 &lt; SlowCat.Mod
 </code></pre>
-<h2 id="oakwood-guidelines-and-pow">Oakwood Guidelines and POW!</h2>
+<h2><a name="oakwood-guidelines-and-pow">Oakwood Guidelines and POW!</a></h2>
 <p>Oberon and Oberon-2 were both used in creating and enhancing the
 Oberon System(s) as well as for writing programs on other operating
 systems (e.g. Apple’s Mac and Microsoft Windows). Implementing Oberon

@@ -41,8 +41,7 @@ to the problem in my last post <a
 href="https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html">Go
 based Python Modules</a> but with the language pairing of Go and
 Julia.</p>
-<h2 id="example-1-libtwice.go-libtwice.jl-and-libtwice_test.jl">Example
-1, libtwice.go, libtwice.jl and libtwice_test.jl</h2>
+<h2><a name="example-1-libtwicego-libtwicejl-and-libtwicetestjl">Example 1, libtwice.go, libtwice.jl and libtwice_test.jl</a></h2>
 <p>In out first example we send an integer value from Julia to Go and
 back via a C shared library (written in Go). While Julia doesn’t require
 type declarations I will be using those for clarity. Like in my previous
@@ -123,8 +122,7 @@ sense. But if you want to leverage existing Go based code this approach
 can be useful.</p>
 <p>Example 1 is our base recipe. The next examples focus on handling
 other data types but follow the same pattern.</p>
-<h2 id="example-2-libsayhi.go-libsayhi.jl-and-libsayhi_test.jl">Example
-2, libsayhi.go, libsayhi.jl and libsayhi_test.jl</h2>
+<h2><a name="example-2-libsayhigo-libsayhijl-and-libsayhitestjl">Example 2, libsayhi.go, libsayhi.jl and libsayhi_test.jl</a></h2>
 <p>Like Python, passing strings passing to or from Julia and Go is
 nuanced. Go is expecting UTF-8 strings. Julia also supports UTF-8 but C
 still looks at strings as a pointer to an address space that ends in a
@@ -172,9 +170,7 @@ class="sourceCode julia"><code class="sourceCode julia"><span id="cb9-1"><a href
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    libsayhi.<span class="fu">say_hi</span>(<span class="st">&quot;Hello again!&quot;</span>)</span></code></pre></div>
 <p>We run our tests with</p>
 <pre class="shell"><code>    julia libsayhi_test.jl</code></pre>
-<h2
-id="example-3-libhelloworld.go-and-librhelloworld.cl-and-libhelloworld_test.jl">Example
-3, libhelloworld.go and librhelloworld.cl and libhelloworld_test.jl</h2>
+<h2><a name="example-3-libhelloworldgo-and-librhelloworldcl-and-libhelloworldtestjl">Example 3, libhelloworld.go and librhelloworld.cl and libhelloworld_test.jl</a></h2>
 <p>In this example we send a string round trip between Julia and Go.
 Most of the boiler plate we say in Python is gone due to Julia’s type
 system. In addition to using Julia’s <em>ccall</em> we’ll add a
@@ -235,9 +231,7 @@ class="sourceCode julia"><code class="sourceCode julia"><span id="cb14-1"><a hre
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span></code></pre></div>
 <p>As before we see the Julia code is much more compact than
 Python’s.</p>
-<h2
-id="example-4-libjsonpretty.go-libjsonpretty.jl-and-libjsonpretty_test.jl">Example
-4, libjsonpretty.go, libjsonpretty.jl and libjsonpretty_test.jl</h2>
+<h2><a name="example-4-libjsonprettygo-libjsonprettyjl-and-libjsonprettytestjl">Example 4, libjsonpretty.go, libjsonpretty.jl and libjsonpretty_test.jl</a></h2>
 <p>In this example we send JSON encode text to the Go package, unpack it
 in Go’s runtime and repack it using the <code>MarshalIndent()</code>
 function in Go’s JSON package before sending it back to Julia in C

@@ -59,7 +59,7 @@ organization’s static website providing a rich cross project search
 <p>Finally I orchestrate the site construction with GNU Make. I do this
 with a simple dedicated Makefile called <a
 href="#website.mak">website.mak</a>.</p>
-<h2 id="website.mak">website.mak</h2>
+<h2><a name="websitemak">website.mak</a></h2>
 <p>The website.mak file is relatively simple.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
@@ -96,7 +96,7 @@ class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ot">.FORCE:</span></span></code></pre></div>
 <p>Only the “PROJECT” value needs to be set. Typically this is just the
 name of the repository’s base directory.</p>
-<h2 id="pandoc-filters-and-templates">Pandoc, filters and templates</h2>
+<h2><a name="pandoc-filters-and-templates">Pandoc, filters and templates</a></h2>
 <p>When write my Markdown documents I link to Markdown files instead of
 the HTML versions. This serves two purposes. First GitHub can use this
 linking directory and second if you decide to repurposed the website as
@@ -187,7 +187,7 @@ $endfor$
 $endif$</code></pre>
 <p>This same technique can be repurposed to render a CITATION.cff if
 needed.</p>
-<h2 id="pagefind">Pagefind</h2>
+<h2><a name="pagefind">Pagefind</a></h2>
 <p>Pagefind provides three levels of functionality. First it will
 generate indexes for a full text search of your project’s HTML pages. It
 also builds the necessary search UI for your static site. I include the

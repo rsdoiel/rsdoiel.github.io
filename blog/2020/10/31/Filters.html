@@ -34,7 +34,7 @@
 <section>
   <article>
 <h1 id="software-tools-filters">Software Tools, Filters</h1>
-<h2 id="overview">Overview</h2>
+<h2><a name="overview">Overview</a></h2>
 <p>This post is the second in a series revisiting the programs described
 in the 1981 book by Brian W. Kernighan and P. J. Plauger’s called <a
 href="https://archive.org/details/softwaretoolsinp00kern">Software Tools
@@ -72,7 +72,7 @@ standard output, introduces working with command line parameters</li>
 from/to substitution with a simple notation to describe character
 sequences and negation. My implementation diverges from K &amp; P</li>
 </ul>
-<h2 id="implementing-in-oberon-07">Implementing in Oberon-07</h2>
+<h2><a name="implementing-in-oberon07">Implementing in Oberon-07</a></h2>
 <p>With the exception of <strong>echo</strong> (used to introduce
 command line parameter processing) each program increases in complexity.
 The last program <strong>translit</strong>is the most complex in this
@@ -127,7 +127,7 @@ exposed by <code>In.Done</code>. I’ve chosen to put the next call to
 because it is clear that it is the last think done before ether
 iterating again or exiting the loop. Other than that the Oberon version
 looks much like K &amp; P’s Pascal.</p>
-<h2 id="program-documentation">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/32/mode/1up">Page
 32</a></p>
@@ -164,8 +164,7 @@ BUGS
   to a tab if it occurs at a tab stop. The entab is not an
   exact inverse of detab.
 </code></pre>
-<h2 id="source-code-for-entab.mod">Source code for
-<strong>Entab.Mod</strong></h2>
+<h2><a name="source-code-for-entabmod">Source code for Entab.Mod</a></h2>
 <pre><code>
 MODULE Entab;
   IMPORT In, Out, Tabs;
@@ -264,7 +263,7 @@ much.</p>
 Their recommend practice was include the explicit final “ELSE” at a
 comment to avoid confusion. But you can see how easy an omitting the
 comment is in the <strong>overstrike</strong> program.</p>
-<h2 id="limitations">Limitations</h2>
+<h2><a name="limitations">Limitations</a></h2>
 <p>This is documented “BUG” section describes the limitations well,
 “<strong>overstrike</strong> is naive about vertical motions and non-
 printing characters. It produces one over struck line for each sequence
@@ -274,7 +273,7 @@ Postscript. This limited the usefulness of this program today though
 controlling character movement in a “vt100” emulation using old fashion
 ASCII control codes is still interesting if only for historical
 reasons.</p>
-<h2 id="program-documentation-1">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/36/mode/1up">Page
 36</a></p>
@@ -314,8 +313,7 @@ BUGS
   characters. It produces one over struck line for each sequence
   of backspaces.
 </code></pre>
-<h2 id="source-code-for-overstrike.mod">Source code for
-<strong>Overstrike.Mod</strong></h2>
+<h2><a name="source-code-for-overstrikemod">Source code for Overstrike.Mod</a></h2>
 <pre><code>
 MODULE Overstrike;
 IMPORT In, Out;
@@ -403,7 +401,7 @@ other formatting. This is what inspired the K &amp; P implementation of
 <strong>compress</strong> and <strong>expand</strong>. Today we’d use
 other approaches to save space whether we were storing text or a digital
 photograph.</p>
-<h2 id="program-documentation-2">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/40/mode/1up">Page</a></p>
 <pre><code>
@@ -439,8 +437,7 @@ BUGS
 
     The implementation assumes 26 legal characters beginning with A.
 </code></pre>
-<h2 id="source-code-for-compress.mod">Source code for
-<strong>Compress.Mod</strong></h2>
+<h2><a name="source-code-for-compressmod">Source code for Compress.Mod</a></h2>
 <pre><code>
 MODULE Compress;
 IMPORT In, Out;
@@ -528,7 +525,7 @@ module I also feel that retrieving the value, then testing is a simpler
 statement to read. There is little need to worry about a side effect
 when you separate the action from the test. It does change the structure
 of the inner and outer <code>IF</code> statements.</p>
-<h2 id="program-documentation-3">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/43/mode/1up">Page
 43</a></p>
@@ -562,8 +559,7 @@ EXAMPLE
     1       car         -$7,000.00
     &lt;ENDFILE&gt;
 </code></pre>
-<h2 id="source-code-for-expand.mod">Source code for
-<strong>Expand.Mod</strong></h2>
+<h2><a name="source-code-for-expandmod">Source code for Expand.Mod</a></h2>
 <pre><code>MODULE Expand;
 IMPORT In, Out;
 
@@ -626,7 +622,7 @@ END Expand.
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/44/mode/1up">Page
 44</a></p>
-<h2 id="program-documentation-4">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/45/mode/1up">Page
 45</a></p>
@@ -653,8 +649,7 @@ EXAMPLE
         echo hello world!
         hello world!
 </code></pre>
-<h2 id="source-code-for-echo.mod">Source code for
-<strong>Echo.Mod</strong></h2>
+<h2><a name="source-code-for-echomod">Source code for Echo.Mod</a></h2>
 <pre><code>
 MODULE Echo;
 IMPORT Out, Args := extArgs;
@@ -737,7 +732,7 @@ procedures like <code>IsAlpha(c)</code>, <code>IsUpper(c)</code>,
 <code>IsAlphaNum()</code>. It also includes <code>AppendChar()</code>
 which can be used to append a single character value to an end of an
 array of char.</p>
-<h2 id="program-documentation-5">Program Documentation</h2>
+<h2><a name="program-documentation">Program Documentation</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/56/mode/1up">Page
 56</a></p>
@@ -786,7 +781,7 @@ EXAMPLE
         This is a simple-minded test, i.e., a test of translit.
         This is a simple minded test i e a test of translit
 </code></pre>
-<h2 id="pascal-source">Pascal Source</h2>
+<h2><a name="pascal-source">Pascal Source</a></h2>
 <p><a
 href="https://archive.org/stream/softwaretoolsinp00kern?ref=ol#page/48/mode/1up">translit.p,
 Page 48</a></p>
@@ -813,8 +808,7 @@ evolution in practice suggest a revision in the K &amp; P approach. I
 have attempted to keep the spirit of their example program while
 reflecting changes in practice that have occurred in the last four
 decades.</p>
-<h2 id="source-code-for-translit.mod">Source code for
-<strong>Translit.Mod</strong></h2>
+<h2><a name="source-code-for-translitmod">Source code for Translit.Mod</a></h2>
 <pre><code>MODULE Translit;
 IMPORT In, Out, Args := extArgs, Strings, Chars;
 
@@ -1099,7 +1093,7 @@ Next and Previous
 
 + Next: [Files]()
 -->
-<h2 id="previous">Previous</h2>
+<h2><a name="previous">Previous</a></h2>
 <ul>
 <li>Previous: <a href="../../09/29/Software-Tools-1.html">Getting
 Started</a></li>

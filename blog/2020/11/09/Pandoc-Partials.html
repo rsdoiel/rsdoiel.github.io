@@ -47,7 +47,7 @@ ambitious rendering systems like <a
 href="https://jekyllrb.com/">Jekyll</a> or <a
 href="https://gohugo.io/">Hugo</a>. Pandoc takes a vary direct approach
 and can be deceptively simple to implement.</p>
-<h2 id="use-your-own-template">Use your own template</h2>
+<h2><a name="use-your-own-template">Use your own template</a></h2>
 <p>First thing in this tutorial is to use our own template with Pandoc
 when rendering a single webpage. You use the <code>–-template</code>
 option to provide your a template name. I think of this as the page
@@ -77,7 +77,7 @@ template as the “body” element where it says <code>${body}</code>. See
 this Pandoc <a href="https://pandoc.org/MANUAL.html#templates">User
 Guide</a> for the basics.</p>
 <p>Example 1 rendered: <a href="index1.htm">index1.htm</a></p>
-<h2 id="variables-and-metadata">Variables and metadata</h2>
+<h2><a name="variables-and-metadata">Variables and metadata</a></h2>
 <p>Pandoc’s documentation is good at describing the ways of referencing
 a variable or using the built-in template functions. Where do the
 variables get their values? The easiest way I’ve found is to set the
@@ -130,12 +130,12 @@ like</p>
 simple navigation driven by the JSON file as well as the body content
 contained in the Pandoc-Partials.txt file.</p>
 <p>Example 2 rendered: <a href="index2.htm">index2.htm</a></p>
-<h2 id="partials">Partials</h2>
+<h2><a name="partials">Partials</a></h2>
 <p>Sometimes you have more complex documents. Putting this all in one
 template can become tedious. Web designers use a term called “partials”.
 This usually means a template for a “part” of a page. In our initial
 example we can split our navigation into it’s own template.</p>
-<h2 id="implementing-partials">Implementing partials</h2>
+<h2><a name="implementing-partials">Implementing partials</a></h2>
 <p>Pandoc will look in the current directory for partials as well as in
 a sub directory called “templates” of the current direct. In this
 example I am going to include my partial template for navigation in the

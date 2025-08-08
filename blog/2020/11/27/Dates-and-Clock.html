@@ -48,7 +48,7 @@ Oberon-07. I also plan to go beyond the A2 implementations and provide
 additional functionality such as parsing procedures and the ability to
 work with either the date or time related attributes separately in the
 <code>Dates.DateTime</code> record.</p>
-<h2 id="divergences">Divergences</h2>
+<h2><a name="divergences">Divergences</a></h2>
 <p>One of the noticeable differences between Oberon-07 and Active Oberon
 is the types that functional procedures can return. We cannot return an
 Object in Oberon-07. This is not much of a handicap as we have variable
@@ -57,7 +57,7 @@ integer number types. In Oberon-07 we have only INTEGER. Where I’ve
 create new procedures I’ve used the Oberon idiom of read only input
 parameters followed by variable parameters with side effects and finally
 parameters for the target record or values to be updated.</p>
-<h2 id="similarities">Similarities</h2>
+<h2><a name="similarities">Similarities</a></h2>
 <p>In spite of the divergence I have split the module into two. The <a
 href="Dates.html">Dates</a> module is the one you would include in your
 program, it provides a DateTime record type which holds the integer
@@ -71,7 +71,7 @@ libraries of the host system. If you were to use a different Oberon
 compiled such as the Oxford Oberon Compiler you would need to
 re-implement Clock. Dates itself should be system independent and work
 with Oberon-07 compilers generally.</p>
-<h2 id="clock">Clock</h2>
+<h2><a name="clock">Clock</a></h2>
 <p>The Clock module is built from a skeleton in Oberon-07 describing the
 signatures of the procedure and an implementation in <a
 href="Clock.c">C</a> that is built using the technique for discussed in
@@ -258,7 +258,7 @@ tests.</p>
     obnc ClockTest.Mod
     ./ClockTest
 </code></pre>
-<h2 id="dates">Dates</h2>
+<h2><a name="dates">Dates</a></h2>
 <p>The dates module provides a rich variety of procedures for working
 with dates. This includes parsing date strings into
 <code>DateTime</code> records, testing strings for supported date

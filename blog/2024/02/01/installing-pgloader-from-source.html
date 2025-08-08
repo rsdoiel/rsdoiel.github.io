@@ -42,7 +42,7 @@ pgloader is a Lisp program and once upon a time I had three different
 Lisps running on a previous Mac. So what follows is my modified
 instructions for bringing pgloader up on my current Mac Mini running
 macOS Sonoma 14.3 with Xcode already installed.</p>
-<h2 id="getting-your-lisps-in-order-1">Getting your Lisps in order</h2>
+<h2><a name="getting-your-lisps-in-order">Getting your Lisps in order</a></h2>
 <p>pgloader is written in common list but the instructions at
 https://pgloader.readthedocs.io/en/latest/install.html specifically
 mention compiling with <a href="https://sbcl.org">SBCL</a> which is one
@@ -61,7 +61,7 @@ pgloader and install</li>
 </ol>
 <p>NOTE: pgloader requires some specific configuration of SBCL when SBCL
 is compiled</p>
-<h2 id="getting-ecl-up-and-running">Getting ECL up and running</h2>
+<h2><a name="getting-ecl-up-and-running">Getting ECL up and running</a></h2>
 <p>This recipe is straight forward.</p>
 <ol type="1">
 <li>Review ECL’s current website, find latest releases</li>
@@ -78,7 +78,7 @@ cd src/gitlab.com/embeddable-common-lisp/ecl
 ./configure --prefix=$HOME
 make
 make install</code></pre>
-<h2 id="getting-sbcl-up-and-running">Getting SBCL up and running</h2>
+<h2><a name="getting-sbcl-up-and-running">Getting SBCL up and running</a></h2>
 <p>To get SBCL up and running I grab the sources using Git then compile
 it with the options recommended by pgloader as well as the options to
 compile SBCL with another common lisp, i.e. ECL. (note: the
@@ -93,7 +93,7 @@ cd ./doc/manual &amp;&amp; make
 cd ..
 env INSTALL_ROOT=$HOME sh install.sh</code></pre>
 <p>At this time SBCL should be available to compile pgloader.</p>
-<h2 id="install-quicklisp">Install Quicklisp</h2>
+<h2><a name="install-quicklisp">Install Quicklisp</a></h2>
 <p>Quicklisp is a package manager for Lisp. It is used by pgloader so
 also needs to be installed. We have two lisp on our system but since
 SBCL is the one I need to work for pgloader I install Quicklisp for
@@ -122,7 +122,7 @@ sbcl --load quicklisp.lisp</code></pre>
 command</p>
 <pre><code>(quicklisp-quickstart:install)
 (quit)</code></pre>
-<h2 id="compiling-pgloader">Compiling pgloader</h2>
+<h2><a name="compiling-pgloader">Compiling pgloader</a></h2>
 <p>Once you have SBCL and Quicklisp working you’re now ready to look at
 the rest of the dependencies. Based on the what other Linux systems
 required I figure I need to have the following available</p>

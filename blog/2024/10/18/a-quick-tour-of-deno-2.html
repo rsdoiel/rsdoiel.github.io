@@ -43,18 +43,18 @@ library</a>. As a TypeScript and JavaScript platform I find it much more
 stable and compelling than NodeJS. Deno has the advantage of being able
 to cross compile TypeScript to an executable which makes deployment of
 web services as easy for me as it is with Go.</p>
-<h2 id="easy-install-with-cargo">Easy install with Cargo</h2>
+<h2><a name="easy-install-with-cargo">Easy install with Cargo</a></h2>
 <p>Deno is written in Rust. I like installing Deno via Rust’s Cargo. You
 can installed Rust via <a href="https://rustup.rs">Rustup</a>. When I
 install Deno on a new machine I first check to make sure my Rust is the
 latest then I use Cargo to install Deno.</p>
 <pre class="shell"><code>rustup update
 cargo install deno</code></pre>
-<h2 id="easy-deno-upgrade">Easy Deno upgrade</h2>
+<h2><a name="easy-deno-upgrade">Easy Deno upgrade</a></h2>
 <p>Deno is in active development. You’ll want to run the latest
 releases. That’s easy using Deno. It has a self upgrade option.</p>
 <pre class="shell"><code>deno upgrade</code></pre>
-<h2 id="exploring-typescript">Exploring TypeScript</h2>
+<h2><a name="exploring-typescript">Exploring TypeScript</a></h2>
 <p>When I started using Deno this year I wasn’t familiar with
 TypeScript. Unlike NodeJS Deno can run TypeScript natively. Why write in
 TypeScript? TypeScript is a superset of JavaScript. That means if you
@@ -66,7 +66,7 @@ server side can be easily targetted to work in modern browsers too.
 TypeScript began life as a transpiled language targeting JavaScript.
 With Deno’s emit module I can easily transpile my TypeScript to
 JavaScript. No more messying about with NodeJS and npm.</p>
-<h2 id="exploring-deno">Exploring Deno</h2>
+<h2><a name="exploring-deno">Exploring Deno</a></h2>
 <p>As a learning platform I find Deno very refreshing. Deno provides a
 <a
 href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>.
@@ -234,8 +234,7 @@ href="https://docs.deno.com/runtime/fundamentals/configuration/">deno.json</a></
 <li><a
 href="https://docs.deno.com/runtime/fundamentals/security/">security</a></li>
 </ul>
-<h2 id="compiling-typescript-to-executable-code">Compiling TypeScript to
-executable code</h2>
+<h2><a name="compiling-typescript-to-executable-code">Compiling TypeScript to executable code</a></h2>
 <p>One of the really nice things about Deno + TypeScript is that your
 development experience can be interactive like interpretive languages
 (e.g. Python, Lisp) and as convenient to deploy as a <a
@@ -263,8 +262,7 @@ compiler. That means I can compile versions for macOS, Windows and Linux
 on one machine then copy the platform specific executable to the
 machines where they are needed. Deno’s compiler provides similar
 advantages to Go.</p>
-<h2 id="typescript-to-javascript-with-deno">TypeScript to JavaScript
-with Deno</h2>
+<h2><a name="typescript-to-javascript-with-deno">TypeScript to JavaScript with Deno</a></h2>
 <p>JavaScript is a first class language in modern web browsers but
 TypeScript is not. When TypeScript was invented it was positioned as a
 <a
@@ -299,8 +297,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href=
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Now when I want to see the <code>main.ts</code> in JavaScript I can
 do <code>deno task transpile</code>.</p>
-<h2 id="contrasting-deno-typescript-with-go-and-python">Contrasting Deno
-+ TypeScript with Go and Python</h2>
+<h2><a name="contrasting-deno-typescript-with-go-and-python">Contrasting Deno + TypeScript with Go and Python</a></h2>
 <p>For me working in Go has been a pleasure in large part because of its
 tooling. The “go” command comes with module management, code formatter,
 linting, testing and cross compiler right out of the box. I like a

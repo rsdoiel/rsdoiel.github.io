@@ -49,8 +49,8 @@ Native Oberon was released back in 1990’s most Intel flavored machines
 shipped with some sort Microsoft OS on them. I believe that is why the
 tools and instructions for Native Oberon assume you’re installing over
 or along side a DOS partition.</p>
-<h2 id="building-our-machine">Building our machine</h2>
-<h2 id="requirements">Requirements</h2>
+<h2><a name="building-our-machine">Building our machine</a></h2>
+<h2><a name="requirements">Requirements</a></h2>
 <ol type="1">
 <li>Install VirtualBox 6.1 installed on your host computer.</li>
 <li>Download and install a minimal FreeDOS 1.2 as a virtual machine</li>
@@ -66,7 +66,7 @@ Oberon is very different from macOS, Windows, Linux, DOS, CP/M or Unix.
 It is easy to read the instructions and miss important details like how
 you use the three button mouse, particularly the selections and execute
 actions of text instructions.</p>
-<h2 id="virtual-machine-setup">Virtual Machine Setup</h2>
+<h2><a name="virtual-machine-setup">Virtual Machine Setup</a></h2>
 <p>VirtualBox 6.1 can be obtained from <a
 href="https://www.virtualbox.org/">virtualbox.org</a>. This involves
 downloading the installer for your particular host operating system
@@ -89,7 +89,7 @@ icon in the modal dialog box. Change “NAT” to “Bridged Adapter”. Now
 click “OK” to close the modal dialog box.</p>
 <p>Your VirtualBox is now ready, before pressing “Start” we need to
 install FreeDOS 1.2.</p>
-<h2 id="make-a-freedos-1.2-machine">Make a FreeDOS 1.2 machine</h2>
+<h2><a name="make-a-freedos-12-machine">Make a FreeDOS 1.2 machine</a></h2>
 <p>Download the <a
 href="https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/FD12CD.iso">FD12CD.iso</a>
 file from the <a href="https://freedos.org/download">FreeDOS
@@ -129,7 +129,7 @@ Please reboot now”</p>
 <p>If all goes well the machine will boot into FreeDOS 1.2. When you see
 the “C:&gt;” prompt type “shutdown” (without the quotes) and press
 enter. We’re now ready to start installing Native Oberon 2.3.7.</p>
-<h2 id="native-oberon-2.3.7">Native Oberon 2.3.7</h2>
+<h2><a name="native-oberon-237">Native Oberon 2.3.7</a></h2>
 <p>Native Oberon used to be hosted at ETH where Oberon and the Oberon
 System was first developed as a research and instructional project.
 Unfortunately this seems to no longer be supported by ETH. Prof. Wirth
@@ -171,7 +171,7 @@ my home directory’s “Downloads” folder.</p>
     tar zxvf ~/Downloads/NativeOberon_2.3.7.tar.gz</code></pre>
 <p>You now have the software ready to proceed in installing the system
 in VirtualBox.</p>
-<h2 id="nativeoberon-in-a-virtualbox">NativeOberon in a VirtualBox</h2>
+<h2><a name="nativeoberon-in-a-virtualbox">NativeOberon in a VirtualBox</a></h2>
 <p>Go back to your VirtualBox management panel. We need to place he boot
 disk image in the virtual floppy drive. In the files we unpacked
 (i.e. ungzip and untar) there is a file named “Oberon0.Dsk”. We want to
@@ -179,7 +179,7 @@ mount that in the virtual floppy drive. Click on the word “Empty” next
 to “Floppy Device 0:” in the management panel. You are then given a
 modal dialog box and we want to select “Choose a disk file”. You can
 then find the files you save and select “Oberon0.Dsk”.</p>
-<h2 id="booting-with-oberon0.dsk">Booting with Oberon0.Dsk</h2>
+<h2><a name="booting-with-oberon0dsk">Booting with Oberon0.Dsk</a></h2>
 <p>We can now click “Start” button at the top of the VirtualBox
 management panel. This will boot the virtual machine using
 “Oberon0.Dsk”. Oberon itself loads completely into memory.</p>
@@ -205,8 +205,7 @@ install Oberon on your virtual hard drive. There is an <a
 href="https://web.archive.org/web/20171226183816/http://www.ethoberon.ethz.ch/ethoberon/tutorial/">Oberon
 System 3 - Main Tutorial</a> available at the Internet Archive’s Wayback
 machine.</p>
-<h2 id="installing-to-our-virtual-hard-disk">Installing to our Virtual
-Hard disk</h2>
+<h2><a name="installing-to-our-virtual-hard-disk">Installing to our Virtual Hard disk</a></h2>
 <p>Along the right side (in the system track) is the text “Edit.Open
 Introduction.Text”. Click with your middle button (scroll wheel on my
 mouse) and this will open the text in the “Edit” track on the left side.
@@ -216,7 +215,7 @@ are on the left side and the middle mouse button sets the scroll
 position. The left button pages down, the right pages up. You can close
 the “Introduction.Text” windows by middle clicking “System.Close” in the
 upper menu bar.</p>
-<h2 id="review-step-1.">Review step 1.</h2>
+<h2><a name="review-step-1">Review step 1.</a></h2>
 <p>We need to configure the hard drive by middle clicking on
 “Config.Desk Standard ATA/EIDE”<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a>. In the console viewer
@@ -224,7 +223,7 @@ above you should see something like</p>
 <pre><code>Disk: Standard ATA/EIDE
 Static BootLinker for OM Object Files / prk
  linking Native.Bin 255388</code></pre>
-<h2 id="review-step-2.">Review step 2.</h2>
+<h2><a name="review-step-2">Review step 2.</a></h2>
 <p>Middle click on “Edit.Open InstallFiles.Tool”. A “Tool” file is like
 a text file but usually contains instructions and a sorta menu or recipe
 of commands. In fact our instructions in the lower viewer of the system
@@ -235,7 +234,7 @@ on the right, or systems track. In either track by default the viewers
 will tile (not overlap). If you want to close a view you can click on
 “System.Close” in the viewer’s menu bar. Now open our InstallFiles.Tool
 in the edit track.</p>
-<h2 id="installfiles.tool">InstallFiles.Tool</h2>
+<h2><a name="installfilestool">InstallFiles.Tool</a></h2>
 <p>We now are going to prepare our virtual hard drive. Like our
 “Install.Tool” text we have a series of instructions which commands we
 can click on (the ones in blue).</p>
@@ -305,8 +304,7 @@ too it. We still need to configuration our system before it is self
 hosting.</p>
 <p>In the “Install.Tool” viewer we want to open our “Configure.Tool”.
 Middle click on the “Edit.Open Configure.Tool”.</p>
-<h2 id="configuring-our-oberon-system">Configuring our Oberon
-System</h2>
+<h2><a name="configuring-our-oberon-system">Configuring our Oberon System</a></h2>
 <p>The configuration tool breaks configuration into a series of parts.
 First part is configure the display in Part two we make the hard disk
 bootable.</p>
@@ -351,13 +349,13 @@ virtual hard drive. This reboot will take a little longer than the
 floppy boot and the screen size of the virtualbox will be large based on
 the settings you picked early. You have a minimal working Oberon System
 3. Now to install some more programs and flesh the system out.</p>
-<h2 id="install-some-programs">Install some programs</h2>
+<h2><a name="install-some-programs">Install some programs</a></h2>
 <p>First we need to get the zip files provided in
 NativeOberon_2.3.7.tar.gz on to the hard drive.<br />
 Historically these were done via 1.44 MB floppy disks. We’re going to
 make it easier. Native Oberon 2.3.7 can read an ISO formatted
 CD-ROM.</p>
-<h2 id="making-our-virtual-cd-rom">Making our virtual CD-ROM</h2>
+<h2><a name="making-our-virtual-cdrom">Making our virtual CD-ROM</a></h2>
 <p>Under Ubuntu 20.04.2 LTS machine creating a ISO image is one command.
 Below is I am going to create an ISO image of the directory
 “NativeOberon-2.3.7” and save the image as “NativeOberon-2.3.7.iso”.</p>
@@ -380,8 +378,7 @@ This is suitable to mount in VirtualBox’s virtual CD-ROM drive.</p>
 <p>Go to the VirtualBox 6.1 management panel and mount the ISO image
 file you created. Now we’re ready to return to our Native Oberon virtual
 machine.</p>
-<h2 id="installing-from-an-iso-cd-rom">Installing from an ISO
-CD-ROM</h2>
+<h2><a name="installing-from-an-iso-cdrom">Installing from an ISO CD-ROM</a></h2>
 <p>I suggest create the following as it’s own tool text. But if you want
 you can also type in the commands and execute one by one.</p>
 <pre><code>These are the instructions from installing the Native

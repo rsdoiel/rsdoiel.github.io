@@ -49,7 +49,7 @@ because the search engines doesn’t return the page in the SQLite
 documentation.</p>
 <p>In the next sections I’ll be modeling a simple person object with a
 id, uname, display_name, role and updated fields.</p>
-<h2 id="creating-a-person-table">Creating a person table</h2>
+<h2><a name="creating-a-person-table">Creating a person table</a></h2>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;person&quot;</span> </span>
@@ -58,14 +58,14 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#c
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;role&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;display_name&quot;</span> <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>, </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&quot;updated&quot;</span> <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>);</span></code></pre></div>
-<h2 id="adding-a-column">Adding a column</h2>
+<h2><a name="adding-a-column">Adding a column</a></h2>
 <p>We will create a <em>junk</em> column which we will remove later.</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>.<span class="kw">schema</span> person</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> person <span class="kw">ADD</span> <span class="kw">COLUMN</span> junk <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>.<span class="kw">schema</span> person</span></code></pre></div>
-<h2 id="dropping-a-column">Dropping a column</h2>
+<h2><a name="dropping-a-column">Dropping a column</a></h2>
 <p>To drop a column in SQLite you need to actually create a new table,
 migrate the data into it then drop the old table and finally rename it.
 It is best to wrap this in a transaction.</p>

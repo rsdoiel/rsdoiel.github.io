@@ -7,7 +7,7 @@ YEARS = 2025,2024,2023,2022,2021,2020,2019,2018,2017,2016
 
 TITLE = R. S. Doiel Software Engineer/Analyst
 
-PANDOC=pandoc -B nav.include -A footer.include --lua-filter=links-to-html.lua
+PANDOC=pandoc -f markdown -t html5 -B nav.include -A footer.include --lua-filter=links-to-html.lua --lua-filter=link-h2-anchor.lua
 
 all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml pagefind
 

@@ -46,6 +46,12 @@ a, a:link, a:visited {
     text-decoration: none;
 }
 
+a[name] {
+  color: var(--main-text-color);
+  text-decoration: none;
+  font-weight: inherit;
+}
+
 a:active, a:focus, a:hover {
     font-size: var(--link-font-size);
     color: var(--link-hover-color);

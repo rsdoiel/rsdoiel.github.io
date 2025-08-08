@@ -62,7 +62,7 @@ href="https://github.com/mmcdole/gofeed">gofeed</a>. The README
 describes it as a “universal” feed reading parser. That seems like a
 good starting point and picking a very narrowly focus task seems like a
 way to keep the experiment simple to implement.</p>
-<h2 id="design-issues">Design issues</h2>
+<h2><a name="design-issues">Design issues</a></h2>
 <p>The reader tool needs to output to standard out in the same manner as
 <code>yarnc timeline</code> does. The goal isn’t to be newsboat, or
 river of news, drummer, or Lynx but to present a stream of items
@@ -112,8 +112,7 @@ Pandoc to pretty print the content.</p>
 <pre><code>skimmer -limit 50 | pandoc -t markdown -f plain | less -R</code></pre>
 <p>That seems a like a good set of design features for an initial
 experiment.</p>
-<h2 id="proof-of-concept-implementation">Proof of concept
-implementation</h2>
+<h2><a name="proof-of-concept-implementation">Proof of concept implementation</a></h2>
 <p>Spending a little time this evening. I’ve release a proof of concept
 on GitHub at <a href="https://github.com/rsdoiel/skimmer"
 class="uri">https://github.com/rsdoiel/skimmer</a>, you can read the

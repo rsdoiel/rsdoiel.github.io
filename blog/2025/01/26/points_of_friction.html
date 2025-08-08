@@ -69,13 +69,13 @@ forward. It is easy to understand and you could wrap it in a function
 easily to hide the buffer management part. Yet it doesn’t provide the
 same flexibility as the more verbose Go version. Surely there is an an
 idiomatic why of doing this in TypeScript already?</p>
-<h2 id="stability-challenge">Stability Challenge</h2>
+<h2><a name="stability-challenge">Stability Challenge</a></h2>
 <p>Deno currently is a rapidly evolving platform. My first impulse was
 to reach for packages like <code>jsr:@std/fs</code> or
 <code>jsr:@sys/fs</code>. When I search for examples they mostly seem to
 reference specific versions of “std/fs” that are not available via jsr.
 So what’s the “right” way to approach this?</p>
-<h2 id="repl-to-the-rescue.">Repl to the rescue.</h2>
+<h2><a name="repl-to-the-rescue">Repl to the rescue.</a></h2>
 <p>Poking around in the Deno repl I tried assigning
 <code>Deno.stdin</code> to a local variable. Playing with command line
 completion I realized it has most of the the methods you would get if
@@ -120,7 +120,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-
 in some text then press Ctrl-D or Ctrl-Z if you’re on Windows.</p>
 <pre class="shell"><code>deno run --allow-read mycat.ts</code></pre>
 <p>Looks like we have a nice solution. Now I can compile “mycat.ts”.</p>
-<h2 id="trouble-in-paradise">trouble in paradise</h2>
+<h2><a name="trouble-in-paradise">trouble in paradise</a></h2>
 <p>While you can “run” the script you can’t compile it. It doesn’t pass
 “check”. This is the error I get with Deno 2.1.7.</p>
 <pre class="shell"><code>deno check mycat.ts
@@ -144,7 +144,7 @@ Found 2 errors.</code></pre>
 <p>It seems like what works in the repl should also compile but that’s
 isn’t the case. I have an open question on Deno’s discord help channel
 and am curious to find the “correct” way to handle this problem.</p>
-<h2 id="update-2025-01-26-500pm">Update 2025-01-26, 5:00PM</h2>
+<h2><a name="update-20250126-500pm">Update 2025-01-26, 5:00PM</a></h2>
 <p>I heard back on Deno Discord channel for help. With the help of <a
 href="https://github.com/crowlKats">crowlKat</a> sorted the problem
 out.</p>

@@ -41,7 +41,7 @@ similarities as with the tiny mosaic tiles of a guitar’s rosette</p>
 </blockquote>
 <p>What follows are my preliminary notes learning Postgres 12 and
 14.</p>
-<h2 id="postgres-mysql">Postgres &amp; MySQL</h2>
+<h2><a name="postgres-mysql">Postgres & MySQL</a></h2>
 <p>This is a short comparison of some administrative commands I commonly
 use. The first column describes the task followed by the SQL to execute
 for Postgres 14.5 and then MySQL 8. The presumption is you’re using
@@ -84,7 +84,7 @@ replaced with an appropriate value.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="reflections">Reflections</h2>
+<h2><a name="reflections">Reflections</a></h2>
 <p>The Postgres shell, <code>psql</code>, provides the functionality of
 showing a list of tables via a short cut while MySQL choose to add the
 <code>SHOW TABLES</code> query. For me <code>SHOW ...</code> feels like
@@ -121,7 +121,7 @@ differences, necessitated by implementation choices, in the
 <code>ALTER</code> statements but you can often use the basic form
 described in ANSI SQL and get the results you need. When doing
 performance tuning the dialect differences are more important.</p>
-<h2 id="dump-restore">Dump &amp; Restore</h2>
+<h2><a name="dump-restore">Dump & Restore</a></h2>
 <p>Both Postgres and MySQL provide command line programs for dumping a
 database. MySQL provides a single program where as Postgres splits it in
 two. Check the man pages (or website docs) for details in their options.
@@ -185,8 +185,7 @@ tooling is a little different.</p>
 same way you can restore from <code>pg_dumpall</code> but if you
 Postgres instance already exists then you’re going to run into various
 problems, e.g. errors about <code>template1</code> db.</p>
-<h2 id="lessons-learned-along-the-way">Lessons learned along the
-way</h2>
+<h2><a name="lessons-learned-along-the-way">Lessons learned along the way</a></h2>
 <p>2022-08-22</p>
 <p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be
 challenges in the SQL I write, first back ticks is a MySQL-ism for

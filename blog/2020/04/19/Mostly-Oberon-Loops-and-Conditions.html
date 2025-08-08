@@ -39,7 +39,7 @@
 href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon
 documents my exploration of the Oberon Language, Oberon System and the
 various rabbit holes I will inevitably fall into.</p>
-<h2 id="data-flow-1">Data Flow</h2>
+<h2><a name="data-flow">Data Flow</a></h2>
 <p>Oberon is a small systems language and while it is minimalist. It
 provides you with the necessary primitives to get things done. I’ve
 touched on code organization, basic types and basic type extensions in
@@ -65,7 +65,7 @@ A counting Loop where incrementing a counter by an integer value (e.g. 1
 or by a specified constant).
 </dd>
 </dl>
-<h2 id="if-elsif-else">IF, ELSIF, ELSE</h2>
+<h2><a name="if-elsif-else">IF, ELSIF, ELSE</a></h2>
 <p>The first two provide for conditional statements of the form if a
 condition is true do something. Almost ever computer language has some
 form of a conditional express and the Oberon IF, ELSIF, ELSE typical of
@@ -78,7 +78,7 @@ optional.</p>
     ELSE
       Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
     END;</code></pre>
-<h2 id="assert">ASSERT</h2>
+<h2><a name="assert">ASSERT</a></h2>
 <p>The second expression, ASSERT, is a little different. If ASSERT
 evaluates an expression that is FALSE then your program is halted. This
 is like combining an “if EXPR is false then system exit”.</p>
@@ -87,7 +87,7 @@ is like combining an “if EXPR is false then system exit”.</p>
     Out.Ln;
     ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
     (* If you didn&#39;t enter Y or y the program will halt *)</code></pre>
-<h2 id="while-do-elsif-do">WHILE DO, ELSIF DO</h2>
+<h2><a name="while-do-elsif-do">WHILE DO, ELSIF DO</a></h2>
 <p>Oberon-07 also provides two loop structures. These are very similar
 to other languages as well. The only expectation is that a while loop
 may contain an ELSIF which continues the loop execution until both
@@ -107,7 +107,7 @@ clauses return FALSE.</p>
        i := i + 10;
        Out.Int(i, 1);Out.String(&quot; &quot;);
     END;</code></pre>
-<h2 id="for-loops">FOR Loops</h2>
+<h2><a name="for-loops">FOR Loops</a></h2>
 <p>The FOR loop in Oberon is very similar to modern FOR loops. The FOR
 loop increments an integer value with in a range. You the default
 increments the start value by 1 but if a BY clause is included you can
@@ -120,7 +120,7 @@ control how the increment value works.</p>
 <pre class="oberon"><code>    FOR i := 0 TO 20 BY 2  DO
        Out.Int(i, 1);Out.String(&quot; &quot;);
     END;</code></pre>
-<h2 id="putting-it-all-together">Putting it all together</h2>
+<h2><a name="putting-it-all-together">Putting it all together</a></h2>
 <p>The following <a href="LoopsAndConditions.Mod">module</a>
 demonstrates the conditional and loop syntax.</p>
 <pre class="oberon"><code>    MODULE LoopsAndConditions;

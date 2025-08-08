@@ -40,7 +40,7 @@ extension, dynamic data">
 href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
 Oberon documents my exploration of the Oberon Language, Oberon System
 and the various rabbit holes I will inevitably fall into.</p>
-<h2 id="dynamic-types-in-oberon-1">Dynamic Types in Oberon</h2>
+<h2><a name="dynamic-types-in-oberon">Dynamic Types in Oberon</a></h2>
 <p>Oberon-07 is a succinct systems language. It provides a minimal but
 useful set of basic static types. Relying on them addresses many common
 programming needs. The Oberon compiler ensures static types are
@@ -50,7 +50,7 @@ short you can take advantage of Oberon’s type extension features. This
 includes creating dynamically allocated data structures. In Oberon-07
 combining Oberon’s <code>POINTER TO</code> and <code>RECORD</code> types
 allows us to create complex and dynamic data structures.</p>
-<h2 id="an-example-dynamic-strings">An example, dynamic strings</h2>
+<h2><a name="an-example-dynamic-strings">An example, dynamic strings</a></h2>
 <p>Strings in Oberon-07 are typical declared as an
 <code>ARRAY OF CHAR</code> with a specific length. If the length of a
 string is not known a head of time this presents a challenge. One
@@ -114,7 +114,7 @@ to keep a clean division between implementation inside the module and
 how that implementation might be used. With out information hiding we
 often have “leaky” abstractions that become brittle and hard to maintain
 and rely on.</p>
-<h2 id="working-with-dynamicstring">Working with DynamicString</h2>
+<h2><a name="working-with-dynamicstring">Working with DynamicString</a></h2>
 <p>Our type definitions describe to the compiler how to layout our data
 in memory. The type system in Oberon-07 also ensures that access to that
 memory is restricted to assignments, operations and procedures
@@ -267,8 +267,7 @@ length as we walk through the list.</p>
     RETURN total
   END Length;
 </code></pre>
-<h2 id="extending-dynamicstrings-module">Extending DynamicStrings
-module</h2>
+<h2><a name="extending-dynamicstrings-module">Extending DynamicStrings module</a></h2>
 <p>With these few procedures we have a basic means of working with
 dynamic strings. Moving beyond this we can look at the standard Oberon
 <code>Strings</code> module for inspiration. If we use similar procedure
@@ -421,7 +420,7 @@ function.</p>
     Insert(extra, pos, dest);
   END InsertCharArray;
 </code></pre>
-<h2 id="where-to-go-next">Where to go next</h2>
+<h2><a name="where-to-go-next">Where to go next</a></h2>
 <p>It is possible to extend our “DynamicStrings.Mod” into a drop in
 replacement for the standard <code>Strings</code>. I’ve included a
 skeleton of that module as links at the end of this article with stubs
@@ -433,8 +432,7 @@ the parameters that are <code>ARRAY OF CHAR</code> with
 <code>DynamicString</code>. It will be helpful to include some bridging
 procedures that accept <code>ARRAY OF CHAR</code> as inputs too. These
 will use similar names with a suffix of <code>CharArray</code>.</p>
-<h2 id="parameter-conventions-and-order">Parameter conventions and
-order</h2>
+<h2><a name="parameter-conventions-and-order">Parameter conventions and order</a></h2>
 <p>Oberon is highly composable. The trick to creating a drop in
 replacement module is use the same parameter signatures so you only need
 to make minor changes like updating the <code>IMPORT</code> statement
@@ -456,7 +454,7 @@ obfuscation. Readability is a great virtue in a programming language.
 When creating your own modules choose readability based on the concepts
 you want to emphasize in the module (e.g. procedural, object
 oriented).</p>
-<h2 id="the-modules-so-far">The modules so far</h2>
+<h2><a name="the-modules-so-far">The modules so far</a></h2>
 <p>You can read the full source for the module discussed along with a
 test module in the links that follow.</p>
 <ul>

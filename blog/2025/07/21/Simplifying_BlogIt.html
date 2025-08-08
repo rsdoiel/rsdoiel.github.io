@@ -63,10 +63,10 @@ requirements</li>
 <li>check directories for CommonMark documents and their front
 matter</li>
 </ul>
-<h2 id="blogit-command-line">BlogIt command line</h2>
+<h2><a name="blogit-command-line">BlogIt command line</a></h2>
 <p>Here’s what that might look like on the command line.</p>
 <pre class="shell"><code>blogit [OPTIONS] ACTION COMMONMARK_FILE [DATE_OF_POST]</code></pre>
-<h2 id="options">OPTIONS</h2>
+<h2><a name="options">OPTIONS</a></h2>
 <ul>
 <li>help</li>
 <li>version</li>
@@ -74,7 +74,7 @@ matter</li>
 <li>prefix BLOG_BASE_PATH (to set an explicit path to the “blog”
 directory)</li>
 </ul>
-<h2 id="action">ACTION</h2>
+<h2><a name="action">ACTION</a></h2>
 <p>The following actions need to be supported in the new
 implementation.</p>
 <ul>
@@ -104,7 +104,7 @@ date</li>
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="editing-front-matter">Editing front matter</h2>
+<h2><a name="editing-front-matter">Editing front matter</a></h2>
 <p><strong>BlogIt</strong> is a terminal application. The programs scans
 the source CommonMark file for existing front matter. For each expected
 element the current (or default) value of the element is displayed with
@@ -115,7 +115,7 @@ between <strong>BlogIt</strong> and the system provided text editor.</p>
 <p>Complex fields like keywords are provided to the text edit as YAML.
 The default should show the desired structure as YAML with placeholder
 values to be edited.</p>
-<h2 id="front-matter">Front Matter</h2>
+<h2><a name="front-matter">Front Matter</a></h2>
 <p>The basic front matter I want to use is straight forward as my blog
 started almost a decade ago. Essentially it is title, author, abstract,
 dateCreated, dateModified, datePublished and keywords. Some blog items
@@ -167,7 +167,7 @@ walk a directory tree and when it encounters CommonMark documents the
 front matter is validate. Errors are written to standard out. This
 feature would ensure that the CommonMark documents are ready for
 processing by the website build process.</p>
-<h2 id="checking-for-front-matter">Checking for Front Matter</h2>
+<h2><a name="checking-for-front-matter">Checking for Front Matter</a></h2>
 <p>Front Matter traditionally is found at the start of the CommonMark
 file. It starts with the a line matching <code>---</code> and terminates
 with same <code>---</code> line. Anything between the two is treated as
@@ -177,20 +177,19 @@ expected field is missing then prompt for it and if the response is “y”
 create a temp file of the content and invoke a default editor for the
 system. When the editor is exited the source is read back in and the
 front matter is updated.</p>
-<h2 id="processing-the-front-matter">Processing the Front Matter</h2>
+<h2><a name="processing-the-front-matter">Processing the Front Matter</a></h2>
 <p>Aside from extracting the YAML front matter from the text, the
 standard Deno library (<code>@std/yaml</code>) can be used to populate
 the interface for validation and editing.</p>
 <p>The task for <strong>BlogIt</strong> is primarily orchestrating the
 use of existing Deno TypeScript modules implementing the functionality I
 want from <strong>BlogIt</strong>.</p>
-<h2 id="rewriting-the-commonmark-document">Rewriting the CommonMark
-document</h2>
+<h2><a name="rewriting-the-commonmark-document">Rewriting the CommonMark document</a></h2>
 <p>If the front matter changes then the CommonMark document should be
 written to a backup file (e.g. “.bak”). If changes are made the
 interface should prompt before saving the backup and writing out the
 updates to the source CommonMark document.</p>
-<h2 id="draft-versus-datepublished">Draft versus datePublished</h2>
+<h2><a name="draft-versus-datepublished">Draft versus datePublished</a></h2>
 <p>If the front matter includes the value <code>draft: true</code>
 <strong>BlogIt</strong> will exit after updating the front matter. If
 <code>draft: true</code> is not in the front matter
@@ -204,7 +203,7 @@ the target path for coping the CommonMark document.</p>
 setting the publication and modification dates. If the front matter is
 valid then it will save the updated metadata and proceed to copy the
 revised CommonMark document into the blog tree.</p>
-<h2 id="the-program">The Program</h2>
+<h2><a name="the-program">The Program</a></h2>
 <h3 id="editor-module">editor module</h3>
 <p>Calling out to the system’s text editor and running the editor as a
 sub process should be implemented as it’s own module. This will allow me
@@ -937,7 +936,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-
 <span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) {</span>
 <span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">main</span>()<span class="op">.</span><span class="fu">catch</span>(<span class="bu">console</span><span class="op">.</span><span class="fu">error</span>)<span class="op">;</span></span>
 <span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<h2 id="reference">Reference</h2>
+<h2><a name="reference">Reference</a></h2>
 <ul>
 <li><a href="https://github.com/rsdoiel/BlogIt"
 class="uri">https://github.com/rsdoiel/BlogIt</a></li>

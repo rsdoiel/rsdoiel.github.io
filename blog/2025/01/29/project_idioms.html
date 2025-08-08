@@ -37,7 +37,7 @@
 <p>I’ve noticed a collection of file and code idioms I’ve been used in
 my recent Deno+TypeScript projects at work. I’ve captured them here as a
 future reference.</p>
-<h2 id="project-files">Project files</h2>
+<h2><a name="project-files">Project files</a></h2>
 <p>My project generally have the following files, these are derived from
 the <a href="https://codemeta.github.io">CodeMeta</a> file using <a
 href="https://caltechlibrary.github.io/CMTools">CMTools</a>.</p>
@@ -106,7 +106,7 @@ I use this if there are allot of files consistently being imported
 across the project, otherwise I skip it.
 </dd>
 </dl>
-<h2 id="what-i-put-in-main">What I put in Main</h2>
+<h2><a name="what-i-put-in-main">What I put in Main</a></h2>
 <p>I use the main function to define command line options, handle
 parameters such as data input, output and errors. It usually invokes a
 primary function modeled in the rest of the project code.</p>
@@ -169,7 +169,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) <span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
-<h2 id="helptext.ts">helptext.ts</h2>
+<h2><a name="helptextts">helptext.ts</a></h2>
 <p>The following is an example of the <a
 href="helptext.ts">helptext.ts</a> file for the demo <a
 href="mycat.ts">mycat.ts</a>.</p>
@@ -225,7 +225,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="vs">{app_name} README.md INSTALL.md</span></span>
 <span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="vs">~~~</span></span>
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span><span class="op">;</span></span></code></pre></div>
-<h2 id="generating-version.ts">Generating version.ts</h2>
+<h2><a name="generating-versionts">Generating version.ts</a></h2>
 <p>The <a href="version.ts">version.ts</a> is generated form two files,
 [codemeta.json] and [LICENSE] using the CMTools, <code>cmt</code>
 command.</p>

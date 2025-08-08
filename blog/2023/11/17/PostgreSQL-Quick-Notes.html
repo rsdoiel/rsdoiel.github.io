@@ -39,7 +39,7 @@ two</h1>
 <p>What follows is some quick notes to remind me of the things I do when
 I setup a new instance of PostgreSQL on the various machines I work
 with.</p>
-<h2 id="installation-approach">Installation approach</h2>
+<h2><a name="installation-approach">Installation approach</a></h2>
 <p>If possible I install Postgres with the system’s package manager or
 follow the directions suggested for installation on the <a
 href="https://postgres.org">Postgres website</a>.</p>
@@ -76,7 +76,7 @@ sudo chown postgres:postgres /opt/local/var/db/postgresql16/defaultdb
 sudo -u postgres /bin/sh -c &#39;cd /opt/local/var/db/postgresql16 &amp;&amp; /opt/local/lib/postgresql16/bin/initdb -D /opt/local/var/db/postgresql16/defaultdb&#39;
 sudo port load postgresql16-server
 sudo -u postgres /bin/sh -c &#39;/opt/local/lib/postgresql16/bin/pg_ctl -D /opt/local/var/db/postgresql16/defaultdb -l /opt/local/var/log/postgresql16/postgres.log start&#39;</code></pre>
-<h2 id="database-users-setup">Database users setup</h2>
+<h2><a name="database-users-setup">Database users setup</a></h2>
 <p>This applies to most Postgres installations I do because I am using
 them to develop software solutions. In a production setting you’d want a
 more conservative security approach.</p>

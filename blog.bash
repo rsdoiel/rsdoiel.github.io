@@ -76,6 +76,7 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
             -B ../nav.include \
             -A ../footer.include \
 			--lua-filter=../links-to-html.lua \
+			--lua-filter=../link-h2-anchor.lua \
             --template ../post.tmpl \
             "${Y}/${FNAME}" \
             > "${Y}/$(dirname "${FNAME}")/$(basename "${FNAME}" '.md').html"

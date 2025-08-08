@@ -40,7 +40,7 @@ Oberon">
 VirtualBox using the <a href="https://freedos.org">FreeDOS 1.2</a>, the
 A2 <a href="https://sourceforge.net/projects/a2oberon/files/">ISO</a> cd
 image and <a href="https://virtualbox.org">VirtualBox 6.1</a>.</p>
-<h2 id="basic-approach">Basic Approach</h2>
+<h2><a name="basic-approach">Basic Approach</a></h2>
 <ol type="1">
 <li>Download the ISO images for FreeDOS and A2</li>
 <li>Create a new Virtual Machine</li>
@@ -53,8 +53,7 @@ the reason I have had better luck taking this approach is based on
 assumptions about the virtual hard disk being setup with an existing
 known formatted, boot-able partition. In essence making our Virtualbox
 look like a fresh out of the box vintage PC.</p>
-<h2 id="download-the-iso-images-for-freedos-and-a2">Download the ISO
-Images for FreeDOS and A2</h2>
+<h2><a name="download-the-iso-images-for-freedos-and-a2">Download the ISO Images for FreeDOS and A2</a></h2>
 <p>You’ll find FreeDOS 1.2 installation ISO image at <a
 href="http://freedos.org/download/">FreeDos.org</a>. Download it where
 you can easily find it from the VirtualBox manager.</p>
@@ -63,7 +62,7 @@ href="https://sourceforge.net/projects/a2oberon/files/">SourceForge</a>
 in the A2 Files section. There is a green download button you can click
 and it’ll take you to a downloads page and download the ISO. Once again
 move it to where you can find it from the VirtualBox manager easily.</p>
-<h2 id="create-a-new-virtual-machine">Create a new Virtual Machine</h2>
+<h2><a name="create-a-new-virtual-machine">Create a new Virtual Machine</a></h2>
 <p>Fire up VirtualBox. Click the “New” icon. Given your machine a
 descriptive name and set the Type to “Other” and version to “DOS”. Click
 Next.</p>
@@ -92,7 +91,7 @@ given a context menu, click on “Choose a Disk file”. Navigate to where
 you saved the FressDOS ISO (e.g. FD12CD.iso). Click Open. This should
 return you to the manager panel and you should see the “FD12CD.iso” file
 listed.</p>
-<h2 id="install-freedos-1.2">Install FreeDOS 1.2</h2>
+<h2><a name="install-freedos-12">Install FreeDOS 1.2</a></h2>
 <p>Click the “Start” button. This should boot the machine. By default
 the search order for booting is floppy drive, CD-ROM drive then hard
 disk. Since we have the FD12CD.iso mounted in the cd ROM drive it’ll
@@ -120,7 +119,7 @@ select “Boot system from hard disk”. Press enter to select the extended
 memory manager and you should now be at the DOS “C:&gt;” prompt.</p>
 <p>Switch back to the VirtualBox manager panel and click on “Optical
 Drive” and click “Remove disk from virtual drive”.</p>
-<h2 id="installing-a2-oberon">Installing A2 Oberon</h2>
+<h2><a name="installing-a2-oberon">Installing A2 Oberon</a></h2>
 <p>We now should have a Virtual Machine ready to receive A2. Click the
 “Optical Drive” again and select the A2 ISO image you downloaded from
 SourceForge previously. Your optical drive should show the full filename

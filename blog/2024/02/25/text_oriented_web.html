@@ -44,7 +44,7 @@ elimination. It’s a way to think about the web status quo a little
 differently. My intention is to explore the implications of a more text
 centered web experience that could coexist as a subset of today’s
 web.</p>
-<h2 id="the-webs-good-stuff">The web’s “good stuff”</h2>
+<h2><a name="the-webs-“good-stuff”">The web’s “good stuff”</a></h2>
 <p>I think the following could form the “good stuff” in a Crockford<a
 href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a> sense of pairing things down to the
@@ -73,7 +73,7 @@ web”, i.e. “tow”, enough? Does it already have a meaning in software or
 the web? Would the protocol be “tow://”? I really need something a bit
 more clever and catchy if this is going to proceed beyond a thought
 experiment.</p>
-<h2 id="prototyping-options">Prototyping Options</h2>
+<h2><a name="prototyping-options">Prototyping Options</a></h2>
 <p>A proof of concept could be possible using off the self web server
 and web browser. The missing parts would be setting up the web server to
 add the <code>text/markdown; charset: utf-8</code> header for
@@ -90,7 +90,7 @@ to implement the specialized http server. The <code>yaml.v3</code>
 package to process the YAML POST data. Similar you should be able to
 create a text client for the command line or even a GUI client via <a
 href="https://fyne.io">Fyne</a></p>
-<h2 id="exploratory-questions">Exploratory Questions</h2>
+<h2><a name="exploratory-questions">Exploratory Questions</a></h2>
 <ul>
 <li>What does it mean to have a more text oriented web?</li>
 <li>What advantages could a text user interface have over a graphical
@@ -109,7 +109,7 @@ does it make sense thinking in terms of client server architecture?</li>
 “tow” site using the same corpus?</li>
 <li>Can this be done sustainably?</li>
 </ul>
-<h2 id="extrapolations">Extrapolations</h2>
+<h2><a name="extrapolations">Extrapolations</a></h2>
 <p>From a thought experiment I can see how to implement this both from a
 proof of concept level but also from a service and viewer level. I think
 it even offers an opportunity to function in a peer to peer manner. If
@@ -123,15 +123,14 @@ could re-emphasize the conversion versus broadcast metaphor popularized
 by the walled gardens. It might provide a more satisifying experience on
 Mobile since the payloads delivered to the web browser could be much
 smaller.</p>
-<h2 id="what-is-needed-to-demonstrate-a-standalone-tow">What is needed
-to demonstrate a standalone “tow”?</h2>
+<h2><a name="what-is-needed-to-demonstrate-a-standalone-“tow”">What is needed to demonstrate a standalone “tow”?</a></h2>
 <ul>
 <li>A modified HTTP web server (easy to implement in Go and other
 languages)</li>
 <li>A viewer/browser, possible to implement via Fyne in Go or as a text
 application/command line interface in Go</li>
 </ul>
-<h2 id="why-not-gopher-or-gemini">Why not Gopher or Gemini?</h2>
+<h2><a name="why-not-gopher-or-gemini">Why not Gopher or Gemini?</a></h2>
 <p>Tow is not there to replace anything, not Gopher, Not Gemini, the
 WWW. It is an exploration of a subset of the WWW protocols with a
 specific focused on textual interaction. I don’t see why a server or

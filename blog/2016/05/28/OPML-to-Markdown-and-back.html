@@ -35,13 +35,13 @@
   <article>
 <h1 id="opml-to-markdown-and-back">OPML to Markdown and back</h1>
 <p>By R. S. Doiel 2016-05-28</p>
-<h2 id="overview">Overview</h2>
+<h2><a name="overview">Overview</a></h2>
 <p>I wrote a Go language package to sort <a
 href="http://dev.opml.org/spec2.html">OPML</a> outlines. I wrote this
 because my preferred <a href="http://goread.io">feed reader</a> supports
 manual sorting but not automatic alpha sorting by the <em>outline</em>
 element’s <em>text</em> attribute.</p>
-<h2 id="observations">Observations</h2>
+<h2><a name="observations">Observations</a></h2>
 <p>Out of the box the OPML 2 Spec provides attributes indicating
 inclusion of other OPML files, scripts, basic metadata (create,
 modified, authorship), and even directory structures.</p>
@@ -63,7 +63,7 @@ It occurred to me that an OPML file could easily hold that metadata. It
 can even hold Markdown content. The trouble with OPML is that it is not
 quick to edit by hand.</p>
 <pre><code>Is there a round trip semantic mapping between OPML and Markdown?</code></pre>
-<h2 id="germination-of-an-idea">Germination of an idea</h2>
+<h2><a name="germination-of-an-idea">Germination of an idea</a></h2>
 <p>Entering a web link in Fargo the link is URL encoded and saved in the
 <em>text</em> attribute of the <em>outline</em> element.</p>
 <p>The source view of a web links in Fargo’s <em>outline</em> element

@@ -163,7 +163,7 @@ functionality needed to implement a CommonMark Processor.</p>
 minimize its complexity. The <code>process</code> method is only
 responsible for sequencing the transforms defined in their own
 modules.</p>
-<h2 id="inclusion-mechanisms">Inclusion mechanisms</h2>
+<h2><a name="inclusion-mechanisms">Inclusion mechanisms</a></h2>
 <p>Before writing the <code>process</code> method I will work through
 the transform modules.</p>
 <p>I need two inclusion mechanisms. One will support plain text file
@@ -272,7 +272,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-
 modules because I want the option of evolving them independently. I
 don’t want to entangled the two functions unnecessarily. Keeping both
 simple in separate modules aligns with that.</p>
-<h2 id="hashtags-and-mentions">Hashtags and Mentions</h2>
+<h2><a name="hashtags-and-mentions">Hashtags and Mentions</a></h2>
 <p>The other transforms needed in the <code>process</code> method are
 extracting the Hashtags and Mentions which will be used to update the
 front matter. Both Hashtags and Mentions are similar. They have a
@@ -325,7 +325,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Convert the Set back to an array and return it</span></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(uniqueTags)<span class="op">;</span></span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<h2 id="the-process-method">The <code>process</code> method</h2>
+<h2><a name="the-process-method">The process method</a></h2>
 <p>I have the set of transforms I want. I will need to sequence them in
 the <code>process</code> method. Here is a look at the internals of the
 <code>process</code> method.</p>
@@ -381,8 +381,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { includeCodeBlock } <span class="im">from</span> <span class="st">&quot;./includeCodeBlock.ts&quot;</span><span class="op">;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { includeTextBlock } <span class="im">from</span> <span class="st">&quot;./includeTextBlock.ts&quot;</span><span class="op">;</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<h2 id="the-complete-commonmark-processor-module">The complete
-CommonMark processor module</h2>
+<h2><a name="the-complete-commonmark-processor-module">The complete CommonMark processor module</a></h2>
 <p>Here is the complete <code>commonMarkDoc.ts</code> module.</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> yaml <span class="im">from</span> <span class="st">&quot;@std/yaml&quot;</span><span class="op">;</span></span>
@@ -465,8 +464,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-
 <span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cmark<span class="op">;</span></span>
 <span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<h2 id="the-commonmark-processor-application">The CommonMark processor
-application</h2>
+<h2><a name="the-commonmark-processor-application">The CommonMark processor application</a></h2>
 <p>To use this module I need to wrap it so I can execute it from the
 command line. My processor is going to be called
 <code>cmarkprocess</code> so I’ll name the module that becomes the

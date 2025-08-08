@@ -40,8 +40,7 @@ system</h1>
 href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly
 Oberon documents my exploration of the Oberon Language, Oberon System
 and the various rabbit holes I will inevitably fall into.</p>
-<h2 id="working-with-files-in-oberon-07">Working with files in
-Oberon-07</h2>
+<h2><a name="working-with-files-in-oberon07">Working with files in Oberon-07</a></h2>
 <p>In a POSIX system we often talk of opening files, writing and reading
 files and close files. The Oberon language reflects a more Oberon System
 point of view.</p>
@@ -64,7 +63,7 @@ In taking this approach Oberon language eschews modality at the
 procedure level.</p>
 <p>NOTE: Modules can be explicitly unload otherwise they persist until
 the computer is turned off</p>
-<h2 id="key-oberon-concepts">Key Oberon Concepts</h2>
+<h2><a name="key-oberon-concepts">Key Oberon Concepts</a></h2>
 <p>The following are exported in the <code>Files</code> module.</p>
 <dl>
 <dt>File</dt>
@@ -238,7 +237,7 @@ check if the file was successfully removed.</p>
 <li>Delete the file setting a result value</li>
 <li>Check the value with ASSERT to make sure it worked</li>
 </ul>
-<h2 id="putting-it-all-together.">Putting it all together.</h2>
+<h2><a name="putting-it-all-together">Putting it all together.</a></h2>
 <p>Here is the full listing of our module.</p>
 <pre><code>
     MODULE TypingHi;
@@ -299,7 +298,7 @@ check if the file was successfully removed.</p>
         DeleteHelloWorld();
     END TypingHi.
 </code></pre>
-<h2 id="post-script-2021-10-29">Post Script, 2021-10-29</h2>
+<h2><a name="post-script-20211029">Post Script, 2021-10-29</a></h2>
 <p>On October 29, 2021 I had an email conversation with Jules. It
 pointed out a problem in this implementation of Hello World. I had
 incorrectly coded the end of line with
