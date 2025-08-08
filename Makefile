@@ -18,7 +18,7 @@ nav.include: nav.md .FORCE
 footer.include: footer.md
 	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua footer.md > footer.include
 
-index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md
+index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md .FORCE
 	pttk include index.txt >index.md
 
 index.html: nav.include footer.include index.md page.tmpl
