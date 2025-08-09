@@ -6,12 +6,10 @@ title : "Search"
 
 # Search Robert's blog posts and selected projects
 
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-
-<script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
-
 <search id="search"></search>
 
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
 <script>
 // Fetch the query "q" form the URL
 function getQueryParam(name) {
@@ -20,16 +18,16 @@ function getQueryParam(name) {
 }
 
 // When the page is loaded setup PageFindUI object.
-window.addEventListener('DOMContentLoaded', (_event) => {
-    const pagefindUI = new PagefindUI({
-    element: "#search",
-    showSubResults: true,
-    highlightParam: "highlight",
-    mergeIndex: [
-      {
-        bundlePath: "https://rsdoiel.github.io/pagefind",
-        baseUrl: "/"
-      },
+window.addEventListener('DOMContentLoaded', (event) => {
+  const pagefindUI = new PagefindUI({
+  element: "#search",
+  showSubResults: true,
+  highlightParam: "highlight",
+  mergeIndex: [
+    {
+      bundlePath: "https://rsdoiel.github.io/pagefind",
+      baseUrl: "/"
+    },
       {
         bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
         baseUrl: "/shorthand/"
@@ -43,16 +41,8 @@ window.addEventListener('DOMContentLoaded', (_event) => {
         baseUrl: "/skimmer/"
       },
       {
-        bundlePath: "https://rsdoiel.github.io/scripttools/pagefind",
-        baseUrl: "/scripttools/"
-      },
-      {
         bundlePath: "https://rsdoiel.github.io/fountain/pagefind",
         baseUrl: "/fountain/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/osf/pagefind",
-        baseUrl: "/osf/"
       },
       {
         bundlePath: "https://rsdoiel.github.io/fdx/pagefind",
@@ -73,7 +63,15 @@ window.addEventListener('DOMContentLoaded', (_event) => {
       {
         bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind",
         baseUrl: "/BlogIt/"
-      }
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/scripttool/pagefind",
+        baseUrl: "/scripttool/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/osf/pagefind",
+        baseUrl: "/osf/"
+      },
     ]
   });
   
