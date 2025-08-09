@@ -20,7 +20,7 @@ function getQueryParam(name) {
 }
 
 // When the page is loaded setup PageFindUI object.
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', (_event) => {
     const pagefindUI = new PagefindUI({
     element: "#search",
     showSubResults: true,
@@ -63,18 +63,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
         baseUrl: "/stngo/"
       },
       {
-        bundlePath: "https://rsdoiel.github.io/opml/pagefind"
+        bundlePath: "https://rsdoiel.github.io/opml/pagefind",
         baseUrl: "/opml/"
       },
       {
-        bundlePath: "https://rsdoiel.github.io/commonMarkDoc/pagefind"
-        baseUrl: "/opml/"
+        bundlePath: "https://rsdoiel.github.io/commonMarkDoc/pagefind",
+        baseUrl: "/commonMarkDoc/"
       },
       {
-        bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind"
-        baseUrl: "/opml/"
+        bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind",
+        baseUrl: "/BlogIt/"
       }
-    }]
+    ]
   });
   
   const queryString = getQueryParam("q");
@@ -83,4 +83,3 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 </script>
-

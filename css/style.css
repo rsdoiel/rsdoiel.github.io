@@ -16,29 +16,32 @@ body {
     flex-direction: column;
 }
 
-section, article {
-    flex: 1;
+h1 {
+    font-size: var(--h1-font-size);
+    margin-block: 0.67em;
 }
 
-footer {
-    font-size: var(--footer-font-size);
+h2 {
     font-weight: lighter;
-    padding: 1em;
-    margin-top: auto; /* This will push the footer to the bottom */
-    width: 100%;
-    color: var(--footer-text-color);
-    background-color: var(--footer-bg-color);
+    font-size: var(--h2-font-size);
 }
 
-body {
-    font-family: var(--main-font-family);
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: auto;
-    color: var(--main-text-color);
-    background-color: var(--main-bg-color);
+h3 {
+    font-weight: lighter;
+    font-size: var(--h3-font-size);
+    text-transform: uppercase;
 }
+
+h4 {
+    font-weight: lighter;
+    font-size: var(--h4-font-size);
+    text-transform: lowercase;
+}
+
+h1 code, h2 code, h3 code, h4 code {
+    text-transform: none;
+}
+
 
 a, a:link, a:visited {
     font-size: var(--link-font-size);
@@ -109,6 +112,7 @@ nav ul li {
 }
 
 section, article {
+    flex: 1;
     display: block;
     max-width: 90%;
     height: auto;
@@ -119,6 +123,8 @@ section, article {
 
 section h1 {
     padding-top: 1.24em;
+    margin-block: 0.67em;
+    font-size: 2em;
 }
 
 img.rss-valid {
@@ -127,36 +133,11 @@ img.rss-valid {
     height: 0.82em;
 }
 
-h1 {
-    font-size: var(--h1-font-size);
-}
-
-h2 {
-    font-weight: lighter;
-    font-size: var(--h2-font-size);
-}
-
-h3 {
-    font-weight: lighter;
-    font-size: var(--h3-font-size);
-    text-transform: uppercase;
-}
-
-h4 {
-    font-weight: lighter;
-    font-size: var(--h4-font-size);
-    text-transform: lowercase;
-}
-
-h1 code, h2 code, h3 code, h4 code {
-    text-transform: none;
-}
-
 footer {
     font-size: var(--footer-font-size);
     font-weight: lighter;
-    padding: 0;
-    margin: 0;
+    padding: 1em;
+    margin-top: auto; /* This will push the footer to the bottom */
     width: 100%;
     height: auto;
     color: var(--footer-text-color);

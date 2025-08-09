@@ -42,30 +42,74 @@ blog posts and selected projects</h1>
 <script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
 <p><search id="search"></search></p>
 <script>
-let pse = new PagefindUI({
+// Fetch the query "q" form the URL
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// When the page is loaded setup PageFindUI object.
+window.addEventListener('DOMContentLoaded', (_event) => {
+    const pagefindUI = new PagefindUI({
     element: "#search",
     showSubResults: true,
     highlightParam: "highlight",
-    mergeIndex: [{
+    mergeIndex: [
+      {
         bundlePath: "https://rsdoiel.github.io/pagefind",
+        baseUrl: "/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
+        baseUrl: "/shorthand/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/pttk/pagefind",
+        baseUrl: "/pttk/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/skimmer/pagefind",
+        baseUrl: "/skimmer/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/scripttools/pagefind",
+        baseUrl: "/scripttools/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/fountain/pagefind",
+        baseUrl: "/fountain/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/osf/pagefind",
+        baseUrl: "/osf/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/fdx/pagefind",
+        baseUrl: "/fdx/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/stngo/pagefind",
-        bundlePath: "https://rsdoiel.github.io/opml/pagefind"
-    }]
-})
-window.addEventListener('DOMContentLoaded', (event) => {
-    let page_url = new URL(window.location.href),
-        query_string = page_url.searchParams.get('q');
-    if (query_string !== null) {
-        console.log('Query string: ' + query_string);
-        pse.triggerSearch(query_string);
-    }
+        baseUrl: "/stngo/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/opml/pagefind",
+        baseUrl: "/opml/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/commonMarkDoc/pagefind",
+        baseUrl: "/commonMarkDoc/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind",
+        baseUrl: "/BlogIt/"
+      }
+    ]
+  });
+  
+  const queryString = getQueryParam("q");
+  if (queryString) {
+    pagefindUI.triggerSearch(queryString);
+  }
 });
 </script>
 
