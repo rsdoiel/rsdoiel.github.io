@@ -13,30 +13,74 @@ title : "Search"
 <search id="search"></search>
 
 <script>
-let pse = new PagefindUI({
+// Fetch the query "q" form the URL
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// When the page is loaded setup PageFindUI object.
+window.addEventListener('DOMContentLoaded', (event) => {
+    const pagefindUI = new PagefindUI({
     element: "#search",
     showSubResults: true,
     highlightParam: "highlight",
-    mergeIndex: [{
+    mergeIndex: [
+      {
         bundlePath: "https://rsdoiel.github.io/pagefind",
+        baseUrl: "/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
+        baseUrl: "/shorthand/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/pttk/pagefind",
+        baseUrl: "/pttk/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/skimmer/pagefind",
+        baseUrl: "/skimmer/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/scripttools/pagefind",
+        baseUrl: "/scripttools/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/fountain/pagefind",
+        baseUrl: "/fountain/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/osf/pagefind",
+        baseUrl: "/osf/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/fdx/pagefind",
+        baseUrl: "/fdx/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/stngo/pagefind",
+        baseUrl: "/stngo/"
+      },
+      {
         bundlePath: "https://rsdoiel.github.io/opml/pagefind"
+        baseUrl: "/opml/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/commonMarkDoc/pagefind"
+        baseUrl: "/opml/"
+      },
+      {
+        bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind"
+        baseUrl: "/opml/"
+      }
     }]
-})
-window.addEventListener('DOMContentLoaded', (event) => {
-    let page_url = new URL(window.location.href),
-        query_string = page_url.searchParams.get('q');
-    if (query_string !== null) {
-        console.log('Query string: ' + query_string);
-        pse.triggerSearch(query_string);
-    }
+  });
+  
+  const queryString = getQueryParam("q");
+  if (queryString) {
+    pagefindUI.triggerSearch(queryString);
+  }
 });
 </script>
 
