@@ -5,15 +5,29 @@
         <title>R. S. Doiel Blog</title>
         <link>https://rsdoiel.github.io</link>
         <description>Robert&#39;s ramblings and wonderigs</description>
-        <pubDate>Sat, 26 Jul 2025 00:00:00 +0000</pubDate>
-        <lastBuildDate>Sat, 26 Jul 2025 00:00:00 +0000</lastBuildDate>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 09 Aug 2025 00:00:00 +0000</lastBuildDate>
         <generator>pttk rss 0.0.18</generator>
+        <item>
+            <title>Opensearch Description Document needs love</title>
+            <link>https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html</link>
+            <description>Opensearch Description Document is a specification for describing how a site search can integrate into your web browser. In 2025 it is still supported by Firefox, Safari and Chrome. It lets you integrate your site search into your browsers URL box (a.k.a. omnibox) as a first class search citizen. It is a means for us to take back search.&#xA;In this article I use a simple case study of integrating a PageFind search using an Opensearch Description Document.&#xA;</description>
+            <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html</guid>
+        </item>
         <item>
             <title>Build a CommonMark Processor</title>
             <link>https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html</link>
             <description>In this post I go over the process of building a TypeScript module called `commonMarkDoc.ts` along with a simple command line CommonMark processor called `cmarkprocess`.&#xA;CommonMark pre-processor features are&#xA;&#xA;  - support `@include-code-block` for including code samples as code blocks&#xA;  - support `@include-text-block` for include plain text into a CommonMark document&#xA;  - transform Hashtags into front matter&#xA;  - transform @Tags into front matter&#xA;</description>
             <pubDate>Sat, 26 Jul 2025 00:00:00 +0000</pubDate>
             <guid>https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html</guid>
+        </item>
+        <item>
+            <title>Signed Binaries and Business Models</title>
+            <link>https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</link>
+            <description>This post explains why I don&#39;t provide signed binaries in the open source software I create and release.&#xA;</description>
+            <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</guid>
         </item>
         <item>
             <link>https://rsdoiel.github.io/blog/2025/07/24/INSTALL_NOTES_macOS.html</link>
@@ -28,18 +42,923 @@
             <guid>https://rsdoiel.github.io/blog/2025/07/24/INSTALL_NOTES_Windows.html</guid>
         </item>
         <item>
-            <title>Signed Binaries and Business Models</title>
-            <link>https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</link>
-            <description>This post explains why I don&#39;t provide signed binaries in the open source software I create and release.&#xA;</description>
-            <pubDate>Thu, 24 Jul 2025 00:00:00 +0000</pubDate>
-            <guid>https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</guid>
-        </item>
-        <item>
             <title>Simplifying BlogIt</title>
             <link>https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html</link>
             <description>BlogIt is a command I&#39;ve written many times over the years. At it&#39;s core&#xA;is did a two simple things. &#xA;&#xA;1. Copy CommonMark files into a blog directory three&#xA;2. Use Front Matter as a source for aggregated blog metadata&#xA;&#xA;In it the new incarnation it is primarily focus on curating the front matter&#xA;followed by copying the document into the blog directory structure. &#xA;&#xA;1. Curate CommonMark file front matter&#xA;2. Copy CommonMark files into the blog directory tree&#xA;&#xA;Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).&#xA;</description>
             <pubDate>Mon, 21 Jul 2025 00:00:00 +0000</pubDate>
             <guid>https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html</guid>
+        </item>
+        <item>
+            <title>Build a Static Web Server with Deno</title>
+            <link>https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html</link>
+            <description>This post discusses static web server implementation using Deno.&#xA;</description>
+            <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html</guid>
+        </item>
+        <item>
+            <title>Rethinking REST</title>
+            <link>https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</link>
+            <description>I am re-thinking my reliance on REST&#39;s implementation of the CRUD abstraction in favor of the simpler&#xA;read write file abstraction in my web application. This can be accomplished in SQL easily. This post&#xA;covers an example of doing this in SQLite3 while also implementing JSON object versioning.&#xA;&#xA;Coverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3&#39;s&#xA;`on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.&#xA;The trigger maintains the version number and updated timestamp.&#xA;</description>
+            <pubDate>Sat, 07 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</guid>
+        </item>
+        <item>
+            <title>PowerShell and Edit for macOS, Linux and Windows</title>
+            <link>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</link>
+            <description>One of the challenges of multi platform support is the variance in tools. Unix and related operating systems are pretty unified these days. The differences are minor today as opposed to twenty years ago. If you need to support Windows too it&#39;s a whole different story. You can jump to Linux Subsystem for Windows but that is really like using a container inside Windows and doesn&#39;t solve the problem when you need to work across the whole system. &#xA;&#xA;Windows&#39; shell experience is varied. Originally it was command com, essentially a enhanced CP/M shell. Much later as Windows moved beyond then replaced MS-DOS they invented PowerShell. Initially a Windows only system. Fast forward today things have change. PowerShell runs across Windows, macOS and Linux. It is even licensed under an MIT style license.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Thu, 05 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</guid>
+        </item>
+        <item>
+            <title>A quick note on types in Deno+TypeScript</title>
+            <link>https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</link>
+            <description>Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can&#39;t identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.&#xA;&#xA;There are three approaches I&#39;ve found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following&#xA;the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</guid>
+        </item>
+        <item>
+            <title>New Life for Fielded Search</title>
+            <link>https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html</link>
+            <description>A day dreaming in response to a Simon Willison post on using language models&#xA;to convert queries into fielded searches. In this post I extrapolate how this&#xA;could result in a more private search experience and allow for an enhanced&#xA;search experience for static websites.&#xA;</description>
+            <pubDate>Thu, 10 Apr 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html</guid>
+        </item>
+        <item>
+            <title>LLM first impressions a few weeks in</title>
+            <link>https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html</link>
+            <description>A first take of LLM use for coding projects.&#xA;</description>
+            <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html</guid>
+        </item>
+        <item>
+            <title>Building Web Components using Large Language Models</title>
+            <link>https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html</link>
+            <description>Quick discussion of my recent experience bootstrapping the CL-web-components project&#xA;</description>
+            <pubDate>Thu, 13 Mar 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html</guid>
+        </item>
+        <item>
+            <title>Setting up my Raspberry Pi 500, a Portable Workstation</title>
+            <link>https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html</link>
+            <description>Quick notes on configuring a Raspberry Pi 500 as a portable workstation along with a price list.&#xA;</description>
+            <pubDate>Fri, 14 Feb 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html</guid>
+        </item>
+        <item>
+            <title>Book review, &#34;Man and the Computer&#34;</title>
+            <link>https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html</link>
+            <description>A book review of a vintage computer publication, &#34;Man and the Computer&#34; by&#xA;John G. Kemeny, published 1972, ISBN: 0684130092&#xA;Read at the Open Library, &lt;https://openlibrary.org/books/OL5282840M/Man_and_the_computer&gt; &#xA;</description>
+            <pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html</guid>
+        </item>
+        <item>
+            <title>Working with Structured Data in Deno and TypeScript</title>
+            <link>https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</link>
+            <description>A short discourse on working with structured data in TypeScript and easily&#xA;converting from JSON, YAML and XML representations.&#xA;</description>
+            <pubDate>Mon, 03 Feb 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</guid>
+        </item>
+        <item>
+            <title>Moving beyond git template repositories with CodeMeta</title>
+            <link>https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html</link>
+            <description>An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.&#xA;</description>
+            <pubDate>Fri, 31 Jan 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html</guid>
+        </item>
+        <item>
+            <title>Deno 2.1.7, Project Idioms</title>
+            <link>https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html</link>
+            <description>Notes on some of the file and code idioms I&#39;m using with Deno+TypeScript projects.</description>
+            <pubDate>Wed, 29 Jan 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html</guid>
+        </item>
+        <item>
+            <title>Deno 2.1.7, Points of Friction</title>
+            <link>https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html</link>
+            <description>A short discussion of working with file input in TypeScript+Deno coming from the&#xA;perspective of Go&#39;s idiomatic use of io buffers.&#xA;</description>
+            <pubDate>Sun, 26 Jan 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html</guid>
+        </item>
+        <item>
+            <title>Working with Structured Data in Deno and TypeScript</title>
+            <link>https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</link>
+            <description>A short discourse on working with structured data in TypeScript and easily&#xA;converting from JSON, YAML and XML representations.&#xA;</description>
+            <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</guid>
+        </item>
+        <item>
+            <title>Installing Deno via Cargo and other options</title>
+            <link>https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html</link>
+            <description>Notes on setting up a Debian flavored Linux boxes, macOS and Windows to install Deno via `cargo install deno`,&#xA;`curl -fsSL https://deno.land/install.sh | sh` or&#xA;`iwr https://deno.land/install.ps1 -useb | iex`&#xA;</description>
+            <pubDate>Fri, 13 Dec 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html</guid>
+        </item>
+        <item>
+            <title>When Deno+TypeScript, when Go?</title>
+            <link>https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html</link>
+            <description>Brief discussion of when I choose Deno+TypeScript versus Go for work projects.&#xA;</description>
+            <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html</guid>
+        </item>
+        <item>
+            <title>Transpiling &amp; Bundling with Emit</title>
+            <link>https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html</link>
+            <description>A brief discussion of using the Deno emit module to transpile and bundle&#xA;TypeScript.&#xA;</description>
+            <pubDate>Thu, 21 Nov 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html</guid>
+        </item>
+        <item>
+            <title>Raspberry Pi 4 &amp; 400 Power Supply Issues</title>
+            <link>https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html</link>
+            <description>Quick notes on some low voltage issues I ran into with my Raspberry Pi 4 and 400 using the stock power supply with thumb drives.&#xA;</description>
+            <pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html</guid>
+        </item>
+        <item>
+            <title>Rust tools for Web Work</title>
+            <link>https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html</link>
+            <description>A quick review of a PageFind and FlatLake by Cloud Cannon. A brief description of how I use them.&#xA;</description>
+            <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html</guid>
+        </item>
+        <item>
+            <title>SQLite3 json_patch is a jewel</title>
+            <link>https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html</link>
+            <description>Quick note about json_path function in SQLite3</description>
+            <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html</guid>
+        </item>
+        <item>
+            <title>Limit and offset for row pruning</title>
+            <link>https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html</link>
+            <description>Noted are how to combine a select statement with limit and offset clauses with a delete statement to prune rows.</description>
+            <pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html</guid>
+        </item>
+        <item>
+            <title>Quick tour of Deno 2.0.2</title>
+            <link>https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html</link>
+            <description>A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,&#xA;ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile&#xA;TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.&#xA;</description>
+            <pubDate>Fri, 18 Oct 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html</guid>
+        </item>
+        <item>
+            <title>Web GUI and Deno</title>
+            <link>https://rsdoiel.github.io/blog/2024/07/08/webgui_and_deno.html</link>
+            <description>My notes on two Web GUI modules available for Deno.&#xA;</description>
+            <pubDate>Mon, 08 Jul 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/07/08/webgui_and_deno.html</guid>
+        </item>
+        <item>
+            <title>Transpiling with Deno</title>
+            <link>https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html</link>
+            <description>[Deno](https://deno.land) is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the [deno_emit](https://github.com/denoland/deno_emit/blob/main/js/README.md) module.  Let&#39;s say I have a TypeScript module called `hithere.ts`. I want to make it available as JavaScript so I can run it in a web browser. How do I use the `deno_emit` module to accomplish that?&#xA;&#xA;- Write a short TypeScript program&#xA;  - include the transpiler module provided with emit&#xA;  - use the transpiler to generate the JavaScript code&#xA;  - output the JavaScript code&#xA;&#xA;Here&#39;s what `transpile.ts` might look like ...&#xA;</description>
+            <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html</guid>
+        </item>
+        <item>
+            <title>Bootstrapping a Text Oriented Web</title>
+            <link>https://rsdoiel.github.io/blog/2024/06/14/tow_bootstraping.html</link>
+            <description>First order of business is to shorten &#34;text oriented web&#34; to TOW.  It&#39;s easier to type and say.  I&#39;m considering the bootstrapping process from three vantage points. &#xA;&#xA;1. content author&#xA;2. the server software&#xA;3. client software &#xA;&#xA;The TOW approach is avoids invention in favor of reuse. HTTP protocol is well specified and proven. [Common Mark](https://commonmark.org) has a specification as does [YAML](https://yaml.org/). TOW documents are UTF-8 encoded. A TOW document is a composite of Common Mark with YAML blocks. TOW documents combined with HTTP provide a simplified hypertext platform. &#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/06/14/tow_bootstraping.html</guid>
+        </item>
+        <item>
+            <title>RISC OS 5.30, GCC 4.7 and Hello World</title>
+            <link>https://rsdoiel.github.io/blog/2024/06/08/riscos_gcc_and_hello.html</link>
+            <description>These are my notes on learning to program a Raspberry Pi Zero W&#xA;under RISC OS using GCC 4.7 and RISC OS 5.30&#xA;</description>
+            <pubDate>Sat, 08 Jun 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/06/08/riscos_gcc_and_hello.html</guid>
+        </item>
+        <item>
+            <title>Exploring RISC OS 5.30 on a Raspberry Pi Zero W</title>
+            <link>https://rsdoiel.github.io/blog/2024/06/04/exploring_riscos.html</link>
+            <description>In this post I talk about my exploration of using a Raspberry Pi Zero W&#xA;as a desktop computer. This was made possible by the efficiency of &#xA;RISC OS 5.30 which includes native WiFi support for Raspberry Pi computers.&#xA;</description>
+            <pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/06/04/exploring_riscos.html</guid>
+        </item>
+        <item>
+            <title>A quick review of Raspberry Pi Connect</title>
+            <link>https://rsdoiel.github.io/blog/2024/05/10/quick-review-rpi-connect.html</link>
+            <description>A review of Raspberry Pi Connect as an alternative to using RealVNC.&#xA;</description>
+            <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/05/10/quick-review-rpi-connect.html</guid>
+        </item>
+        <item>
+            <title>Building Lagrange on Raspberry Pi OS</title>
+            <link>https://rsdoiel.github.io/blog/2024/05/10/building-lagrange-on-pi-os.html</link>
+            <description>These are my quick notes on building the Lagrange Gemini browser on Raspberry Pi OS. They are based on instructions I found at &lt;gemini://home.gegeweb.org/install_lagrange_linux.gmi&gt;. These are in French and I don&#39;t speak or read French. My loss. The author kindly provided the specific command sequence in shell that I could read those. That was all I needed. When I read the site today I had to click through an expired certificate. That&#39;s why I think it is a good idea to capture the instructions here for the next time I need them.  I made single change to his instructions. I have cloned the repository from &lt;https://github.com/skyjake/lagrange&gt;.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/05/10/building-lagrange-on-pi-os.html</guid>
+        </item>
+        <item>
+            <title>Getting Started with Miranda</title>
+            <link>https://rsdoiel.github.io/blog/2024/04/25/getting-started.html</link>
+            <description>I&#39;ve been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as [Pandoc](https://pandoc.org) and [shellcheck](https://www.shellcheck.net/). I&#39;ve given a quick review of [miranda.org.uk](https://miranda.org.uk) to get a sense of the language but to follow along with the [Miranda: The Craft of Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/) it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/04/25/getting-started.html</guid>
+        </item>
+        <item>
+            <title>A Text Oriented Web</title>
+            <link>https://rsdoiel.github.io/blog/2024/02/25/text_oriented_web.html</link>
+            <description>The web is a busy place. There seems to be a gestalt resonant at the moment on the web that can be summarized by two phrases, &#34;back to basics&#34; and &#34;simplification&#34;. It is not the first time I&#39;ve seen this nor is it likely the last. This blog post describes a thought experiment about a simplification with minimal invention and focus on feature elimination. It&#39;s a way to think about the web status quo a little differently. My intention is to explore the implications of a more text centered web experience that could coexist as a subset of today&#39;s web.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 25 Feb 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/02/25/text_oriented_web.html</guid>
+        </item>
+        <item>
+            <title>Two missing features from HTML5, an enhanced form.enctype and a list input type</title>
+            <link>https://rsdoiel.github.io/blog/2024/02/23/enhanced_form_handling.html</link>
+            <description>I wish the form element supported a `application/json` encoding type and there was such a thing as a `list-input` element.&#xA;&#xA;I&#39;ve been thinking about how we can get back to basic HTML documents and move away from JavaScript required to render richer web forms. When web forms arrived on scene in the early &#xA;1990s they included a few basic input types. Over the years a few have been added but by and large the data model has remained relatively flat. The exception being the select &#xA;element with `multiple` attribute set. I believe we are being limited by the original choice of urlencoding web forms and then resort to JavaScript to address it&#39;s limitations.&#xA;&#xA;What does the encoding of a web form actually look like?  The web generally encodes the form using urlencoding. It presents a stream of key value pairs where the keys are the form&#39;s &#xA;input names and the values are the value of the input element. With a multi-select element the browser simply repeats the key and adds the next value in the selection list to that &#xA;key.  In Go you can describe this simple data structure as a `map[string][]string`. Most of the time a key points to a single element array of string but sometimes it can have &#xA;multiple elements using that key and then the array expands to accommodate. Most of the time we don&#39;t think about this as web developers. The library provided with your programming &#xA;language decodes the form into a more programmer friendly representation. But still I believe this simple urlencoding has held us back. Let me illustrate the problem through a &#xA;series of simple form examples.&#xA;&#xA;Here&#39;s an example of a simple form with a multi select box. It is asking for your choice of ice cream flavors.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 23 Feb 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/02/23/enhanced_form_handling.html</guid>
+        </item>
+        <item>
+            <title>Installing pgloader from source</title>
+            <link>https://rsdoiel.github.io/blog/2024/02/01/installing-pgloader-from-source.html</link>
+            <description>I&#39;m working on macOS at the moment but I don&#39;t use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.&#xA;&#xA;## Getting your Lisps in order&#xA;&#xA;pgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with [SBCL](https://sbcl.org) which is one of the Lisps I&#39;ve used in the past. But SBCL isn&#39;t (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter [ECL](https://ecl.common-lisp.dev/), aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like&#xA;&#xA;1. Compile then install ECL&#xA;2. Use ECL to compile SBCL&#xA;3. Install SBCL&#xA;4. Now that we have a working SBCL, follow the instructions to compile pgloader and install&#xA;&#xA;NOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled&#xA;&#xA;...&#xA;</description>
+            <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/02/01/installing-pgloader-from-source.html</guid>
+        </item>
+        <item>
+            <title>vis for vi and fun</title>
+            <link>https://rsdoiel.github.io/blog/2024/01/31/vis-for-vi-and-fun.html</link>
+            <description>&#xA;I&#39;ve been looking for a `vi` editor that my fingers would be happy with. I learned `vi` when I first encountered Unix in University (1980s). I was a transfer student so didn&#39;t get the &#34;introduction to Unix and Emacs&#34; lecture. Everyone used Emacs to edit programs but Emacs to me was not intuitive. I recall having a heck of a time figuring out how to exit the editor! I knew I needed to learn an editor and Unix fast to do my school work. I head to my college bookstore and found two spiral bound books [Unix in a Nutshell](https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M) and &#34;Vi/Ed in a Nutshell&#34;. They helped remedy my ignorance. I spent the afternoon getting comfortable with Unix and learning the basics in Vi. It became my go to text editor. Somewhere along the line `nvi` came along I used that. Eventually `vim` replaced `nvi` as the default &#34;vi&#34; for most Linux system and adapted again.  I like one featured about `vim` over `nvi`. `vim` does syntax highlighting. I routinely get frustrate with `vim` (my old muscle memory throws me into the help systems, very annoying) so I tend to bounce between `nvi` and `vim` depending on how my eyes feel and frustration level. &#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/01/31/vis-for-vi-and-fun.html</guid>
+        </item>
+        <item>
+            <title>Updated recipe, compiling PostgREST 12.0.2 (M1)</title>
+            <link>https://rsdoiel.github.io/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.html</link>
+            <description>These are my updated &#34;quick notes&#34; for compiling PostgREST v12.0.2 on a M1 Mac Mini using the current recommended&#xA;versions of ghc, cabal and stack supplied [GHCup](https://www.haskell.org/ghcup).  When I recently tried to use&#xA;my previous [quick recipe](/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md) I was disappointed it failed with errors like &#xA;&#xA;&#xA;...&#xA;</description>
+            <pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.html</guid>
+        </item>
+        <item>
+            <title>Finding Bluesky RSS feeds</title>
+            <link>https://rsdoiel.github.io/blog/2023/12/23/finding-blue-sky-rss-feeds.html</link>
+            <description># Find Bluesky RSS Feeds&#xA;&#xA;With the update to [1.60](https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i) of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me. &#xA;The RSS feed is visible via the HTML markup on a person&#39;s profile page (which are now public). E.g. My Bluesky profile page is&#xA;at &lt;https://bsky.app/profile/rsdoiel.bsky.social&gt; and if you look at that pages HTML markup you&#39;ll see a link element in the head&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 23 Dec 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/12/23/finding-blue-sky-rss-feeds.html</guid>
+        </item>
+        <item>
+            <title>RSS and my web experience</title>
+            <link>https://rsdoiel.github.io/blog/2023/12/07/rss-and-my-web-experience.html</link>
+            <description>RSS is alive and kicking and Bluesky should support it too. Explore my recipe for reading web news.</description>
+            <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/12/07/rss-and-my-web-experience.html</guid>
+        </item>
+        <item>
+            <title>Postgres Quick Notes, take two</title>
+            <link>https://rsdoiel.github.io/blog/2023/11/17/PostgreSQL-Quick-Notes.html</link>
+            <description>A collection of quick notes for setting and Postgres for development.</description>
+            <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/11/17/PostgreSQL-Quick-Notes.html</guid>
+        </item>
+        <item>
+            <title>Building A to Z list pages in Pandoc</title>
+            <link>https://rsdoiel.github.io/blog/2023/10/18/A-to-Z-lists.html</link>
+            <description>Pandoc offers a very good template system. It avoids elaborate features in favor of a few simple ways to bring content into the page.  It knows how to use data specified in “front matter” (a YAML header to a Markdown document) as well as how to merge in JSON or YAML from a metadata file.  One use case that is common in libraries and archives that less obvious of how to handle is building A to Z lists or year/date oriented listings where you have a set of navigation links at the top of the page followed by a set of H2 headers with UL lists between them.  In JSON the typical data presentation would look something like&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/10/18/A-to-Z-lists.html</guid>
+        </item>
+        <item>
+            <title>Skimmer</title>
+            <link>https://rsdoiel.github.io/blog/2023/10/06/concept.html</link>
+            <description> have a problem. I like to read my feeds in newsboat but I can&#39;t seem to get it working on a few machines I use.&#xA;I miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way&#xA;I read twtxt feeds using `yarnc timeline | less -R`. Just get a list of all items in reverse chronological order.&#xA;&#xA;I am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn&#39;t&#xA;available or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer&#xA;. Something that works with RSS, Atom and jsonfeeds in the same way I use `yarnc timeline | less -R`.  &#xA;I&#39;m also inspired by Dave Winer&#39;s a river of news site and his outline tooling. But in this case I don&#39;t want&#xA;an output style output, just a simple list of items in reverse chronological order. I&#39;m thinking of a more&#xA;ephemeral experience in reading.&#xA;&#xA;This has left me with some questions.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/10/06/concept.html</guid>
+        </item>
+        <item>
+            <title>Quick recipe, compiling PostgREST (M1)</title>
+            <link>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.html</link>
+            <description>These are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.&#xA;&#xA;1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)&#xA;    a. Use the curl example command to install it&#xA;    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)&#xA;2. Make sure GHCup is pointing at the &#34;recommended&#34; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)&#xA;3. Clone &lt;https://github.com/PostgREST/postgrest&gt; to your local machine&#xA;4. Check out the version you want to build (e.g. v11.1.0)&#xA;5. Run the &#34;usual&#34; Haskell build sequence with cabal&#xA;    a. `cabal clean`&#xA;    b. `cabal update`&#xA;    c. `cabal build`&#xA;    d. `cabal install`&#xA;&#xA;Here&#39;s an example of the shell commands I run (I&#39;m assuming you&#39;re installing GHCup for the first time).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.html</guid>
+        </item>
+        <item>
+            <title>Quick recipe, compiling Pandoc (M1)</title>
+            <link>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.html</link>
+            <description>These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports&#39; libiconv below if you get a build error).&#xA;&#xA;1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)&#xA;    a. Use the curl example command to install it&#xA;    b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)&#xA;2. Make sure GHCup is pointing at the &#34;recommended&#34; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)&#xA;3. Clone &lt;https://github.com/jgm/pandoc&gt; to your local machine&#xA;4. Check out the version you want to build (e.g. 3.1.4)&#xA;5. Run the &#34;usual&#34; Haskell build sequence with cabal per Pandoc&#39;s installation documentation for building from source&#xA;    a. `cabal clean`&#xA;    b. `cabal update`&#xA;    c. `cabal install pandoc-cli`&#xA;&#xA;Here&#39;s an example of the shell commands I run (I&#39;m assuming you&#39;re installing GHCup for the first time).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.html</guid>
+        </item>
+        <item>
+            <title>gsettings command</title>
+            <link>https://rsdoiel.github.io/blog/2023/05/20/gsettings-commands.html</link>
+            <description>&#xA;# gsettings command&#xA;&#xA;One of the things I find annoying about Ubuntu Desktop defaults is that when I open a new application it opens in the upper left corner. I then drag it to the center screen and start working. It&#39;s amazing how a small inconvenience can grind on you over time.  When I&#39;ve search the net for changing this behavior the usual suggestions are &#34;install gnome-tweaks&#34;. This seems ham-handed. I think continue searching and eventually find the command below. So I am making a note of the command here in my blog so I can find it latter.&#xA;&#xA;~~~&#xA;gsettings set org.gnome.mutter center-new-window true&#xA;~~~&#xA;&#xA;&#xA;</description>
+            <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/05/20/gsettings-commands.html</guid>
+        </item>
+        <item>
+            <title>First Personal Search Engine Prototype</title>
+            <link>https://rsdoiel.github.io/blog/2023/03/10/first-prototype-pse.html</link>
+            <description>&#39;ve implemented a first prototype of my personal search engine which&#xA;I will abbreviate as &#34;pse&#34; from here on out. I implemented it using &#xA;three [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) scripts&#xA;relying on [sqlite3](https://sqlite.org), [wget](https://en.wikipedia.org/wiki/Wget) and [PageFind](https://pagefind.app) to do the heavy lifting.&#xA;&#xA;Both Firefox and newsboat store useful information in sqlite databases.  Firefox&#39;s `moz_places.sqlite` holds both all the URLs visited as well as those that are associated with bookmarks (i.e. the SQLite database `moz_bookmarks.sqlite`).  I had about 2000 bookmarks, less than I thought with many being stale from link rot. Stale page URLs really slow down the harvest process because of the need for wget to wait on various timeouts (e.g. DNS, server response, download times).  The &#34;history&#34; URLs would make an interesting collection to spider but you&#39;d probably want to have an exclude list (e.g. there&#39;s no point in saving queries to search engines, web mail, shopping sites). Exploring that will wait for another prototype.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/03/10/first-prototype-pse.html</guid>
+        </item>
+        <item>
+            <title>Prototyping a personal search engine</title>
+            <link>https://rsdoiel.github.io/blog/2023/03/07/prototyping-a-personal-search-engine.html</link>
+            <description>&gt; Do we really need a search engine to index the &#34;whole web&#34;? Maybe a curated subset is better.&#xA;&#xA;Alex Schreoder&#39;s post [A Vision for Search](https://alexschroeder.ch/wiki/2023-03-07_A_vision_for_search) prompted me to write up an idea I call a &#34;personal search engine&#34;.   I&#39;ve been thinking about a &#34;a personal search engine&#34; for years, maybe a decade.&#xA;&#xA;With the current state of brokenness in commercial search engines, especially with the implosion of the commercial social media platforms, we have an opportunity to re-think search on a more personal level.&#xA;&#xA;The tooling around static site generation where a personal search is an extension of your own website suggests a path out of the quagmire of commercial search engines.  Can techniques I use for my own site search, be extended into a personal search engine?&#xA;&#xA;...&#xA;</description>
+            <pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/03/07/prototyping-a-personal-search-engine.html</guid>
+        </item>
+        <item>
+            <title>SQL query to CSV, a missing datatool</title>
+            <link>https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html</link>
+            <description>At work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.&#xA;&#xA;In the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).&#xA;&#xA;This got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.&#xA;&#xA;...&#xA;&#xA;</description>
+            <pubDate>Tue, 03 Jan 2023 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html</guid>
+        </item>
+        <item>
+            <title>Go and MySQL timestamps</title>
+            <link>https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html</link>
+            <description>The Go [sql](https://pkg.go.dev/database/sql) package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the [MySQL driver](github.com/go-sql-driver/mysql).  Sometimes that is not a big deal. [MySQL](https://dev.mysql.com) can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn&#39;t compatible with the `int64` used in Go&#39;s `time.Time`. To work around this limitation I&#39;ve found it necessary to convert the MySQL timestamp to a formatted string using [DATE_FORMAT](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format &#34;DATE_FORMAT is a MySQL date/time function returning a string value&#34;) and from the Go side convert the formatted string into a `time.Time` using `time.Parse()`. Below is some Golang pseudo code showing this approach.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html</guid>
+        </item>
+        <item>
+            <title>Progress and time remaining</title>
+            <link>https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html</link>
+            <description>&#xA;I often find myself logging output when I&#39;m developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I&#39;ve come to realize I really want a few specific pieces of information for non-error logging (e.g. `-verbose` which monitors progress as well as errors).&#xA;&#xA;- percentage completed&#xA;- estimated time allocated (i.e. time remaining)&#xA;&#xA;To do that I need three pieces of information.&#xA;&#xA;1. the count of the current iteration(e.g. `i`)&#xA;2. the total number of iterations required (e.g. `tot`)&#xA;3. The time just before I started iterating(e.g. `t0`)&#xA;&#xA;The values for `i` and `tot` let me compute the percent completed. The percent completed is trivial `(i/tot) * 100.0`. Note on the first pass (i.e. `i == 0`) you can skip the percentage calculation.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html</guid>
+        </item>
+        <item>
+            <title>Pandoc, Pagefind and Make</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/28/pandoc-pagefind-and-make.html</link>
+            <description>Recently I&#39;ve refresh my approach to website generation using three programs.&#xA;&#xA;- [Pandoc](https://pandoc.org)&#xA;- [Pagefind](https://pagefind.app) for providing a full text search of documentation&#xA;- [GNU Make](https://www.gnu.org/software/make/)&#xA;    - [website.mak](website.mak) Makefile&#xA;&#xA;Pandoc does the heavy lifting. It renders all the HTML pages, CITATION.cff (from the projects [codemeta.json](codemeta.github.io &#34;codemeta.json is a metadata documentation schema for documenting software projects&#34;)) and rendering an about.md file (also from the project&#39;s codemeta.json). This is done with three Pandoc templates. Pandoc can also be used to rendering man pages following a simple page recipe.&#xA;&#xA;I&#39;ve recently adopted Pagefind for indexing the HTML for the project&#39;s website and providing the full text search UI suitable for a static website. The Pagefind indexes can be combined with your group or organization&#39;s static website providing a rich cross project search (exercise left for another post).&#xA;&#xA;Finally I orchestrate the site construction with GNU Make. I do this with a simple dedicated Makefile called [website.mak](#website.mak).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/28/pandoc-pagefind-and-make.html</guid>
+        </item>
+        <item>
+            <title>Initial Impressions of Pagefind</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html</link>
+            <description>I&#39;m interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I&#39;ve used [LunrJS](https://lunrjs.com) on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. [Pagefind](https://pagefind.app) addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you&#39;re targeting older web browsers.&#xA;&#xA;Pagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).&#xA;&#xA;Here&#39;s the steps I took to bring Pagefind up on my M1 Mac.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html</guid>
+        </item>
+        <item>
+            <title>Browser based site search</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/18/browser-side-site-search.html</link>
+            <description>I recently read Brewster Kahle’s 2015 post about his vision for a [distributed web](https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/). Many of his ideas have carried over into [DWeb](https://wiki.mozilla.org/Dweb), [Indie Web](https://indieweb.org/), [Small Web](https://benhoyt.com/writings/the-small-web-is-beautiful/), [Small Internet](https://cafebedouin.org/2021/07/28/the-small-internet/) and the like. A point he touches on is site search running in the web browser.&#xA;&#xA;I&#39;ve use this approach in my own website relying on [LunrJS](https://lunrjs.com) by Oliver Nightingale. It is a common approach for small sites built using Markdown and [Pandoc](https://pandoc.org).  In the Brewster article he mentions [js-search](https://github.com/cebe/js-search), an implementation I was not familiar with. Like LunrJS the query engine runs in the browser via JavaScript but unlike LunrJS the indexes are built using PHP rather than JavaScript. The last couple of years I&#39;ve used [Lunr.py](https://github.com/yeraydiazdiaz/lunr.py) to generating indexes for my own website site while using LunrJS for the browser side query engine. Today I check to see what the [Hugo](https://gohugo.io/tools/search/) community is using and found [Pagefind](https://github.com/cloudcannon/pagefind). Pagefind looks impressive. There was a presentation on at [Hugo Conference 2022](https://hugoconf.io/). It takes building a Lucene-like index several steps further. I appears to handle much larger indexes without requiring the full indexes to be downloaded into the browser.  It seems like a good candidate for prototyping personal search engine.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/18/browser-side-site-search.html</guid>
+        </item>
+        <item>
+            <title>Revealing the Pandoc AST</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html</link>
+            <description>I&#39;ve used Pandoc for a number of years, probably a decade. It&#39;s been wonderful&#xA;watching it grow in capability. When Pandoc started accepting JSON documents as&#xA;a support metadata file things really started to click for me. Pandoc became&#xA;my go to tool for rendering content in my writing and documentation projects.&#xA;&#xA;Recently I&#39;ve decided I want a little bit more from Pandoc. I&#39;ve become curious&#xA;about prototyping some document conversion via Pandoc&#39;s filter mechanism. To do&#xA;that you need to understand the AST, aka abstract syntax tree. &#xA;How is the AST structure? &#xA;&#xA;It turns out I just wasn&#39;t thinking simply enough (or maybe just not paying&#xA;enough attention while I skimmed Pandoc&#39;s documentation). Pandoc&#39;s processing&#xA;model looks like&#xA;&#xA;...&#xA;</description>
+            <pubDate>Thu, 17 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html</guid>
+        </item>
+        <item>
+            <title>Twitter&#39;s pending implosion</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/11/Twitter-implosion.html</link>
+            <description>It looks like Twitter continues to implode as layoffs and resignations continue. If bankers, investors and lenders call in the loans [bankruptcy appears to be possible](https://www.reuters.com/technology/twitter-information-security-chief-kissner-decides-leave-2022-11-10/). So what&#39;s next?&#xA;&#xA;&#xA;Twitter has been troubled for some time. The advertising model corrodes content. Twitter is effectively a massive RSS-like distribution system. It has stagnated as the APIs became more restrictive. The Advertising Business Model via [Ad-tech](https://pluralistic.net/tag/adtech/ &#34;per Cory Doctorow &#39;ad-fraud&#39;&#34;) encourages decay regardless of system.  Non-Twitter examples include commercial search engines (e.g. Google, Bing et el). Their usefulness usefulness declines over time. I believe this due to the increase in &#34;noise&#34; in the signal. The &#34;noise&#34; is driven be business models. That usually boils down to content who&#39;s function is to attract your attention so it can be sold for money. A corollary is [fear based journalism](https://medium.com/@oliviacadby/fear-mongering-journalisms-downfall-aac1f4f5756d). That has even caught the attention of a [Pope](https://www.9news.com.au/world/fear-based-journalism-is-terrorism-pope/4860b502-5dbb-4eef-abcf-57582445fc2c). Not fun.&#xA;&#xA;I suspect business models don&#39;t encourage great content. Business models are generally designed to turn a profit. They tend to get refined and tuned to that purpose. The evolution of Twitter and Google&#39;s search engine would make good case studies in that regard.&#xA;&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/11/Twitter-implosion.html</guid>
+        </item>
+        <item>
+            <title>Compiling Pandoc from source</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html</link>
+            <description>I started playing around with Pandoc&#39;s __pandoc-server__ last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400&#39;s SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don&#39;t know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc&#39;s [INSTALL.md](https://github.com/jgm/pandoc/blob/master/INSTALL.md)&#xA;&#xA;I&#39;m running this first on an Intel Ubuntu box because I have the disk space available there. If it works then I&#39;ll try it directly on my Raspberry Pi 400 with an upgrade SD card and running the 64bit version of Raspberry Pi OS.&#xA;&#xA;I did not have Haskell or Cabal installed when I started this process.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 07 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html</guid>
+        </item>
+        <item>
+            <title>Installing Cargo/Rust on Raspberry Pi 400</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/01/installing-cargo-rust-r400.html</link>
+            <description>On my Raspberry Pi 400 I&#39;m running the 64bit Raspberry Pi OS.&#xA;The version of Cargo and Rustc are not recent enough to install&#xA;[ncgopher](https://github.com/jansc/ncgopher). What worked for&#xA;me was to first install cargo via the instructions in the [The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html). &#xA;&#xA;...&#xA;</description>
+            <pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/01/installing-cargo-rust-r400.html</guid>
+        </item>
+        <item>
+            <title>feeds, formats and plain text</title>
+            <link>https://rsdoiel.github.io/blog/2022/11/01/Feeds-formats-and-plain-text.html</link>
+            <description>There has been a proliferation of feed formats. My personal preferred format is RSS 2.0. It&#39;s stable and proven the test of type. Atom feeds always felt a little like, &#34;not invented here so we&#39;re inventing it again&#34;, type of thing. The claim was they could support read/write but so can RSS 2.0 specially with the namespace possibilities. The innovative work [Dave Winer](https://scripting.com) has done in the past and is doing today with [Feedland](https://feedland.org) is remarkably impressive.&#xA;&#xA;In my experience the format of the feed is less critical than the how to author the metadata.  Over the last several years I&#39;ve moved to static hosting as my preferred way of hosting a website. My writing is typically in Markdown or Fountain formats and frontmatter like used in RMarkdown has proven very convenient. The &#34;blogit&#34; command that started out from an idea in [mkpage](https://github.com/caltechlibrary/mkpage &#34;Make Page, a Pandoc preprocessor and tool set&#34;) has been implemented in [pttk](https://github.com/rsdoiel/pttk &#34;Plain Text Toolkit&#34;). So for me metadata authoring makes sense in the front matter. That has the advantage that Pandoc can leverage the information in its templates (that is what I use to render HTML, man pages and the occasional PDF). It also is a food source for data to include in a feed.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/11/01/Feeds-formats-and-plain-text.html</guid>
+        </item>
+        <item>
+            <title>7:30 AM, Oberon Language: A minimum SYSTEM module</title>
+            <link>https://rsdoiel.github.io/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html</link>
+            <description># 7:30 AM, Oberon Language: A minimum SYSTEM module&#xA;&#xA;Post: Tuesday, October 18, 2022, 7:30 AM&#xA;&#xA;It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.&#xA;&#xA;&#xA;</description>
+            <pubDate>Tue, 18 Oct 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html</guid>
+        </item>
+        <item>
+            <title>Wish list for Oberon in 2023</title>
+            <link>https://rsdoiel.github.io/blog/2022/10/16/Wishlist-Oberon-in-2023.html</link>
+            <description>Next year will be ten years since Prof. Wirth and Paul Reed released [Project Oberon 2013](https://www.projectoberon.com).  It took me most of that decade to stumble on the project and community.  I am left wondering if Prof. Wirth and Paul Reed sat down today what would they design? I think only minor changes are needed and those mostly around assumptions.&#xA;&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/10/16/Wishlist-Oberon-in-2023.html</guid>
+        </item>
+        <item>
+            <title>7:30 AM, Gopher: Setup</title>
+            <link>https://rsdoiel.github.io/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html</link>
+            <description># 7:30 AM, Gopher: Setup&#xA;&#xA;Post: Monday, October 10, 2022, 7:30 AM&#xA;&#xA;Account verified, Yippee!&#xA;&#xA;&#xA;</description>
+            <pubDate>Mon, 10 Oct 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/10/10/getting-things-setup-2022-10-10_070730.html</guid>
+        </item>
+        <item>
+            <title>Getting things setup</title>
+            <link>https://rsdoiel.github.io/blog/2022/10/09/getting-things-setup.html</link>
+            <description>I&#39;m digging my [gopherhole on sdf.org](gopher://sdf.org:70/0/users/rsdoiel)&#xA;as I wait for my validation to go through.  The plan is to migrate content&#xA;from rsdoiel.github.io to here and host it in a Gopher context.  It&#39;s&#xA;interesting learning my way around sdf.org. Reminds me of my student days&#xA;when I first had access to a Unix system.  Each Unix has it own flavors and&#xA;even for the same Unix type/version each system has it&#39;s own particular&#xA;variation. Unix lends itself to customization and that why one system can&#xA;&#34;feel&#34; or &#34;look&#34; different than the next.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 09 Oct 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/10/09/getting-things-setup.html</guid>
+        </item>
+        <item>
+            <title>Thinking about Gopher</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/28/thinking-about-gopher.html</link>
+            <description>Last weekend I visited the [Gophersphere](gopher://gopher.floodgap.com &#34;Floodgap is a good starting point for Gopher&#34;) for the first time in a very long time. I&#39;m happy to report it is still alive an active. It remains fast, lower resource consuming. This resulted in finding a Gopher protocol package in Go and adding light weight Gopher server to [pttk](https://rsdoiel.github.io/pttk) my current vehicle for experimenting with plain text writing tools.&#xA;&#xA;I&#39;ve been thinking allot this past half week about where to explore in Gopher. The biggest issue I ran into turned out to be easily solve. Gopher protocol is traditionally served over port 70 but if you&#39;re running a \*nix if you are just experimenting on localhost it is easier to use port 7000 (analogous to port 80 becoming 8000 or 8080 in the websphere). But some Gopher clients will only serve port 70. Two clients work very well at 7000 and they are Lynx (the trusty old console web browser) and one written in Rust called [ncgopher](https://github.com/jansc/ncgopher). The latter I find I use most of the time. It also supports Gemini sites though I am less interested in Gemini at the movement.  Gopher has a really nice sweet spot of straight forward implementation for both client and server. It would be a good exercise for moving from beginner to intermediate programming classes as you would be introducing network programming, a little parsing and the client server application models. It&#39;s a really good use case of looking back (Gopher is venerable in Internet age) and looking forward (a radical simplification of distributing readable material and related files).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/28/thinking-about-gopher.html</guid>
+        </item>
+        <item>
+            <title>Rust development notes</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/27/rust-development-notes.html</link>
+            <description>I recently wanted to try [ncgopher](https://github.com/jansc/ncgopher) which is a [rust](https://rust-lang.org) based application. I was working on a an M1 Mac mini. I use [Mac Ports](https://www.macports.org) for my userland applications and installed [cargo](https://doc.rust-lang.org/cargo/) to pickup the rust compiler and build tool&#xA;&#xA;```shell&#xA;sudo port install cargo&#xA;```&#xA;&#xA;All went well until I tried to build ncgopher and got an error as follows&#xA;&#xA;...&#xA;</description>
+            <pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/27/rust-development-notes.html</guid>
+        </item>
+        <item>
+            <title>7:30 AM, Golang: pttk</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/26/golang-development-2022-09-26_070730.html</link>
+            <description># 7:30 AM, Golang: pttk&#xA;&#xA;Post: Monday, September 26, 2022, 7:30 AM&#xA;&#xA;renamed &#34;pandoc toolkit&#34; (pdtk) to &#34;plain text toolkit&#34; (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.&#xA;&#xA;&#xA;</description>
+            <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/26/golang-development-2022-09-26_070730.html</guid>
+        </item>
+        <item>
+            <title>12:30 PM, SQL: Postgres</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/19/rosette-notes-2022-09-19_121230.html</link>
+            <description># 12:30 PM, SQL: Postgres&#xA;&#xA;Post: Monday, September 19, 2022, 12:30 PM&#xA;&#xA;Setting up postgres 14 on Ubuntu shell script, see [https://www.postgresql.org/download/linux/ubuntu/](https://www.postgresql.org/download/linux/ubuntu/), see [https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart) for setting up initial database and users&#xA;&#xA;&#xA;&#xA;</description>
+            <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/19/rosette-notes-2022-09-19_121230.html</guid>
+        </item>
+        <item>
+            <title>PostgreSQL dump and restore</title>
+            <link>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</link>
+            <description>This is a quick note on easily dumping and restoring a specific database&#xA;in Postgres 14.5.  This example has PostgreSQL running on localhost and&#xA;[psql](https://www.postgresql.org/docs/current/app-psql.html) and&#xA;[pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) are both available.&#xA;Our database administrator username is &#34;admin&#34;, the database to dump is called &#34;collections&#34;. The SQL dump&#xA;file will be named &#34;collections-dump-2022-09-19.sql&#34;.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 19 Sep 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html</guid>
+        </item>
+        <item>
+            <title>Ordering front matter</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</link>
+            <description>A colleague of mine ran into an interesting Pandoc behavior. He was combining a JSON metadata document and a converted word document and wanted the YAML front matter to have a specific order of fields (makes it easier for us humans to quickly scan it and see what the document was about).&#xA;&#xA;The order he wanted in the front matter was&#xA;&#xA;- title&#xA;- interviewer&#xA;- interviewee&#xA;- abstract&#xA;&#xA;This was for a collection of oral histories. When my friend use Pandoc&#39;s `--metadata-json` to read the JSON metadata it rendered the YAML fine except the attributes were listed in alphabetical order.&#xA;&#xA;We found a solution by getting Pandoc to treat the output not as Markdown plain text so that we could template the desired order of attributes.&#xA;&#xA;Here&#39;s the steps we used.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Tue, 30 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/30/Ordering-Frontmatter.html</guid>
+        </item>
+        <item>
+            <title>10:30 AM, SQL: Postgres</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/26/rosette-notes-2022-08-26_101030.html</link>
+            <description># 10:30 AM, SQL: Postgres&#xA;&#xA;Post: Friday, August 26, 2022, 10:30 AM&#xA;&#xA;If you are looking for instructions on installing Postgres 14 under Ubuntu 22.04 LTS I found DigitalOcean [How To Install PostgreSQL on Ubuntu 22.04 \[Quickstart\]](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart), April 25, 2022 by Alex Garnett helpful.&#xA;&#xA;&#xA;</description>
+            <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/26/rosette-notes-2022-08-26_101030.html</guid>
+        </item>
+        <item>
+            <title>Postgres 14 on Ubuntu 22.04 LTS</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html</link>
+            <description>This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). &#xA;&#xA;Assumptions&#xA;&#xA;- include `jane.doe` is in the sudo group&#xA;- `jane.doe` is the one logged in and installing Postgres for machine wide use&#xA;- `jane.doe` will want to work with her own database by default&#xA;&#xA;Steps&#xA;&#xA;1. Install Postgres&#xA;2. Confirm installation&#xA;3. Add `jane.doe` user providing access&#xA;&#xA;Below is the commands I typed to run to complete the three steps.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html</guid>
+        </item>
+        <item>
+            <title>12:00 PM, SQL: Postgres</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/24/rosette-notes-2022-08-24_121200.html</link>
+            <description># 12:00 PM, SQL: Postgres&#xA;&#xA;Post: Wednesday, August 24, 2022, 12:00 PM&#xA;&#xA;I miss `SHOW TABLES` it&#39;s just muscle memory from MySQL, the SQL to show tables is `SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE &#39;pg_%&#39;&#xA;`. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL&#39;s &#34;SHOW TABLES&#34;. Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.&#xA;&#xA;&#xA;</description>
+            <pubDate>Wed, 24 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/24/rosette-notes-2022-08-24_121200.html</guid>
+        </item>
+        <item>
+            <title>A Quick into to PL/pgSQL</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html</link>
+            <description>L/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger. &#xA;&#xA;The Postgres documentation defines and explains the [PL/pgSQL](https://www.postgresql.org/docs/14/plpgsql.html) and how it works.  This document is just a quick orientation with specific examples to provide context.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 24 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html</guid>
+        </item>
+        <item>
+            <title>11:30 AM, SQL: Postgres</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</link>
+            <description>Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &#34;REPLACE&#34; is a none standard extension I picked up from MySQL [it wraps a DELETE and INSERT together](https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html), should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be [db implementation specific](http://go-database-sql.org/prepared.html). I&#39;ve used &#34;?&#34; with SQLite and MySQL but with Postgres I need to use &#34;$1&#34;, &#34;$2&#34;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.&#xA;&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html</guid>
+        </item>
+        <item>
+            <title>Rosette Notes: Postgres and MySQL</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</link>
+            <description>&gt; A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar&#39;s rosette&#xA;&#xA;What follows are my preliminary notes learning Postgres 12 and 14.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 19 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html</guid>
+        </item>
+        <item>
+            <title>PTTK and STN</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/15/golang-development.html</link>
+            <description>&#xA;This log is a proof of concept in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation combines two of my personal projects, [stngo](https://github.com/rsdoiel/stngo) and my experimental writing tool [pttk](https://github.com/rsdoiel/pttk). Updating the __pttk__ cli I added a function to the &#34;blogit&#34; action that will translates the simple timesheet notation (aka STN) to a short blog post.  My &#34;short post&#34; interest is a response to my limited writing time. What follows is the STN markup. See the [Markdown](https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md) source for the unprocessed text.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 15 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/15/golang-development.html</guid>
+        </item>
+        <item>
+            <title>5:45 PM, Golang: ptdk,  stngo</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/15/golang-development-2022-08-15_170545.html</link>
+            <description># 5:45 PM, Golang: ptdk,  stngo&#xA;&#xA;Post: Monday, August 15, 2022, 5:45 PM&#xA;&#xA;Thinking through what a &#34;post&#34; from an simple timesheet notation file should look like. One thing occurred to me is that the entry&#39;s &#34;end&#34; time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the `BlogSTN()` function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog&#39;s homepage and that &#34;title&#34; is what I use for other posts. Maybe I should just use a command line option to provide a title?&#xA;&#xA;&#xA;</description>
+            <pubDate>Mon, 15 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/15/golang-development-2022-08-15_170545.html</guid>
+        </item>
+        <item>
+            <title>5:00 PM, Golang: pdtk,  stngo</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/14/golang-development-2022-08-14_170500.html</link>
+            <description># 5:00 PM, Golang: pdtk,  stngo&#xA;&#xA;Post: Sunday, August 14, 2022, 5:00 PM&#xA;&#xA;Today I started an experiment. I cleaned up stngo a little today, still need to implement a general `Parse()` method that works on a `io.Reader`. After a few initial false starts I realized the &#34;right&#34; place for rendering simple timesheet notation as blog posts is in the the &#34;blogit&#34; action of [pdtk](https://rsdoiel.github.io/pttk). I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.&#xA;&#xA;&#xA;</description>
+            <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/14/golang-development-2022-08-14_170500.html</guid>
+        </item>
+        <item>
+            <title>4:30 PM, Golang: stngo</title>
+            <link>https://rsdoiel.github.io/blog/2022/08/12/golang-development-2022-08-12_160430.html</link>
+            <description># 4:30 PM, Golang: stngo&#xA;&#xA;Post: Friday, August 12, 2022, 4:30 PM&#xA;&#xA;A work slack exchange has perked my interest in using [simple timesheet notation](https://rsdoiel.github.io/stngo/docs/stn.html) for very short blog posts. This could be similar to Dave Winer title less posts on [scripting](http://scripting.com). How would this actually map? Should it be a tool in the [stngo](https://rsdoiel.githubio/stngo) project?&#xA;&#xA;&#xA;</description>
+            <pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/08/12/golang-development-2022-08-12_160430.html</guid>
+        </item>
+        <item>
+            <title>Turbo Oberon, the dream</title>
+            <link>https://rsdoiel.github.io/blog/2022/07/30/Turbo-Oberon.html</link>
+            <description>Sometimes I have odd dreams and that was true last night through early this morning. The dream was set in the future. I was already retired. It was a dream about &#34;Turbo Oberon&#34;.&#xA;&#xA;&#34;Turbo Oberon&#34; was an Oberon language. The language compiler was named &#34;TO&#34; in my dream. A module&#39;s file extension was &#34;.tom&#34;, in honor of Tom Lopez (Meatball Fulton) of ZBS. There were allot of ZBS references in the dream.&#xA;&#xA;&#34;TO&#34; was very much a language in the Oberon-07 tradition with minor extensions when it came to bringing in modules. It allowed for a multi path search for module names. You could also express a Module import as a string allowing providing paths to the imported module.&#xA;&#xA;Compilation was similar to Go. Cross compilation was available out of the box by setting a few environment variables. I remember answering questions about the language and its evolution. I remember mentioning in the conversation about how I thought Go felling into the trap of complexity like Rust or C/C++ before it. The turning point for Go was generics. Complexity was the siren song to be resisted in &#34;Turbo Oberon&#34;. Complexity is seductive to language designers and implementers. I was only an implementer.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 30 Jul 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/07/30/Turbo-Oberon.html</guid>
+        </item>
+        <item>
+            <title>Artemis Project Status, 2022</title>
+            <link>https://rsdoiel.github.io/blog/2022/07/27/Artemis-Status-Summer-2022.html</link>
+            <description>t&#39;s been a while since I wrote an Oberon-07 post and even longer since I&#39;ve worked on Artemis. Am I done with Oberon-07 and abandoning Artemis?  No. Life happens and free time to just hasn&#39;t been available. I don&#39;t know when that will change.&#xA;&#xA;What&#39;s the path forward? ...&#xA;</description>
+            <pubDate>Wed, 27 Jul 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/07/27/Artemis-Status-Summer-2022.html</guid>
+        </item>
+        <item>
+            <title>Installing Golang from source on RPi-OS for arm64</title>
+            <link>https://rsdoiel.github.io/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.html</link>
+            <description>By R. S. Doiel, 2022-02-18&#xA;&#xA;This are my quick notes on installing Golang from source on the Raspberry Pi OS 64 bit.&#xA;&#xA;1. Get a working compiler&#xA;&#x9;a. go to https://go.dev/dl/ and download go1.17.7.linux-arm64.tar.gz&#xA;&#x9;b. untar the tarball in your home directory (it&#39;ll unpack to $HOME/go)&#xA;&#x9;c. `cd go/src` and `make.bash`&#xA;2. Move go directory to go1.17&#xA;3. Clone go from GitHub&#xA;4. Compile with the downloaded compiler&#xA;&#x9;a. `cd go/src`&#xA;&#x9;b. `env GOROOT_BOOTSTRAP=$HOME/go1.17 ./make.bash`&#xA;&#x9;c. Make sure `$HOME/go/bin` is in the path&#xA;&#x9;d. `go version`&#xA;&#xA;&#xA;</description>
+            <pubDate>Fri, 18 Feb 2022 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.html</guid>
+        </item>
+        <item>
+            <title>Notes on setting up a Mid-2010 Mac Mini</title>
+            <link>https://rsdoiel.github.io/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.html</link>
+            <description>I acquired a Mid 2010 Mac Mini. It was in good condition but lacked an OS on the hard drive.  I used a previously purchased copy of Mac OS X Snow Leopard to get an OS up and running on the bare hardware. Then it was a longer effort to get the machine into a state with the software I wanted to use on it. My goal was Mac OS X High Sierra, Xcode 10.1 and Mac Ports. The process was straight forward but very time consuming but I think worth it.  I wound up with a nice machine for experimenting with and writing blog posts.&#xA;&#xA;The setup process was as follows:&#xA;&#xA;1. Install macOS Snow Leopard on the bare disk of the Mac Mini&#xA;2. Install macOS El Capitan on the Mac Mini after manually downloading it from Apple&#39;s support site&#xA;3. Run updates indicated by El Capitan&#xA;4. Install macOS High Sierra on the Mac Mini after manually downloading it from the Apple&#39;s support site&#xA;5. Run updates indicated by High Sierra &#xA;6. Manually download and install Xcode 10.1 command line tools &#xA;7. Check and run some updates again&#xA;8. Finally install Mac Ports&#xA;&#xA;The OS installs took about 45 minutes to 90 minutes each. Installing Xcode took about 45 minutes to an hour. Installing Mac Ports was fast as was installing software via Mac Ports.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 18 Dec 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.html</guid>
+        </item>
+        <item>
+            <title>Setting up FreeDOS 1.3rc4 with Qemu</title>
+            <link>https://rsdoiel.github.io/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html</link>
+            <description>In this article I&#39;m going explore setting up FreeDOS with Qemu&#xA;on my venerable Dell 4319 running Raspberry Pi Desktop OS (Debian&#xA;GNU/Linux).  First step is to download FreeDOS &#34;Live CD&#34; in the&#xA;1.3 RC4 release. See http://freedos.org/download/ for that.&#xA;&#xA;## Installing Qemu&#xA;&#xA;I needed to install Qemu in my laptop. It runs the Raspberry Pi&#xA;Desktop OS (i.e. Debian with Raspberry Pi UI). I choose to install&#xA;the &#34;qemu-system&#34; package since I will likely use qemu for other&#xA;things besides FreeDOS. The qemu-system package contains all the&#xA;various systems I might want to emulate in other projects as well&#xA;as several qemu utilities that are handy.  Here&#39;s the full sequence&#xA;of `apt` commands I ran (NOTE: these included making sure my laptop&#xA;was up to date before I installed qemu-system).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.html</guid>
+        </item>
+        <item>
+            <title>Portable Conversions (Integers)</title>
+            <link>https://rsdoiel.github.io/blog/2021/11/26/Portable-Conversions-Integers.html</link>
+            <description>An area in working with Oberon-07 on a POSIX machine that has proven problematic is type conversion. In particular converting to and from INTEGER or REAL and ASCII.  None of the three compilers I am exploring provide a common way of handling this. I&#39;ve explored relying on C libraries but that approach has it&#39;s own set of problems.  I&#39;ve become convinced a better approach is a pure Oberon-07 library that handles type conversion with a minimum of assumptions about the implementation details of the Oberon compiler or hardware. I&#39;m calling my conversion module &#34;Types&#34;. The name is short and descriptive and seems an appropriate name for a module consisting of type conversion tests and transformations.  My initial implementation will focusing on converting integers to and from ASCII.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 26 Nov 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/11/26/Portable-Conversions-Integers.html</guid>
+        </item>
+        <item>
+            <title>Revisiting Files</title>
+            <link>https://rsdoiel.github.io/blog/2021/11/22/Revisiting-Files.html</link>
+            <description>In October I had an Email exchange with Algojack regarding a buggy example in [Oberon-07 and the file system](../../../2020/05/09/Oberon-07-and-the-filesystem.html). The serious bug was extraneous non-printable characters appearing a plain text file containing the string &#34;Hello World&#34;. The trouble with the example was a result of my misreading the Oakwood guidelines and how **Files.WriteString()** is required to work. The **Files.WriteString()** procedure is supposed to write every element of a string to a file. This __includes the trailing Null character__. The problem for me is **Files.WriteString()** litters plain text files with tailing nulls. What I should have done was write my own **WriteString()** and **WriteLn()**. The program [HelloworldFile](./HelloworldFile.Mod) below is a more appropriate solution to writing strings and line endings than relying directly on **Files**. In a future post I will explorer making this more generalized in a revised &#34;Fmt&#34; module.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/11/22/Revisiting-Files.html</guid>
+        </item>
+        <item>
+            <title>Combining Oberon-07 with C using Obc-3</title>
+            <link>https://rsdoiel.github.io/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html</link>
+            <description>This post explores integrating C code with an Oberon-07 module use&#xA;Mike Spivey&#39;s Obc-3 Oberon Compiler.  Last year I wrote a similar post&#xA;for Karl Landström&#39;s [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).&#xA;This goal of this post is to document how I created a version of Karl&#39;s&#xA;Extension Library that would work with Mike&#39;s Obc-3 compiler.&#xA;If you want to take a shortcut you can see the results on GitHub&#xA;in my [obc-3-libext](https://github.com/rsdoiel/obc-3-libext) repository.&#xA;&#xA;From my time with OBNC I&#39;ve come to rely on three modules from Karl&#39;s&#xA;extension library. When trying to port some of my code to use with&#xA;Mike&#39;s compiler. That&#39;s where I ran into a problem with that dependency.&#xA;Karl&#39;s modules aren&#39;t available. I needed an [extArgs](http://miasap.se/obnc/obncdoc/ext/extArgs.def.html),&#xA;an [extEnv](http://miasap.se/obnc/obncdoc/ext/extEnv.def.html) and&#xA;[extConvert](http://miasap.se/obnc/obncdoc/ext/extConvert.def.html).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html</guid>
+        </item>
+        <item>
+            <title>Beyond Oakwood, Modules and Aliases</title>
+            <link>https://rsdoiel.github.io/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html</link>
+            <description>Oakwood is the name used to refer to an early Oberon language&#xA;standardization effort in the late 20th century.  It&#39;s the name&#xA;of a hotel where compiler developers and the creators of Oberon&#xA;and the Oberon System met to discuss compatibility. The lasting&#xA;influence on the 21st century Oberon-07 language can be seen&#xA;in the standard set of modules shipped with POSIX based Oberon-07&#xA;compilers like&#xA;[OBNC](https://miasap.se/obnc/), [Vishap Oberon Compiler](https://github.com/vishaps/voc) and the &#xA;[Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler).&#xA;&#xA;The Oakwood guidelines described a minimum expectation for&#xA;a standard set of modules to be shipped with compilers.&#xA;The modules themselves are minimalist in implementation.&#xA;Minimalism can assist in easing the learning curve&#xA;and encouraging a deeper understanding of how things work.&#xA;&#xA;The Oberon-07 language is smaller than the original Oberon language&#xA;and the many dialects that followed.  I think of Oberon-07 as the&#xA;distillation of all previous innovation.  It embodies the&#xA;spirit of &#34;Simple but not simpler than necessary&#34;. Minimalism is&#xA;a fit description of the adaptions of the Oakwood modules for &#xA;Oberon-07 in the POSIX environment.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html</guid>
+        </item>
+        <item>
+            <title>Ofront on Raspberry Pi OS</title>
+            <link>https://rsdoiel.github.io/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html</link>
+            <description>&#xA;This post is about getting Ofront up and running on Raspberry Pi OS.&#xA;Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4&#xA;development environment. There are additional clever tools like `ocat`&#xA;that are helpful working with the differences in text file formats between&#xA;Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of&#xA;POSIX with minimal compromises that distract from the Oberon experience.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html</guid>
+        </item>
+        <item>
+            <title>Updating Schema in SQLite3</title>
+            <link>https://rsdoiel.github.io/blog/2021/04/16/Updating-Schema-in-SQLite3.html</link>
+            <description>[SQLite3](https://sqlite.org/docs.html) is a handy little&#xA;database as single file tool.  You can interact with the file&#xA;through largely standard SQL commands and embed it easily into&#xA;applications via the C libraries that the project supports.&#xA;It is also available from various popular scripting languages&#xA;like Python, PHP, and Lua. One of the things I occasionally&#xA;need to do and always seems to forget it how to is modify a&#xA;table schema where I need to remove a column. So here are&#xA;some of the basics do I can quickly find them later and avoid&#xA;reading various articles tutorials because the search engines&#xA;doesn&#39;t return the page in the SQLite documentation.&#xA;&#xA;In the next sections I&#39;ll be modeling a simple person object&#xA;with a id, uname, display_name, role and updated fields.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/04/16/Updating-Schema-in-SQLite3.html</guid>
+        </item>
+        <item>
+            <title>A2 Oberon on VirtualBox 6.1</title>
+            <link>https://rsdoiel.github.io/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html</link>
+            <description>This is a short article documenting how I install A2 Oberon&#xA;in VirtualBox using the [FreeDOS 1.2](https://freedos.org),&#xA;the A2 [ISO](https://sourceforge.net/projects/a2oberon/files/) cd image and [VirtualBox 6.1](https://virtualbox.org).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/04/02/A2-Oberon-on-VirtualBox-6.1.html</guid>
+        </item>
+        <item>
+            <title>ETH Oberon System 3 on VirtualBox 6.1</title>
+            <link>https://rsdoiel.github.io/blog/2021/03/17/NativeOberon-VirtualBox.html</link>
+            <description>In this post I am walking through installing Native Oberon 2.3.7&#xA;(aka ETH Oberon System 3) on a virtual machine running under&#xA;VirtualBox 6.1. It is a follow up to my 2019 post &#xA;[FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html &#34;Link to old blog post for bringing up Oberon System 3 in VirtualBox 6.0 using FreeDOS 1.2&#34;). To facilitate the install I will first prepare&#xA;my virtual machine as a FreeDOS 1.2 box. This simplifies getting the&#xA;virtual machines&#39; hard disk partitioned and formatted correctly.&#xA;When Native Oberon was released back in 1990&#39;s most Intel flavored&#xA;machines shipped with some sort Microsoft OS on them.  I believe&#xA;that is why the tools and instructions for Native Oberon assume&#xA;you&#39;re installing over or along side a DOS partition.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2021/03/17/NativeOberon-VirtualBox.html</guid>
+        </item>
+        <item>
+            <title>RetroFlag GPi Case Setup</title>
+            <link>https://rsdoiel.github.io/blog/2020/12/24/gpi-case-setup.html</link>
+            <description>These are my notes for setting up a RetroFlag GPi case using Recalbox&#xA;distribution for retro gaming.&#xA;&#xA;+ RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)&#xA;+ A computer to setup the SD Card  and the Raspberry Pi Imager v1.5&#xA;&#xA;We will be installing [Recalbox](https://www.recalbox.com/ &#34;the all-in-one retro gaming console&#34;)&#xA;v7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro&#xA;Gaming Linux distribution.&#xA;&#xA;&#xA;</description>
+            <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/12/24/gpi-case-setup.html</guid>
+        </item>
+        <item>
+            <title>Dates</title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Dates.html</link>
+            <description>This module provides minimal date time records and procedures&#xA;for working with dates in YYYY-MM-DD and MM/DD/YYYY format and&#xA;times in H:MM, HH:MM and HH:MM:SS formats.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Dates.html</guid>
+        </item>
+        <item>
+            <title>Dates &amp; Clock</title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Dates-and-Clock.html</link>
+            <description>The [Oakwood](http://www.edm2.com/index.php/The_Oakwood_Guidelines_for_Oberon-2_Compiler_Developers#The_Oakwood_Guidelines)&#xA;guidelines specified a common set of modules for Oberon-2 for writing&#xA;programs outside of an Oberon System. A missing module from the Oakwood&#xA;guidelines is modules for working with dates and the system clock.&#xA;Fortunately the A2 Oberon System provides a template for that&#xA;functionality. In this article I am exploring implementing the&#xA;[Dates](Dates.Mod) and [Clock](Clock.Mod) modules for Oberon-07. I&#xA;also plan to go beyond the A2 implementations and provide additional&#xA;functionality such as parsing procedures and the ability to work with&#xA;either the date or time related attributes separately in the&#xA;`Dates.DateTime` record.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Dates-and-Clock.html</guid>
+        </item>
+        <item>
+            <title>Clock</title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Clock.html</link>
+            <description>This is a C time library wrapper for getting system time&#xA;to support Dates.Mod. The procedures are read only as&#xA;setting time is non-standard on many Unix-like systems[^1].&#xA;The two procedures follow the A2 style procedure signatures&#xA;adjusted for Oberon-07.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Clock.html</guid>
+        </item>
+        <item>
+            <title>Chars</title>
+            <link>https://rsdoiel.github.io/blog/2020/11/27/Chars.html</link>
+            <description>Source code for Chars.Mod.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/27/Chars.html</guid>
+        </item>
+        <item>
+            <link>https://rsdoiel.github.io/blog/2020/11/11/magnacarta.html</link>
+            <description>﻿The Project Gutenberg EBook of The Magna Carta, by Anonymous&#xA;&#xA;This eBook is for the use of anyone anywhere in the United States and most&#xA;other parts of the world at no cost and with almost no restrictions&#xA;whatsoever.  You may copy it, give it away or re-use it under the terms of&#xA;the Project Gutenberg License included with this eBook or online at&#xA;www.gutenberg.org.  If you are not located in the United States, you&#39;ll have&#xA;to check the laws of the country where you are located before using this ebook.&#xA;&#xA;Title: The Magna Carta&#xA;&#xA;Author: Anonymous&#xA;&#xA;Posting Date: April 4, 2015 [EBook #10000]&#xA;Release Date: February, 2006&#xA;First Posted: October 26, 2003 ...</description>
+            <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/11/magnacarta.html</guid>
+        </item>
+        <item>
+            <link>https://rsdoiel.github.io/blog/2020/11/11/independence.html</link>
+            <description>﻿The Project Gutenberg EBook of The Declaration of Independence of The&#xA;United States of America by Thomas Jefferson&#xA;&#xA;&#xA;&#xA;This eBook is for the use of anyone anywhere at no cost and with almost no&#xA;restrictions whatsoever. You may copy it, give it away or re-use it under&#xA;the terms of the Project Gutenberg License included with this eBook or&#xA;online at http://www.gutenberg.org/license&#xA;&#xA;&#xA;&#xA;Title: The Declaration of Independence of The United States of America ...</description>
+            <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/11/independence.html</guid>
+        </item>
+        <item>
+            <link>https://rsdoiel.github.io/blog/2020/11/11/constitution.html</link>
+            <description>﻿The Project Gutenberg EBook of The United States&#39; Constitution&#xA;by  Founding Fathers&#xA;&#xA;Copyright laws are changing all over the world. Be sure to check the&#xA;copyright laws for your country before downloading or redistributing&#xA;this or any other Project Gutenberg eBook.&#xA;&#xA;This header should be the first thing seen when viewing this Project&#xA;Gutenberg file.  Please do not remove it.  Do not change or edit the&#xA;header without written permission.&#xA;&#xA;Please read the &#34;legal small print,&#34; and other information about the&#xA;eBook and Project Gutenberg at the bottom of this file.  Included is&#xA;important information about your specific rights and restrictions in&#xA;how the file may be used.  You can also find out about how to make a&#xA;donation to Project Gutenberg, and how to get involved.&#xA;&#xA;**Welcome To The World of Free Plain Vanilla Electronic Texts** ...</description>
+            <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/11/constitution.html</guid>
+        </item>
+        <item>
+            <title>Pandoc &amp; Metadata</title>
+            <link>https://rsdoiel.github.io/blog/2020/11/11/Pandoc-Metadata.html</link>
+            <description>Pandoc supports three ways of providing metadata to its template&#xA;engine. &#xA;&#xA;1. Front matter&#xA;2. Command line optional metadata&#xA;3. A JSON metadata file.&#xA;&#xA;Front matter is a community term that comes from physical world&#xA;of paper books and articles.  It is the information that comes &#xA;before the primary content.  This information might be things &#xA;like title, author, publisher and publication date. These days &#xA;it&#39;ll also include things like identifiers like ISSN, ISBN possibly &#xA;newer identifiers like DOI or ORCID. In the library and programming&#xA;community we refer to this type of structured information as&#xA;metadata.  Data about the publication or article.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/11/Pandoc-Metadata.html</guid>
+        </item>
+        <item>
+            <link>https://rsdoiel.github.io/blog/2020/11/09/Pandoc-Partials.html</link>
+            <description>&#xA;&#xA;Most people know about [Pandoc](https://pandoc.org/) from its&#xA;fantastic ability to convert various markup formats from one to&#xA;another. A little less obvious is Pandoc can be a template engine&#xA;for rendering static websites allowing you full control over the&#xA;rendered content.&#xA;&#xA;The main Pandoc documentation of the template engine can be found&#xA;in the [User Guide](https://pandoc.org/MANUAL.html#templates).&#xA;The documentation is complete in terms of describing the template&#xA;capabilities but lacks a tutorial for using as a replacement for more&#xA;ambitious rendering systems like [Jekyll](https://jekyllrb.com/) or&#xA;[Hugo](https://gohugo.io/). Pandoc takes a vary direct approach and&#xA;can be deceptively simple to implement.&#xA;&#xA;First thing in this tutorial is to use our own template with Pandoc&#xA;when rendering a single webpage. You use the `–-template` option to&#xA;provide your a template name. I think of this as the page level template.&#xA;This template, as I will show later, can then call other partial&#xA;templates as needed.&#xA;&#xA;Example, render the [Pandoc-Partials.txt](Pandoc-Partials.txt) file using the&#xA;template named [index1.tmpl](index1.tmpl): ...</description>
+            <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/11/09/Pandoc-Partials.html</guid>
+        </item>
+        <item>
+            <title>Software Tools, Filters</title>
+            <link>https://rsdoiel.github.io/blog/2020/10/31/Filters.html</link>
+            <description>This post is the second in a series revisiting the programs described in the 1981 book by Brian W. Kernighan and P. J.&#xA;Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern). The book is available from the&#xA;[Open Library](https://openlibrary.org/) and physical copies are still (2020) commonly available from used book sellers. The book was an late 20th century text on creating portable command line programs using ISO standard Pascal of the era.&#xA;...&#xA;</description>
+            <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/10/31/Filters.html</guid>
+        </item>
+        <item>
+            <title>Assembling Pages</title>
+            <link>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.html</link>
+            <description>This is the thirteenth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;</description>
+            <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.html</guid>
+        </item>
+        <item>
+            <title>Oberon to Markdown</title>
+            <link>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.html</link>
+            <description>This is the twelfth post in the [Mostly Oberon](https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;</description>
+            <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/10/03/Oberon-to-markdown.html</guid>
+        </item>
+        <item>
+            <title>Software Tools, Getting Started</title>
+            <link>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.html</link>
+            <description>This post is the first in a series revisiting the&#xA;programs described in the 1981 book by Brian W. Kernighan and&#xA;P. J. Plauger&#39;s called [Software Tools in Pascal](https://archive.org/details/softwaretoolsinp00kern).&#xA;The book is available from the [Open Library](https://openlibrary.org/)&#xA;and physical copies are still (2020) commonly available from used book&#xA;sellers.  The book was an early text on creating portable command&#xA;line programs.  &#xA;&#xA;In this series I present the K &amp; P (i.e. Software Tools in Pascal)&#xA;programs re-implemented in Oberon-07. I have testing my implementations&#xA;using Karl Landström&#39;s [OBNC](http://miasap.se/obnc/)&#xA;compiler and his implementation of the Oakwood Guide&#39;s modules&#xA;for portable Oberon programs. Karl also provides a few additional&#xA;modules for working in a POSIX environment (e.g. BSD, macOS, Linux,&#xA;Windows 10 with Linux subsystem). I have also tested these&#xA;programs with Mike Spivey&#39;s [Oxford Oberon Compiler](http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler) an aside&#xA;from the differences file extensions that both compilers use&#xA;the source code works the same. &#xA;&#xA;</description>
+            <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/09/29/Software-Tools-1.html</guid>
+        </item>
+        <item>
+            <title>Portable Oberon-07</title>
+            <link>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-07.html</link>
+            <description>This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the&#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;&#xA;</description>
+            <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/08/15/Portable-Oberon-07.html</guid>
+        </item>
+        <item>
+            <title>Words Matter</title>
+            <link>https://rsdoiel.github.io/blog/2020/07/08/words-matter.html</link>
+            <description>**Why does software development use the vocabulary of slavery and&#xA;Jim Crow to describe our creations?** What we call things matters.&#xA;This is especially true of the words we use day to day without thinking.&#xA;&#xA;```shell&#xA;    git pull origin master&#xA;```&#xA;&#xA;&#34;Naming things is a hard problem in computer science.&#34; That is&#xA;a phrase I remember from my student days. We name variables,&#xA;programs and algorithms. We name architectures. Naming is a choice.&#xA;The names convey meaning and intent. Names and terms are a human&#xA;communication. They matter.&#xA;&#xA;```shell&#xA;    git push origin master&#xA;```&#xA;&#xA;</description>
+            <pubDate>Wed, 08 Jul 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/07/08/words-matter.html</guid>
+        </item>
+        <item>
+            <title>Procedures in records</title>
+            <link>https://rsdoiel.github.io/blog/2020/07/07/Procedures-in-records.html</link>
+            <description>This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the &#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;In my last post I looked at how Oberon-07 supports the passing of procedures as parameters in a procedure. In this one I am looking at how we can&#xA;include procedures as a part of an Oberon RECORD. &#xA;&#xA;Let&#39;s modify our module name [Noises.Mod](Noises.Mod) to explore this.&#xA;Copy &#34;Noises.Mod&#34; to &#34;Creatures.Mod&#34;. Replace the &#34;MODULE Noises;&#34; line with&#xA;&#34;MODULE Creatures;&#34; and the final &#34;END Noises.&#34; statement with &#34;END Creatures.&#34;.&#xA;&#xA;&#xA;</description>
+            <pubDate>Tue, 07 Jul 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/07/07/Procedures-in-records.html</guid>
+        </item>
+        <item>
+            <title>Procedures as parameters</title>
+            <link>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.html</link>
+            <description>This is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.&#xA;Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the &#xA;various rabbit holes I will inevitably fall into.&#xA;&#xA;Oberon-07 supports the passing of procedures as parameters in a procedure. &#xA;Let&#39;s create a module name [Noises.Mod](Noises.Mod) to explore this.&#xA;&#xA;The key to supporting this is Oberon&#39;s type system.  We need to decide what our &#xA;generic procedure will look like first. In our case our procedures that will display &#xA;an animal noise will include the name of the animal speaking.  We&#39;ll call this type &#xA;of procedure &#34;Noise&#34;. It&#39;ll accept an ARRAY OF CHAR for the name as a parameter &#xA;then use the standard Out module to display the animal name and noise they make.&#xA;&#xA;&#xA;</description>
+            <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.html</guid>
+        </item>
+        <item>
+            <title>Dynamic types</title>
+            <link>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.html</link>
+            <description>This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)&#xA;series. Mostly Oberon documents my exploration of the Oberon Language, &#xA;Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Dynamic Types in Oberon&#xA;&#xA;Oberon-07 is a succinct systems language. It provides a minimal&#xA;but useful set of basic static types. Relying on them addresses &#xA;many common programming needs. The Oberon compiler ensures &#xA;static types are efficiently allocated in memory. One of the &#xA;strengths of Oberon is this ability to extend the type system. &#xA;This means when the basic types fall short you can take &#xA;advantage of Oberon&#39;s type  extension features. This includes &#xA;creating dynamically allocated data structures. In Oberon-07 &#xA;combining Oberon&#39;s `POINTER TO` and `RECORD` types allows us to&#xA;create complex and dynamic data structures. &#xA;&#xA;...&#xA;</description>
+            <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/25/Dynamic-types.html</guid>
+        </item>
+        <item>
+            <title>Oberon-07 and the file system</title>
+            <link>https://rsdoiel.github.io/blog/2020/05/09/Oberon-07-and-the-filesystem.html</link>
+            <description>This is the seventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;</description>
+            <pubDate>Sat, 09 May 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/09/Oberon-07-and-the-filesystem.html</guid>
+        </item>
+        <item>
+            <title>Compiling OBNC on macOS</title>
+            <link>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.html</link>
+            <description>This is the sixth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;Compiling OBNC v0.16.1 on macOS (10.13.6) using MacPorts (2.6.2) &#xA;is straight forward if you have the required dependencies and &#xA;environment setup up. Below are my notes to get everything working.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Wed, 06 May 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/06/Compiling-OBNC-on-macOS.html</guid>
+        </item>
+        <item>
+            <title>Combining Oberon-07 and C with OBNC</title>
+            <link>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.html</link>
+            <description>This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)&#xA;series. Mostly Oberon documents my exploration of the Oberon&#xA;Language, Oberon System and the various rabbit holes I will&#xA;inevitably fall into.&#xA;&#xA;In my day job I write allot of code in Go and&#xA;orchestration code in Python.  It&#39;s nice having&#xA;the convenience of combining code written one&#xA;language with an another.  You can do the same&#xA;with [OBNC](https://miasap.se/obnc/).  The OBNC&#xA;compiler supports inclusion of C code in a&#xA;straight forward manner. In fact Karl&#39;s compiler&#xA;will generate the C file for you!&#xA;&#xA;In learning how to combine C code and Oberon-07&#xA;I started by reviewing Karl&#39;s [manual page](https://miasap.se/obnc/man/obnc.txt).&#xA;The bottom part of that manual page describes&#xA;the steps I will repeat below. The description&#xA;sounds more complicated but when you walk through&#xA;the steps it turns out to be pretty easy.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/05/01/Combining-Oberon-and-C.html</guid>
+        </item>
+        <item>
+            <title>Oberon Loops and Conditions</title>
+            <link>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html</link>
+            <description>This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.&#xA;&#xA;## Data Flow&#xA;&#xA;Oberon is a small systems language and while it is minimalist.&#xA;It provides you with the necessary primitives to get things done.&#xA;I&#39;ve touched on code organization, basic types and basic type&#xA;extensions in the previous articles.  I have shown the basic&#xA;control statements but have not talked about them yet.&#xA;&#xA;Oberon offers four basic control statements. &#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html</guid>
+        </item>
+        <item>
+            <title>Oberon Basic Types</title>
+            <link>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.html</link>
+            <description>This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;## Simple Types&#xA;&#xA;Oberon is a small systems language. It provides a useful but &#xA;limited umber of basic types. These can be be&#xA;thought of as simple types mapping to specific memory locations&#xA;and more complex types composed of multiple memory locations.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/18/Mostly-Oberon-Basic-Types.html</guid>
+        </item>
+        <item>
+            <title>Oberon Modules and Procedures</title>
+            <link>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.html</link>
+            <description>This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;## Modules&#xA;&#xA;The module is a primary code unit of Oberon language. Modules allow you to focus on functional units of code and can be readily composed into larger solutions.&#xA;A module&#39;s name should match the filename you are saving it under. A module starts with declaring it&#39;s name and ends the declaration with a semicolon&#xA;the statement separator in Oberon. Our simple &#34;Hello World&#34; example &#xA;shows the basic code shape.&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/12/Mostly-Oberon-Modules.html</guid>
+        </item>
+        <item>
+            <title>Mostly Oberon</title>
+            <link>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</link>
+            <description>**Mostly Oberon** is a series of blog posts documenting my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.&#xA;&#xA;## Overview&#xA;&#xA;Oberon is a classical computer language and operating system originated by Professors Niklaus Wirth and Jürg Gutknecht at [ETH](https://en.wikipedia.org/wiki/ETH_Zurich) circa 1987.  It was inspired by their experiences in California at the [Xerox Palo Alto Research Center](https://en.wikipedia.org/wiki/PARC_\(company\)).  This series of blog posts are my meandering exploration of Oberon-07 language based on [Project Oberon 2013](http://www.projectoberon.com/).&#xA;&#xA;...&#xA;</description>
+            <pubDate>Sat, 11 Apr 2020 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html</guid>
+        </item>
+        <item>
+            <link>https://rsdoiel.github.io/blog/2019/07/28/gadgets1.html</link>
+            <description>gadgets1.arc is exactly the same as gadgets.arc, except that the&#xA;following picture decoding modules have been removed to reduce&#xA;its size to below 1.44Mb:&#xA;  TGA.Obj IFF.Obj XPM.Obj PPM.Obj&#xA;&#xA;This is a temporary fix until the next release. ...</description>
+            <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2019/07/28/gadgets1.html</guid>
+        </item>
+        <item>
+            <title>FreeDOS 1.2 to Oberon System 3</title>
+            <link>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.html</link>
+            <description>What follows are notes on getting a FreeDOS 1.2[^1] and &#xA;then Native Oberon[^2] running under VirtualBox 6.0. You might &#xA;wonder why these two are together. While it was&#xA;easy to run the Native Oberon installation process that process&#xA;assumes you have a properly partitioned hard disk and VirtualBox&#xA;seems to skip that process. I found taking advantage of FreeDOS&#xA;simplified things for me.&#xA;</description>
+            <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.html</guid>
+        </item>
+        <item>
+            <title>Review: Software Tools in Pascal</title>
+            <link>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.html</link>
+            <description>Book Review: This book is by Brian W. Kernighan and P. J. Plauger. It is an&#xA;example of the type of books I find I re-read and want in my&#xA;personal library. The book covers software construction through &#xA;a series of programs written in pascal. It is about how these &#xA;programs work, how to approach problems and write sound software.&#xA;I was surprised I did not know about this book when I was browsing &#xA;the [Open Library](https://openlibrary.org) this weekend.  While &#xA;Pascal was a popular in the 1980&#39;s it has faded for most people in the &#xA;early 21st century.  This review maybe a small bit of nostalgia. &#xA;On the other hand I suspect &#xA;[&#34;Software Tools in Pascal&#34;](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal)&#xA;is one of the short list of computer books that will remain useful&#xA;over the long run.&#xA;</description>
+            <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/07/22/software-tools-in-pascal.html</guid>
+        </item>
+        <item>
+            <title>Accessing Go from Julia</title>
+            <link>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.html</link>
+            <description>The problem: I&#39;ve started exploring Julia and I would like to leverage existing&#xA;code I&#39;ve written in Go. Essentially this is a revisit to the problem in my&#xA;last post [Go based Python Modules](https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html) &#xA;but with the language pairing of Go and Julia.&#xA;&#xA;&#xA;</description>
+            <pubDate>Sun, 11 Mar 2018 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/03/11/accessing-go-from-julia.html</guid>
+        </item>
+        <item>
+            <title>Go based Python modules</title>
+            <link>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html</link>
+            <description>I have written a number of Go packages at work.&#xA;My colleagues know Python and I&#39;d like them to be able to use the&#xA;packages without resorting to system calls from Python to the&#xA;command line implementations. The solution is create a C-Shared&#xA;library from my Go packages, using Go&#39;s _C_ package and combine it&#xA;with Python&#39;s _ctypes_ package.  What follows is a series of &#xA;simple recipes I used to understand the details of how that worked.&#xA;&#xA;</description>
+            <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/02/24/go-based-python-modules.html</guid>
+        </item>
+        <item>
+            <title>Go, Bleve and Library oriented software</title>
+            <link>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.html</link>
+            <description>In 2016, Stephen Davison, asked me, &#34;Why use Go and Blevesearch for&#xA;our library projects?&#34; After our conversation I wrote up some notes so&#xA;I would remember. It is now 2018 and I am revising these notes. I&#xA;think our choice paid off.  What follows is the current state of my&#xA;reflection on the background, rational, concerns, and risk mitigation&#xA;strategies so far for using [Go](https://golang.org) and&#xA;[Blevesearch](https://blevesearch.com) for Caltech Library projects.&#xA;</description>
+            <pubDate>Mon, 19 Feb 2018 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.html</guid>
+        </item>
+        <item>
+            <title>Raspbian Stretch on DELL E4310 Laptop</title>
+            <link>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.html</link>
+            <description>This post talks about a used Dell E4310 I purchased. It covers setting it up with [Raspbian Stretch](https://www.raspberrypi.org/blog/raspbian-stretch/) and configuring it so I can share it with my family.&#xA;</description>
+            <pubDate>Mon, 18 Dec 2017 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/12/18/raspbian-stretch-on-amd64.html</guid>
+        </item>
+        <item>
+            <title>Harvesting my Gists from GitHub</title>
+            <link>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.html</link>
+            <description>This is a just quick set of notes on harvesting my Gists on GitHub so I&#xA;have an independent copy for my own website. &#xA;</description>
+            <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.html</guid>
+        </item>
+        <item>
+            <title>NodeJS, NPM, Electron</title>
+            <link>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.html</link>
+            <description>This post discusses nodeJS and Electron.&#xA;</description>
+            <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.html</guid>
+        </item>
+        <item>
+            <title>Cross compiling Go 1.8.3 for Pine64 Pinebook</title>
+            <link>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html</link>
+            <description>This is a post on setting cross compilation for a Pine64 Pinebook.&#xA;</description>
+            <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html</guid>
+        </item>
+        <item>
+            <title>Android, Termux and Dev Environment</title>
+            <link>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.html</link>
+            <description>In this post I explore getting a terminal setup configured on an Android tablet.&#xA;</description>
+            <pubDate>Tue, 20 Sep 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/09/20/Android-Termux-Dev-environment.html</guid>
+        </item>
+        <item>
+            <title>From Markdown and Bash to mkpage</title>
+            <link>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html</link>
+            <description>In this port I explore deconstructing functionality typically found in content management systems. It explores an approach to publishing a website hosted via GitHub. Covered the [MkPage](https://github.com/rsdoiel/mkpage) tools I developed.&#xA;</description>
+            <pubDate>Tue, 16 Aug 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html</guid>
+        </item>
+        <item>
+            <title>Exploring Bash for Windows 10 Pro</title>
+            <link>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html</link>
+            <description>&#34;_Exploring Bash for Windows 10 Pro_&#34; coverse the process of setting up and configuring Bash on Windows 10 Pro within a Virtual Box environment. The setup involves enabling &#xA;developer mode, activating the Linux Subsystem Beta, and installing Bash on Ubuntu on Windows. Also covered is setting Go for this environment.&#xA;</description>
+            <pubDate>Mon, 15 Aug 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html</guid>
+        </item>
+        <item>
+            <title>How to make a Pi-Top more Raspbian</title>
+            <link>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html</link>
+            <description>This post explore making a PiTop a little more Raspbian.&#xA;</description>
+            <pubDate>Mon, 04 Jul 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html</guid>
+        </item>
+        <item>
+            <title>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</title>
+            <link>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.html</link>
+            <description>This post explores Twitter Cards, Facebook Open Graph, AMP and what implementations they have for page weight and usage.&#xA;</description>
+            <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.html</guid>
+        </item>
+        <item>
+            <title>OPML to Markdown and back</title>
+            <link>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.html</link>
+            <description>This post covers developing a Go package for [OPML](http://dev.opml.org/spec2.html) and it&#39;s features.&#xA;</description>
+            <pubDate>Sat, 28 May 2016 00:00:00 +0000</pubDate>
+            <guid>https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.html</guid>
         </item>
     </channel>
 </rss>

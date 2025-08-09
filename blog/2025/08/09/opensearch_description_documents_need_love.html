@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>opensearch_description_documents_need_love</title>
+
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
+  <meta name="keywords" content="search, web, site search">
+  <link rel="alternative" type="application/markdown" href="/blog/2025/08/09/opensearch_description_documents_need_love.md">
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Robert's Rambling Search Engine"
+        href="osd.xml">
+</head>
+<body>
+<nav>
+<ul>
+<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/presentations.html">Presentations</a></li>
+<li><a href="/series/">Series</a></li>
+<li><a href="/search.html">Search</a></li>
+<li><a href="https://github.com/rsdoiel">GitHub</a></li>
+<li><a href="/rss.xml" title="RSS Feed">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M4 11a9 9 0 0 1 9 9"></path>
+<path d="M4 4a16 16 0 0 1 16 16"></path>
+<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+</ul>
+</nav>
+
+<section>
+  <article>
+<h1 id="opensearch-description-document-needs-love">Opensearch
+Description Document needs love</h1>
+<blockquote>
+<p>Allow your readers to skip the ad-tech and search your site
+directly</p>
+</blockquote>
+<p>By R. S. Doiel, 2025-08-09</p>
+<p>Opensearch Description Documents are an XML file that describes how
+search works on your website. The specification dates back to 2005<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. Opensearch Description Documents
+(example “osd.xml”) should not be confused with <a
+href="https://opensearch.org/">Opensearch</a> the search engine Amazon
+and friends forked from <a
+href="https://www.elastic.co/">ElasticSearch</a>. Despite the overlap in
+name they are not the same thing<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The Opensearch Description Document role is to provide a little
+metadata about the search system and how to make a query. With this bit
+of information the web browser can then make that search available in
+the URL box (omnibox) of your web browser. Early on this was automatic
+but as companies have tried to monopolize search they have used security
+as the excuse to restrict the usage of this metadata. It still works
+safely in Firefox but in Safari and Chrome you have to take extra steps
+to use it.</p>
+<h2><a name="what-does-this-mean-to-a-site-reader">What does this mean to a site reader?</a></h2>
+<p>If implemented correctly the Opensearch Description Document allows
+integration as a “search engine” in your web browser. On Firefox that
+means I can see my web site’s site search in the pull down list of
+available search engines and just add it. For <a
+href="https://support.apple.com/guide/safari/search-sfria1042d31/18.0/mac/15.0"
+title="This was the documentation I could find for Safari search options">Safari</a>
+and <a
+href="https://support.google.com/chrome/answer/95426?hl=en-IS&amp;co=GENIE.Platform%3DDesktop"
+title="This is the doucmentation I could find from Google for Chome site search options">Chrome</a>
+you must go into the settings to enable your site search.</p>
+<h2><a name="what-does-it-mean-as-a-site-owner">What does it mean as a site owner?</a></h2>
+<p>As a site owner I can allow my readers to search without ad-tech and
+spyware. Plus I can allow my readers to initiate a site search from any
+web page since the URL box (omnibox) is always available regardless of
+which page I’m reading. The eliminates URL tricks like pasting in the
+search URL followed by a <code>?q=My%20Search%20Terms</code> at the end
+of it.</p>
+<h2><a name="how-do-i-implement-this">How do I implement this?</a></h2>
+<p>Integrating Opensearch Description Documents requires including
+additional HTML elements in the head element of the HTML document. This
+tells the web browser where to find the XML document. It requires the
+creation of the XML document (e.g. “osd.xml”). It also requires that
+your search engine have a structured URL where the search terms can be
+dropped. More on that in our use case.</p>
+<h2><a name="implementing-the-opensearch-description-document">Implementing the Opensearch Description Document.</a></h2>
+<p>The <a
+href="https://developer.mozilla.org/en-US/docs/Web/XML/Guides/OpenSearch"
+title="see the docs at the Mozilla Developer Network">MDN</a> has a good
+page describing the details of creating this document. (NOTE: While XML
+looks a lot like HTML it is less forgiving than HTML. It must be a valid
+XML file.)</p>
+<p>Below is a minimum Opensearch Description Document XML document I use
+on my website. It is in the root of the website and is called “osd.xml”,
+<a href="https://rsdoiel.github.io/osd.xml"
+class="uri">https://rsdoiel.github.io/osd.xml</a>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;UTF-8&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">OpenSearchDescription</span><span class="ot"> xmlns=</span><span class="st">&quot;http://a9.com/-/spec/opensearch/1.1/&quot;</span>&gt;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ShortName</span>&gt;rsdoiel&lt;/<span class="kw">ShortName</span>&gt;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Description</span>&gt;Search Robert&#39;s Ramblings and Blog&lt;/<span class="kw">Description</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Url</span><span class="ot"> type=</span><span class="st">&quot;text/html&quot;</span><span class="ot"> method=</span><span class="st">&quot;get&quot;</span><span class="ot"> template=</span><span class="st">&quot;https://rsdoiel.github.io/search.html?q={searchTerms}&quot;</span>/&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">InputEncoding</span>&gt;UTF-8&lt;/<span class="kw">InputEncoding</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Image</span><span class="ot"> height=</span><span class="st">&quot;16&quot;</span><span class="ot"> width=</span><span class="st">&quot;16&quot;</span>&gt;https://rsdoiel.github.io/favicon.ico&lt;/<span class="kw">Image</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">OpenSearchDescription</span>&gt;</span></code></pre></div>
+<p>The first element, <strong>OpenSearchDescription</strong> element,
+wraps the document. Next up is <strong>ShortName</strong>. As the
+element tag suggests this is for a “show name”. ShortName should be less
+than 14 alphanumeric characters only. I’ve chose my subdomain name,
+“rsdoiel”, from the host name “rsdoiel.github.io”. It can be anything
+you want.</p>
+<p>After <strong>ShowName</strong> is an element called
+<strong>Description</strong>. This is a simple text string up to 1024
+characters long. I short description. In one sentence you want to
+describe your search engine. In my case I chose, “Search Robert’s
+Ramblings and Blog”.</p>
+<p><strong>Description</strong> is followed by the <strong>Url</strong>
+element. This is the element that describes how to make a query. It
+includes the full URL to your search page and any query options needed
+to cause the page to return search results. On my site I use a browser
+side search engine called <a href="https://pagefind.app">PageFind</a>. I
+leverage the URL query parameters to trigger the search and therefore
+use a “get” method. The template attribute describes how to form the URL
+used to retrieve search results. The text, <code>{searchTerms}</code>
+will get replaced by the text your type in the URL box (omnibox) of your
+web browser. I’ve setup PageFind to look at the query parameters for a
+“q” field and my “template” maps the value of “q” to
+<code>{searchTerms}</code>.</p>
+<p>Next are <strong>InputEncoding</strong> which sets the encoding type
+and <strong>Image</strong> that associates an image for your search. For
+me I always use UTF-8 for web things and have repurposed the favicon.ico
+as the icon value associated with my site search.</p>
+<h2><a name="hooking-in-“osdxml”-to-your-web-pages">Hooking in “osd.xml” to your web pages.</a></h2>
+<p>I use CommonMark documents to build for my website and Pandoc to turn
+that into a webpage. I do this using a template. To integrate the
+Opensearch Description Document into my site I’ve updated the templates
+adding the following link element inside the head element.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;search&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">        type</span><span class="op">=</span><span class="st">&quot;application/opensearchdescription+xml&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">        title</span><span class="op">=</span><span class="st">&quot;Robert&#39;s Rambling Search Engine&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">        href</span><span class="op">=</span><span class="st">&quot;osd.xml&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2><a name="updating-pagefind">Updating PageFind</a></h2>
+<p>PageFind is a search engine that works in your browser rather than on
+a server. It does this be creating indexes that can be downloaded as
+needed by your web browser. If you look at the <a
+href="https://pagefind.app/docs">PageFind docs</a> website the basic
+example looks like this.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">window</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">new</span> <span class="fu">PagefindUI</span>({ <span class="dt">element</span><span class="op">:</span> <span class="st">&quot;#search&quot;</span><span class="op">,</span> <span class="dt">showSubResults</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>This will add a search box to the element with the id of “#search”.
+When you type in a search term it will show results. This is fine if you
+directly navigate to that page. What we want is to trigger results when
+you navigate to the page including a “q” query parameter, <a
+href="https://rsdoiel.github.io/search.html?q=osd.xml"
+class="uri">https://rsdoiel.github.io/search.html?q=osd.xml</a></p>
+<p>The first thing to support this is to retrieve the query parameter.
+Here’s a simple function to do that.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getQueryParam</span>(name) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> urlParams <span class="op">=</span> <span class="kw">new</span> <span class="fu">URLSearchParams</span>(<span class="bu">window</span><span class="op">.</span><span class="at">location</span><span class="op">.</span><span class="at">search</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> urlParams<span class="op">.</span><span class="fu">get</span>(name)<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>When the page is loaded we use that function to retrieve any value
+for “q” that is available.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> queryString <span class="op">=</span> <span class="fu">getQueryParam</span>(<span class="st">&quot;q&quot;</span>) <span class="op">||</span> <span class="st">&quot;&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>Then when the <code>PageFindUI</code> is created we can use that
+object’s <code>triggerSearch</code> method to trigger our search
+results.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    pagefindUI<span class="op">.</span><span class="fu">triggerSearch</span>(queryString)<span class="op">;</span></span></code></pre></div>
+<p>Putting it all together you add the following side the body
+element.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>link href<span class="op">=</span><span class="st">&quot;/pagefind/pagefind-ui.css&quot;</span> rel<span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="op">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;/pagefind/pagefind-ui.js&quot;</span><span class="op">&gt;&lt;/</span>script<span class="op">&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div id<span class="op">=</span><span class="st">&quot;search&quot;</span><span class="op">&gt;&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Fetch the query &quot;q&quot; form the URL</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getQueryParam</span>(name) {</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> urlParams <span class="op">=</span> <span class="kw">new</span> <span class="fu">URLSearchParams</span>(<span class="bu">window</span><span class="op">.</span><span class="at">location</span><span class="op">.</span><span class="at">search</span>)<span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> urlParams<span class="op">.</span><span class="fu">get</span>(name)<span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">// When the page is loaded setup PageFindUI object.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">window</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pagefindUI <span class="op">=</span> <span class="kw">new</span> <span class="fu">PagefindUI</span>({ <span class="dt">element</span><span class="op">:</span> <span class="st">&quot;#search&quot;</span><span class="op">,</span> <span class="dt">showSubResults</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> queryString <span class="op">=</span> <span class="fu">getQueryParam</span>(<span class="st">&quot;q&quot;</span>)<span class="op">;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Trigger a search query if &quot;q&quot; is available.</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (queryString) {</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    pagefindUI<span class="op">.</span><span class="fu">triggerSearch</span>(queryString)<span class="op">;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
+<p>You can see a much more elaborate version on my website, <a
+href="view-source:https://rsdoiel.github.io/search.html">search.html</a>.
+You can try it at <a href="https://rsdoiel.github.io/search.html"
+class="uri">https://rsdoiel.github.io/search.html</a>. On my site I am
+bundling indexes from other GitHub repository websites to provide a
+common searchable collection.</p>
+<h2><a name="using-your-site-search-from-the-url-box-omnibox">Using your site search from the URL box (omnibox)</a></h2>
+<p>If you’re using Firefox you’re in luck. When you load a website
+search page and then clear the menu bar you should see your search icon
+and pull down list of search options on the left of the URL box
+(omnibox).</p>
+<p><img src="Firefox_URL_Box.png" alt="Picture of the Firefox URL box" style="max-width:50%"></p>
+<p>Clicking on the downward caret lists the available search engines.
+Notice the “Robert’s Rambling Search Engine” at the top. Clicking this
+will add it to the list of search engines available when typing in the
+URL box (omnibox).</p>
+<p><img src="Firefox_Search_Engine_Choice.jpg" alt="Picture of the Firefox Search Engine List" style="max-width: 30%"></p>
+<p>Now when you want to search my web site you can click the “rsdoiel”
+(short name) from the pull down list.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>See
+https://en.wikipedia.org/wiki/OpenSearch_(specification)<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Since Amazon pushed the fork I’ve wondered if the name
+choices was deliberate to sow confusion. They want lock in just as much
+as the next Big Co.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+  </article>
+</section>
+
+<footer>
+<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+href="/rssfeed.html">RSS</a> feeds and website built with <a
+href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+href="https://pandoc.org">Pandoc</a>.</p>
+</footer>
+<script type="module" src="/modules/copyToClipboard.js"></script>
+<script type="module">
+    await import('/pagefind/pagefind-highlight.js');
+    new PagefindHighlight({ highlightParam: "highlight" });
+</script>
+</body>
+</html>
