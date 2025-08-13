@@ -1,4 +1,5 @@
 - <a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a>
+- [R. S. Doiel](/)
 - [About](/about.md)
 - [Blog](/blog/)
 - [Presentations](/presentations.md)
