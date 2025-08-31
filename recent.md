@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Building Your Own Antenna](/blog/2025/08/31/Building_Your_Own_Antenna.md), 2025-08-31
 - [Generating RSS with FlatLake](/blog/2025/08/10/generating_rss_with_flatlake.md), 2025-08-10
 - [Opensearch Description Document needs love](/blog/2025/08/09/opensearch_description_documents_need_love.md), 2025-08-09
 - [Build a CommonMark Processor](/blog/2025/07/26/building_cmarkprocess.md), 2025-07-26
