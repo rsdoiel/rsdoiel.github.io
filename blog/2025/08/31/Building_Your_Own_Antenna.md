@@ -10,7 +10,7 @@ datePublished: "2025-08-31"
 
 By R. S. Doiel, 2025-08-31
 
-I have been prototyping my personal news site called [Antenna](https://rsdoiel.github.com/antenna) since 2023. It was inspired by Dave Winer's [news.scripting.com](https://news.scripting.com). It has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available over my home network and I make it public by publishing via GitHub pages. Over the last two years it has become the first place I go to consume content from the web (second is Dave's news.scripting.com).
+I have been prototyping my personal news site called [Antenna](https://rsdoiel.github.io/antenna) since 2023. It was inspired by Dave Winer's [news.scripting.com](https://news.scripting.com). It has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available over my home network and I make it public by publishing via GitHub pages. Over the last two years it has become the first place I go to consume content from the web (second is Dave's news.scripting.com).
 
 This past month (August 2025), my prototype website lead me to write a new application I am calling [antenna](https://github.com/rsdoiel/antennaApp) after the website that inspired it. 
 
@@ -246,3 +246,7 @@ Antenna can also serve as a site rendering tool for Markdown content. It support
 By combining aggregation of feeds with publication Antenna supports a distributed social web based on RSS 2.0. You can skip the complexity of [AT Protocol](https://en.wikipedia.org/wiki/AT_Protocol "Blue Sky's AT protocol") or [ActivityPub](https://en.wikipedia.org/wiki/ActivityPub "Mastodon's native protocol") and still be social. On my own Antenna site I consume content from both Blue Sky and Mastodon. Others are working on tools that will take an RSS feed and replicate the content using AT Protocol or Activity Pub but in the mean time let's just keep using RSS. It works as it always has. 
 
 Final thoughts, because the feed collections are stored in a SQLite3 database you can opt to write your own page generates, connectors, API or what have you. This includes things like adding support for hash tag lists and '@' tags too. Since it runs on your machine you could extract your '@' tags form your posts and then ping some via SMS or email if you like. You could even write something that would post the item via their preferred social media platform. Where you go with it is up to you. Those features are beyond what I need for Antenna but that shouldn't stop you from taking it further.
+
+- Project Website: <https://rsdoiel.github.io/antennaApp>
+- Quick Install: <https://rsdoiel.github.io/antennaApp/INSTALL.html>
+- GitHub Repository: <https://github.com/rsdoiel/antennaApp>
