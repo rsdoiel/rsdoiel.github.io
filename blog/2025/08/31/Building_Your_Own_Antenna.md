@@ -20,9 +20,9 @@ Having the feeds in a simple text format means I curate the feeds more. When I r
 
 What about other configuration I might need?
 
-The Markdown community has supported Metadata for the Markdown document as "front matter" expressed in YAML. That suggested YAML has alteast been seen by the allot of the Markdown community and is documented some place. Why not use it for specific configuration of my collection of feeds (e.g. the channel metadata rendered in RSS 2.0 XML for a collection) and use it as the configuration language for the Antenna application? Seems like a good match. I think people who work with Markdown maybe interested in generating static websites, they may have knowledge of YAML so that aligns with my applcation.
+The Markdown community has supported Metadata for the Markdown document as "front matter" expressed in YAML. That suggested YAML has been seen by the many in in the Markdown community. YAML front matter is also documented. Why not use it for specific configuration of my collection of feeds? I can use it to express the extra fields that can be included in the channel metadata for rendering RSS 2.0 files. YAML can also serve as the configuration language for the Antenna application. Seems like a good match. I think people who work with Markdown maybe interested in generating static websites, they may have knowledge of YAML so that aligns with my applcation.
 
-How do you add a collection to the "antenna.yaml" file? A prototype can be implemented with a hand edited YAML file but that's not good for someone else. The Antenna application can create a default "antenna.yaml" file as an initialization action. The Antenna command should have a means of adding a collection (expressed as a Markdown document) and removing a collection. While someone can dive into the YAML (and comments in the default YAML can document what things are), they don't have to dive into YAML if I provide sensible defaults. That's a win for simplicity and flexibility.
+How do you add a collection to the "antenna.yaml" file? A prototype can be implemented with a hand edited YAML file but that's not good for everyone. While YAML is easier to type and read than JSON it's not bullet proof. The Antenna application can create a default "antenna.yaml" file as an initialization action. The Antenna command can include a means of adding a collection (expressed as a Markdown document) and removing a collection. While someone can dive into the YAML (and comments in the default YAML can document what things are), they don't have to dive into YAML if I provide sensible defaults. That's a win for simplicity and flexibility.
 
 Once a collection is defined and added to the Antenna YAML configuration it can be harvested. The harvested content then can be used to generate HTML and RSS 2.0 XML files.
 
@@ -30,17 +30,19 @@ You can find my current experimental implementation of the Antenna application a
 
 ## What is the Antenna application really?
 
-Antenna, the application, is a feed oriented static website generator. It stores each collection of feed items in an SQLite3 database. You can have as many collections as you want.  In addition to aggregating feed content you can "post" or "unpost" items in a collection. The Antenna application can harvest collections then generate an HTML page and RSS 2.0 XML for each collection. The application even provides a preview action so you can see the results without publishing a website.
+Antenna, the application, is a feed oriented static website generator. It stores each collection of feed items in an SQLite3 database. You can have as many collections as you want.  In addition to aggregating feed content you can "post" or "unpost" items to a collection. The Antenna application can harvest collections then generate an HTML page and RSS 2.0 XML for each collection. The application provides a preview action so you can see the results without publishing a website.
 
-Supporting in and out bound RSS allows an Antenna website to become a distributed node on the social web. It's simple, it's RSS 2.0, it proven. You only need to host a copy of your Antenna site on the open web and promote the feeds you produce. It doesn't require permission, it remains under your control. It doesn't need to surveil anyone or sell anything to work. It's just out there.
+Supporting in bound and out bound RSS allows an Antenna website to become a distributed node on the open social web. It's simple, it's RSS 2.0, it proven. You can "follow" someone by adding their feed. They can "follow" you back by adding yours. You only need to host a copy of your Antenna site on the open web and promote the feeds you produce. It doesn't require permission, it remains under your control. It doesn't need to surveil anyone or sell anything to work. It's just out there as long as you have a site on the open web.
 
-Antenna requires minimal resources. I run it on a Raspberry Pi 3B+ running the current version of Raspberry Pi OS. I have run tested it on Windows 10, Windows 11 and macOS and found it runs just fine there too. 
+Antenna requires minimal resources. I run it on a Raspberry Pi 3B+ running the current version of Raspberry Pi OS. It can even run on a Raspberry Pi Zero running Raspberry Pi OS without the desktop. I have run tested it on Windows 10, Windows 11 and macOS and found it runs just fine there too. 
+
+Because it can run on minimal hardware it is possible to create your own Antenna appliance. You could even host a public access point to step off the public Internet and into the community digital spectrum like little digital libraries.
 
 ## How do I install the experimental Antenna application?
 
 The Antenna application can be [installed](https://rsdoiel.github.io/antennaApp/INSTALL.html) on Raspberry Pi OS/Linux, macOS and Windows. The executables are distributed via GitHub at <https://github.com/rsdoiel/antennaApp/releases>. Unzip the file for your operating system and CPU type then copy the executable in the "bin" directory to where it'll be available in a terminal (i.e. someplace in the PATH). If you can run `antenna -version` from your Terminal then it is installed and working. See [INSTALL.md](https://rsdoiel.github.io/antennaApp/INSTALL.html)
 
-It is important to remember that Antenna is an experimental proof of concept, it'll have bugs and will likely change over time as I use it more. Look at the [license](https://rsdoiel.github.io/antennaApp/LICENSE) for details.
+It is important to remember that Antenna is an experimental proof of concept, it'll have bugs and will likely change over time. As I use it more the things that bother me will get fixed or improved. Look at the [license](https://rsdoiel.github.io/antennaApp/LICENSE) for details before adopting it.
 
 ## High level Workflow
 
@@ -56,11 +58,14 @@ Steps two and three can be run on a schedule or run on demand. I use a cronjob t
 
 ### Figuring out features
 
-What are the features of the Antenna application?  Dave Winer's [Textcasting](https://textcasting.org) was a good guide to thinking about the problem. Two years of running my Antenna website with a bundle of Bash scripts, Pandoc templates and a custom feed manager provide more insight. The hairball of the prototype lead to a single application that you run in a terminal. It supports a syntax of "actions" and simple "modifiers". Configuration is generally managed by the application but can be customized via editing YAML files. Each collection has a YAML file that specifies how to write the content in HTML. The "antenna.yaml" file descriptions which collections to process and includes SQL to filter them aggregated content.
+What are the features of the Antenna application?  Dave Winer's [Textcasting](https://textcasting.org) was a good guide for thinking about the problem. It'll likely guide the feature evolution moving forward. Two years of running my Antenna website with a bundle of Bash scripts, Pandoc templates and a custom feed manager provided more insight. The hairball of the prototype lead to a single application that you run in a terminal. It supports a syntax of "actions" and simple "modifiers". Configuration is generally managed by the application but can be customized via editing YAML files. Each collection has a YAML file that specifies how to write the content in HTML. The "antenna.yaml" file descriptions which collections to process and includes SQL to filter them aggregated content.
 
-Collection curation is done in Markdown. Markdown describes a list of links. Each link is a feed. The links are extracted from the Markdown document if they have this form, `- [FEED_LABEL](FEED_URL "OPTIONAL_FEED_DESCRIPTION")`. Front Matter in the collection document will be used to provide channel metadata used when generating RSS. Having the collection expressed as Markdown has advantage. When the collection is rendered as RSS the channel level information can be taken from the YAML front matter of the collection document much like it works with RMarkdown or Pandoc. Mean while Markdown also makes sense for post to a collection. Again the additional front matter can provide insights into how Antenna should handle the post.
+Collection curation is done in Markdown. Markdown describes a list of links. Each link is a feed. The links are extracted from the Markdown document when they have this form, `- [FEED_LABEL](FEED_URL "OPTIONAL_FEED_DESCRIPTION")`. Front Matter in the collection document will be used to provide channel metadata used when generating RSS and HTML. Having the collection expressed as Markdown is an advantage. When the collection is rendered as RSS the channel level information can be taken from the YAML front matter of the collection document much like it works with RMarkdown or Pandoc. Mean while Markdown also makes sense for post to a collection. Again the additional front matter can provide insights into how Antenna should handle the post.
 
-Rule of thumb - content think Markdown, configuration think YAML.
+Rules of thumb:
+
+- __content__ think Markdown
+- __configuration__ think YAML
 
 Here's the initial feature set I've landed for the 0.0.1 version of the Antenna application.
 
@@ -113,12 +118,12 @@ A collection doesn't have to contain feeds from external websites. It can be a c
 
 ## Do feed items accumulate forever?
 
-Each collection defined in the "antenna.yaml" file includes a filter attribute. A filter is a SQL statement that can be run against the SQLite3 database associated with the collection. By default two filter statements are supplied. 
+Each collection defined in the "antenna.yaml" file includes a filter attribute. A filter is a sequence of SQL statements. These statements are run against the SQLite3 database associated with the collection. By default two filter statements are supplied. 
 
 - Set everything to review, `UPDATE items SET status = 'review'`
 - Set the recently (previous three weeks) published items to published, `UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-21 days');`
 
-The statements are applied one after the other in order. You could include statements that remove stale items. You could set all items to published too. Each statement gets executed that you include. Since the database is a standard SQLite3 database you can use the SQLite3 command line program to explore and test what statements you might want to use yourself.
+The statements are applied one after the other in order. You can choose to include statements that remove stale items. You could set all items to published too. Each statement gets executed that you include. Since the database is a standard SQLite3 database you can use the SQLite3 command line program to explore and test what statements you might want to use yourself.
 
 ## Work flows
 
@@ -126,7 +131,7 @@ The statements are applied one after the other in order. You could include state
 
 When I want to add a feed to a collection I just open the Markdown file for the collection and add another list element that points to the feed. Example, `- [Robert's blog](https://rsdoiel.github.io/rss.xml)`.  To remove a feed from a collection, I just edit the Markdown file and delete that line.
 
-The Markdown file is read each time you run `antenna harvest`. It'll only harvest items it lines that match the simple markdown list item pattern I've shown above.
+The Markdown file is read each time you run `antenna harvest`. It'll only harvest items it finds matching the simple markdown list item pattern I've shown above.
 
 ### Updating your Antenna website
 
@@ -189,7 +194,7 @@ antenna generate
 antenna preview
 ~~~
 
-This micro blog post only lives in the feed list. There is no landing page.
+This micro blog post only lives in the feed's item table. There is no landing page. It will only be written out to RSS and HTML if it remains in the "published" state. If the item is removed from the items table the micro blog post will not get rendered the next to you render the feed's page. This makes them somewhat emphermal.
 
 ### Adding a blog post to "mysite"
 
@@ -197,7 +202,7 @@ If I update "helloworld.md" to include a "postPath" and "link" then the post wil
 
 ~~~Markdown
 ---
-link: http://localhost:8000/helloworld.md
+link: http://localhost:8000/helloworld.html
 postPath: helloworld.md
 pubDate: "2025-08-31"
 ---
@@ -213,7 +218,7 @@ antenna generate
 antenna preview
 ~~~
 
-You should now see "htdocs/helloworld.md" and be able to navigate to it directly using <http://localhost:8000/helloworld.md>.
+You should now see "htdocs/helloworld.html" and be able to navigate to it directly using <http://localhost:8000/helloworld.html>.
 
 NOTE: If each time you run the post action on that file it'll regenerate the HTML.
 
@@ -227,21 +232,21 @@ Antenna plays nice with other blogging tools. It only generates those pages asso
 
 The Antenna application takes advantage of SQLite3 database(s) to persist the web content it manages. It is a binary format so you may want to back it up outside of your version control system (outside of Git). It's really up to you.
 
-Because SQLite3 is used that means you can do any additional ad-hoc processing you want via SQL. This is a powerful feature and allows for potential integration with other systems. 
+Because SQLite3 is used that means you can do any additional ad-hoc processing you want via SQL. This is a powerful feature and allows for potential integration with other systems. You could as example write a program to render come posts to other systems like BlueSky or Mastodon. I leave that as an exercise for the reader.
 
 In the antenna.yaml file each collection has an attribute called "filter". The filter holds a list of SQL statements that are run before generating the HTML pages. You can list as many as you want, though by default two are provided (set everything to review, then set recent items to published).
 
 ## How do I manage individual web pages?
 
-The Antenna application is feed oriented. By that I mean it'll generate an aggregation page and RSS file. A collection doesn't have to include links at all. A collection that just has posts is completely valid. The posts will be used as content for the aggregation page and populate the RSS feed. You can use a simple filter to ensure all posts are published before generating the feed page, `update items set status = 'published'`. That's it. All items in the collection will always be published. 
+The Antenna application is feed oriented. By that I mean it'll generate an aggregation page and RSS file. A collection doesn't have to include links at all. A collection that just has posts is completely valid. The posts will be used as content for the aggregated HTML page and populate the outbound RSS feed. You can use a simple filter to ensure all posts are published before generating the feed page, `update items set status = 'published'`. That's it. All items in the collection will always be published. They'll always show up in the aggregated HTML and RSS file.
 
 When you update a page you re-post it to the collection. When each item is posted Antenna generates the HTML page when the postPath and link are set. Then you can "preview" the site you can see the updated page.
 
 ## Other possibilities
 
-Antenna application let's us easily setup our own new aggregation websites. We don't need to rely on Google, Facebook, etc. As long as there is an feed, we can included it in our own aggregation.
+Antenna application let's us easily setup our own new aggregation websites. We don't need to rely on Google, Facebook, etc. As long as there is an RSS/Atom or JSON feed, we can included it in our own aggregation.
 
-Antenna can also serve as a site rendering tool for Markdown content. It supports posts as well as content that is harvested for aggregation pages. All collections rendered include RSS automatically. 
+Antenna can also serve as a site rendering tool for Markdown content. It supports posts as well as content that is harvested for aggregation pages. All collections include outbound RSS automatically. 
 
 By combining aggregation of feeds with publication Antenna supports a distributed social web based on RSS 2.0. You can skip the complexity of [AT Protocol](https://en.wikipedia.org/wiki/AT_Protocol "Blue Sky's AT protocol") or [ActivityPub](https://en.wikipedia.org/wiki/ActivityPub "Mastodon's native protocol") and still be social. On my own Antenna site I consume content from both Blue Sky and Mastodon. Others are working on tools that will take an RSS feed and replicate the content using AT Protocol or Activity Pub but in the mean time let's just keep using RSS. It works as it always has. 
 
