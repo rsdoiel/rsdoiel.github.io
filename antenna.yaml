@@ -1,0 +1,11 @@
+port: 8000
+collections:
+    - title: Robert's Ramblings
+      link: http://localhost:8000/blogxml
+      description: Robert's blog on software development and technology
+      file: blog.md
+      generator: blog.yaml
+      filters:
+        - UPDATE items SET status = 'review';
+        - UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-21 days');
+      dbName: blog.db

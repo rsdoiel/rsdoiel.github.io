@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Two recent articles on working with Large Language Models](/blog/2025/09/10/Two_Recent_Articles_on_LLM.md), 2025-09-10
 - [Build a Blog with Antenna](/blog/2025/09/05/Build_a_Blog_with_Antenna_App.md), 2025-09-05
 - [Building Your Own Antenna](/blog/2025/08/31/Building_Your_Own_Antenna.md), 2025-08-31
 - [Generating RSS with FlatLake](/blog/2025/08/10/generating_rss_with_flatlake.md), 2025-08-10
