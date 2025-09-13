@@ -47,6 +47,7 @@ abstract: >
 dateCreated: '2022-11-11'
 dateModified: '2025-07-22'
 datePublished: '2022-11-11'
+postPath: 'blog/2022/11/11/Twitter-implosion.md'
 ---
 
 Twitter's pending implosion

@@ -15,6 +15,7 @@ copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateModified: '2025-07-23'
 datePublished: '2025-02-14'
+postPath: 'blog/2025/02/14/Review_Pi-500_as_portable_workstation.md'
 ---
 
 # Setting up my Raspberry Pi 500, a Portable Workstation

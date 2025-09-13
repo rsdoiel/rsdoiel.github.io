@@ -16,6 +16,7 @@ abstract: "By R. S. Doiel, 2022-02-18\n\nThis are my quick notes on installing G
 dateCreated: '2022-02-18'
 dateModified: '2025-07-22'
 datePublished: '2022-02-18'
+postPath: 'blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.md'
 seriesNo: 1
 ---
 

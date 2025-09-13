@@ -28,6 +28,7 @@ abstract: >
 dateCreated: '2022-09-19'
 dateModified: '2025-07-22'
 datePublished: '2022-09-19'
+postPath: 'blog/2022/09/19/PostgreSQL-Dump-and-Restore.md'
 ---
 
 PostgreSQL dump and restore

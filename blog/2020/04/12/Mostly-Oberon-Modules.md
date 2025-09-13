@@ -36,6 +36,7 @@ abstract: >
 dateCreated: '2020-04-12'
 dateModified: '2025-07-22'
 datePublished: '2020-04-12'
+postPath: 'blog/2020/04/12/Mostly-Oberon-Modules.md'
 seriesNo: 2
 ---
 

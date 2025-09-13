@@ -28,6 +28,7 @@ abstract: >
 dateCreated: '2023-12-23'
 dateModified: '2025-07-22'
 datePublished: '2023-12-23'
+postPath: 'blog/2023/12/23/finding-blue-sky-rss-feeds.md'
 ---
 
 # Find Bluesky RSS Feeds

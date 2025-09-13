@@ -1,73 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>sqlite3_json_patch</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="sql, SQLite3">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/10/31/sqlite3_json_patch.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="sqlite3_json_patch.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="sqlite3-json_patch-is-a-jewel">SQLite3 json_patch is a
-jewel</h1>
-<p>By R. S. Doiel, 2024-10-31</p>
-<p>If you’re working with an SQLite3 database table and have JSON or
-columns you need to merge with other columns then the
-<code>json_path</code> function comes in really handy. I have a SQLite3
-database table with four columns.</p>
-<ul>
-<li>_key (string)</li>
-<li>src (json)</li>
-<li>created (datestamp)</li>
-<li>updated (datestamp)</li>
-</ul>
-<p>Occasionally I want to return the <code>_key</code>,
-<code>created</code> and <code>updated</code> columns as part of the
-JSON held in the <code>src</code> column. In SQLite3 it is almost
-trivial.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  json_patch(json_object(<span class="st">&#39;key&#39;</span>, _key, <span class="st">&#39;updated&#39;</span>, updated, <span class="st">&#39;created&#39;</span>, created), src) <span class="kw">as</span> <span class="dt">object</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">from</span> <span class="kw">data</span>;</span></code></pre></div>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-10-31" data-link="https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html">
+      <h1 id="sqlite3-json-patch-is-a-jewel">SQLite3 json_patch is a jewel</h1>
+      <p>By R. S. Doiel, 2024-10-31</p>
+      <p>If you’re working with an SQLite3 database table and have JSON or columns you need to merge with other columns then the <code>json_path</code> function comes in really handy.<br />
+      I have a SQLite3 database table with four columns.</p>
+      <ul>
+      <li>_key (string)</li>
+      <li>src (json)</li>
+      <li>created (datestamp)</li>
+      <li>updated (datestamp)</li>
+      </ul>
+      <p>Occasionally I want to return the <code>_key</code>, <code>created</code> and <code>updated</code> columns as part of the JSON held in the <code>src</code> column.  In SQLite3 it is almost trivial.</p>
+      <pre><code class="language-sql">select 
+        json_patch(json_object('key', _key, 'updated', updated, 'created', created), src) as object
+        from data;
+      </code></pre>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

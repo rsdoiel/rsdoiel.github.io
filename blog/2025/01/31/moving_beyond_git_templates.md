@@ -20,6 +20,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2025-01-30'
 dateModified: '2025-07-23'
 datePublished: '2025-01-31'
+postPath: 'blog/2025/01/31/moving_beyond_git_templates.md'
 seriesNo: 1
 ---
 

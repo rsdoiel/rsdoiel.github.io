@@ -31,6 +31,7 @@ abstract: >
 dateCreated: '2022-12-12'
 dateModified: '2025-07-22'
 datePublished: '2022-12-12'
+postPath: 'blog/2022/12/12/Go-and-MySQL-Timestamps.md'
 ---
 
 # Go and MySQL timestamps

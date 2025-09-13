@@ -1,7 +1,5 @@
 ---
 title: First Personal Search Engine Prototype
-pubDate: 2023-03-10T00:00:00.000Z
-updated: 2023-11-29T00:00:00.000Z
 author: R. S. Doiel
 series: Personal Search Engine
 number: 2
@@ -42,6 +40,7 @@ abstract: >
 dateCreated: '2023-03-10'
 dateModified: '2025-07-22'
 datePublished: '2023-03-10'
+postPath: 'blog/2023/03/10/first-prototype-pse.md'
 seriesNo: 2
 ---
 

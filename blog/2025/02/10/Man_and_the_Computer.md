@@ -21,8 +21,9 @@ copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2025-02-10'
-datePublished: '2025-02-10'
 dateModified: '2025-07-23'
+datePublished: '2025-02-10'
+postPath: 'blog/2025/02/10/Man_and_the_Computer.md'
 seriesNo: 1
 ---
 

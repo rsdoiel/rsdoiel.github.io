@@ -1,5 +1,4 @@
 ---
-dateCreated: '2025-07-24'
 title: Signed Binaries and Business Models
 author: R. S. Doiel
 abstract: >
@@ -12,9 +11,11 @@ keywords:
   - app stores
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
-dateModified: '2025-07-28'
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-07-24'
+dateModified: '2025-07-28'
 datePublished: '2025-07-24'
+postPath: 'blog/2025/07/24/WHY_NO_SIGNED_BINARIES.md'
 ---
 
 # Thoughts on signed binaries and business models

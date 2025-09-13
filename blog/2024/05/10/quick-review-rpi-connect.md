@@ -15,6 +15,7 @@ abstract: |
 dateCreated: '2024-05-10'
 dateModified: '2025-07-23'
 datePublished: '2024-05-10'
+postPath: 'blog/2024/05/10/quick-review-rpi-connect.md'
 ---
 
 # A quick review of Raspberry Pi Connect

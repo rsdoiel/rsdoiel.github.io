@@ -26,6 +26,7 @@ abstract: >
 dateCreated: '2022-08-19'
 dateModified: '2025-07-22'
 datePublished: '2022-08-19'
+postPath: 'blog/2022/08/19/rosette-notes.md'
 seriesNo: 2
 ---
 

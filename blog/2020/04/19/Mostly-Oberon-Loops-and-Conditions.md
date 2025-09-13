@@ -38,6 +38,7 @@ abstract: >
 dateCreated: '2020-04-19'
 dateModified: '2025-07-22'
 datePublished: '2020-04-19'
+postPath: 'blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.md'
 seriesNo: 4
 ---
 

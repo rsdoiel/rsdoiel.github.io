@@ -41,7 +41,8 @@ abstract: >
   ...
 dateCreated: '2022-11-05'
 dateModified: '2025-07-22'
-datePublished: '2022-11-05'
+datePublished: '2022-12-05'
+postPath: 'blog/2022/12/05/progress-and-time-remaining.md'
 ---
 
 # Progress and time remaining

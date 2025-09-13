@@ -33,6 +33,7 @@ abstract: >
 dateCreated: '2022-08-24'
 dateModified: '2025-07-22'
 datePublished: '2022-08-24'
+postPath: 'blog/2022/08/24/plpgsql-quick-intro.md'
 seriesNo: 3
 ---
 

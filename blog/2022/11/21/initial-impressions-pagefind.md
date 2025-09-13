@@ -1,6 +1,5 @@
 ---
 title: Initial Impressions of Pagefind
-pubDate: 2022-11-21T00:00:00.000Z
 author: rsdoiel@sdf.org (R. S. Doiel)
 byline: 'R. S. Doiel, 2022-11-21'
 keywords:
@@ -42,6 +41,7 @@ abstract: >
 dateCreated: '2022-11-21'
 dateModified: '2025-07-22'
 datePublished: '2022-11-21'
+postPath: 'blog/2022/11/21/initial-impressions-pagefind.md'
 ---
 
 # Initial Impression of Pagefind

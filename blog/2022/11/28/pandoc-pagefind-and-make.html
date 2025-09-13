@@ -1,221 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>pandoc-pagefind-and-make</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Pandoc, Pagefind, make, static site">
-  <link rel="alternative" type="application/markdown" href="/blog/2022/11/28/pandoc-pagefind-and-make.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="pandoc-pagefind-and-make.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="pandoc-pagefind-and-make">Pandoc, Pagefind and Make</h1>
-<p>Recently I’ve refresh my approach to website generation using three
-programs.</p>
-<ul>
-<li><a href="https://pandoc.org">Pandoc</a></li>
-<li><a href="https://pagefind.app">Pagefind</a> for providing a full
-text search of documentation</li>
-<li><a href="https://www.gnu.org/software/make/">GNU Make</a>
-<ul>
-<li><a href="website.mak">website.mak</a> Makefile</li>
-</ul></li>
-</ul>
-<p>Pandoc does the heavy lifting. It renders all the HTML pages,
-CITATION.cff (from the projects <a href="codemeta.github.io"
-title="codemeta.json is a metadata documentation schema for documenting software projects">codemeta.json</a>)
-and rendering an about.md file (also from the project’s codemeta.json).
-This is done with three Pandoc templates. Pandoc can also be used to
-rendering man pages following a simple page recipe.</p>
-<p>I’ve recently adopted Pagefind for indexing the HTML for the
-project’s website and providing the full text search UI suitable for a
-static website. The Pagefind indexes can be combined with your group or
-organization’s static website providing a rich cross project search
-(exercise left for another post).</p>
-<p>Finally I orchestrate the site construction with GNU Make. I do this
-with a simple dedicated Makefile called <a
-href="#website.mak">website.mak</a>.</p>
-<h2><a name="websitemak">website.mak</a></h2>
-<p>The website.mak file is relatively simple.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Makefile for running pandoc on all Markdown docs ending in .md</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">PROJECT</span> <span class="ch">=</span><span class="st"> PROJECT_NAME_GOES_HERE</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">MD_PAGES</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> ls -1 *.md</span><span class="ch">)</span><span class="st"> about.md</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">HTML_PAGES</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> ls -1 *.md | sed -E &#39;s/.md/.html/g&#39;</span><span class="ch">)</span><span class="st"> about.md</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dv">build:</span><span class="dt"> </span><span class="ch">$(</span><span class="dt">HTML_PAGES</span><span class="ch">)</span><span class="dt"> </span><span class="ch">$(</span><span class="dt">MD_PAGES</span><span class="ch">)</span><span class="dt"> pagefind</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dv">about.md:</span><span class="dt"> .FORCE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="er">        </span>cat codemeta.json | sed -E <span class="st">&#39;s/&quot;@context&quot;/&quot;at__context&quot;/g;s/&quot;@type&quot;/&quot;at__type&quot;/g;s/&quot;@id&quot;/&quot;at__id&quot;/g&#39;</span> &gt;_codemeta.json</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        if [ -f <span class="ch">$(</span><span class="dt">PANDOC</span><span class="ch">)</span> ]; then echo <span class="st">&quot;&quot;</span> | pandoc --metadata title=<span class="st">&quot;About </span><span class="ch">$(</span><span class="dt">PROJECT</span><span class="ch">)</span><span class="st">&quot;</span> --metadata-file=_codemeta.json --template codemeta-md.tmpl &gt;about.md; fi</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        if [ -f _codemeta.json ]; then rm _codemeta.json; fi</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="dv">$(HTML_PAGES):</span><span class="dt"> </span><span class="ch">$(</span><span class="dt">MD_PAGES</span><span class="ch">)</span><span class="dt"> .FORCE</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>pandoc -s --to html5 <span class="ch">$(</span><span class="kw">basename</span><span class="st"> </span><span class="ch">$@)</span>.md -o <span class="ch">$(</span><span class="kw">basename</span><span class="st"> </span><span class="ch">$@)</span>.html \</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="ch">-</span><span class="fu">-metadata title=</span><span class="st">&quot;</span><span class="ch">$(</span><span class="dt">PROJECT</span><span class="ch">)</span><span class="st"> - </span><span class="ch">$@</span><span class="st">&quot;</span><span class="fu"> </span><span class="ch">\</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">        --lua-filter=links-to-html.lua </span><span class="ch">\</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">        --template=page.tmpl</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    git add <span class="ch">$(</span><span class="kw">basename</span><span class="st"> </span><span class="ch">$@)</span>.html</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="dv">pagefind:</span><span class="dt"> .FORCE</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>pagefind --verbose --exclude-selectors=<span class="st">&quot;nav,header,footer&quot;</span> --bundle-dir ./pagefind --source .</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    git add pagefind</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="er">    </span><span class="ch">@</span><span class="fu">if [ -f index.html ]; then rm *.html; fi</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu">if [ -f README.html ]; then rm *.html; fi</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ot">.FORCE:</span></span></code></pre></div>
-<p>Only the “PROJECT” value needs to be set. Typically this is just the
-name of the repository’s base directory.</p>
-<h2><a name="pandoc-filters-and-templates">Pandoc, filters and templates</a></h2>
-<p>When write my Markdown documents I link to Markdown files instead of
-the HTML versions. This serves two purposes. First GitHub can use this
-linking directory and second if you decide to repurposed the website as
-a Gopher or Gemini resource you don’t linking to the Markdown file makes
-more sense. To convert the “.md” names to “.html” when I render the HTML
-I use a simple Lua filter called <a
-href="https://stackoverflow.com/questions/40993488/convert-markdown-links-to-html-with-pandoc#49396058"
-title="see the stackoverflow answer that shows this technique">links-to-html.lua</a>.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">#</span> <span class="va">links</span><span class="op">-</span><span class="va">to</span><span class="op">-</span><span class="va">html</span><span class="op">.</span><span class="va">lua</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Link<span class="op">(</span><span class="va">el</span><span class="op">)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">el</span><span class="op">.</span><span class="va">target</span> <span class="op">=</span> <span class="fu">string.gsub</span><span class="op">(</span><span class="va">el</span><span class="op">.</span><span class="va">target</span><span class="op">,</span> <span class="st">&quot;%.md&quot;</span><span class="op">,</span> <span class="st">&quot;.html&quot;</span><span class="op">)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="va">el</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
-<p>The “page.tmpl” file provides a nice wrapper to the Markdown rendered
-as HTML by Pandoc. It includes the site navigation and project copyright
-information in the wrapping HTML. It is based on the default Pandoc page
-template with some added markup for navigation and copyright info in the
-footer. I also update the link to the CSS to conform with our general
-site branding requirements. You can generate a basic template using
-Pandoc.</p>
-<pre class="shell"><code>pandoc --print-default-template=html5</code></pre>
-<p>I also use Pandoc to generate an “about.md” file describing the
-project and author info. The content of the about.md is taken directly
-from the project’s codemeta.json file after I’ve renamed the “@” JSON-LD
-fields (those cause problems for Pandoc). You can see the preparation of
-a temporary “_codemeta.json” using <code>cat</code> and <code>sed</code>
-to rename the fields. This is I use a Pandoc template to render the
-Markdown from.</p>
-<pre class="pandoc"><code>---
-title: $name$
----
+  <section>
+    <article data-published="2022-11-28" data-link="https://rsdoiel.github.io/blog/2022/11/28/pandoc-pagefind-and-make.html">
+      <h1 id="pandoc-pagefind-and-make">Pandoc, Pagefind and Make</h1>
+      <p>Recently I've refresh my approach to website generation using three programs.</p>
+      <ul>
+      <li><a href="https://pandoc.org">Pandoc</a></li>
+      <li><a href="https://pagefind.app">Pagefind</a> for providing a full text search of documentation</li>
+      <li><a href="https://www.gnu.org/software/make/">GNU Make</a>
+      <ul>
+      <li><a href="website.mak">website.mak</a> Makefile</li>
+      </ul>
+      </li>
+      </ul>
+      <p>Pandoc does the heavy lifting. It renders all the HTML pages, CITATION.cff (from the projects <a href="codemeta.github.io" title="codemeta.json is a metadata documentation schema for documenting software projects">codemeta.json</a>) and rendering an about.md file (also from the project's codemeta.json). This is done with three Pandoc templates. Pandoc can also be used to rendering man pages following a simple page recipe.</p>
+      <p>I've recently adopted Pagefind for indexing the HTML for the project's website and providing the full text search UI suitable for a static website. The Pagefind indexes can be combined with your group or organization's static website providing a rich cross project search (exercise left for another post).</p>
+      <p>Finally I orchestrate the site construction with GNU Make. I do this with a simple dedicated Makefile called <a href="#website.mak">website.mak</a>.</p>
+      <h2 id="websitemak">website.mak</h2>
+      <p>The website.mak file is relatively simple.</p>
+      <pre><code class="language-makefile">#
+      # Makefile for running pandoc on all Markdown docs ending in .md
+      #
+      PROJECT = PROJECT_NAME_GOES_HERE
+      
+      MD_PAGES = $(shell ls -1 *.md) about.md
+      
+      HTML_PAGES = $(shell ls -1 *.md | sed -E 's/.md/.html/g') about.md
+      
+      build: $(HTML_PAGES) $(MD_PAGES) pagefind
+      
+      about.md: .FORCE
+              cat codemeta.json | sed -E 's/&quot;@context&quot;/&quot;at__context&quot;/g;s/&quot;@type&quot;/&quot;at__type&quot;/g;s/&quot;@id&quot;/&quot;at__id&quot;/g' &gt;_codemeta.json
+              if [ -f $(PANDOC) ]; then echo &quot;&quot; | pandoc --metadata title=&quot;About $(PROJECT)&quot; --metadata-file=_codemeta.json --template codemeta-md.tmpl &gt;about.md; fi
+              if [ -f _codemeta.json ]; then rm _codemeta.json; fi
+      
+      $(HTML_PAGES): $(MD_PAGES) .FORCE
+      	pandoc -s --to html5 $(basename $@).md -o $(basename $@).html \
+      		--metadata title=&quot;$(PROJECT) - $@&quot; \
+      	    --lua-filter=links-to-html.lua \
+      	    --template=page.tmpl
+      	git add $(basename $@).html
+      
+      pagefind: .FORCE
+      	pagefind --verbose --exclude-selectors=&quot;nav,header,footer&quot; --bundle-dir ./pagefind --source .
+      	git add pagefind
+      
+      clean:
+      	@if [ -f index.html ]; then rm *.html; fi
+      	@if [ -f README.html ]; then rm *.html; fi
+      
+      .FORCE:
+      </code></pre>
+      <p>Only the &quot;PROJECT&quot; value needs to be set. Typically this is just the name of the repository's base directory.</p>
+      <h2 id="pandoc-filters-and-templates">Pandoc, filters and templates</h2>
+      <p>When write my Markdown documents I link to Markdown files instead of the HTML versions. This serves two purposes. First GitHub can use this linking directory and second if you decide to repurposed the website as a Gopher or Gemini resource<br />
+      you don't linking to the Markdown file makes more sense.  To convert the &quot;.md&quot; names to &quot;.html&quot; when I render the HTML I use a simple Lua filter called <a href="https://stackoverflow.com/questions/40993488/convert-markdown-links-to-html-with-pandoc#49396058" title="see the stackoverflow answer that shows this technique">links-to-html.lua</a>.</p>
+      <pre><code class="language-lua"># links-to-html.lua
+      function Link(el)
+        el.target = string.gsub(el.target, &quot;%.md&quot;, &quot;.html&quot;)
+        return el
+      end
+      </code></pre>
+      <p>The &quot;page.tmpl&quot; file provides a nice wrapper to the Markdown rendered as HTML by Pandoc. It includes the site navigation and project copyright information in the wrapping HTML. It is based on the default Pandoc page template with some added markup for navigation and copyright info in the footer. I also update the link to the CSS to conform with our general site branding requirements. You can generate a basic template using Pandoc.</p>
+      <pre><code class="language-shell">pandoc --print-default-template=html5
+      </code></pre>
+      <p>I also use Pandoc to generate an &quot;about.md&quot; file describing the project and author info.  The content of the about.md is taken directly from the project's codemeta.json file after I've renamed the &quot;@&quot; JSON-LD fields (those cause problems for Pandoc). You can see the preparation of a temporary &quot;_codemeta.json&quot; using <code>cat</code> and <code>sed</code> to rename the fields. This is I use a Pandoc template to render the Markdown from.</p>
+      <pre><code class="language-pandoc">  ---
+        title: $name$
+        ---
+      
+        About this software
+        ===================
+      
+        $name$ $version$
+        ----------------
+      
+        $if(author)$
+        ### Authors
+        
+        $for(author)$
+        - $it.givenName$ $it.familyName$
+        $endfor$
+        $endif$
+        
+        $if(description)$
+        $description$
+        $endif$
+        
+        
+        $if(license)$- License: $license$$endif$
+        0$if(codeRepository)$- GitHub: $codeRepository$$endif$
+        $if(issueTracker)$- Issues: $issueTracker$$endif$
+        
+        
+        $if(programmingLanguage)$
+        ### Programming languages
+        
+        $for(programmingLanguage)$
+        - $programmingLanguage$
+        $endfor$
+        $endif$
+        
+        $if(operatingSystem)$
+        ### Operating Systems
+        
+        $for(operatingSystem)$
+        - $operatingSystem$
+        $endfor$
+        $endif$
+        
+        $if(softwareRequirements)$
+        ### Software Requiremets
+        
+        $for(softwareRequirements)$
+        - $softwareRequirements$
+        $endfor$
+        $endif$
+        
+        $if(relatedLink)$
+        ### Related Links
+        
+        $for(relatedLink)$
+        - [$it$]($it$)
+        $endfor$
+        $endif$
+      </code></pre>
+      <p>This same technique can be repurposed to render a CITATION.cff if needed.</p>
+      <h2 id="pagefind">Pagefind</h2>
+      <p>Pagefind provides three levels of functionality. First it will generate indexes for a full text search of your<br />
+      project's HTML pages. It also builds the necessary search UI for your static site. I include the search UI via a<br />
+      Markdown document that embeds the HTML markup described at <a href="https://pagefind.app/docs/">Pagefind.app</a>'s Getting started<br />
+      page.  When I invoke Pagefind I use the <code>--bundle-dir</code> option to be &quot;pagefind&quot; rather than &quot;_pagefind&quot;.  The reason is GitHub Pages ignores the &quot;<em>pagefind&quot; (probably ignores all directories with &quot;</em>&quot; prefix).</p>
+      <p>If you need a quick static web server while you're writing and developing your documentation website Pagefind can<br />
+      provide that using the <code>--serve</code> option. Assuming you're in your project's directory then something like this should do the trick.</p>
+      <pre><code class="language-shell">    pagefind --source . --bundle-dir=pagefind --serve
+      </code></pre>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-About this software
-===================
-
-$name$ $version$
-----------------
-
-$if(author)$
-### Authors
-
-$for(author)$
-- $it.givenName$ $it.familyName$
-$endfor$
-$endif$
-
-$if(description)$
-$description$
-$endif$
-
-
-$if(license)$- License: $license$$endif$
-0$if(codeRepository)$- GitHub: $codeRepository$$endif$
-$if(issueTracker)$- Issues: $issueTracker$$endif$
-
-
-$if(programmingLanguage)$
-### Programming languages
-
-$for(programmingLanguage)$
-- $programmingLanguage$
-$endfor$
-$endif$
-
-$if(operatingSystem)$
-### Operating Systems
-
-$for(operatingSystem)$
-- $operatingSystem$
-$endfor$
-$endif$
-
-$if(softwareRequirements)$
-### Software Requiremets
-
-$for(softwareRequirements)$
-- $softwareRequirements$
-$endfor$
-$endif$
-
-$if(relatedLink)$
-### Related Links
-
-$for(relatedLink)$
-- [$it$]($it$)
-$endfor$
-$endif$</code></pre>
-<p>This same technique can be repurposed to render a CITATION.cff if
-needed.</p>
-<h2><a name="pagefind">Pagefind</a></h2>
-<p>Pagefind provides three levels of functionality. First it will
-generate indexes for a full text search of your project’s HTML pages. It
-also builds the necessary search UI for your static site. I include the
-search UI via a Markdown document that embeds the HTML markup described
-at <a href="https://pagefind.app/docs/">Pagefind.app</a>’s Getting
-started page. When I invoke Pagefind I use the <code>--bundle-dir</code>
-option to be “pagefind” rather than “_pagefind”. The reason is GitHub
-Pages ignores the “<em>pagefind” (probably ignores all directories with
-”</em>” prefix).</p>
-<p>If you need a quick static web server while you’re writing and
-developing your documentation website Pagefind can provide that using
-the <code>--serve</code> option. Assuming you’re in your project’s
-directory then something like this should do the trick.</p>
-<pre class="shell"><code>    pagefind --source . --bundle-dir=pagefind --serve</code></pre>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

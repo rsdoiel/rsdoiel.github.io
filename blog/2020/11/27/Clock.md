@@ -15,6 +15,7 @@ abstract: |
 dateCreated: '2020-11-27'
 dateModified: '2025-07-22'
 datePublished: '2020-11-27'
+postPath: 'blog/2020/11/27/Clock.md'
 keywords:
   - Oberon-07
   - C

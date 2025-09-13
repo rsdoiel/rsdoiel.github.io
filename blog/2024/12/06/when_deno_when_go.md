@@ -15,7 +15,8 @@ copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-11-06'
 dateModified: '2025-07-22'
-datePublished: '2024-11-06'
+datePublished: '2024-12-06'
+postPath: 'blog/2024/12/06/when_deno_when_go.md'
 ---
 
 # When Deno+TypeScript, when Go?

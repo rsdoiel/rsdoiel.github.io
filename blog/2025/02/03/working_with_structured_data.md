@@ -13,8 +13,9 @@ copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2025-02-03'
-datePublished: '2025-02-03'
 dateModified: '2025-07-23'
+datePublished: '2025-02-03'
+postPath: 'blog/2025/02/03/working_with_structured_data.md'
 ---
 
 # Working with Structured Data in Deno and TypeScript

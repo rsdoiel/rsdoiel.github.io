@@ -1,111 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>transpiling-and-bundling-with-emit</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Deno, TypeScript, transpile, bundle">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/11/21/transpiling-and-bundling-with-emit.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="transpiling-and-bundling-with-emit.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="transpiling-bundling-with-emit">Transpiling &amp; Bundling with
-Emit</h1>
-<p>One of the nice features of Deno is native TypeScript support. One of
-the selling strength though is that the same source can run both server
-side and browser side. The challenge is that TypeScript does not have
-native TypeScript support. This is easy to remedy using Deno’s <a
-href="https://jsr.io/@deno/emit">emit</a> module.</p>
-<p>The emit module supports to important functions,
-<code>transpile</code> and <code>bundle</code>. Both will render your
-TypeScript as JavaScript in a browser friendly manner. The
-<code>transpile</code> function turns a single TypeScript file into an
-equivalent JavaScript file. Bundle can do that with a TypeScript and all
-the files it imports so you have a self contained JavaScript file with
-everything you need.</p>
-<!-- The emit module website shows how to write a short TypeScript program to transpile and bundle.  When you combine that with a Deno task it is trivial to automatically make that happen. -->
-<p>Here’s what my <code>transpile.ts</code> looks like.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { transpile } <span class="im">from</span> <span class="st">&quot;jsr:@deno/emit&quot;</span><span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> path <span class="im">from</span> <span class="st">&quot;jsr:@std/path&quot;</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* Transpile directory_client.ts to JavaScript and render it to </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">   htdocs/js/directory_client.js */</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> js_path <span class="op">=</span> path<span class="op">.</span><span class="fu">join</span>(<span class="st">&quot;htdocs&quot;</span><span class="op">,</span> <span class="st">&quot;js&quot;</span>)<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> js_name <span class="op">=</span> path<span class="op">.</span><span class="fu">join</span>(js_path<span class="op">,</span> <span class="st">&quot;directory_client.js&quot;</span>)<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> url <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(<span class="st">&quot;./directory_client.ts&quot;</span><span class="op">,</span> import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">url</span>)<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> <span class="fu">transpile</span>(url)<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> code <span class="op">=</span> <span class="cf">await</span> result<span class="op">.</span><span class="fu">get</span>(url<span class="op">.</span><span class="at">href</span>)<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> Deno<span class="op">.</span><span class="fu">mkdir</span>(js_path<span class="op">,</span> { mode<span class="op">:</span> <span class="bn">0o775</span><span class="op">,</span> recursive<span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Deno<span class="op">.</span><span class="fu">writeTextFile</span>(js_name<span class="op">,</span> code)<span class="op">;</span></span></code></pre></div>
-<p>You can run that with the following long command line.</p>
-<pre class="shell"><code>deno run --allow-import --allow-env --allow-read --allow-write --allow-net transpile.ts</code></pre>
-<p>Of course you can easily turn this into a <a
-href="https://docs.deno.com/runtime/reference/cli/task_runner/">Deno
-task</a>.</p>
-<p>If our <code>directory_client.ts</code> file contained other modules
-you can instead use the <code>bundle</code> function. Here’s an example
-of bundling our <code>directory_client.ts</code> saving the result as
-<code>htdocs/modules/directory_client.js</code>.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * bundle.ts is an example of &quot;bundling&quot; the type script file directory_client.ts</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * into a module and writing it to htdocs/modules.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { bundle } <span class="im">from</span> <span class="st">&quot;jsr:@deno/emit&quot;</span><span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> js_path <span class="op">=</span> path<span class="op">.</span><span class="fu">join</span>(<span class="st">&quot;htdocs&quot;</span><span class="op">,</span> <span class="st">&quot;modules&quot;</span>)<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> js_name <span class="op">=</span> path<span class="op">.</span><span class="fu">join</span>(js_path<span class="op">,</span> <span class="st">&quot;directory_client.js&quot;</span>)<span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> result <span class="op">=</span> <span class="cf">await</span> <span class="fu">bundle</span>(<span class="st">&quot;./directory_client.ts&quot;</span>)<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { code } <span class="op">=</span> result<span class="op">;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> Deno<span class="op">.</span><span class="fu">mkdir</span>(js_path<span class="op">,</span> { mode<span class="op">:</span> <span class="bn">0o775</span><span class="op">,</span> recursive<span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> Deno<span class="op">.</span><span class="fu">writeTextFile</span>(js_name<span class="op">,</span> code)<span class="op">;</span></span></code></pre></div>
-<p>You can run that with the following long command line.</p>
-<pre class="shell"><code>deno run --allow-import --allow-env --allow-read --allow-write --allow-net bundle.ts</code></pre>
-<p>The bundle will contain the transpiled TypeScript from
-<code>directory_client.ts</code> but also any modules that
-<code>directory_client.ts</code> relied on. If you don’t want to include
-the imported modules then you can set the value of
-<code>recursive</code> to false.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-11-21" data-link="https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html">
+      <h1 id="transpiling--bundling-with-emit">Transpiling &amp; Bundling with Emit</h1>
+      <p>One of the nice features of Deno is native TypeScript support.  One of the selling strength though is that the same source can run both server side and browser side.  The challenge is that TypeScript does not have native TypeScript support. This is easy to remedy using Deno's <a href="https://jsr.io/@deno/emit">emit</a> module.</p>
+      <p>The emit module supports to important functions, <code>transpile</code> and <code>bundle</code>. Both will render your TypeScript as JavaScript in a browser friendly manner. The <code>transpile</code> function turns a single TypeScript file into an equivalent JavaScript file. Bundle can do that with a TypeScript and all the files it imports so you have a self contained JavaScript file with everything you need.</p>
+      <!-- raw HTML omitted -->
+      <p>Here's what my <code>transpile.ts</code> looks like.</p>
+      <pre><code class="language-typescript">import { transpile } from &quot;jsr:@deno/emit&quot;;
+      import * as path from &quot;jsr:@std/path&quot;;
+      
+      /* Transpile directory_client.ts to JavaScript and render it to 
+         htdocs/js/directory_client.js */
+      const js_path = path.join(&quot;htdocs&quot;, &quot;js&quot;);
+      const js_name = path.join(js_path, &quot;directory_client.js&quot;);
+      const url = new URL(&quot;./directory_client.ts&quot;, import.meta.url);
+      const result = await transpile(url);
+      const code = await result.get(url.href);
+      
+      await Deno.mkdir(js_path, { mode: 0o775, recursive: true });
+      Deno.writeTextFile(js_name, code);
+      </code></pre>
+      <p>You can run that with the following long command line.</p>
+      <pre><code class="language-shell">deno run --allow-import --allow-env --allow-read --allow-write --allow-net transpile.ts
+      </code></pre>
+      <p>Of course you can easily turn this into a <a href="https://docs.deno.com/runtime/reference/cli/task_runner/">Deno task</a>.</p>
+      <p>If our <code>directory_client.ts</code> file contained other modules you can instead use the <code>bundle</code> function.  Here's an example of bundling our <code>directory_client.ts</code> saving the result as <code>htdocs/modules/directory_client.js</code>.</p>
+      <pre><code class="language-typescript">/**
+       * bundle.ts is an example of &quot;bundling&quot; the type script file directory_client.ts
+       * into a module and writing it to htdocs/modules.
+       */
+      import { bundle } from &quot;jsr:@deno/emit&quot;;
+      
+      const js_path = path.join(&quot;htdocs&quot;, &quot;modules&quot;);
+      const js_name = path.join(js_path, &quot;directory_client.js&quot;);
+      const result = await bundle(&quot;./directory_client.ts&quot;);
+      const { code } = result;
+      await Deno.mkdir(js_path, { mode: 0o775, recursive: true });
+      await Deno.writeTextFile(js_name, code);
+      </code></pre>
+      <p>You can run that with the following long command line.</p>
+      <pre><code class="language-shell">deno run --allow-import --allow-env --allow-read --allow-write --allow-net bundle.ts
+      </code></pre>
+      <p>The bundle will contain the transpiled TypeScript from <code>directory_client.ts</code> but also any modules that <code>directory_client.ts</code> relied on. If you don't want to include the imported modules then you can set the value of <code>recursive</code> to false.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

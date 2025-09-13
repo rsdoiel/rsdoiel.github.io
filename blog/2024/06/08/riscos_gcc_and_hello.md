@@ -20,6 +20,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-06-08'
 dateModified: '2025-07-23'
 datePublished: '2024-06-08'
+postPath: 'blog/2024/06/08/riscos_gcc_and_hello.md'
 ---
 
 # RISC OS 5.30, GCC 4.7 and Hello World

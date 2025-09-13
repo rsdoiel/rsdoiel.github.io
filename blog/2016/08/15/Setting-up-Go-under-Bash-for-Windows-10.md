@@ -21,6 +21,7 @@ dateModified: '2025-07-21'
 datePublished: '2016-08-15'
 copyrightYear: 2016
 copyrightHolder: R. S. Doiel
+postPath: 'blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.md'
 ---
 
 # Exploring Bash for Windows 10 Pro

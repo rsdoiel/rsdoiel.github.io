@@ -1,6 +1,5 @@
 ---
 title: A quick note on types in Deno+TypeScript
-pubDate: 2025-05-25T00:00:00.000Z
 author: R. S. Doiel
 byline: 'R. S. Doiel, 2025-05-25'
 series: Deno+TypeScript
@@ -27,9 +26,10 @@ abstract: >
 
   ...
 dateCreated: '2025-05-25'
-datePublished: '2025-05-25'
-seriesNo: 3
 dateModified: '2025-07-23'
+datePublished: '2025-05-25'
+postPath: 'blog/2025/05/25/a_quick_notes_on_types.md'
+seriesNo: 3
 ---
 
 # A quick note on types in Deno+TypeScript

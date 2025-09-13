@@ -23,6 +23,7 @@ abstract: |
 dateCreated: '2022-10-09'
 dateModified: '2025-07-22'
 datePublished: '2022-10-09'
+postPath: 'blog/2022/10/09/getting-things-setup.md'
 ---
 
 Getting things setup

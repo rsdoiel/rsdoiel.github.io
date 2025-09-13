@@ -26,6 +26,7 @@ abstract: |
 dateCreated: '2021-04-25'
 dateModified: '2025-07-23'
 datePublished: '2021-04-25'
+postPath: 'blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.md'
 series: |
   Mostly Oberon
 seriesNo: 22

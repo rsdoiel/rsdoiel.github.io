@@ -24,6 +24,7 @@ abstract: >
 dateCreated: '2022-10-16'
 dateModified: '2025-07-22'
 datePublished: '2022-10-16'
+postPath: 'blog/2022/10/16/Wishlist-Oberon-in-2023.md'
 ---
 
 Wish list for Oberon in 2023

@@ -4,13 +4,13 @@ abstract: |
   A first take of LLM use for coding projects.
 author: R. S. Doiel
 byline: 'R. S. Doiel, 2025-03-30'
-dateCreated: '2025-03-30'
-dateModified: '2025-07-23'
-pubDate: 2025-03-30T00:00:00.000Z
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-03-30'
+dateModified: '2025-07-23'
 datePublished: '2025-03-30'
+postPath: 'blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.md'
 keywords:
   - LLM
 ---

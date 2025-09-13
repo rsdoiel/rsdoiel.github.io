@@ -16,6 +16,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-11-21'
 dateModified: '2025-07-23'
 datePublished: '2024-11-21'
+postPath: 'blog/2024/11/21/transpiling-and-bundling-with-emit.md'
 ---
 
 # Transpiling & Bundling with Emit

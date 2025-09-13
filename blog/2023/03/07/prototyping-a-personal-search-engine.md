@@ -1,6 +1,5 @@
 ---
 title: Prototyping a personal search engine
-pubDate: 2023-03-07T00:00:00.000Z
 updated: 2023-11-29T00:00:00.000Z
 series: Personal Search Engine
 number: 1
@@ -40,6 +39,7 @@ abstract: >
 dateCreated: '2023-03-07'
 dateModified: '2025-07-22'
 datePublished: '2023-03-07'
+postPath: 'blog/2023/03/07/prototyping-a-personal-search-engine.md'
 seriesNo: 1
 ---
 

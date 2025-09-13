@@ -18,6 +18,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2025-01-26'
 dateModified: '2025-07-23'
 datePublished: '2025-01-26'
+postPath: 'blog/2025/01/26/points_of_friction.md'
 ---
 
 # Deno 2.1.7, Points of Friction

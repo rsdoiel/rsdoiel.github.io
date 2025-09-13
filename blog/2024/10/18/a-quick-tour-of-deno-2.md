@@ -23,6 +23,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-10-18'
 dateModified: '2025-07-23'
 datePublished: '2024-10-18'
+postPath: 'blog/2024/10/18/a-quick-tour-of-deno-2.md'
 ---
 
 # Quick tour of Deno 2.0.2

@@ -1,108 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>golang-development</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  
-  <link rel="alternative" type="application/markdown" href="/blog/2022/08/15/golang-development.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="golang-development.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:54-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:54)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="pttk-and-stn">Pttk and STN</h1>
-<p>By R. S. Doiel, started 2022-08-15 (updated: 2022-09-26, pdtk was
-renamed pttk)</p>
-<p>This log is a proof of concept in using <a
-href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet
-notation</a> as a source for very short blog posts. The tooling is
-written in Golang (though eventually I hope to port it to Oberon-07).
-The implementation combines two of my personal projects, <a
-href="https://github.com/rsdoiel/stngo">stngo</a> and my experimental
-writing tool <a href="https://github.com/rsdoiel/pttk">pttk</a>.
-Updating the <strong>pttk</strong> cli I added a function to the
-“blogit” action that will translates the simple timesheet notation (aka
-STN) to a short blog post. My “short post” interest is a response to my
-limited writing time. What follows is the STN markup. See the <a
-href="https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.html">Markdown</a>
-source for the unprocessed text.</p>
-<p>2022-08-15</p>
-<p>16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a “post”
-from an simple timesheet notation file should look like. One thing
-occurred to me is that the entry’s “end” time is the publication date,
-not the start time. That way the post is based on when it was completed
-not when it was started. There is an edge case of where two entries end
-at the same time on the same date. The calculated filename will collide.
-In the <code>BlogSTN()</code> function I could check for potential file
-collision and either issue a warning or append. Not sure of the right
-action. Since I write sequentially this might not be a big problem, not
-sure yet. Still playing with formatting before I add this type of post
-to my blog. Still not settled on the title question but I need something
-to link to from my blog’s homepage and that “title” is what I use for
-other posts. Maybe I should just use a command line option to provide a
-title?</p>
-<p>2022-08-14</p>
-<p>14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I
-cleaned up stngo a little today, still need to implement a general
-<code>Parse()</code> method that works on a <code>io.Reader</code>.
-After a few initial false starts I realized the “right” place for
-rendering simple timesheet notation as blog posts is in the the “blogit”
-action of <a href="https://rsdoiel.github.io/pttk">pdtk</a>. I think
-this form might be useful for both release notes in projects as well as
-a series aggregated from single paragraphs. The limitation of the single
-paragraph used in simple timesheet notation is intriguing. Proof of
-concept is working in v0.0.3 of pdtk. Still sorting out if I need a
-title and if so what it should be.</p>
-<p>2022-08-12</p>
-<p>16:00 - 16:30; Golang; stngo; A work slack exchange has perked my
-interest in using <a
-href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet
-notation</a> for very short blog posts. This could be similar to Dave
-Winer title less posts on <a href="http://scripting.com">scripting</a>.
-How would this actually map? Should it be a tool in the <a
-href="https://rsdoiel.githubio/stngo">stngo</a> project?</p>
-<p>2022-09-26</p>
-<p>6:30 - 7:30; Golang; pttk; renamed “pandoc toolkit” (pdtk) to “plain
-text toolkit” (pttk) after adding gopher support to cli. This project is
-less about writing tools specific to Pandoc and more about writing tools
-oriented around plain text.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2022-08-15" data-link="https://rsdoiel.github.io/blog/2022/08/15/golang-development.html">
+      <h1 id="pttk-and-stn">Pttk and STN</h1>
+      <p>By R. S. Doiel, started 2022-08-15<br />
+      (updated: 2022-09-26, pdtk was renamed pttk)</p>
+      <p>This log is a proof of concept in using <a href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet notation</a> as a source for very short blog posts. The tooling is written in Golang (though eventually I hope to port it to Oberon-07).  The implementation combines two of my personal projects, <a href="https://github.com/rsdoiel/stngo">stngo</a> and my experimental writing tool <a href="https://github.com/rsdoiel/pttk">pttk</a>. Updating the <strong>pttk</strong> cli I added a function to the &quot;blogit&quot; action that will translates the simple timesheet notation (aka STN) to a short blog post.  My &quot;short post&quot; interest is a response to my limited writing time. What follows is the STN markup. See the <a href="https://raw.githubusercontent.com/rsdoiel/rsdoiel.github.io/main/blog/2022/08/15/golang-development.md">Markdown</a> source for the unprocessed text.</p>
+      <p>2022-08-15</p>
+      <p>16:45 - 17:45; Golang; ptdk, stngo; Thinking through what a &quot;post&quot; from an simple timesheet notation file should look like. One thing occurred to me is that the entry's &quot;end&quot; time is the publication date, not the start time. That way the post is based on when it was completed not when it was started. There is an edge case of where two entries end at the same time on the same date. The calculated filename will collide. In the <code>BlogSTN()</code> function I could check for potential file collision and either issue a warning or append. Not sure of the right action. Since I write sequentially this might not be a big problem, not sure yet. Still playing with formatting before I add this type of post to my blog. Still not settled on the title question but I need something to link to from my blog's homepage and that &quot;title&quot; is what I use for other posts. Maybe I should just use a command line option to provide a title?</p>
+      <p>2022-08-14</p>
+      <p>14:00 - 17:00; Golang; pdtk, stngo; Today I started an experiment. I cleaned up stngo a little today, still need to implement a general <code>Parse()</code> method that works on a <code>io.Reader</code>. After a few initial false starts I realized the &quot;right&quot; place for rendering simple timesheet notation as blog posts is in the the &quot;blogit&quot; action of <a href="https://rsdoiel.github.io/pttk">pdtk</a>. I think this form might be useful for both release notes in projects as well as a series aggregated from single paragraphs. The limitation of the single paragraph used in simple timesheet notation is intriguing. Proof of concept is working in v0.0.3 of pdtk. Still sorting out if I need a title and if so what it should be.</p>
+      <p>2022-08-12</p>
+      <p>16:00 - 16:30; Golang; stngo; A work slack exchange has perked my interest in using <a href="https://rsdoiel.github.io/stngo/docs/stn.html">simple timesheet notation</a> for very short blog posts. This could be similar to Dave Winer title less posts on <a href="http://scripting.com">scripting</a>. How would this actually map? Should it be a tool in the <a href="https://rsdoiel.githubio/stngo">stngo</a> project?</p>
+      <p>2022-09-26</p>
+      <p>6:30 - 7:30; Golang; pttk; renamed &quot;pandoc toolkit&quot; (pdtk) to &quot;plain text toolkit&quot; (pttk) after adding gopher support to cli. This project is less about writing tools specific to Pandoc and more about writing tools oriented around plain text.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

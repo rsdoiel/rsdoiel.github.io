@@ -4,13 +4,14 @@ abstract: >
   A show post describing a prototype in Deno+TypeScript for generating RSS 2.0
   feeds from a FlatLake generated JSON API.
 author: R. S. Doiel
-dateCreated: '2025-08-10'
-dateModified: '2025-08-10'
 keywords:
   - FlatLake
   - JSON API
   - RSS 2.0
+dateCreated: '2025-08-10'
+dateModified: '2025-08-10'
 datePublished: '2025-08-10'
+postPath: 'blog/2025/08/10/generating_rss_with_flatlake.md'
 ---
 
 # Generating RSS with FlatLake

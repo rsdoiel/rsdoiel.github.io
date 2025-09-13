@@ -1,7 +1,6 @@
 ---
 title: A Text Oriented Web
 createdDate: 2024-02-25T00:00:00.000Z
-pubDate: 2024-02-25T00:00:00.000Z
 author: R. S. Doiel
 byline: 'R. S. Doiel, 2024-02-25'
 keywords:
@@ -25,6 +24,7 @@ abstract: >
 dateCreated: '2024-02-25'
 dateModified: '2025-07-23'
 datePublished: '2024-02-25'
+postPath: 'blog/2024/02/25/text_oriented_web.md'
 ---
 
 # A Text oriented web

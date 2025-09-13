@@ -20,6 +20,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-11-05'
 dateModified: '2025-07-23'
 datePublished: '2024-11-06'
+postPath: 'blog/2024/11/06/rust-tools-for-web-work.md'
 ---
 
 # Two Rust command line tools for web work

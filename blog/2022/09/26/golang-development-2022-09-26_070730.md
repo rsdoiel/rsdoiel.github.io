@@ -24,6 +24,7 @@ abstract: >+
 dateCreated: '2022-09-26'
 dateModified: '2025-07-22'
 datePublished: '2022-09-26'
+postPath: 'blog/2022/09/26/golang-development-2022-09-26_070730.md'
 seriesNo: 1
 ---
 

@@ -10,16 +10,17 @@ abstract: >
   In this article I use a simple case study of integrating a PageFind search
   using an Opensearch Description Document.
 author: R. S. Doiel
-dateCreated: '2025-08-09'
-dateModified: '2025-08-09'
 keywords:
   - search
   - web
   - site search
-draft: true
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/'
+dateCreated: '2025-08-09'
+dateModified: '2025-08-09'
+datePublished: '2025-08-09'
+postPath: 'blog/2025/08/09/opensearch_description_documents_need_love.md'
 ---
 
 # Opensearch Description Document needs love

@@ -33,6 +33,7 @@ abstract: >
 dateCreated: '2020-04-18'
 dateModified: '2025-07-22'
 datePublished: '2020-04-18'
+postPath: 'blog/2020/04/18/Mostly-Oberon-Basic-Types.md'
 seriesNo: 3
 ---
 

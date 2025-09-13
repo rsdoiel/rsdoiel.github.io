@@ -1,6 +1,5 @@
 ---
 title: 'Pandoc, Pagefind and Make'
-pubDate: 2022-11-30T00:00:00.000Z
 keywords:
   - Pandoc
   - Pagefind
@@ -42,9 +41,10 @@ abstract: >
 
 
   ...
-dateCreated: '2022-11-30'
+dateCreated: '2022-11-28'
 dateModified: '2025-07-22'
-datePublished: '2022-11-30'
+datePublished: '2022-11-28'
+postPath: 'blog/2022/11/28/pandoc-pagefind-and-make.md'
 ---
 
 # Pandoc, Pagefind and Make
@@ -126,65 +126,65 @@ pandoc --print-default-template=html5
 I also use Pandoc to generate an "about.md" file describing the project and author info.  The content of the about.md is taken directly from the project's codemeta.json file after I've renamed the "@" JSON-LD fields (those cause problems for Pandoc). You can see the preparation of a temporary "_codemeta.json" using `cat` and `sed` to rename the fields. This is I use a Pandoc template to render the Markdown from.
 
 ```pandoc
----
-title: $name$
----
+  ---
+  title: $name$
+  ---
 
-About this software
-===================
+  About this software
+  ===================
 
-$name$ $version$
-----------------
+  $name$ $version$
+  ----------------
 
-$if(author)$
-### Authors
-
-$for(author)$
-- $it.givenName$ $it.familyName$
-$endfor$
-$endif$
-
-$if(description)$
-$description$
-$endif$
-
-
-$if(license)$- License: $license$$endif$
-0$if(codeRepository)$- GitHub: $codeRepository$$endif$
-$if(issueTracker)$- Issues: $issueTracker$$endif$
-
-
-$if(programmingLanguage)$
-### Programming languages
-
-$for(programmingLanguage)$
-- $programmingLanguage$
-$endfor$
-$endif$
-
-$if(operatingSystem)$
-### Operating Systems
-
-$for(operatingSystem)$
-- $operatingSystem$
-$endfor$
-$endif$
-
-$if(softwareRequirements)$
-### Software Requiremets
-
-$for(softwareRequirements)$
-- $softwareRequirements$
-$endfor$
-$endif$
-
-$if(relatedLink)$
-### Related Links
-
-$for(relatedLink)$
-- [$it$]($it$)
-$endfor$
-$endif$
+  $if(author)$
+  ### Authors
+  
+  $for(author)$
+  - $it.givenName$ $it.familyName$
+  $endfor$
+  $endif$
+  
+  $if(description)$
+  $description$
+  $endif$
+  
+  
+  $if(license)$- License: $license$$endif$
+  0$if(codeRepository)$- GitHub: $codeRepository$$endif$
+  $if(issueTracker)$- Issues: $issueTracker$$endif$
+  
+  
+  $if(programmingLanguage)$
+  ### Programming languages
+  
+  $for(programmingLanguage)$
+  - $programmingLanguage$
+  $endfor$
+  $endif$
+  
+  $if(operatingSystem)$
+  ### Operating Systems
+  
+  $for(operatingSystem)$
+  - $operatingSystem$
+  $endfor$
+  $endif$
+  
+  $if(softwareRequirements)$
+  ### Software Requiremets
+  
+  $for(softwareRequirements)$
+  - $softwareRequirements$
+  $endfor$
+  $endif$
+  
+  $if(relatedLink)$
+  ### Related Links
+  
+  $for(relatedLink)$
+  - [$it$]($it$)
+  $endfor$
+  $endif$
 ```
 
 This same technique can be repurposed to render a CITATION.cff if needed.

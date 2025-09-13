@@ -1,161 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>when_deno_when_go</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Go, TypeScript, Programming Languages">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/12/06/when_deno_when_go.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="when_deno_when_go.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="when-denotypescript-when-go">When Deno+TypeScript, when Go?</h1>
-<p>By R. S. Doiel, 2024-11-06</p>
-<p>Last month I gave a <a
-href="https://caltechlibrary.github.io/cold/presentations/presentation1.html">presentation</a>
-on a project written in <a href="https://deno.com">Deno</a>+<a
-href="https://typescriptlang.org">TypeScript</a>. The project included
-code that needed to be shared server and browser side. At the conclusion
-of my talk the question came up, “When would I choose Go versus
-Deno+TypeScript for a project?”<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>. The answer I came up
-with at the time was I would choose Deno+TypeScript when I needed to
-share code between server and browser. That was the question that had
-lead me to Deno in the first place. Deno+TypeScript shared many of the
-advantages of Go<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>. I like writing in Go. The weak
-point in my Go based projects I thought was limited to porting Go code
-to JavaScript when I needed it run browser side. I went home and slept
-well that night. Since then I have been reflecting a little more on the
-question.</p>
-<p>Learning Go isn’t difficult and the learning resources are pretty
-good. I find Go well suited to the library and archive software domain.
-I believe typed languages are good for working with structured metadata.
-Go compiles to a binary and is trivial to deploy. Go has really good
-tooling making it easier to write better quality code.</p>
-<p>My colleagues and I all know Python. Python is our language of
-collaboration. I’m the only one that knows Go on our team of four. The
-leap from Python to Go isn’t huge but it is a leap. I made that leap
-because I needed the features that Go provided at the time<a href="#fn3"
-class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.
-Since that time the uptake in libraries and archives of coding in Go has
-been minimal<a href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a>.</p>
-<p>My colleagues and I know JavaScript. Most of the people I’ve met
-through Code4Lib know JavaScript. TypeScript is a superset of JavaScript
-and Deno can compile it<a href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>. The path from JavaScript to
-TypeScript is less of a leap and more of a stretch. Valid JavaScript is
-valid TypeScript after all.</p>
-<p>Learning Deno command is easy and not a big ask. It is certainly
-allot easier learning Deno than Git. Git knowledge has grown over the
-decade that I’ve known the Code4Lib community. I suspect Deno will be
-easier to adopt. When I take software sustainability into consideration
-I suspect those projects I write in Deno+TypeScript may out live the
-ones I’ve written in Go.</p>
-<p>In hindsight I don’t think my answer about sharing code between
-browser and server is the whole criteria. Libraries and archives tend to
-have a small team to zero software development staff. While Go is a very
-popular language in 2024 few writing software for libraries and archives
-know it. Go adoption in our community hasn’t materialized. In the
-meantime most of the people I’ve met via Code4Lib know JavaScript. The
-Go developers I know of in our community also know JavaScript.</p>
-<p>TypeScript is a small stretch to pickup if you know JavaScript.
-TypeScript has good, free, online documentation<a href="#fn6"
-class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.
-TypeScript is by definition a superset of JavaScript. If your project
-requires participation by other developers and you choose
-Deno+TypeScript over Go you have a wider pool of possible helping hands.
-Deno+TypeScript gives most of the benefits that Go offers today. I think
-this is compelling for software sustainability.</p>
-<p>When would I pick Deno+TypeScript over Go? I now have three criteria
-questions I ask myself.</p>
-<ul>
-<li>Do I need to share code between browser and server?
-<ul>
-<li>If yes, maybe this is a Deno+TypeScript project.</li>
-</ul></li>
-<li>Do I need to largest pool of programmers available to lend a hand?
-<ul>
-<li>If yes, maybe this is a Deno+TypeScript project.</li>
-</ul></li>
-<li>Do I want to require Go knowledge to participate in the project?
-<ul>
-<li>If yes then it might be a Go project.</li>
-</ul></li>
-</ul>
-<p>If my answers are “yes”, “yes”, “no” then the project should proceed
-with Deno+TypeScript. If I answer the last one is “no” then it shouldn’t
-be a Go project.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>I have presented allot of Go based projects to the SoCal
-Code4Lib group<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Deno lets to cross compile TypeScript to binary
-executables. This, like Go, makes it trivial to develop and deploy. Deno
-provides tooling that seems inspired by the Go command.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This was over a decade ago, back when Go was very much a
-child of Robert Griesemer, Rob Pike and Ken Thompson.<a href="#fnref3"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>After a decade I know only a half dozen or so Go
-programmers working in the library and archive domain.<a href="#fnref4"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Deno can also compile TypeScript/JavaScript making your
-project as easy to deploy as a Go project. TypeScript is a typed
-programming language so offers similar benefits when working with
-structured metadata. Deno has tooling inspired by the Go command’s
-tooling.<a href="#fnref5" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>See <a
-href="https://www.typescriptlang.org/docs/">www.typescriptlang.org</a>
-for TypeScript and <a
-href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN</a>
-for JavaScript.<a href="#fnref6" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-12-06" data-link="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html">
+      <h1 id="when-denotypescript-when-go">When Deno+TypeScript, when Go?</h1>
+      <p>By R. S. Doiel, 2024-11-06</p>
+      <p>Last month I gave a <a href="https://caltechlibrary.github.io/cold/presentations/presentation1.html">presentation</a> on a project written in <a href="https://deno.com">Deno</a>+<a href="https://typescriptlang.org">TypeScript</a>. The project included code that needed to be shared server and browser side.  At the conclusion of my talk the question came up, &quot;When would I choose Go versus Deno+TypeScript for a project?&quot;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. The answer I came up with at the time was I would choose Deno+TypeScript when I needed to share code between server and browser. That was the question that had lead me to Deno in the first place. Deno+TypeScript shared many of the advantages of Go<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. I like writing in Go. The weak point in my Go based projects I thought was limited to porting Go code to JavaScript when I needed it run browser side. I went home and slept well that night. Since then I have been reflecting a little more on the question.</p>
+      <p>Learning Go isn't difficult and the learning resources are pretty good. I find Go well suited to the library and archive software domain. I believe typed languages are good for working with structured metadata. Go compiles to a binary and is trivial to deploy. Go has really good tooling making it easier to write better quality code.</p>
+      <p>My colleagues and I all know Python. Python is our language of collaboration. I'm the only one that knows Go on our team of four. The leap from Python to Go isn't huge but it is a leap. I made that leap because I needed the features that Go provided at the time<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. Since that time the uptake in libraries and archives of coding in Go has been minimal<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+      <p>My colleagues and I know JavaScript. Most of the people I've met through Code4Lib know JavaScript. TypeScript is a superset of JavaScript and Deno can compile it<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>. The path from JavaScript to TypeScript is less of a leap and more of a stretch. Valid JavaScript is valid TypeScript after all.</p>
+      <p>Learning Deno command is easy and not a big ask. It is certainly allot easier learning Deno than Git. Git knowledge has grown over the decade that I've known the Code4Lib community. I suspect Deno will be easier to adopt. When I take software sustainability into consideration I suspect those projects I write in Deno+TypeScript may out live the ones I've written in Go.</p>
+      <p>In hindsight I don't think my answer about sharing code between browser and server is the whole criteria. Libraries and archives tend to have a small team to zero software development staff. While Go is a very popular language in 2024 few writing software for libraries and archives know it. Go adoption in our community hasn't materialized.  In the meantime most of the people I've met via Code4Lib know JavaScript. The Go developers I know of in our community also know JavaScript.</p>
+      <p>TypeScript is a small stretch to pickup if you know JavaScript. TypeScript has good, free, online documentation<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>. TypeScript is by definition a superset of JavaScript. If your project requires participation by other developers and you choose Deno+TypeScript over Go you have a wider pool of possible helping hands. Deno+TypeScript gives most of the benefits that Go offers today. I think this is compelling for software sustainability.</p>
+      <p>When would I pick Deno+TypeScript over Go? I now have three criteria questions I ask myself.</p>
+      <ul>
+      <li>Do I need to share code between browser and server?
+      <ul>
+      <li>If yes, maybe this is a Deno+TypeScript project.</li>
+      </ul>
+      </li>
+      <li>Do I need to largest pool of programmers available to lend a hand?
+      <ul>
+      <li>If yes, maybe this is a Deno+TypeScript project.</li>
+      </ul>
+      </li>
+      <li>Do I want to require Go knowledge to participate in the project?
+      <ul>
+      <li>If yes then it might be a Go project.</li>
+      </ul>
+      </li>
+      </ul>
+      <p>If my answers are &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot; then the project should proceed with Deno+TypeScript. If I answer the last one is &quot;no&quot; then it shouldn't be a Go project.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>I have presented allot of Go based projects to the SoCal Code4Lib group&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>Deno lets to cross compile TypeScript to binary executables. This, like Go, makes it trivial to develop and deploy. Deno provides tooling that seems inspired by the Go command.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:3">
+      <p>This was over a decade ago, back when Go was very much a child of Robert Griesemer, Rob Pike and Ken Thompson.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:4">
+      <p>After a decade I know only a half dozen or so Go programmers working in the library and archive domain.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:5">
+      <p>Deno can also compile TypeScript/JavaScript making your project as easy to deploy as a Go project. TypeScript is a typed programming language so offers similar benefits when working with structured metadata. Deno has tooling inspired by the Go command's tooling.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:6">
+      <p>See <a href="https://www.typescriptlang.org/docs/">www.typescriptlang.org</a> for TypeScript and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN</a> for JavaScript.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

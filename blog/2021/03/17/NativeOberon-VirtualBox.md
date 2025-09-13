@@ -39,6 +39,7 @@ abstract: >
 dateCreated: '2021-03-17'
 dateModified: '2025-07-22'
 datePublished: '2021-03-17'
+postPath: 'blog/2021/03/17/NativeOberon-VirtualBox.md'
 series: |
   Mostly Oberon
 seriesNo: 27

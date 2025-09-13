@@ -1,126 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>getting-started</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="functional, miranda">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/04/25/getting-started.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="getting-started.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="getting-started-with-miranda">Getting Started with Miranda</h1>
-<p>I’ve been interested in exploring the Miranda programming language.
-Miranda influenced Haskell. Haskell was used for programs I use almost
-daily such as <a href="https://pandoc.org">Pandoc</a> and <a
-href="https://www.shellcheck.net/">shellcheck</a>. I’ve given a quick
-review of <a href="https://miranda.org.uk">miranda.org.uk</a> to get a
-sense of the language but to follow along with the <a
-href="https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/">Miranda:
-The Craft of Functional Programming</a> it is really helpful to have
-Miranda available on my machine. Today that machine is a Mac Mini, M1
-processor, running macOS Sonoma (14.4.x) and the related Xcode C tool
-chain. I ran into to minor hiccups in compilation and installation. Both
-easy to overcome but ones I will surely forget in the future. Thus I
-write myself another blog post.</p>
-<h2><a name="compilation">Compilation</a></h2>
-<p>First down load Miranda source code at <a
-href="http://miranda.org.uk/downloads"
-class="uri">http://miranda.org.uk/downloads</a>. The version 2.066 is
-the most recent release I saw linked (2024-04-25), <a
-href="http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11"
-class="uri">http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11</a>.
-The <a
-href="https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING">COPYING</a>
-link shows the terms under which this source release is made
-available.</p>
-<p>Next you need to untar/gzip the tarball you downloaded. Try running
-<code>make</code> to see if it compiles. On my Mac Mini I got a compile
-error that looks like</p>
-<pre class="shell"><code>make
-gcc -w    -c -o data.o data.c
-data.c:666:43: error: incompatible integer to pointer conversion passing &#39;word&#39; (aka &#39;long&#39;) to parameter of type &#39;char *&#39; [-Wint-conversion]
-                     else fprintf(f,&quot;%c%s&quot;,HERE_X,mkrel(hd[x]));
-                                                        ^~~~~
-1 error generated.
-make: *** [data.o] Error 1</code></pre>
-<p>While I’m rusty on C I read this as the C compiler being more strict
-today then it was back in the 1990s. That’s a good thing generally. Next
-I checked the compiler version.</p>
-<pre class="shell"><code>gcc --version
-Apple clang version 15.0.0 (clang-1500.3.9.4)
-Target: arm64-apple-darwin23.4.0
-Thread model: posix
-InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin</code></pre>
-<p>I’m using clang and the website mentioned it should compile with
-clang for other platforms. I reviewed the data.c file and notice other
-similar lines that invoked <code>mkrel(hd[x])</code> had a
-<code>(char *)</code> cast in front of <code>hd[x]</code>. This tells me
-that being explicit with the compiler might solve my problem. I edited
-line 666 of data.c to look like</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> fprintf<span class="op">(</span>f<span class="op">,</span><span class="st">&quot;</span><span class="sc">%c%s</span><span class="st">&quot;</span><span class="op">,</span>HERE_X<span class="op">,</span>mkrel<span class="op">((</span><span class="dt">char</span> <span class="op">*)</span>hd<span class="op">[</span>x<span class="op">]));</span></span></code></pre></div>
-<p>Save the file and then ran Make again. It compile cleanly. I gave at
-quick test run of the <code>mira</code> command creating an simple
-function called <code>addone</code></p>
-<pre class="miranda"><code>mira
-/edit
-addone a = a + 1
-:wq
-addone (addone (addone 3))
-6
-/q</code></pre>
-<p>Miranda seems to work. The Makefile comes with a an install rule but
-the install defaults doesn’t really work with macOS (it wants to install
-into <code>/usr</code>). I’d rather it install into my home directory so
-I copied the Makefile to <code>miranda.mak</code> and change the lines
-setting <code>BIN</code>, <code>LIB</code> and <code>MAN</code> to the
-following lines.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">BIN</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/bin</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LIB</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/lib</span><span class="co">#beware no spaces after LIB</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">MAN</span><span class="ch">=$(</span><span class="dt">HOME</span><span class="ch">)</span><span class="st">/man/man1</span></span></code></pre></div>
-<p>In my <code>.profile</code> I set the <code>MIRALIB</code> variable
-to point at <code>$HOME/lib/miralib</code>. I opened a new terminal
-session and ran <code>mira</code> and the interpreter was up and
-running.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-04-25" data-link="https://rsdoiel.github.io/blog/2024/04/25/getting-started.html">
+      <h1 id="getting-started-with-miranda">Getting Started with Miranda</h1>
+      <p>I've been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as <a href="https://pandoc.org">Pandoc</a> and <a href="https://www.shellcheck.net/">shellcheck</a>. I've given a quick review of <a href="https://miranda.org.uk">miranda.org.uk</a> to get a sense of the language but to follow along with the <a href="https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/">Miranda: The Craft of Functional Programming</a> it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.</p>
+      <h2 id="compilation">Compilation</h2>
+      <p>First down load Miranda source code at <a href="http://miranda.org.uk/downloads">http://miranda.org.uk/downloads</a>. The version 2.066 is the most recent release I saw linked (2024-04-25), <a href="http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11">http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11</a>. The <a href="https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING">COPYING</a> link shows the terms under which this source release is made available.</p>
+      <p>Next you need to untar/gzip the tarball you downloaded. Try running <code>make</code> to see if it compiles. On my Mac Mini I got a compile error that looks like</p>
+      <pre><code class="language-shell">make
+      gcc -w    -c -o data.o data.c
+      data.c:666:43: error: incompatible integer to pointer conversion passing 'word' (aka 'long') to parameter of type 'char *' [-Wint-conversion]
+                           else fprintf(f,&quot;%c%s&quot;,HERE_X,mkrel(hd[x]));
+                                                              ^~~~~
+      1 error generated.
+      make: *** [data.o] Error 1
+      </code></pre>
+      <p>While I'm rusty on C I read this as the C compiler being more strict today then it was back in the 1990s. That's a good thing generally.  Next I checked the compiler version.</p>
+      <pre><code class="language-shell">gcc --version
+      Apple clang version 15.0.0 (clang-1500.3.9.4)
+      Target: arm64-apple-darwin23.4.0
+      Thread model: posix
+      InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+      </code></pre>
+      <p>I'm using clang and the website mentioned it should compile with clang for other platforms.  I reviewed the data.c file and notice other similar lines that invoked <code>mkrel(hd[x])</code> had a <code>(char *)</code> cast in front of <code>hd[x]</code>. This tells me that being explicit with the compiler might solve my problem. I edited line 666 of data.c to look like</p>
+      <pre><code class="language-C">    else fprintf(f,&quot;%c%s&quot;,HERE_X,mkrel((char *)hd[x]));
+      </code></pre>
+      <p>Save the file and then ran Make again. It compile cleanly. I gave at quick test run of the <code>mira</code> command creating an simple function called <code>addone</code></p>
+      <pre><code class="language-miranda">mira
+      /edit
+      addone a = a + 1
+      :wq
+      addone (addone (addone 3))
+      6
+      /q
+      </code></pre>
+      <p>Miranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into <code>/usr</code>).<br />
+      I'd rather it install into my home directory so I copied the Makefile to <code>miranda.mak</code> and change the lines setting <code>BIN</code>, <code>LIB</code> and <code>MAN</code> to the following<br />
+      lines.</p>
+      <pre><code class="language-Makefile">BIN=$(HOME)/bin
+      LIB=$(HOME)/lib#beware no spaces after LIB
+      MAN=$(HOME)/man/man1
+      </code></pre>
+      <p>In my <code>.profile</code> I set the <code>MIRALIB</code> variable to point at <code>$HOME/lib/miralib</code>. I opened a new terminal session and ran <code>mira</code> and the interpreter was up and running.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

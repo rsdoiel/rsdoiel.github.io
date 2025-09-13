@@ -22,6 +22,7 @@ abstract: >+
 dateCreated: '2020-10-03'
 dateModified: '2025-07-22'
 datePublished: '2020-10-03'
+postPath: 'blog/2020/10/03/Oberon-to-markdown.md'
 seriesNo: 12
 ---
 

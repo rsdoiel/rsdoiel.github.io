@@ -16,9 +16,10 @@ keywords:
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
-datePublished: '2025-03-13'
 seriesNo: 2
 dateModified: '2025-07-23'
+datePublished: '2025-03-13'
+postPath: 'blog/2025/03/13/Building_Web_Component_using_an_LLM.md'
 ---
 
 # Building Web Components using Large Language Models

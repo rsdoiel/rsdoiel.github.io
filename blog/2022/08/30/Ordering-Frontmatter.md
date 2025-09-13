@@ -43,6 +43,7 @@ abstract: >
 dateCreated: '2022-08-30'
 dateModified: '2025-07-22'
 datePublished: '2022-08-30'
+postPath: 'blog/2022/08/30/Ordering-Frontmatter.md'
 ---
 
 Ordering Front Matter

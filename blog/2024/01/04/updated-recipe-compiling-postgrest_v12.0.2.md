@@ -1,6 +1,5 @@
 ---
 title: 'Updated recipe, compiling PostgREST 12.0.2 (M1)'
-pubDate: 2024-01-04T00:00:00.000Z
 author: R. S. Doiel
 keywords:
   - PostgREST
@@ -25,6 +24,7 @@ abstract: >
 dateCreated: '2024-01-04'
 dateModified: '2025-07-23'
 datePublished: '2024-01-04'
+postPath: 'blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.md'
 ---
 
 # Updated recipe, compile PostgREST 12.0.2 (M1)

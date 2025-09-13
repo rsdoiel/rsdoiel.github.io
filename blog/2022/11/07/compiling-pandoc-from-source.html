@@ -1,173 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>compiling-pandoc-from-source</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="pandoc, pandoc-server, pandoc-citeproc, haskell-stack, cabal, ghc">
-  <link rel="alternative" type="application/markdown" href="/blog/2022/11/07/compiling-pandoc-from-source.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="compiling-pandoc-from-source.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="compiling-pandoc-from-source">Compiling Pandoc from source</h1>
-<p>By R. S. Doiel, 2022-11-07</p>
-<p>I started playing around with Pandoc’s <strong>pandoc-server</strong>
-last Friday. I want to play with the latest version of Pandoc. When I
-gave it a try this weekend I found that my Raspberry Pi 400’s SD card
-was too small. This lead me to giving the build process a try on my
-Ubuntu desktop. These are my notes about how I going about building from
-scratch. I am not a Haskell programmer and don’t know the tool chain or
-language. Take everything that follows with a good dose of salt but this
-is what I did to get everything up and running. I am following the
-compile from source instructions in Pandoc’s <a
-href="https://github.com/jgm/pandoc/blob/master/INSTALL.html">INSTALL.md</a></p>
-<p>I’m running this first on an Intel Ubuntu box because I have the disk
-space available there. If it works then I’ll try it directly on my
-Raspberry Pi 400 with an upgrade SD card and running the 64bit version
-of Raspberry Pi OS.</p>
-<p>I did not have Haskell or Cabal installed when I started this
-process.</p>
-<h2><a name="steps">Steps</a></h2>
-<ol type="1">
-<li>Install <strong>stack</strong> (it will install GHC)</li>
-<li>Clone the GitHub repo for <a
-href="https://github.com/jgm/pandoc">Pandoc</a></li>
-<li>Setup <strong>stack</strong> for Pandoc</li>
-<li>Build and test with <strong>stack</strong></li>
-<li>Install <strong>stack</strong> install</li>
-<li>Make a symbolic link from <strong>pandoc</strong> to
-<strong>pandoc-server</strong></li>
-</ol>
-<pre><code>sudo apt update
-sudo apt search &quot;haskell-stack&quot;
-sudo apt install &quot;haskell-stack&quot;
-stack upgrade
-git clone git@github.com:jgm/pandoc src/github.com/jgm/pandoc
-cd src/github.com/jgm/pandoc
-stack setup 
-stack build
-stack test
-stack install
-ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server</code></pre>
-<p>This step takes a long time and on the Raspberry Pi it’ll take allot
-longer.</p>
-<p>The final installation of Pandoc was in my
-<code>$HOME/.local/bin</code> directory. Assuming this is early in your
-path this can allow you to experiment with a different version of Pandoc
-from the one installed on your system.</p>
-<p>I also wanted to try the latest of <strong>pandoc-server</strong>.
-This was not automatically installed and is not mentioned in the
-INSTALL.md file explicitly. But looking at the discussion of running
-<strong>pandoc-server</strong> in CGI mode got me thinking. I then
-checked the installation on my Ubuntu box for the packaged version of
-pandoc-server and saw that is was a symbolic link. Adding a
-<code>ln</code> command to my build instruction solved the problem.</p>
-<p>I decided to try compiling Pandoc on my M1 mac. First I needed to get
-<strong>stack</strong> installed. I use Mac Ports but it wasn’t in the
-list of available packages. Fortunately the Haskell Stack website
-provides a shell script for installation on Unixes. I wanted to install
-<strong>stack</strong> in my home <code>bin</code> directory not
-<code>/usr/bin/slack</code>. So after reviewing the downloaded install
-script I found the <code>-d</code> option for changing where it installs
-to. It indicated I need to additional work with
-<strong>xcode</strong>.</p>
-<pre><code>curl -sSL https://get.haskellstack.org/ &gt; stack-install.sh
-more stack-install.sh
-sh stack-install.sh -d $HOME/bin</code></pre>
-<p>The <strong>stack</strong> installation resulted in a message in this
-form.</p>
-<pre><code>Stack has been installed to: $HOME/bin/stack
+  <section>
+    <article data-published="2022-11-07" data-link="https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html">
+      <h1 id="compiling-pandoc-from-source">Compiling Pandoc from source</h1>
+      <p>By R. S. Doiel, 2022-11-07</p>
+      <p>I started playing around with Pandoc's <strong>pandoc-server</strong> last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400's SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don't know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc's <a href="https://github.com/jgm/pandoc/blob/master/INSTALL.md">INSTALL.md</a></p>
+      <p>I'm running this first on an Intel Ubuntu box because I have the disk space available there. If it works then I'll try it directly on my Raspberry Pi 400 with an upgrade SD card and running the 64bit version of Raspberry Pi OS.</p>
+      <p>I did not have Haskell or Cabal installed when I started this process.</p>
+      <h2 id="steps">Steps</h2>
+      <ol>
+      <li>Install <strong>stack</strong> (it will install GHC)</li>
+      <li>Clone the GitHub repo for <a href="https://github.com/jgm/pandoc">Pandoc</a></li>
+      <li>Setup <strong>stack</strong> for Pandoc</li>
+      <li>Build and test with <strong>stack</strong></li>
+      <li>Install <strong>stack</strong> install</li>
+      <li>Make a symbolic link from <strong>pandoc</strong> to <strong>pandoc-server</strong></li>
+      </ol>
+      <pre><code>sudo apt update
+      sudo apt search &quot;haskell-stack&quot;
+      sudo apt install &quot;haskell-stack&quot;
+      stack upgrade
+      git clone git@github.com:jgm/pandoc src/github.com/jgm/pandoc
+      cd src/github.com/jgm/pandoc
+      stack setup 
+      stack build
+      stack test
+      stack install
+      ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server
+      </code></pre>
+      <p>This step takes a long time and on the Raspberry Pi it'll take allot longer.</p>
+      <p>The final installation of Pandoc was in my <code>$HOME/.local/bin</code> directory. Assuming this is early in your path this can allow you to experiment with a different version of Pandoc from the one installed on your system.</p>
+      <p>I also wanted to try the latest of <strong>pandoc-server</strong>.  This was not automatically installed and is not mentioned in the INSTALL.md file explicitly. But looking at the discussion of running <strong>pandoc-server</strong> in CGI mode got me thinking. I then checked the installation on my Ubuntu box for the packaged version of pandoc-server and saw that is was a symbolic link.  Adding a <code>ln</code> command to my build instruction solved the problem.</p>
+      <p>I decided to try compiling Pandoc on my M1 mac.  First I needed to get <strong>stack</strong> installed. I use Mac Ports but it wasn't in the list of available packages.  Fortunately the Haskell Stack website provides a shell script for installation on Unixes. I wanted to install <strong>stack</strong> in my home <code>bin</code> directory not <code>/usr/bin/slack</code>. So after reviewing the downloaded install script I found the <code>-d</code> option for changing where it installs to. It indicated I need to additional work with <strong>xcode</strong>.</p>
+      <pre><code>curl -sSL https://get.haskellstack.org/ &gt; stack-install.sh
+      more stack-install.sh
+      sh stack-install.sh -d $HOME/bin
+      </code></pre>
+      <p>The <strong>stack</strong> installation resulted in a message in this form.</p>
+      <pre><code>Stack has been installed to: $HOME/bin/stack
+      
+      NOTE: You may need to run 'xcode-select --install' and/or
+            'open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg'
+            to set up the Xcode command-line tools, which Stack uses.
+      
+      WARNING: '$HOME/.local/bin' is not on your PATH.
+          Stack will place the binaries it builds in '$HOME/.local/bin' so
+          for best results, please add it to the beginning of PATH in your profile.
+      </code></pre>
+      <p>I already had xcode setup for compiling Go so those addition step was not needed.  I only needed to add <code>$HOME/.local/bin</code> to my search path.</p>
+      <p>I then followed the steps I used on my Ubuntu Intel box.</p>
+      <pre><code>git clone git@github.com:jgm/pandoc src/github.com/jgm/pandoc
+      cd src/github.com/jgm/pandoc
+      stack setup
+      stack build
+      stack test
+      stack install
+      ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server
+      </code></pre>
+      <p>Now when I have a chance to update my Raspberry Pi 400 to a suitable sized SD Card (or external drive) I'll be ready to compile a current version of Pandoc from source.</p>
+      <h2 id="additional-notes">Additional notes</h2>
+      <p><a href="https://docs.haskellstack.org/en/stable/">stack</a> is a Haskell build tool. It setups up an Haskell environment per project. If a project requires a specific version of the Haskell compiler it'll be installed and made accessible for the project. In this way it's a bit like having a specific environment for Python. The stack website indicates that it targets cross platform development in Haskell which is nice.  Other features of stack remind me of Go &quot;go&quot; command in that it can build things or Rust's &quot;cargo&quot; command. Like <strong>cargo</strong> it can update itself which is nice. That is what I did after installing the Debian package version used by Ubuntu. Configuration of a &quot;stack&quot; project uses YAML files. Stack uses <strong>cabal</strong>, Haskell's older build tool but subsumes <strong>cabal-install</strong> for setting up <strong>cabal</strong> and <strong>ghc</strong>. It appears from my reading that <strong>stack</strong> addresses some of the short falls <strong>cabal</strong> originally had and specifically focusing on reproducible compiles. This is important in sharing code as well as if you want to integrate automated compilation and testing. It maintains a project with &quot;cabal files&quot; so there is the ability to work with older non-stack code if I read the documentation correctly. Both <strong>cabal</strong> and <strong>stack</strong> seem to be evolving in parallel taking different approaches but influencing one another. Both systems use &quot;cabal files&quot; for describing projects and dependencies as of 2022. The short version of <a href="https://docs.haskellstack.org/en/stable/#why-stack">Why Stack</a> can be found the <strong>stack</strong> website.</p>
+      <p><a href="https://hackage.haskell.org/">Hackage</a> is a central repository of Haskell packages.</p>
+      <p><a href="https://www.stackage.org/">Stackage</a> is a curated subset of Hackage packages. It appears to be the preferred place for <strong>stack</strong> to pull from.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-NOTE: You may need to run &#39;xcode-select --install&#39; and/or
-      &#39;open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg&#39;
-      to set up the Xcode command-line tools, which Stack uses.
-
-WARNING: &#39;$HOME/.local/bin&#39; is not on your PATH.
-    Stack will place the binaries it builds in &#39;$HOME/.local/bin&#39; so
-    for best results, please add it to the beginning of PATH in your profile.</code></pre>
-<p>I already had xcode setup for compiling Go so those addition step was
-not needed. I only needed to add <code>$HOME/.local/bin</code> to my
-search path.</p>
-<p>I then followed the steps I used on my Ubuntu Intel box.</p>
-<pre><code>git clone git@github.com:jgm/pandoc src/github.com/jgm/pandoc
-cd src/github.com/jgm/pandoc
-stack setup
-stack build
-stack test
-stack install
-ln $HOME/.local/bin/pandoc $HOME/.local/bin/pandoc-server</code></pre>
-<p>Now when I have a chance to update my Raspberry Pi 400 to a suitable
-sized SD Card (or external drive) I’ll be ready to compile a current
-version of Pandoc from source.</p>
-<h2><a name="additional-notes">Additional notes</a></h2>
-<p><a href="https://docs.haskellstack.org/en/stable/">stack</a> is a
-Haskell build tool. It setups up an Haskell environment per project. If
-a project requires a specific version of the Haskell compiler it’ll be
-installed and made accessible for the project. In this way it’s a bit
-like having a specific environment for Python. The stack website
-indicates that it targets cross platform development in Haskell which is
-nice. Other features of stack remind me of Go “go” command in that it
-can build things or Rust’s “cargo” command. Like <strong>cargo</strong>
-it can update itself which is nice. That is what I did after installing
-the Debian package version used by Ubuntu. Configuration of a “stack”
-project uses YAML files. Stack uses <strong>cabal</strong>, Haskell’s
-older build tool but subsumes <strong>cabal-install</strong> for setting
-up <strong>cabal</strong> and <strong>ghc</strong>. It appears from my
-reading that <strong>stack</strong> addresses some of the short falls
-<strong>cabal</strong> originally had and specifically focusing on
-reproducible compiles. This is important in sharing code as well as if
-you want to integrate automated compilation and testing. It maintains a
-project with “cabal files” so there is the ability to work with older
-non-stack code if I read the documentation correctly. Both
-<strong>cabal</strong> and <strong>stack</strong> seem to be evolving in
-parallel taking different approaches but influencing one another. Both
-systems use “cabal files” for describing projects and dependencies as of
-2022. The short version of <a
-href="https://docs.haskellstack.org/en/stable/#why-stack">Why Stack</a>
-can be found the <strong>stack</strong> website.</p>
-<p><a href="https://hackage.haskell.org/">Hackage</a> is a central
-repository of Haskell packages.</p>
-<p><a href="https://www.stackage.org/">Stackage</a> is a curated subset
-of Hackage packages. It appears to be the preferred place for
-<strong>stack</strong> to pull from.</p>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

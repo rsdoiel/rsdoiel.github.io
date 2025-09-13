@@ -59,6 +59,7 @@ abstract: >
 dateCreated: '2024-02-23'
 dateModified: '2025-07-23'
 datePublished: '2024-02-23'
+postPath: 'blog/2024/02/23/enhanced_form_handling.md'
 ---
 
 # Two missing features from HTML5, an enhanced form.enctype and a list input type

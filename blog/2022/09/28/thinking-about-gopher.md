@@ -37,6 +37,7 @@ abstract: >
 dateCreated: '2022-09-28'
 dateModified: '2025-07-22'
 datePublished: '2022-09-28'
+postPath: 'blog/2022/09/28/thinking-about-gopher.md'
 keywords:
   - Gopher
 ---

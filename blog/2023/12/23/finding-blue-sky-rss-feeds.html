@@ -1,70 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>finding-blue-sky-rss-feeds</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="bluesky, rss">
-  <link rel="alternative" type="application/markdown" href="/blog/2023/12/23/finding-blue-sky-rss-feeds.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="finding-blue-sky-rss-feeds.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="find-bluesky-rss-feeds-1">Find Bluesky RSS Feeds</h1>
-<p>With the update to <a
-href="https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i">1.60</a> of
-Bluesky we can now follow people on Bluesky via RSS feeds. This makes
-things much more convienient for me. The RSS feed is visible via the
-HTML markup on a person’s profile page (which are now public). E.g. My
-Bluesky profile page is at <a
-href="https://bsky.app/profile/rsdoiel.bsky.social"
-class="uri">https://bsky.app/profile/rsdoiel.bsky.social</a> and if you
-look at that pages HTML markup you’ll see a link element in the head</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;alternate&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;application/rss+xml&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
-<p>That’s the RSS feed. So now if you want to follow you can expand the
-URL to</p>
-<pre><code>https://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss</code></pre>
-<p>And use if via your feed reader. This is a sweat feature. It allows
-me to move my reading from visiting the website to getting updates via
-my feed reader.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2023-12-23" data-link="https://rsdoiel.github.io/blog/2023/12/23/finding-blue-sky-rss-feeds.html">
+      <h1 id="find-bluesky-rss-feeds">Find Bluesky RSS Feeds</h1>
+      <p>With the update to <a href="https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i">1.60</a> of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me.<br />
+      The RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is<br />
+      at <a href="https://bsky.app/profile/rsdoiel.bsky.social">https://bsky.app/profile/rsdoiel.bsky.social</a> and if you look at that pages HTML markup you'll see a link element in the head</p>
+      <pre><code class="language-html"> &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; href=&quot;/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss&quot;&gt;
+      </code></pre>
+      <p>That's the RSS feed. So now if you want to follow you can expand the URL to</p>
+      <pre><code>https://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss
+      </code></pre>
+      <p>And use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website<br />
+      to getting updates via my feed reader.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

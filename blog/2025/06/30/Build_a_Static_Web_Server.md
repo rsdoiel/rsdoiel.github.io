@@ -4,9 +4,6 @@ author: R. S. Doiel
 byline: R. S. Doiel
 abstract: |
   This post discusses static web server implementation using Deno.
-dateCreated: '2025-06-30'
-pubDate: 2025-06-30T00:00:00.000Z
-dateModified: '2025-07-23'
 series: Deno and TypeScript
 number: 8
 keywords:
@@ -17,7 +14,10 @@ copyright: 'copyright (c) 2025, R. S. Doiel'
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
+dateCreated: '2025-06-30'
+dateModified: '2025-07-23'
 datePublished: '2025-06-30'
+postPath: 'blog/2025/06/30/Build_a_Static_Web_Server.md'
 seriesNo: 8
 ---
 

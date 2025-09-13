@@ -1,262 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>riscos_gcc_and_hello</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="RISC OS, Raspberry Pi, GCC, C
-Programming">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/06/08/riscos_gcc_and_hello.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="riscos_gcc_and_hello.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="risc-os-5.30-gcc-4.7-and-hello-world">RISC OS 5.30, GCC 4.7 and
-Hello World</h1>
-<p>By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)</p>
-<p>Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I
-want to write some programs and I learned C back in University. I am
-familiar with C on POSIX systems but not on RISC OS. These are my notes
-to remind myself how things work differently on RISC OS.</p>
-<p>I found two resources helpful. First James Hobson had a YouTUBE
-series on RISC OS and C programming. From this I learned about
-allocating more space in the Task Window via the Tasks window display of
-Next and Free memory. Very handy to know. Watching his presentation it
-became apparent he was walking through some one’s tutorial. This lead to
-some more DuckDuckGo searches and that is when I stumbled on Steve
-Fryatt’s <a href="https://www.stevefryatt.org.uk/risc-os/wimp-prog">Wimp
-Programming In C</a>. James Hobson’s series (showing visually) help and
-the detail of Steve Fryatt’s tutorial helped me better understanding how
-things work on RISC OS.</p>
-<p>I think these both probably date from around 2016. Things have been
-evolving in RISC OS since then. I’m not certain that OSLib today plays
-the same role it played in 2016. Also in the case of Steve Fryatt’s
-tutorial I’m not certain that the DDE and Norcroft compilers are
-essential in the say way. Since I am waiting on the arrival of the ePic
-SD Card I figured I’d get started using the GCC and tools available via
-Packman and see how far I can get.</p>
-<h2><a name="getting-oriented">Getting oriented</a></h2>
-<p>What I think I need.</p>
-<ol type="1">
-<li>Editor</li>
-<li>C compiler</li>
-<li>Probably some libraries</li>
-</ol>
-<p>You need an editor fortunately RISC OS comes with two,
-<code>!Edit</code> and <code>!StrongED</code>. You can use both to
-create C files since they are general purpose text edits.</p>
-<p>You need a C compiler, GCC 4.7.4 is available via Packman. That is a
-click, and download away so I installed that.</p>
-<p>I had some libraries already installed so I skipped installing
-additional ones since I wasn’t sure what was currently required.</p>
-<h2><a name="pick-a-simple-goal">Pick a simple goal</a></h2>
-<p>When learning a new system I find it helpful to set simple goals. It
-helps from feeling overwhelmed.</p>
-<p>My initial goal is to understand how I can compile a program and run
-it in the Task Window of RISC OS. The Task Window is a command line
-environment for RISC OS much like a DOS Window was for MS Windows or the
-Terminal is for modern macOS. My initial program will only use standard
-in and out. Those come with the standard library that ships with the
-compiler. Minimal dependencies simplifies things. That goes my a good
-simple intial goal.</p>
-<blockquote>
-<p>I want to understand the most minimal requirements to compile a C
-program and run it in Task Window</p>
-</blockquote>
-<h2><a name="getting-started">Getting started</a></h2>
-<p>The program below is a simple C variation on the “Hello World”
-program tought to beginner C programers. I’ve added a minimal amount of
-parameter handlnig to se how that works in the Task Window environment.
-This program will say “Hello World!” but if you include parameters it
-will say “Hi” to those too.</p>
-<p>The code looks like this.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> argc<span class="op">;</span> i<span class="op">++)</span>  <span class="op">{</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       printf<span class="op">(</span><span class="st">&quot;Hi </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> argv<span class="op">[</span>i<span class="op">]);</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>In a POSIX system I would name this “HelloWorld.c”. On RISC OS the
-“.” (dot) is a directory delimiter. There seems to be two approaches to
-translating POSIX paths to RISC OS. Samba mounted resources seem to have
-a simple substitution translatio. A dot used for file extensions in
-POSIX becomes a slash. The slash directory delimiter becomes a dot.
-Looking at it from the POSIX side the translation is flipped. A POSIX
-path like “Project/HelloWorld/HelloWorld.c” becomes
-“Project.HelloWorld.HelloWorld/c” in RISC OS.</p>
-<p>In reading of the RISC OS Open forums I heard discussions about a
-different approach that is more RISC OS centric. It looks like the
-convention in RISC OS is to put the C files in a directory called “c”
-and the header files in a directory called “h”. Taking that approach I
-should instead setup my directory paths like “Project.HelloWorld.c”
-which in POSIX would be “Project/HelloWorld/c”. It seems to make sense
-to follow the RISC OS convensions in this case as I am not planning to
-port my RISC OS C code to POSIX anytime soon and if I did I could easily
-write a mappnig program to do that. My path to “HelloWorld” C source
-should look like <code>$.Projects.C_Programming.c.HelloWorld</code>.</p>
-<p>After storting this bit out it is time to see if I can compile a
-simple program with GCC and run it in a Task Window. This is a summary
-of my initial efforts.</p>
-<p>First attempt steps</p>
-<ol type="1">
-<li>Open Task Window</li>
-<li>run <code>gcc --version</code></li>
-</ol>
-<p>This failed. GCC wasn’t visible to the task window. Without
-understanding what I was doing I decided maybe I need to launch
-<code>!GCC</code> in <code>$.Apps.Development</code> directory. I then
-tried <code>gcc --version</code> again in the Task Window and this time
-the error was about not enough memory available. I looked the “Tasks”
-window and saw plenty of memory was free. I did NOT realise you could
-drag the red bar for “next” and increase the memory allocation for the
-next time you opened a Task Window. I didn’t find that out until I did
-some searching and stumbled on James Hobson’s videos after watching the
-recent WROCC Wakefield Show held in Bedford (2024).</p>
-<blockquote>
-<p>A clever thing about RISC OS is the graphical elements are not
-strictly informational. Often they are actionable. Dragging is not
-limited to icons.</p>
-</blockquote>
-<p>Second attempt steps</p>
-<ol type="1">
-<li>Open the Tasks window, drag the memory (red bar) allocation to be
-more than 16K</li>
-<li>Open a new Task Window</li>
-<li>Find and Click on <code>!GCC</code></li>
-<li>In the task window check the GCC version number</li>
-<li>Change the directory in the Task Window to where I saved
-“HelloWorld”</li>
-<li>Check the directory with “cat”</li>
-<li>Try to compile with <code>gcc HelloWorld -o app</code>, fails</li>
-<li>Check GCC options with <code>--help</code></li>
-<li>Try to compiled with <code>gcc -x c HelloWorld -o app</code>,
-works</li>
-</ol>
-<p>This sequence was more successful. I did a “cat” on the task window
-and saw I was not in the right folder where my “HelloWorld” was saved.
-Fortunately James Hobson video shows any easy way of setting the working
-directory. I brought the window forward that held “HelloWorld”. Then I
-used the middle mouse button (context menu) to “set directory”. I then
-switched back to the Task Window and low and behold when I did a “cat” I
-could see my HelloWorld file.</p>
-<p>I tried to compile “HelloWorld”. In James Hobson video he shows how
-to do this but I couldn’t really see what he typed. When I tried this I
-got an error about the file type not being determined. Doing
-<code>gcc --help</code> listed the options and I spotted <code>-x</code>
-can be used to explicitly set the type from the GCC point of view. This
-is something to remember when using GCC. It’s a POSIX program running on
-RISC OS which is not a POSIX system. GCC will expect files to have a
-POSIX references in some case and not others. There’s a bit of trial and
-error around this for me.</p>
-<p>Next I tried using the <code>-x c</code> option. I try recompiling
-and after a few moments GCC creates a “app” file in the current
-directory. On initial creation it is a Textfile but then the icon
-quickly switches to a “App/ELF” icon. Double clicking the App icon
-displays hex code in the Task Window. Not what I was expected. Back in
-the Task Window I type the following.</p>
-<pre class="shell"><code>app Henry Mable</code></pre>
-<p>And I get out put of</p>
-<pre class="shell"><code>Hello World!
-Hi Henry
-Hi Mable</code></pre>
-<p>My program works at the CLI level in a Task Window. My initial goal
-has been met.</p>
-<h2><a name="what-i-learned">What I learned</a></h2>
-<ol type="1">
-<li>Remember that RISC OS is a fully GUI system, things you do in
-windows can change what happens in the whole environment</li>
-<li>Remember that the display elements in the GUI maybe actionable</li>
-<li>When I double clicked on <code>!GCC</code> what it did is add itself
-to the search path.</li>
-</ol>
-<p>I remember something from the Hobson video about setting that in
-<code>!Configure</code>, <code>!Boot</code> and picking the right boot
-configuration action. I’ll leave that for next time. I should also be
-able to script this in an Obey file and that might be a better
-approach.</p>
-<p>There are some things I learned about StrongED that were surprising.
-StrongED’s C mode functions like a “folding” editor. I saw a red arrow
-next to my “main” functions. If I click it the function folds up except
-for the function signature and opening curly bracket. Click it again the
-the arrow changes direction and the full function is visible again.</p>
-<p>The “build” icon in StrongED doesn’t invoke GCC at the moment. I
-think the build icon in the ribbon bar maybe looking for a Makefile. If
-so I need to install Make from Packman. This can be left for next
-time.</p>
-<p>I’d really like to change the editor colors as my eyes have trouble
-with white background. This too can be left for another day to figure
-out.</p>
-<h2><a name="next-questions">Next Questions</a></h2>
-<ol type="1">
-<li>How do I have the GCC compiled “app” so that I can double click in
-the file window and have it run without manually starting the Task
-Window and running it from there. Is this a compiler option or do I need
-an Obey file?</li>
-<li>Which libraries do I need to install while I wait on the DDE from
-ePic to arrive so that I can write a graphical version of Hello
-World?</li>
-</ol>
-<h2><a name="updates">Updates</a></h2>
-<p>I got a chance to read more about <a
-href="https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics">Obey
-files</a> and also clicked through the examples in the
-<code>SDSF::RISCOSPi.$.Apps.Development.!GCC</code> directory (shift
-double click to open the GCC directory. In that directory is an examples
-folder which contains a Makefile for compile C programs in various
-forms. From there it was an easy stop to see how a simple Obey file
-could be used to create a <code>!Build</code> and <code>!Cleanup</code>
-scripts. where all the GCC setup lives). What follows are the two Obey
-files in the directory holding the “c” folder of HelloWorld.</p>
-<p>Here’s <code>!build</code></p>
-<pre class="riscos"><code>| !Build will run GCC on c.HelloWorld to create !HelloWorld
-Set HelloWord$Dir &lt;Obey$Dir&gt;
-WimpSlot -min 16k
-gcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld</code></pre>
-<p>and <code>!Cleanup</code></p>
-<pre class="riscos"><code>| !Cleanup removes the binaries created with !Build
-Set HelloWorld$Dir &lt;Obey$Dir&gt;
-Delete !HelloWorld</code></pre>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-06-08" data-link="https://rsdoiel.github.io/blog/2024/06/08/riscos_gcc_and_hello.html">
+      <h1 id="risc-os-530-gcc-47-and-hello-world">RISC OS 5.30, GCC 4.7 and Hello World</h1>
+      <p>By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)</p>
+      <p>Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.</p>
+      <p>I found two resources helpful. First James Hobson had a YouTUBE series on RISC OS and C programming. From this I learned about allocating more space in the Task Window via the Tasks window display of Next and Free memory. Very handy to know. Watching his presentation it became apparent he was walking through some<br />
+      one's tutorial. This lead to some more DuckDuckGo searches and that is when I stumbled on Steve Fryatt's <a href="https://www.stevefryatt.org.uk/risc-os/wimp-prog">Wimp Programming In C</a>. James Hobson's series (showing visually) help and the detail of Steve Fryatt's tutorial helped me better understanding how things work on RISC OS.</p>
+      <p>I think these both probably date from around 2016. Things have been evolving in RISC OS since then. I'm not certain that OSLib today plays the same role it played in 2016. Also in the case of Steve Fryatt's tutorial I'm not certain that the DDE and Norcroft compilers are essential in the say way. Since I am waiting on the arrival of the ePic SD Card I figured I'd get started using the<br />
+      GCC and tools available via Packman and see how far I can get.</p>
+      <h2 id="getting-oriented">Getting oriented</h2>
+      <p>What I think I need.</p>
+      <ol>
+      <li>Editor</li>
+      <li>C compiler</li>
+      <li>Probably some libraries</li>
+      </ol>
+      <p>You need an editor fortunately RISC OS comes with two, <code>!Edit</code> and <code>!StrongED</code>. You can use both to create C files since they are general purpose text edits.</p>
+      <p>You need a C compiler, GCC 4.7.4 is available via Packman. That is a click,<br />
+      and download away so I installed that.</p>
+      <p>I had some libraries already installed so I skipped installing additional ones since I wasn't sure what was currently required.</p>
+      <h2 id="pick-a-simple-goal">Pick a simple goal</h2>
+      <p>When learning a new system I find it helpful to set simple goals. It helps from feeling overwhelmed.</p>
+      <p>My initial goal is to understand how I can compile a program and run it in the Task Window of RISC OS. The Task Window is a command line environment for RISC OS much like a DOS Window was for MS Windows or the Terminal is for modern macOS.  My initial program will only use standard in and out. Those come with the standard library that ships with the compiler. Minimal dependencies simplifies things. That goes my a good simple intial goal.</p>
+      <blockquote>
+      <p>I want to understand the most minimal requirements to compile a C program and run it in Task Window</p>
+      </blockquote>
+      <h2 id="getting-started">Getting started</h2>
+      <p>The program below is a simple C variation on the &quot;Hello World&quot;  program tought to beginner C programers.  I've added a minimal amount of parameter handlnig to se how that works in the Task Window environment. This program will say &quot;Hello World!&quot; but if you include parameters it will say &quot;Hi&quot; to those too.</p>
+      <p>The code looks like this.</p>
+      <pre><code class="language-C">#include &lt;stdio.h&gt;
+      
+      int main(int argc, char *argv[]) {
+        int i = 0;
+        printf(&quot;Hello World!\n&quot;);
+        for (i = 1; i &lt; argc; i++)  { 
+             printf(&quot;Hi %s\n&quot;, argv[i]);
+        }
+        return 0;
+      }
+      </code></pre>
+      <p>In a POSIX system I would name this &quot;HelloWorld.c&quot;. On RISC OS the &quot;.&quot; (dot)<br />
+      is a directory delimiter. There seems to be two approaches to translating POSIX paths to RISC OS. Samba mounted resources seem to have a simple substitution translatio. A dot used for file extensions in POSIX becomes a slash. The slash directory delimiter becomes a dot. Looking at it from the POSIX side the translation is flipped. A POSIX path like &quot;Project/HelloWorld/HelloWorld.c&quot; becomes &quot;Project.HelloWorld.HelloWorld/c&quot; in RISC OS.</p>
+      <p>In reading of the RISC OS Open forums I heard discussions about a different approach that is more RISC OS centric. It looks like the convention in RISC OS is to put the C files in a directory called &quot;c&quot; and the header files in a directory called &quot;h&quot;. Taking that approach I should instead setup my directory paths like &quot;Project.HelloWorld.c&quot; which in POSIX would be &quot;Project/HelloWorld/c&quot;. It seems to make sense to follow the RISC OS convensions in this case as I am not planning to port my RISC OS C code to POSIX anytime soon and if I did I could easily write a mappnig program to do that. My path to &quot;HelloWorld&quot; C source should look like <code>$.Projects.C_Programming.c.HelloWorld</code>.</p>
+      <p>After storting this bit out it is time to see if I can compile a simple program with GCC and run it in a Task Window. This is a summary of my initial efforts.</p>
+      <p>First attempt steps</p>
+      <ol>
+      <li>Open Task Window</li>
+      <li>run <code>gcc --version</code></li>
+      </ol>
+      <p>This failed. GCC wasn't visible to the task window. Without understanding what I was doing I decided maybe I need to launch <code>!GCC</code> in <code>$.Apps.Development</code> directory. I then tried <code>gcc --version</code> again in the Task Window and this time<br />
+      the error was about not enough memory available. I looked the &quot;Tasks&quot; window and saw plenty of memory was free. I did NOT realise you could drag the red bar for &quot;next&quot; and increase the memory allocation for the next time you opened a Task Window. I didn't find that out until I did some searching and stumbled on James Hobson's videos after watching the recent WROCC Wakefield Show held in Bedford (2024).</p>
+      <blockquote>
+      <p>A clever thing about RISC OS is the graphical elements are not strictly informational. Often they are actionable. Dragging is not limited to icons.</p>
+      </blockquote>
+      <p>Second attempt steps</p>
+      <ol>
+      <li>Open the Tasks window, drag the memory (red bar) allocation to be more than 16K</li>
+      <li>Open a new Task Window</li>
+      <li>Find and Click on <code>!GCC</code></li>
+      <li>In the task window check the GCC version number</li>
+      <li>Change the directory in the Task Window to where I saved &quot;HelloWorld&quot;</li>
+      <li>Check the directory with &quot;cat&quot;</li>
+      <li>Try to compile with <code>gcc HelloWorld -o app</code>, fails</li>
+      <li>Check GCC options with <code>--help</code></li>
+      <li>Try to compiled with <code>gcc -x c HelloWorld -o app</code>, works</li>
+      </ol>
+      <p>This sequence was more successful. I did a &quot;cat&quot; on the task window and saw I was not in the right folder where my &quot;HelloWorld&quot; was saved.  Fortunately James Hobson video shows any easy way of setting the working directory. I brought the window forward that held &quot;HelloWorld&quot;. Then I used the middle mouse button (context menu) to &quot;set directory&quot;. I then switched back to the Task Window and low and behold when I did a &quot;cat&quot; I could see my HelloWorld file.</p>
+      <p>I  tried to compile &quot;HelloWorld&quot;. In James Hobson video he shows how to do this but I couldn't really see what he typed.  When I tried this I got an error<br />
+      about the file type not being determined.  Doing <code>gcc --help</code> listed the options<br />
+      and I spotted <code>-x</code> can be used to explicitly set the type from the GCC point of view. This is something to remember when using GCC. It's a POSIX program running<br />
+      on RISC OS which is not a POSIX system.  GCC will expect files to have a POSIX references in some case and not others. There's a bit of trial and error around<br />
+      this for me.</p>
+      <p>Next I tried using the <code>-x c</code> option. I try recompiling and after a few moments<br />
+      GCC creates a &quot;app&quot; file in the current directory. On initial creation it is a Textfile but then the icon quickly switches to a &quot;App/ELF&quot; icon.  Double clicking the App icon displays hex code in the Task Window. Not what I was expected. Back in the Task Window I type the following.</p>
+      <pre><code class="language-shell">app Henry Mable
+      </code></pre>
+      <p>And I get out put of</p>
+      <pre><code class="language-shell">Hello World!
+      Hi Henry
+      Hi Mable
+      </code></pre>
+      <p>My program works at the CLI level in a Task Window. My initial goal has been met.</p>
+      <h2 id="what-i-learned">What I learned</h2>
+      <ol>
+      <li>Remember that RISC OS is a fully GUI system, things you do in windows can change what happens in the whole environment</li>
+      <li>Remember that the display elements in the GUI maybe actionable</li>
+      <li>When I double clicked on <code>!GCC</code> what it did is add itself to the search path.</li>
+      </ol>
+      <p>I remember something from the Hobson video about setting that in <code>!Configure</code>, <code>!Boot</code> and picking the right boot configuration action.  I'll leave that for next time. I should also be able to script this in an Obey file and that might be a better approach.</p>
+      <p>There are some things I learned about StrongED that were surprising. StrongED's C mode functions like a &quot;folding&quot; editor. I saw a red arrow next to my &quot;main&quot; functions. If I click it the function folds up except for the function signature and opening curly bracket. Click it again the the arrow changes direction and the full function is visible again.</p>
+      <p>The &quot;build&quot; icon in StrongED doesn't invoke GCC at the moment. I think the build icon in the ribbon bar maybe looking for a Makefile. If so I need to install Make from Packman. This can be left for next time.</p>
+      <p>I'd really like to change the editor colors as my eyes have trouble with white background. This too can be left for another day to figure out.</p>
+      <h2 id="next-questions">Next Questions</h2>
+      <ol>
+      <li>How do I have the GCC compiled &quot;app&quot; so that I can double click in the file window and have it run without manually starting the Task Window and running it from there.  Is this a compiler option or do I need an Obey file?</li>
+      <li>Which libraries do I need to install while I wait on the DDE from ePic to arrive so that I can write a graphical version of Hello World?</li>
+      </ol>
+      <h2 id="updates">Updates</h2>
+      <p>I got a chance to read more about <a href="https://www.riscosopen.org/wiki/documentation/show/CLI%20Basics">Obey files</a> and also clicked through the examples in the <code>SDSF::RISCOSPi.$.Apps.Development.!GCC</code> directory (shift double click to open the GCC directory. In that directory is an examples<br />
+      folder which contains a Makefile for compile C programs in various forms.<br />
+      From there it was an easy stop to see how a simple Obey file could be used<br />
+      to create a <code>!Build</code> and <code>!Cleanup</code> scripts.<br />
+      where all the GCC setup lives). What follows are the two Obey files in the directory holding the &quot;c&quot; folder of HelloWorld.</p>
+      <p>Here's <code>!build</code></p>
+      <pre><code class="language-riscos">| !Build will run GCC on c.HelloWorld to create !HelloWorld
+      Set HelloWord$Dir &lt;Obey$Dir&gt;
+      WimpSlot -min 16k
+      gcc -static -O3 -s -O3 -o !HelloWorld c.HelloWorld
+      </code></pre>
+      <p>and <code>!Cleanup</code></p>
+      <pre><code class="language-riscos">| !Cleanup removes the binaries created with !Build
+      Set HelloWorld$Dir &lt;Obey$Dir&gt;
+      Delete !HelloWorld
+      </code></pre>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

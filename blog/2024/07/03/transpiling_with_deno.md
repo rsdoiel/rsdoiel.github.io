@@ -1,6 +1,5 @@
 ---
 title: Transpiling with Deno
-pubDate: 2024-07-03T00:00:00.000Z
 created: 2024-07-03T00:00:00.000Z
 keywords:
   - TypeScript
@@ -34,6 +33,7 @@ abstract: >
 dateCreated: '2024-07-03'
 dateModified: '2025-07-23'
 datePublished: '2024-07-03'
+postPath: 'blog/2024/07/03/transpiling_with_deno.md'
 ---
 
 # Transpiling with Deno

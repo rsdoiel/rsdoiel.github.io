@@ -2,7 +2,6 @@
 title: Bootstrapping a Text Oriented Web
 byline: 'R. S. Doiel, 2024-06-14'
 created: 2024-06-14T00:00:00.000Z
-pubDate: 2024-06-14T00:00:00.000Z
 keywords:
   - text oriented web
   - tow
@@ -34,6 +33,7 @@ abstract: >
 dateCreated: '2024-06-14'
 dateModified: '2025-07-23'
 datePublished: '2024-06-14'
+postPath: 'blog/2024/06/14/tow_bootstraping.md'
 ---
 
 # Bootstrapping a Text Oriented Web

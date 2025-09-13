@@ -15,14 +15,15 @@ abstract: |
   2. Copy CommonMark files into the blog directory tree
 
   Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).
-dateCreated: 2025-07-12T00:00:00.000Z
-dateModified: '2025-07-28'
 keywords:
   - font matter
   - CommonMark
   - blog
   - CommonMarkDoc
+dateCreated: '2025-07-12'
+dateModified: '2025-07-28'
 datePublished: '2025-07-21'
+postPath: 'blog/2025/07/21/Simplifying_BlogIt.md'
 ---
 
 # Simplifying BlogIt

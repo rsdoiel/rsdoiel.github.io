@@ -1,8 +1,6 @@
 ---
 title: 'PowerShell and Edit for macOS, Linux and Windows'
 author: R. S. Doiel
-dateCreated: '2025-06-05'
-pubDate: 2025-06-05T00:00:00.000Z
 keywords:
   - Windows
   - macOS
@@ -27,8 +25,10 @@ abstract: >
 
 
   ...
+dateCreated: '2025-06-05'
 dateModified: '2025-07-23'
 datePublished: '2025-06-05'
+postPath: 'blog/2025/06/05/PowerShell_and_Edit.md'
 ---
 
 # PowerShell and Edit on Windows, macOS and Linux

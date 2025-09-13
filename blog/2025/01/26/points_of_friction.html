@@ -1,192 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>points_of_friction</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="deno, text, input">
-  <link rel="alternative" type="application/markdown" href="/blog/2025/01/26/points_of_friction.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="points_of_friction.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="deno-2.1.7-points-of-friction">Deno 2.1.7, Points of
-Friction</h1>
-<p>By R. S. Doiel, 2025-01-26</p>
-<p>I have run into a few points of friction in my journey with Deno
-coming from Go. I miss Go’s standard “io” and “bufio” packages. With the
-Go code I’m porting TypeScript I’d often need to handle standard input
-or input from a named file interchangeably. Seems like this should be
-easy in Deno’s TypeScript but there are a few bumps in the road.</p>
-<p>Here’s the Go idiom I commonly use.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> err <span class="dt">error</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>input <span class="op">:=</span> io<span class="op">.</span>Stdin</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> inFilename <span class="op">!=</span> <span class="st">&quot;&quot;</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    input<span class="op">,</span> err <span class="op">:=</span> os<span class="op">.</span>Open<span class="op">(</span>inFilename<span class="op">)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> err <span class="op">!==</span> <span class="ot">nil</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ... handle error</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">defer</span> input<span class="op">.</span>Close<span class="op">();</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Now I can just pass &quot;in&quot; around for processing.</span></span></code></pre></div>
-<p>Conceptually this feels simple though verbose. I can pass around the
-“input” for processing in a way that is agnostic as to file or standard
-input. This type of Go code works equally on POSIX and Windows.</p>
-<p>Deno provide access to <a
-href="https://docs.deno.com/api/deno/~/Deno.stdin">standard input</a>.
-Deno supports streamable files. From the docs here’s an simple
-example.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// If the text &quot;hello world&quot; is piped into the script:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> buf <span class="op">=</span> <span class="kw">new</span> <span class="bu">Uint8Array</span>(<span class="dv">100</span>)<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> numberOfBytesRead <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="at">stdin</span><span class="op">.</span><span class="fu">read</span>(buf)<span class="op">;</span> <span class="co">// 11 bytes</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> text <span class="op">=</span> <span class="kw">new</span> <span class="fu">TextDecoder</span>()<span class="op">.</span><span class="fu">decode</span>(buf)<span class="op">;</span>  <span class="co">// &quot;hello world&quot;</span></span></code></pre></div>
-<p>Setting aside the buffer management code it seems simple and straight
-forward. It is easy to understand and you could wrap it in a function
-easily to hide the buffer management part. Yet it doesn’t provide the
-same flexibility as the more verbose Go version. Surely there is an an
-idiomatic why of doing this in TypeScript already?</p>
-<h2><a name="stability-challenge">Stability Challenge</a></h2>
-<p>Deno currently is a rapidly evolving platform. My first impulse was
-to reach for packages like <code>jsr:@std/fs</code> or
-<code>jsr:@sys/fs</code>. When I search for examples they mostly seem to
-reference specific versions of “std/fs” that are not available via jsr.
-So what’s the “right” way to approach this?</p>
-<h2><a name="repl-to-the-rescue">Repl to the rescue.</a></h2>
-<p>Poking around in the Deno repl I tried assigning
-<code>Deno.stdin</code> to a local variable. Playing with command line
-completion I realized it has most of the the methods you would get if
-you used <code>Deno.open()</code> to open a named file.</p>
-<p>Here’s a little test I ran in the repl after creating a
-“hellworld.txt” text file.</p>
-<pre class="deno"><code>deno
-const stdin = Deno.stdin;
-let input = Deno.open(&#39;helloworld.txt&#39;)
-stdin.isTerminal();
-input.isTerminal();
-stdin.valueOf();
-input.valueOf();
-Deno.exit(0);</code></pre>
-<p>The <code>valueOf()</code> reveals their type affiliation. It listed
-them as <code>Stdin {}</code> and <code>FsFile {}</code> respectively. I
-used TypeScript’s typing system to let us implement “mycat.ts”. You can
-assign multiple types to a variable with a <code>|</code> (pipe) symbol
-in TypeScript.</p>
-<p>Used that result to write a simple cat file implementation.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">catFile</span>() {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> input <span class="op">:</span> Stdin <span class="op">|</span> FsFile <span class="op">=</span> Deno<span class="op">.</span><span class="at">stdin</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (Deno<span class="op">.</span><span class="at">args</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        input <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">open</span>(Deno<span class="op">.</span><span class="at">args</span>[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> decoder <span class="op">=</span> <span class="kw">new</span> <span class="fu">TextDecoder</span>()<span class="op">;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: the .readable function is available on both types of objects.</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="cf">await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> input<span class="op">.</span><span class="at">readable</span>) {</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(decoder<span class="op">.</span><span class="fu">decode</span>(chunk))<span class="op">;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) <span class="fu">catFile</span>()<span class="op">;</span></span></code></pre></div>
-<p>You can “run” this deno to see it in action. Try running it on your
-“helloworld.txt” file.</p>
-<pre class="shell"><code>deno run --allow-read mycat.ts helloworld.txt</code></pre>
-<p>You can also read from standard input too. Try the command below type
-in some text then press Ctrl-D or Ctrl-Z if you’re on Windows.</p>
-<pre class="shell"><code>deno run --allow-read mycat.ts</code></pre>
-<p>Looks like we have a nice solution. Now I can compile “mycat.ts”.</p>
-<h2><a name="trouble-in-paradise">trouble in paradise</a></h2>
-<p>While you can “run” the script you can’t compile it. It doesn’t pass
-“check”. This is the error I get with Deno 2.1.7.</p>
-<pre class="shell"><code>deno check mycat.ts
-Check file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts
-error: TS2304 [ERROR]: Cannot find name &#39;Stdin&#39;.
-    let input : Stdin | FsFile = Deno.stdin;
-                ~~~~~
-    at file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts:3:17
+  <section>
+    <article data-published="2025-01-26" data-link="https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html">
+      <h1 id="deno-217-points-of-friction">Deno 2.1.7, Points of Friction</h1>
+      <p>By R. S. Doiel, 2025-01-26</p>
+      <p>I have run into a few points of friction in my journey with Deno coming from Go. I miss Go's standard &quot;io&quot; and &quot;bufio&quot; packages. With the Go code I'm porting TypeScript I'd often need to handle standard input or input from a named file interchangeably. Seems like this should be easy in Deno's TypeScript but there are a few bumps in the road.</p>
+      <p>Here's the Go idiom I commonly use.</p>
+      <pre><code class="language-go">var err error
+      input := io.Stdin
+      if inFilename != &quot;&quot; {
+          input, err := os.Open(inFilename)
+          if err !== nil {
+              // ... handle error
+          }
+          defer input.Close();
+      }
+      // Now I can just pass &quot;in&quot; around for processing.
+      </code></pre>
+      <p>Conceptually this feels simple though verbose. I can pass around the &quot;input&quot; for processing in a way that is agnostic as to file or standard input. This type of Go code works equally on POSIX and Windows.</p>
+      <p>Deno provide access to <a href="https://docs.deno.com/api/deno/~/Deno.stdin">standard input</a>. Deno supports streamable files. From the docs here's an simple example.</p>
+      <pre><code class="language-TypeScript">// If the text &quot;hello world&quot; is piped into the script:
+      const buf = new Uint8Array(100);
+      const numberOfBytesRead = await Deno.stdin.read(buf); // 11 bytes
+      const text = new TextDecoder().decode(buf);  // &quot;hello world&quot;
+      </code></pre>
+      <p>Setting aside the buffer management code it seems simple and straight forward. It is easy to understand and you could wrap it in a function easily to hide the buffer management part. Yet it doesn't provide the same flexibility as the more verbose Go version. Surely there is an an idiomatic why of doing this in TypeScript already?</p>
+      <h2 id="stability-challenge">Stability Challenge</h2>
+      <p>Deno currently is a rapidly evolving platform. My first impulse was to reach for packages like <code>jsr:@std/fs</code> or <code>jsr:@sys/fs</code>. When I search for examples they mostly seem to reference specific versions of &quot;std/fs&quot; that are not available via jsr. So what's the &quot;right&quot; way to approach this?</p>
+      <h2 id="repl-to-the-rescue">Repl to the rescue.</h2>
+      <p>Poking around in the Deno repl I tried assigning <code>Deno.stdin</code> to a local variable. Playing with command line completion I realized it has most of the the methods you would get if you used <code>Deno.open()</code> to open a named file.</p>
+      <p>Here's a little test I ran in the repl after creating a &quot;hellworld.txt&quot; text file.</p>
+      <pre><code class="language-deno">deno
+      const stdin = Deno.stdin;
+      let input = Deno.open('helloworld.txt')
+      stdin.isTerminal();
+      input.isTerminal();
+      stdin.valueOf();
+      input.valueOf();
+      Deno.exit(0);
+      </code></pre>
+      <p>The <code>valueOf()</code> reveals their type affiliation. It listed them as <code>Stdin {}</code> and <code>FsFile {}</code> respectively. I used TypeScript's typing system to let us implement &quot;mycat.ts&quot;. You can assign multiple types to a variable with a <code>|</code> (pipe) symbol in TypeScript.</p>
+      <p>Used that result to write a simple cat file implementation.</p>
+      <pre><code class="language-TypeScript">async function catFile() {
+          let input : Stdin | FsFile = Deno.stdin;
+      
+          if (Deno.args.length &gt; 0) {
+              input = await Deno.open(Deno.args[0]);
+          }
+      
+          const decoder = new TextDecoder();
+      
+          // NOTE: the .readable function is available on both types of objects.
+          for await (const chunk of input.readable) {
+              console.log(decoder.decode(chunk));
+          }
+      }
+      
+      if (import.meta.main) catFile();
+      </code></pre>
+      <p>You can &quot;run&quot; this deno to see it in action. Try running it on your &quot;helloworld.txt&quot; file.</p>
+      <pre><code class="language-shell">deno run --allow-read mycat.ts helloworld.txt
+      </code></pre>
+      <p>You can also read from standard input too. Try the command below type in some text then press Ctrl-D or Ctrl-Z if you're on Windows.</p>
+      <pre><code class="language-shell">deno run --allow-read mycat.ts
+      </code></pre>
+      <p>Looks like we have a nice solution. Now I can compile &quot;mycat.ts&quot;.</p>
+      <h2 id="trouble-in-paradise">trouble in paradise</h2>
+      <p>While you can &quot;run&quot; the script you can't compile it. It doesn't pass &quot;check&quot;. This is the error I get with Deno 2.1.7.</p>
+      <pre><code class="language-shell">deno check mycat.ts
+      Check file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts
+      error: TS2304 [ERROR]: Cannot find name 'Stdin'.
+          let input : Stdin | FsFile = Deno.stdin;
+                      ~~~~~
+          at file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts:3:17
+      
+      TS2552 [ERROR]: Cannot find name 'FsFile'. Did you mean 'File'?
+          let input : Stdin | FsFile = Deno.stdin;
+                              ~~~~~~
+          at file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts:3:25
+      
+          'File' is declared here.
+          declare var File: {
+                      ~~~~
+              at asset:///lib.deno.web.d.ts:622:13
+      
+      Found 2 errors.
+      </code></pre>
+      <p>It seems like what works in the repl should also compile but that's isn't the case. I have an open question on Deno's discord help channel and am curious to find the &quot;correct&quot; way to handle this problem.</p>
+      <h2 id="update-2025-01-26-500pm">Update 2025-01-26, 5:00PM</h2>
+      <p>I heard back on Deno Discord channel for help.  With the help of <a href="https://github.com/crowlKats">crowlKat</a> sorted the problem out.</p>
+      <p>The compile and runnable version of <a href="mycat.ts">mycat.ts</a> looks like this.</p>
+      <pre><code class="language-typescript">async function main() {
+          let input : Deno.FsFile | any = Deno.stdin;
+      
+          if (Deno.args.length &gt; 0) {
+              input = await Deno.open(Deno.args[0]);
+          }
+      
+          const decoder = new TextDecoder();
+      
+          // NOTE: the .readable function is available on both types of objects.
+          for await (const chunk of input.readable) {
+              console.log(decoder.decode(chunk));
+          }
+      }
+      
+      if (import.meta.main) main();
+      </code></pre>
+      <p>The &quot;any&quot; type feels a little ugly but since I am assinging the default value is <code>Deno.stdin</code> it covers that case where the <code>Deno.FsFile</code> covers the case of a name file.  Where does this leave me? I have a nice clean idiom that does what I want for interacting with standard input or a file stream.  Not necessarily the fast thing on the planet but it works.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-TS2552 [ERROR]: Cannot find name &#39;FsFile&#39;. Did you mean &#39;File&#39;?
-    let input : Stdin | FsFile = Deno.stdin;
-                        ~~~~~~
-    at file:///C:/Users/rsdoi/Sandbox/Writing/Articles/Deno/mycat.ts:3:25
-
-    &#39;File&#39; is declared here.
-    declare var File: {
-                ~~~~
-        at asset:///lib.deno.web.d.ts:622:13
-
-Found 2 errors.</code></pre>
-<p>It seems like what works in the repl should also compile but that’s
-isn’t the case. I have an open question on Deno’s discord help channel
-and am curious to find the “correct” way to handle this problem.</p>
-<h2><a name="update-20250126-500pm">Update 2025-01-26, 5:00PM</a></h2>
-<p>I heard back on Deno Discord channel for help. With the help of <a
-href="https://github.com/crowlKats">crowlKat</a> sorted the problem
-out.</p>
-<p>The compile and runnable version of <a href="mycat.ts">mycat.ts</a>
-looks like this.</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">main</span>() {</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> input <span class="op">:</span> Deno<span class="op">.</span><span class="at">FsFile</span> <span class="op">|</span> <span class="dt">any</span> <span class="op">=</span> Deno<span class="op">.</span><span class="at">stdin</span><span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (Deno<span class="op">.</span><span class="at">args</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        input <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">open</span>(Deno<span class="op">.</span><span class="at">args</span>[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> decoder <span class="op">=</span> <span class="kw">new</span> <span class="fu">TextDecoder</span>()<span class="op">;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">NOTE</span><span class="co">: the .readable function is available on both types of objects.</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="cf">await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> input<span class="op">.</span><span class="at">readable</span>) {</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(decoder<span class="op">.</span><span class="fu">decode</span>(chunk))<span class="op">;</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">main</span>) <span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
-<p>The “any” type feels a little ugly but since I am assinging the
-default value is <code>Deno.stdin</code> it covers that case where the
-<code>Deno.FsFile</code> covers the case of a name file. Where does this
-leave me? I have a nice clean idiom that does what I want for
-interacting with standard input or a file stream. Not necessarily the
-fast thing on the planet but it works.</p>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

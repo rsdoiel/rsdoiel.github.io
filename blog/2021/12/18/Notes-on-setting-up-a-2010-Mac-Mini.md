@@ -51,6 +51,7 @@ abstract: >
 dateCreated: '2021-12-18'
 dateModified: '2025-07-22'
 datePublished: '2021-12-18'
+postPath: 'blog/2021/12/18/Notes-on-setting-up-a-2010-Mac-Mini.md'
 ---
 
 Notes on setting up a Mid-2010 Mac Mini

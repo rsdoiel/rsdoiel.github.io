@@ -1,106 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>WHY_NO_SIGNED_BINARIES</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="open source, philosophy, signed
-binaries, app stores">
-  <link rel="alternative" type="application/markdown" href="/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="WHY_NO_SIGNED_BINARIES.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="thoughts-on-signed-binaries-and-business-models">Thoughts on
-signed binaries and business models</h1>
-<p>By R. S. Doiel, 2025-07-24</p>
-<h2><a name="why-no-apple-signed-binaries">Why no Apple signed binaries?</a></h2>
-<p>To sign the binaries I would need to be an “Apple Developer”. To be
-an “Apple Developer”, I or someone on my behalf would need to pay an
-annual fee. I thinks this is ridiculous. Why do you need to pay someone
-to write software for hardware that was already paid for? It feels like
-being extorted for your lunch money. I am stubborn and refuse to be an
-Apple Developer. I write Open Source software so anyone can compile and
-run it. Should they choose this includes Apple employees. I do not
-extort lunch money.</p>
-<p>Apple’s insistence on requiring payment is a little rich. Apple’s
-operating systems, macOS and iOS, are derived from Open Source software.
-Apple’s current operating systems are derived from the Mach kernel and
-BSD. The developer tools are derived from Clang. Another open source
-software project. The software I write is also open source. There’s a
-trend here.</p>
-<h2><a name="why-no-signed-binaries-for-other-companies">Why no signed binaries for other companies?</a></h2>
-<p>When I considered Apple’s policies, I rejected the fee to write
-software. When Microsoft, Google, et el. followed a similar path my eye
-brows raised in extreme skepticism. I am concerned for my eye brows.</p>
-<p>I believe this requirement is less about actual security and more
-about business models. After all signing could be done in an open,
-secure and distributed manner. It’s as easy as using a standard form of
-public signing (e.g. PGP, SSH keys), having the OS supported the signed
-binaries and hosting the public keys of the signed document a location
-controlled by the individual or organization signing the executable. A
-distributed approach does not require corporate sponsorship,
-implementation or blessings. You could even implement a signing
-mechanism similar to Let’s Encrypt used for HTTPS certificates.</p>
-<p>Security is being used as an excuse to enable vendor lock in or drive
-people to rent software from the “cloud”. This seems incredibly silly to
-me. I am a stubborn person. I am <strong>NOT</strong> going along with
-this practice. I apologize for the inconvenience but insist I avoid
-feeling a part of a lunch money extortion plot. I feel I should be free
-to practice my vocation of writing open source software without being
-required to participate in business models that neither benefit my
-employer, my community or myself.</p>
-<h2><a name="what-are-your-options-to-use-the-software">What are your options to use the software?</a></h2>
-<p>There are ways to allow the operating system to run the software. You
-can follow the instructions complete with the scary warnings to do so.
-You can also download the source code and build the software yourself.
-It is open source software after all.</p>
-<ul>
-<li><a href="INSTALL_NOTES_macOS.txt">installing unsigned software
-macOS</a></li>
-<li><a href="INSTALL_NOTES_Windows.txt">installing unsigned software
-Windows</a></li>
-</ul>
-<h1 id="about-this-document">ABOUT THIS DOCUMENT</h1>
-<p>These are my opinions. My opinions do not reflect my employer’s
-policies, procedures or practices.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2025-07-24" data-link="https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html">
+      <h1 id="thoughts-on-signed-binaries-and-business-models">Thoughts on signed binaries and business models</h1>
+      <p>By R. S. Doiel, 2025-07-24</p>
+      <h2 id="why-no-apple-signed-binaries">Why no Apple signed binaries?</h2>
+      <p>To sign the binaries I would need to be an &quot;Apple Developer&quot;. To be an &quot;Apple Developer&quot;, I or someone on my behalf would need to pay an annual fee. I thinks this is ridiculous. Why do you need to pay someone to write software for hardware that was already paid for? It feels like being extorted for your lunch money. I am stubborn and refuse to be an Apple Developer. I write Open Source software so anyone can compile and run it. Should they choose this includes Apple employees. I do not extort lunch money.</p>
+      <p>Apple's insistence on requiring payment is a little rich. Apple's operating systems, macOS and iOS, are derived from Open Source software. Apple's current operating systems are derived from the Mach kernel and BSD. The developer tools are derived from Clang. Another open source software project. The software I write is also open source. There's a trend here.</p>
+      <h2 id="why-no-signed-binaries-for-other-companies">Why no signed binaries for other companies?</h2>
+      <p>When I considered Apple's policies, I rejected the fee to write software. When Microsoft, Google, et el. followed a similar path my eye brows raised in extreme skepticism. I am concerned for my eye brows.</p>
+      <p>I believe this requirement is less about actual security and more about business models. After all signing could be done in an open, secure and distributed manner. It's as easy as using a standard form of public signing (e.g. PGP, SSH keys), having the OS supported the signed binaries and hosting the public keys of the signed document a location controlled by the individual or organization signing the executable. A distributed approach does not require corporate sponsorship, implementation or blessings. You could even implement a signing mechanism similar to Let's Encrypt used for HTTPS certificates.</p>
+      <p>Security is being used as an excuse to enable vendor lock in or drive people to rent software from the &quot;cloud&quot;. This seems incredibly silly to me. I am a stubborn person. I am <strong>NOT</strong> going along with this practice. I apologize for the inconvenience but insist I avoid feeling a part of a lunch money extortion plot. I feel I should be free to practice my vocation of writing open source software without being required to participate in business models that neither benefit my employer, my community or myself.</p>
+      <h2 id="what-are-your-options-to-use-the-software">What are your options to use the software?</h2>
+      <p>There are ways to allow the operating system to run the software. You can follow the instructions complete with the scary warnings to do so. You can also download the source code and build the software yourself. It is open source software after all.</p>
+      <ul>
+      <li><a href="INSTALL_NOTES_macOS.txt">installing unsigned software macOS</a></li>
+      <li><a href="INSTALL_NOTES_Windows.txt">installing unsigned software Windows</a></li>
+      </ul>
+      <h1 id="about-this-document">ABOUT THIS DOCUMENT</h1>
+      <p>These are my opinions. My opinions do not reflect my employer's policies, procedures or practices.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

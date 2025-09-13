@@ -35,6 +35,7 @@ abstract: |
 dateCreated: '2020-05-25'
 dateModified: '2025-07-22'
 datePublished: '2020-05-25'
+postPath: 'blog/2020/05/25/Dynamic-types.md'
 seriesNo: 8
 ---
 

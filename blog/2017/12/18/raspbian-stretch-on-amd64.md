@@ -19,6 +19,7 @@ dateModified: '2025-07-22'
 datePublished: '2017-12-18'
 copyrightYear: 2017
 copyrightHolder: R. S. Doiel
+postPath: 'blog/2017/12/18/raspbian-stretch-on-amd64.md'
 ---
 
 # Raspbian Stretch on DELL E4310 Laptop

@@ -56,6 +56,7 @@ abstract: >
 dateCreated: '2020-05-01'
 dateModified: '2025-07-22'
 datePublished: '2020-05-01'
+postPath: 'blog/2020/05/01/Combining-Oberon-and-C.md'
 seriesNo: 5
 ---
 

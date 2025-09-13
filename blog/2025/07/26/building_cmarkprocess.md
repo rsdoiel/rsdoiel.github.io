@@ -15,9 +15,6 @@ keywords:
   - CommonMark
   - Markdown
   - Front Matter
-dateCreated: 2025-07-26T00:00:00.000Z
-dateModified: 2025-07-28T00:00:00.000Z
-datePublished: 2025-07-26T00:00:00.000Z
 author: R. S. Doiel
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
@@ -25,6 +22,10 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 hashTags: []
 atTags:
   - '@include'
+dateCreated: '2025-07-26'
+dateModified: '2025-07-28'
+datePublished: '2025-07-26'
+postPath: 'blog/2025/07/26/building_cmarkprocess.md'
 ---
 
 # Building a CommonMark Processor in Deno+TypeScript

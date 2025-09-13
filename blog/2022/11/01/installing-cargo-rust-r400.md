@@ -26,6 +26,7 @@ abstract: >
 dateCreated: '2022-10-31'
 dateModified: '2025-07-22'
 datePublished: '2022-10-31'
+postPath: 'blog/2022/11/01/installing-cargo-rust-r400.md'
 ---
 
 Installing Cargo/Rest on Raspberry Pi 400

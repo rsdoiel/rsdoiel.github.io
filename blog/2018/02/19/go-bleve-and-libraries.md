@@ -21,6 +21,7 @@ abstract: |
 dateCreated: '2018-02-19'
 dateModified: '2025-07-22'
 datePublished: '2018-02-19'
+postPath: 'blog/2018/02/19/go-bleve-and-libraries.md'
 ---
 
 # Go, Bleve and Library oriented software

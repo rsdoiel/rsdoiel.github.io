@@ -32,6 +32,7 @@ abstract: >+
 dateCreated: '2020-12-24'
 dateModified: '2025-07-22'
 datePublished: '2020-12-24'
+postPath: 'blog/2020/12/24/gpi-case-setup.md'
 ---
 
 Setting up a RetroFlag GPi Case

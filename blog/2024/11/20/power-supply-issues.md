@@ -17,6 +17,7 @@ copyrightYear: 2024
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 datePublished: '2024-11-20'
+postPath: 'blog/2024/11/20/power-supply-issues.md'
 ---
 
 # Raspberry Pi 4 & 400 Power Supply Issues

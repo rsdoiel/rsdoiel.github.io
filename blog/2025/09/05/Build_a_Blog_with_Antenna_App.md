@@ -1,12 +1,23 @@
 ---
 title: Build a Blog with Antenna
+author: R. S. Doiel
+description: |
+  This is a short post on using antennaApp to build a traditional blog.
+  All you need is antennaApp, a text editor and a little knowledge of
+  Markdown.
+
+  antennaApp uses the front matter expressed as YAML as metadata for
+  processing the blog post and collecting the metadata for rendering
+  a page listing all the posts (an aggregation of posts) as HTML and
+  as an RSS 2.0 feeed.
+
+  HTML pages can be customized for your sight in a simple YAML
+  configuration file.
+
 dateCreated: "2025-09-05"
 dateModified: "2025-09-05"
 datePublished: "2025-09-05"
-author: R. S. Doiel
-pubDate: "2025-09-05"
-link: "https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna.html"
-postPath: "blog/2025/09/05/Build_a_Blog_with_Antenna.html"
+postPath: "blog/2025/09/05/Build_a_Blog_with_Antenna_App.md"
 ---
 
 # Build a Blog with Antenna
@@ -69,17 +80,17 @@ the RSS feed and HTML aggregation page are render by Antenna's generate action. 
 Let's first create our collection. I am going to call it "index.md". The reason I call the collection "index.md" is it'll result in an HTML page called "index.html", a RSS file called "index.xml" a configuration page page called "index.yaml" and an SQLite3 database file called "index.db".  Here's an example of a Markdown document defining the blog.
 
 ~~~markdown
----
-title: My blog
----
+  ---
+  title: My blog
+  ---
 
-# Welcome to My Blog
+  # Welcome to My Blog
 
-This is My blog where I use the Antenna app to curate a simple blog.
-The Markdown forms the definition of the "index.md" collection. The blog
-will be managed in the "index.db" SQLite3 database. It can be configured by
-modifying the "index.yaml" file generated when this collection is added to the
-Antenna configuration using the "add" action.
+  This is My blog where I use the Antenna app to curate a simple blog.
+  The Markdown forms the definition of the "index.md" collection. The blog
+  will be managed in the "index.db" SQLite3 database. It can be configured by
+  modifying the "index.yaml" file generated when this collection is added to the
+  Antenna configuration using the "add" action.
 ~~~
 
 That's all that is needed, save this Markdown document as "index.md". Now let's add this to our Antenna collection. We only need to do this once.
@@ -129,16 +140,15 @@ code blog\2025\09\05\welcome.md
 In that file create our welcome post. We need to include the following attributes in our front matter, "postPath", "link", "pubDate". Here's my version of "welcome.md" Markdown.
 
 ~~~markdown
----
-title: Welcome
-link: "http://localhost:8000/blog/2025/09/05/welcome.html"
-postPath: "blog/2025/09/05/welcome.html"
-pubDate: "2025-09-05"
----
+  ---
+  title: Welcome
+  postPath: "blog/2025/09/05/welcome.md"
+  pubDate: "2025-09-05"
+  ---
 
-# Welcome
+  # Welcome
 
-This is a demonstration of Blogging with Antenna.
+  This is a demonstration of Blogging with Antenna.
 
 ~~~
 

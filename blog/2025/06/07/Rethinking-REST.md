@@ -20,9 +20,6 @@ abstract: >
   trigger on the JSON column.
 
   The trigger maintains the version number and updated timestamp.
-dateCreated: '2025-05-31'
-dateModified: '2025-07-23'
-pubDate: 2025-06-08T00:00:00.000Z
 series: SQL Reflections
 number: 7
 keywords:
@@ -37,7 +34,10 @@ copyright: 'copyright (c) 2025, R. S. Doiel'
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
-datePublished: '2025-06-08'
+dateCreated: '2025-05-31'
+dateModified: '2025-07-23'
+datePublished: '2025-06-07'
+postPath: 'blog/2025/06/07/Rethinking-REST.md'
 seriesNo: 7
 ---
 

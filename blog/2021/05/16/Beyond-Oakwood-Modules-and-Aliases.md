@@ -63,6 +63,7 @@ abstract: >
 dateCreated: '2021-05-16'
 dateModified: '2025-07-22'
 datePublished: '2021-05-16'
+postPath: 'blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md'
 series: |
   Mostly Oberon
 seriesNo: 18

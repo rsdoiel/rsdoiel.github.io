@@ -24,6 +24,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-12-13'
 dateModified: '2025-07-22'
 datePublished: '2024-12-13'
+postPath: 'blog/2024/12/13/installing-via-cargo-etc.md'
 ---
 
 # Installing Deno via Cargo and other options

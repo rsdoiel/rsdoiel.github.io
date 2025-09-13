@@ -1,6 +1,5 @@
 ---
 title: 'Quick recipe, compiling Pandoc (M1)'
-pubDate: 2023-07-05T00:00:00.000Z
 author: R. S. Doiel
 keywords:
   - Pandoc
@@ -40,6 +39,7 @@ abstract: >
 dateCreated: '2023-07-05'
 dateModified: '2025-07-22'
 datePublished: '2023-07-05'
+postPath: 'blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.md'
 ---
 
 # Quick recipe, compile Pandoc (M1)

@@ -1,120 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>initial-impressions-pagefind</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="site
-search, pagefind, rust, cargo, rustup, M1, macOS">
-  <link rel="alternative" type="application/markdown" href="/blog/2022/11/21/initial-impressions-pagefind.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="initial-impressions-pagefind.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="initial-impression-of-pagefind">Initial Impression of
-Pagefind</h1>
-<p>By R. S. Doiel, 2022-11-21</p>
-<p>I’m interested in site search that does not require using server side
-services (e.g. Solr/Elasticsearch/Opensearch). I’ve used <a
-href="https://lunrjs.com">LunrJS</a> on my person blog site for several
-years. The challenge with LunrJS is indexes become large and that limits
-how much your can index and still have a quick loading page. <a
-href="https://pagefind.app">Pagefind</a> addresses the large index
-problem. The search page only downloads the portion of the indexes it
-needs. The index and search functionality are compiled down to WASM
-files. This does raise challenges if you’re targeting older web
-browsers.</p>
-<p>Pagefind is a <a href="https://www.rust-lang.org/">rust</a>
-application build using <code>cargo</code> and <code>rustc</code>.
-Unlike the documentation on the <a
-href="https://pagefind.app">Pagefind</a> website which suggests
-installing via <code>npm</code> and <code>npx</code> I recommend
-installing it from sources using the latest release of cargo/rustic. For
-me I found getting the latest cargo/rustc is easiest using <a
-href="https://rustup.rs/">rustup</a>. Pagefind will not compile using
-older versions of cargo/rustc (e.g. the example currently available from
-Mac Ports for M1 Macs).</p>
-<p>Here’s the steps I took to bring Pagefind up on my M1 Mac.</p>
-<ol type="1">
-<li>Install cargo/rust using rustup</li>
-<li>Make sure <code>$HOME/.cargo/bin</code> is in my PATH</li>
-<li>Clone the Pagefind Git repository</li>
-<li>Change to the repository directory</li>
-<li>Build and install pagefind</li>
-</ol>
-<pre><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
-export PATH=&quot;$HOME/.cargo/bin:$PATH&quot;
-git clone git@github.com git@github.com:CloudCannon/pagefind.git src/github.com/CloudCannon/pagefind
-cd src/github.com/CloudCannon/pagefind
-cargo install pagefind --features extended</code></pre>
-<p>Next steps were</p>
-<ol type="1">
-<li>Switch to my local copy of my website</li>
-<li>Build my site in the usual page</li>
-<li>Update my <code>search.html</code> page to use pagefind</li>
-<li>Index my site using pagefind</li>
-<li>Test my a local web server</li>
-</ol>
-<p>To get the HTML/JavaScript needed to embed pagefind in your search
-page see <a href="https://pagefind.app/docs/">Getting Started</a>. The
-HTML/JavaScript fragment is at the top of the page. After updating
-<code>search.html</code> I ran the pagefind command<a href="#fn1"
-class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>.</p>
-<pre><code>pagefind --verbose --bundle-dir ./pagefind --source .</code></pre>
-<p>The indexing is wicked fast and it gives you nice details. I verified
-everything worked as expected using <code>pttk ws</code> static site web
-server. I then published my website. You can see the results at <a
-href="http://rsdoiel.sdf.org/search.html"
-class="uri">http://rsdoiel.sdf.org/search.html</a> and <a
-href="https://rsdoiel.github.io/search.html"
-class="uri">https://rsdoiel.github.io/search.html</a></p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>I specified the bundle directory because GitHub pages
-had a problem with the default <code>_pagefind</code>.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2022-11-21" data-link="https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html">
+      <h1 id="initial-impression-of-pagefind">Initial Impression of Pagefind</h1>
+      <p>By R. S. Doiel, 2022-11-21</p>
+      <p>I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>
+      <p>Pagefind is a <a href="https://www.rust-lang.org/">rust</a> application build using <code>cargo</code> and <code>rustc</code>. Unlike the documentation on the <a href="https://pagefind.app">Pagefind</a> website which suggests installing via <code>npm</code> and <code>npx</code> I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using <a href="https://rustup.rs/">rustup</a>. Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).</p>
+      <p>Here's the steps I took to bring Pagefind up on my M1 Mac.</p>
+      <ol>
+      <li>Install cargo/rust using rustup</li>
+      <li>Make sure <code>$HOME/.cargo/bin</code> is in my PATH</li>
+      <li>Clone the Pagefind Git repository</li>
+      <li>Change to the repository directory</li>
+      <li>Build and install pagefind</li>
+      </ol>
+      <pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+      export PATH=&quot;$HOME/.cargo/bin:$PATH&quot;
+      git clone git@github.com git@github.com:CloudCannon/pagefind.git src/github.com/CloudCannon/pagefind
+      cd src/github.com/CloudCannon/pagefind
+      cargo install pagefind --features extended
+      </code></pre>
+      <p>Next steps were</p>
+      <ol>
+      <li>Switch to my local copy of my website</li>
+      <li>Build my site in the usual page</li>
+      <li>Update my <code>search.html</code> page to use pagefind</li>
+      <li>Index my site using pagefind</li>
+      <li>Test my a local web server</li>
+      </ol>
+      <p>To get the HTML/JavaScript needed to embed pagefind in your search page see <a href="https://pagefind.app/docs/">Getting Started</a>. The HTML/JavaScript fragment is at the top of the page. After updating <code>search.html</code> I ran the pagefind command<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+      <pre><code>pagefind --verbose --bundle-dir ./pagefind --source .
+      </code></pre>
+      <p>The indexing is wicked fast and it gives you nice details. I verified everything worked as expected using <code>pttk ws</code> static site web server. I then published my website. You can see the results at <a href="http://rsdoiel.sdf.org/search.html">http://rsdoiel.sdf.org/search.html</a> and <a href="https://rsdoiel.github.io/search.html">https://rsdoiel.github.io/search.html</a></p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>I specified the bundle directory because GitHub pages had a problem with the default <code>_pagefind</code>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

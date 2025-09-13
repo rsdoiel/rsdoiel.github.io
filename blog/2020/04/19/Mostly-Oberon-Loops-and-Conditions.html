@@ -1,220 +1,211 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>Mostly-Oberon-Loops-and-Conditions</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Oberon, programming">
-  <link rel="alternative" type="application/markdown" href="/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="Mostly-Oberon-Loops-and-Conditions.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:54-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:54)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="oberon-loops-and-conditions">Oberon Loops and Conditions</h1>
-<p>By R. S. Doiel, 2020-04-19</p>
-<p>This is the four post in the <a
-href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon
-documents my exploration of the Oberon Language, Oberon System and the
-various rabbit holes I will inevitably fall into.</p>
-<h2><a name="data-flow">Data Flow</a></h2>
-<p>Oberon is a small systems language and while it is minimalist. It
-provides you with the necessary primitives to get things done. I’ve
-touched on code organization, basic types and basic type extensions in
-the previous articles. I have shown the basic control statements but
-have not talked about them yet.</p>
-<p>Oberon offers four basic control statements.</p>
-<dl>
-<dt>IF, ELSIF, ELSE</dt>
-<dd>
-Basic condition test and execution
-</dd>
-<dt>ASSERT</dt>
-<dd>
-A mechanism to trigger a program halt
-</dd>
-<dt>WHILE DO, ELSIF DO</dt>
-<dd>
-The Loop structure in the language (aside from recursive procedures)
-</dd>
-<dt>FOR TO, FOR TO BY</dt>
-<dd>
-A counting Loop where incrementing a counter by an integer value (e.g. 1
-or by a specified constant).
-</dd>
-</dl>
-<h2><a name="if-elsif-else">IF, ELSIF, ELSE</a></h2>
-<p>The first two provide for conditional statements of the form if a
-condition is true do something. Almost ever computer language has some
-form of a conditional express and the Oberon IF, ELSIF, ELSE typical of
-what you find is more computer languages today. Both ELSIF and ELSE are
-optional.</p>
-<pre class="oberon"><code>    IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
-      Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
-    ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
-      Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
-    ELSE
-      Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
-    END;</code></pre>
-<h2><a name="assert">ASSERT</a></h2>
-<p>The second expression, ASSERT, is a little different. If ASSERT
-evaluates an expression that is FALSE then your program is halted. This
-is like combining an “if EXPR is false then system exit”.</p>
-<pre class="oberon"><code>    Out.String(&quot;Should I continue? Y/n &quot;);
-    In.Line(s);
-    Out.Ln;
-    ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
-    (* If you didn&#39;t enter Y or y the program will halt *)</code></pre>
-<h2><a name="while-do-elsif-do">WHILE DO, ELSIF DO</a></h2>
-<p>Oberon-07 also provides two loop structures. These are very similar
-to other languages as well. The only expectation is that a while loop
-may contain an ELSIF which continues the loop execution until both
-clauses return FALSE.</p>
-<p>The basic while loop, counting 1 to 10.</p>
-<pre class="oberon"><code>    i := 0;
-    WHILE i &lt; 10 DO
-       i := i + 1;
-       Out.Int(i, 1);Out.String(&quot; &quot;);
-    END;</code></pre>
-<p>A while, elsif loop, counting 1 to 10, then 10 to 100 by 10.</p>
-<pre class="oberon"><code>    i := 0;
-    WHILE i &lt; 10 DO
-       i := i + 1;
-       Out.Int(i, 1); Out.String(&quot; &quot;);
-    ELSIF i &lt; 100 DO
-       i := i + 10;
-       Out.Int(i, 1);Out.String(&quot; &quot;);
-    END;</code></pre>
-<h2><a name="for-loops">FOR Loops</a></h2>
-<p>The FOR loop in Oberon is very similar to modern FOR loops. The FOR
-loop increments an integer value with in a range. You the default
-increments the start value by 1 but if a BY clause is included you can
-control how the increment value works.</p>
-<p>Regular for loop, <code>i</code> is incremented by 1.</p>
-<pre class="oberon"><code>    FOR i := 1 TO 10 DO
-       Out.Int(i, 1);Out.String(&quot; &quot;);
-    END;</code></pre>
-<p>Using a BY clause incrementing <code>i</code> by 2.</p>
-<pre class="oberon"><code>    FOR i := 0 TO 20 BY 2  DO
-       Out.Int(i, 1);Out.String(&quot; &quot;);
-    END;</code></pre>
-<h2><a name="putting-it-all-together">Putting it all together</a></h2>
-<p>The following <a href="LoopsAndConditions.Mod">module</a>
-demonstrates the conditional and loop syntax.</p>
-<pre class="oberon"><code>    MODULE LoopsAndConditions;
-      IMPORT In, Out;
-    
-    PROCEDURE IfElsifElseDemo;
-      VAR s : ARRAY 128 OF CHAR;
-    BEGIN
-      Out.String(&quot;Enter your name: &quot;);
-      In.Line(s);
-      Out.Ln;
-      IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
-        Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
-      ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
-        Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
-      ELSE
-        Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
-      END;
-    END IfElsifElseDemo;
-    
-    PROCEDURE AssertDemo;
-      VAR s : ARRAY 128 OF CHAR;
-    BEGIN
-      Out.String(&quot;Should I continue? Y/n &quot;);
-      In.Line(s);
-      Out.Ln;
-      ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
-    END AssertDemo;
-    
-    PROCEDURE WhileDemo;
-      VAR i : INTEGER;
-    BEGIN
-      Out.String(&quot;Basic WHILE counting from 1 to 10&quot;);Out.Ln;
-      i := 0;
-      WHILE i &lt; 10 DO
-         i := i + 1;
-         Out.Int(i, 1);Out.String(&quot; &quot;);
-      END;
-      Out.Ln;
-      Out.String(&quot;WHILE ELSIF, count 1 to 10 THEN 10 to 100&quot;);Out.Ln;
-      i := 0;
-      WHILE i &lt; 10 DO
-         i := i + 1;
-         Out.Int(i, 1); Out.String(&quot; &quot;);
-      ELSIF i &lt; 100 DO
-         i := i + 10;
-         Out.Int(i, 1);Out.String(&quot; &quot;);
-      END;
-      Out.Ln;
-      Out.String(&quot;Demo of while loop counting one to ten, then by tenths.&quot;);
-    END WhileDemo;
-    
-    PROCEDURE ForDemo;
-      VAR i : INTEGER;
-    BEGIN
-      Out.String(&quot;Basic FOR LOOP counting from 1 to 10&quot;);Out.Ln;
-      FOR i := 1 TO 10 DO
-         Out.Int(i, 1);Out.String(&quot; &quot;);
-      END;
-      Out.Ln;
-      Out.String(&quot;FOR loop counting by twos 1 to 20&quot;);Out.Ln;
-      FOR i := 0 TO 20 BY 2  DO
-         Out.Int(i, 1);Out.String(&quot; &quot;);
-      END;
-      Out.Ln;
-    END ForDemo;
-    
-    BEGIN
-      IfElsifElseDemo;
-      AssertDemo;
-      WhileDemo;
-      ForDemo;
-    END LoopsAndConditions.</code></pre>
-<h3 id="next-and-previous">Next and Previous</h3>
-<ul>
-<li>Next <a href="../../05/01/Combining-Oberon-and-C.html">Combining
-Oberon-07 and C with OBNC</a></li>
-<li>Previous <a href="../18/Mostly-Oberon-Basic-Types.html">Basic
-Types</a></li>
-</ul>
-  </article>
-</section>
+  <section>
+    <article data-published="2020-04-19" data-link="https://rsdoiel.github.io/blog/2020/04/19/Mostly-Oberon-Loops-and-Conditions.html">
+      <h1 id="oberon-loops-and-conditions">Oberon Loops and Conditions</h1>
+      <p>By R. S. Doiel, 2020-04-19</p>
+      <p>This is the four post in the <a href="../11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
+      <h2 id="data-flow">Data Flow</h2>
+      <p>Oberon is a small systems language and while it is minimalist.<br />
+      It provides you with the necessary primitives to get things done.<br />
+      I've touched on code organization, basic types and basic type<br />
+      extensions in the previous articles.  I have shown the basic<br />
+      control statements but have not talked about them yet.</p>
+      <p>Oberon offers four basic control statements.</p>
+      <p>IF, ELSIF, ELSE<br />
+      : Basic condition test and execution</p>
+      <p>ASSERT<br />
+      : A mechanism to trigger a program halt</p>
+      <p>WHILE DO, ELSIF DO<br />
+      : The Loop structure in the language (aside from recursive procedures)</p>
+      <p>FOR TO, FOR TO BY<br />
+      : A counting Loop where incrementing a counter by an integer value (e.g. 1 or by a specified constant).</p>
+      <h2 id="if-elsif-else">IF, ELSIF, ELSE</h2>
+      <p>The first two provide for conditional statements of the form<br />
+      if a condition is true do something. Almost ever computer language<br />
+      has some form of a conditional express and the Oberon IF, ELSIF,<br />
+      ELSE typical of what you find is more computer languages today.<br />
+      Both ELSIF and ELSE are optional.</p>
+      <pre><code class="language-Oberon">    IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
+            Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
+          ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
+            Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
+          ELSE
+            Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
+          END;
+      </code></pre>
+      <h2 id="assert">ASSERT</h2>
+      <p>The second expression, ASSERT, is a little different. If ASSERT<br />
+      evaluates an expression that is FALSE then your program is halted.<br />
+      This is like combining an &quot;if EXPR is false then system exit&quot;.</p>
+      <pre><code class="language-Oberon">    Out.String(&quot;Should I continue? Y/n &quot;);
+          In.Line(s);
+          Out.Ln;
+          ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
+          (* If you didn't enter Y or y the program will halt *)
+      </code></pre>
+      <h2 id="while-do-elsif-do">WHILE DO, ELSIF DO</h2>
+      <p>Oberon-07 also provides two loop structures. These are very<br />
+      similar to other languages as well. The only expectation is that<br />
+      a while loop may contain an ELSIF which continues the loop<br />
+      execution until both clauses return FALSE.</p>
+      <p>The basic while loop, counting 1 to 10.</p>
+      <pre><code class="language-Oberon">    i := 0;
+          WHILE i &lt; 10 DO
+             i := i + 1;
+             Out.Int(i, 1);Out.String(&quot; &quot;);
+          END;
+      </code></pre>
+      <p>A while, elsif loop, counting 1 to 10, then 10 to 100 by 10.</p>
+      <pre><code class="language-Oberon">    i := 0;
+          WHILE i &lt; 10 DO
+             i := i + 1;
+             Out.Int(i, 1); Out.String(&quot; &quot;);
+          ELSIF i &lt; 100 DO
+             i := i + 10;
+             Out.Int(i, 1);Out.String(&quot; &quot;);
+          END;
+      </code></pre>
+      <h2 id="for-loops">FOR Loops</h2>
+      <p>The FOR loop in Oberon is very similar to modern FOR loops.<br />
+      The FOR loop increments an integer value with in a range.<br />
+      You the default increments the start value by 1 but if a<br />
+      BY clause is included you can control how the increment value<br />
+      works.</p>
+      <p>Regular for loop, <code>i</code> is incremented by 1.</p>
+      <pre><code class="language-Oberon">    FOR i := 1 TO 10 DO
+             Out.Int(i, 1);Out.String(&quot; &quot;);
+          END;
+      </code></pre>
+      <p>Using a BY clause incrementing <code>i</code> by 2.</p>
+      <pre><code class="language-Oberon">    FOR i := 0 TO 20 BY 2  DO
+             Out.Int(i, 1);Out.String(&quot; &quot;);
+          END;
+      </code></pre>
+      <h2 id="putting-it-all-together">Putting it all together</h2>
+      <p>The following <a href="LoopsAndConditions.Mod">module</a> demonstrates<br />
+      the conditional and loop syntax.</p>
+      <pre><code class="language-Oberon">    MODULE LoopsAndConditions;
+            IMPORT In, Out;
+          
+          PROCEDURE IfElsifElseDemo;
+            VAR s : ARRAY 128 OF CHAR;
+          BEGIN
+            Out.String(&quot;Enter your name: &quot;);
+            In.Line(s);
+            Out.Ln;
+            IF (s = &quot;Freda&quot;) OR (s = &quot;Mojo&quot;) THEN
+              Out.String(&quot;Wowie Zowie! I remember you from ZBS stories.&quot;);Out.Ln;
+            ELSIF (s = &quot;Bilbo&quot;) OR (s = &quot;Gandolf&quot;) THEN
+              Out.String(&quot;Greets, I remember from the Hobbit.&quot;);Out.Ln;
+            ELSE
+              Out.String(&quot;Glad to meet you &quot;);Out.String(s);Out.Ln;
+            END;
+          END IfElsifElseDemo;
+          
+          PROCEDURE AssertDemo;
+            VAR s : ARRAY 128 OF CHAR;
+          BEGIN
+            Out.String(&quot;Should I continue? Y/n &quot;);
+            In.Line(s);
+            Out.Ln;
+            ASSERT((s = &quot;Y&quot;) OR (s = &quot;y&quot;));
+          END AssertDemo;
+          
+          PROCEDURE WhileDemo;
+            VAR i : INTEGER;
+          BEGIN
+            Out.String(&quot;Basic WHILE counting from 1 to 10&quot;);Out.Ln;
+            i := 0;
+            WHILE i &lt; 10 DO
+               i := i + 1;
+               Out.Int(i, 1);Out.String(&quot; &quot;);
+            END;
+            Out.Ln;
+            Out.String(&quot;WHILE ELSIF, count 1 to 10 THEN 10 to 100&quot;);Out.Ln;
+            i := 0;
+            WHILE i &lt; 10 DO
+               i := i + 1;
+               Out.Int(i, 1); Out.String(&quot; &quot;);
+            ELSIF i &lt; 100 DO
+               i := i + 10;
+               Out.Int(i, 1);Out.String(&quot; &quot;);
+            END;
+            Out.Ln;
+            Out.String(&quot;Demo of while loop counting one to ten, then by tenths.&quot;);
+          END WhileDemo;
+          
+          PROCEDURE ForDemo;
+            VAR i : INTEGER;
+          BEGIN
+            Out.String(&quot;Basic FOR LOOP counting from 1 to 10&quot;);Out.Ln;
+            FOR i := 1 TO 10 DO
+               Out.Int(i, 1);Out.String(&quot; &quot;);
+            END;
+            Out.Ln;
+            Out.String(&quot;FOR loop counting by twos 1 to 20&quot;);Out.Ln;
+            FOR i := 0 TO 20 BY 2  DO
+               Out.Int(i, 1);Out.String(&quot; &quot;);
+            END;
+            Out.Ln;
+          END ForDemo;
+          
+          BEGIN
+            IfElsifElseDemo;
+            AssertDemo;
+            WhileDemo;
+            ForDemo;
+          END LoopsAndConditions.
+      </code></pre>
+      <h3 id="next-and-previous">Next and Previous</h3>
+      <ul>
+      <li>Next <a href="../../05/01/Combining-Oberon-and-C.html">Combining Oberon-07 and C with OBNC</a></li>
+      <li>Previous <a href="../18/Mostly-Oberon-Basic-Types.html">Basic Types</a></li>
+      </ul>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

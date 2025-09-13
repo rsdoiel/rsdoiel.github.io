@@ -1,89 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>power-supply-issues</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Raspberry Pi, Power Supply, Voltage
-errors">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/11/20/power-supply-issues.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="power-supply-issues.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="raspberry-pi-4-400-power-supply-issues">Raspberry Pi 4 &amp; 400
-Power Supply Issues</h1>
-<p>By R. S. Doiel, 2024-11-20</p>
-<p>I have a Raspberry Pi 4 and Raspberry Pi 400. The former builds my
-personal website and my <a
-href="https://rsdoiel.github.io/antenna">Antenna</a>. I use the latter
-as a casual portable development box.</p>
-<p>Over the last year or two I noticed I would get voltage warnings
-popping up. Typical this was prevalent when I was compiling Go, Pandoc
-or Deno. The power supply I was using was the Official Raspberry Pi 4
-power supply that came with the Raspberry Pi Desktop Kit and Raspberry
-Pi 400 Computer Kit. At first I thought the power supplies were going
-bad or had become damaged. I tried replacing the power supply with one
-of the extras I had picked up (power supplies can and do fail). Still
-had problems with low voltage.</p>
-<p>I did some digging but found nothing useful than the old
-recommendations of making sure the power supplies were appropriately and
-to spec. I did read somewhere in my searching that the official power
-supplies didn’t have allot of headroom. This got me thinking. The
-Raspberry Pi OS has been updated many times since I got these devices.
-Maybe there are more power demands happening than I realized. I’ve also
-moved away from using the internal micro SD cards to using an external
-thumb drive to boot, that would place an additional power requirement on
-the system.</p>
-<p>I looked at <a href="https://www.pishop.us">PiShop.us</a> which is
-linked from the Raspberry Pi website as an official retailer. They had
-the official supplies that came with my kits but also had one that had a
-higher wattage rating. I ordered <a
-href="https://www.pishop.us/product/raspberry-pi-27w-usb-c-power-supply-white-us/">Raspberry
-Pi 27W USB-C Power Supply White US</a>. Connected it up to my Raspberry
-Pi 400 via the powered monitor. Booted from the thumb drive and then
-tried rebuilding Go from Go 1.19 that ships with Raspberry Pi OS
-compiling Go 1.21.9 and 1.23.3 from source. No voltage errors. Looks
-like I just out grew the stock power supply. If this remains working
-without problems I will order another one and use it with my old Pi
-Drive enclosure and my Pi 4. Keeping my fingers crossed.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-11-20" data-link="https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html">
+      <h1 id="raspberry-pi-4--400-power-supply-issues">Raspberry Pi 4 &amp; 400 Power Supply Issues</h1>
+      <p>By R. S. Doiel, 2024-11-20</p>
+      <p>I have a Raspberry Pi 4 and Raspberry Pi 400. The former builds my personal website and my <a href="https://rsdoiel.github.io/antenna">Antenna</a>. I use the latter as a casual portable development box.</p>
+      <p>Over the last year or two I noticed I would get voltage warnings popping up. Typical this was prevalent when I was compiling Go, Pandoc or Deno. The power supply I was using was the Official Raspberry Pi 4 power supply that came with the Raspberry Pi Desktop Kit and Raspberry Pi 400 Computer Kit.  At first I thought the power supplies were going bad or had become damaged.  I tried replacing the power supply with one of the extras I had picked up (power supplies can and do fail). Still had problems with low voltage.</p>
+      <p>I did some digging but found nothing useful than the old recommendations of making sure the power supplies were appropriately and to spec. I did read somewhere in my searching that the official power supplies didn't have allot of headroom. This got me thinking.  The Raspberry Pi OS has been updated many times since I got these devices. Maybe there are more power demands happening than I realized.  I've also moved away from using the internal micro SD cards to using an external thumb drive to boot, that would place an additional power requirement on the system.</p>
+      <p>I looked at <a href="https://www.pishop.us">PiShop.us</a> which is linked from the Raspberry Pi website as an official retailer.  They had the official supplies that came with my kits but also had one that had a higher wattage rating. I ordered <a href="https://www.pishop.us/product/raspberry-pi-27w-usb-c-power-supply-white-us/">Raspberry Pi 27W USB-C Power Supply White US</a>. Connected it up to my Raspberry Pi 400 via the powered monitor. Booted from the thumb drive and then tried rebuilding Go from Go 1.19 that ships with Raspberry Pi OS compiling Go 1.21.9 and 1.23.3 from source. No voltage errors.  Looks like I just out grew the stock power supply.  If this remains working without problems I will order another one and use it with my old Pi Drive enclosure and my Pi 4. Keeping my fingers crossed.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

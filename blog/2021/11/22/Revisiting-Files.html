@@ -1,175 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>Revisiting-Files</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Oberon, Files, plain text">
-  <link rel="alternative" type="application/markdown" href="/blog/2021/11/22/Revisiting-Files.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="Revisiting-Files.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:54-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:54)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="revisiting-files">Revisiting Files</h1>
-<p>By R. S. Doiel, 2021-11-22</p>
-<p>In October I had an Email exchange with Algojack regarding a buggy
-example in <a
-href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07
-and the file system</a>. The serious bug was extraneous non-printable
-characters appearing a plain text file containing the string “Hello
-World”. The trouble with the example was a result of my misreading the
-Oakwood guidelines and how <strong>Files.WriteString()</strong> is
-required to work. The <strong>Files.WriteString()</strong> procedure is
-supposed to write every element of a string to a file. This
-<strong>includes the trailing Null character</strong>. The problem for
-me is <strong>Files.WriteString()</strong> litters plain text files with
-tailing nulls. What I should have done was write my own
-<strong>WriteString()</strong> and <strong>WriteLn()</strong>. The
-program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a
-more appropriate solution to writing strings and line endings than
-relying directly on <strong>Files</strong>. In a future post I will
-explorer making this more generalized in a revised “Fmt” module.</p>
-<pre><code>MODULE HelloworldFile;
+  <section>
+    <article data-published="2021-11-22" data-link="https://rsdoiel.github.io/blog/2021/11/22/Revisiting-Files.html">
+      <h1 id="revisiting-files">Revisiting Files</h1>
+      <p>By R. S. Doiel, 2021-11-22</p>
+      <p>In October I had an Email exchange with Algojack regarding a buggy example in <a href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a>. The serious bug was extraneous non-printable characters appearing a plain text file containing the string &quot;Hello World&quot;. The trouble with the example was a result of my misreading the Oakwood guidelines and how <strong>Files.WriteString()</strong> is required to work. The <strong>Files.WriteString()</strong> procedure is supposed to write every element of a string to a file. This <strong>includes the trailing Null character</strong>. The problem for me is <strong>Files.WriteString()</strong> litters plain text files with tailing nulls. What I should have done was write my own <strong>WriteString()</strong> and <strong>WriteLn()</strong>. The program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a more appropriate solution to writing strings and line endings than relying directly on <strong>Files</strong>. In a future post I will explorer making this more generalized in a revised &quot;Fmt&quot; module.</p>
+      <pre><code>MODULE HelloworldFile;
+      
+      IMPORT Files, Strings;
+      
+      CONST OberonEOL = 1; UnixEOL = 2; WindowsEOL = 3;
+      
+      VAR
+        (* holds the eol marker type to use in WriteLn() *)
+        eolType : INTEGER;
+        (* Define a file handle *)
+          f : Files.File;
+        (* Define a file rider *)
+          r : Files.Rider;
+      
+      PROCEDURE WriteLn(VAR r : Files.Rider);
+      BEGIN
+        IF eolType = WindowsEOL THEN
+          (* A DOS/Windows style line ending, LFCR *)
+          Files.Write(r, 13);
+          Files.Write(r, 10);
+        ELSIF eolType = UnixEOL THEN
+           (* Linux/macOS style line ending, LF *)
+           Files.Write(r, 10);
+        ELSE
+          (* Oberon, RISC OS style line ending, CR *)
+          Files.Write(r, 13);
+        END;
+      END WriteLn;
+      
+      PROCEDURE WriteString(VAR r : Files.Rider; s : ARRAY OF CHAR);
+        VAR i : INTEGER;
+      BEGIN
+        i := 0;
+        WHILE i &lt; Strings.Length(s) DO
+          Files.Write(r, ORD(s[i]));
+          INC(i);
+        END;
+      END WriteString;
+      
+      BEGIN
+        (* Set the desired eol type to use *)
+        eolType := UnixEOL;
+        (* Create our file, New returns a file handle *)
+        f := Files.New(&quot;helloworld.txt&quot;); ASSERT(f # NIL);
+        (* Register our file with the file system *)
+        Files.Register(f);
+        (* Set the position of the rider to the beginning *)
+        Files.Set(r, f, 0);
+        (* Use the rider to write out &quot;Hello World!&quot; followed by a end of line *)
+        WriteString(r, &quot;Hello World!&quot;);
+        WriteLn(r);
+        (* Close our modified file *)
+        Files.Close(f);
+      END HelloworldFile.
+      </code></pre>
+      <p>I have two new procedures &quot;WriteString&quot; and &quot;WriteLn&quot;. These mimic the parameters found in the Files module. The module body is a bit longer.</p>
+      <p>Compare this to a simple example of &quot;Hello World&quot; using the <strong>Out</strong> module.</p>
+      <pre><code>MODULE HelloWorld;
+      
+      IMPORT Out;
+      
+      BEGIN
+        Out.String(&quot;Hello World&quot;);
+        Out.Ln;
+      END HelloWorld.
+      </code></pre>
+      <p>Look at the difference is in the module body. I need to setup our file and rider as well as pick the type of line ending to use in &quot;WriteLn&quot;. The procedures doing the actual work look very similar, &quot;String&quot; versus &quot;WriteString&quot; and &quot;Ln&quot; versus &quot;WriteLn&quot;.</p>
+      <p>Line ends vary between operating systems. Unix-like systems usually use a line feed. DOS/Windows systems use a carriage return and line feed. Oberon Systems use only a carriage return. If we're going to the trouble of re-creating our &quot;WriteString&quot; and &quot;WriteLn&quot; procedures it also makes sense to handle the different line ending options.  In this case I've chosen to use an INTEGER variable global to the module called &quot;eolType&quot;. I have a small set of constants to indicate which line ending is needed. In &quot;WriteLn&quot; I use that value as a guide to which line ending to use with the rider writing to the file.</p>
+      <p>The reason I chose this approach is because I want my writing procedures to use the same procedure signatures as the &quot;Files&quot; module. In a future post I will explore type conversion and a revised implementation of my &quot;Fmt&quot; module focusing on working with plain text files.</p>
+      <p>Aside from our file setup and picking an appropriate end of line marker the shape of the two programs look very similar.</p>
+      <h2 id="references-and-resources">References and resources</h2>
+      <p>You can see a definition of the <a href="https://miasap.se/obnc/obncdoc/basic/Files.def.html" title="My example module definition is based on the on Karl created in OBNC">Files</a> at Karl Landström's documentation for his compiler along with the definitions for <a href="https://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> and <a href="https://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>.</p>
+      <h2 id="next--previous">Next &amp; Previous</h2>
+      <ul>
+      <li>Next <a href="../../11/26/Portable-Conversions-Integers.html">Portable Conversions (Integers)</a></li>
+      <li>Prev <a href="../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining Oberon-07 with C using Obc-3</a></li>
+      </ul>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-IMPORT Files, Strings;
-
-CONST OberonEOL = 1; UnixEOL = 2; WindowsEOL = 3;
-
-VAR
-  (* holds the eol marker type to use in WriteLn() *)
-  eolType : INTEGER;
-  (* Define a file handle *)
-    f : Files.File;
-  (* Define a file rider *)
-    r : Files.Rider;
-
-PROCEDURE WriteLn(VAR r : Files.Rider);
-BEGIN
-  IF eolType = WindowsEOL THEN
-    (* A DOS/Windows style line ending, LFCR *)
-    Files.Write(r, 13);
-    Files.Write(r, 10);
-  ELSIF eolType = UnixEOL THEN
-     (* Linux/macOS style line ending, LF *)
-     Files.Write(r, 10);
-  ELSE
-    (* Oberon, RISC OS style line ending, CR *)
-    Files.Write(r, 13);
-  END;
-END WriteLn;
-
-PROCEDURE WriteString(VAR r : Files.Rider; s : ARRAY OF CHAR);
-  VAR i : INTEGER;
-BEGIN
-  i := 0;
-  WHILE i &lt; Strings.Length(s) DO
-    Files.Write(r, ORD(s[i]));
-    INC(i);
-  END;
-END WriteString;
-
-BEGIN
-  (* Set the desired eol type to use *)
-  eolType := UnixEOL;
-  (* Create our file, New returns a file handle *)
-  f := Files.New(&quot;helloworld.txt&quot;); ASSERT(f # NIL);
-  (* Register our file with the file system *)
-  Files.Register(f);
-  (* Set the position of the rider to the beginning *)
-  Files.Set(r, f, 0);
-  (* Use the rider to write out &quot;Hello World!&quot; followed by a end of line *)
-  WriteString(r, &quot;Hello World!&quot;);
-  WriteLn(r);
-  (* Close our modified file *)
-  Files.Close(f);
-END HelloworldFile.</code></pre>
-<p>I have two new procedures “WriteString” and “WriteLn”. These mimic
-the parameters found in the Files module. The module body is a bit
-longer.</p>
-<p>Compare this to a simple example of “Hello World” using the
-<strong>Out</strong> module.</p>
-<pre><code>MODULE HelloWorld;
-
-IMPORT Out;
-
-BEGIN
-  Out.String(&quot;Hello World&quot;);
-  Out.Ln;
-END HelloWorld.</code></pre>
-<p>Look at the difference is in the module body. I need to setup our
-file and rider as well as pick the type of line ending to use in
-“WriteLn”. The procedures doing the actual work look very similar,
-“String” versus “WriteString” and “Ln” versus “WriteLn”.</p>
-<p>Line ends vary between operating systems. Unix-like systems usually
-use a line feed. DOS/Windows systems use a carriage return and line
-feed. Oberon Systems use only a carriage return. If we’re going to the
-trouble of re-creating our “WriteString” and “WriteLn” procedures it
-also makes sense to handle the different line ending options. In this
-case I’ve chosen to use an INTEGER variable global to the module called
-“eolType”. I have a small set of constants to indicate which line ending
-is needed. In “WriteLn” I use that value as a guide to which line ending
-to use with the rider writing to the file.</p>
-<p>The reason I chose this approach is because I want my writing
-procedures to use the same procedure signatures as the “Files” module.
-In a future post I will explore type conversion and a revised
-implementation of my “Fmt” module focusing on working with plain text
-files.</p>
-<p>Aside from our file setup and picking an appropriate end of line
-marker the shape of the two programs look very similar.</p>
-<h2><a name="references-and-resources">References and resources</a></h2>
-<p>You can see a definition of the <a
-href="https://miasap.se/obnc/obncdoc/basic/Files.def.html"
-title="My example module definition is based on the on Karl created in OBNC">Files</a>
-at Karl Landström’s documentation for his compiler along with the
-definitions for <a
-href="https://miasap.se/obnc/obncdoc/basic/In.def.html">In</a> and <a
-href="https://miasap.se/obnc/obncdoc/basic/Out.def.html">Out</a>.</p>
-<h2><a name="next-previous">Next & Previous</a></h2>
-<ul>
-<li>Next <a
-href="../../11/26/Portable-Conversions-Integers.html">Portable
-Conversions (Integers)</a></li>
-<li>Prev <a
-href="../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining
-Oberon-07 with C using Obc-3</a></li>
-</ul>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

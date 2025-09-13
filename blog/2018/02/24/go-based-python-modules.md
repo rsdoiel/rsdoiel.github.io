@@ -22,6 +22,7 @@ abstract: |+
 dateCreated: '2018-02-24'
 dateModified: '2025-07-22'
 datePublished: '2018-02-24'
+postPath: 'blog/2018/02/24/go-based-python-modules.md'
 ---
 
 # Go based Python modules

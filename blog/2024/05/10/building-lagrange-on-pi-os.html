@@ -1,93 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>building-lagrange-on-pi-os</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Gopher, Gemini, Browsers">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/05/10/building-lagrange-on-pi-os.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="building-lagrange-on-pi-os.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="building-lagrange-on-raspberry-pi-os">Building Lagrange on
-Raspberry Pi OS</h1>
-<p>These are my quick notes on building the Lagrange Gemini browser on
-Raspberry Pi OS. They are based on instructions I found at <a
-href="gemini://home.gegeweb.org/install_lagrange_linux.gmi"
-class="uri">gemini://home.gegeweb.org/install_lagrange_linux.gmi</a>.
-These are in French and I don’t speak or read French. My loss. The
-author kindly provided the specific command sequence in shell that I
-could read those. That was all I needed. When I read the site today I
-had to click through an expired certificate. That’s why I think it is a
-good idea to capture the instructions here for the next time I need
-them. I made single change to his instructions. I have cloned the
-repository from <a href="https://github.com/skyjake/lagrange"
-class="uri">https://github.com/skyjake/lagrange</a>.</p>
-<h2><a name="steps-to-build">Steps to build</a></h2>
-<ol type="1">
-<li>Install the programs and libraries in Raspberry Pi OS to build
-Lagrange</li>
-<li>Create a directory to hold the repository, then change into it</li>
-<li>Clone the repository</li>
-<li>Add a “build” directory to the repository and change into it</li>
-<li>Run “cmake” to build the release</li>
-<li>Run “make” in the build directory and install</li>
-<li>Test it out.</li>
-</ol>
-<p>When you clone the repository you want to clone recursively and get
-the release branch. Below is a transcript of the commands I typed in my
-shell to build Lagrange on my Raspberry Pi 4.</p>
-<pre class="shell"><code>sudo apt install build-essential cmake \
-     libsdl2-dev libssl-dev libpcre3-dev \
-     zlib1g-dev libunistring-dev git
-mkdir -p src/github.com/skyjake &amp;&amp; cd src/github.com/skyjake 
-git clone --recursive --branch release git@github.com:skyjake/lagrange.git
-mkdir -p lagrange/build &amp;&amp; lagrange/build
-cmake ../ -DCMAKE_BUILD_TYPE=Release
-sudo make install
-lagrange &amp;</code></pre>
-<p>That’s about it. It worked without a hitch. I’d like to thank Gérald
-Niel who I think created the page on gegeweb.org. I attempted to leave a
-thank you via the web form but couldn’t get past the spam screener since
-I didn’t understand the instructions. C’est la vie.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-05-10" data-link="https://rsdoiel.github.io/blog/2024/05/10/building-lagrange-on-pi-os.html">
+      <h1 id="building-lagrange-on-raspberry-pi-os">Building Lagrange on Raspberry Pi OS</h1>
+      <p>These are my quick notes on building the Lagrange Gemini browser on Raspberry Pi OS. They are based on instructions I found at <a href="gemini://home.gegeweb.org/install_lagrange_linux.gmi">gemini://home.gegeweb.org/install_lagrange_linux.gmi</a>. These are in French and I don't speak or read French. My loss. The author kindly provided the specific command sequence in shell that I could read those. That was all I needed. When I read the site today I had to click through an expired certificate. That's why I think it is a good idea to capture the instructions here for the next time I need them.  I made single change to his instructions. I have cloned the repository from <a href="https://github.com/skyjake/lagrange">https://github.com/skyjake/lagrange</a>.</p>
+      <h2 id="steps-to-build">Steps to build</h2>
+      <ol>
+      <li>Install the programs and libraries in Raspberry Pi OS to build Lagrange</li>
+      <li>Create a directory to hold the repository, then change into it</li>
+      <li>Clone the repository</li>
+      <li>Add a &quot;build&quot; directory to the repository and change into it</li>
+      <li>Run &quot;cmake&quot; to build the release</li>
+      <li>Run &quot;make&quot; in the build directory and install</li>
+      <li>Test it out.</li>
+      </ol>
+      <p>When you clone the repository you want to clone recursively and get the release branch. Below is a transcript of the commands I typed in my shell to build Lagrange on my Raspberry Pi 4.</p>
+      <pre><code class="language-shell">sudo apt install build-essential cmake \
+           libsdl2-dev libssl-dev libpcre3-dev \
+           zlib1g-dev libunistring-dev git
+      mkdir -p src/github.com/skyjake &amp;&amp; cd src/github.com/skyjake 
+      git clone --recursive --branch release git@github.com:skyjake/lagrange.git
+      mkdir -p lagrange/build &amp;&amp; lagrange/build
+      cmake ../ -DCMAKE_BUILD_TYPE=Release
+      sudo make install
+      lagrange &amp;
+      </code></pre>
+      <p>That's about it. It worked without a hitch. I'd like to thank Gérald Niel who I think created the page on gegeweb.org. I attempted to leave a thank you via the web form but couldn't get past the spam screener since I didn't understand the instructions. C'est la vie.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

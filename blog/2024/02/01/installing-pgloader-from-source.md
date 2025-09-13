@@ -11,7 +11,6 @@ keywords:
   - macos
   - ecl
   - sbcl
-pubDate: 2024-02-01T00:00:00.000Z
 series: SQL Reflections
 number: 6
 author: R. S. Doiel
@@ -58,6 +57,7 @@ abstract: >
 dateCreated: '2024-02-01'
 dateModified: '2025-07-23'
 datePublished: '2024-02-01'
+postPath: 'blog/2024/02/01/installing-pgloader-from-source.md'
 seriesNo: 6
 ---
 

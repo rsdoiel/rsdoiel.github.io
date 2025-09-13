@@ -1,6 +1,5 @@
 ---
 title: Skimmer
-pubDate: 2023-10-06T00:00:00.000Z
 keywords:
   - feeds
   - reader
@@ -45,6 +44,7 @@ abstract: >2
 dateCreated: '2023-10-06'
 dateModified: '2025-07-22'
 datePublished: '2023-10-06'
+postPath: 'blog/2023/10/06/concept.md'
 ---
 
 # skimmer

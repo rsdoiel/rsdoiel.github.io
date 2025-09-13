@@ -25,6 +25,7 @@ abstract: >+
 dateCreated: '2018-03-11'
 dateModified: '2025-07-22'
 datePublished: '2018-03-11'
+postPath: 'blog/2018/03/11/accessing-go-from-julia.md'
 ---
 
 # Accessing Go from Julia

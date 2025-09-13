@@ -23,6 +23,7 @@ abstract: >
 dateCreated: '2022-07-27'
 dateModified: '2025-07-22'
 datePublished: '2022-07-27'
+postPath: 'blog/2022/07/27/Artemis-Status-Summer-2022.md'
 seriesNo: 22
 ---
 

@@ -25,6 +25,7 @@ abstract: >+
 dateCreated: '2020-08-15'
 dateModified: '2025-07-22'
 datePublished: '2020-08-15'
+postPath: 'blog/2020/08/15/Portable-Oberon-07.md'
 seriesNo: 11
 ---
 

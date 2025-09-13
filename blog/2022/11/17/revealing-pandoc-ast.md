@@ -43,6 +43,7 @@ abstract: >
 dateCreated: '2022-11-17'
 dateModified: '2025-07-22'
 datePublished: '2022-11-17'
+postPath: 'blog/2022/11/17/revealing-pandoc-ast.md'
 seriesNo: 4
 ---
 

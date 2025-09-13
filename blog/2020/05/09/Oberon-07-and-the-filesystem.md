@@ -21,6 +21,7 @@ abstract: >+
 dateCreated: '2020-05-09'
 dateModified: '2025-07-22'
 datePublished: '2020-05-09'
+postPath: 'blog/2020/05/09/Oberon-07-and-the-filesystem.md'
 seriesNo: 7
 ---
 

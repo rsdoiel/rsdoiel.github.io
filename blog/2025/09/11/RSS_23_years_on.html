@@ -1,167 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>RSS_23_years_on</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  
-  <link rel="alternative" type="application/markdown" href="/blog/2025/09/11/RSS_23_years_on.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="RSS_23_years_on.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="rss-23-years-on">RSS 23 years on</h1>
-<p>By R. S. Doiel, 2025-09-11</p>
-<p>I think Dave’s post, <a
-href="http://scripting.com/2025/09/11/123936.html?title=itsReallySimple">It’s
-Really Simple</a>, is an important read. It’s shortness lends itself to
-reflection. <strong>Dave takes the long view.</strong> I think that is
-very healthy for the web. It’s a view I’ve increasingly embraced over
-the last decade or three.</p>
-<p>Dave’s post points out 23 years after the introduction of RSS we
-could have seen much more creativity. In 2025 the primary contribution
-of web corporations is to stifle innovation. The “network effect” is
-their business model.They insure we’re are both tenant and product. Is
-the solution to make complex standards that embrace the characteristics
-that enabled the walled gardens in the first place? I think RSS 2.0,
-twenty three years later, still provides a better path forward.</p>
-<p>Do we want to be both tenant and product? If so than perhaps ATProto
-or ActivityPub make sense. RSS’s path is far simpler. I don’t think it
-is accidental that both Mastodon and BlueSky embraced RSS output. In
-2025 lots of languages come with mature RSS libraries. Even if you need
-to write your own the spec is simple enough to do so.</p>
-<p>Here are three systems I think show the longevity and possibility of
-RSS. Dave Winer’s <a href="https://feedland.org">FeedLand</a>, Matt
-Mullenweg’s <a href="https://wordpress.com">WordPress</a>, and Andrew
-Shell’s port of rssCloud support from Frontier to a standalone server,
-<a href="https://rpc.rsscloud.io/">rssCloud v2</a><a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
-The FeedLand and WordPress show us user facing content systems with real
-inter-opt. Andrew’s rssCloud shows us how to build a real time RSS
-service without tying it into a content management system directly.
-These are examples of a social web we can own. We’re just not calling
-them that.</p>
-<blockquote>
-<p>RSS 2.0 is for the long view. As the car commercial used to say,
-“it’s built to last”.</p>
-</blockquote>
-<p>I think BlueSky and Mastodon missed the boat skipping support for RSS
-2.0 as input. I think part of the problem was how they were guided to
-re-implement a solution from walled gardens as an open source project. A
-common characteristic of systems developed by X, Meta and Google was
-complexity. For those companies the complexity was useful. I don’t think
-we need that complexity if we are not building walled gardens. This
-missed opportunity was to assumed the “network effect” was the goal. I
-think communication is the goal. It can exists without scaling out to
-centralized walled gardens.</p>
-<p>Here’s a thought experiment, “Do complex protocols lend themselves to
-a diversity of implementations? Are they better suited to preservation?”
-I think the answer is no. I can read and process a tab delimited file
-from the 1970s or a comma delimited one from the 1980s. Why? It’s a
-simple format. Simple is preservation friendly. I am certain I’ll be
-able to read and process an RSS 2.0 file in 2050. Why, it’s a simple
-standard. I don’t think I’ll be able to do that with the complex
-alternatives. My guess is they fall out of favor overtime and fade
-precisely because they’re complex. Simple is a built-in preservation
-quality.</p>
-<p>RSS 2.0 is stable and extensible. It has enabled Podcasting which
-Apple, YouTube and Spotify have yet to wall off. Podcasting, whether
-audio, video or text, offers us a way out. RSS allows us to say goodbye
-to the gate keepers like X, Meta, Google, Apple et el. We don’t need a
-<strong>Web 3.0</strong>. What we need to embrace is the web and
-internet as common nouns. Write and deploy from our own machines.
-Connect them through the networks and eventually land content on the
-<strong>Web</strong> or <strong>Internet</strong> based on open
-standards and inter-opt. Let’s skip the business models of wall gardens
-this time around.</p>
-<p>When people mention the foundations of the web they typically mention
-HTTP, HTML, CSS and JavaScript as if their are just four pillars of the
-web. I think they are missing a fifth column, RSS 2.0. It provides the
-proven means of an open syndication system that continues to work after
-23 years.</p>
-<p>The final reflection I’d like to focus on in Dave’s post is Markdown.
-Markdown is a hypertext document format that is easier to type and proof
-read than HTML. I think it is where an alternative to the walled gardens
-can shine. It works as an enclosure in the <a
-href="https://textcasting.org">Textcasting</a> context. Markdown with
-front matter allows non-programmers to manage the metadata associated
-with their documents be they blog posts or academic papers<a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.
-It’s a simple format, simpler than HTML. It’s a format that lends itself
-to preservation in much the same way RSS 2.0 does.</p>
-<p>In my own modest effort to create <a
-href="https://rsdoiel.github.io/antennaApp"
-title="antennaApp is a feed oriented static content system build around Markdown and RSS 2.0">the
-writing environment I want</a>, I have relied on Markdown and RSS 2.0.
-Why? Because RSS 2.0 is a stable spec. I’ve embraced <a
-href="https://commonmark.org">CommonMark</a> alongside with John
-Grubber’s <a
-href="https://daringfireball.net/projects/markdown/">Markdown</a> for
-writing because I can proof read it easier than proof reading HTML. It’s
-a format you can read without conversion and if you do want to render as
-HTML that is easy to do too. With Markdown I can start something on my
-phone in a simple text editor. I can add that document to my blog to be
-rendered as HTML or into an RSS 2.0 feed. When I do so it all works
-because of inter-opt provided by RSS 2.0.</p>
-<p>The web of 2025 can be open if we choose to open it up. Embrace not
-the “Web” as proper noun owned by corporations but the “web” as a common
-noun which we can also own a part. Step out the silos and see the wild
-lands of the real web. See their beauty and create them for
-yourself.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>See Andrew’s notes on <a
-href="https://blog.andrewshell.org/notes/rsscloud-server/">his blog</a>
-or checkout the GitHub repository at <a
-href="https://github.com/rsscloud/rsscloud-server">github.com/rsscloud/rsscloud-server</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>An example is R-Studio and RMarkdown or Jupyter
-Notebooks used in the academic and research science community.
-Functionality and features are enabled or activated by the metadata
-presented as front matter encoded using <a
-href="https://yaml.org/">YAML</a>.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2025-09-11" data-link="https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.html">
+      <h1 id="rss-23-years-on">RSS 23 years on</h1>
+      <p>By R. S. Doiel, 2025-09-11</p>
+      <p>I think Dave's post, <a href="http://scripting.com/2025/09/11/123936.html?title=itsReallySimple">It's Really Simple</a>, is an important read. It's shortness lends itself to reflection. <strong>Dave takes the long view.</strong> I think that is very healthy for the web. It's a view I've increasingly embraced over the last decade or three.</p>
+      <p>Dave's post points out 23 years after the introduction of RSS we could have seen much more creativity. In 2025 the primary contribution of web corporations is to stifle innovation. The &quot;network effect&quot; is their business model.They insure we're are both tenant and product. Is the solution to make complex standards that embrace the characteristics that enabled the walled gardens in the first place? I think RSS 2.0, twenty three years later, still provides a better path forward.</p>
+      <p>Do we want to be both tenant and product? If so than perhaps ATProto or ActivityPub make sense. RSS's path is far simpler. I don't think it is accidental that both Mastodon and BlueSky embraced RSS output. In 2025 lots of languages come with mature RSS libraries. Even if you need to write your own the spec is simple enough to do so.</p>
+      <p>Here are three systems I think show the longevity and possibility of RSS. Dave Winer's <a href="https://feedland.org">FeedLand</a>, Matt Mullenweg's <a href="https://wordpress.com">WordPress</a>, and Andrew Shell's port of rssCloud support from Frontier to a standalone server, <a href="https://rpc.rsscloud.io/">rssCloud v2</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. The FeedLand and WordPress show us user facing content systems with real inter-opt. Andrew's rssCloud shows us how to build a real time RSS service without tying it into a content management system directly. These are examples of a social web we can own. We're just not calling them that.</p>
+      <blockquote>
+      <p>RSS 2.0 is for the long view. As the car commercial used to say, &quot;it's built to last&quot;.</p>
+      </blockquote>
+      <p>I think BlueSky and Mastodon missed the boat skipping support for RSS 2.0 as input. I think part of the problem was how they were guided to re-implement a solution from walled gardens as an open source project. A common characteristic of systems developed by X, Meta and Google was complexity. For those companies the complexity was useful. I don't think we need that complexity if we are not building walled gardens. This missed opportunity was to assumed the &quot;network effect&quot; was the goal. I think communication is the goal. It can exists without scaling out to centralized walled gardens.</p>
+      <p>Here's a thought experiment, &quot;Do complex protocols lend themselves to a diversity of implementations? Are they better suited to preservation?&quot; I think the answer is no. I can read and process a tab delimited file from the 1970s or a comma delimited one from the 1980s. Why? It's a simple format. Simple is preservation friendly. I am certain I'll be able to read and process an RSS 2.0 file in 2050. Why, it's a simple standard. I don't think I'll be able to do that with the complex alternatives. My guess is they fall out of favor overtime and fade precisely because they're complex. Simple is a built-in preservation quality.</p>
+      <p>RSS 2.0 is stable and extensible. It has enabled Podcasting which Apple, YouTube and Spotify have yet to wall off. Podcasting, whether audio, video or text, offers us a way out. RSS allows us to say goodbye to the gate keepers like X, Meta, Google, Apple et el. We don't need a <strong>Web 3.0</strong>. What we need to embrace is the web and internet as common nouns. Write and deploy from our own machines. Connect them through the networks and eventually land content on the <strong>Web</strong> or <strong>Internet</strong> based on open standards and inter-opt. Let's skip the business models of wall gardens this time around.</p>
+      <p>When people mention the foundations of the web they typically mention HTTP, HTML, CSS and JavaScript as if their are just four pillars of the web. I think they are missing a fifth column, RSS 2.0. It provides the proven means of an open syndication system that continues to work after 23 years.</p>
+      <p>The final reflection I'd like to focus on in Dave's post is Markdown. Markdown is a hypertext document format that is easier to type and proof read than HTML. I think it is where an alternative to the walled gardens can shine.  It works as an enclosure in the <a href="https://textcasting.org">Textcasting</a> context.  Markdown with front matter allows non-programmers to manage the metadata associated with their documents be they blog posts or academic papers<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. It's a simple format, simpler than HTML. It's a format that lends itself to preservation in much the same way RSS 2.0 does.</p>
+      <p>In my own modest effort to create <a href="https://rsdoiel.github.io/antennaApp" title="antennaApp is a feed oriented static content system build around Markdown and RSS 2.0">the writing environment I want</a>, I have relied on Markdown and RSS 2.0. Why? Because RSS 2.0 is a stable spec. I've embraced <a href="https://commonmark.org">CommonMark</a> alongside with John Grubber's <a href="https://daringfireball.net/projects/markdown/">Markdown</a> for writing because I can proof read it easier than proof reading HTML. It's a format you can read without conversion and if you do want to render as HTML that is easy to do too. With Markdown I can start something on my phone in a simple text editor. I can add that document to my blog to be rendered as HTML or into an RSS 2.0 feed. When I do so it all works because of inter-opt provided by RSS 2.0.</p>
+      <p>The web of 2025 can be open if we choose to open it up. Embrace not the &quot;Web&quot; as proper noun owned by corporations but the &quot;web&quot; as a common noun which we can also own a part. Step out the silos and see the wild lands of the real web. See their beauty and create them for yourself.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>See Andrew's notes on <a href="https://blog.andrewshell.org/notes/rsscloud-server/">his blog</a> or checkout the GitHub repository at <a href="https://github.com/rsscloud/rsscloud-server">github.com/rsscloud/rsscloud-server</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>An example is R-Studio and RMarkdown or Jupyter Notebooks used in the academic and research science community. Functionality and features are enabled or activated by the metadata presented as front matter encoded using <a href="https://yaml.org/">YAML</a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

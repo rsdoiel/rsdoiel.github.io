@@ -20,6 +20,7 @@ dateModified: '2025-07-21'
 datePublished: '2016-05-30'
 copyrightYear: 2016
 copyrightHolder: R. S. Doiel
+postPath: 'blog/2016/05/30/amp-cards-and-open-graph.md'
 ---
 
 # Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph

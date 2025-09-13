@@ -30,6 +30,7 @@ abstract: >
 dateCreated: '2021-11-26'
 dateModified: '2025-07-22'
 datePublished: '2021-11-26'
+postPath: 'blog/2021/11/26/Portable-Conversions-Integers.md'
 series: |
   Mostly Oberon
 seriesNo: 19

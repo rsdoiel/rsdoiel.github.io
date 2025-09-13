@@ -28,6 +28,7 @@ abstract: >
 dateCreated: '2024-04-25'
 dateModified: '2025-07-23'
 datePublished: '2024-04-25'
+postPath: 'blog/2024/04/25/getting-started.md'
 ---
 
 # Getting Started with Miranda

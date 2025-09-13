@@ -29,6 +29,7 @@ abstract: >
 dateCreated: '2020-10-31'
 dateModified: '2025-07-22'
 datePublished: '2020-10-31'
+postPath: 'blog/2020/10/31/Filters.md'
 seriesNo: 2
 ---
 

@@ -11,6 +11,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2023-11-17'
 dateModified: '2025-07-22'
 datePublished: '2023-11-17'
+postPath: 'blog/2023/11/17/PostgreSQL-Quick-Notes.md'
 ---
 
 # Postgres Quick Notes, take two

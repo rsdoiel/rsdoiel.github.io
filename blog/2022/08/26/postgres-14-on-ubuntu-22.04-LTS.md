@@ -42,6 +42,7 @@ abstract: >
 dateCreated: '2022-08-26'
 dateModified: '2025-07-22'
 datePublished: '2022-08-26'
+postPath: 'blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.md'
 keywords:
   - Postgres
   - SQL

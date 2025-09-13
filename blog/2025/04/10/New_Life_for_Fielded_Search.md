@@ -1,14 +1,11 @@
 ---
 title: New Life for Fielded Search
-pubDate: 2025-04-10T00:00:00.000Z
 author: R. S. Doiel
 abstract: |
   A day dreaming in response to a Simon Willison post on using language models
   to convert queries into fielded searches. In this post I extrapolate how this
   could result in a more private search experience and allow for an enhanced
   search experience for static websites.
-dateCreated: '2025-04-10'
-dateModified: '2025-07-23'
 series: Personal Search Engine
 number: 3
 keywords:
@@ -20,7 +17,10 @@ keywords:
 copyrightYear: 2025
 copyrightHolder: R. S. Doiel
 license: 'https://creativecommons.org/licenses/by-sa/4.0/'
+dateCreated: '2025-04-10'
+dateModified: '2025-07-23'
 datePublished: '2025-04-10'
+postPath: 'blog/2025/04/10/New_Life_for_Fielded_Search.md'
 seriesNo: 3
 ---
 

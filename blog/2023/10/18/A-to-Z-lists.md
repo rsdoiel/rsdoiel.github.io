@@ -1,6 +1,5 @@
 ---
 title: Building A to Z list pages in Pandoc
-pubDate: 2023-10-18T00:00:00.000Z
 keywords:
   - Pandoc
   - templates
@@ -24,6 +23,7 @@ abstract: >
 dateCreated: '2023-10-18'
 dateModified: '2025-07-22'
 datePublished: '2023-10-18'
+postPath: 'blog/2023/10/18/A-to-Z-lists.md'
 ---
 
 # Building A to Z lists pages in Pandoc

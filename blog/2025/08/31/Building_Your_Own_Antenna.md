@@ -1,9 +1,17 @@
 ---
 title: Building Your Own Antenna
 author: R. S. Doiel
+description: |
+  I have been prototyping my personal news site called [Antenna](https://rsdoiel.github.io/antenna)
+  since 2023. It was inspired by Dave Winer's [news.scripting.com](https://news.scripting.com). It
+  has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available
+  over my home network and I make it public by publishing via GitHub pages. Over the last two years it
+  has become the first place I go to consume content from the web (second is Dave's news.scripting.com).
+
 dateCreated: "2025-08-20"
 dateModified: "2025-08-31"
 datePublished: "2025-08-31"
+postPath: "blog/2025/08/31/Building_Your_Own_Antenna.md"
 ---
 
 # Building Your Own Antenna
@@ -201,13 +209,13 @@ This micro blog post only lives in the feed's item table. There is no landing pa
 If I update "helloworld.md" to include a "postPath" and "link" then the post will get written into the the directory tree managed by my Antenna application. Here's the updated Markdown file.
 
 ~~~Markdown
----
-link: http://localhost:8000/helloworld.html
-postPath: helloworld.md
-pubDate: "2025-08-31"
----
-
-Hello World!
+  ---
+  link: http://localhost:8000/helloworld.html
+  postPath: helloworld.md
+  pubDate: "2025-08-31"
+  ---
+  
+  Hello World!
 ~~~
 
 Run the post action, generate and then preview.

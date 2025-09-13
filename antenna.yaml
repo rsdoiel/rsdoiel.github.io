@@ -1,4 +1,5 @@
 port: 8000
+baseUrl: https://rsdoiel.github.io
 collections:
     - title: Robert's Ramblings
       link: http://localhost:8000/blogxml
@@ -7,5 +8,5 @@ collections:
       generator: blog.yaml
       filters:
         - UPDATE items SET status = 'review';
-        - UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-21 days');
+        - UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-365 days');
       dbName: blog.db

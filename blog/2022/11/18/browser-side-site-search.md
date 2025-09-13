@@ -46,6 +46,7 @@ abstract: >
 dateCreated: '2022-11-18'
 dateModified: '2025-07-22'
 datePublished: '2022-11-18'
+postPath: 'blog/2022/11/18/browser-side-site-search.md'
 ---
 
 Browser based site search

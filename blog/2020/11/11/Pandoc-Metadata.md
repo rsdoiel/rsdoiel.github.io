@@ -32,6 +32,7 @@ abstract: |
 dateCreated: '2020-11-11'
 dateModified: '2025-07-22'
 datePublished: '2020-11-11'
+postPath: 'blog/2020/11/11/Pandoc-Metadata.md'
 seriesNo: 2
 ---
 

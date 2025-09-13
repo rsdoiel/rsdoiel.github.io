@@ -15,6 +15,7 @@ dateModified: '2025-07-22'
 datePublished: '2017-10-20'
 copyrightYear: 2017
 copyrightHolder: R. S. Doiel
+postPath: 'blog/2017/10/20/node-npm-electron.md'
 ---
 
 # NodeJS, NPM, Electron

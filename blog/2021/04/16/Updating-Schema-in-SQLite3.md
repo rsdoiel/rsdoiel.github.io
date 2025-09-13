@@ -29,9 +29,10 @@ abstract: |
   with a id, uname, display_name, role and updated fields.
 
   ...
-dateCreated: '2020-04-16'
+dateCreated: '2021-04-16'
 dateModified: '2025-07-23'
-datePublished: '2020-04-16'
+datePublished: '2021-04-16'
+postPath: 'blog/2021/04/16/Updating-Schema-in-SQLite3.md'
 seriesNo: 1
 ---
 

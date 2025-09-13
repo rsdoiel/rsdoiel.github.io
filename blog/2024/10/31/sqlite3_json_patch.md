@@ -14,6 +14,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-10-31'
 dateModified: '2025-07-23'
 datePublished: '2024-10-31'
+postPath: 'blog/2024/10/31/sqlite3_json_patch.md'
 ---
 
 # SQLite3 json_patch is a jewel

@@ -40,6 +40,7 @@ abstract: >+
 dateCreated: '2020-07-07'
 dateModified: '2025-07-22'
 datePublished: '2020-07-07'
+postPath: 'blog/2020/07/07/Procedures-in-records.md'
 seriesNo: 10
 ---
 

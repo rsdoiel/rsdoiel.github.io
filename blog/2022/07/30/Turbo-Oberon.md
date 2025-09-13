@@ -44,6 +44,7 @@ abstract: >
 dateCreated: '2022-07-30'
 dateModified: '2025-07-22'
 datePublished: '2022-07-30'
+postPath: 'blog/2022/07/30/Turbo-Oberon.md'
 ---
 
 Turbo Oberon, the dream

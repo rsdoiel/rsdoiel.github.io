@@ -27,6 +27,7 @@ abstract: >
 dateCreated: '2022-08-15'
 dateModified: '2025-07-22'
 datePublished: '2022-08-15'
+postPath: 'blog/2022/08/15/golang-development.md'
 ---
 
 Pttk and STN

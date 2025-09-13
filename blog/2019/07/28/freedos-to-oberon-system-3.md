@@ -21,6 +21,7 @@ abstract: |
 dateCreated: '2019-07-28'
 dateModified: '2025-07-22'
 datePublished: '2019-07-28'
+postPath: 'blog/2019/07/28/freedos-to-oberon-system-3.md'
 ---
 
 FreeDOS to Oberon System 3

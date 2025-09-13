@@ -40,6 +40,7 @@ abstract: >
 dateCreated: '2018-07-22'
 dateModified: '2025-07-22'
 datePublished: '2018-07-22'
+postPath: 'blog/2018/07/22/software-tools-in-pascal.md'
 ---
 
 # Review: Software Tools in Pascal

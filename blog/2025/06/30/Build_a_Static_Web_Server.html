@@ -1,488 +1,372 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>Build_a_Static_Web_Server</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="web service, static web
-site, JavaScript">
-  <link rel="alternative" type="application/markdown" href="/blog/2025/06/30/Build_a_Static_Web_Server.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="Build_a_Static_Web_Server.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="build-your-own-static-web-server-with-deno">Build your own
-static web server with Deno</h1>
-<p>By R. S. Doiel, 2025-06-30</p>
-<p>One of things I have in my web toolbox is a static site web server.
-It only runs on localhost. It amazes me how often I wind up using it.
-PHP and Python can launch one easily from the command line but I have
-always found they were lacking. What I want is a simple web server that
-runs only on localhost. It can serve content from a specified directory
-and should handle common content types appropriately (e.g. JavaScript
-files are served as “application/javascript” not as “text/plain”). I
-should be able choose the port the server runs on. I should be able to
-specify a document root for the content I want to expose. It should
-default to a sensible location like the “htdocs” directory in my current
-working directory.</p>
-<p>When I started working with the web (when people used the NCSA web
-server), web servers were considered complex and hard to implement. I
-remember most network systems were presumed complex. Today most
-programming languages have some sort of library, module or package that
-makes implementing a web server trivial. This is true for JavaScript
-running under a JavaScript run time engine.</p>
-<p>Deno is a JavaScript and TypeScript runtime. I prefer Deno over other
-JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to
-how the web browser treats JavaScript. Deno’s standard library aligns
-with web browser implementation too. Deno has a good set of standard
-modules. Many modules can also be used browser side.</p>
-<p>I’ll be using some Deno standard JavaScript modules in this post. The
-standard module “<span class="citation"
-data-cites="std/http/file-server">@std/http/file-server</span>” provides
-most of what you need to implement a static content server. Two other
-modules will round things out in how I want my web server to behave.
-They are “<span class="citation"
-data-cites="std/fs/exists">@std/fs/exists</span>” and “<span
-class="citation"
-data-cites="std/yaml/parse">@std/yaml/parse</span>”.</p>
-<p>Let’s build a simple but useful static web server and add it to our
-web toolbox.</p>
-<p>Before I build my static web server I need some web content. I’m
-going to need an HTML file and a JavaScript file. This will provide
-content to test. The web content should be created in a directory called
-“htdocs”. On macOS, Linux and Windows the command I run from in the
-terminal application to create the “htdocs” directory is
-<code>mkdir htdocs</code>. Using your my editor, I created the HTML file
-called “helloworld.html” inside the “htdocs” directory.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">&quot;module&quot;</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;helloworld.js&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">&quot;en-US&quot;</span><span class="dt">&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span>Hello World<span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div>
-<p>I created a “helloworld.js” inside the “htdocs” directory too.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> body <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&quot;body&quot;</span>)<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> elem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;div&quot;</span>)<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>elem<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&#39;Hello World 2!&#39;</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>body<span class="op">.</span><span class="fu">append</span>(elem)<span class="op">;</span></span></code></pre></div>
-<p>This provides content to test my prototypes. Using these files I can
-make sure the prototype properly serves out a web page, handles a file
-listing and properly services the JavaScript.</p>
-<p>Your directory tree should look something like this.</p>
-<pre class="shell"><code>tree htdocs
-htdocs/
-├── helloworld.html
-└── helloworld.js
+  <section>
+    <article data-published="2025-06-30" data-link="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html">
+      <h1 id="build-your-own-static-web-server-with-deno">Build your own static web server with Deno</h1>
+      <p>By R. S. Doiel, 2025-06-30</p>
+      <p>One of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as &quot;application/javascript&quot; not as &quot;text/plain&quot;). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the &quot;htdocs&quot; directory in my current working directory.</p>
+      <p>When I started working with the web (when people used the NCSA web server), web servers were considered complex and hard to implement. I remember most network systems were presumed complex. Today most programming languages have some sort of library, module or package that makes implementing a web server trivial. This is true for JavaScript running under a JavaScript run time engine.</p>
+      <p>Deno is a JavaScript and TypeScript runtime. I prefer Deno over other JavaScript runtimes like NodeJS. Deno runs sandboxed. This is similar to how the web browser treats JavaScript. Deno's standard library aligns with web browser implementation too. Deno has a good set of standard modules. Many modules can also be used browser side.</p>
+      <p>I'll be using some Deno standard JavaScript modules in this post. The standard module &quot;@std/http/file-server&quot; provides most of what you need to implement a static content server. Two other modules will round things out in how I want my web server to behave. They are &quot;@std/fs/exists&quot; and &quot;@std/yaml/parse&quot;.</p>
+      <p>Let's build a simple but useful static web server and add it to our web toolbox.</p>
+      <p>Before I build my static web server I need some web content. I'm going to need an HTML file and a JavaScript file. This will provide content to test. The web content should be created in a directory called &quot;htdocs&quot;. On macOS, Linux and Windows the command I run from in the terminal application to create the &quot;htdocs&quot; directory is <code>mkdir htdocs</code>. Using your my editor, I created the HTML file called &quot;helloworld.html&quot; inside the &quot;htdocs&quot; directory.</p>
+      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+      &lt;head&gt;
+        &lt;script type=&quot;module&quot; src=&quot;helloworld.js&quot;&gt;&lt;/script&gt;
+      &lt;/head&gt;
+      &lt;html lang=&quot;en-US&quot;&gt;
+        &lt;body&gt;Hello World&lt;/body&gt;
+      &lt;/html&gt;
+      </code></pre>
+      <p>I created a &quot;helloworld.js&quot; inside the &quot;htdocs&quot; directory too.</p>
+      <pre><code class="language-JavaScript">const body = document.querySelector(&quot;body&quot;);
+      const elem = document.createElement(&quot;div&quot;);
+      elem.innerText = 'Hello World 2!';
+      body.append(elem);
+      </code></pre>
+      <p>This provides content to test my prototypes. Using these files I can make sure the prototype properly serves out a web page, handles a file listing and properly services the JavaScript.</p>
+      <p>Your directory tree should look something like this.</p>
+      <pre><code class="language-shell">tree htdocs
+      htdocs/
+      ├── helloworld.html
+      └── helloworld.js
+      
+      1 directory, 2 files
+      </code></pre>
+      <h2 id="first-prototype">First prototype</h2>
+      <p>Using a text editor, I create a file called <code>webserver_v1.js</code>. I need to do several things in JavaScript to build our static web server.</p>
+      <ol>
+      <li>import a function called <code>serveDir</code> from the &quot;@std/http/file-server&quot; module</li>
+      <li>I need to set two constants, a port number and a root document path</li>
+      <li>It is helpful to display the setting for the port and document root when the server starts up</li>
+      <li>I can using Deno's built in <code>serve</code> method to handle inbound requests and then dispatch them to <code>serveDir</code></li>
+      </ol>
+      <p>Let's start with the import, <code>&quot;@std/http/file-server</code>.  Notice that it starts with and &quot;@&quot;. This indicates to the JavaScript runtime that the full URL to the module is defined by an import map. When you build a Deno project you can generate a file called <code>deno.json</code>. It can include an import map. The <code>deno add</code> command provides a really easy way to manage this mapping. As of Deno 2 the standard modules are available from <a href="https://jsr.io">jsr.io</a>, a reliable JavaScript registry. This includes our standard module <code>@std/http/file-server</code>. I can &quot;add&quot; it  to my project using the following command.</p>
+      <pre><code class="language-shell">deno add jsr:@std/http/file-server
+      </code></pre>
+      <p>If the &quot;deno.json&quot; file does not exist this command will create it. If it does exist Deno will update it to reflect the new module. I can look inside the &quot;deno.json&quot; file after running this command and see my import map.</p>
+      <pre><code class="language-json">{
+        &quot;imports&quot;: {
+          &quot;@std/http&quot;: &quot;jsr:@std/http@^1.0.18&quot;
+        }
+      }
+      </code></pre>
+      <p>The Deno runtime knows how to contact jsr.io and use it to retrieve the module requested.  By default it picks the current stable version. In my case that is v1.0.18. Deno updates happen pretty steadily through out the year. When I try this a month from now it'll probably be a different version number.</p>
+      <p>Now that Deno is setup, I need to write my first prototype static web server.</p>
+      <pre><code class="language-JavaScript">/**
+       * webserver_v1.js - A simple static file server for serving files from the &quot;htdocs&quot; directory.
+       */
+      import { serveDir } from &quot;@std/http/file-server&quot;;
+      
+      const port = 8000;
+      const rootPath = &quot;htdocs&quot;; // Serve files from the &quot;htdocs&quot; directory
+      
+      console.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);
+      
+      // Start a simple server
+      Deno.serve({
+        port,
+      }, async (req) =&gt; {
+        try {
+          // Serve files from the specified directory
+          return await serveDir(req, {
+            fsRoot: rootPath,
+            urlRoot: &quot;&quot;,
+            showDirListing: true,
+            showDotfiles: false, // Exclude files starting with a period
+          });
+        } catch (err) {
+          console.error(err);
+          // Return a 404 response if something goes wrong
+          return new Response(&quot;404: Not Found&quot;, { status: 404 });
+        }
+      });
+      </code></pre>
+      <p>The <code>Deno.serve</code> manages the inbound request and the async anonymous function handles the mapping to the file server module function called <code>serveDir</code>. A try catch wraps the <code>serveDir</code> function. If that function fails a 404 response is created and returned. Pretty simple.</p>
+      <p>Let's see if the code we typed in works. Deno provides three helpful commands for working with your program code</p>
+      <ol>
+      <li>check</li>
+      <li>lint</li>
+      <li>fmt</li>
+      </ol>
+      <p>Check reads the JavaScript (or TypeScript) file and makes sure it makes sense from the compilation point of view.  The lint command goes a step further. It checks to see if best practices have been followed. Lint is completely optional but check needs to pass before Deno will attempt to run or compile the program. The <code>fmt</code> command will format your source code in a standard way. I'm going to use check and lint.</p>
+      <pre><code class="language-shell">deno check webserver_v1.js
+      deno lint webserver_v1.js
+      </code></pre>
+      <p>All went well. In both cases I see a line indicating it checked the file. If I had made errors check and lint would have complained and included lines describing errors.</p>
+      <p>Deno can run our JavaScript and TypeScript files. To test my program I try the following.</p>
+      <pre><code class="language-shell">deno run webserver_v1.js
+      </code></pre>
+      <p>When I tried this I saw the following message.</p>
+      <pre><code class="language-shell">Server running on http://localhost:8000/, serving htdocs
+      ┏ ⚠️  Deno requests net access to &quot;0.0.0.0:8000&quot;.
+      ┠─ Requested by `Deno.listen()` API.
+      ┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.
+      ┠─ Learn more at: https://docs.deno.com/go/--allow-net
+      ┠─ Run again with --allow-net to bypass this prompt.
+      ┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) &gt; 
+      </code></pre>
+      <p>I type &quot;y&quot; and press enter. New lines appear.</p>
+      <pre><code class="language-shell">Server running on http://localhost:8000/, serving htdocs
+      ✅ Granted net access to &quot;0.0.0.0:8000&quot;.
+      Listening on http://0.0.0.0:8000/ (http://localhost:8000/)
+      </code></pre>
+      <p>I point my web browser to &quot;http://localhost:8000/&quot;. Do I see anything? No. In my terminal window I see another prompt about permissions.</p>
+      <pre><code class="language-shell">┏ ⚠️  Deno requests read access to &quot;htdocs&quot;.
+      ┠─ Requested by `Deno.stat()` API.
+      ┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.
+      ┠─ Learn more at: https://docs.deno.com/go/--allow-read
+      ┠─ Run again with --allow-read to bypass this prompt.
+      ┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all read permissions)
+      </code></pre>
+      <p>Again answer &quot;y&quot;. I then see something this in my terminal window.</p>
+      <pre><code class="language-shell">[2025-06-30 16:27:31] [GET] / 200
+      No such file or directory (os error 2): stat '/Users/rsdoiel/Sandbox/Writing/Books/A_Simple_Web/htdocs/favicon.ico'
+      [2025-06-30 16:27:31] [GET] /favicon.ico 404
+      </code></pre>
+      <p>I reload my web browser page, what do I see? A list of files. I know that file directory listing works.<br />
+      One of the files is &quot;helloworld.html&quot;.  I click on it. I my simple web page with the words &quot;Hello World&quot; and &quot;Hello World 2&quot;. Yippee, I've created a static web server.</p>
+      <p>You might be wondering how I shutdown the web server. In the terminal window I press control and the letter c, aka &quot;Ctrl-C&quot;. This will shuts down the web server. I can confirm it is shutdown in the web browser by reloading the page. I see an connection error page now.</p>
+      <p>I don't want to answer questions about permissions each time I run my prototype. I can specify the permissions I want to grant on the command line.  I know from my test that my program needs &quot;net&quot; and &quot;read&quot; permissions. I can grant this using the following command.</p>
+      <pre><code class="language-shell">deno run --allow-net --allow-read webserver_v1.js
+      </code></pre>
+      <p>Better yet I can compile our JavaScript program into an executable file. An executable is handy because I can run it without Deno being installed on a different computer as long as it runs the same operating system and has the same CPU type. Compiling to an executable makes this prototype similar to our tools in my web tool box. It let's me treat it just like my terminal application, text editor and web browser.</p>
+      <pre><code class="language-shell">deno compile --allow-net --allow-read webserver_v1.js
+      </code></pre>
+      <p>This results in a file being created called &quot;webserver_v1&quot; (or on Windows, &quot;webserver_v1.exe&quot;). This file can be run from this directory or moved to another directory where I store other programs (e.g. <code>$HOME/bin</code> or <code>$HOME\bin</code> on Windows).</p>
+      <h2 id="improving-on-v1">Improving on v1</h2>
+      <p>While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive? I can do that by adding support for command line arguments.</p>
+      <pre><code class="language-JavaScript">/**
+       * webserver_v2.js - A simple static file server with configurable port and root directory.
+       */
+      import { serveDir } from &quot;@std/http/file-server&quot;;
+      
+      const defaultPort = 8000;
+      const defaultRoot = &quot;htdocs&quot;;
+      
+      // Parse command-line arguments
+      const args = Deno.args;
+      let rootPath = defaultRoot;
+      let port = defaultPort;
+      
+      // Check the command arguments and set the port and rootPath appropriately
+      if (args.length &gt; 0) {
+        // Check if the first argument is a port number
+        const portArg = parseInt(args[0], 10);
+        if (!isNaN(portArg)) {
+          port = portArg;
+        } else {
+          // If not a port number, assume it's the root path
+          rootPath = args[0];
+        }
+      
+        // Check if the second argument is a root path
+        if (args.length &gt; 1) {
+          rootPath = args[1];
+        }
+      }
+      
+      console.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);
+      
+      // Start a simple server
+      Deno.serve({
+        port,
+      }, async (req) =&gt; {
+        try {
+          // Serve files from the specified directory
+          return await serveDir(req, {
+            fsRoot: rootPath,
+            urlRoot: &quot;&quot;,
+            showDirListing: true,
+            showDotfiles: false, // Exclude files starting with a period
+          });
+        } catch (err) {
+          console.error(err);
+          // Return a 404 response if something goes wrong
+          return new Response(&quot;404: Not Found&quot;, { status: 404 });
+        }
+      });
+      </code></pre>
+      <p>I can compile that using the following deno compile command</p>
+      <pre><code class="language-shell">deno compile --allow-net --allow-read webserver_v2.js
+      </code></pre>
+      <p>We can run the new webserver using the following command.</p>
+      <pre><code class="language-shell">./webserver_v2 8001 .
+      </code></pre>
+      <p>Point the web browser at <a href="http://localhost:8001">http://localhost:8001</a>. What do I see the directory? Yep, I see the files in my root directory of my project including the &quot;htdocs&quot; directory I created. Can I find and display &quot;helloworld.html&quot;? Yep and it works as in the first prototype. I shutdown the web server and then start it again using just the executable name.</p>
+      <p>macOS and Linux</p>
+      <pre><code class="language-shell">./webserver_v2
+      </code></pre>
+      <p>on Windows</p>
+      <pre><code class="language-shell">.\webserver_v2
+      </code></pre>
+      <p>What do you see? Can you find &quot;helloworld.html&quot;? Stop the web server. I copy &quot;helloworld.html&quot; to &quot;index.html&quot;. After copying I restart the web server again.</p>
+      <p>On macOS and Linux</p>
+      <pre><code class="language-shell">cp htdocs/helloworld.html htdocs/index.html
+      ./webserver_v2
+      </code></pre>
+      <p>On Windows</p>
+      <pre><code class="language-pwsh">copy htdocs\helloworld.html htdocs\index.html
+      .\webserver_v2
+      </code></pre>
+      <p>I point the web browser at <a href="http://localhost:8000">http://localhost:8000</a>, what do I see? I don't see the file directory any more, I see the contents of  I copied into the &quot;index.html&quot; file, &quot;Hello World&quot; and &quot;Hello World 2&quot;.</p>
+      <p>Can this be improved?  It'd be nice to web able to just type &quot;webserver_v2&quot; and have the program using a default port and htdocs directory of my choice. That can be supported by using a configuration file. YAML is an easy to read and easy to type notation. It even supports comments which is nice in configuration files. YAML expresses the same types of data structures as JSON (JavaScript Object Notation). Below an example of a configuration file. I type it in and save it using the filename &quot;webserver.yaml&quot;.</p>
+      <pre><code class="language-yaml"># Set root path for web content to the current directory.
+      htdocs: .
+      # Set the port number to listen on to 8002
+      port: 8002
+      </code></pre>
+      <p>From the point of the view of my prototype it'll need to check if the &quot;webserver.yaml&quot; file exists before attempting to read it. Deno has a module for that. It'll also need to read the YAML, parse it and get an object that exposes my preferred settings. Deno has a standard model for working with YAML too. The modules I'm interested in are <code>@std/fs/exists</code> and <code>@std/yaml</code>. I'll need to &quot;add&quot; them to my deno project.</p>
+      <pre><code class="language-shell">deno add jsr:@std/fs/exists
+      deno add jsr:@std/yaml
+      </code></pre>
+      <p>Time for an improved version of the static web server. This prototype should be called, &quot;webserver_v3.js&quot;.</p>
+      <pre><code class="language-JavaScript">/**
+       * webserver_v3.js - A simple static file server with configurable port and root directory via YAML.
+       */
+      import { serveDir } from &quot;@std/http/file-server&quot;;
+      import { parse } from &quot;@std/yaml/parse&quot;;
+      import { exists } from &quot;@std/fs/exists&quot;;
+      
+      const defaultPort = 8000;
+      const defaultRoot = &quot;htdocs&quot;;
+      
+      // Function to read and parse YAML configuration file
+      async function readConfigFile(filePath) {
+        try {
+          const fileContent = await Deno.readTextFile(filePath);
+          return parse(fileContent);
+        } catch (err) {
+          console.error(&quot;Error reading or parsing YAML file:&quot;, err);
+          return null;
+        }
+      }
+      
+      // Parse command-line arguments
+      const args = Deno.args;
+      let rootPath = defaultRoot;
+      let port = defaultPort;
+      
+      if (args.length &gt; 0) {
+        // Check if the first argument is a port number
+        const portArg = parseInt(args[0], 10);
+        if (!isNaN(portArg)) {
+          port = portArg;
+        } else {
+          // If not a port number, assume it's the root path
+          rootPath = args[0];
+        }
+      
+        // Check if the second argument is a root path
+        if (args.length &gt; 1) {
+          rootPath = args[1];
+        }
+      } else {
+        // Check for YAML configuration file
+        const configFilePath = &quot;webserver.yaml&quot;;
+        if (await exists(configFilePath)) {
+          const config = await readConfigFile(configFilePath);
+          if (config) {
+            rootPath = config.htdocs || defaultRoot;
+            port = config.port || defaultPort;
+          }
+        }
+      }
+      
+      console.log(`Server running on http://localhost:${port}/, serving ${rootPath}`);
+      
+      // Start a simple server
+      Deno.serve({
+        port,
+      }, async (req) =&gt; {
+        try {
+          // Serve files from the specified directory
+          return await serveDir(req, {
+            fsRoot: rootPath,
+            urlRoot: &quot;&quot;,
+            showDirListing: true,
+            showDotfiles: false, // Exclude files starting with a period
+          });
+        } catch (err) {
+          console.error(err);
+          // Return a 404 response if something goes wrong
+          return new Response(&quot;404: Not Found&quot;, { status: 404 });
+        }
+      });
+      </code></pre>
+      <p>Like before I compile it with the my desired permissions.</p>
+      <pre><code class="language-shell">deno compile --allow-net --allow-read webserver_v3.js
+      ./webserver_v3
+      </code></pre>
+      <p>I point the web browser at <a href="http://localhost:8002">http://localhost:8002</a>. What do I see? I see the contents of the index.html file. Can I display &quot;helloworld.html&quot; too? Yep. I remove the &quot;index.html&quot; file, then use my browser back button to go to the initial URL, yep I see a file directory listing again. Looks like this prototype works.</p>
+      <p>I think I have a useful localhost static content web server. It's time to rename my working prototype, compile and install it so it is available in my toolbox.</p>
+      <ol>
+      <li>Copy <code>webserver_v3.js</code> to <code>webserver.js</code></li>
+      <li>Use <code>deno compile</code> to create an executable</li>
+      <li>Create a &quot;$HOME/bin&quot; directory if necessary</li>
+      <li>Move the executable to a location in the executable PATH with, example &quot;$HOME/bin&quot;</li>
+      <li>Try running the program</li>
+      </ol>
+      <p>NOTE: If you are following along and have to create &quot;$HOME/bin&quot; then you may need to added to your environment's PATH.</p>
+      <p>On macOS and Linux</p>
+      <pre><code class="language-shell">cp webserver_v3.js webserver.js
+      deno compile --allow-net --allow-read webserver.js
+      mkdir -p $HOME/bin
+      mv ./webserver $HOME/bin
+      webserver
+      </code></pre>
+      <p>On Windows</p>
+      <pre><code class="language-shell">copy webserver_v3.js webserver.js
+      deno install --global --allow-net --allow-read webserver.js
+      New-Item -ItemType Directory -Path &quot;$HOME\bin&quot; -Force
+      move webserver.exe $HOME\bin\
+      webserver
+      </code></pre>
+      <p>There you have it. I have a new convenient static web server for serving static content on localhost.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-1 directory, 2 files</code></pre>
-<h2><a name="first-prototype">First prototype</a></h2>
-<p>Using a text editor, I create a file called
-<code>webserver_v1.js</code>. I need to do several things in JavaScript
-to build our static web server.</p>
-<ol type="1">
-<li>import a function called <code>serveDir</code> from the “<span
-class="citation"
-data-cites="std/http/file-server">@std/http/file-server</span>”
-module</li>
-<li>I need to set two constants, a port number and a root document
-path</li>
-<li>It is helpful to display the setting for the port and document root
-when the server starts up</li>
-<li>I can using Deno’s built in <code>serve</code> method to handle
-inbound requests and then dispatch them to <code>serveDir</code></li>
-</ol>
-<p>Let’s start with the import, <code>"@std/http/file-server</code>.
-Notice that it starts with and “@”. This indicates to the JavaScript
-runtime that the full URL to the module is defined by an import map.
-When you build a Deno project you can generate a file called
-<code>deno.json</code>. It can include an import map. The
-<code>deno add</code> command provides a really easy way to manage this
-mapping. As of Deno 2 the standard modules are available from <a
-href="https://jsr.io">jsr.io</a>, a reliable JavaScript registry. This
-includes our standard module <code>@std/http/file-server</code>. I can
-“add” it to my project using the following command.</p>
-<pre class="shell"><code>deno add jsr:@std/http/file-server</code></pre>
-<p>If the “deno.json” file does not exist this command will create it.
-If it does exist Deno will update it to reflect the new module. I can
-look inside the “deno.json” file after running this command and see my
-import map.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;imports&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@std/http&quot;</span><span class="fu">:</span> <span class="st">&quot;jsr:@std/http@^1.0.18&quot;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>The Deno runtime knows how to contact jsr.io and use it to retrieve
-the module requested. By default it picks the current stable version. In
-my case that is v1.0.18. Deno updates happen pretty steadily through out
-the year. When I try this a month from now it’ll probably be a different
-version number.</p>
-<p>Now that Deno is setup, I need to write my first prototype static web
-server.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v1.js - A simple static file server for serving files from the &quot;htdocs&quot; directory.</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { serveDir } <span class="im">from</span> <span class="st">&quot;@std/http/file-server&quot;</span><span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> port <span class="op">=</span> <span class="dv">8000</span><span class="op">;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> rootPath <span class="op">=</span> <span class="st">&quot;htdocs&quot;</span><span class="op">;</span> <span class="co">// Serve files from the &quot;htdocs&quot; directory</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Server running on http://localhost:</span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">/, serving </span><span class="sc">${</span>rootPath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Start a simple server</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>Deno<span class="op">.</span><span class="fu">serve</span>({</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  port<span class="op">,</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> <span class="kw">async</span> (req) <span class="kw">=&gt;</span> {</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Serve files from the specified directory</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cf">await</span> <span class="fu">serveDir</span>(req<span class="op">,</span> {</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fsRoot</span><span class="op">:</span> rootPath<span class="op">,</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">urlRoot</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">,</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDirListing</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDotfiles</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="co">// Exclude files starting with a period</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (err) {</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(err)<span class="op">;</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Return a 404 response if something goes wrong</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(<span class="st">&quot;404: Not Found&quot;</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">404</span> })<span class="op">;</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
-<p>The <code>Deno.serve</code> manages the inbound request and the async
-anonymous function handles the mapping to the file server module
-function called <code>serveDir</code>. A try catch wraps the
-<code>serveDir</code> function. If that function fails a 404 response is
-created and returned. Pretty simple.</p>
-<p>Let’s see if the code we typed in works. Deno provides three helpful
-commands for working with your program code</p>
-<ol type="1">
-<li>check</li>
-<li>lint</li>
-<li>fmt</li>
-</ol>
-<p>Check reads the JavaScript (or TypeScript) file and makes sure it
-makes sense from the compilation point of view. The lint command goes a
-step further. It checks to see if best practices have been followed.
-Lint is completely optional but check needs to pass before Deno will
-attempt to run or compile the program. The <code>fmt</code> command will
-format your source code in a standard way. I’m going to use check and
-lint.</p>
-<pre class="shell"><code>deno check webserver_v1.js
-deno lint webserver_v1.js</code></pre>
-<p>All went well. In both cases I see a line indicating it checked the
-file. If I had made errors check and lint would have complained and
-included lines describing errors.</p>
-<p>Deno can run our JavaScript and TypeScript files. To test my program
-I try the following.</p>
-<pre class="shell"><code>deno run webserver_v1.js</code></pre>
-<p>When I tried this I saw the following message.</p>
-<pre class="shell"><code>Server running on http://localhost:8000/, serving htdocs
-┏ ⚠️  Deno requests net access to &quot;0.0.0.0:8000&quot;.
-┠─ Requested by `Deno.listen()` API.
-┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.
-┠─ Learn more at: https://docs.deno.com/go/--allow-net
-┠─ Run again with --allow-net to bypass this prompt.
-┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all net permissions) &gt; </code></pre>
-<p>I type “y” and press enter. New lines appear.</p>
-<pre class="shell"><code>Server running on http://localhost:8000/, serving htdocs
-✅ Granted net access to &quot;0.0.0.0:8000&quot;.
-Listening on http://0.0.0.0:8000/ (http://localhost:8000/)</code></pre>
-<p>I point my web browser to “http://localhost:8000/”. Do I see
-anything? No. In my terminal window I see another prompt about
-permissions.</p>
-<pre class="shell"><code>┏ ⚠️  Deno requests read access to &quot;htdocs&quot;.
-┠─ Requested by `Deno.stat()` API.
-┠─ To see a stack trace for this prompt, set the DENO_TRACE_PERMISSIONS environmental variable.
-┠─ Learn more at: https://docs.deno.com/go/--allow-read
-┠─ Run again with --allow-read to bypass this prompt.
-┗ Allow? [y/n/A] (y = yes, allow; n = no, deny; A = allow all read permissions)</code></pre>
-<p>Again answer “y”. I then see something this in my terminal
-window.</p>
-<pre class="shell"><code>[2025-06-30 16:27:31] [GET] / 200
-No such file or directory (os error 2): stat &#39;/Users/rsdoiel/Sandbox/Writing/Books/A_Simple_Web/htdocs/favicon.ico&#39;
-[2025-06-30 16:27:31] [GET] /favicon.ico 404</code></pre>
-<p>I reload my web browser page, what do I see? A list of files. I know
-that file directory listing works. One of the files is
-“helloworld.html”. I click on it. I my simple web page with the words
-“Hello World” and “Hello World 2”. Yippee, I’ve created a static web
-server.</p>
-<p>You might be wondering how I shutdown the web server. In the terminal
-window I press control and the letter c, aka “Ctrl-C”. This will shuts
-down the web server. I can confirm it is shutdown in the web browser by
-reloading the page. I see an connection error page now.</p>
-<p>I don’t want to answer questions about permissions each time I run my
-prototype. I can specify the permissions I want to grant on the command
-line. I know from my test that my program needs “net” and “read”
-permissions. I can grant this using the following command.</p>
-<pre class="shell"><code>deno run --allow-net --allow-read webserver_v1.js</code></pre>
-<p>Better yet I can compile our JavaScript program into an executable
-file. An executable is handy because I can run it without Deno being
-installed on a different computer as long as it runs the same operating
-system and has the same CPU type. Compiling to an executable makes this
-prototype similar to our tools in my web tool box. It let’s me treat it
-just like my terminal application, text editor and web browser.</p>
-<pre class="shell"><code>deno compile --allow-net --allow-read webserver_v1.js</code></pre>
-<p>This results in a file being created called “webserver_v1” (or on
-Windows, “webserver_v1.exe”). This file can be run from this directory
-or moved to another directory where I store other programs
-(e.g. <code>$HOME/bin</code> or <code>$HOME\bin</code> on Windows).</p>
-<h2><a name="improving-on-v1">Improving on v1</a></h2>
-<p>While webserver_v1.js is helpful it could be more friendly. What if I
-want to use a different port number? What if I want to server out
-content my current directory or maybe I want to service content on a
-different mounted drive? I can do that by adding support for command
-line arguments.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v2.js - A simple static file server with configurable port and root directory.</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { serveDir } <span class="im">from</span> <span class="st">&quot;@std/http/file-server&quot;</span><span class="op">;</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> defaultPort <span class="op">=</span> <span class="dv">8000</span><span class="op">;</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> defaultRoot <span class="op">=</span> <span class="st">&quot;htdocs&quot;</span><span class="op">;</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Parse command-line arguments</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> args <span class="op">=</span> Deno<span class="op">.</span><span class="at">args</span><span class="op">;</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rootPath <span class="op">=</span> defaultRoot<span class="op">;</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> port <span class="op">=</span> defaultPort<span class="op">;</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Check the command arguments and set the port and rootPath appropriately</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (args<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Check if the first argument is a port number</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> portArg <span class="op">=</span> <span class="pp">parseInt</span>(args[<span class="dv">0</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="pp">isNaN</span>(portArg)) {</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    port <span class="op">=</span> portArg<span class="op">;</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If not a port number, assume it&#39;s the root path</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    rootPath <span class="op">=</span> args[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Check if the second argument is a root path</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span>) {</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    rootPath <span class="op">=</span> args[<span class="dv">1</span>]<span class="op">;</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Server running on http://localhost:</span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">/, serving </span><span class="sc">${</span>rootPath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Start a simple server</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>Deno<span class="op">.</span><span class="fu">serve</span>({</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  port<span class="op">,</span></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> <span class="kw">async</span> (req) <span class="kw">=&gt;</span> {</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Serve files from the specified directory</span></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cf">await</span> <span class="fu">serveDir</span>(req<span class="op">,</span> {</span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fsRoot</span><span class="op">:</span> rootPath<span class="op">,</span></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">urlRoot</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">,</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDirListing</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDotfiles</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="co">// Exclude files starting with a period</span></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (err) {</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(err)<span class="op">;</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Return a 404 response if something goes wrong</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(<span class="st">&quot;404: Not Found&quot;</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">404</span> })<span class="op">;</span></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
-<p>I can compile that using the following deno compile command</p>
-<pre class="shell"><code>deno compile --allow-net --allow-read webserver_v2.js</code></pre>
-<p>We can run the new webserver using the following command.</p>
-<pre class="shell"><code>./webserver_v2 8001 .</code></pre>
-<p>Point the web browser at <a href="http://localhost:8001"
-class="uri">http://localhost:8001</a>. What do I see the directory? Yep,
-I see the files in my root directory of my project including the
-“htdocs” directory I created. Can I find and display “helloworld.html”?
-Yep and it works as in the first prototype. I shutdown the web server
-and then start it again using just the executable name.</p>
-<p>macOS and Linux</p>
-<pre class="shell"><code>./webserver_v2</code></pre>
-<p>on Windows</p>
-<pre class="shell"><code>.\webserver_v2</code></pre>
-<p>What do you see? Can you find “helloworld.html”? Stop the web server.
-I copy “helloworld.html” to “index.html”. After copying I restart the
-web server again.</p>
-<p>On macOS and Linux</p>
-<pre class="shell"><code>cp htdocs/helloworld.html htdocs/index.html
-./webserver_v2</code></pre>
-<p>On Windows</p>
-<pre class="pwsh"><code>copy htdocs\helloworld.html htdocs\index.html
-.\webserver_v2</code></pre>
-<p>I point the web browser at <a href="http://localhost:8000"
-class="uri">http://localhost:8000</a>, what do I see? I don’t see the
-file directory any more, I see the contents of I copied into the
-“index.html” file, “Hello World” and “Hello World 2”.</p>
-<p>Can this be improved? It’d be nice to web able to just type
-“webserver_v2” and have the program using a default port and htdocs
-directory of my choice. That can be supported by using a configuration
-file. YAML is an easy to read and easy to type notation. It even
-supports comments which is nice in configuration files. YAML expresses
-the same types of data structures as JSON (JavaScript Object Notation).
-Below an example of a configuration file. I type it in and save it using
-the filename “webserver.yaml”.</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set root path for web content to the current directory.</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htdocs</span><span class="kw">:</span><span class="at"> .</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the port number to listen on to 8002</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8002</span></span></code></pre></div>
-<p>From the point of the view of my prototype it’ll need to check if the
-“webserver.yaml” file exists before attempting to read it. Deno has a
-module for that. It’ll also need to read the YAML, parse it and get an
-object that exposes my preferred settings. Deno has a standard model for
-working with YAML too. The modules I’m interested in are
-<code>@std/fs/exists</code> and <code>@std/yaml</code>. I’ll need to
-“add” them to my deno project.</p>
-<pre class="shell"><code>deno add jsr:@std/fs/exists
-deno add jsr:@std/yaml</code></pre>
-<p>Time for an improved version of the static web server. This prototype
-should be called, “webserver_v3.js”.</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * webserver_v3.js - A simple static file server with configurable port and root directory via YAML.</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { serveDir } <span class="im">from</span> <span class="st">&quot;@std/http/file-server&quot;</span><span class="op">;</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { parse } <span class="im">from</span> <span class="st">&quot;@std/yaml/parse&quot;</span><span class="op">;</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { exists } <span class="im">from</span> <span class="st">&quot;@std/fs/exists&quot;</span><span class="op">;</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> defaultPort <span class="op">=</span> <span class="dv">8000</span><span class="op">;</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> defaultRoot <span class="op">=</span> <span class="st">&quot;htdocs&quot;</span><span class="op">;</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to read and parse YAML configuration file</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">readConfigFile</span>(filePath) {</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> fileContent <span class="op">=</span> <span class="cf">await</span> Deno<span class="op">.</span><span class="fu">readTextFile</span>(filePath)<span class="op">;</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">parse</span>(fileContent)<span class="op">;</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (err) {</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&quot;Error reading or parsing YAML file:&quot;</span><span class="op">,</span> err)<span class="op">;</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">// Parse command-line arguments</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> args <span class="op">=</span> Deno<span class="op">.</span><span class="at">args</span><span class="op">;</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rootPath <span class="op">=</span> defaultRoot<span class="op">;</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> port <span class="op">=</span> defaultPort<span class="op">;</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (args<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Check if the first argument is a port number</span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> portArg <span class="op">=</span> <span class="pp">parseInt</span>(args[<span class="dv">0</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="pp">isNaN</span>(portArg)) {</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    port <span class="op">=</span> portArg<span class="op">;</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If not a port number, assume it&#39;s the root path</span></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    rootPath <span class="op">=</span> args[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Check if the second argument is a root path</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (args<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span>) {</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    rootPath <span class="op">=</span> args[<span class="dv">1</span>]<span class="op">;</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Check for YAML configuration file</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> configFilePath <span class="op">=</span> <span class="st">&quot;webserver.yaml&quot;</span><span class="op">;</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="cf">await</span> <span class="fu">exists</span>(configFilePath)) {</span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> config <span class="op">=</span> <span class="cf">await</span> <span class="fu">readConfigFile</span>(configFilePath)<span class="op">;</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (config) {</span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>      rootPath <span class="op">=</span> config<span class="op">.</span><span class="at">htdocs</span> <span class="op">||</span> defaultRoot<span class="op">;</span></span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>      port <span class="op">=</span> config<span class="op">.</span><span class="at">port</span> <span class="op">||</span> defaultPort<span class="op">;</span></span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Server running on http://localhost:</span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">/, serving </span><span class="sc">${</span>rootPath<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="co">// Start a simple server</span></span>
-<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>Deno<span class="op">.</span><span class="fu">serve</span>({</span>
-<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>  port<span class="op">,</span></span>
-<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> <span class="kw">async</span> (req) <span class="kw">=&gt;</span> {</span>
-<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
-<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Serve files from the specified directory</span></span>
-<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cf">await</span> <span class="fu">serveDir</span>(req<span class="op">,</span> {</span>
-<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fsRoot</span><span class="op">:</span> rootPath<span class="op">,</span></span>
-<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a>      <span class="dt">urlRoot</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">,</span></span>
-<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDirListing</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a>      <span class="dt">showDotfiles</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="co">// Exclude files starting with a period</span></span>
-<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (err) {</span>
-<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(err)<span class="op">;</span></span>
-<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Return a 404 response if something goes wrong</span></span>
-<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Response</span>(<span class="st">&quot;404: Not Found&quot;</span><span class="op">,</span> { <span class="dt">status</span><span class="op">:</span> <span class="dv">404</span> })<span class="op">;</span></span>
-<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
-<p>Like before I compile it with the my desired permissions.</p>
-<pre class="shell"><code>deno compile --allow-net --allow-read webserver_v3.js
-./webserver_v3</code></pre>
-<p>I point the web browser at <a href="http://localhost:8002"
-class="uri">http://localhost:8002</a>. What do I see? I see the contents
-of the index.html file. Can I display “helloworld.html” too? Yep. I
-remove the “index.html” file, then use my browser back button to go to
-the initial URL, yep I see a file directory listing again. Looks like
-this prototype works.</p>
-<p>I think I have a useful localhost static content web server. It’s
-time to rename my working prototype, compile and install it so it is
-available in my toolbox.</p>
-<ol type="1">
-<li>Copy <code>webserver_v3.js</code> to <code>webserver.js</code></li>
-<li>Use <code>deno compile</code> to create an executable</li>
-<li>Create a “$HOME/bin” directory if necessary</li>
-<li>Move the executable to a location in the executable PATH with,
-example “$HOME/bin”</li>
-<li>Try running the program</li>
-</ol>
-<p>NOTE: If you are following along and have to create “$HOME/bin” then
-you may need to added to your environment’s PATH.</p>
-<p>On macOS and Linux</p>
-<pre class="shell"><code>cp webserver_v3.js webserver.js
-deno compile --allow-net --allow-read webserver.js
-mkdir -p $HOME/bin
-mv ./webserver $HOME/bin
-webserver</code></pre>
-<p>On Windows</p>
-<pre class="shell"><code>copy webserver_v3.js webserver.js
-deno install --global --allow-net --allow-read webserver.js
-New-Item -ItemType Directory -Path &quot;$HOME\bin&quot; -Force
-move webserver.exe $HOME\bin\
-webserver</code></pre>
-<p>There you have it. I have a new convenient static web server for
-serving static content on localhost.</p>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

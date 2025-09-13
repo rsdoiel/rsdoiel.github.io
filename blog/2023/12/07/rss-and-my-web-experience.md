@@ -19,6 +19,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2023-12-07'
 dateModified: '2025-07-22'
 datePublished: '2023-12-07'
+postPath: 'blog/2023/12/07/rss-and-my-web-experience.md'
 seriesNo: 1
 ---
 

@@ -16,6 +16,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-10-31'
 dateModified: '2025-07-23'
 datePublished: '2024-10-31'
+postPath: 'blog/2024/10/31/limit_and_offset_for_row_pruning.md'
 ---
 
 # Limit and offset for row pruning

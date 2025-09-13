@@ -33,6 +33,7 @@ abstract: >
 dateCreated: '2022-09-27'
 dateModified: '2025-07-22'
 datePublished: '2022-09-27'
+postPath: 'blog/2022/09/27/rust-development-notes.md'
 ---
 
 Rust development notes

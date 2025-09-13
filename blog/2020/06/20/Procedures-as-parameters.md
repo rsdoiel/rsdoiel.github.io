@@ -47,6 +47,7 @@ abstract: >+
 dateCreated: '2020-06-20'
 dateModified: '2025-07-22'
 datePublished: '2020-06-20'
+postPath: 'blog/2020/06/20/Procedures-as-parameters.md'
 seriesNo: 9
 ---
 

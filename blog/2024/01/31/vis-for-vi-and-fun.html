@@ -1,183 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>vis-for-vi-and-fun</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="editors, vi">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/01/31/vis-for-vi-and-fun.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="vis-for-vi-and-fun.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="vis-for-vi-and-fun">vis for vi and fun</h1>
-<p>By R. S. Doiel, 2024-01-31 (updated: 2024-02-02)</p>
-<p>I’ve been looking for a <code>vi</code> editor that my fingers would
-be happy with. I learned <code>vi</code> when I first encountered Unix
-in University (1980s). I was a transfer student so didn’t get the
-“introduction to Unix and Emacs” lecture. Everyone used Emacs to edit
-programs but Emacs to me was not intuitive. I recall having a heck of a
-time figuring out how to exit the editor! I knew I needed to learn an
-editor and Unix fast to do my school work. I head to my college
-bookstore and found two spiral bound books <a
-href="https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M">Unix
-in a Nutshell</a> and “Vi/Ed in a Nutshell”. They helped remedy my
-ignorance. I spent the afternoon getting comfortable with Unix and
-learning the basics in Vi. It became my go to text editor. Somewhere
-along the line <code>nvi</code> came along I used that. Eventually
-<code>vim</code> replaced <code>nvi</code> as the default “vi” for most
-Linux system and adapted again. I like one featured about
-<code>vim</code> over <code>nvi</code>. <code>vim</code> does syntax
-highlighting. I routinely get frustrate with <code>vim</code> (my old
-muscle memory throws me into the help systems, very annoying) so I tend
-to bounce between <code>nvi</code> and <code>vim</code> depending on how
-my eyes feel and frustration level.</p>
-<h2><a name="vis-the-vi-i-wished-for">vis, the vi I wished for</a></h2>
-<p>Recently I stumbled on <code>vis</code>. I find it a very interesting
-<code>vi</code> implementation. Like <code>vim</code> it mostly conforms
-to the classic mappings of a modal editor built on top of
-<code>ed</code>. But <code>vis</code> has some nice twists. First it
-doesn’t try to be a monolithic systems like Emacs or <code>vim</code>.
-Rather then used an application specific scripting language
-(e.g. Emacs-lisp, vim-script) it uses Lua 5.2 as its configuration
-language. For me starting up <code>vis</code> feels like starting up
-<code>nvi</code>. It is quick and responsive where my typical
-<code>vim</code> setup feels allot like Visual Studio Code in that it’s
-loading a whole bunch of things I don’t use.</p>
-<p>Had <code>vis</code> just had syntax highlighting I don’t know if I
-was would switched from <code>vim</code>. <code>neovim</code> is a
-better vim but I don’t use it regularly and don’t go out of my way to
-install it. <code>vis</code> has one compelling feature that pushed me
-over the edge. One I didn’t expect. <code>vis</code> supports <a
-href="http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf"
-title="PDF paper explain structured regular expression by Rob Pike">structured
-regular expressions</a>. This is the command language found in Plan 9
-editors like <a href="http://sam.cat-v.org/">sam</a> and <a
-href="http://acme.cat-v.org/">Acme</a>. The approach to regexp is
-oriented around streams of characters rather than lines of characters.
-It does this by supporting the concept of multiple cursors and operating
-on selections (note the plural) in parallel. This allows a higher degree
-of transformation, feels like a stream oriented AWK but with simpler
-syntax for the things you do all the time. It was easiest enough to
-learn that my finger quickly adapted to it. It does mean that in command
-mode my search and replace is different than what I used to type. E.g.
-changing CRLF to LF</p>
-<pre><code>:1,$x/\r/ c//</code></pre>
-<p>versus</p>
-<pre><code>:1,$s/\r//g</code></pre>
-<p>Just enough different to catch someone who is used to
-<code>vim</code> and <code>nvi</code> unaware.</p>
-<h2><a name="be-careful-what-you-wish-for-on-ubuntu">Be careful what you wish for on Ubuntu</a></h2>
-<p>When I decided I want to use <code>vis</code> as my preferred “vi” in
-went and installed it on all my work Ubuntu boxes. What surprised me was
-that when you install <code>vis</code> on an Ubuntu system it winds up
-becoming the default “vi”. That posed a problem because I hadn’t
-consulted with the other people who use those machines. I thought I
-would type <code>vis</code> instead of <code>vi</code> to use it.
-Fortunately Ubuntu also provides a means of fixing which alternative
-programs can be used for things like “vi”. I reverted the default “vi”
-to <code>vim</code> for my colleagues using the Ubuntu command
-<code>update-alternatives</code>
-(e.g. <code>sudo update-alternatives --config vi</code>). No surprises
-for them and I still get to use <code>vis</code>, I just type the extra
-“s”.</p>
-<h2><a name="getting-to-know-structured-regular-expressions-and-case-swapping">Getting to know structured regular expressions and case swapping</a></h2>
-<p>A challenge in making the switch to <code>vis</code> is learning a
-new approach to search and replace. Fortunately Marc Tanner gives you
-the phrases in his documentation. Searching for “structured regular
-expressions” leads to Rob Pike’s paper of the same name. The other thing
-Marc points out is his choices in implementing <code>vis</code>.
-<code>vis</code> is like <code>vi</code> meets the Sam editor of Plan 9
-fame. You can try Plan 9 Sam editor by installing <a
-href="https://9fans.github.io/plan9port/">Plan 9 User Space</a>.
-Understanding Sam made the transition to <code>vis</code> smoother. I
-recommend reading Rob Pike’s paper on “Structured Regular Expressions”<a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>, his “Sam Tutorial”<a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
-then keeping the “Sam Cheatsheet”<a href="#fn3" class="footnote-ref"
-id="fnref3" role="doc-noteref"><sup>3</sup></a> handy during the
-transition. The final challenge I ran into in making the switch is the
-old <code>vi</code> stand by for flipping case for letters in visual
-mode. In the old <code>vi</code> you use the tilde key,
-<code>shift+~</code>. In <code>vis</code> you press <code>g</code> then
-<code>~</code> to change the case on a letter.</p>
-<h2><a name="a-few-“thank-you”-or-“how-did-i-stumble-on-vis”">A few “thank you” or “how did I stumble on vis?”</a></h2>
-<p>I’d like to say thank you to <a
-href="https://github.com/martanne">Marc André Tanner</a> for writing
-<code>vis</code>, <a href="https://www.glendix.org/">Glendix</a> for
-highlighting it and to OS News contributor <a
-href="https://www.osnews.com/submissions/?user=pablo_marx">pablo_marx</a>
-for the story <a
-href="https://www.osnews.com/story/20588/glendix-bringing-the-beauty-of-plan-9-to-linux/">Glendix:
-Bringing the Beauty of Plan 9 to Linux</a>. With this I find my fingers
-are happier.</p>
-<h2><a name="additional-resources">Additional resources</a></h2>
-<ul>
-<li><a href="https://www.brain-dump.org/projects/vis/">Marc André
-Tanner</a>’s vis project page</li>
-<li><a href="https://github.com/martanne/vis/">vis on GitHub</a></li>
-<li><a href="https://vis.readthedocs.io/en/master/vis.html">vis @
-readthedocs</a></li>
-<li><a href="https://github.com/martanne/vis/wiki">Vis Wiki</a></li>
-<li><a href="https://github.com/topics/vis-editor">GitHub Topic</a></li>
-<li><a href="https://erf.github.io/vis-plugins/">Plugin
-collection</a></li>
-</ul>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Rob Pike’s <a
-href="http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf"
-title="PDF document">“structured regular expressions”</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a
-href="http://doc.cat-v.org/bell_labs/sam_lang_tutorial/sam_tut.pdf"
-title="PDF document">Sam Tutorial</a><a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p><a href="http://sam.cat-v.org/cheatsheet/"
-title="html document containing an image">Sam Cheat Sheet</a><a
-href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-01-31" data-link="https://rsdoiel.github.io/blog/2024/01/31/vis-for-vi-and-fun.html">
+      <h1 id="vis-for-vi-and-fun">vis for vi and fun</h1>
+      <p>By R. S. Doiel, 2024-01-31 (updated: 2024-02-02)</p>
+      <p>I've been looking for a <code>vi</code> editor that my fingers would be happy with. I learned <code>vi</code> when I first encountered Unix in University (1980s). I was a transfer student so didn't get the &quot;introduction to Unix and Emacs&quot; lecture. Everyone used Emacs to edit programs but Emacs to me was not intuitive. I recall having a heck of a time figuring out how to exit the editor! I knew I needed to learn an editor and Unix fast to do my school work. I head to my college bookstore and found two spiral bound books <a href="https://openlibrary.org/works/OL8724416W?edition=key%3A/books/OL24392296M">Unix in a Nutshell</a> and &quot;Vi/Ed in a Nutshell&quot;. They helped remedy my ignorance. I spent the afternoon getting comfortable with Unix and learning the basics in Vi. It became my go to text editor. Somewhere along the line <code>nvi</code> came along I used that. Eventually <code>vim</code> replaced <code>nvi</code> as the default &quot;vi&quot; for most Linux system and adapted again.  I like one featured about <code>vim</code> over <code>nvi</code>. <code>vim</code> does syntax highlighting. I routinely get frustrate with <code>vim</code> (my old muscle memory throws me into the help systems, very annoying) so I tend to bounce between <code>nvi</code> and <code>vim</code> depending on how my eyes feel and frustration level.</p>
+      <h2 id="vis-the-vi-i-wished-for">vis, the vi I wished for</h2>
+      <p>Recently I stumbled on <code>vis</code>. I find it a  very interesting <code>vi</code> implementation. Like <code>vim</code> it mostly conforms to the classic mappings of a modal editor built on top of <code>ed</code>. But <code>vis</code> has some nice twists. First it doesn't try to be a monolithic systems like Emacs or <code>vim</code>. Rather then used an application specific scripting language (e.g. Emacs-lisp, vim-script) it uses Lua 5.2 as its configuration language. For me starting up <code>vis</code> feels like starting up <code>nvi</code>. It is quick and responsive where my typical <code>vim</code> setup feels allot like Visual Studio Code in that it's loading a whole bunch of things I don't use.</p>
+      <p>Had <code>vis</code> just had syntax highlighting I don't know if I was would switched from <code>vim</code>. <code>neovim</code> is a better vim but I don't use it regularly and don't go out of my way to install it.  <code>vis</code> has one compelling feature that pushed me over the edge. One I didn't expect. <code>vis</code> supports <a href="http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf" title="PDF paper explain structured regular expression by Rob Pike">structured regular expressions</a>. This is the command language found in Plan 9 editors like <a href="http://sam.cat-v.org/">sam</a> and <a href="http://acme.cat-v.org/">Acme</a>. The approach to regexp is oriented around streams of characters rather than lines of characters. It does this by supporting the concept of multiple cursors and operating on selections (note the plural) in parallel. This allows a higher degree of transformation, feels like a stream oriented AWK but with simpler syntax for the things you do all the time. It was easiest enough to learn that my finger quickly adapted to it. It does mean that in command mode my search and replace is different than what I used to type. E.g. changing CRLF to LF</p>
+      <pre><code>:1,$x/\r/ c//
+      </code></pre>
+      <p>versus</p>
+      <pre><code>:1,$s/\r//g
+      </code></pre>
+      <p>Just enough different to catch someone who is used to <code>vim</code> and <code>nvi</code> unaware.</p>
+      <h2 id="be-careful-what-you-wish-for-on-ubuntu">Be careful what you wish for on Ubuntu</h2>
+      <p>When I decided I want to use <code>vis</code> as my preferred &quot;vi&quot; in went and installed it on all my work Ubuntu boxes. What surprised me was that when you install <code>vis</code> on an Ubuntu system it winds up becoming the default &quot;vi&quot;. That posed a problem because I hadn't consulted with the other people who use those machines. I thought I would type <code>vis</code> instead of <code>vi</code> to use it. Fortunately Ubuntu also provides a means of fixing which alternative programs can be used for things like &quot;vi&quot;.  I reverted the default &quot;vi&quot; to <code>vim</code> for my colleagues using the Ubuntu command <code>update-alternatives</code> (e.g. <code>sudo update-alternatives --config vi</code>). No surprises for them and I still get to use <code>vis</code>, I just type the extra &quot;s&quot;.</p>
+      <h2 id="getting-to-know-structured-regular-expressions-and-case-swapping">Getting to know structured regular expressions and case swapping</h2>
+      <p>A challenge in making the switch to <code>vis</code> is learning a new approach to search and replace. Fortunately Marc Tanner gives you the phrases in his documentation.  Searching for &quot;structured regular expressions&quot; leads to Rob Pike's paper of the same name. The other thing Marc points out is his choices in implementing <code>vis</code>. <code>vis</code> is like <code>vi</code> meets the Sam editor of Plan 9 fame.  You can try Plan 9 Sam editor by installing <a href="https://9fans.github.io/plan9port/">Plan 9 User Space</a>. Understanding Sam made the transition to <code>vis</code> smoother. I recommend reading Rob Pike's paper on &quot;Structured Regular Expressions&quot;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, his &quot;Sam Tutorial&quot;<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> then keeping the &quot;Sam Cheatsheet&quot;<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> handy during the transition. The final challenge I ran into in making the switch is the old <code>vi</code> stand by for flipping case for letters in visual mode.  In the old <code>vi</code> you use the tilde key, <code>shift+~</code>. In <code>vis</code> you press <code>g</code> then <code>~</code> to change the case on a letter.</p>
+      <h2 id="a-few-thank-you-or-how-did-i-stumble-on-vis">A few &quot;thank you&quot; or &quot;how did I stumble on vis?&quot;</h2>
+      <p>I'd like to say thank you to <a href="https://github.com/martanne">Marc André Tanner</a> for writing <code>vis</code>, <a href="https://www.glendix.org/">Glendix</a> for highlighting it and to OS News contributor <a href="https://www.osnews.com/submissions/?user=pablo_marx">pablo_marx</a> for the story <a href="https://www.osnews.com/story/20588/glendix-bringing-the-beauty-of-plan-9-to-linux/">Glendix: Bringing the Beauty of Plan 9 to Linux</a>. With this I find my fingers are happier.</p>
+      <h2 id="additional-resources">Additional resources</h2>
+      <ul>
+      <li><a href="https://www.brain-dump.org/projects/vis/">Marc André Tanner</a>'s vis project page</li>
+      <li><a href="https://github.com/martanne/vis/">vis on GitHub</a></li>
+      <li><a href="https://vis.readthedocs.io/en/master/vis.html">vis @ readthedocs</a></li>
+      <li><a href="https://github.com/martanne/vis/wiki">Vis Wiki</a></li>
+      <li><a href="https://github.com/topics/vis-editor">GitHub Topic</a></li>
+      <li><a href="https://erf.github.io/vis-plugins/">Plugin collection</a></li>
+      </ul>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>Rob Pike's <a href="http://doc.cat-v.org/bell_labs/structural_regexps/se.pdf" title="PDF document">&quot;structured regular expressions&quot;</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p><a href="http://doc.cat-v.org/bell_labs/sam_lang_tutorial/sam_tut.pdf" title="PDF document">Sam Tutorial</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:3">
+      <p><a href="http://sam.cat-v.org/cheatsheet/" title="html document containing an image">Sam Cheat Sheet</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

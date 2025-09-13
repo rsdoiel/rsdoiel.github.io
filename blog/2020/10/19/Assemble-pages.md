@@ -23,6 +23,7 @@ abstract: >+
 dateCreated: '2020-10-19'
 dateModified: '2025-07-22'
 datePublished: '2020-10-19'
+postPath: 'blog/2020/10/19/Assemble-pages.md'
 seriesNo: 13
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: 'Quick recipe, compiling PostgREST (M1)'
-pubDate: 2023-07-05T00:00:00.000Z
 author: R. S. Doiel
 keywords:
   - PostgREST
@@ -38,6 +37,7 @@ abstract: >
 dateCreated: '2023-07-05'
 dateModified: '2025-07-22'
 datePublished: '2023-07-05'
+postPath: 'blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md'
 ---
 
 # Quick recipe, compile PostgREST (M1)

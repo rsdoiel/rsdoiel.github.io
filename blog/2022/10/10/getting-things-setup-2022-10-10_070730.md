@@ -20,6 +20,7 @@ abstract: |+
 dateCreated: '2022-10-10'
 dateModified: '2025-07-22'
 datePublished: '2022-10-10'
+postPath: 'blog/2022/10/10/getting-things-setup-2022-10-10_070730.md'
 seriesNo: 1
 ---
 

@@ -48,6 +48,7 @@ abstract: >
 dateCreated: '2021-06-14'
 dateModified: '2025-07-22'
 datePublished: '2021-06-14'
+postPath: 'blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md'
 series: |
   Mostly Oberon
 seriesNo: 19

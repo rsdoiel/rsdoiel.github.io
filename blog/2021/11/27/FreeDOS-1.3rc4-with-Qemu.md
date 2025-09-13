@@ -30,6 +30,7 @@ abstract: |
 dateCreated: '2021-11-27'
 dateModified: '2025-07-22'
 datePublished: '2021-11-27'
+postPath: 'blog/2021/11/27/FreeDOS-1.3rc4-with-Qemu.md'
 series: |
   Exploring FreeDOS
 seriesNo: 1

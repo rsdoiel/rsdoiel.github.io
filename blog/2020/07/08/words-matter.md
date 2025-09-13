@@ -32,6 +32,7 @@ abstract: |+
 dateCreated: '2020-07-08'
 dateModified: '2025-07-22'
 datePublished: '2020-07-08'
+postPath: 'blog/2020/07/08/words-matter.md'
 ---
 
 # Words Matter

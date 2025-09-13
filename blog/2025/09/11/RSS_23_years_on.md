@@ -5,8 +5,7 @@ author: R. S. Doiel
 dateCreated: "2025-09-11"
 dateModified: "2025-09-11"
 datePublished: "2025-09-11"
-postPath: blog/2025/09/11/RSS_23_years_on.md
-link: blog/2025/09/11/RSS_23_years_on.html
+postPath: "blog/2025/09/11/RSS_23_years_on.md"
 ---
 
 # RSS 23 years on

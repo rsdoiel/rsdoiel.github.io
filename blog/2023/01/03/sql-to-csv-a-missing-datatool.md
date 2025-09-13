@@ -1,7 +1,6 @@
 ---
 title: 'SQL query to CSV, a missing datatool'
 author: rsdoiel@sdf.org (R. S. Doiel)
-pubDate: 2023-01-03T00:00:00.000Z
 updateDate: 2023-03-13T00:00:00.000Z
 keywords:
   - sql
@@ -38,6 +37,7 @@ abstract: >+
 dateCreated: '2023-01-13'
 dateModified: '2025-07-22'
 datePublished: '2023-01-13'
+postPath: 'blog/2023/01/03/sql-to-csv-a-missing-datatool.md'
 ---
 
 # SQL query to CSV, a missing datatool

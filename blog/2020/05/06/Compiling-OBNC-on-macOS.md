@@ -28,6 +28,7 @@ abstract: >
 dateCreated: '2020-05-06'
 dateModified: '2025-07-22'
 datePublished: '2020-05-06'
+postPath: 'blog/2020/05/06/Compiling-OBNC-on-macOS.md'
 seriesNo: 6
 ---
 

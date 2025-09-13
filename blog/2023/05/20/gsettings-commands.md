@@ -33,6 +33,7 @@ abstract: >+
 dateCreated: '2023-05-20'
 dateModified: '2025-07-22'
 datePublished: '2023-05-20'
+postPath: 'blog/2023/05/20/gsettings-commands.md'
 ---
 
 # gsettings command

@@ -9,7 +9,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 PANDOC=pandoc -f markdown -t html5 -B nav.include -A footer.include --lua-filter=links-to-html.lua --lua-filter=link-h2-anchor.lua
 
-all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html rss.xml pagefind
+all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml pagefind
 
 
 nav.include: nav.md .FORCE
@@ -106,20 +106,19 @@ redirects: .FORCE
 	bash generate-redirect-pages.bash
 
 rss.xml: .FORCE
+	antenna generate blog.md
+	cp -v blog.xml index.xml
+	cp -v blog.xml rss.xml
+
+archive.xml: .FORCE
 	pttk rss -channel-title="R. S. Doiel Blog" \
 		-atom-link="https://rsdoiel.github.io/rss.xml" \
 		-base-url="https://rsdoiel.github.io" \
-        -channel-description="Robert's ramblings and wonderigs" \
-        -channel-link="https://rsdoiel.github.io/blog" blog >rss.xml
-	pttk rss -channel-title="R. S. Doiel Website" \
-		-atom-link="https://rsdoiel.github.io/index.xml" \
-		-base-url="https://rsdoiel.github.io" \
-        -channel-description="Robert's Website" \
-        -channel-link="https://rsdoiel.github.io" . >index.xml
+        -channel-description="All posts from Robert's ramblings and wonderigs" \
+        -channel-link="https://rsdoiel.github.io/blog" blog >archive.xml
 
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
-	pttk blogit -prefix=blog -refresh=$(YEARS)
 	bash blog.bash
 	git add blog/index.html
 	git add blog/blog.json
@@ -148,7 +147,7 @@ save:
 	-git commit -am "Quick Save"
 	-git push origin main
 
-# NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with pttk
+# NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with antenna and Pandoc
 website: all .FORCE
 
 #sitemap.xml: .FORCE

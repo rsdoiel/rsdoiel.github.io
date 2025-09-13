@@ -39,6 +39,7 @@ abstract: >
 dateCreated: '2022-11-01'
 dateModified: '2025-07-22'
 datePublished: '2022-11-01'
+postPath: 'blog/2022/11/01/Feeds-formats-and-plain-text.md'
 ---
 
 Feeds, formats, and plain text

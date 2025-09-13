@@ -31,6 +31,7 @@ abstract: >+
 dateCreated: '2022-08-14'
 dateModified: '2025-07-22'
 datePublished: '2022-08-14'
+postPath: 'blog/2022/08/14/golang-development-2022-08-14_170500.md'
 seriesNo: 3
 ---
 

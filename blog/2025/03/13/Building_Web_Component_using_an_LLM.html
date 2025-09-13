@@ -1,278 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>Building_Web_Component_using_an_LLM</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="LLM, Web Components, JavaScript">
-  <link rel="alternative" type="application/markdown" href="/blog/2025/03/13/Building_Web_Component_using_an_LLM.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="Building_Web_Component_using_an_LLM.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="building-web-components-using-large-language-models">Building
-Web Components using Large Language Models</h1>
-<p>By R. S. Doiel, 2025-03-13</p>
-<p>In March I started playing around with large language models to
-create a couple web components. I settled on a paid subscription for
-Mistral’s Le Chat. You can see the results of my work project at <a
-href="https://github.com/caltechlibrary/CL-web-compoments"
-class="uri">https://github.com/caltechlibrary/CL-web-compoments</a>. The
-release at or before “v0.0.4” were generated using Mistral’s Le
-Chat.</p>
-<p>The current state of LLM offered online do not replace a human
-programmer. I’m sure that is surprising to those who thing of this as a
-solved problem. I found that is was my experience as a developer that I
-could detect the problems in the generated code. It was also required in
-coming up with the right prompts to get the code I wanted.</p>
-<p>The key to success of using an LLM for code generation is domain
-knowledge. You need domain knowledge of the problem you’re solving by
-creating new software and domain knowledge of the machine or run time
-that the software will target.</p>
-<p>The ticket to working with an LLM using a chat interface is your
-domain knowledge. That’s how you know what to ask. That starting point
-is useful when using the LLM explore <strong>widely documented</strong>
-topics and approaches. The LLM is not good at inferring novel solutions
-but rather at using what it has been trained on. That has been the key
-with the current crop of LLM I tried.</p>
-<p>I think using an LLM to generate code alongside a human client has
-potential. The human client brings subject knowledge. The human software
-developer brings more domain knowledge. Between the two they can guide
-the LLM in generating useful code. Its a little like training a
-literalist four year old that has the ability to type. I think this
-three way collaboration has possibilities. The LLM may prove helpful in
-bridging the human client and software developer divide.</p>
-<h2><a name="my-experiment-proceeded">my experiment proceeded</a></h2>
-<p>Working with a chat interface and LLM is a non-trivial iterative
-process. It can be frustratingly slow and pedantic. I often felt I took
-two steps forward then a step backward. I am unsure if I arrived at the
-desire code faster using the LLM. I am unsure the result was better
-quality software.</p>
-<p>I spent two weeks of working with a Mistral’s Le Chat LLM on two web
-components. I am happy with the results at this stage of development. I
-am not certain the web components will continue to be developed with an
-LLM. My experience left me with questions about how LLM generated code
-will help or hurt sustainable software.</p>
-<h2><a name="generating-web-components">Generating web components</a></h2>
-<p>My experiment focused on two web components I needed for a work
-project. The first successfully completed component was called
-<code>AToZUL</code> in “<a
-href="https://raw.githubusercontent.com/caltechlibrary/CL-web-components/refs/heads/main/a_to_z_ul.js">a_to_z_ul.js</a>”.
-This web component is intended to wrap a simple UL list of links. It
-turns the wrapped UL into an A to Z list. Taking the wrapping approach
-of a native HTML element was my idea not the LLM’s. I asked the LLM to
-implement a fallback but each LLM I tried this with inevitably relied on
-JavaScript. This fails when JavaScript is unavailable in the browser<a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>. How can the LLM do better than
-rehashing of the training data?</p>
-<p>The second web component successfully generated is called
-<code>CSVTextarea</code> in the “<a
-href="https://raw.githubusercontent.com/caltechlibrary/CL-web-components/refs/heads/main/csvtextarea.js">csvtextarea.js</a>”.
-This web component wraps a TEXTAREA that has CSV data in it’s inner
-text. The web component presents a simple table for data entry. It
-features auto complete for columns using DATALIST elements. The
-<code>CSVTextarea</code> emits “focused” and “changed” events when cells
-receive focus or change. Additional methods are implemented to push data
-into the component or retrieving data from the component. Both web
-components include optional attributes “css-href” to include CSS that
-overrides the default that ships with the component.</p>
-<p>At the start of March a spent a couple days working with the free
-versions of several LLM. I found Chat-GPT to be useless. I found Claude
-and Mistral to be promising. In all cases I found the “free” versions to
-be crippled for generating web components. I settled on a paid
-subscription to Mistral’s Le Chat. The code generation was nearly as
-good as Claude but less expensive per month.</p>
-<p>Out side of work hours I tested code generation for several personal
-projects as well as code porting. I was unhappy with the results for
-porting code from Go to Deno 2.x and TypeScript. The LLM are not trained
-on recent data. They seem to be about two years out. This includes the
-paid ones. As the result the best I could do was generate code for Deno
-1.x.</p>
-<p>TypeScript and Go have some strong parallels. I’d previously hand
-ported code. I compared my code with the LLM results and was surprised
-at the deficits in the generated code. I think this boils down to the
-training sets used.</p>
-<p>Of all the programming tasks I tried the best results for code
-generation were targeting JavaScript running in a web browser. This
-isn’t surprising as the LLM likely trained on web data.</p>
-<h2><a name="my-development-setup-for-the-experiments">My development setup for the experiments</a></h2>
-<p>I initially tried VSCode and CoPilot. For me it us annoying and
-highly unproductive<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>. My reaction certainly is a
-reflection on my background. I prefer minimal IDE. I am happy with an
-editor that is limited to syntax highlighting, auto indent and line
-numbering. When I use VSCode I turn most features off. Your mileage may
-very with your preferences.</p>
-<p>I ran my tests using a terminal app, a text editor, a localhost web
-server and Firefox. The log output of the web server was available in
-one terminal window and another for my text editor. One browser tab was
-open to Mistral’s Le Chat. The other tabs open to the HTML pages I used
-for testing the results of the generated code. It required a fair amount
-of cut and paste which is tedious. This is far from an ideal setup.</p>
-<p>I looked at <a href="https://ollama.com">Ollama</a> to see about
-running the LLM from the command line. Long run this seems like a better
-approach for me. Unfortunately to use Mistral.ai’s trained models I
-would need to purchase a more expensive subscription. The price point is
-roughly the same as Anthropic’s Claude, a closed sourced option. For now
-I am sticking with cut and paste.</p>
-<p>Using Ollama there is the possibility of using Mistral’s open source
-models and training them further on data I curate. At some point I’ll
-give it a try. I remain concerned about the electric bill. If
-collectively we’re going to run these systems they will need clean
-alternative sources of electricity. Otherwise we are in for an
-environmental impact like we saw with BitCoin and Block-Chains. I think
-this is a major problem in the LLM space. I don’t think we can ignore it
-even when the “AI” hype cycle is hand waving it away.</p>
-<p>I liked using Ollama to test free models to understand their
-differences. I recommend this as an option if you are working from macOS
-or Windows. The quality of generated code varies considerably between
-models. It is also true that the speed and processing requirements
-varies considerably between models. I am sure this is why hardware
-vendors think they will be able to sell hardware with “AI Chips” built
-in. I’m skeptical.</p>
-<p>I think small language models targeting specific domains could really
-improve the use case for language models generating code. They could
-shine for specific tasks or programming languages. They might be
-reasonable to run on embedded platforms too. I think small language
-models are an overlooked area in the current “AI” hype cycle.</p>
-<h2><a name="what-i-took-away-from-this-experiment">What I took away from this experiment</a></h2>
-<p>I think a good front end developer<a href="#fn3" class="footnote-ref"
-id="fnref3" role="doc-noteref"><sup>3</sup></a> could find an LLM useful
-as an “assistant”. I think a novice developer will easily be lead
-astray. As a community of practitioners we should guard against the
-bias, “computer must be correct”. This is not new. It happened when
-“expert systems” were the rage before the first AI winter. It’ll be an
-easy trap to fall into for the public.</p>
-<p>I have a great deal of concern about compromised training data. There
-is so much mischief possible. It has already been established that
-“poisoning” the LLM via training data and prompts will result in
-generating dubious code<a href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a>. I don’t see much attention paid to
-the security and provenance of training data, let alone good tools to
-vet the generated code. This is a security bomb waiting to explode.</p>
-<p>Today’s software systems are really complex. Reproducibility has
-become a requirement in mitigating the problem. This is why you’ve seen
-a rise in virtual environments. The LLM itself doesn’t improve this
-situation. I’ve used the same text prompts with the same LLM but
-different chat session and gotten significantly different results. The
-LLM as presently implemented exacerbate the problems of
-reproducibility.</p>
-<p>To an certain extent we can strengthen our efforts around quality
-assurance. The trouble I’ve found is this too is a domain where LLMs are
-being applied. If the quality assurance LLM is tainted we don’t get the
-assurance we need. There also is the very human problem of typos in our
-prompts. That’s a very deep rabbit hole by itself.</p>
-<h2><a name="lessons-learned">Lessons learned</a></h2>
-<p>I got the best results by composing a long specification as an
-initial state prompt to kick off code generation. I still needed to fix
-bugs using short prompts interactively. With the CSVTextarea I threw
-away five versions before I got to something useful. Each chat session
-lasted a couple hours. They were spread out over many days.</p>
-<p>There was a clear point when additional prompts don’t improve the
-results of generated code. I found three cases where I lead the LLM down
-a rabbit hole.</p>
-<ol type="1">
-<li>the terms I used weren’t what the LLM was trained on so it couldn’t
-respond the way I wanted</li>
-<li>the visible results, e.g. the web component failing to render,
-doesn’t indicate the underlying problem, this leads to prompt churn</li>
-<li>their was a subtle assumption in the generated code I didn’t pick up
-and correct early on</li>
-</ol>
-<p>A beneficial result of using an LLM to generate code is that it
-encourages reading the source. Reading code is generally not taught
-enough. You’re going to be reading allot of code using the current crop
-of commercially available LLM. That is a good thing in my book.</p>
-<p>To solve the rabbit hole problem I adopted the following practices.
-Keep all my prompts in a Markdown document, along with notes to myself.
-When I felt the LLM had gone down a rabbit whole have the LLM generate a
-“comprehensive detailed specification” of the code generated. Compare
-the LLM specification against my own prompts helped simplify things when
-starting over.</p>
-<p>Be willing to throw away the LLM results and start over. This is
-important in exploratory programming but also when you’re using LLM
-generated code to solve a known problem. If you can tolerate the process
-of writing and refining the prompts in your native language the LLM will
-happily attempt to generate code for them. I’d love to get some English
-and Philosophy graduates using LLM for code generation. It’d be
-interesting to see how their skills may out perform those of
-traditionally educated software engineering graduates. I think the
-humanities fields that could benefit from a quantitative approach may
-find LLM to generate code to do analysis really compelling.</p>
-<p>While I like the results I got for this specific tests I remain on
-the fence about <strong>general usefulness</strong> of LLM in the area
-of code generation. I suspect it’ll take time before the shared
-knowledge and practice in using them emerges. There is also the problem
-of energy consumption. This feels like the whole “proof of work” problem
-consuming massive amounts of electricity in the block chain tech. That
-alone was enough to turn me off of block chain for most of its proposed
-applications. Hopefully alternatives will be developed to avoid that
-outcome with large language models.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>By providing a non JavaScript implementation I can
-interact with the web page using terminal based browser or using simple
-web scraping libraries.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>It was annoying enough that I initially dismissed using
-an LLM. My colleague, Tommy, however encouraged me to give it a more
-serious try. If you lived through the “editor wars” of the early ARPAnet
-get ready for them to reignite. We’re going to see allot of
-organizations claiming superior dev setups for integrating LLM into
-IDE.<a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I am not a front end developer. I have spent most of my
-career writing back end systems and middleware.<a href="#fnref3"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>See <a
-href="https://www.nature.com/articles/s41591-024-03445-1">Medical large
-language models are vulnerable to data-poisoning attacks</a>. Think of
-the decades waste on SQL injections then multiply that by magnitudes as
-people come to trust the results of LLM to build really complex
-things.<a href="#fnref4" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2025-03-13" data-link="https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html">
+      <h1 id="building-web-components-using-large-language-models">Building Web Components using Large Language Models</h1>
+      <p>By R. S. Doiel, 2025-03-13</p>
+      <p>In March I started playing around with large language models to create a couple web components. I settled on a paid subscription for Mistral's Le Chat. You can see the results of my work project at <a href="https://github.com/caltechlibrary/CL-web-compoments">https://github.com/caltechlibrary/CL-web-compoments</a>. The release at or before &quot;v0.0.4&quot; were generated using Mistral's Le Chat.</p>
+      <p>The current state of LLM offered online do not replace a human programmer. I'm sure that is surprising to those who thing of this as a solved problem. I found that is was my experience as a developer that I could detect the problems in the generated code. It was also required in coming up with the right prompts to get the code I wanted.</p>
+      <p>The key to success of using an LLM for code generation is domain knowledge. You need domain knowledge of the problem you're solving by creating new software and domain knowledge of the machine or run time that the software will target.</p>
+      <p>The ticket to working with an LLM using a chat interface is your domain knowledge. That's how you know what to ask. That starting point is useful when using the LLM explore <strong>widely documented</strong> topics and approaches. The LLM is not good at inferring novel solutions but rather at using what it has been trained on.  That has been the key with the current crop of LLM I tried.</p>
+      <p>I think using an LLM to generate code alongside a human client has potential. The human client brings subject knowledge. The human software developer brings more domain knowledge. Between the two they can guide the LLM in generating useful code. Its a little like training a literalist four year old that has the ability to type. I think this three way collaboration has possibilities. The LLM may prove helpful in bridging the human client and software developer divide.</p>
+      <h2 id="my-experiment-proceeded">my experiment proceeded</h2>
+      <p>Working with a chat interface and LLM is a non-trivial iterative process. It can be frustratingly slow and pedantic. I often felt I took two steps forward then a step backward. I am unsure if I arrived at the desire code faster using the LLM. I am unsure the result was better quality software.</p>
+      <p>I spent two weeks of working with a Mistral's Le Chat LLM on two web components. I am happy with the results at this stage of development. I am not certain the web components will continue to be developed with an LLM. My experience left me with questions about how LLM generated code will help or hurt sustainable software.</p>
+      <h2 id="generating-web-components">Generating web components</h2>
+      <p>My experiment focused on two web components I needed for a work project. The first successfully completed component was called <code>AToZUL</code> in &quot;<a href="https://raw.githubusercontent.com/caltechlibrary/CL-web-components/refs/heads/main/a_to_z_ul.js">a_to_z_ul.js</a>”. This web component is intended to wrap a simple UL list of links. It turns the wrapped UL into an A to Z list. Taking the wrapping approach of a native HTML element was my idea not the LLM's. I asked the LLM to implement a fallback but each LLM I tried this with inevitably relied on JavaScript. This fails when JavaScript is unavailable in the browser<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. How can the LLM do better than rehashing of the training data?</p>
+      <p>The second web component successfully generated is called <code>CSVTextarea</code> in the &quot;<a href="https://raw.githubusercontent.com/caltechlibrary/CL-web-components/refs/heads/main/csvtextarea.js">csvtextarea.js</a>&quot;. This web component wraps a TEXTAREA that has CSV data in it's inner text. The web component presents a simple table for data entry. It features auto complete for columns using DATALIST elements. The <code>CSVTextarea</code> emits &quot;focused&quot; and &quot;changed&quot; events when cells receive focus or change. Additional methods are implemented to push data into the component or retrieving data from the component. Both web components include optional attributes &quot;css-href&quot; to include CSS that overrides the default that ships with the component.</p>
+      <p>At the start of March a spent a couple days working with the free versions of several LLM. I found Chat-GPT to be useless. I found Claude and Mistral to be promising. In all cases I found the &quot;free&quot; versions to be crippled for generating web components. I settled on a paid subscription to Mistral's Le Chat. The code generation was nearly as good as Claude but less expensive per month.</p>
+      <p>Out side of work hours I tested code generation for several personal projects as well as code porting.  I was unhappy with the results for porting code from Go to Deno 2.x and TypeScript. The LLM are not trained on recent data. They seem to be about two years out. This includes the paid ones. As the result the best I could do was generate code for Deno 1.x.</p>
+      <p>TypeScript and Go have some strong parallels. I'd previously hand ported code. I compared my code with the LLM results and was surprised at the deficits in the generated code. I think this boils down to the training sets used.</p>
+      <p>Of all the programming tasks I tried the best results for code generation were targeting JavaScript running in a web browser. This isn't surprising as the LLM likely trained on web data.</p>
+      <h2 id="my-development-setup-for-the-experiments">My development setup for the experiments</h2>
+      <p>I initially tried VSCode and CoPilot. For me it us annoying and highly unproductive<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. My reaction certainly is a reflection on my background. I prefer minimal IDE. I am happy with an editor that is limited to syntax highlighting, auto indent and line numbering. When I use VSCode I turn most features off. Your mileage may very with your preferences.</p>
+      <p>I ran my tests using a terminal app, a text editor, a localhost web server and Firefox. The log output of the web server was available in one terminal window and another for my text editor. One browser tab was open to Mistral's Le Chat. The other tabs open to the HTML pages I used for testing the results of the generated code. It required a fair amount of cut and paste which is tedious. This is far from an ideal setup.</p>
+      <p>I looked at <a href="https://ollama.com">Ollama</a> to see about running the LLM from the command line.  Long run this seems like a better approach for me. Unfortunately to use Mistral.ai's trained models I would need to purchase a more expensive subscription. The price point is roughly the same as Anthropic's Claude, a closed sourced option. For now I am sticking with cut and paste.</p>
+      <p>Using Ollama there is the possibility of using Mistral's open source models and training them further on data I curate. At some point I'll give it a try. I remain concerned about the electric bill. If collectively we're going to run these systems they will need clean alternative sources of electricity. Otherwise we are in for an environmental impact like we saw with BitCoin and Block-Chains. I think this is a major problem in the LLM space. I don't think we can ignore it even when the &quot;AI&quot; hype cycle is hand waving it away.</p>
+      <p>I liked using Ollama to test free models to understand their differences. I recommend this as an option if you are working from macOS or Windows. The quality of generated code varies considerably between models. It is also true that the speed and processing requirements varies considerably between models. I am sure this is why hardware vendors think they will be able to sell hardware with &quot;AI Chips&quot; built in. I'm skeptical.</p>
+      <p>I think small language models targeting specific domains could really improve the use case for language models generating code. They could shine for specific tasks or programming languages. They might be reasonable to run on embedded platforms too. I think small language models are an overlooked area in the current &quot;AI&quot; hype cycle.</p>
+      <h2 id="what-i-took-away-from-this-experiment">What I took away from this experiment</h2>
+      <p>I think a good front end developer<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> could find an LLM useful as an &quot;assistant&quot;. I think a novice developer will easily be lead astray. As a community of practitioners we should guard against the bias, &quot;computer must be correct&quot;. This is not new. It happened when &quot;expert systems&quot; were the rage before the first AI winter. It'll be an easy trap to fall into for the public.</p>
+      <p>I have a great deal of concern about compromised training data. There is so much mischief possible. It has already been established that &quot;poisoning&quot; the LLM via training data and prompts will result in generating dubious code<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. I don't see much attention paid to the security and provenance of training data, let alone good tools to vet the generated code. This is a security bomb waiting to explode.</p>
+      <p>Today's software systems are really complex. Reproducibility has become a requirement in mitigating the problem. This is why you've seen a rise in virtual environments. The LLM itself doesn't improve this situation. I've used the same text prompts with the same LLM but different chat session and gotten significantly different results. The LLM as presently implemented exacerbate the problems of reproducibility.</p>
+      <p>To an certain extent we can strengthen our efforts around quality assurance. The trouble I've found is this too is a domain where LLMs are being applied. If the quality assurance LLM is tainted we don't get the assurance we need. There also is the very human problem of typos in our prompts. That's a very deep rabbit hole by itself.</p>
+      <h2 id="lessons-learned">Lessons learned</h2>
+      <p>I got the best results by composing a long specification as an initial state prompt to kick off code generation. I still needed to fix bugs using short prompts interactively. With the CSVTextarea I threw away five versions before I got to something useful. Each chat session lasted a couple hours. They were spread out over many days.</p>
+      <p>There was a clear point when additional prompts don't improve the results of generated code. I found three cases where I lead the LLM down a rabbit hole.</p>
+      <ol>
+      <li>the terms I used weren't what the LLM was trained on so it couldn't respond the way I wanted</li>
+      <li>the visible results, e.g. the web component failing to render, doesn't indicate the underlying problem, this leads to prompt churn</li>
+      <li>their was a subtle assumption in the generated code I didn't pick up and correct early on</li>
+      </ol>
+      <p>A beneficial result of using an LLM to generate code is that it encourages reading the source. Reading code is generally not taught enough. You're going to be reading allot of code using the current crop of commercially available LLM. That is a good thing in my book.</p>
+      <p>To solve the rabbit hole problem I adopted the following practices. Keep all my prompts in a Markdown document, along with notes to myself. When I felt the LLM had gone down a rabbit whole have the LLM generate a &quot;comprehensive detailed specification&quot; of the code generated. Compare the LLM specification against my own prompts helped simplify things when starting over.</p>
+      <p>Be willing to throw away the LLM results and start over. This is important in exploratory programming but also when you're using LLM generated code to solve a known problem. If you can tolerate the process of writing and refining the prompts in your native language the LLM will happily attempt to generate code for them. I'd love to get some English and Philosophy graduates using LLM for code generation. It'd be interesting to see how their skills may out perform those of traditionally educated software engineering graduates. I think the humanities fields that could benefit from a quantitative approach may find LLM to generate code to do analysis really compelling.</p>
+      <p>While I like the results I got for this specific tests I remain on the fence about <strong>general usefulness</strong> of LLM in the area of code generation. I suspect it'll take time before the shared knowledge and practice in using them emerges. There is also the problem of energy consumption.  This feels like the whole &quot;proof of work&quot; problem consuming massive amounts of electricity in the block chain tech. That alone was enough to turn me off of block chain for most of its proposed applications. Hopefully alternatives will be developed to avoid that outcome with large language models.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>By providing a non JavaScript implementation I can interact with the web page using terminal based browser or using simple web scraping libraries.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>It was annoying enough that I initially dismissed using an LLM. My colleague, Tommy, however encouraged me to give it a more serious try. If you lived through the &quot;editor wars&quot; of the early ARPAnet get ready for them to reignite. We're going to see allot of organizations claiming superior dev setups for integrating LLM into IDE.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:3">
+      <p>I am not a front end developer. I have spent most of my career writing back end systems and middleware.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:4">
+      <p>See <a href="https://www.nature.com/articles/s41591-024-03445-1">Medical large language models are vulnerable to data-poisoning attacks</a>. Think of the decades waste on SQL injections then multiply that by magnitudes as people come to trust the results of LLM to build really complex things.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

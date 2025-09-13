@@ -14,9 +14,10 @@ abstract: |
   This post explore making a PiTop a little more Raspbian.
 dateCreated: '2016-07-04'
 dateModified: '2025-07-21'
+datePublished: '2016-07-04'
 copyrightYear: 2016
 copyrightHolder: R. S. Doiel
-draft: true
+postPath: 'blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.md'
 ---
 
 How to make a Pi-Top more Raspbian

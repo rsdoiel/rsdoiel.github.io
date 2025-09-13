@@ -28,6 +28,7 @@ abstract: |+
 dateCreated: '2020-11-09'
 dateModified: '2025-07-22'
 datePublished: '2020-11-09'
+postPath: 'blog/2020/11/09/Pandoc-Partials.md'
 seriesNo: 1
 ---
 

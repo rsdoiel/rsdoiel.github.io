@@ -1,333 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>Beyond-Oakwood-Modules-and-Aliases</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="Oberon, Modules, Oakwood, Strings, Chars">
-  <link rel="alternative" type="application/markdown" href="/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="Beyond-Oakwood-Modules-and-Aliases.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:54-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:54)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="beyond-oakwood-modules-and-aliases">Beyond Oakwood, Modules and
-Aliases</h1>
-<p>By R. S. Doiel, 2021-05-16</p>
-<p>Oakwood is the name used to refer to an early Oberon language
-standardization effort in the late 20th century. It’s the name of a
-hotel where compiler developers and the creators of Oberon and the
-Oberon System met to discuss compatibility. The lasting influence on the
-21st century Oberon-07 language can be seen in the standard set of
-modules shipped with POSIX based Oberon-07 compilers like <a
-href="https://miasap.se/obnc/">OBNC</a>, <a
-href="https://github.com/vishaps/voc">Vishap Oberon Compiler</a> and the
-<a
-href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford
-Oberon Compiler</a>.</p>
-<p>The Oakwood guidelines described a minimum expectation for a standard
-set of modules to be shipped with compilers. The modules themselves are
-minimalist in implementation. Minimalism can assist in easing the
-learning curve and encouraging a deeper understanding of how things
-work.</p>
-<p>The Oberon-07 language is smaller than the original Oberon language
-and the many dialects that followed. I think of Oberon-07 as the
-distillation of all previous innovation. It embodies the spirit of
-“Simple but not simpler than necessary”. Minimalism is a fit description
-of the adaptions of the Oakwood modules for Oberon-07 in the POSIX
-environment.</p>
-<h2><a name="when-simple-is-too-simple">When simple is too simple</a></h2>
-<p>Sometimes I want more than the minimalist module. A good example is
-standard <a
-href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a>
-module. Thankfully you can augment the standard modules with your own.
-If you are creative you can even create a drop in replacement. This is
-what I wound up doing with my “Chars” module.</p>
-<p>In the spirit of “Simple but no simpler” I originally kept Chars very
-minimal. I only implemented what I missed most from Strings. I got down
-to a handful of functions for testing characters, testing prefixes and
-suffixes as well as trim procedures. It was all I included in
-<code>Chars</code> was until recently.</p>
-<p>Over the last couple of weeks I have been reviewing my own Oberon-07
-code in my personal projects. I came to understand that in my quest for
-minimalism I had fallen for “too simple”. This was evidenced by two
-observations. Everywhere I had used the <code>Strings</code> module I
-also included <code>Chars</code>. It was boiler plate. The IMPORT
-sequence was invariably a form of –</p>
-<pre><code>    IMPORT Strings, Chars, ....</code></pre>
-<p>On top of that I found it distracting to see <code>Chars.*</code> and
-<code>Strings.*</code> comingled and operating on the same data. If felt
-sub optimal. It felt baroque. That got me thinking.</p>
-<blockquote>
-<p>What if Chars included the functionality of Strings?</p>
-</blockquote>
-<p>I see two advantages to merging Chars and Strings. First I only need
-to include one module instead of two. The second is my code becomes more
-readable. I think that is because expanding Strings to include new
-procedures and constants allows for both the familiar and for evolution.
-The problem is renaming <code>Chars.Mod</code> to
-<code>Strings.Mod</code> implies I’m supplying the standard
-<code>Strings</code> module. Fortunately Oberon provides a mechanism for
-solving this problem. The solution Oberon provides is to allow module
-names to be aliased. Look at my new import statement.</p>
-<pre><code>    IMPORT Strings := Chars, ...</code></pre>
-<p>It is still minimal but at the same time shows <code>Chars</code> is
-going to be referenced as <code>Strings</code>. By implication
-<code>Chars</code> provides the functionality <code>Strings</code> but
-is not the same as <code>Strings</code>. My code reads nicely. I don’t
-loose the provenance of what is being referred to by
-<code>Strings</code> because it is clearly provided in the IMPORT
-statement.</p>
-<p>In my new <a href="Chars.Mod">implementation</a> I support all the
-standard procedures you’d find in an Oakwood compliant
-<code>Strings</code>. I’ve included additional additional constants and
-functional procedures like <code>StartsWith()</code> and
-<code>EndsWith()</code> and a complement of trim procedures like
-<code>TrimLeft()</code>, <code>TrimRight()</code>, <code>Trim()</code>.
-<code>TrimPrefix()</code>, and <code>TrimSuffix()</code>.</p>
-<p>Here’s how <code>Chars</code> definition stacks up as rendered by the
-obncdoc tool.</p>
-<pre><code>(* Chars.Mod - A module for working with CHAR and 
-   ARRAY OF CHAR data types.
+  <section>
+    <article data-published="2021-05-16" data-link="https://rsdoiel.github.io/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">
+      <h1 id="beyond-oakwood-modules-and-aliases">Beyond Oakwood, Modules and Aliases</h1>
+      <p>By R. S. Doiel, 2021-05-16</p>
+      <p>Oakwood is the name used to refer to an early Oberon language<br />
+      standardization effort in the late 20th century.  It's the name<br />
+      of a hotel where compiler developers and the creators of Oberon<br />
+      and the Oberon System met to discuss compatibility. The lasting<br />
+      influence on the 21st century Oberon-07 language can be seen<br />
+      in the standard set of modules shipped with POSIX based Oberon-07<br />
+      compilers like<br />
+      <a href="https://miasap.se/obnc/">OBNC</a>, <a href="https://github.com/vishaps/voc">Vishap Oberon Compiler</a> and the<br />
+      <a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a>.</p>
+      <p>The Oakwood guidelines described a minimum expectation for<br />
+      a standard set of modules to be shipped with compilers.<br />
+      The modules themselves are minimalist in implementation.<br />
+      Minimalism can assist in easing the learning curve<br />
+      and encouraging a deeper understanding of how things work.</p>
+      <p>The Oberon-07 language is smaller than the original Oberon language<br />
+      and the many dialects that followed.  I think of Oberon-07 as the<br />
+      distillation of all previous innovation.  It embodies the<br />
+      spirit of &quot;Simple but not simpler than necessary&quot;. Minimalism is<br />
+      a fit description of the adaptions of the Oakwood modules for<br />
+      Oberon-07 in the POSIX environment.</p>
+      <h2 id="when-simple-is-too-simple">When simple is too simple</h2>
+      <p>Sometimes I want more than the minimalist module.  A good example<br />
+      is standard <a href="https://miasap.se/obnc/obncdoc/basic/Strings.def.html">Strings</a><br />
+      module.  Thankfully you can augment the standard modules with your own.<br />
+      If you are creative you can even create a drop in replacement.<br />
+      This is what I wound up doing with my &quot;Chars&quot; module.</p>
+      <p>In the spirit of &quot;Simple but no simpler&quot; I originally kept Chars<br />
+      very minimal. I only implemented what I missed most from Strings.<br />
+      I got down to a handful of functions for testing characters,<br />
+      testing prefixes and suffixes as well as trim procedures. It was<br />
+      all I included in <code>Chars</code> was until recently.</p>
+      <p>Over the last couple of weeks I have been reviewing my own Oberon-07<br />
+      code in my personal projects.  I came to understand that<br />
+      in my quest for minimalism I had fallen for &quot;too simple&quot;.<br />
+      This was evidenced by two observations.  Everywhere I had used<br />
+      the <code>Strings</code> module I also included <code>Chars</code>. It was boiler plate.<br />
+      The IMPORT sequence was invariably a form of --</p>
+      <pre><code>    IMPORT Strings, Chars, ....
+      </code></pre>
+      <p>On top of that I found it distracting to see <code>Chars.*</code> and <code>Strings.*</code><br />
+      comingled and operating on the same data. If felt sub optimal. It<br />
+      felt baroque. That got me thinking.</p>
+      <blockquote>
+      <p>What if Chars included the functionality of Strings?</p>
+      </blockquote>
+      <p>I see two advantages to merging Chars and Strings. First I<br />
+      only need to include one module instead of two. The second<br />
+      is my code becomes more readable. I think that is because<br />
+      expanding Strings to include new procedures and constants allows<br />
+      for both the familiar and for evolution. The problem is renaming<br />
+      <code>Chars.Mod</code> to <code>Strings.Mod</code> implies I'm supplying the standard<br />
+      <code>Strings</code> module. Fortunately Oberon provides a mechanism for<br />
+      solving this problem. The solution Oberon provides is to allow<br />
+      module names to be aliased.  Look at my new import statement.</p>
+      <pre><code>    IMPORT Strings := Chars, ...
+      </code></pre>
+      <p>It is still minimal but at the same time shows <code>Chars</code> is going<br />
+      to be referenced as <code>Strings</code>. By implication <code>Chars</code> provides<br />
+      the functionality <code>Strings</code> but is not the same as <code>Strings</code>.<br />
+      My code reads nicely.  I don't loose the provenance of what<br />
+      is being referred to by <code>Strings</code> because it is clearly<br />
+      provided in the IMPORT statement.</p>
+      <p>In my new <a href="Chars.Mod">implementation</a> I support all the standard<br />
+      procedures you'd find in an Oakwood compliant <code>Strings</code>.  I've<br />
+      included additional additional constants and functional procedures<br />
+      like <code>StartsWith()</code> and <code>EndsWith()</code> and a complement of trim<br />
+      procedures like <code>TrimLeft()</code>, <code>TrimRight()</code>, <code>Trim()</code>.<br />
+      <code>TrimPrefix()</code>, and <code>TrimSuffix()</code>.</p>
+      <p>Here's how <code>Chars</code> definition stacks up as rendered by the<br />
+      obncdoc tool.</p>
+      <pre><code>(* Chars.Mod - A module for working with CHAR and 
+         ARRAY OF CHAR data types.
+      
+      Copyright (C) 2020, 2021 R. S. Doiel &lt;rsdoiel@gmail.com&gt;
+      This Source Code Form is subject to the terms of the
+      Mozilla PublicLicense, v. 2.0. If a copy of the MPL was
+      not distributed with thisfile, You can obtain one at
+      http://mozilla.org/MPL/2.0/. *)
+      DEFINITION Chars;
+      
+      (*
+      Chars.Mod provides a modern set of procedures for working
+      with CHAR and ARRAY OF CHAR. It is a drop in replacement
+      for the Oakwood definition 
+      Strings module.
+      
+      Example:
+      
+          IMPORT Strings := Chars;
+      
+      You now have a Strings compatible Chars module plus all the Chars
+      extra accessible through the module alias of Strings. *)
+      
+      CONST
+        (* MAXSTR is exported so we can use a common
+           max string size easily *)
+        MAXSTR = 1024;
+        (* Character constants *)
+        EOT = 0X;
+        TAB = 9X;
+        LF  = 10X;
+        FF  = 11X;
+        CR  = 13X;
+        SPACE = &quot; &quot;;
+        DASH  = &quot;-&quot;;
+        LODASH = &quot;_&quot;;
+        CARET = &quot;^&quot;;
+        TILDE = &quot;~&quot;;
+        QUOTE = 34X;
+      
+        (* Constants commonly used characters to quote things.  *)
+        QUOT   = 34X;
+        AMP    = &quot;&amp;&quot;;
+        APOS   = &quot;'&quot;;
+        LPAR   = &quot;)&quot;;
+        RPAR   = &quot;(&quot;;
+        AST    = &quot;*&quot;;
+        LT     = &quot;&lt;&quot;;
+        EQUALS = &quot;=&quot;;
+        GT     = &quot;&gt;&quot;;
+        LBRACK = &quot;[&quot;;
+        RBRACK = &quot;]&quot;;
+        LBRACE = &quot;}&quot;;
+        RBRACE = &quot;{&quot;;
+      
+      VAR
+        (* common cutsets, ideally these would be constants *)
+        spaces : ARRAY 6 OF CHAR;
+        punctuation : ARRAY 33 OF CHAR;
+      
+      (* InRange -- given a character to check and an inclusive range of
+          characters in the ASCII character set. Compare the ordinal values
+          for inclusively. Return TRUE if in range FALSE otherwise. *)
+      PROCEDURE InRange(c, lower, upper : CHAR) : BOOLEAN;
+      
+      (* InCharList checks if character c is in list of chars *)
+      PROCEDURE InCharList(c : CHAR; list : ARRAY OF CHAR) : BOOLEAN;
+      
+      (* IsUpper return true if the character is an upper case letter *)
+      PROCEDURE IsUpper(c : CHAR) : BOOLEAN;
+      
+      (* IsLower return true if the character is a lower case letter *)
+      PROCEDURE IsLower(c : CHAR) : BOOLEAN;
+      
+      (* IsDigit return true if the character in the range of &quot;0&quot; to &quot;9&quot; *)
+      PROCEDURE IsDigit(c : CHAR) : BOOLEAN;
+      
+      (* IsAlpha return true is character is either upper or lower case letter *)
+      PROCEDURE IsAlpha(c : CHAR) : BOOLEAN;
+      
+      (* IsAlphaNum return true is IsAlpha or IsDigit *)
+      PROCEDURE IsAlphaNum (c : CHAR) : BOOLEAN;
+      
+      (* IsSpace returns TRUE if the char is a space, tab, carriage return or line feed *)
+      PROCEDURE IsSpace(c : CHAR) : BOOLEAN;
+      
+      (* IsPunctuation returns TRUE if the char is a non-alpha non-numeral *)
+      PROCEDURE IsPunctuation(c : CHAR) : BOOLEAN;
+      
+      (* Length returns the length of an ARRAY OF CHAR from zero to first
+          0X encountered. [Oakwood compatible] *)
+      PROCEDURE Length(source : ARRAY OF CHAR) : INTEGER;
+      
+      (* Insert inserts a source ARRAY OF CHAR into a destination 
+          ARRAY OF CHAR maintaining a trailing 0X and truncating if
+          necessary [Oakwood compatible] *)
+      PROCEDURE Insert(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
+      
+      (* AppendChar - this copies the char and appends it to
+          the destination. Returns FALSE if append fails. *)
+      PROCEDURE AppendChar(c : CHAR; VAR dest : ARRAY OF CHAR) : BOOLEAN;
+      
+      (* Append - copy the contents of source ARRAY OF CHAR to end of
+          dest ARRAY OF CHAR. [Oakwood complatible] *)
+      PROCEDURE Append(source : ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
+      
+      (* Delete removes n number of characters starting at pos in an
+          ARRAY OF CHAR. [Oakwood complatible] *)
+      PROCEDURE Delete(VAR source : ARRAY OF CHAR; pos, n : INTEGER);
+      
+      (* Replace replaces the characters starting at pos with the
+          source ARRAY OF CHAR overwriting the characters in dest
+          ARRAY OF CHAR. Replace will enforce a terminating 0X as
+          needed. [Oakwood compatible] *)
+      PROCEDURE Replace(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
+      
+      (* Extract copies out a substring from an ARRAY OF CHAR into a dest
+          ARRAY OF CHAR starting at pos and for n characters
+          [Oakwood compatible] *)
+      PROCEDURE Extract(source : ARRAY OF CHAR; pos, n : INTEGER; VAR dest : ARRAY OF CHAR);
+      
+      (* Pos returns the position of the first occurrence of a pattern
+          ARRAY OF CHAR starting at pos in a source ARRAY OF CHAR. If
+          pattern is not found then it returns -1 *)
+      PROCEDURE Pos(pattern, source : ARRAY OF CHAR; pos : INTEGER) : INTEGER;
+      
+      (* Cap replaces each lower case letter within source by an uppercase one *)
+      PROCEDURE Cap(VAR source : ARRAY OF CHAR);
+      
+      (* Equal - compares two ARRAY OF CHAR and returns TRUE
+          if the characters match up to the end of string,
+          FALSE otherwise. *)
+      PROCEDURE Equal(a : ARRAY OF CHAR; b : ARRAY OF CHAR) : BOOLEAN;
+      
+      (* StartsWith - check to see of a prefix starts an ARRAY OF CHAR *)
+      PROCEDURE StartsWith(prefix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
+      
+      (* EndsWith - check to see of a prefix starts an ARRAY OF CHAR *)
+      PROCEDURE EndsWith(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
+      
+      (* Clear - resets all cells of an ARRAY OF CHAR to 0X *)
+      PROCEDURE Clear(VAR a : ARRAY OF CHAR);
+      
+      (* Shift returns the first character of an ARRAY OF CHAR and shifts the
+          remaining elements left appending an extra 0X if necessary *)
+      PROCEDURE Shift(VAR source : ARRAY OF CHAR) : CHAR;
+      
+      (* Pop returns the last non-OX element of an ARRAY OF CHAR replacing
+          it with an OX *)
+      PROCEDURE Pop(VAR source : ARRAY OF CHAR) : CHAR;
+      
+      (* TrimLeft - remove the leading characters in cutset
+          from an ARRAY OF CHAR *)
+      PROCEDURE TrimLeft(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      (* TrimRight - remove tailing characters in cutset from
+          an ARRAY OF CHAR *)
+      PROCEDURE TrimRight(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      (* Trim - remove leading and trailing characters in cutset
+          from an ARRAY OF CHAR *)
+      PROCEDURE Trim(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      (* TrimLeftSpace - remove leading spaces from an ARRAY OF CHAR *)
+      PROCEDURE TrimLeftSpace(VAR source : ARRAY OF CHAR);
+      
+      (* TrimRightSpace - remove the trailing spaces from an ARRAY OF CHAR *)
+      PROCEDURE TrimRightSpace(VAR source : ARRAY OF CHAR);
+      
+      (* TrimSpace - remove leading and trailing space CHARS from an 
+          ARRAY OF CHAR *)
+      PROCEDURE TrimSpace(VAR source : ARRAY OF CHAR);
+      
+      (* TrimPrefix - remove a prefix ARRAY OF CHAR from a target 
+          ARRAY OF CHAR *)
+      PROCEDURE TrimPrefix(prefix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      (* TrimSuffix - remove a suffix ARRAY OF CHAR from a target
+          ARRAY OF CHAR *)
+      PROCEDURE TrimSuffix(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      (* TrimString - remove cutString from beginning and end of ARRAY OF CHAR *)
+      PROCEDURE TrimString(cutString : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
+      
+      END Chars.
+      </code></pre>
+      <p>My new <code>Chars</code> module has proven to be both more readable<br />
+      and more focused in my projects. I get all the functionality<br />
+      of <code>Strings</code> and the additional functionality I need in my own<br />
+      projects. This improved the focus in my other modules and I think<br />
+      maintained the spirit of &quot;Simple but not simpler&quot;.</p>
+      <ul>
+      <li><a href="Chars.Mod">Chars.Mod</a></li>
+      </ul>
+      <p>UPDATE: The current version of my <code>Chars</code> module can be found in<br />
+      my <a href="https://github.com/rsdoiel/Artemis">Artemis</a> repository. The<br />
+      repository includes additional code and modules suitable to working<br />
+      with Oberon-07 in a POSIX envinronment.</p>
+      <h3 id="next-previous">Next, Previous</h3>
+      <ul>
+      <li>Next <a href="/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining Oberon-07 with C using Obc-3</a></li>
+      <li>Prev <a href="/blog/2020/11/27/Dates-and-Clock.html">Dates &amp; Clocks</a></li>
+      </ul>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-Copyright (C) 2020, 2021 R. S. Doiel &lt;rsdoiel@gmail.com&gt;
-This Source Code Form is subject to the terms of the
-Mozilla PublicLicense, v. 2.0. If a copy of the MPL was
-not distributed with thisfile, You can obtain one at
-http://mozilla.org/MPL/2.0/. *)
-DEFINITION Chars;
-
-(*
-Chars.Mod provides a modern set of procedures for working
-with CHAR and ARRAY OF CHAR. It is a drop in replacement
-for the Oakwood definition 
-Strings module.
-
-Example:
-
-    IMPORT Strings := Chars;
-
-You now have a Strings compatible Chars module plus all the Chars
-extra accessible through the module alias of Strings. *)
-
-CONST
-  (* MAXSTR is exported so we can use a common
-     max string size easily *)
-  MAXSTR = 1024;
-  (* Character constants *)
-  EOT = 0X;
-  TAB = 9X;
-  LF  = 10X;
-  FF  = 11X;
-  CR  = 13X;
-  SPACE = &quot; &quot;;
-  DASH  = &quot;-&quot;;
-  LODASH = &quot;_&quot;;
-  CARET = &quot;^&quot;;
-  TILDE = &quot;~&quot;;
-  QUOTE = 34X;
-
-  (* Constants commonly used characters to quote things.  *)
-  QUOT   = 34X;
-  AMP    = &quot;&amp;&quot;;
-  APOS   = &quot;&#39;&quot;;
-  LPAR   = &quot;)&quot;;
-  RPAR   = &quot;(&quot;;
-  AST    = &quot;*&quot;;
-  LT     = &quot;&lt;&quot;;
-  EQUALS = &quot;=&quot;;
-  GT     = &quot;&gt;&quot;;
-  LBRACK = &quot;[&quot;;
-  RBRACK = &quot;]&quot;;
-  LBRACE = &quot;}&quot;;
-  RBRACE = &quot;{&quot;;
-
-VAR
-  (* common cutsets, ideally these would be constants *)
-  spaces : ARRAY 6 OF CHAR;
-  punctuation : ARRAY 33 OF CHAR;
-
-(* InRange -- given a character to check and an inclusive range of
-    characters in the ASCII character set. Compare the ordinal values
-    for inclusively. Return TRUE if in range FALSE otherwise. *)
-PROCEDURE InRange(c, lower, upper : CHAR) : BOOLEAN;
-
-(* InCharList checks if character c is in list of chars *)
-PROCEDURE InCharList(c : CHAR; list : ARRAY OF CHAR) : BOOLEAN;
-
-(* IsUpper return true if the character is an upper case letter *)
-PROCEDURE IsUpper(c : CHAR) : BOOLEAN;
-
-(* IsLower return true if the character is a lower case letter *)
-PROCEDURE IsLower(c : CHAR) : BOOLEAN;
-
-(* IsDigit return true if the character in the range of &quot;0&quot; to &quot;9&quot; *)
-PROCEDURE IsDigit(c : CHAR) : BOOLEAN;
-
-(* IsAlpha return true is character is either upper or lower case letter *)
-PROCEDURE IsAlpha(c : CHAR) : BOOLEAN;
-
-(* IsAlphaNum return true is IsAlpha or IsDigit *)
-PROCEDURE IsAlphaNum (c : CHAR) : BOOLEAN;
-
-(* IsSpace returns TRUE if the char is a space, tab, carriage return or line feed *)
-PROCEDURE IsSpace(c : CHAR) : BOOLEAN;
-
-(* IsPunctuation returns TRUE if the char is a non-alpha non-numeral *)
-PROCEDURE IsPunctuation(c : CHAR) : BOOLEAN;
-
-(* Length returns the length of an ARRAY OF CHAR from zero to first
-    0X encountered. [Oakwood compatible] *)
-PROCEDURE Length(source : ARRAY OF CHAR) : INTEGER;
-
-(* Insert inserts a source ARRAY OF CHAR into a destination 
-    ARRAY OF CHAR maintaining a trailing 0X and truncating if
-    necessary [Oakwood compatible] *)
-PROCEDURE Insert(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
-
-(* AppendChar - this copies the char and appends it to
-    the destination. Returns FALSE if append fails. *)
-PROCEDURE AppendChar(c : CHAR; VAR dest : ARRAY OF CHAR) : BOOLEAN;
-
-(* Append - copy the contents of source ARRAY OF CHAR to end of
-    dest ARRAY OF CHAR. [Oakwood complatible] *)
-PROCEDURE Append(source : ARRAY OF CHAR; VAR dest : ARRAY OF CHAR);
-
-(* Delete removes n number of characters starting at pos in an
-    ARRAY OF CHAR. [Oakwood complatible] *)
-PROCEDURE Delete(VAR source : ARRAY OF CHAR; pos, n : INTEGER);
-
-(* Replace replaces the characters starting at pos with the
-    source ARRAY OF CHAR overwriting the characters in dest
-    ARRAY OF CHAR. Replace will enforce a terminating 0X as
-    needed. [Oakwood compatible] *)
-PROCEDURE Replace(source : ARRAY OF CHAR; pos : INTEGER; VAR dest : ARRAY OF CHAR);
-
-(* Extract copies out a substring from an ARRAY OF CHAR into a dest
-    ARRAY OF CHAR starting at pos and for n characters
-    [Oakwood compatible] *)
-PROCEDURE Extract(source : ARRAY OF CHAR; pos, n : INTEGER; VAR dest : ARRAY OF CHAR);
-
-(* Pos returns the position of the first occurrence of a pattern
-    ARRAY OF CHAR starting at pos in a source ARRAY OF CHAR. If
-    pattern is not found then it returns -1 *)
-PROCEDURE Pos(pattern, source : ARRAY OF CHAR; pos : INTEGER) : INTEGER;
-
-(* Cap replaces each lower case letter within source by an uppercase one *)
-PROCEDURE Cap(VAR source : ARRAY OF CHAR);
-
-(* Equal - compares two ARRAY OF CHAR and returns TRUE
-    if the characters match up to the end of string,
-    FALSE otherwise. *)
-PROCEDURE Equal(a : ARRAY OF CHAR; b : ARRAY OF CHAR) : BOOLEAN;
-
-(* StartsWith - check to see of a prefix starts an ARRAY OF CHAR *)
-PROCEDURE StartsWith(prefix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
-
-(* EndsWith - check to see of a prefix starts an ARRAY OF CHAR *)
-PROCEDURE EndsWith(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR) : BOOLEAN;
-
-(* Clear - resets all cells of an ARRAY OF CHAR to 0X *)
-PROCEDURE Clear(VAR a : ARRAY OF CHAR);
-
-(* Shift returns the first character of an ARRAY OF CHAR and shifts the
-    remaining elements left appending an extra 0X if necessary *)
-PROCEDURE Shift(VAR source : ARRAY OF CHAR) : CHAR;
-
-(* Pop returns the last non-OX element of an ARRAY OF CHAR replacing
-    it with an OX *)
-PROCEDURE Pop(VAR source : ARRAY OF CHAR) : CHAR;
-
-(* TrimLeft - remove the leading characters in cutset
-    from an ARRAY OF CHAR *)
-PROCEDURE TrimLeft(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-(* TrimRight - remove tailing characters in cutset from
-    an ARRAY OF CHAR *)
-PROCEDURE TrimRight(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-(* Trim - remove leading and trailing characters in cutset
-    from an ARRAY OF CHAR *)
-PROCEDURE Trim(cutset : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-(* TrimLeftSpace - remove leading spaces from an ARRAY OF CHAR *)
-PROCEDURE TrimLeftSpace(VAR source : ARRAY OF CHAR);
-
-(* TrimRightSpace - remove the trailing spaces from an ARRAY OF CHAR *)
-PROCEDURE TrimRightSpace(VAR source : ARRAY OF CHAR);
-
-(* TrimSpace - remove leading and trailing space CHARS from an 
-    ARRAY OF CHAR *)
-PROCEDURE TrimSpace(VAR source : ARRAY OF CHAR);
-
-(* TrimPrefix - remove a prefix ARRAY OF CHAR from a target 
-    ARRAY OF CHAR *)
-PROCEDURE TrimPrefix(prefix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-(* TrimSuffix - remove a suffix ARRAY OF CHAR from a target
-    ARRAY OF CHAR *)
-PROCEDURE TrimSuffix(suffix : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-(* TrimString - remove cutString from beginning and end of ARRAY OF CHAR *)
-PROCEDURE TrimString(cutString : ARRAY OF CHAR; VAR source : ARRAY OF CHAR);
-
-END Chars.</code></pre>
-<p>My new <code>Chars</code> module has proven to be both more readable
-and more focused in my projects. I get all the functionality of
-<code>Strings</code> and the additional functionality I need in my own
-projects. This improved the focus in my other modules and I think
-maintained the spirit of “Simple but not simpler”.</p>
-<ul>
-<li><a href="Chars.Mod">Chars.Mod</a></li>
-</ul>
-<p>UPDATE: The current version of my <code>Chars</code> module can be
-found in my <a href="https://github.com/rsdoiel/Artemis">Artemis</a>
-repository. The repository includes additional code and modules suitable
-to working with Oberon-07 in a POSIX envinronment.</p>
-<h3 id="next-previous">Next, Previous</h3>
-<ul>
-<li>Next <a
-href="/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html">Combining
-Oberon-07 with C using Obc-3</a></li>
-<li>Prev <a href="/blog/2020/11/27/Dates-and-Clock.html">Dates &amp;
-Clocks</a></li>
-</ul>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

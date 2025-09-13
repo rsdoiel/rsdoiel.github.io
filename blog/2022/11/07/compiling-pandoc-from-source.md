@@ -37,6 +37,7 @@ abstract: >
 dateCreated: '2022-11-07'
 dateModified: '2025-07-22'
 datePublished: '2022-11-07'
+postPath: 'blog/2022/11/07/compiling-pandoc-from-source.md'
 ---
 
 Compiling Pandoc from source

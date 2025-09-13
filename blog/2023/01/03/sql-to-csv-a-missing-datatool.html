@@ -1,94 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>sql-to-csv-a-missing-datatool</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="sql, csv, tab delimited">
-  <link rel="alternative" type="application/markdown" href="/blog/2023/01/03/sql-to-csv-a-missing-datatool.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="sql-to-csv-a-missing-datatool.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="sql-query-to-csv-a-missing-datatool">SQL query to CSV, a missing
-datatool</h1>
-<p>By R. S. Doiel, 2023-01-13</p>
-<p>Update: 2023-03-13</p>
-<p>At work we maintain allot of metadata related academic and research
-publications in SQL databases. We use SQL to query the database and
-export what we need in tab delimited files. Often the exported data
-includes a column containing publication or article titles. Titles in
-library metadata can be a bit messy. They contain a wide set of UTF-8
-characters include math symbols and various types of quotation marks.
-The exported tab delimited data usually needs clean up before you can
-import it successfully into a spreadsheet.</p>
-<p>In the worst cases we debug what the problem is then write a Python
-script to handle the tweak to fix things. This results in allot of extra
-work and slows down the turn around for getting reports out quickly.
-This is particularly true of data stored in MySQL 8 (though we also use
-SQLite 3 and Postgres).</p>
-<p>This got me thinking about how to get a clean export (tab or CSV)
-from our SQL databases today. It would be nice if you provided a command
-line tool with a data source string (e.g. in a config file or the
-environment), a SQL query and the tool would use that to render a CSV or
-tab delimited file to standard out or a output file. It would work
-something like this.</p>
-<pre><code>    sql2csv -o eprint_status_report.csv -config=$HOME/.my.cnf \
-        &#39;SELECT eprintid, title, eprint_status FROM eprint&#39; </code></pre>
-<p>The <code>sql2csv</code> would take the results of the query and
-write to the CSV file.</p>
-<p>The nice thing about this approach is that I could support the three
-relational databases we use – i.e. MySQL 8, Postgres and SQLite3 with
-one common tool so my Bash scripts that run the reports would be very
-simple rather than specialized to one database system or the other.</p>
-<p>I hope to experiment with this approach in the next release of <a
-href="https://github.com/caltechlibrary/datatools">datatools</a>, an
-open source project maintained at work.</p>
-<h2><a name="update">update</a></h2>
-<p>Jon Woodring pointed out to me today that both SQLite3 and PostgreSQL
-clients can output to CSV without need of an external tool. Wish MySQL
-client did that! Instead MySQL client supports tab delimited output. I’m
-still concidering sql2csv due to the ammount work I do with MySQL
-database but I’m not sure if it will make it into to the datatools
-project or now since I suspect our MySQL usage will decline overtime as
-more projects are built with PostgreSQL and SQLite3.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2023-01-13" data-link="https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html">
+      <h1 id="sql-query-to-csv-a-missing-datatool">SQL query to CSV, a missing datatool</h1>
+      <p>By R. S. Doiel, 2023-01-13</p>
+      <p>Update: 2023-03-13</p>
+      <p>At work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.</p>
+      <p>In the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).</p>
+      <p>This got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.</p>
+      <pre><code>    sql2csv -o eprint_status_report.csv -config=$HOME/.my.cnf \
+      	    'SELECT eprintid, title, eprint_status FROM eprint' 
+      </code></pre>
+      <p>The <code>sql2csv</code> would take the results of the query and write to the CSV file.</p>
+      <p>The nice thing about this approach is that I could support the three relational databases we use -- i.e. MySQL 8, Postgres and SQLite3 with one common tool so my Bash scripts that run the reports would be very simple rather than specialized to one database system or the other.</p>
+      <p>I hope to experiment with this approach in the next release of <a href="https://github.com/caltechlibrary/datatools">datatools</a>, an open source project maintained at work.</p>
+      <h2 id="update">update</h2>
+      <p>Jon Woodring pointed out to me today that both SQLite3 and PostgreSQL clients can output to CSV without need of an external tool. Wish MySQL client did that! Instead MySQL client supports tab delimited output. I'm still concidering sql2csv due to the ammount work I do with MySQL database but I'm not sure if it will make it into to the datatools project or now since I suspect our MySQL usage will decline overtime as more projects are built with PostgreSQL and SQLite3.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

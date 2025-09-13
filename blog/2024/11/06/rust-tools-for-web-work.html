@@ -1,246 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>rust-tools-for-web-work</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="web, rust, search, JSON API, Cloud
-Cannon">
-  <link rel="alternative" type="application/markdown" href="/blog/2024/11/06/rust-tools-for-web-work.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="rust-tools-for-web-work.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="two-rust-command-line-tools-for-web-work">Two Rust command line
-tools for web work</h1>
-<p>By R. S. Doiel, 2024-11-06</p>
-<p>I’ve noticed that I’m using more tools written in the Rust language.
-I’d like to highlight two that have impressed me. Both are from <a
-href="https://cloudcannon.com">Cloud Cannon</a>. They make static
-website development interesting without unnecessarily increasing
-complexity.</p>
-<p>Historically static site development meant limited interactivity
-browser side. Then JavaScript arrived. That enabled the possibility of
-an interactive static site. Two areas remained challenging. First was
-search. An effective search engine used to required running specialized
-software like <a href="https://solr.apache.org">Solr</a> or using a
-SAAS<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> search solution. When the
-renaissance in static sites happened these options were seen as
-problematic.</p>
-<p>Statically hosted search arrived when <a
-href="https://github.com/olivernn">Oliver Nightingale</a> created <a
-href="https://lunrjs.com/">LunrJS</a>. LunrJS provides a Solr like
-search experience run from within your web browser. You needed to write
-some JavaScript to generate indexes and of course JavaScript had to be
-available in the browser to run the search engine. In spite of having to
-write some JavaScript to perform indexing it was easier to setup and
-manage than Solr. LunrJS added benefit of avoiding running a server.
-Things were good but there were limitations. If you wanted to index more
-than ten thousand or so objects the indexes grew to be quite large. This
-made search painfully slow. That’s because your web browser needed to
-download the whole search index before search could run in the browser.
-There were variations on Oliver’s approach but none really seemed to
-solve the problem completely. Still for small websites LunrJS was very
-good.</p>
-<p>Fast forward and a little over a decade ago Cloud Cannon emerged as a
-company trying to make static site content management easier. One of the
-things they created was a tool called <a
-href="https://pagefind.app">PageFind</a>. Like LunrJS PageFind provides
-a search engine experience for static websites that runs in the browser.
-But it includes a few important improvements. First you don’t need to
-write a program to build your indexes. PageFind comes with a Rust based
-tool called, unsurprisingly, “pagefind”. It builds the indexes for you
-with minimal configuration. The second difference from LunrJS is
-PageFind builds collection of partial indexes that can be loaded on
-demand. This means you can index sites with many more than 10K objects
-and still use a browser side search. That’s huge. I’ve used it on sites
-with as many as hundred thousand objects. That’s a magnitude difference
-content that can be searched! A very clever feature of PageFind is that
-you can combined indexes from multiple sites. This means the search with
-my blog can also cover my GitHub project sites that use PageFind for
-their web documentation. Very helpful.</p>
-<p>PageFind does have limitations. It only indexes HTML documents.
-Unlike Solr it’s not going to easily serve as a search engine for your
-collection of PDFs. At least without some effort on your part. Like
-LunrJS it also requires JavaScript to be available in the web browser.
-So if you’re using RISC OS and a browser like NetSurf or Dillo, you’re
-out of luck. Still it is a viable solution when you don’t want to run a
-server and you don’t want to rely on a SAAS solution like Google or
-Bing.</p>
-<blockquote>
-<p>Wait! There’s more from Cloud Cannon!</p>
-</blockquote>
-<p>If you start providing JavaScript widgets for your website content
-you’ll probably miss having a database backed JSON API. You can create
-one as part of your site rendering process but it is a big chore. Cloud
-Cannon, in their quest for a static site content management system,
-provides an Open Source solution for this too. It’s called <a
-href="https://flatlake.app">FlatLake</a>. Like PageFind it is a command
-line tool. Instead of analyzing HTML documents FlatLake works on
-Markdown documents. More specifically Markdown documents with YAML front
-matter<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>. It uses that to render a read only
-JSON API from the metadata in your documents front matter. You define
-which attributes you want to expose in your API in a YAML file. FlatLake
-creates the necessary directory structure and JSON documents to reflect
-that. Want to create a tag cloud? Your JSON API can provided the data
-for that. You want to provide alternate views into your website such as
-indexes or article series views? Again you now have a JSON API that
-aggregates your metadata to render that. Beyond some small amount of
-configuration FlatLake does the heavy lifting of generating and managing
-the JSON API for your site. It’s consistent and predictable. Start a new
-site and add FlatLake and you get a familiar JSON API out of the
-box.</p>
-<h2><a name="pagefind-and-flatlake-in-action">PageFind and FlatLake in action</a></h2>
-<p>My personal website is indexed with PageFind. The indexes are located
-at <a href="https://rsdoiel.github.io/pagefind"
-class="uri">https://rsdoiel.github.io/pagefind</a>. The search page is
-at <a href="https://rsdoiel.github.io/search.html"
-class="uri">https://rsdoiel.github.io/search.html</a>. I index my
-content with the following command (which will run on macOS, Windows or
-Linux).</p>
-<pre class="shell"><code>pagefind --verbose --exclude-selectors=&quot;nav,header,footer&quot; --output-path ./pagefind --site .</code></pre>
-<p>That command index all the HTML content excluding nav, header and
-footers. The JavaScript in my <a
-href="https://rsdoiel.github.io/search.html">search.html</a> page looks
-like this.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> pse <span class="op">=</span> <span class="kw">new</span> <span class="fu">PagefindUI</span>({</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">element</span><span class="op">:</span> <span class="st">&quot;#search&quot;</span><span class="op">,</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">showSubResults</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">highlightParam</span><span class="op">:</span> <span class="st">&quot;highlight&quot;</span><span class="op">,</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">mergeIndex</span><span class="op">:</span> [{</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/shorthand/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/pttk/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/skimmer/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/scripttools/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/fountain/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/osf/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/fdx/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/stngo/pagefind&quot;</span><span class="op">,</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bundlePath</span><span class="op">:</span> <span class="st">&quot;https://rsdoiel.github.io/opml/pagefind&quot;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    }]</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">window</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> page_url <span class="op">=</span> <span class="kw">new</span> <span class="fu">URL</span>(<span class="bu">window</span><span class="op">.</span><span class="at">location</span><span class="op">.</span><span class="at">href</span>)<span class="op">,</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        query_string <span class="op">=</span> page_url<span class="op">.</span><span class="at">searchParams</span><span class="op">.</span><span class="fu">get</span>(<span class="st">&#39;q&#39;</span>)<span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (query_string <span class="op">!==</span> <span class="kw">null</span>) {</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Query string: &#39;</span> <span class="op">+</span> query_string)<span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        pse<span class="op">.</span><span class="fu">triggerSearch</span>(query_string)<span class="op">;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
-<p>This supports searching content in some of my GitHub project sites as
-well as my blog.</p>
-<p>One of the things I am working on is updating how I render my
-website. I have a home grown tool called <a
-href="https://rsdoiel.github.io/pttk"
-title="Plain Text Toolkit">pttk</a> that includes a “blogit” feature.
-Blog it takes cares care of adding Markdown documents to my blog and
-generates a a JSON document that contains metadata from the Markdown
-documents. That later feature is no longer needed with the arrival of
-FlatLake. FlatLake also has the advantage that I can define other
-metadata collections to include in my JSON API. The next incarnation of
-pttk will be simpler as the JSON API will be provided by FlatLake.</p>
-<p>FlatLake analyzes the Markdown documents in my website and build out
-a JSON API as folders and JSON documents. If I do this as the first step
-in rendering my site the rendering process can take advantage of that.
-It replace my “blog.json” file. It can even replace the directory
-traversal I previously needed to use with building the site. That’s
-because I can take advantage of the exposed metadata in a highly
-consistent way. You can explore the JSON API being generated at <a
-href="https://rsdoiel.github.io/api"
-class="uri">https://rsdoiel.github.io/api</a>. I haven’t yet landed on
-my final API organization but when I do I’ll be able to trim the code
-for producing my website significantly. Here’s the outline I expect to
-follow.</p>
-<ol type="1">
-<li>Run FlatLake on the Markdown content and update the JSON API
-content</li>
-<li>Read the JSON API and render my site</li>
-<li>Run PageFind and update my site indexes</li>
-<li>Deploy via GitHub Pages with <code>git</code> or
-<code>gh</code></li>
-</ol>
-<h2><a name="installing-pagefind-and-flatlake">Installing PageFind and FlatLake</a></h2>
-<p>Both PageFind and FlatLake are written in Rust. If you have Rust
-installed on your machine then Cargo will do all your lifting. When I
-have a new machine I install <a
-href="https://www.rust-lang.org/">Rust</a> with <a
-href="https://rustup.rs">Rustup</a>. On an running Machine I run
-<code>rustup upgrade</code> to get the latest Rust. I then install (or
-updated) PageFind and FlatLake with Cargo.</p>
-<pre class="shell"><code>rustup upgrade
-cargo install pagefind
-cargo install flatlake</code></pre>
-<p>I’ve run PageFind on macOS, Windows, Linux. On ARM 64 and Intel CPUs.
-I even run it on Raspberry Pi!. Rust supports all these platforms so
-where Rust runs PageFind and FlatLake can follow.</p>
-<p>PageFind solves my search needs. FlatLake is simplifying the tooling
-I use to generate my website. My plain text toolkit (pttk) needs to do
-much less. It feels close to the grail of static website management
-system built from simple precise tools. Git hands version control.
-Pandoc renders the Markdown to HTML. PageFind provides search and
-FlatLake provides the next generation JSON API. A Makefile or Deno task
-can knit things together into a publication system.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>SAAS, Software as a Service. This is how the web
-provides application software and application functionality. SAAS are
-convenient but often have significant drawbacks in terms of privacy and
-content ownership. SAAS dates back to pre-Google era. Early search
-engines like Alta Vista provided search as a service. Today many sites
-use Google, Bing or DuckDuckGo to provide search as a service.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Front matter is a block of text at the top of your
-Markdown document usually expressed in YAML. Site building tools like <a
-href="https://pandoc.org/chunkedhtml-demo/8.10-metadata-blocks.html#extension-yaml_metadata_block">Pandoc</a>
-can use the YAML block to populate and control templating. Similarly
-R-Markdown provides a similar functionality. FlatLake takes advantage of
-that.<a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
+  <section>
+    <article data-published="2024-11-06" data-link="https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html">
+      <h1 id="two-rust-command-line-tools-for-web-work">Two Rust command line tools for web work</h1>
+      <p>By R. S. Doiel, 2024-11-06</p>
+      <p>I've noticed that I'm using more tools written in the Rust language. I'd like to highlight two that have impressed me. Both are from <a href="https://cloudcannon.com">Cloud Cannon</a>. They make static website development interesting without unnecessarily increasing complexity.</p>
+      <p>Historically static site development meant limited interactivity browser side. Then JavaScript arrived. That enabled the possibility of an interactive static site. Two areas remained challenging. First was search. An effective search engine used to required running specialized software like <a href="https://solr.apache.org">Solr</a> or using a SAAS<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> search solution.  When the renaissance in static sites happened these options were seen as problematic.</p>
+      <p>Statically hosted search arrived when <a href="https://github.com/olivernn">Oliver Nightingale</a> created <a href="https://lunrjs.com/">LunrJS</a>. LunrJS provides a Solr like search experience run from within your web browser. You needed to write some JavaScript to generate indexes and of course JavaScript had to be available in the browser to run the search engine. In spite of having to write some JavaScript to perform indexing it was easier to setup and manage than Solr. LunrJS added benefit of avoiding running a server. Things were good but there were limitations.  If you wanted to index more than ten thousand or so objects the indexes grew to be quite large. This made search painfully slow. That's because your web browser needed to download the whole search index before search could run in the browser.  There were variations on Oliver's approach but none really seemed to solve the problem completely. Still for small websites LunrJS was very good.</p>
+      <p>Fast forward and a little over a decade ago Cloud Cannon emerged as a company trying to make static site content management easier.  One of the things they created was a tool called <a href="https://pagefind.app">PageFind</a>. Like LunrJS PageFind provides a search engine experience for static websites that runs in the browser.  But it includes a few important improvements. First you don't need to write a program to build your indexes. PageFind comes with a Rust based tool called, unsurprisingly, &quot;pagefind&quot;. It builds the indexes for you with minimal configuration. The second difference from LunrJS is PageFind builds collection of partial indexes that can be loaded on demand. This means you can index sites with many more than 10K objects and still use a browser side search. That's huge. I've used it on sites with as many as hundred thousand objects. That's a magnitude difference content that can be searched! A very clever feature of PageFind is that you can combined indexes from multiple sites.  This means the search with my blog can also cover my GitHub project sites that use PageFind for their web documentation. Very helpful.</p>
+      <p>PageFind does have limitations. It only indexes HTML documents. Unlike Solr it's not going to easily serve as a search engine for your collection of PDFs. At least without some effort on your part. Like LunrJS it also requires JavaScript to be available in the web browser. So if you're using RISC OS and a browser like NetSurf or Dillo, you're out of luck. Still it is a viable solution when you don't want to run a server and you don't want to rely on a SAAS solution like Google or Bing.</p>
+      <blockquote>
+      <p>Wait! There's more from Cloud Cannon!</p>
+      </blockquote>
+      <p>If you start providing JavaScript widgets for your website content you'll probably miss having a database backed JSON API. You can create one as part of your site rendering process but it is a big chore. Cloud Cannon, in their quest for a static site content management system, provides an Open Source solution for this too. It's called <a href="https://flatlake.app">FlatLake</a>. Like PageFind it is a command line tool. Instead of analyzing HTML documents FlatLake works on Markdown documents. More specifically Markdown documents with YAML front matter<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. It uses that to render a read only JSON API from the metadata in your documents front matter.  You define which attributes you want to expose in your API in a YAML file. FlatLake creates the necessary directory structure and JSON documents to reflect that. Want to create a tag cloud? Your JSON API can provided the data for that. You want to provide alternate views into your website such as indexes or article series views?  Again you now have a JSON API that aggregates your metadata to render that. Beyond some small amount of configuration FlatLake does the heavy lifting of generating and managing the JSON API for your site. It's consistent and predictable. Start a new site and add FlatLake and you get a familiar JSON API out of the box.</p>
+      <h2 id="pagefind-and-flatlake-in-action">PageFind and FlatLake in action</h2>
+      <p>My personal website is indexed with PageFind.  The indexes are located at <a href="https://rsdoiel.github.io/pagefind">https://rsdoiel.github.io/pagefind</a>. The search page is at <a href="https://rsdoiel.github.io/search.html">https://rsdoiel.github.io/search.html</a>. I index my content with the following command (which will run on macOS, Windows or Linux).</p>
+      <pre><code class="language-shell">pagefind --verbose --exclude-selectors=&quot;nav,header,footer&quot; --output-path ./pagefind --site .
+      </code></pre>
+      <p>That command index all the HTML content excluding nav, header and footers.  The JavaScript in my <a href="https://rsdoiel.github.io/search.html">search.html</a> page looks like this.</p>
+      <pre><code class="language-JavaScript">let pse = new PagefindUI({
+          element: &quot;#search&quot;,
+          showSubResults: true,
+          highlightParam: &quot;highlight&quot;,
+          mergeIndex: [{
+              bundlePath: &quot;https://rsdoiel.github.io/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/shorthand/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/pttk/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/skimmer/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/scripttools/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/fountain/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/osf/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/fdx/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/stngo/pagefind&quot;,
+              bundlePath: &quot;https://rsdoiel.github.io/opml/pagefind&quot;
+          }]
+      })
+      window.addEventListener('DOMContentLoaded', (event) =&gt; {
+          let page_url = new URL(window.location.href),
+              query_string = page_url.searchParams.get('q');
+          if (query_string !== null) {
+              console.log('Query string: ' + query_string);
+              pse.triggerSearch(query_string);
+          }
+      });
+      </code></pre>
+      <p>This supports searching content in some of my GitHub project sites as well as my blog.</p>
+      <p>One of the things I am working on is updating how I render my website.  I have a home grown tool called <a href="https://rsdoiel.github.io/pttk" title="Plain Text Toolkit">pttk</a> that includes a &quot;blogit&quot; feature. Blog it takes cares care of adding Markdown documents to my blog and generates a a JSON document that contains metadata from the Markdown documents.  That later feature is no longer needed with the arrival of FlatLake. FlatLake also has the advantage that I can define other metadata collections to include in my JSON API. The next incarnation of pttk will be simpler as the JSON API will be provided by FlatLake.</p>
+      <p>FlatLake analyzes the Markdown documents in my website and build out a JSON API as folders and JSON documents. If I do this as the first step in rendering my site the rendering process can take advantage of that. It replace my &quot;blog.json&quot; file. It can even replace the directory traversal I previously needed to use with building the site. That's because I can take advantage of the exposed metadata in a highly consistent way. You can explore the JSON API being generated at <a href="https://rsdoiel.github.io/api">https://rsdoiel.github.io/api</a>. I haven't yet landed on my final API organization but when I do I'll be able to trim the code for producing my website significantly. Here's the outline I expect to follow.</p>
+      <ol>
+      <li>Run FlatLake on the Markdown content and update the JSON API content</li>
+      <li>Read the JSON API and render my site</li>
+      <li>Run PageFind and update my site indexes</li>
+      <li>Deploy via GitHub Pages with <code>git</code> or <code>gh</code></li>
+      </ol>
+      <h2 id="installing-pagefind-and-flatlake">Installing PageFind and FlatLake</h2>
+      <p>Both PageFind and FlatLake are written in Rust. If you have Rust installed on your machine then Cargo will do all your lifting.  When I have a new machine I install <a href="https://www.rust-lang.org/">Rust</a> with <a href="https://rustup.rs">Rustup</a>. On an running Machine I run <code>rustup upgrade</code> to get the latest Rust.  I then install (or updated) PageFind and FlatLake with Cargo.</p>
+      <pre><code class="language-shell">rustup upgrade
+      cargo install pagefind
+      cargo install flatlake
+      </code></pre>
+      <p>I've run PageFind on macOS, Windows, Linux. On ARM 64 and Intel CPUs. I even run it on Raspberry Pi!. Rust supports all these platforms so where Rust runs PageFind and FlatLake can follow.</p>
+      <p>PageFind solves my search needs.  FlatLake is simplifying the tooling I use to generate my website. My plain text toolkit (pttk) needs to do much less. It feels close to the grail of static website management system built from simple precise tools. Git hands version control. Pandoc renders the Markdown to HTML. PageFind provides search and FlatLake provides the next generation JSON API. A Makefile or Deno task can knit things together into a publication system.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>SAAS, Software as a Service. This is how the web provides application software and application functionality. SAAS are convenient but often have significant drawbacks in terms of privacy and content ownership. SAAS dates back to pre-Google era. Early search engines like Alta Vista provided search as a service. Today many sites use Google, Bing or DuckDuckGo to provide search as a service.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>Front matter is a block of text at the top of your Markdown document usually expressed in YAML. Site building tools like <a href="https://pandoc.org/chunkedhtml-demo/8.10-metadata-blocks.html#extension-yaml_metadata_block">Pandoc</a> can use the YAML block to populate and control templating. Similarly R-Markdown provides a similar functionality. FlatLake takes advantage of that.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

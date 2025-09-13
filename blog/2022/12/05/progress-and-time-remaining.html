@@ -1,132 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>progress-and-time-remaining</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="programming, golang, log info">
-  <link rel="alternative" type="application/markdown" href="/blog/2022/12/05/progress-and-time-remaining.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="progress-and-time-remaining.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:53-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:53)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="progress-and-time-remaining">Progress and time remaining</h1>
-<p>By R. S. Doiel, 2022-11-05</p>
-<p>I often find myself logging output when I’m developing tools. This is
-typically the case where I am iterating over data and transforming it.
-Overtime I’ve come to realize I really want a few specific pieces of
-information for non-error logging (e.g. <code>-verbose</code> which
-monitors progress as well as errors).</p>
-<ul>
-<li>percentage completed</li>
-<li>estimated time allocated (i.e. time remaining)</li>
-</ul>
-<p>To do that I need three pieces of information.</p>
-<ol type="1">
-<li>the count of the current iteration(e.g. <code>i</code>)</li>
-<li>the total number of iterations required (e.g. <code>tot</code>)</li>
-<li>The time just before I started iterating(e.g. <code>t0</code>)</li>
-</ol>
-<p>The values for <code>i</code> and <code>tot</code> let me compute the
-percent completed. The percent completed is trivial
-<code>(i/tot) * 100.0</code>. Note on the first pass
-(i.e. <code>i == 0</code>) you can skip the percentage calculation.</p>
-<pre class="golang"><code>import (
-    &quot;time&quot;
-    &quot;fmt&quot;
-)
+  <section>
+    <article data-published="2022-12-05" data-link="https://rsdoiel.github.io/blog/2022/12/05/progress-and-time-remaining.html">
+      <h1 id="progress-and-time-remaining">Progress and time remaining</h1>
+      <p>By R. S. Doiel, 2022-11-05</p>
+      <p>I often find myself logging output when I'm developing tools.  This is typically the case where I am iterating over data and transforming it. Overtime I've come to realize I really want a few specific pieces of information for non-error logging (e.g. <code>-verbose</code> which monitors progress as well as errors).</p>
+      <ul>
+      <li>percentage completed</li>
+      <li>estimated time allocated (i.e. time remaining)</li>
+      </ul>
+      <p>To do that I need three pieces of information.</p>
+      <ol>
+      <li>the count of the current iteration(e.g. <code>i</code>)</li>
+      <li>the total number of iterations required (e.g. <code>tot</code>)</li>
+      <li>The time just before I started iterating(e.g. <code>t0</code>)</li>
+      </ol>
+      <p>The values for <code>i</code> and <code>tot</code> let me compute the percent completed. The percent completed is trivial <code>(i/tot) * 100.0</code>. Note on the first pass (i.e. <code>i == 0</code>) you can skip the percentage calculation.</p>
+      <pre><code class="language-golang">import (
+      	&quot;time&quot;
+      	&quot;fmt&quot;
+      )
+      
+      // Show progress with amount of time running
+      func progress(t0 time.Time, i int, tot int) string {
+          if i == 0 {
+              return &quot;&quot;
+          }
+      	percent := (float64(i) / float64(tot)) * 100.0
+      	t1 := time.Now()
+      	// NOTE: Truncating the duration to seconds
+      	return fmt.Sprintf(&quot;%.2f%% %v&quot;, percent, t1.Sub(t0).Truncate(time.Second))
+      }
+      </code></pre>
+      <p>Here's how you might use it.</p>
+      <pre><code class="language-golang">	tot := len(ids)
+      	t0 := time.Now()
+      	for i, id := range ids {
+      		// ... processing stuff here ... and display progress every 1000 records
+      		if (i % 1000) == 0 {
+      			log.Printf(&quot;%s records processed&quot;, progress(t0, i, tot))
+      		}
+      	}
+      </code></pre>
+      <p>An improvement on this is to include an time remaining. I need to calculated the estimated time allocation (i.e. ETA). I know <code>t0</code> so I can estimate that with this formula <code>estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. ETA adjusted for time running gives us time remaining<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. The first pass of the function progress has a trivial optimization since we don't have enough delta t0 to compute an estimate. Calls after that are computed using our formula.</p>
+      <pre><code class="language-golang">func progress(t0 time.Time, i int, tot int) string {
+      	if i == 0 {
+      		return &quot;0.00 ETR Unknown&quot;
+      	}
+      	// percent completed
+      	percent := (float64(i) / float64(tot)) * 100.0
+      	// running time
+          rt := time.Now().Sub(t0)
+          // estimated time allocation - running time = time remaining
+          eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
+          return fmt.Sprintf(&quot;%.2f%% ETR %v&quot;, percent, eta.Truncate(time.Second))
+      }
+      </code></pre>
+      <div class="footnotes" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn:1">
+      <p>In code <code>(rt/i)*tot</code> is estimated time allocation&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>Estimated Time Remaining, in code <code>((rt/i)*tot) - rt</code>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-// Show progress with amount of time running
-func progress(t0 time.Time, i int, tot int) string {
-    if i == 0 {
-        return &quot;&quot;
-    }
-    percent := (float64(i) / float64(tot)) * 100.0
-    t1 := time.Now()
-    // NOTE: Truncating the duration to seconds
-    return fmt.Sprintf(&quot;%.2f%% %v&quot;, percent, t1.Sub(t0).Truncate(time.Second))
-}</code></pre>
-<p>Here’s how you might use it.</p>
-<pre class="golang"><code>    tot := len(ids)
-    t0 := time.Now()
-    for i, id := range ids {
-        // ... processing stuff here ... and display progress every 1000 records
-        if (i % 1000) == 0 {
-            log.Printf(&quot;%s records processed&quot;, progress(t0, i, tot))
-        }
-    }</code></pre>
-<p>An improvement on this is to include an time remaining. I need to
-calculated the estimated time allocation (i.e. ETA). I know
-<code>t0</code> so I can estimate that with this formula
-<code>estimated time allocation = (((current running time since t0)/ the number of items processed) * total number of items)</code><a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>. ETA adjusted for time running gives
-us time remaining<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>. The first pass of the function
-progress has a trivial optimization since we don’t have enough delta t0
-to compute an estimate. Calls after that are computed using our
-formula.</p>
-<pre class="golang"><code>func progress(t0 time.Time, i int, tot int) string {
-    if i == 0 {
-        return &quot;0.00 ETR Unknown&quot;
-    }
-    // percent completed
-    percent := (float64(i) / float64(tot)) * 100.0
-    // running time
-    rt := time.Now().Sub(t0)
-    // estimated time allocation - running time = time remaining
-    eta := time.Duration((float64(rt)/float64(i)*float64(tot)) - float64(rt))
-    return fmt.Sprintf(&quot;%.2f%% ETR %v&quot;, percent, eta.Truncate(time.Second))
-}</code></pre>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>In code <code>(rt/i)*tot</code> is estimated time
-allocation<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Estimated Time Remaining, in code
-<code>((rt/i)*tot) - rt</code><a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-  </article>
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

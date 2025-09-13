@@ -1,93 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>PostgreSQL-Dump-and-Restore</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <meta name="keywords" content="PostgreSQL">
-  <link rel="alternative" type="application/markdown" href="/blog/2022/09/19/PostgreSQL-Dump-and-Restore.md">
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="PostgreSQL-Dump-and-Restore.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.5">
+  <meta name="date" content="2025-09-13T16:30:54-07:00">
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <header>
+    (date: 2025-09-13 16:30:54)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-  <article>
-<h1 id="postgresql-dump-and-restore">PostgreSQL dump and restore</h1>
-<p>This is a quick note on easily dumping and restoring a specific
-database in Postgres 14.5. This example has PostgreSQL running on
-localhost and <a
-href="https://www.postgresql.org/docs/current/app-psql.html">psql</a>
-and <a
-href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a>
-are both available. Our database administrator username is “admin”, the
-database to dump is called “collections”. The SQL dump file will be
-named “collections-dump-2022-09-19.sql”.</p>
-<pre class="shell"><code>    pg_dump --username=admin --column-inserts \
-        collections &gt;collections-dump-2022-09-19.sql</code></pre>
-<p>For the restore process I follow these steps</p>
-<ol type="1">
-<li>Using <code>psql</code> create an empty database to restore
-into</li>
-<li>Using <code>psql</code> replay (import) the dump file in the new
-database to restoring the data</li>
-</ol>
-<p>The database we want to restore our content into is called
-“collections_snapshot”</p>
-<pre class="shell"><code>    psql -U dbadmin
-    \c postgres
-    DROP DATABASE IF EXISTS collections_snapshot;
-    CREATE DATABASE collections_snapshot;
-    \c collections_snapshots
-    \i ./collections-dump-2022-09-19.sql
-    \q</code></pre>
-<p>Or if you want to stay at the OS shell level</p>
-<pre class="shell"><code>    dropdb collections_snapshot
-    createdb collections_snapshot
-    psql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql</code></pre>
-<p>NOTE: During this restore process <code>psql</code> will display some
-output. This is normal. The two types of lines output are shown
-below.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INSERT</span> <span class="dv">0</span> <span class="dv">1</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ALTER</span> <span class="kw">TABLE</span></span></code></pre></div>
-<p>If you want to stop the input on error you can use the
-<code>--set</code> option to set the error behavior to abort the reload
-if an error is encountered.</p>
-  </article>
-</section>
+  <section>
+    <article data-published="2022-09-19" data-link="https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html">
+      <h1 id="postgresql-dump-and-restore">PostgreSQL dump and restore</h1>
+      <p>This is a quick note on easily dumping and restoring a specific database<br />
+      in Postgres 14.5.  This example has PostgreSQL running on localhost and<br />
+      <a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and<br />
+      <a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available.<br />
+      Our database administrator username is &quot;admin&quot;, the database to dump is called &quot;collections&quot;. The SQL dump<br />
+      file will be named &quot;collections-dump-2022-09-19.sql&quot;.</p>
+      <pre><code class="language-shell">	pg_dump --username=admin --column-inserts \
+      	    collections &gt;collections-dump-2022-09-19.sql
+      </code></pre>
+      <p>For the restore process I follow these steps</p>
+      <ol>
+      <li>Using <code>psql</code> create an empty database to restore into</li>
+      <li>Using <code>psql</code> replay (import) the dump file in the new database to restoring the data</li>
+      </ol>
+      <p>The database we want to restore our content into is called &quot;collections_snapshot&quot;</p>
+      <pre><code class="language-shell">	psql -U dbadmin
+      	\c postgres
+      	DROP DATABASE IF EXISTS collections_snapshot;
+      	CREATE DATABASE collections_snapshot;
+      	\c collections_snapshots
+      	\i ./collections-dump-2022-09-19.sql
+      	\q
+      </code></pre>
+      <p>Or if you want to stay at the OS shell level</p>
+      <pre><code class="language-shell">	dropdb collections_snapshot
+      	createdb collections_snapshot
+      	psql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql
+      </code></pre>
+      <p>NOTE: During this restore process <code>psql</code> will display some output. This is normal. The two<br />
+      types of lines output are shown below.</p>
+      <pre><code class="language-sql">	INSERT 0 1
+      	ALTER TABLE
+      </code></pre>
+      <p>If you want to stop the input on error you can use the <code>--set</code> option to set the error behavior<br />
+      to abort the reload if an error is encountered.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
 
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/pttk">pttk</a>, Bash, Make and <a
-href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-<script type="module" src="/modules/copyToClipboard.js"></script>
-<script type="module">
-    await import('/pagefind/pagefind-highlight.js');
-    new PagefindHighlight({ highlightParam: "highlight" });
-</script>
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
 </body>
 </html>

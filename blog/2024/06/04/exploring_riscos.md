@@ -16,6 +16,7 @@ license: 'https://creativecommons.org/licenses/by-sa/4.0/'
 dateCreated: '2024-06-04'
 dateModified: '2025-07-23'
 datePublished: '2024-06-04'
+postPath: 'blog/2024/06/04/exploring_riscos.md'
 ---
 
 # Exploring RISC OS 5.30 on a Raspberry Pi Zero W

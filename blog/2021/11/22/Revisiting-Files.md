@@ -32,10 +32,11 @@ abstract: >
   ...
 dateCreated: '2021-11-22'
 dateModified: '2025-07-22'
+datePublished: '2021-11-22'
+postPath: 'blog/2021/11/22/Revisiting-Files.md'
 series: |
   Mostly Oberon
 seriesNo: 20
-datePublished: '2021-11-22'
 ---
 
 Revisiting Files

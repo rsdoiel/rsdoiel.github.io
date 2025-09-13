@@ -15,6 +15,7 @@ dateModified: '2025-07-22'
 datePublished: '2017-06-16'
 copyrightYear: 2017
 copyrightHolder: R. S. Doiel
+postPath: blog/2017/06/16/cross-compiling-go.md
 ---
 
 # Cross compiling Go 1.8.3 for Pine64 Pinebook

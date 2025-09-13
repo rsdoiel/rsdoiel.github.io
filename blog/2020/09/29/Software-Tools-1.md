@@ -54,6 +54,7 @@ abstract: >+
 dateCreated: '2020-09-29'
 dateModified: '2025-07-22'
 datePublished: '2020-09-29'
+postPath: 'blog/2020/09/29/Software-Tools-1.md'
 seriesNo: 1
 ---
 
