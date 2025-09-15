@@ -8,6 +8,6 @@ RSS helps support innovation on the open web, and keeps the
 internet silo-free.
 
 - [blog feed](https://rsdoiel.github.io/rss.xml) https://rsdoiel.github.io/rss.xml
-- [site feed](https://rsdoiel.github.io/index.xml) https://rsdoiel.github.io/index.ml
+- [archive feed](https://rsdoiel.github.io/archive.xml) https://rsdoiel.github.io/archive.ml
 
 
