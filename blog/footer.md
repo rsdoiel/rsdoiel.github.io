@@ -1,2 +1,2 @@
-copyright © 2016 - 2021 R. S. Doiel<br />
-[RSS](/rssfeed.html) feed and website built with [mkpage](https://caltechlibrary.github.io/mkpage), [datatools](https://caltechlibrary.github.io/datatools), Bash, Make and [Pandoc](https://pandoc.org).
+copyright © 2016 - 2025 R. S. Doiel<br />
+[RSS](/rssfeed.html) feed and website built with [antennaApp](https://rsdoiel.github.io/antennaApp), Bash, Make and [Pandoc](https://pandoc.org).

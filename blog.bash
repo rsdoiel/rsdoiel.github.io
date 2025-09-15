@@ -27,8 +27,6 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
     done
 done
 
-exit 0 # DEBUG
-
 cd "$BLOG"
 echo "Work directory now $(pwd)"
 # Build index
