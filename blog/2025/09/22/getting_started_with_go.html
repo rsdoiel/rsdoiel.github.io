@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <link  rel="alternate" type="text/markdown" href="getting_started_with_go.md" title=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <meta name="generator" content="antenna/0.0.7">
+  <meta name="date" content="2025-09-22T16:35:01-07:00">
+</head>
+<body>
+  <header>
+    (date: 2025-09-22 16:35:01)
+  </header>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/index.xml" title="RSS, recent posts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2025-09-22" data-link="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html">
+      <h1 id="getting-started-with-go">Getting started with Go</h1>
+      <p>By R. S. Doiel, 2025-09-22</p>
+      <p>This is just a quick tutorial covering installing the Go compile and toolchain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a <a href="https://go.dev/learn/#selected-tutorials">tutorial</a> on the Go language. The <a href="https://go.dev">Go website</a> has that covered. This is really just the bare minimum to get started with the <code>go</code> command.</p>
+      <p>Here's the files source files we'll be using in this tutorial</p>
+      <ul>
+      <li><a href="helloworld/helloworld.go">helloworld.go</a></li>
+      <li><a href="webserver/webserver.go">webserver.go</a></li>
+      <li><a href="mdserver/markdown.go">markdown.go</a></li>
+      <li><a href="mdserver/markdown_test.go">markdown_test.go</a></li>
+      <li><a href="mdserver/handler.go">handler.go</a></li>
+      <li><a href="mdserver/handler_test.go">handler_test.go</a></li>
+      <li><a href="mdserver/cmd/mdserver/main.go">mdserver's main</a></li>
+      </ul>
+      <h2 id="installing-go-and-making-sure-it-works">Installing Go and making sure it works</h2>
+      <p>It covers the basics of how the Go compiler and tool change work by walking throw three Go programs. The first one is to create a hello world program to make sure Go is available and working. The steps will be as follows.</p>
+      <ol>
+      <li>Download and install Go, see <a href="https://go.dev/dl/">https://go.dev/dl/</a> (latest is currently 1.25.1)</li>
+      </ol>
+      <h2 id="creating-hello-world-making-sure-go-tool-chain-is-working">Creating hello world, making sure Go tool chain is working</h2>
+      <ol>
+      <li>Open a terminal</li>
+      <li>create a directory/folder you'll use for you creating a hello world program</li>
+      <li>Change into that directory</li>
+      <li>Type in the hello world program below and save it as &quot;hello.go&quot;</li>
+      <li>Try running &quot;hello.go&quot;</li>
+      <li>Follow the instruction to &quot;build&quot; the hello.go program (you're compiling the Go source into an executable)</li>
+      <li>Run you newly created executable</li>
+      </ol>
+      <p>Here's the steps we'll take starting with step #3.</p>
+      <pre><code class="language-shell">mkdir helloworld
+      cd helloworld
+      edit hello.go
+      go run hello.go
+      go build hello.go
+      ./hello
+      cd ..
+      </code></pre>
+      <p>Here's the source code to hello world in Go</p>
+      <pre><code class="language-go">package main
+      
+      import (
+          &quot;fmt&quot;
+      ) 
+      
+      func main() {
+          fmt.Println(&quot;Hello World!&quot;)
+      }
+      </code></pre>
+      <p>If you got this far you've created your first Go program.</p>
+      <p>What are the parts of the source code package to take note of?</p>
+      <p><code>package main</code><br />
+      : Identifies what &quot;package&quot; or module that the source file belongs to. The &quot;main&quot; package is special in that it what represents a stand alone program.</p>
+      <p><code>import</code><br />
+      : This is a statement (including the contents inside the parenthesis) that shows what modules your program relies on.</p>
+      <p><code>func</code><br />
+      : This defines a functions, in this case the main function.</p>
+      <p><code>&quot;fmt&quot;</code><br />
+      : This is the name of the module for formatting text, includes functions like Println that display a line of text.</p>
+      <p>Things to keep in mind.  Go is a typed linguage. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using &quot;let&quot;.</p>
+      <p>Capticalized functions, variables and constants are &quot;exported&quot; from the current module and can be referenced when that package is later imported. When we use the imported &quot;fmt&quot; package with the &quot;Println&quot; function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of &quot;fmt&quot; which are not capitilized don't get exported and are not visible inside the current package scope. Capitization is like the &quot;export&quot; keyword in TypeScript or JavaScript.</p>
+      <p>Packages and modules are Go's resuable unit of code. Originally Go called them &quot;packages&quot;, hence the &quot;package&quot; declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily cary dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistant regardless of the latest release of a package that was imported. See the &quot;mod&quot; command below.</p>
+      <p>Let's look at the go command before looking at the source code. The go command is actually a collection of tools. The commons I used most frequently are the following.</p>
+      <p>run<br />
+      : Run the main package Go file</p>
+      <p>build<br />
+      : This compiles the program into an executable. It can also be used to cross compile if you set some environment variables</p>
+      <p>fmt<br />
+      : Format the source code to a standard set by the Go community</p>
+      <p>vet<br />
+      : Perform analysis on your Go source file(s) and indicate potention issues</p>
+      <p>We'll use the following two when we build our web server since it'll be constructed as a module.</p>
+      <p>mod<br />
+      : Setup and maintain go module (this is be covered later)</p>
+      <p>test<br />
+      : Test a go module (e.g. files that end in &quot;_test.go&quot;)</p>
+      <h2 id="build-a-static-web-server">Build a static web server</h2>
+      <p>We'll be doing the following next.</p>
+      <ol>
+      <li>Create a new directory for our web server</li>
+      <li>Change into it.</li>
+      <li>Go to the http package docs, <a href="https://pkg.go.dev/net/http#example-FileServer-DotFileHiding">https://pkg.go.dev/net/http#example-FileServer-DotFileHiding</a></li>
+      <li>Copy the example for the dot file hiding file server and save as webserver.go</li>
+      <li>Create a hello world index.html file.</li>
+      <li>Use Go &quot;run&quot; our static web server</li>
+      </ol>
+      <pre><code class="language-shell">mkdir webserver
+      cd webserver
+      edit webserver.go
+      edit hello.html
+      go run webserver.go
+      # You can open your web browser to http://localhost:8080/hello.html
+      cd ..
+      </code></pre>
+      <h2 id="build-a-markdown-web-server">Build a Markdown web server</h2>
+      <ol>
+      <li>Create a new directory called &quot;mdserver&quot;</li>
+      <li>Change into it</li>
+      <li>Initialize the Go module we'll build (e.g. 'github.com/rsdoiel/mdserver', you'd use something that makes sense for you)</li>
+      <li>Add a Go modules for working with Markdown, &quot;github.com/yuin/goldmark&quot;</li>
+      <li>Write a function to convert Markdown into HTML in a file called markdown.go</li>
+      <li>Write a test function called MarkdownToHTML in a file called markdown_test.go</li>
+      <li>Run the test to make sure it works</li>
+      <li>Write a the function MarkdownHandler function and save it markdown.go</li>
+      <li>mkdir called &quot;cli&quot;</li>
+      <li>Copy &quot;../webserver/webserver.go&quot; to &quot;cli/mdserver.go&quot;</li>
+      <li>Update &quot;cmd/mdserver/mdserver.go&quot; to import our mdserver package</li>
+      <li>Wrap the dot file handler function with our MarkdownHandler function</li>
+      <li>Using go run to test our web server</li>
+      </ol>
+      <pre><code class="language-shell">mkdir mdserver
+      cd mdserver
+      go mod init 'github.com/rsdoiel/mdserver'
+      go mod tidy
+      go get &quot;github.com/yuin/goldmark&quot;
+      edit markdown.go
+      edit markdown_test.go
+      go test
+      # Now we're going to create our handler function and test of it
+      edit handler.go
+      edit handler_test.go
+      go test
+      # Now let's create our wrapping cli
+      mkdir -p cmd/mdserver
+      copy ../webserver/webserver.go cmd/mdserver/main.go
+      # Import our mdserver package and wrap the dotFileHandler function with the Markdown function
+      edit cmd/mdserver/main.go
+      go run cmd/mdserver/main.go
+      </code></pre>
+      <p>We can make a mdserver executable using the build command and specify an output name.</p>
+      <pre><code class="language-shell">go build -o bin/mdserver cmd/mdserver/main.go
+      </code></pre>
+      <p>You've not create Go program that is defined by a module/package &quot;mdserver&quot; and runs that package in a command line program. What's left is to learn the language itself, get familiar with the standard library and write more Go programs.</p>
+      <h2 id="next-steps">Next Steps</h2>
+      <ul>
+      <li>Go through some of the Go.dev tutorials to better understand Go
+      <ul>
+      <li>Familiarize yourself with the Go standard library</li>
+      </ul>
+      </li>
+      <li>Try adding a YAML configuration to our two web server example</li>
+      <li>Try out cross compiling to other computer platforms</li>
+      </ul>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
+    href="https://pandoc.org">Pandoc</a>.</p>
+  </footer>
+
+    <script type="module" src="/modules/copyToClipboard.js"></script>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+</body>
+</html>
