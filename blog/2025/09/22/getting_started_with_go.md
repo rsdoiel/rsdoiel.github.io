@@ -24,7 +24,7 @@ Here's the files source files we'll be using in this tutorial
 - [markdown_test.go](mdserver/markdown_test.go)
 - [handler.go](mdserver/handler.go)
 - [handler_test.go](mdserver/handler_test.go)
-- [mdserver's main](mdserver/cmd/mdserver/main.go)
+- [mdserver's main.go](mdserver/cmd/mdserver/main.go)
 
 
 ## Installing Go and making sure it works
