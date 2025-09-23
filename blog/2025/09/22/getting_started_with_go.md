@@ -183,6 +183,9 @@ You've not create Go program that is defined by a module/package "mdserver" and 
 ## Next Steps
 
 - Go through some of the Go.dev tutorials to better understand Go
-  - Familiarize yourself with the Go standard library
-- Try adding a YAML configuration to our two web server example
+  - See [Go by Example](https://gobyexample.com/), [Effective Go](https://go.dev/doc/effective_go) and [Awesome Go](https://awesome-go.com/)
+  - Familiarize yourself with the [standard library](https://pkg.go.dev/std#section-directories)
+- Try adding a YAML configuration to our two web server example, [gopkg.in/yaml.v3](https://pkg.go.dev/gopkg.in/yaml.v3)
 - Try out cross compiling to other computer platforms
+  - See [Go comand documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) and <https://rakyll.org/cross-compilation/>
+
