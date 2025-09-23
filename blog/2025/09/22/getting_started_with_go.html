@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/css/site.css" />
   <meta name="generator" content="antenna/0.0.7">
-  <meta name="date" content="2025-09-22T16:39:29-07:00">
+  <meta name="date" content="2025-09-23T08:17:45-07:00">
 </head>
 <body>
   <header>
-    (date: 2025-09-22 16:39:29)
+    (date: 2025-09-23 08:17:45)
   </header>
   <nav>
     <ul>
@@ -34,7 +34,7 @@
     <article data-published="2025-09-22" data-link="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html">
       <h1 id="getting-started-with-go">Getting started with Go</h1>
       <p>By R. S. Doiel, 2025-09-22</p>
-      <p>This is just a quick tutorial covering installing the Go compile and toolchain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a <a href="https://go.dev/learn/#selected-tutorials">tutorial</a> on the Go language. The <a href="https://go.dev">Go website</a> has that covered. This is really just the bare minimum to get started with the <code>go</code> command.</p>
+      <p>This is just a quick tutorial covering installing the Go compile and tool chain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a <a href="https://go.dev/learn/#selected-tutorials">tutorial</a> on the Go language. The <a href="https://go.dev">Go website</a> has that covered. This is really just the bare minimum to get started with the <code>go</code> command.</p>
       <p>Here's the files source files we'll be using in this tutorial</p>
       <ul>
       <li><a href="helloworld/helloworld.go">helloworld.go</a></li>
@@ -90,9 +90,9 @@
       : This defines a functions, in this case the main function.</p>
       <p><code>&quot;fmt&quot;</code><br />
       : This is the name of the module for formatting text, includes functions like Println that display a line of text.</p>
-      <p>Things to keep in mind.  Go is a typed linguage. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using &quot;let&quot;.</p>
-      <p>Capticalized functions, variables and constants are &quot;exported&quot; from the current module and can be referenced when that package is later imported. When we use the imported &quot;fmt&quot; package with the &quot;Println&quot; function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of &quot;fmt&quot; which are not capitilized don't get exported and are not visible inside the current package scope. Capitization is like the &quot;export&quot; keyword in TypeScript or JavaScript.</p>
-      <p>Packages and modules are Go's resuable unit of code. Originally Go called them &quot;packages&quot;, hence the &quot;package&quot; declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily cary dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistant regardless of the latest release of a package that was imported. See the &quot;mod&quot; command below.</p>
+      <p>Things to keep in mind.  Go is a typed language. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using &quot;let&quot;.</p>
+      <p>Capitalized functions, variables and constants are &quot;exported&quot; from the current module and can be referenced when that package is later imported. When we use the imported &quot;fmt&quot; package with the &quot;Println&quot; function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of &quot;fmt&quot; which are not capitalized don't get exported and are not visible inside the current package scope. Capitalization is like the &quot;export&quot; keyword in TypeScript or JavaScript.</p>
+      <p>Packages and modules are Go's reusable unit of code. Originally Go called them &quot;packages&quot;, hence the &quot;package&quot; declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily carry dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistent regardless of the latest release of a package that was imported. See the &quot;mod&quot; command below.</p>
       <p>Let's look at the go command before looking at the source code. The go command is actually a collection of tools. The commons I used most frequently are the following.</p>
       <p>run<br />
       : Run the main package Go file</p>
@@ -101,7 +101,7 @@
       <p>fmt<br />
       : Format the source code to a standard set by the Go community</p>
       <p>vet<br />
-      : Perform analysis on your Go source file(s) and indicate potention issues</p>
+      : Perform analysis on your Go source file(s) and indicate potential issues</p>
       <p>We'll use the following two when we build our web server since it'll be constructed as a module.</p>
       <p>mod<br />
       : Setup and maintain go module (this is be covered later)</p>

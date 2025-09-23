@@ -14,7 +14,7 @@ keywords:
 
 By R. S. Doiel, 2025-09-22
 
-This is just a quick tutorial covering installing the Go compile and toolchain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a [tutorial](https://go.dev/learn/#selected-tutorials) on the Go language. The [Go website](https://go.dev) has that covered. This is really just the bare minimum to get started with the `go` command. 
+This is just a quick tutorial covering installing the Go compile and tool chain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a [tutorial](https://go.dev/learn/#selected-tutorials) on the Go language. The [Go website](https://go.dev) has that covered. This is really just the bare minimum to get started with the `go` command. 
 
 Here's the files source files we'll be using in this tutorial
 
@@ -85,11 +85,11 @@ What are the parts of the source code package to take note of?
 `"fmt"`
 : This is the name of the module for formatting text, includes functions like Println that display a line of text.
 
-Things to keep in mind.  Go is a typed linguage. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using "let".
+Things to keep in mind.  Go is a typed language. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using "let".
 
-Capticalized functions, variables and constants are "exported" from the current module and can be referenced when that package is later imported. When we use the imported "fmt" package with the "Println" function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of "fmt" which are not capitilized don't get exported and are not visible inside the current package scope. Capitization is like the "export" keyword in TypeScript or JavaScript.
+Capitalized functions, variables and constants are "exported" from the current module and can be referenced when that package is later imported. When we use the imported "fmt" package with the "Println" function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of "fmt" which are not capitalized don't get exported and are not visible inside the current package scope. Capitalization is like the "export" keyword in TypeScript or JavaScript.
 
-Packages and modules are Go's resuable unit of code. Originally Go called them "packages", hence the "package" declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily cary dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistant regardless of the latest release of a package that was imported. See the "mod" command below.
+Packages and modules are Go's reusable unit of code. Originally Go called them "packages", hence the "package" declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily carry dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistent regardless of the latest release of a package that was imported. See the "mod" command below.
 
 Let's look at the go command before looking at the source code. The go command is actually a collection of tools. The commons I used most frequently are the following.
 
@@ -103,7 +103,7 @@ fmt
 : Format the source code to a standard set by the Go community
 
 vet
-: Perform analysis on your Go source file(s) and indicate potention issues
+: Perform analysis on your Go source file(s) and indicate potential issues
 
 We'll use the following two when we build our web server since it'll be constructed as a module.
 
