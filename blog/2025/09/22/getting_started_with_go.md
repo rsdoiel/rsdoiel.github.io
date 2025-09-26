@@ -3,7 +3,7 @@ title: Getting started with Go
 description: A quick intro to Go and tool chain
 author: R. S. Doiel
 dateCreated: '2025-09-22'
-dateModified: '2025-09-22'
+dateModified: '2025-09-26'
 datePublished: '2025-09-22'
 postPath: 'blog/2025/09/22/getting_started_with_go.md'
 keywords:
@@ -14,7 +14,7 @@ keywords:
 
 By R. S. Doiel, 2025-09-22
 
-This is just a quick tutorial covering installing the Go compile and tool chain and learning the basic tools through creating three programs -- hello world, a web server and a Markdown server. It is not a [tutorial](https://go.dev/learn/#selected-tutorials) on the Go language. The [Go website](https://go.dev) has that covered. This is really just the bare minimum to get started with the `go` command. 
+This is just a quick tutorial covering installing the Go compiler, tool chain and learning the basics through creating three programs -- hello world, a web server and a Markdown server. It is not a [tutorial](https://go.dev/learn/#selected-tutorials) on the Go language. The [Go website](https://go.dev) has that covered. This is really just the bare minimum to get started with the `go` command. 
 
 Here's the files source files we'll be using in this tutorial
 
@@ -187,5 +187,5 @@ You've not create Go program that is defined by a module/package "mdserver" and 
   - Familiarize yourself with the [standard library](https://pkg.go.dev/std#section-directories)
 - Try adding a YAML configuration to our two web server example, [gopkg.in/yaml.v3](https://pkg.go.dev/gopkg.in/yaml.v3)
 - Try out cross compiling to other computer platforms
-  - See [Go comand documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) and <https://rakyll.org/cross-compilation/>
+  - See [Go command documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) and <https://rakyll.org/cross-compilation/>
 
