@@ -46,6 +46,7 @@ Here's the files source files we'll be using in this tutorial
 Here's the steps we'll take starting with step #3.
 
 ~~~shell
+
 mkdir helloworld
 cd helloworld
 edit hello.go
@@ -58,6 +59,7 @@ cd ..
 Here's the source code to hello world in Go
 
 ~~~go
+
 package main
 
 import (
@@ -125,6 +127,7 @@ We'll be doing the following next.
 6. Use Go "run" our static web server
 
 ~~~shell
+
 mkdir webserver
 cd webserver
 edit webserver.go
@@ -151,6 +154,7 @@ cd ..
 12. Using go run to test our web server
 
 ~~~shell
+
 mkdir mdserver
 cd mdserver
 go mod init 'github.com/rsdoiel/mdserver'
@@ -175,6 +179,7 @@ go run cmd/mdserver/main.go
 We can make a mdserver executable using the build command and specify an output name.
 
 ~~~shell
+
 go build -o bin/mdserver cmd/mdserver/main.go
 ~~~
 

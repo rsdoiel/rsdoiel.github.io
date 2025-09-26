@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/css/site.css" />
   <meta name="generator" content="antenna/0.0.8">
-  <meta name="date" content="2025-09-26T09:20:36-07:00">
+  <meta name="date" content="2025-09-26T09:26:46-07:00">
 </head>
 <body>
   <nav>
@@ -58,7 +58,8 @@
       <li>Run you newly created executable</li>
       </ol>
       <p>Here's the steps we'll take starting with step #3.</p>
-      <pre><code class="language-shell">mkdir helloworld
+      <pre><code class="language-shell">
+      mkdir helloworld
       cd helloworld
       edit hello.go
       go run hello.go
@@ -67,7 +68,8 @@
       cd ..
       </code></pre>
       <p>Here's the source code to hello world in Go</p>
-      <pre><code class="language-go">package main
+      <pre><code class="language-go">
+      package main
       
       import (
           &quot;fmt&quot;
@@ -114,7 +116,8 @@
       <li>Create a hello world index.html file.</li>
       <li>Use Go &quot;run&quot; our static web server</li>
       </ol>
-      <pre><code class="language-shell">mkdir webserver
+      <pre><code class="language-shell">
+      mkdir webserver
       cd webserver
       edit webserver.go
       edit hello.html
@@ -138,7 +141,8 @@
       <li>Wrap the dot file handler function with our MarkdownHandler function</li>
       <li>Using go run to test our web server</li>
       </ol>
-      <pre><code class="language-shell">mkdir mdserver
+      <pre><code class="language-shell">
+      mkdir mdserver
       cd mdserver
       go mod init 'github.com/rsdoiel/mdserver'
       go mod tidy
@@ -158,7 +162,8 @@
       go run cmd/mdserver/main.go
       </code></pre>
       <p>We can make a mdserver executable using the build command and specify an output name.</p>
-      <pre><code class="language-shell">go build -o bin/mdserver cmd/mdserver/main.go
+      <pre><code class="language-shell">
+      go build -o bin/mdserver cmd/mdserver/main.go
       </code></pre>
       <p>You've not create Go program that is defined by a module/package &quot;mdserver&quot; and runs that package in a command line program. What's left is to learn the language itself, get familiar with the standard library and write more Go programs.</p>
       <h2 id="next-steps">Next Steps</h2>
