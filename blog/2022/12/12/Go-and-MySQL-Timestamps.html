@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Go-and-MySQL-Timestamps.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Go-and-MySQL-Timestamps.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" />
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2022-12-12" data-link="https://rsdoiel.github.io/blog/2022/12/12/Go-and-MySQL-Timestamps.html">
-      <h1 id="go-and-mysql-timestamps">Go and MySQL timestamps</h1>
+      <h1>Go and MySQL timestamps</h1>
       <p>By R. S. Doiel, 2022-12-12</p>
       <p>The Go <a href="https://pkg.go.dev/database/sql">sql</a> package provides a nice abstraction for working with SQL databases. The underlying drivers and DBMS can present some quirks that are SQL dialect and driver specific such as the <a href="github.com/go-sql-driver/mysql">MySQL driver</a>.  Sometimes that is not a big deal. <a href="https://dev.mysql.com">MySQL</a> can maintain a creation timestamp as well as a modified timestamp easily via the SQL schema definition for the field. Unfortunately if you need to work with the MySQL timestamp at a Go level (e.g. display the timestamp in a useful way) the int64 provided via the driver isn't compatible with the <code>int64</code> used in Go's <code>time.Time</code>. To work around this limitation I've found it necessary to convert the MySQL timestamp to a formatted string using <a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format" title="DATE_FORMAT is a MySQL date/time function returning a string value">DATE_FORMAT</a> and from the Go side convert the formatted string into a <code>time.Time</code> using <code>time.Parse()</code>. Below is some Golang pseudo code showing this approach.</p>
       <pre><code>// Format used by MySQL strings representing date/times
@@ -64,17 +70,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

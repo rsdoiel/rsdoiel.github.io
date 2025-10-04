@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="PostgreSQL-Quick-Notes.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta content="2025-10-03T16:58:07-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="PostgreSQL-Quick-Notes.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,19 +35,19 @@
 
   <section>
     <article data-published="2023-11-17" data-link="https://rsdoiel.github.io/blog/2023/11/17/PostgreSQL-Quick-Notes.html">
-      <h1 id="postgres-quick-notes-take-two">Postgres Quick Notes, take two</h1>
+      <h1>Postgres Quick Notes, take two</h1>
       <p>By R. S. Doiel, 2023-11-17</p>
-      <p>What follows is some quick notes to remind me of the things I do when<br />
+      <p>What follows is some quick notes to remind me of the things I do when
       I setup a new instance of PostgreSQL on the various machines I work with.</p>
-      <h2 id="installation-approach">Installation approach</h2>
-      <p>If possible I install Postgres with the system's package manager or follow<br />
+      <h2>Installation approach</h2>
+      <p>If possible I install Postgres with the system's package manager or follow
       the directions suggested for installation on the <a href="https://postgres.org">Postgres website</a>.</p>
-      <h3 id="macos-and-postgres">macOS and Postgres</h3>
-      <p>For macOS that's not the route I take if possible is to install via <a href="https://postgresapp.com/">Postgres App</a>.<br />
-      This provides a very nice setup of developing with Postgres on macOS and also allows you to easily<br />
-      test multiple versions of Postgres.  It is not as convenient in the Mac Mini headless configuration<br />
-      I also use Postgres on macOS in. In that case I use Mac Ports' package manager to install Postgres.<br />
-      Unfortunately just using ports command isn't enough to get running. What follows is my notes on the<br />
+      <h3>macOS and Postgres</h3>
+      <p>For macOS that's not the route I take if possible is to install via <a href="https://postgresapp.com/">Postgres App</a>.
+      This provides a very nice setup of developing with Postgres on macOS and also allows you to easily
+      test multiple versions of Postgres.  It is not as convenient in the Mac Mini headless configuration
+      I also use Postgres on macOS in. In that case I use Mac Ports' package manager to install Postgres.
+      Unfortunately just using ports command isn't enough to get running. What follows is my notes on the
       additional steps I've taken to get things working.</p>
       <p>Install the version of Postgres you want (e.g. PostgreSQL 16) via ports</p>
       <ol>
@@ -64,51 +70,52 @@
       sudo port load postgresql16-server
       sudo -u postgres /bin/sh -c '/opt/local/lib/postgresql16/bin/pg_ctl -D /opt/local/var/db/postgresql16/defaultdb -l /opt/local/var/log/postgresql16/postgres.log start'
       </code></pre>
-      <h2 id="database-users-setup">Database users setup</h2>
-      <p>This applies to most Postgres installations I do because I am using them to<br />
-      develop software solutions. In a production setting you'd want a more conservative<br />
+      <h2>Database users setup</h2>
+      <p>This applies to most Postgres installations I do because I am using them to
+      develop software solutions. In a production setting you'd want a more conservative
       security approach.</p>
       <ol>
       <li>Make sure you can connect as the postgres user</li>
-      <li>For each developer<br />
-      a. Use the Postgres createuser tool to create superuser account(s)<br />
+      <li>For each developer
+      a. Use the Postgres createuser tool to create superuser account(s)
       b. Use the Postgres createdb tool to create databases for those account(s)</li>
       </ol>
       <p>Here's the commands I type in the shell</p>
       <pre><code class="language-shell">sudo -u postgres psql
       </code></pre>
       <p>When in the psql shell you should be able to use the slash commands like</p>
-      <p>\l<br />
-      : list the databases</p>
-      <p>\dt<br />
-      : list the tables in the database</p>
-      <p>\d TABLE_NAME<br />
-      : list the schema for TABLE_NAME</p>
-      <p>\q<br />
-      : quit the psql shell</p>
-      <p>Assuming we have a working Postgres I now create superuser accounts for<br />
+      <dl>
+      <dt>\l</dt>
+      <dd>list the databases</dd>
+      <dt>\dt</dt>
+      <dd>list the tables in the database</dd>
+      <dt>\d TABLE_NAME</dt>
+      <dd>list the schema for TABLE_NAME</dd>
+      <dt>\q</dt>
+      <dd>quit the psql shell</dd>
+      </dl>
+      <p>Assuming we have a working Postgres I now create superuser accounts for
       development and databases that match the username.</p>
       <pre><code class="language-shell">sudo -u postgres createuser --interactive $USER
       createdb $USER
       </code></pre>
-      <p>I should now be able to run the psql shell without specifying the<br />
+      <p>I should now be able to run the psql shell without specifying the
       postgres username.</p>
       <pre><code class="language-shell">psql
       </code></pre>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

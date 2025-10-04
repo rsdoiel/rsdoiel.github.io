@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="gpi-case-setup.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta content="antenna/0.0.10" name="generator" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="gpi-case-setup.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" />
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,60 +35,60 @@
 
   <section>
     <article data-published="2020-12-24" data-link="https://rsdoiel.github.io/blog/2020/12/24/gpi-case-setup.html">
-      <h1 id="setting-up-a-retroflag-gpi-case">Setting up a RetroFlag GPi Case</h1>
+      <h1>Setting up a RetroFlag GPi Case</h1>
       <p>By R. S. Doiel, 2020-12-24</p>
-      <p>These are my notes for setting up a RetroFlag GPi case using Recalbox<br />
+      <p>These are my notes for setting up a RetroFlag GPi case using Recalbox
       distribution for retro gaming.</p>
       <ul>
       <li>RetroFlag GPi Case Kit (including a Raspberry Pi Zero W and blank SD Card)</li>
       <li>A computer to setup the SD Card  and the Raspberry Pi Imager v1.5</li>
       </ul>
-      <p>We will be installing <a href="https://www.recalbox.com/" title="the all-in-one retro gaming console">Recalbox</a><br />
-      v7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro<br />
+      <p>We will be installing <a href="https://www.recalbox.com/" title="the all-in-one retro gaming console">Recalbox</a>
+      v7.7.x for Raspberry Pi Zero W and GPi case.  Recalbox which is a Retro
       Gaming Linux distribution.</p>
-      <h1 id="steps">Steps</h1>
-      <h2 id="preparing-the-32-gib-sd-card">Preparing the 32 GiB SD Card</h2>
+      <h1>Steps</h1>
+      <h2>Preparing the 32 GiB SD Card</h2>
       <ol>
-      <li>Download the appropriate Raspberry Pi Imager 1.5 from<br />
+      <li>Download the appropriate Raspberry Pi Imager 1.5 from
       <a href="https://www.raspberrypi.org/software/">https://www.raspberrypi.org/software/</a> for your system</li>
       <li>Install and launch the Raspberry Pi Imager</li>
-      <li>Click &quot;Operating System&quot;<br />
-      a. Select &quot;Emulation and game OS&quot;<br />
-      b. Select &quot;Recalbox&quot;<br />
+      <li>Click &quot;Operating System&quot;
+      a. Select &quot;Emulation and game OS&quot;
+      b. Select &quot;Recalbox&quot;
       c. Select &quot;Recalbox 7.1.1-Reloaded (Pi 0/1/GPi Case)&quot;</li>
       <li>Click &quot;SD Card&quot; &quot;, then select the bank 32 GiB SD Card</li>
       <li>Click &quot;Write&quot;</li>
-      <li>You will be asked remove the SD Card when done, do so and and exit<br />
+      <li>You will be asked remove the SD Card when done, do so and and exit
       Raspberry Pi Imager</li>
       </ol>
-      <p>NOTE: The current release of Recalbox (7.7.1) doesn't require patching<br />
-      with &quot;GPI_Case_patch.zip&quot; or installing the shutdown scripts as suggested<br />
-      on the RetroFlag website. Applying the patches will prevent the GPi<br />
-      from booting. The website instructions appear to be for an earlier release<br />
+      <p>NOTE: The current release of Recalbox (7.7.1) doesn't require patching
+      with &quot;GPI_Case_patch.zip&quot; or installing the shutdown scripts as suggested
+      on the RetroFlag website. Applying the patches will prevent the GPi
+      from booting. The website instructions appear to be for an earlier release
       of Recalbox.</p>
-      <h2 id="installing-the-raspberry-pi-zero-w-in-the-gpi-case">Installing the Raspberry Pi Zero W in the GPi Case</h2>
-      <p>The RetroFlag comes with instructions to install the Raspberry Pi Zero W<br />
-      in the case. I found the pictorial instructions confusing. Doing a search<br />
-      for &quot;RetroFlag GPi Case Setup&quot; yielded a link to <a href="https://www.youtube.com/watch?v=NyJUlNifN1I&amp;feature=youtu.be" title="RetroFlag GPi CASE Setup and Usage">Howchoo's YouTube<br />
-      video</a>,  This video also talks about setting up Retro Pi software,<br />
-      GPi case patches. Skip these. The instructions are now for software that<br />
+      <h2>Installing the Raspberry Pi Zero W in the GPi Case</h2>
+      <p>The RetroFlag comes with instructions to install the Raspberry Pi Zero W
+      in the case. I found the pictorial instructions confusing. Doing a search
+      for &quot;RetroFlag GPi Case Setup&quot; yielded a link to <a href="https://www.youtube.com/watch?v=NyJUlNifN1I&amp;feature=youtu.be" title="RetroFlag GPi CASE Setup and Usage">Howchoo's YouTube
+      video</a>,  This video also talks about setting up Retro Pi software,
+      GPi case patches. Skip these. The instructions are now for software that
       is out of date (the video dates back to 2019).</p>
-      <p>NOTE: Howchoo describes installing RetroPie not Recalbox. Don't install a<br />
-      &quot;wpa_supplicant.conf&quot; file or &quot;ssh&quot; file on the SD Card as suggested.<br />
+      <p>NOTE: Howchoo describes installing RetroPie not Recalbox. Don't install a
+      &quot;wpa_supplicant.conf&quot; file or &quot;ssh&quot; file on the SD Card as suggested.
       It is not needed and will cause problems.</p>
-      <p>The GPi case looks very much like a Game Boy. It includes a &quot;Game Pack&quot;<br />
-      type module which will hold our Raspberry Pi once installed. I found the<br />
-      assembly instructions confusing but searching YouTube for &quot;RetroFlag GPi<br />
-      Case Setup&quot; listed several videos which describe the process of putting<br />
-      the case together as well as how to install RetroPie or<br />
+      <p>The GPi case looks very much like a Game Boy. It includes a &quot;Game Pack&quot;
+      type module which will hold our Raspberry Pi once installed. I found the
+      assembly instructions confusing but searching YouTube for &quot;RetroFlag GPi
+      Case Setup&quot; listed several videos which describe the process of putting
+      the case together as well as how to install RetroPie or
       Recalbox Linux Distributions.</p>
-      <h2 id="booting-the-pi-zero-w-with-the-sd-card">Booting the Pi Zero W with the SD Card</h2>
+      <h2>Booting the Pi Zero W with the SD Card</h2>
       <ol>
-      <li>Make sure the GPi Zero Case <strong>IS NOT CONNECTED TO POWER</strong><br />
-      a. the switch the case off<br />
+      <li>Make sure the GPi Zero Case <strong>IS NOT CONNECTED TO POWER</strong>
+      a. the switch the case off
       b. Disconnect the barrel to USB cable from a power source</li>
       <li>Remove the &quot;game pack&quot; element where you've installed the Raspberry Pi Zero W</li>
-      <li>Insert the SD Card into the SD Card slot under the soft cover on the side of<br />
+      <li>Insert the SD Card into the SD Card slot under the soft cover on the side of
       the Game Pack case</li>
       <li>Re-insert &quot;Game Pack&quot; into side of the GPi case</li>
       <li>Plug the barrel USB cable into a USB Power supply ,</li>
@@ -92,17 +98,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="rosette-notes-2022-08-22_111130.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="rosette-notes-2022-08-22_111130.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,23 +35,22 @@
 
   <section>
     <article data-published="2022-08-22" data-link="https://rsdoiel.github.io/blog/2022/08/22/rosette-notes-2022-08-22_111130.html">
-      <h1 id="1130-am-sql-postgres">11:30 AM, SQL: Postgres</h1>
+      <h1>11:30 AM, SQL: Postgres</h1>
       <p>Post: Monday, August 22, 2022, 11:30 AM</p>
-      <p>Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &quot;REPLACE&quot; is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I've used &quot;?&quot; with SQLite and MySQL but with Postgres I need to use &quot;$1&quot;, &quot;$2&quot;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
+      <p>Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &quot;REPLACE&quot; is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I've used &quot;?&quot; with SQLite and MySQL but with Postgres I need to use &quot;<span class="math inline">\(1", "\)</span>2&quot;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Clock.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Clock.md" rel="altenate" type="text/markdown" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,13 +35,13 @@
 
   <section>
     <article data-published="2020-11-27" data-link="https://rsdoiel.github.io/blog/2020/11/27/Clock.html">
-      <h1 id="clock">Clock</h1>
-      <p>This is a C time library wrapper for getting system time<br />
-      to support Dates.Mod. The procedures are read only as<br />
-      setting time is non-standard on many Unix-like systems<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.<br />
-      The two procedures follow the A2 style procedure signatures<br />
+      <h1>Clock</h1>
+      <p>This is a C time library wrapper for getting system time
+      to support Dates.Mod. The procedures are read only as
+      setting time is non-standard on many Unix-like systems<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
+      The two procedures follow the A2 style procedure signatures
       adjusted for Oberon-07.</p>
-      <h2 id="source-code-for-clockmod">Source code for <strong>Clock.Mod</strong></h2>
+      <h2>Source code for <strong>Clock.Mod</strong></h2>
       <pre><code>MODULE Clock;
       
       PROCEDURE GetRtcTime*(VAR second, minute, hour, day, month, year : INTEGER);
@@ -88,7 +94,7 @@
       }
       </code></pre>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>Eric Raymond discusses time functions, <a href="http://www.catb.org/esr/time-programming/">http://www.catb.org/esr/time-programming/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -98,17 +104,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

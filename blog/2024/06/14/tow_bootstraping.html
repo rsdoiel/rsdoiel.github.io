@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="tow_bootstraping.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="tow_bootstraping.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" />
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2024-06-14" data-link="https://rsdoiel.github.io/blog/2024/06/14/tow_bootstraping.html">
-      <h1 id="bootstrapping-a-text-oriented-web">Bootstrapping a Text Oriented Web</h1>
+      <h1>Bootstrapping a Text Oriented Web</h1>
       <p>By R. S. Doiel, 2024-06-14</p>
       <p>First order of business is to shorten &quot;text oriented web&quot; to TOW.  It's easier to type and say.  I'm considering the bootstrapping process from three vantage points.</p>
       <ol>
@@ -38,14 +44,14 @@
       <li>client software</li>
       </ol>
       <p>The TOW approach is avoids invention in favor of reuse. HTTP protocol is well specified and proven. <a href="https://commonmark.org">Common Mark</a> has a specification as does <a href="https://yaml.org/">YAML</a>. TOW documents are UTF-8 encoded. A TOW document is a composite of Common Mark with YAML blocks. TOW documents combined with HTTP provide a simplified hypertext platform.</p>
-      <h2 id="authoring-tow-documents">Authoring TOW documents</h2>
+      <h2>Authoring TOW documents</h2>
       <p>TOW seeks to simplify the content author experience. TOW removes most of the complexity of content management systems rendering processes. A TOW document only needs to be place in a directory supported by a TOW server. In that way it is as simple as <a href="https://en.wikipedia.org/wiki/Gopher_(protocol)">Gopher</a>. The content author should only need to know <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>, specifically the <a href="https://commonmark.org/">Common Markdown</a> syntax. If they want to create interactive documents or distribute metadata about their documents they will need to be comfortable creating and managing YAML blocks embedded in their Common Mark document. Use of YAML blocks is already a common practice in the Markdown community.</p>
       <p>Describing content forms using YAML has several advantages. First it is much easier to read than HTML source. YAML blocks are not typically rendered by Markdown processor libraries. I can write a simple preprocessor which tenders the YAML content form as HTML. Since HTML is allowed in Markdown documents these could then be run through a standard Markdown to HTML converter.  In the specific case of Pandoc a filter could be written to perform the pre-processor step. It should be possible to always render a TOW document as an HTML5 document. This is deliberate, it should be possible to use the TOW documents to extrapolate a traditional website.</p>
-      <h2 id="server-and-client-software">Server and client software</h2>
+      <h2>Server and client software</h2>
       <p>TOW piggy backs on the HTTP protocol. A TOW document is a composite of Common Mark with embedded YAML blocks when needed. It differs from the existing WWW content only in its insistence that Common Mark and YAML be first class citizens forming a viable representation of a hypertext document. A TOW document URL looks the same as a WWW URL. The way TOW documents distinguish themselves from ordinary web content is via their content type, &quot;text/tow&quot; or &quot;text/x-tow&quot;.  Content forms are sent to a TOW service using the content type &quot;application/yaml&quot; content type instead of the various urlencoded content types used by WWW forms.</p>
       <p>TOW browsers eschew client side programming. I have several reasons for specifying this. First the TOW concept is a response to current problems and practices in the WWW. I don't want to contribute to the surveillance economy. It also means that's what the client receives avoids on vector if hijacking that the WWW has battled over the years. Importantly this also keeps the TOW browser model very simple. The TOW browser renders TOW content once per load. TOW is following the path that <a href="https://geminiprotocol.net/">Gemini protocol</a> and <a href="https://hexdocs.pm/gemtext/Gemtext.html">Gemtext</a>. Unlike Gemini it does not require a new protocol and leverages an existing markup. Like Gemini TOW is not replacing anything but only supplying an alternative.</p>
       <p>My vision for implementing TOW is to use existing HTTP protocol. That means a TOW URL looks just like a WWW URL. How do I distinguish between WWW and TOW?  HTTP protocol supports headers. TOW native interaction should use the content type &quot;text/tow&quot; or &quot;text/x-tow&quot;. Content forms submitted to a TOW native server should submit their content encoded as YAML and use the content type &quot;text/tow&quot; or &quot;text/x-tow&quot;. This lets the server know that the reply should remain in &quot;text/tow&quot; or &quot;text/x-tow&quot;.  A TOW enabled browser can be described as a browser that knows how to render TOW documents and submit YAML responses.</p>
-      <h2 id="how-to-proceed">How to proceed?</h2>
+      <h2>How to proceed?</h2>
       <p>A TOW document needs to be render-able as HTML+CSS+JavaScript because that is what is available today to bootstrap TOW. The simplest TOW server just needs to be able to send TOW content to a requester with the correct content type header, e.g. &quot;text/tow&quot;.  That means a server can be easily built in Go using the standard <a href="https://gopkg.in/net/html">net/http</a> package. That same package could then be combined with a web server package to adapt it into a TOW server supporting translation to HTML+CSS+JavaScript during the bootstrap period.  If the TOW web server received a request where &quot;text/tow&quot; wasn't in the acceptable response list then it would return the TOW document translated to HTML+CSS+JavaScript.</p>
       <p>A TOW native browser could be built initially as a <a href="https://en.wikipedia.org/wiki/Progressive_web_app">PWA</a>. It just needs to render TOW native documents as HTML5+CSS+JavaScript and be able to send TOW content forms back as YAML using the &quot;text/tow&quot; content type. Other client approaches could be taken, e.g. write plugin for the <a href="https://dillo-browser.github.io/">Dillo browser</a>, build something on <a href="https://developer.mozilla.org/en-US/docs/Glossary/Gecko">Gecko</a>, build something on <a href="https://webkit.org/">WebKit</a>, or use <a href="https://www.electronjs.org/">Electron</a>. A PWA is probably good enough for proof of concept.</p>
       <p>A minimal TOW proof of concept would be the web service that can handle the translation of TOW documents to HTML+CSS+JavaScript. A complete proof of concept could be implemented TOW native support via <a href="https://en.wikipedia.org/wiki/Progressive_web_app">PWA</a>.</p>
@@ -54,27 +60,28 @@
       <li>towtruck (built using tow2html5)</li>
       <li>towby (initially built as tow2html5 WASM module as PWA)</li>
       </ol>
-      <h2 id="proposed-programs">Proposed programs</h2>
-      <p>tow2html5<br />
-      : This can be implemented in Go as both a package and command line interface. The command line interface could function either in preprocessor mode (just translating the YAML forms into HTML5) or as a full processor using an existing Common Mark package. It could also be compiled to a WASM module to support implementing a TOW browser as PWA.</p>
-      <p>towtruck<br />
-      : This would be a simple web service that performed tow2html5 translation for tow document requests from non-TOW native browsers. If the accepted content type requested includes TOW native then it'd just hand back the TOW file untranslated. I would implemented this as a simple static HTTP web service running on localhost then use Lighttpd, Apache 2 or NginX for a front end web server. This simplifies the TOW native server.</p>
-      <p>towby<br />
-      : A <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps">PWA</a> based TOW browser proof of concept</p>
+      <h2>Proposed programs</h2>
+      <dl>
+      <dt>tow2html5</dt>
+      <dd>This can be implemented in Go as both a package and command line interface. The command line interface could function either in preprocessor mode (just translating the YAML forms into HTML5) or as a full processor using an existing Common Mark package. It could also be compiled to a WASM module to support implementing a TOW browser as PWA.</dd>
+      <dt>towtruck</dt>
+      <dd>This would be a simple web service that performed tow2html5 translation for tow document requests from non-TOW native browsers. If the accepted content type requested includes TOW native then it'd just hand back the TOW file untranslated. I would implemented this as a simple static HTTP web service running on localhost then use Lighttpd, Apache 2 or NginX for a front end web server. This simplifies the TOW native server.</dd>
+      <dt>towby</dt>
+      <dd>A <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps">PWA</a> based TOW browser proof of concept</dd>
+      </dl>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

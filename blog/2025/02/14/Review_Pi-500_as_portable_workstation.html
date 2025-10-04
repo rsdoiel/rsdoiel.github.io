@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Review_Pi-500_as_portable_workstation.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Review_Pi-500_as_portable_workstation.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,25 +35,22 @@
 
   <section>
     <article data-published="2025-02-14" data-link="https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html">
-      <h1 id="setting-up-my-raspberry-pi-500-a-portable-workstation">Setting up my Raspberry Pi 500, a Portable Workstation</h1>
+      <h1>Setting up my Raspberry Pi 500, a Portable Workstation</h1>
       <p>By R. S. Doiel, 2025-02-14</p>
       <p>I'm  writing this on a newly setup Raspberry Pi 500. So far I'm impressed. I was sceptical about moving from my Pi 400 but when it died I was forced to upgrade. It has been worth it.</p>
       <p>I've now had a chance to install the various pieces of software I regularly use. Even do some web browsing with it. Image some SD cards for a RISC OS project I'm working on. It feels much quicker than my Pi 400. I think the speed increase is in part the faster CPU but I suspect the program I am running is taking advantage of the 8 Gig RAM instead of the old 4. As I've testing this machine out I noticed I had stopped asking myself the question about launching more than one large program at a time (e.g. my browser is running and being used as I type this in VS Code). When I tried VS Code on my Pi 4B+ and 400 it just felt too sluggish. I'm typing this review in VS Code now on the Pi 500 is keeping up OK.</p>
       <p>When I purchased the Pi-500 and I also decided to go with the new Raspberry Pi Monitor. Together I have a complete portable workstation. While my previous powered WaveShare monitor was higher resolution the Pi Monitor it  also used allot more power.  With the combination of Pi Monitor and Pi-500 I am now contemplating exploring power consumption so I can find a one battery to power the monitor and Pi-500.</p>
       <p>Here's the spec and pricing for this new machine. Some parts I didn't purchase because I already owned them (e.g. the 27W Pi power supply) but I have included the list prices for those who might be interested.</p>
       <p>Item                                List Price    Notes</p>
-      <hr />
-      <p>Raspberry Pi 500 unit               $90.00        included  32G SD card<br />
-      Raspberry Pi 27W Power supply       $13.65        used existing one   <br />
-      Raspberry Pi Mouse                  $9.25         used existing one   <br />
-      Micro HDMI to standard HDMI cable   $5.75         used existing one   <br />
-      Raspberry Pi Monitor                $100.00                           <br />
-      Raspberry Pi 15W Power supply       $8.00         for monitor         <br />
+      <hr>
+      <p>Raspberry Pi 500 unit               <span class="math inline">\(90.00        included  32G SD card   Raspberry Pi 27W Power supply       \)</span>13.65        used existing one   <br>
+      Raspberry Pi Mouse                  <span class="math inline">\(9.25         used existing one       Micro HDMI to standard HDMI cable   \)</span>5.75         used existing one   <br>
+      Raspberry Pi Monitor                <span class="math inline">\(100.00                               Raspberry Pi 15W Power supply       \)</span>8.00         for monitor         <br>
       Raspberry Pi 128G SD Card           $16.95        upgraded storage</p>
-      <h2 id="software-setup">Software Setup</h2>
+      <h2>Software Setup</h2>
       <p>I created an &quot;image&quot; on my 128G SD Card using the Raspberry Pi Imager on another computer.  The imager lets you setup initial user account, WiFi configuration and whether you want SSH services running the first boot. I like using the vanilla 64 bit Raspberry Pi OS distribution. I picked the one for the Raspberry Pi 5 series.</p>
       <p>When I booted the Pi-500 connected to the Pi Monitor it seemed to cause the screen to cycle through and Pi splash page a few times. Once it completed its first boot it hasn't done that again. I am assuming that was some negotiation between the monitor and the Pi. After a quick click around test I rebooted the machine by doing a full shutdown and power off and the power back up.</p>
-      <h3 id="development-and-writing-software">Development and Writing Software</h3>
+      <h3>Development and Writing Software</h3>
       <p>I am planning to use the Pi-500 as a light weight development machine and as a machine for preparing updates for my blog. I installed the additional software below.</p>
       <ul>
       <li>Pandoc 3 via installed via deb package from Pandoc GitHub releases</li>
@@ -69,17 +72,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

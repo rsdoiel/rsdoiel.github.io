@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="enhanced_form_handling.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="enhanced_form_handling.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,8 +35,8 @@
 
   <section>
     <article data-published="2024-02-23" data-link="https://rsdoiel.github.io/blog/2024/02/23/enhanced_form_handling.html">
-      <h1 id="two-missing-features-from-html5-an-enhanced-formenctype-and-a-list-input-type">Two missing features from HTML5, an enhanced form.enctype and a list input type</h1>
-      <h2 id="roberts-wish-list-for-browsers-and-web-forms-handling">Robert's wish list for browsers and web forms handling</h2>
+      <h1>Two missing features from HTML5, an enhanced form.enctype and a list input type</h1>
+      <h2>Robert's wish list for browsers and web forms handling</h2>
       <p>By R. S. Doiel, 2024-02-23</p>
       <p>I wish the form element supported a <code>application/json</code> encoding type and there was such a thing as a <code>list-input</code> element.</p>
       <p>I've been thinking about how we can get back to basic HTML documents and move away from JavaScript required to render richer web forms. When web forms arrived on scene in the early 1990s they included a few basic input types. Over the years a few have been added but by and large the data model has remained relatively flat. The exception being the select element with <code>multiple</code> attribute set. I believe we are being limited by the original choice of urlencoding web forms and then resort to JavaScript to address it's limitations.</p>
@@ -148,7 +154,7 @@
       </code></pre>
       <p>Suddenly the alignment problem goes away. There is precedence for controlling behavior of the web browser submission through the <code>enctype</code> attribute. File upload was addressed by adding support for <code>multipart/form-data</code>.  In 2024 and for over the last decade it has been common practice in web services to support JSON data submission. I believe it is time that the web browser also supports this directly. This would allow us to decouple the necessity of using JavaScript in browser as we require today. The form elements already map well to a JSON encoding. If JSON encoding was enabled then adding a element like my &quot;list-input&quot; would make sense.  Otherwise we remain stuck in a world where hypertext markup language remains very limited and can't live without JavaScript.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>In English this could be described as &quot;a map using a string to point at a list of strings&quot; with &quot;string&quot; being a sequence of letters or characters.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -158,17 +164,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

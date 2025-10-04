@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="rust-tools-for-web-work.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta content="antenna/0.0.10" name="generator" />
+  <meta content="2025-10-03T16:58:07-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="rust-tools-for-web-work.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" />
+  <link href="/css/site.css" rel="stylesheet" type="text/css" />
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" />
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2024-11-06" data-link="https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html">
-      <h1 id="two-rust-command-line-tools-for-web-work">Two Rust command line tools for web work</h1>
+      <h1>Two Rust command line tools for web work</h1>
       <p>By R. S. Doiel, 2024-11-06</p>
       <p>I've noticed that I'm using more tools written in the Rust language. I'd like to highlight two that have impressed me. Both are from <a href="https://cloudcannon.com">Cloud Cannon</a>. They make static website development interesting without unnecessarily increasing complexity.</p>
       <p>Historically static site development meant limited interactivity browser side. Then JavaScript arrived. That enabled the possibility of an interactive static site. Two areas remained challenging. First was search. An effective search engine used to required running specialized software like <a href="https://solr.apache.org">Solr</a> or using a SAAS<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> search solution.  When the renaissance in static sites happened these options were seen as problematic.</p>
@@ -40,7 +46,7 @@
       <p>Wait! There's more from Cloud Cannon!</p>
       </blockquote>
       <p>If you start providing JavaScript widgets for your website content you'll probably miss having a database backed JSON API. You can create one as part of your site rendering process but it is a big chore. Cloud Cannon, in their quest for a static site content management system, provides an Open Source solution for this too. It's called <a href="https://flatlake.app">FlatLake</a>. Like PageFind it is a command line tool. Instead of analyzing HTML documents FlatLake works on Markdown documents. More specifically Markdown documents with YAML front matter<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. It uses that to render a read only JSON API from the metadata in your documents front matter.  You define which attributes you want to expose in your API in a YAML file. FlatLake creates the necessary directory structure and JSON documents to reflect that. Want to create a tag cloud? Your JSON API can provided the data for that. You want to provide alternate views into your website such as indexes or article series views?  Again you now have a JSON API that aggregates your metadata to render that. Beyond some small amount of configuration FlatLake does the heavy lifting of generating and managing the JSON API for your site. It's consistent and predictable. Start a new site and add FlatLake and you get a familiar JSON API out of the box.</p>
-      <h2 id="pagefind-and-flatlake-in-action">PageFind and FlatLake in action</h2>
+      <h2>PageFind and FlatLake in action</h2>
       <p>My personal website is indexed with PageFind.  The indexes are located at <a href="https://rsdoiel.github.io/pagefind">https://rsdoiel.github.io/pagefind</a>. The search page is at <a href="https://rsdoiel.github.io/search.html">https://rsdoiel.github.io/search.html</a>. I index my content with the following command (which will run on macOS, Windows or Linux).</p>
       <pre><code class="language-shell">pagefind --verbose --exclude-selectors=&quot;nav,header,footer&quot; --output-path ./pagefind --site .
       </code></pre>
@@ -80,7 +86,7 @@
       <li>Run PageFind and update my site indexes</li>
       <li>Deploy via GitHub Pages with <code>git</code> or <code>gh</code></li>
       </ol>
-      <h2 id="installing-pagefind-and-flatlake">Installing PageFind and FlatLake</h2>
+      <h2>Installing PageFind and FlatLake</h2>
       <p>Both PageFind and FlatLake are written in Rust. If you have Rust installed on your machine then Cargo will do all your lifting.  When I have a new machine I install <a href="https://www.rust-lang.org/">Rust</a> with <a href="https://rustup.rs">Rustup</a>. On an running Machine I run <code>rustup upgrade</code> to get the latest Rust.  I then install (or updated) PageFind and FlatLake with Cargo.</p>
       <pre><code class="language-shell">rustup upgrade
       cargo install pagefind
@@ -89,7 +95,7 @@
       <p>I've run PageFind on macOS, Windows, Linux. On ARM 64 and Intel CPUs. I even run it on Raspberry Pi!. Rust supports all these platforms so where Rust runs PageFind and FlatLake can follow.</p>
       <p>PageFind solves my search needs.  FlatLake is simplifying the tooling I use to generate my website. My plain text toolkit (pttk) needs to do much less. It feels close to the grail of static website management system built from simple precise tools. Git hands version control. Pandoc renders the Markdown to HTML. PageFind provides search and FlatLake provides the next generation JSON API. A Makefile or Deno task can knit things together into a publication system.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>SAAS, Software as a Service. This is how the web provides application software and application functionality. SAAS are convenient but often have significant drawbacks in terms of privacy and content ownership. SAAS dates back to pre-Google era. Early search engines like Alta Vista provided search as a service. Today many sites use Google, Bing or DuckDuckGo to provide search as a service.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -102,17 +108,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

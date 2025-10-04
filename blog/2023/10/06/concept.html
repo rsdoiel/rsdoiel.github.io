@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="concept.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta content="antenna/0.0.10" name="generator" />
+  <meta content="2025-10-03T16:58:07-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="concept.md" />
+  <link href="/css/site.css" rel="stylesheet" type="text/css" />
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,16 +35,16 @@
 
   <section>
     <article data-published="2023-10-06" data-link="https://rsdoiel.github.io/blog/2023/10/06/concept.html">
-      <h1 id="skimmer">skimmer</h1>
+      <h1>skimmer</h1>
       <p>By R. S. Doiel, 2023-10-06</p>
-      <p>I have a problem. I like to read my feeds in newsboat but I can't seem to get it working on a few machines I use.<br />
-      I miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way<br />
+      <p>I have a problem. I like to read my feeds in newsboat but I can't seem to get it working on a few machines I use.
+      I miss having access to read feeds. Additionally there are times I would like to read my feeds in the same way
       I read twtxt feeds using <code>yarnc timeline | less -R</code>. Just get a list of all items in reverse chronological order.</p>
-      <p>I am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn't<br />
-      available or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer<br />
-      . Something that works with RSS, Atom and jsonfeeds in the same way I use <code>yarnc timeline | less -R</code>.<br />
-      I'm also inspired by Dave Winer's a river of news site and his outline tooling. But in this case I don't want<br />
-      an output style output, just a simple list of items in reverse chronological order. I'm thinking of a more<br />
+      <p>I am not interested in reinventing newsboat, it does a really good job, but I do want an option where newsboat isn't
+      available or is not not convenient to use.  This lead me to think about an experiment I am calling skimmer
+      . Something that works with RSS, Atom and jsonfeeds in the same way I use <code>yarnc timeline | less -R</code>.<br>
+      I'm also inspired by Dave Winer's a river of news site and his outline tooling. But in this case I don't want
+      an output style output, just a simple list of items in reverse chronological order. I'm thinking of a more
       ephemeral experience in reading.</p>
       <p>This has left me with some questions.</p>
       <ul>
@@ -46,12 +52,12 @@
       <li>How much effort would be required to maintain it?</li>
       <li>Could this tool incorporate support for other feed types, e.g. twtxt, Gopher, Gemini?</li>
       </ul>
-      <p>There is a Go package called <a href="https://github.com/mmcdole/gofeed">gofeed</a>. The README describes it<br />
-      as a &quot;universal&quot; feed reading parser. That seems like a good starting point and picking a very narrowly<br />
+      <p>There is a Go package called <a href="https://github.com/mmcdole/gofeed">gofeed</a>. The README describes it
+      as a &quot;universal&quot; feed reading parser. That seems like a good starting point and picking a very narrowly
       focus task seems like a way to keep the experiment simple to implement.</p>
-      <h2 id="design-issues">Design issues</h2>
-      <p>The reader tool needs to output to standard out in the same manner as <code>yarnc timeline</code> does. The goal isn't<br />
-      to be newsboat, or river of news, drummer, or Lynx but to present a stream of items usefully formatted to read<br />
+      <h2>Design issues</h2>
+      <p>The reader tool needs to output to standard out in the same manner as <code>yarnc timeline</code> does. The goal isn't
+      to be newsboat, or river of news, drummer, or Lynx but to present a stream of items usefully formatted to read
       from standard output.</p>
       <p>Some design ideas</p>
       <ol>
@@ -60,25 +66,25 @@
       <li>For a given list of feed URLs I want to save the content in a SQLite3 database (useful down the road)</li>
       <li>I'd like the simplicity of newsboat's URL list but I want to eventually support OPML import/export</li>
       </ol>
-      <h1 id="skimmer-a-thin-wrapper-around-gofeed">Skimmer, a thin wrapper around gofeed</h1>
-      <p>In terms of working with RSS, Atom and JSON feeds the <a href="https://github.com/mmcdole/gofeed">gofeed</a> takes care of<br />
-      all the heavy lifting in parsing that content. The go http package provides a reliable client.<br />
-      There is a pure Go package, <a href="">go-sqlite</a>, for integrating with SQLite 3 database. The real task is knitting this<br />
+      <h1>Skimmer, a thin wrapper around gofeed</h1>
+      <p>In terms of working with RSS, Atom and JSON feeds the <a href="https://github.com/mmcdole/gofeed">gofeed</a> takes care of
+      all the heavy lifting in parsing that content. The go http package provides a reliable client.
+      There is a pure Go package, <a href="">go-sqlite</a>, for integrating with SQLite 3 database. The real task is knitting this
       together and a convenient package.</p>
       <p>Here's some ideas about behavior.</p>
-      <p>To configure skimmer you just run the command. It'll create a directory at <code>$HOME/.skimmer</code> to store configuration<br />
+      <p>To configure skimmer you just run the command. It'll create a directory at <code>$HOME/.skimmer</code> to store configuration
       much like newsboat does with <code>$HOME/.newsboat</code>.</p>
       <pre><code>skimmer
       </code></pre>
       <p>A default URL list to be created so when running the command you have something to fetch and read.</p>
-      <p>Since fetching feed content can be slow (this is true of all news readers I've used) I think you should have to<br />
+      <p>Since fetching feed content can be slow (this is true of all news readers I've used) I think you should have to
       explicitly say fetch.</p>
       <pre><code>skimmer -fetch
       </code></pre>
-      <p>This would read the URLs in the URL list and populate a simple SQLite 3 database table. Then running skimmer again<br />
+      <p>This would read the URLs in the URL list and populate a simple SQLite 3 database table. Then running skimmer again
       would display any harvested content (or running skimmer in another terminal session).</p>
-      <p>Since we're accumulating data in a database there are some house keep chores like prune that need to be supported.<br />
-      Initial this can be very simple and if the experiment move forward I can improve them over time. I want something<br />
+      <p>Since we're accumulating data in a database there are some house keep chores like prune that need to be supported.
+      Initial this can be very simple and if the experiment move forward I can improve them over time. I want something
       like saying prune everything up to today.</p>
       <pre><code>skimmer -prune today
       </code></pre>
@@ -89,24 +95,23 @@
       <pre><code>skimmer -limit 50 | pandoc -t markdown -f plain | less -R
       </code></pre>
       <p>That seems a like a good set of design features for an initial experiment.</p>
-      <h2 id="proof-of-concept-implementation">Proof of concept implementation</h2>
-      <p>Spending a little time this evening. I've release a proof of concept on GitHub<br />
-      at <a href="https://github.com/rsdoiel/skimmer">https://github.com/rsdoiel/skimmer</a>, you can read the initial documentation<br />
+      <h2>Proof of concept implementation</h2>
+      <p>Spending a little time this evening. I've release a proof of concept on GitHub
+      at <a href="https://github.com/rsdoiel/skimmer">https://github.com/rsdoiel/skimmer</a>, you can read the initial documentation
       at <a href="https://rsdoiel.github.io/skimmer">skimmer</a>.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

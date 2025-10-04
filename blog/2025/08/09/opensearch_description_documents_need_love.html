@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="opensearch_description_documents_need_love.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta content="2025-10-03T16:58:07-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="opensearch_description_documents_need_love.md" rel="altenate" type="text/markdown" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,20 +35,20 @@
 
   <section>
     <article data-published="2025-08-09" data-link="https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html">
-      <h1 id="opensearch-description-document-needs-love">Opensearch Description Document needs love</h1>
+      <h1>Opensearch Description Document needs love</h1>
       <blockquote>
       <p>Allow your readers to skip the ad-tech and search your site directly</p>
       </blockquote>
       <p>By R. S. Doiel, 2025-08-09</p>
       <p>Opensearch Description Documents are an XML file that describes how search works on your website. The specification dates back to 2005<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Opensearch Description Documents (example &quot;osd.xml&quot;) should not be confused with <a href="https://opensearch.org/">Opensearch</a> the search engine Amazon and friends forked from <a href="https://www.elastic.co/">ElasticSearch</a>. Despite the overlap in name they are not the same thing<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
       <p>The Opensearch Description Document role is to provide a little metadata about the search system and how to make a query. With this bit of information the web browser can then make that search available in the URL box (omnibox) of your web browser. Early on this was automatic but as companies have tried to monopolize search they have used security as the excuse to restrict the usage of this metadata. It still works safely in Firefox but in Safari and Chrome you have to take extra steps to use it.</p>
-      <h2 id="what-does-this-mean-to-a-site-reader">What does this mean to a site reader?</h2>
+      <h2>What does this mean to a site reader?</h2>
       <p>If implemented correctly the Opensearch Description Document allows integration as a &quot;search engine&quot; in your web browser. On Firefox that means I can see my web site's site search in the pull down list of available search engines and just add it. For <a href="https://support.apple.com/guide/safari/search-sfria1042d31/18.0/mac/15.0" title="This was the documentation I could find for Safari search options">Safari</a> and <a href="https://support.google.com/chrome/answer/95426?hl=en-IS&amp;co=GENIE.Platform%3DDesktop" title="This is the doucmentation I could find from Google for Chome site search options">Chrome</a> you must go into the settings to enable your site search.</p>
-      <h2 id="what-does-it-mean-as-a-site-owner">What does it mean as a site owner?</h2>
+      <h2>What does it mean as a site owner?</h2>
       <p>As a site owner I can allow my readers to search without ad-tech and spyware.  Plus I can allow my readers to initiate a site search from any web page since the URL box (omnibox) is always available regardless of which page I'm reading. The eliminates URL tricks like pasting in the search URL followed by a <code>?q=My%20Search%20Terms</code> at the end of it.</p>
-      <h2 id="how-do-i-implement-this">How do I implement this?</h2>
+      <h2>How do I implement this?</h2>
       <p>Integrating Opensearch Description Documents requires including additional HTML elements in the head element of the HTML document. This tells the web browser where to find the XML document. It requires the creation of the XML document (e.g. &quot;osd.xml&quot;). It also requires that your search engine have a structured URL where the search terms can be dropped. More on that in our use case.</p>
-      <h2 id="implementing-the-opensearch-description-document">Implementing the Opensearch Description Document.</h2>
+      <h2>Implementing the Opensearch Description Document.</h2>
       <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/XML/Guides/OpenSearch" title="see the docs at the Mozilla Developer Network">MDN</a> has a good page describing the details of creating this document. (NOTE: While XML looks a lot like HTML it is less forgiving than HTML. It must be a valid XML file.)</p>
       <p>Below is a minimum Opensearch Description Document XML document I use on my website. It is in the root of the website and is called &quot;osd.xml&quot;, <a href="https://rsdoiel.github.io/osd.xml">https://rsdoiel.github.io/osd.xml</a>.</p>
       <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -54,19 +60,19 @@
         &lt;Image height=&quot;16&quot; width=&quot;16&quot;&gt;https://rsdoiel.github.io/favicon.ico&lt;/Image&gt;
       &lt;/OpenSearchDescription&gt;
       </code></pre>
-      <p>The first element, <strong>OpenSearchDescription</strong> element, wraps the document.<br />
+      <p>The first element, <strong>OpenSearchDescription</strong> element, wraps the document.
       Next up is <strong>ShortName</strong>. As the element tag suggests this is for a &quot;show name&quot;. ShortName should be less than 14 alphanumeric characters only. I've chose my subdomain name, &quot;rsdoiel&quot;, from the host name &quot;rsdoiel.github.io&quot;. It can be anything you want.</p>
       <p>After <strong>ShowName</strong> is an element called <strong>Description</strong>. This is a simple text string up to 1024 characters long. I short description. In one sentence you want to describe your search engine. In my case I chose, &quot;Search Robert's Ramblings and Blog&quot;.</p>
       <p><strong>Description</strong> is followed by the <strong>Url</strong> element. This is the element that describes how to make a query. It includes the full URL to your search page and any query options needed to cause the page to return search results.  On my site I use a browser side search engine called <a href="https://pagefind.app">PageFind</a>. I leverage the URL query parameters to trigger the search and therefore use a &quot;get&quot; method. The template attribute describes how to form the URL used to retrieve search results. The text, <code>{searchTerms}</code> will get replaced by the text your type in the URL box (omnibox) of your web browser. I've setup PageFind to look at the query parameters for a &quot;q&quot; field and my &quot;template&quot; maps the value of &quot;q&quot; to <code>{searchTerms}</code>.</p>
       <p>Next are <strong>InputEncoding</strong> which sets the encoding type and <strong>Image</strong> that associates an image for your search. For me I always use UTF-8 for web things and have repurposed the favicon.ico as the icon value associated with my site search.</p>
-      <h2 id="hooking-in-osdxml-to-your-web-pages">Hooking in &quot;osd.xml&quot; to your web pages.</h2>
+      <h2>Hooking in &quot;osd.xml&quot; to your web pages.</h2>
       <p>I use CommonMark documents to build for my website and Pandoc to turn that into a webpage. I do this using a template. To integrate the Opensearch Description Document into my site I've updated the templates adding the following link element inside the head element.</p>
       <pre><code class="language-HTML">  &lt;link rel=&quot;search&quot;
               type=&quot;application/opensearchdescription+xml&quot;
               title=&quot;Robert's Rambling Search Engine&quot;
               href=&quot;osd.xml&quot;&gt;
       </code></pre>
-      <h2 id="updating-pagefind">Updating PageFind</h2>
+      <h2>Updating PageFind</h2>
       <p>PageFind is a search engine that works in your browser rather than on a server. It does this be creating indexes that can be downloaded as needed by your web browser. If you look at the <a href="https://pagefind.app/docs">PageFind docs</a> website the basic example looks like this.</p>
       <pre><code class="language-JavaScript">window.addEventListener('DOMContentLoaded', (event) =&gt; {
         new PagefindUI({ element: &quot;#search&quot;, showSubResults: true });
@@ -108,14 +114,14 @@
       &lt;/script&gt;
       </code></pre>
       <p>You can see a much more elaborate version on my website, <a href="view-source:https://rsdoiel.github.io/search.html">search.html</a>. You can try it at <a href="https://rsdoiel.github.io/search.html">https://rsdoiel.github.io/search.html</a>. On my site I am bundling indexes from other GitHub repository websites to provide a common searchable collection.</p>
-      <h2 id="using-your-site-search-from-the-url-box-omnibox">Using your site search from the URL box (omnibox)</h2>
+      <h2>Using your site search from the URL box (omnibox)</h2>
       <p>If you're using Firefox you're in luck. When you load a website search page and then clear the menu bar you should see your search icon and pull down list of search options on the left of the URL box (omnibox).</p>
       <!-- raw HTML omitted -->
       <p>Clicking on the downward caret lists the  available search engines. Notice the &quot;Robert's Rambling Search Engine&quot; at the top. Clicking this will add it to the list of search engines available when typing in the URL box (omnibox).</p>
       <!-- raw HTML omitted -->
       <p>Now when you want to search my web site you can click the &quot;rsdoiel&quot; (short name) from the pull down list.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>See <a href="https://en.wikipedia.org/wiki/OpenSearch_(specification)">https://en.wikipedia.org/wiki/OpenSearch_(specification)</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -128,17 +134,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

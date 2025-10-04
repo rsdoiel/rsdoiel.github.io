@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Wishlist-Oberon-in-2023-2022-10-18_070730.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Wishlist-Oberon-in-2023-2022-10-18_070730.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" />
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,23 +35,22 @@
 
   <section>
     <article data-published="2022-10-18" data-link="https://rsdoiel.github.io/blog/2022/10/18/Wishlist-Oberon-in-2023-2022-10-18_070730.html">
-      <h1 id="730-am-oberon-language-a-minimum-system-module">7:30 AM, Oberon Language: A minimum SYSTEM module</h1>
+      <h1>7:30 AM, Oberon Language: A minimum SYSTEM module</h1>
       <p>Post: Tuesday, October 18, 2022, 7:30 AM</p>
       <p>It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="OPML-to-Markdown-and-back.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta content="2025-10-03T16:58:06-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="OPML-to-Markdown-and-back.md" />
+  <link type="text/css" href="/css/site.css" rel="stylesheet" />
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" />
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,32 +35,32 @@
 
   <section>
     <article data-published="2016-05-28" data-link="https://rsdoiel.github.io/blog/2016/05/28/OPML-to-Markdown-and-back.html">
-      <h1 id="opml-to-markdown-and-back">OPML to Markdown and back</h1>
+      <h1>OPML to Markdown and back</h1>
       <p>By R. S. Doiel 2016-05-28</p>
-      <h2 id="overview">Overview</h2>
-      <p>I wrote a Go language package to sort <a href="http://dev.opml.org/spec2.html">OPML</a> outlines.<br />
-      I wrote this because my preferred <a href="http://goread.io">feed reader </a> supports manual<br />
+      <h2>Overview</h2>
+      <p>I wrote a Go language package to sort <a href="http://dev.opml.org/spec2.html">OPML</a> outlines.
+      I wrote this because my preferred <a href="http://goread.io">feed reader </a> supports manual
       sorting but not automatic alpha sorting by the <em>outline</em> element's <em>text</em> attribute.</p>
-      <h2 id="observations">Observations</h2>
-      <p>Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,<br />
+      <h2>Observations</h2>
+      <p>Out of the box the OPML 2 Spec provides attributes indicating inclusion of other OPML files,
       scripts, basic metadata (create, modified, authorship), and even directory structures.</p>
-      <p><a href="http://fargo.io">Fargo</a> allows user defined attributes to be applied to the <em>outline</em><br />
-      element in OPML. This could be used in support some of the<br />
-      <a href="https://www.literatureandlatte.com/scrivener.php">Scrivener</a><br />
-      features I miss such as describing how to render a project to various formats such as<br />
+      <p><a href="http://fargo.io">Fargo</a> allows user defined attributes to be applied to the <em>outline</em>
+      element in OPML. This could be used in support some of the
+      <a href="https://www.literatureandlatte.com/scrivener.php">Scrivener</a>
+      features I miss such as describing how to render a project to various formats such as
       rtf, pdf, ePub, web pages or even <a href="https://www.finaldraft.com/">Final Draft fdx</a> files.</p>
-      <p>I write allot of Markdown formatted text.  Markdown is simple to index,<br />
-      search and convert into useful formats. Markdown is not good at expressing more<br />
-      complex structures such as metadata. Website generators that use markdown often<br />
-      require a preamble or <em>front matter</em> in the markdown to provide any metadata. This<br />
+      <p>I write allot of Markdown formatted text.  Markdown is simple to index,
+      search and convert into useful formats. Markdown is not good at expressing more
+      complex structures such as metadata. Website generators that use markdown often
+      require a preamble or <em>front matter</em> in the markdown to provide any metadata. This
       leaves your document head cluttered and less human readable.</p>
-      <p>Another approach is to include a parallel document with the metadata.  It occurred to me<br />
-      that an OPML file could easily hold that metadata. It can even hold Markdown content.<br />
+      <p>Another approach is to include a parallel document with the metadata.  It occurred to me
+      that an OPML file could easily hold that metadata. It can even hold Markdown content.
       The trouble with OPML is that it is not quick to edit by hand.</p>
       <pre><code>Is there a round trip semantic mapping between OPML and Markdown?
       </code></pre>
-      <h2 id="germination-of-an-idea">Germination of an idea</h2>
-      <p>Entering a web link in Fargo the link is URL encoded and saved in the <em>text</em> attribute of the<br />
+      <h2>Germination of an idea</h2>
+      <p>Entering a web link in Fargo the link is URL encoded and saved in the <em>text</em> attribute of the
       <em>outline</em> element.</p>
       <p>The source view of a web links in Fargo's <em>outline</em> element looks like</p>
       <pre><code class="language-OPML">    &lt;outline text=&quot;&amp;gt; href=&amp;quot;http://example.org&amp;quot;&amp;lt;My example.org&amp;gt;/a&amp;lt;&quot; /&gt;
@@ -104,7 +110,7 @@
               &lt;a href=&quot;data:text/plain;link&quot;&gt;type&lt;/a&gt;
               &lt;a href=&quot;data:text/date;Sun, 16 Oct 2005 05:56:10 GMT&quot;&gt;created&lt;/a&gt;&lt;/li&gt;
       </code></pre>
-      <h3 id="markdown-to-opml">Markdown to OPML</h3>
+      <h3>Markdown to OPML</h3>
       <p>Coming back to OPML from Markdown then becomes</p>
       <ul>
       <li>Convert Markdown to HTML</li>
@@ -119,17 +125,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

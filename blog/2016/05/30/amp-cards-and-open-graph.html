@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="amp-cards-and-open-graph.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="amp-cards-and-open-graph.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,22 +35,22 @@
 
   <section>
     <article data-published="2016-05-30" data-link="https://rsdoiel.github.io/blog/2016/05/30/amp-cards-and-open-graph.html">
-      <h1 id="instant-articles-accelerated-mobile-pages-twitter-cards-and-open-graph">Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
+      <h1>Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph</h1>
       <p>By R. S. Doiel 2016-05-30</p>
-      <h2 id="the-problem">The problem</h2>
-      <p>The web has gotten slow. In <a href="http://httparchive.org/trends.php">2016</a> the<br />
-      average page weight is in multi-megabytes and the average number of network<br />
-      requests needed to deliver the content is counted in<br />
-      the hundreds. In the mix are saturated networks and a continued public<br />
-      expectation of responsiveness (web wisdom suggests you have about 3 seconds<br />
-      before people give up).  The odd thing is we've known how to build fast<br />
-      websites for a <a href="https://www.stevesouders.com/">decade</a> or so.<br />
+      <h2>The problem</h2>
+      <p>The web has gotten slow. In <a href="http://httparchive.org/trends.php">2016</a> the
+      average page weight is in multi-megabytes and the average number of network
+      requests needed to deliver the content is counted in
+      the hundreds. In the mix are saturated networks and a continued public
+      expectation of responsiveness (web wisdom suggests you have about 3 seconds
+      before people give up).  The odd thing is we've known how to build fast
+      websites for a <a href="https://www.stevesouders.com/">decade</a> or so.<br>
       Collectively we don't build them <a href="https://www.sitepoint.com/average-page-weight-increased-another-16-2015/">fast</a>.</p>
-      <h2 id="meet-the-new-abstractions">Meet the new abstractions</h2>
-      <p>Corporations believe they have the answer and they are providing us<br />
-      with another set of abstractions. In a few years maybe these will<br />
-      get distilled down to a shared common view but in the mean time disc<br />
-      costs remain reasonably priced and generating these new forms of<br />
+      <h2>Meet the new abstractions</h2>
+      <p>Corporations believe they have the answer and they are providing us
+      with another set of abstractions. In a few years maybe these will
+      get distilled down to a shared common view but in the mean time disc
+      costs remain reasonably priced and generating these new forms of
       pages or feeds is a template or so away.</p>
       <ul>
       <li><a href="https://dev.twitter.com/cards/overview">Twitter Cards</a> and <a href="http://ogp.me/">Open Graph</a>
@@ -65,31 +71,31 @@
       </ul>
       </li>
       </ul>
-      <h2 id="the-players">The players</h2>
-      <h3 id="twitter-cards-and-open-graph">Twitter Cards and Open Graph</h3>
-      <p>Twitter's Titter Cards and Facebook's Open Graph offer approaches to<br />
-      build off of our existing meta elements in an HTML page's document<br />
-      head.  They are named space to avoid collisions but supporting both<br />
-      will still result in some content duplication. The k-weight<br />
+      <h2>The players</h2>
+      <h3>Twitter Cards and Open Graph</h3>
+      <p>Twitter's Titter Cards and Facebook's Open Graph offer approaches to
+      build off of our existing meta elements in an HTML page's document
+      head.  They are named space to avoid collisions but supporting both
+      will still result in some content duplication. The k-weight
       difference in the resulting HTML pages isn't too bad.</p>
-      <p>Adopting either or both is a matter of adjusting how your render your<br />
-      web page's head block.  It is easy enough to do manually but easier<br />
-      still using some sort of template system that renders the appropriate<br />
-      meta elements based on the content type and contents in the page<br />
+      <p>Adopting either or both is a matter of adjusting how your render your
+      web page's head block.  It is easy enough to do manually but easier
+      still using some sort of template system that renders the appropriate
+      meta elements based on the content type and contents in the page
       being rendered.</p>
-      <p>Google and other search engines can leverage this richer meta<br />
-      data and integrate it into their results. Google's Now application can<br />
-      render content cards based on either semantic. It also appears that<br />
-      content cards are being leverage selectively for an aside and related<br />
-      content on Google search results pages. You could even built this into<br />
+      <p>Google and other search engines can leverage this richer meta
+      data and integrate it into their results. Google's Now application can
+      render content cards based on either semantic. It also appears that
+      content cards are being leverage selectively for an aside and related
+      content on Google search results pages. You could even built this into
       your own indexing process for use with the Solr or Elasticsearch.</p>
-      <p>Content Cards offer intriguing opportunity for web crawlers and search<br />
-      engines.  This is particularly true when combined with mature feed<br />
-      formats like RSS, OPML, Atom and the maturing efforts in the linked<br />
+      <p>Content Cards offer intriguing opportunity for web crawlers and search
+      engines.  This is particularly true when combined with mature feed
+      formats like RSS, OPML, Atom and the maturing efforts in the linked
       data community around JSON-LD.</p>
-      <h3 id="amp---accelerated-mobile-pages">AMP - Accelerated Mobile Pages</h3>
-      <p>The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely<br />
-      publishers including major news outlets and web media<br />
+      <h3>AMP - Accelerated Mobile Pages</h3>
+      <p>The backers of AMP (not to be confused with Apache+MySQL+PHP) are largely
+      publishers including major news outlets and web media
       companies in the US and Europe. This is an abridged list from 2015--</p>
       <ul>
       <li>BBC</li>
@@ -105,61 +111,60 @@
       <li>The Economist</li>
       <li>The Financial Times</li>
       </ul>
-      <p>In additional to the publishers there is participation by tech companies<br />
-      such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com.  Accelerated<br />
-      Mobile Pages offer benefits for web crawlers and search engines supporting<br />
-      surfacing content is clearly and enabling easier distinction from<br />
+      <p>In additional to the publishers there is participation by tech companies
+      such as Google, Pinterest, Twitter, LinkedIn and Wordpress.com.  Accelerated
+      Mobile Pages offer benefits for web crawlers and search engines supporting
+      surfacing content is clearly and enabling easier distinction from
       advertisements.</p>
-      <h3 id="instant-articles">Instant Articles</h3>
-      <p>In additional to Open Graph Facebook has put forward <a href="https://developers.facebook.com/docs/instant-articles">Instant Articles</a>.<br />
-      Like AMP it is targeting content delivery for mobile. Unlike AMP Instant Articles is an<br />
-      explicit binding into Facebook's walled garden only exposing the content on supported<br />
-      versions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when<br />
-      you browse from a desktop web browser.  Unlike the previous<br />
-      examples you actually need to sign up to participate in the Instant Article publishing<br />
-      process.  Sign up cost is having a Facebook account, being approved by Facebook and compliance<br />
-      with their terms of service. Facebook does provide some publishing tools, publishing controls<br />
-      as well as some analytics. They do allow 3rd party ads as well as encourage access to<br />
-      their advertising network.  Once approved the burden on your content manage process<br />
+      <h3>Instant Articles</h3>
+      <p>In additional to Open Graph Facebook has put forward <a href="https://developers.facebook.com/docs/instant-articles">Instant Articles</a>.
+      Like AMP it is targeting content delivery for mobile. Unlike AMP Instant Articles is an
+      explicit binding into Facebook's walled garden only exposing the content on supported
+      versions of iOS and Android. You don't see Instant Articles in your Facebook timeline or when<br>
+      you browse from a desktop web browser.  Unlike the previous
+      examples you actually need to sign up to participate in the Instant Article publishing
+      process.  Sign up cost is having a Facebook account, being approved by Facebook and compliance
+      with their terms of service. Facebook does provide some publishing tools, publishing controls
+      as well as some analytics. They do allow 3rd party ads as well as encourage access to
+      their advertising network.  Once approved the burden on your content manage process
       appears manageable.</p>
-      <p>You can submit Instant Articles via a modified RSS feed or directly through their API.<br />
-      In this sense the overhead is about the same as that for implementing support for Twitter Cards<br />
-      Open Graph, and AMP. Facebook does a good job of quickly propagating changes to your<br />
+      <p>You can submit Instant Articles via a modified RSS feed or directly through their API.
+      In this sense the overhead is about the same as that for implementing support for Twitter Cards
+      Open Graph, and AMP. Facebook does a good job of quickly propagating changes to your
       Instant Articles across their platform. That's nice.</p>
-      <p>Why go through the trouble? If you're a content producer and your audience lives on Facebook<br />
-      Facebook commands the attention of a lot of eye balls.  Instant Articles provides<br />
-      another avenue to reach them.  For some Facebook effectively controls the public view of the<br />
-      web much as America Online and Prodigy did decades ago. <a href="https://twitter.com/davewiner">Dave Winer</a><br />
-      has written extensively on how he implemented Instant Article support along with<br />
-      some very reasoned pros and cons for doing so. The landscape is evolving and<br />
+      <p>Why go through the trouble? If you're a content producer and your audience lives on Facebook
+      Facebook commands the attention of a lot of eye balls.  Instant Articles provides
+      another avenue to reach them.  For some Facebook effectively controls the public view of the
+      web much as America Online and Prodigy did decades ago. <a href="https://twitter.com/davewiner">Dave Winer</a>
+      has written extensively on how he implemented Instant Article support along with
+      some very reasoned pros and cons for doing so. The landscape is evolving and
       <a href="http://scripting.com">Dave's river of news</a> is worth following.</p>
-      <h2 id="impact-on-building-content">Impact on building content</h2>
-      <p>These approaches require changes in your production of your HTML and RSS sent to the browser.<br />
-      Twitter Cards and Open Graph change what you put in the HEAD element of the HTML<br />
-      pages.  AMP proscribes what you should put in the BODY element of the webpage.<br />
-      Instant Articles tweaks your RSS output.  Not surprisingly the major content management<br />
-      systems Wordpress and Drupal have plugins for this.  All can be implemented via your template<br />
+      <h2>Impact on building content</h2>
+      <p>These approaches require changes in your production of your HTML and RSS sent to the browser.
+      Twitter Cards and Open Graph change what you put in the HEAD element of the HTML
+      pages.  AMP proscribes what you should put in the BODY element of the webpage.
+      Instant Articles tweaks your RSS output.  Not surprisingly the major content management
+      systems Wordpress and Drupal have plugins for this.  All can be implemented via your template
       system or page generation process.</p>
-      <h2 id="whither-adopt">Whither adopt?</h2>
-      <p>Because these approaches boil down to content assembly the adoption risk<br />
-      is low.  If your audience views Twitter, Facebook or Google search results<br />
-      then it is probably worth doing.  All allow you to continue to publish your<br />
-      own content and own your URLs as opposed to being a tenant on one or another<br />
+      <h2>Whither adopt?</h2>
+      <p>Because these approaches boil down to content assembly the adoption risk
+      is low.  If your audience views Twitter, Facebook or Google search results
+      then it is probably worth doing.  All allow you to continue to publish your
+      own content and own your URLs as opposed to being a tenant on one or another
       platform. That benefits the open web.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

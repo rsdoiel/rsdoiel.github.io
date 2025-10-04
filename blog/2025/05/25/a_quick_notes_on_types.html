@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="a_quick_notes_on_types.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="a_quick_notes_on_types.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,16 +35,18 @@
 
   <section>
     <article data-published="2025-05-25" data-link="https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html">
-      <h1 id="a-quick-note-on-types-in-denotypescript">A quick note on types in Deno+TypeScript</h1>
+      <h1>A quick note on types in Deno+TypeScript</h1>
       <p>Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, <code>typeof</code>. This works nicely for simple types like <code>string</code>, <code>boolean</code>, <code>number</code> but is  less useful when compared to a class or interface name of a data structure.</p>
-      <p>There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following<br />
+      <p>There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following
       the value <code>VARIABLE_OR_CONSTANT</code> would be replaced with the object you are querying for type metadata)</p>
-      <p><code>typeof</code><br />
-      : This is good for simple types but when a type is an object you get <code>[object object]</code> response.</p>
-      <p><code>Object.protototype.toString.call(VARIABLE_OR_CONSTANT)</code><br />
-      : This is what is behind the <code>typeof</code> function but can be nice to know. It returns the string representation of the <code>VARIABLE_OR_CONSTANT</code> you pass to it.</p>
-      <p><code>VARIABLE_OR_CONSTANT.constructor.name</code><br />
-      : This will give you the name derived from the object's constructor, effectively the class name. It doesn't tell you if the the <code>VARIABLE_OR_CONSTANT</code> is an interface. If you construct an object as an object literal then the name returned will be <code>Object</code>.</p>
+      <dl>
+      <dt><code>typeof</code></dt>
+      <dd>This is good for simple types but when a type is an object you get <code>[object object]</code> response.</dd>
+      <dt><code>Object.protototype.toString.call(VARIABLE_OR_CONSTANT)</code></dt>
+      <dd>This is what is behind the <code>typeof</code> function but can be nice to know. It returns the string representation of the <code>VARIABLE_OR_CONSTANT</code> you pass to it.</dd>
+      <dt><code>VARIABLE_OR_CONSTANT.constructor.name</code></dt>
+      <dd>This will give you the name derived from the object's constructor, effectively the class name. It doesn't tell you if the the <code>VARIABLE_OR_CONSTANT</code> is an interface. If you construct an object as an object literal then the name returned will be <code>Object</code>.</dd>
+      </dl>
       <p>Here's the three types in action.</p>
       <pre><code class="language-TypeScript">  let fp = await Deno.open('README.md');
         console.log(typeof(fp));
@@ -54,17 +62,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="when_deno_when_go.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="when_deno_when_go.md" rel="altenate" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2024-12-06" data-link="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html">
-      <h1 id="when-denotypescript-when-go">When Deno+TypeScript, when Go?</h1>
+      <h1>When Deno+TypeScript, when Go?</h1>
       <p>By R. S. Doiel, 2024-11-06</p>
       <p>Last month I gave a <a href="https://caltechlibrary.github.io/cold/presentations/presentation1.html">presentation</a> on a project written in <a href="https://deno.com">Deno</a>+<a href="https://typescriptlang.org">TypeScript</a>. The project included code that needed to be shared server and browser side.  At the conclusion of my talk the question came up, &quot;When would I choose Go versus Deno+TypeScript for a project?&quot;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. The answer I came up with at the time was I would choose Deno+TypeScript when I needed to share code between server and browser. That was the question that had lead me to Deno in the first place. Deno+TypeScript shared many of the advantages of Go<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. I like writing in Go. The weak point in my Go based projects I thought was limited to porting Go code to JavaScript when I needed it run browser side. I went home and slept well that night. Since then I have been reflecting a little more on the question.</p>
       <p>Learning Go isn't difficult and the learning resources are pretty good. I find Go well suited to the library and archive software domain. I believe typed languages are good for working with structured metadata. Go compiles to a binary and is trivial to deploy. Go has really good tooling making it easier to write better quality code.</p>
@@ -58,7 +64,7 @@
       </ul>
       <p>If my answers are &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot; then the project should proceed with Deno+TypeScript. If I answer the last one is &quot;no&quot; then it shouldn't be a Go project.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>I have presented allot of Go based projects to the SoCal Code4Lib group&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -83,17 +89,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

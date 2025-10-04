@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Feeds-formats-and-plain-text.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Feeds-formats-and-plain-text.md" rel="altenate" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2022-11-01" data-link="https://rsdoiel.github.io/blog/2022/11/01/Feeds-formats-and-plain-text.html">
-      <h1 id="feeds-formats-and-plain-text">Feeds, formats, and plain text</h1>
+      <h1>Feeds, formats, and plain text</h1>
       <p>By R. S. Doiel, 2022-11-01</p>
       <p>There has been a proliferation of feed formats. My personal preferred format is RSS 2.0. It's stable and proven the test of type. Atom feeds always felt a little like, &quot;not invented here so we're inventing it again&quot;, type of thing. The claim was they could support read/write but so can RSS 2.0 specially with the namespace possibilities. The innovative work <a href="https://scripting.com">Dave Winer</a> has done in the past and is doing today with <a href="https://feedland.org">Feedland</a> is remarkably impressive.</p>
       <p>In my experience the format of the feed is less critical than the how to author the metadata.  Over the last several years I've moved to static hosting as my preferred way of hosting a website. My writing is typically in Markdown or Fountain formats and frontmatter like used in RMarkdown has proven very convenient. The &quot;blogit&quot; command that started out from an idea in <a href="https://github.com/caltechlibrary/mkpage" title="Make Page, a Pandoc preprocessor and tool set">mkpage</a> has been implemented in <a href="https://github.com/rsdoiel/pttk" title="Plain Text Toolkit">pttk</a>. So for me metadata authoring makes sense in the front matter. That has the advantage that Pandoc can leverage the information in its templates (that is what I use to render HTML, man pages and the occasional PDF). It also is a food source for data to include in a feed.</p>
@@ -41,17 +47,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

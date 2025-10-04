@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="moving_beyond_git_templates.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="moving_beyond_git_templates.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,12 +35,12 @@
 
   <section>
     <article data-published="2025-01-31" data-link="https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html">
-      <h1 id="moving-beyond-git-template-repositories-with-codemeta">Moving beyond git template repositories with CodeMeta</h1>
+      <h1>Moving beyond git template repositories with CodeMeta</h1>
       <p>By R. S. Doiel, 2025-01-31 (updated: 2025-02-03)</p>
       <p>A nice feature of GitHub is the ease in starting a new repository with a complete set of documents<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. This feature creates a problem. The &quot;template&quot; documents require editing. Then they require more editing to keep them from being stale. If you're serious about keeping documentation up to date then the copy edit work must be continuous. Copy edit work is tedious. Is there a path beyond the git repository templates that avoid stale <a href="https://en.wikipedia.org/wiki/Artifact_(software_development)">software artifacts</a>?</p>
       <p>Existing development tools suggestion a solution. For decades software developers have had tools to extract documentation from the comments in source code.  <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Knuth</a> pioneered this with his <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> approach. A simplified take on this is <a href="https://en.wikipedia.org/wiki/Javadoc">Javadoc</a> used in the Java programming community. Today most open source programming languages have similar tools available. In 2025 it is trivial to generate source code documentation directly from the comments in your source code. Can an approach like this be used for more of our software artifacts?</p>
       <p>I believe leveraging <a href="https://codemeta.github.io" title="See the section titled, Motivation">CodeMeta</a>, developed by the research programming community, gives us a path forward for general software development.</p>
-      <h2 id="how-is-codemeta-relevant">How is CodeMeta relevant?</h2>
+      <h2>How is CodeMeta relevant?</h2>
       <p>The CodeMeta data is meant to be machine readable and human manageable. That's a developer sweet spot. The CodeMeta object let's you track metadata like name, description, version, authorship and contributors. It includes where the project source repository is hosted and the license used. Over time the list of metadata attributes in the CodeMeta object has grown. Today we have a long list of a project's metadata that can be tracked and acted upon.</p>
       <p>When I started including CodeMeta files in my projects at Caltech Library I did so at software release. It was a task to do at the end of the process like the task of reviewing and updating the cloned documentation files. Treating the CodeMeta as an after thought created a burden. It was a disincentive to adopting CodeMeta.</p>
       <p>I think we make the CodeMeta object relevant to developers by treating it as primary source code. Editing it should be the first rather than last thing updated before a release. <strong>An accurate CodeMeta file is actionable.</strong> Ignored this and you ignore CodeMeta's super power.</p>
@@ -68,10 +74,10 @@
       <p>Today you can use the CodeMeta <a href="https://codemeta.github.io/codemeta-generator/">generator</a> to bootstrap the creation of a CodeMeta file.  If you're willing to do some cut and paste work the generator can even be used to maintain your CodeMeta file.</p>
       <p>What about generating our artifacts?</p>
       <p>For the last few years I've relied on Pandoc templates, see <a href="https://github.com/caltechlibrary/codemeta-pandoc-examples">codemeta-pandoc-examples</a>. I use Pandoc and these templates to generate files like CITATION.cff, about.md, installer scripts and version files for the Python, Go and TypeScript programming languages. The trouble with this approach is Pandoc tends to be well knowing in the data science community but not in the general developer community. The Pandoc template language is obscure. This has lead me to believe new tools are needed beyond Pandoc and templates.</p>
-      <hr />
-      <h2 id="cmtools">CMTools</h2>
+      <hr>
+      <h2>CMTools</h2>
       <p>I recently started prototyping two programs for working with <a href="https://codemeta.github.io">CodeMeta</a> objects. The prototype code is available at <a href="https://github.com/caltechlibrary/CMTools">github.com/caltechlibrary/CMTools</a>. The two programs are for editing (<code>cme</code>) and for transforming (<code>cmt</code>) the CodeMeta object. I am currently testing the prototypes in selected Caltech Library projects.</p>
-      <h3 id="what-challenges-have-the-prototypes-raise">What challenges have the prototypes raise?</h3>
+      <h3>What challenges have the prototypes raise?</h3>
       <p>The CodeMeta object is sprawling. <code>cme</code> was started as command line alternative to the generator.  It was initially designed with an interactive, prompt and response, user interface. It would iterate over all the top level attributes prompting for changes. This can be tedious. I quickly added support to shorten the process by including a list of specific attributes to edit.</p>
       <pre><code class="language-shell">cme codmeta.json                       # &lt;-- iterate over all
       cme codemeta.json version dateModified # &lt;-- just listed attributes
@@ -90,16 +96,16 @@
       <pre><code class="language-shell">cme codemeta.json version=&quot;0.0.2&quot; dateModified=&quot;2025-01-30&quot;
       </code></pre>
       <p>Complex attribute editing using this approach is very challenging.</p>
-      <h3 id="what-can-cmtools-generate">What can CMTools generate?</h3>
+      <h3>What can CMTools generate?</h3>
       <p>The <code>cmt</code> prototype has limited abilities. It can render about.md and CITATION.cff files. It can generate &quot;version&quot; source code files for Python (version.py), Go (version.go), TypeScript (version.ts) and JavaScript (version.js). I am actively working on porting the remaining Pandoc templates from codemeta-pandoc-examples to <code>cmt</code>. README and INSTALL will be added after the template port is complete.</p>
       <pre><code class="language-shell">cmt codemeta.json about.md CITATION.cff version.py \\
         README.md INSTALL.md installer.sh installer.ps1
       </code></pre>
-      <h2 id="whats-next">What's next?</h2>
+      <h2>What's next?</h2>
       <p>CMTools is at an early stage of development (January 2025). The project is focused finding the balance of editing and generating. Improvements will flow base on our usage.</p>
       <p>The <a href="https://github.com/caltechlibrary/CMTools/releases/tag/v0.0.14">v0.0.14 release</a> includes the basic features discussed in this post for both <code>cme</code> and <code>cmt</code>. RSD 2025-02-03</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>The feature is built around using another Git repository as a template. GitHub has a nice UI for this, essentially it is forking the &quot;template repository&quot; when you create your new repository.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -109,17 +115,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

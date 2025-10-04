@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Building_Your_Own_Antenna.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Building_Your_Own_Antenna.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,26 +35,26 @@
 
   <section>
     <article data-published="2025-08-31" data-link="https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.html">
-      <h1 id="building-your-own-antenna">Building Your Own Antenna</h1>
+      <h1>Building Your Own Antenna</h1>
       <p>By R. S. Doiel, 2025-08-31</p>
       <p>I have been prototyping my personal news site called <a href="https://rsdoiel.github.io/antenna">Antenna</a> since 2023. It was inspired by Dave Winer's <a href="https://news.scripting.com">news.scripting.com</a>. It has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available over my home network and I make it public by publishing via GitHub pages. Over the last two years it has become the first place I go to consume content from the web (second is Dave's news.scripting.com).</p>
       <p>This past month (August 2025), my prototype website lead me to write a new application I am calling <a href="https://github.com/rsdoiel/antennaApp">antenna</a> after the website that inspired it.</p>
-      <h2 id="what-i-learned-from-running-antenna-website">What I learned from running Antenna website</h2>
+      <h2>What I learned from running Antenna website</h2>
       <p>Having the feeds in a simple text format means I curate the feeds more. When I relied on OPML it became just enough extra work hand editing XML that I wanted something simpler. I started with a feed file format inspired by <a href="https://newsboat.org">Newsboat</a>. It was a little too simple, wound up writing scripts to convert that format to something more general (e.g. OPML). I decided to pick something better known for my new application. That got me thinking. Lots of people know Markdown. A collection is a list of zero or more links. That's is easy to express as Markdown. It has the advantage of being able to be convert to other formats as needed (example using a Pandoc filter to render as OPML).</p>
       <p>What about other configuration I might need?</p>
       <p>The Markdown community has supported Metadata for the Markdown document as &quot;front matter&quot; expressed in YAML. That suggested YAML has been seen by the many in in the Markdown community. YAML front matter is also documented. Why not use it for specific configuration of my collection of feeds? I can use it to express the extra fields that can be included in the channel metadata for rendering RSS 2.0 files. YAML can also serve as the configuration language for the Antenna application. Seems like a good match. I think people who work with Markdown maybe interested in generating static websites, they may have knowledge of YAML so that aligns with my applcation.</p>
       <p>How do you add a collection to the &quot;antenna.yaml&quot; file? A prototype can be implemented with a hand edited YAML file but that's not good for everyone. While YAML is easier to type and read than JSON it's not bullet proof. The Antenna application can create a default &quot;antenna.yaml&quot; file as an initialization action. The Antenna command can include a means of adding a collection (expressed as a Markdown document) and removing a collection. While someone can dive into the YAML (and comments in the default YAML can document what things are), they don't have to dive into YAML if I provide sensible defaults. That's a win for simplicity and flexibility.</p>
       <p>Once a collection is defined and added to the Antenna YAML configuration it can be harvested. The harvested content then can be used to generate HTML and RSS 2.0 XML files.</p>
       <p>You can find my current experimental implementation of the Antenna application as <a href="https://github.com/rsdoiel/antennaApp/releases">https://github.com/rsdoiel/antennaApp/releases</a>. There are zip files for macOS, Linux and Windows for both x86_64 and aarch64 (ARM 64) machines.</p>
-      <h2 id="what-is-the-antenna-application-really">What is the Antenna application really?</h2>
+      <h2>What is the Antenna application really?</h2>
       <p>Antenna, the application, is a feed oriented static website generator. It stores each collection of feed items in an SQLite3 database. You can have as many collections as you want.  In addition to aggregating feed content you can &quot;post&quot; or &quot;unpost&quot; items to a collection. The Antenna application can harvest collections then generate an HTML page and RSS 2.0 XML for each collection. The application provides a preview action so you can see the results without publishing a website.</p>
       <p>Supporting in bound and out bound RSS allows an Antenna website to become a distributed node on the open social web. It's simple, it's RSS 2.0, it proven. You can &quot;follow&quot; someone by adding their feed. They can &quot;follow&quot; you back by adding yours. You only need to host a copy of your Antenna site on the open web and promote the feeds you produce. It doesn't require permission, it remains under your control. It doesn't need to surveil anyone or sell anything to work. It's just out there as long as you have a site on the open web.</p>
       <p>Antenna requires minimal resources. I run it on a Raspberry Pi 3B+ running the current version of Raspberry Pi OS. It can even run on a Raspberry Pi Zero running Raspberry Pi OS without the desktop. I have run tested it on Windows 10, Windows 11 and macOS and found it runs just fine there too.</p>
       <p>Because it can run on minimal hardware it is possible to create your own Antenna appliance. You could even host a public access point to step off the public Internet and into the community digital spectrum like little digital libraries.</p>
-      <h2 id="how-do-i-install-the-experimental-antenna-application">How do I install the experimental Antenna application?</h2>
+      <h2>How do I install the experimental Antenna application?</h2>
       <p>The Antenna application can be <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">installed</a> on Raspberry Pi OS/Linux, macOS and Windows. The executables are distributed via GitHub at <a href="https://github.com/rsdoiel/antennaApp/releases">https://github.com/rsdoiel/antennaApp/releases</a>. Unzip the file for your operating system and CPU type then copy the executable in the &quot;bin&quot; directory to where it'll be available in a terminal (i.e. someplace in the PATH). If you can run <code>antenna -version</code> from your Terminal then it is installed and working. See <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">INSTALL.md</a></p>
       <p>It is important to remember that Antenna is an experimental proof of concept, it'll have bugs and will likely change over time. As I use it more the things that bother me will get fixed or improved. Look at the <a href="https://rsdoiel.github.io/antennaApp/LICENSE">license</a> for details before adopting it.</p>
-      <h2 id="high-level-workflow">High level Workflow</h2>
+      <h2>High level Workflow</h2>
       <p>The basic workflow for generating the Antenna website can be thought of as</p>
       <ol>
       <li>Curating your feed collections, posting Markdown documents to a collection</li>
@@ -56,8 +62,8 @@
       <li>Generate HTML pages for the collections</li>
       </ol>
       <p>Steps two and three can be run on a schedule or run on demand. I use a cronjob to run them each morning and evening on my venerable Pi 3B+.</p>
-      <h2 id="developing-the-antenna-application">Developing the Antenna application</h2>
-      <h3 id="figuring-out-features">Figuring out features</h3>
+      <h2>Developing the Antenna application</h2>
+      <h3>Figuring out features</h3>
       <p>What are the features of the Antenna application?  Dave Winer's <a href="https://textcasting.org">Textcasting</a> was a good guide for thinking about the problem. It'll likely guide the feature evolution moving forward. Two years of running my Antenna website with a bundle of Bash scripts, Pandoc templates and a custom feed manager provided more insight. The hairball of the prototype lead to a single application that you run in a terminal. It supports a syntax of &quot;actions&quot; and simple &quot;modifiers&quot;. Configuration is generally managed by the application but can be customized via editing YAML files. Each collection has a YAML file that specifies how to write the content in HTML. The &quot;antenna.yaml&quot; file descriptions which collections to process and includes SQL to filter them aggregated content.</p>
       <p>Collection curation is done in Markdown. Markdown describes a list of links. Each link is a feed. The links are extracted from the Markdown document when they have this form, <code>- [FEED_LABEL](FEED_URL &quot;OPTIONAL_FEED_DESCRIPTION&quot;)</code>. Front Matter in the collection document will be used to provide channel metadata used when generating RSS and HTML. Having the collection expressed as Markdown is an advantage. When the collection is rendered as RSS the channel level information can be taken from the YAML front matter of the collection document much like it works with RMarkdown or Pandoc. Mean while Markdown also makes sense for post to a collection. Again the additional front matter can provide insights into how Antenna should handle the post.</p>
       <p>Rules of thumb:</p>
@@ -81,45 +87,47 @@
       <li>While Antenna is being implemented as a command line tool, keep it simple where the syntax is action followed by modifiers</li>
       </ul>
       <p>What are minimum set of actions needed by the Antenna application based on my <a href="https://rsdoiel.github.io/antenna">prototype website</a>?</p>
-      <p>init<br />
-      : Initial (create/validate) an Antenna YAML configuration file.</p>
-      <p>add COLLECTION_MARKDOWN<br />
-      : Add a feed collection defined by COLLECTION_MARKDOWN, a Markdown file. The Markdown file can contain a list of links that look like <code>- [FEED_LABEL](FEED_URL, &quot;FEED_DESCRIPTION&quot;)</code>. All other content in the Markdown file is ignored. That means you can actually document things about the feed or publish the Markdown file as it's own webpage along side the aggregated results.</p>
-      <p>del COLLECTION_MARKDOWN<br />
-      : Remove a feed collection defined by the COLLECTION_MARKDOWN file name from the collections managed in the antenna.yaml file.</p>
-      <p>harvest | harvest COLLECTION_MARKDOWN<br />
-      : Harvest all collections or specific collections.</p>
-      <p>generate | generate COLLECTION_MARKDOWN<br />
-      : Generate HTML and RSS 2.0 XML for all collections or a specific collection. The generated files have a similar name to the Markdown file defining the collection. Example, &quot;myfeeds.md&quot; would result in the aggregation HTML page of &quot;myfeeds.html&quot; and the RSS 2.0 file called &quot;myfeeds.xml&quot;.</p>
-      <p>post COLLECTION_MARKDOWN  MARKDOWN_FILE<br />
-      : Add the POST_MARKDOWN file to the harvested collection of COLLECTION_MARKDOWN. Depending on the he front matter the &quot;post&quot; will either exist as a collection item record or may also be configured to be rendered as HTML in the web tree curated by Antenna.</p>
-      <p>unpost COLLECTION_MARKDOWN LINK_TO_POST<br />
-      : Remove a item with the LINK_TO_POST value from the harvested collection of COLLECTION_MARKDOWN. This works both for &quot;post&quot; items and any other item in the feed collection.</p>
-      <p>In the case of &quot;post&quot; the MARKDOWN_FILE front matter provides the metadata<br />
+      <dl>
+      <dt>init</dt>
+      <dd>Initial (create/validate) an Antenna YAML configuration file.</dd>
+      <dt>add COLLECTION_MARKDOWN</dt>
+      <dd>Add a feed collection defined by COLLECTION_MARKDOWN, a Markdown file. The Markdown file can contain a list of links that look like <code>- [FEED_LABEL](FEED_URL, &quot;FEED_DESCRIPTION&quot;)</code>. All other content in the Markdown file is ignored. That means you can actually document things about the feed or publish the Markdown file as it's own webpage along side the aggregated results.</dd>
+      <dt>del COLLECTION_MARKDOWN</dt>
+      <dd>Remove a feed collection defined by the COLLECTION_MARKDOWN file name from the collections managed in the antenna.yaml file.</dd>
+      <dt>harvest | harvest COLLECTION_MARKDOWN</dt>
+      <dd>Harvest all collections or specific collections.</dd>
+      <dt>generate | generate COLLECTION_MARKDOWN</dt>
+      <dd>Generate HTML and RSS 2.0 XML for all collections or a specific collection. The generated files have a similar name to the Markdown file defining the collection. Example, &quot;myfeeds.md&quot; would result in the aggregation HTML page of &quot;myfeeds.html&quot; and the RSS 2.0 file called &quot;myfeeds.xml&quot;.</dd>
+      <dt>post COLLECTION_MARKDOWN  MARKDOWN_FILE</dt>
+      <dd>Add the POST_MARKDOWN file to the harvested collection of COLLECTION_MARKDOWN. Depending on the he front matter the &quot;post&quot; will either exist as a collection item record or may also be configured to be rendered as HTML in the web tree curated by Antenna.</dd>
+      <dt>unpost COLLECTION_MARKDOWN LINK_TO_POST</dt>
+      <dd>Remove a item with the LINK_TO_POST value from the harvested collection of COLLECTION_MARKDOWN. This works both for &quot;post&quot; items and any other item in the feed collection.</dd>
+      </dl>
+      <p>In the case of &quot;post&quot; the MARKDOWN_FILE front matter provides the metadata
       needed to complete the processing. This allows you to inject items into a collection that just show up in the aggregate or to do full blog posts where the the post content is written to an HTML file.</p>
       <p>When you run a harvest action, the COLLECTION_MARKDOWN file is read and each of the feeds defined will be harvested with the feed items and channel information stored in the &quot;channels&quot; and &quot;items&quot; table of the SQLite3 database associated with COLLECTION_MARKDOWN filename. Example, &quot;travel.md&quot; could define a list of links related to travel. That is the COLLECTION_MARKDOWN file. When the &quot;travel.md&quot; collection is added to the antenna configuration a database is generated called &quot;travel.db&quot;. When I run generation action both an HTML page will show the aggregation of those feeds and a new RSS 2.0 XML file will be generated, &quot;travel.html&quot; and &quot;travel.xml&quot;.</p>
       <p>A Markdown document which includes  &quot;postPath&quot; and &quot;link&quot; in the front matter  tells the Antenna application to convert the Markdown into HTML and write it to the location specified by &quot;postPath&quot;.</p>
-      <h2 id="how-do-you-manage-individual-pages-for-your-website">How do you manage individual pages for your website?</h2>
+      <h2>How do you manage individual pages for your website?</h2>
       <p>A collection doesn't have to contain feeds from external websites. It can be a collection of &quot;posts&quot;. A post isn't proscriptive. It just describes something that will be aggregated in a collection, if you include &quot;postPath&quot; it also describes where to render HTML of the post contents. That's it. You can organize the &quot;postPath&quot; of each document however you want. I happen to like the blog directory style of &quot;posts/YEAR/MONTH/DAY/POST_FILE&quot; but you might prefer a wiki layout or just something ad-hoc. Antenna doesn't have opinions, you tell it what you want and it does it. It's your choice.</p>
-      <h2 id="do-feed-items-accumulate-forever">Do feed items accumulate forever?</h2>
+      <h2>Do feed items accumulate forever?</h2>
       <p>Each collection defined in the &quot;antenna.yaml&quot; file includes a filter attribute. A filter is a sequence of SQL statements. These statements are run against the SQLite3 database associated with the collection. By default two filter statements are supplied.</p>
       <ul>
       <li>Set everything to review, <code>UPDATE items SET status = 'review'</code></li>
       <li>Set the recently (previous three weeks) published items to published, <code>UPDATE items SET status = 'published' WHERE pubDate &gt;= date('now', '-21 days');</code></li>
       </ul>
       <p>The statements are applied one after the other in order. You can choose to include statements that remove stale items. You could set all items to published too. Each statement gets executed that you include. Since the database is a standard SQLite3 database you can use the SQLite3 command line program to explore and test what statements you might want to use yourself.</p>
-      <h2 id="work-flows">Work flows</h2>
-      <h3 id="curating-aggregations">Curating aggregations</h3>
+      <h2>Work flows</h2>
+      <h3>Curating aggregations</h3>
       <p>When I want to add a feed to a collection I just open the Markdown file for the collection and add another list element that points to the feed. Example, <code>- [Robert's blog](https://rsdoiel.github.io/rss.xml)</code>.  To remove a feed from a collection, I just edit the Markdown file and delete that line.</p>
       <p>The Markdown file is read each time you run <code>antenna harvest</code>. It'll only harvest items it finds matching the simple markdown list item pattern I've shown above.</p>
-      <h3 id="updating-your-antenna-website">Updating your Antenna website</h3>
+      <h3>Updating your Antenna website</h3>
       <p>This involves two steps</p>
       <ol>
       <li>harvest, e.g. <code>antenna harvest</code></li>
       <li>generate, e.g. <code>antenna generate</code></li>
       </ol>
       <p>This will cause the aggregation pages to be updated with the last content of the collection feeds. This is easy to run in a terminal as well as schedule via your operating system's scheduler (e.g. via cron, systemd or launchd daemons).</p>
-      <h3 id="setting-up-a-new-antenna">Setting up a new Antenna</h3>
+      <h3>Setting up a new Antenna</h3>
       <ol>
       <li>Create a directory</li>
       <li>Change into that directory</li>
@@ -142,7 +150,7 @@
       antenna preview
       </code></pre>
       <p>NOTE: A site generated in this way can be published to the Web via a static website service. I happen to use GitHub pages but there are lots of others out there.</p>
-      <h3 id="adding-a-micro-blog-post-to-mysite">Adding a micro blog post to &quot;mysite&quot;</h3>
+      <h3>Adding a micro blog post to &quot;mysite&quot;</h3>
       <p>Here is a simple micro blog &quot;helloworld.md&quot; post Markdown file.</p>
       <pre><code class="language-markdown">
       Hello World!
@@ -155,7 +163,7 @@
       antenna preview
       </code></pre>
       <p>This micro blog post only lives in the feed's item table. There is no landing page. It will only be written out to RSS and HTML if it remains in the &quot;published&quot; state. If the item is removed from the items table the micro blog post will not get rendered the next to you render the feed's page. This makes them somewhat emphermal.</p>
-      <h3 id="adding-a-blog-post-to-mysite">Adding a blog post to &quot;mysite&quot;</h3>
+      <h3>Adding a blog post to &quot;mysite&quot;</h3>
       <p>If I update &quot;helloworld.md&quot; to include a &quot;postPath&quot; and &quot;link&quot; then the post will get written into the the directory tree managed by my Antenna application. Here's the updated Markdown file.</p>
       <pre><code class="language-Markdown">  ---
         link: http://localhost:8000/helloworld.html
@@ -173,16 +181,16 @@
       <p>You should now see &quot;htdocs/helloworld.html&quot; and be able to navigate to it directly using <a href="http://localhost:8000/helloworld.html">http://localhost:8000/helloworld.html</a>.</p>
       <p>NOTE: If each time you run the post action on that file it'll regenerate the HTML.</p>
       <p>There you have it, you have your own Antenna for aggregating your personal news site and website generation rolled together in one application.</p>
-      <h2 id="how-would-antenna-integrate-into-am-existing-website">How would Antenna integrate into am existing website?</h2>
+      <h2>How would Antenna integrate into am existing website?</h2>
       <p>Antenna plays nice with other blogging tools. It only generates those pages associated with the aggregated collections and any posted Markdown files. The HTML generate is suitable to process with <a href="https://pagefind.app">PageFind</a> if your static sites provides search. You can place the source Markdown files into your web tree an leverage the JSON API generated by <a href="https://flatlake.app">FlatLake</a>. If your using Pandoc or another means of rendering your website Antenna just gets used along side it. It doesn't require additional software or modify the web tree beyond what you specify.</p>
-      <h2 id="sqlite3-database-as-content-storage">SQLite3 database as content storage</h2>
+      <h2>SQLite3 database as content storage</h2>
       <p>The Antenna application takes advantage of SQLite3 database(s) to persist the web content it manages. It is a binary format so you may want to back it up outside of your version control system (outside of Git). It's really up to you.</p>
       <p>Because SQLite3 is used that means you can do any additional ad-hoc processing you want via SQL. This is a powerful feature and allows for potential integration with other systems. You could as example write a program to render come posts to other systems like BlueSky or Mastodon. I leave that as an exercise for the reader.</p>
       <p>In the antenna.yaml file each collection has an attribute called &quot;filter&quot;. The filter holds a list of SQL statements that are run before generating the HTML pages. You can list as many as you want, though by default two are provided (set everything to review, then set recent items to published).</p>
-      <h2 id="how-do-i-manage-individual-web-pages">How do I manage individual web pages?</h2>
+      <h2>How do I manage individual web pages?</h2>
       <p>The Antenna application is feed oriented. By that I mean it'll generate an aggregation page and RSS file. A collection doesn't have to include links at all. A collection that just has posts is completely valid. The posts will be used as content for the aggregated HTML page and populate the outbound RSS feed. You can use a simple filter to ensure all posts are published before generating the feed page, <code>update items set status = 'published'</code>. That's it. All items in the collection will always be published. They'll always show up in the aggregated HTML and RSS file.</p>
       <p>When you update a page you re-post it to the collection. When each item is posted Antenna generates the HTML page when the postPath and link are set. Then you can &quot;preview&quot; the site you can see the updated page.</p>
-      <h2 id="other-possibilities">Other possibilities</h2>
+      <h2>Other possibilities</h2>
       <p>Antenna application let's us easily setup our own new aggregation websites. We don't need to rely on Google, Facebook, etc. As long as there is an RSS/Atom or JSON feed, we can included it in our own aggregation.</p>
       <p>Antenna can also serve as a site rendering tool for Markdown content. It supports posts as well as content that is harvested for aggregation pages. All collections include outbound RSS automatically.</p>
       <p>By combining aggregation of feeds with publication Antenna supports a distributed social web based on RSS 2.0. You can skip the complexity of <a href="https://en.wikipedia.org/wiki/AT_Protocol" title="Blue Sky's AT protocol">AT Protocol</a> or <a href="https://en.wikipedia.org/wiki/ActivityPub" title="Mastodon's native protocol">ActivityPub</a> and still be social. On my own Antenna site I consume content from both Blue Sky and Mastodon. Others are working on tools that will take an RSS feed and replicate the content using AT Protocol or Activity Pub but in the mean time let's just keep using RSS. It works as it always has.</p>
@@ -195,17 +203,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Rethinking-REST.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Rethinking-REST.md" rel="altenate" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,8 +35,8 @@
 
   <section>
     <article data-published="2025-06-07" data-link="https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html">
-      <h1 id="rethinking-rest">Rethinking REST</h1>
-      <h2 id="how-to-embrace-the-read-write-abstraction-using-sql-databases">How to embrace the read write abstraction using SQL databases</h2>
+      <h1>Rethinking REST</h1>
+      <h2>How to embrace the read write abstraction using SQL databases</h2>
       <p>By R. S. Doiel, 2025-06-07</p>
       <p><a href="https://en.wikipedia.org/wiki/Roy_Fielding">Roy Fielding</a>'s 2000 dissertation describing <a href="https://en.wikipedia.org/wiki/REST">REST</a> is a brilliant work. It revolutionized web services. I've spent a good chunk of my career implementing back end systems using a REST approach. REST's superpower is the mapping of HTTP methods to core database operations of create (POST), read (GET), update (PUT), and delete (DELETE). The has simplified machine to machine communication. That is a good thing.</p>
       <p>REST has a browser problem. A quarter century after Fielding presented REST, the web browser still requires JavaScript to talk directly to a REST service. The core problem is the REST methods are not defined in the semantics of HTML. They are only available in HTTP protocol layer. JavaScript plays the role of solving the mapping of actions to REST methods. I can program over that impedance server side, browser side or both. The penalty is increased complexity. I think this complexity unnecessarily.</p>
@@ -102,7 +108,7 @@
       <p>I do need a layer that validates the inputs and returns the resources requested. I usually implement this as a &quot;localhost&quot; web service that relies on the &quot;front end&quot; web service for authentication and authorization. If my layer uses SQLite3 for data storage then the &quot;stack&quot; is just a &quot;front end&quot; web server providing authentication and authorization and a &quot;back end&quot; persistence layer providing validation, storage and retrieval.</p>
       <p>An advantage of this simple stack is I can develop, test and improve the localhost web service and know it'll plug into the front end when I am ready for a production deployment.  The front end deals in requests and responses, the back end deals in requests and responses. Meanwhile I have all the advantages of a SQL database on the &quot;back end&quot;.</p>
       <p>Are there times I might need more layers?  Sure.  If I was managing millions of objects I would not store them in a single SQLite database.I'd use a database management system like PostgreSQL.  If I need a rich full text search engine I might use Solr or Open Search for that. If I am storing large objects then I might have a middle ware that can speak S3 protocol to store or retrieve those objects. My point is those are no longer a requirement. Extra layers or parallel services are now only options. They are available if and only if I need them.</p>
-      <p>Example.  If I want to basic full text search, SQL databases have index types that support this.  SQLite3 is included there.<br />
+      <p>Example.  If I want to basic full text search, SQL databases have index types that support this.  SQLite3 is included there.
       By leveraging SQL triggers I can extract data from my stored JSON column and populate full text search columns or even other tables as needed.I can get allot of the advantages of a full text search before I reach for an external system like Solr.</p>
       <p>So here are my take way items for you.</p>
       <ol>
@@ -116,17 +122,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="plpgsql-quick-intro.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="plpgsql-quick-intro.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2022-08-24" data-link="https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html">
-      <h1 id="a-quick-intro-to-plpgsql">A Quick intro to PL/pgSQL</h1>
+      <h1>A Quick intro to PL/pgSQL</h1>
       <p>PL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger.</p>
       <p>The Postgres documentation defines and explains the <a href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and how it works.  This document is just a quick orientation with specific examples to provide context.</p>
-      <h2 id="hello-world">Hello World</h2>
+      <h2>Hello World</h2>
       <p>Here is a &quot;helloworld&quot; procedure definition.</p>
       <pre><code class="language-sql">    CREATE PROCEDURE helloworld() AS $$
           DECLARE
@@ -56,12 +62,12 @@
       <p>NOTE: If you want to change the procedure you can &quot;DROP&quot; it first otherwise you'll get an error that it already exists.</p>
       <pre><code class="language-sql">    DROP PROCEDURE helloworld;
       </code></pre>
-      <h2 id="improving-my-workflow">Improving my workflow</h2>
+      <h2>Improving my workflow</h2>
       <p>SQL procedures are generally stored in the RDBMs in database environment. You can think of them as records in the system's database. Procedures and functions are created and can be dropped. While they can be manually typed in the database's shell it is easier to maintain them in plain text files outside the RDBM environment.</p>
       <ol>
       <li>Write the procedure in a text file.</li>
-      <li>Load the text file (e.g. FILENAME) into Postgres<br />
-      a. outside the Postgres shell use <code>psql -f FILENAME</code><br />
+      <li>Load the text file (e.g. FILENAME) into Postgres
+      a. outside the Postgres shell use <code>psql -f FILENAME</code>
       b. inside the Postgres shell used <code>\i FILENAME</code></li>
       <li>Call the procedure to test it</li>
       </ol>
@@ -78,7 +84,7 @@
           END;
           $$ LANGUAGE plpgsql;
       </code></pre>
-      <h2 id="hi-there">Hi There</h2>
+      <h2>Hi There</h2>
       <p><a href="hithere.plpgsql">hithere</a> is similar to our helloworld example except it is a function that takes a parameter of the person's name. The function returns a &quot;VARCHAR&quot;, so this should work as part of a select statement.</p>
       <pre><code class="language-sql">    --
           -- This is a &quot;Hi There&quot; function. The function takes
@@ -100,7 +106,7 @@
       <p>Giving it a try.</p>
       <pre><code class="language-shell">    SELECT hithere('Mojo Sam');
       </code></pre>
-      <h2 id="further-reading">Further reading</h2>
+      <h2>Further reading</h2>
       <ul>
       <li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Conditionals</a></li>
       <li><a href="https://www.postgresql.org/docs/14/plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS">Loops</a></li>
@@ -110,17 +116,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

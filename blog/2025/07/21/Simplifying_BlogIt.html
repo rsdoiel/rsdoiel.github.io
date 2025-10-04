@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Simplifying_BlogIt.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Simplifying_BlogIt.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-07-21" data-link="https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html">
-      <h1 id="simplifying-blogit">Simplifying BlogIt</h1>
+      <h1>Simplifying BlogIt</h1>
       <p>By R. S. Doiel, 2025-07-21</p>
       <p>NOTE: This post was updated to include minor bug fixes, RSD 2025-07-28.</p>
       <p><strong>BlogIt</strong> is a command I've written many times over the years. Previously it was intended to perform two tasks.</p>
@@ -47,18 +53,18 @@
       <li>check a file for well formed front matter with the minimum field requirements</li>
       <li>check directories for CommonMark documents and their front matter</li>
       </ul>
-      <h2 id="blogit-command-line">BlogIt command line</h2>
+      <h2>BlogIt command line</h2>
       <p>Here's what that might look like on the command line.</p>
       <pre><code class="language-shell">blogit [OPTIONS] ACTION COMMONMARK_FILE [DATE_OF_POST]
       </code></pre>
-      <h2 id="options">OPTIONS</h2>
+      <h2>OPTIONS</h2>
       <ul>
       <li>help</li>
       <li>version</li>
       <li>license</li>
       <li>prefix BLOG_BASE_PATH (to set an explicit path to the &quot;blog&quot; directory)</li>
       </ul>
-      <h2 id="action">ACTION</h2>
+      <h2>ACTION</h2>
       <p>The following actions need to be supported in the new implementation.</p>
       <ul>
       <li>check COMMONMARK_FILE | DIRECTORY
@@ -90,10 +96,10 @@
       </ul>
       </li>
       </ul>
-      <h2 id="editing-front-matter">Editing front matter</h2>
+      <h2>Editing front matter</h2>
       <p><strong>BlogIt</strong> is a terminal application. The programs scans the source CommonMark file for existing front matter. For each expected element the current (or default) value of the element is displayed with a prompt to edit it. If editing is chosen then the value is presented in the default editor for update. The saved value is then used to update the front matter element. A temporary file is used to communicate between <strong>BlogIt</strong> and the system provided text editor.</p>
       <p>Complex fields like keywords are provided to the text edit as YAML. The default should show the desired structure as YAML with placeholder values to be edited.</p>
-      <h2 id="front-matter">Front Matter</h2>
+      <h2>Front Matter</h2>
       <p>The basic front matter I want to use is straight forward as my blog started almost a decade ago. Essentially it is title, author, abstract, dateCreated, dateModified, datePublished and keywords. Some blog items have a series name and number so I will support those fields as well.</p>
       <p><strong>BlogIt</strong> will be written in TypeScript this time. I can cover my bases with the following interfaces.</p>
       <pre><code class="language-TypeScript">/* This describes the front matter metadata object */
@@ -125,19 +131,19 @@
       <li>the date fields automatically supported are <code>dateCreated</code>, <code>dateModified</code> and <code>datePublished</code>. The <code>dateModified</code> should be updated automatically each time <strong>BlogIt</strong> changes the document. <code>dateCreated</code> is set the first time the front matter is created or edited.  <code>datePublished</code> is set the first time the CommonMark document  is &quot;published&quot; into the blog directory tree. This also results in the draft field being removed.</li>
       </ul>
       <p>Recursive blog maintenance could be supported by allowing the tool to walk a directory tree and when it encounters CommonMark documents the front matter is validate. Errors are written to standard out. This feature would ensure that the CommonMark documents are ready for processing by the website build process.</p>
-      <h2 id="checking-for-front-matter">Checking for Front Matter</h2>
+      <h2>Checking for Front Matter</h2>
       <p>Front Matter traditionally is found at the start of the CommonMark file. It starts with the a line matching <code>---</code> and terminates with same <code>---</code> line. Anything between the two is treated as YAML.  Checking the front matter means identifying the YAML source, parsing it and comparing the result with the interface definition. If an expected field is missing then prompt for it and if the response is &quot;y&quot; create a temp file of the content and invoke a default editor for the system. When the editor is exited the source is read back in and the front matter is updated.</p>
-      <h2 id="processing-the-front-matter">Processing the Front Matter</h2>
+      <h2>Processing the Front Matter</h2>
       <p>Aside from extracting the YAML front matter from the text, the standard Deno library (<code>@std/yaml</code>) can be used to populate the interface for validation and editing.</p>
       <p>The task for <strong>BlogIt</strong> is primarily orchestrating the use of existing Deno TypeScript modules implementing the functionality I want from <strong>BlogIt</strong>.</p>
-      <h2 id="rewriting-the-commonmark-document">Rewriting the CommonMark document</h2>
+      <h2>Rewriting the CommonMark document</h2>
       <p>If the front matter changes then the CommonMark document should be written to a backup file (e.g. &quot;.bak&quot;). If changes are made the interface should prompt before saving the backup and writing out the updates to the source CommonMark document.</p>
-      <h2 id="draft-versus-datepublished">Draft versus datePublished</h2>
+      <h2>Draft versus datePublished</h2>
       <p>If the front matter includes the value <code>draft: true</code> <strong>BlogIt</strong> will exit after updating the front matter.  If <code>draft: true</code> is not in the front matter (e.g. <code>draft: false</code> or doesn't exist), the value  of <code>datePublished</code> needs to be set to the current date if not already populated. The <code>datePublished</code> is used to calculate the target path for coping the CommonMark document.</p>
       <p>The action &quot;draft&quot; will set the <code>draft</code> value to <code>true</code> and clear <code>datePublished</code>.</p>
       <p>The action &quot;publish&quot; will remove the <code>draft</code> attribute setting the publication and modification dates. If the front matter is valid then it will save the updated metadata and proceed to copy the revised CommonMark document into the blog tree.</p>
-      <h2 id="the-program">The Program</h2>
-      <h3 id="editor-module">editor module</h3>
+      <h2>The Program</h2>
+      <h3>editor module</h3>
       <p>Calling out to the system's text editor and running the editor as a sub process should be implemented as it's own module. This will allow me to improve the process independently and potentially use it in other applications.</p>
       <pre><code class="language-TypeScript">/**
        * editor.ts module handles the setup and access to a text editor for updating front matter. It is part of BlogIt program.
@@ -237,7 +243,7 @@
       }
       
       </code></pre>
-      <h3 id="front-matter-1">Front Matter</h3>
+      <h3>Front Matter</h3>
       <p>The front matter handling is implemented as it's own TypeScript module, <code>frontMatter.ts</code>. This module defines all the front matter schema and the operations that maybe performed on it including the interactive prompts.</p>
       <pre><code class="language-TypeScript">/**
        * frontMatterEditor.ts module curates front matter for Common Mark or Markdown documents. It is part of the BlogIt project. 
@@ -473,8 +479,8 @@
       }
       
       </code></pre>
-      <h3 id="commonmark-module">CommonMark module</h3>
-      <p>My website is implemented using CommonMark documents that include front matter. It is helpful to be able to handle the documents<br />
+      <h3>CommonMark module</h3>
+      <p>My website is implemented using CommonMark documents that include front matter. It is helpful to be able to handle the documents
       in a uniform way. This is accomplished through a TypeScript module called <code>commonMarkDoc.ts</code>.  It defines an interface, <code>CommonMarkDoc</code> that contains three attributes, <code>frontMatter</code>, <code>markdown</code> and <code>changed</code>. The latter is a boolean flag that is set when something changes in either <code>frontMatter</code> or <code>markdown</code>.</p>
       <p>The module also supports an Object called CMarkDoc that include a pre-processor function called <code>process</code> providing two useful features.</p>
       <ul>
@@ -641,7 +647,7 @@
       
       
       </code></pre>
-      <h3 id="main">Main</h3>
+      <h3>Main</h3>
       <p>The main module, <code>mod.ts</code>, will allow for processing the command line option and performing the requested actions.</p>
       <pre><code class="language-TypeScript">/**
        * mod.ts - The main entry point for BlogIt, a Common Mark front matter validator and curation tool. It is part of the BlogIt project.
@@ -857,7 +863,7 @@
       }
       
       </code></pre>
-      <h2 id="reference">Reference</h2>
+      <h2>Reference</h2>
       <ul>
       <li><a href="https://github.com/rsdoiel/BlogIt">https://github.com/rsdoiel/BlogIt</a></li>
       <li><a href="https://rsdoiel.github.io/BlogIt">Website</a></li>
@@ -865,17 +871,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

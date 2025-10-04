@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Combining-Oberon-07-with-C-using-Obc-3.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Combining-Oberon-07-with-C-using-Obc-3.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,30 +35,29 @@
 
   <section>
     <article data-published="2021-06-14" data-link="https://rsdoiel.github.io/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html">
-      <h1 id="combing-oberon-07-with-c-using-obc-3">Combing Oberon-07 with C using Obc-3</h1>
+      <h1>Combing Oberon-07 with C using Obc-3</h1>
       <p>By R. S. Doiel, 2021-06-14</p>
-      <p>This post explores integrating C code with an Oberon-07 module use<br />
-      Mike Spivey's Obc-3 Oberon Compiler.  Last year I wrote a similar post<br />
-      for Karl Landström's <a href="/blog/2020/05/01/Combining-Oberon-and-C.html">OBNC</a>.<br />
-      This goal of this post is to document how I created a version of Karl's<br />
-      Extension Library that would work with Mike's Obc-3 compiler.<br />
-      If you want to take a shortcut you can see the results on GitHub<br />
+      <p>This post explores integrating C code with an Oberon-07 module use
+      Mike Spivey's Obc-3 Oberon Compiler.  Last year I wrote a similar post
+      for Karl Landström's <a href="/blog/2020/05/01/Combining-Oberon-and-C.html">OBNC</a>.
+      This goal of this post is to document how I created a version of Karl's
+      Extension Library that would work with Mike's Obc-3 compiler.
+      If you want to take a shortcut you can see the results on GitHub
       in my <a href="https://github.com/rsdoiel/obc-3-libext">obc-3-libext</a> repository.</p>
-      <p>From my time with OBNC I've come to rely on three modules from Karl's<br />
-      extension library. When trying to port some of my code to use with<br />
-      Mike's compiler. That's where I ran into a problem with that dependency.<br />
-      Karl's modules aren't available. I needed an <a href="http://miasap.se/obnc/obncdoc/ext/extArgs.def.html">extArgs</a>,<br />
-      an <a href="http://miasap.se/obnc/obncdoc/ext/extEnv.def.html">extEnv</a> and<br />
-      <a href="http://miasap.se/obnc/obncdoc/ext/extConvert.def.html">extConvert</a>.</p>
-      <p>Mike's own modules that ship with Obc-3 cover allot of common ground<br />
-      with Karl's. They are organized differently. The trivial solution is<br />
-      to implement wrapping modules using Mike's modules for implementation.<br />
+      <p>From my time with OBNC I've come to rely on three modules from Karl's
+      extension library. When trying to port some of my code to use with
+      Mike's compiler. That's where I ran into a problem with that dependency.
+      Karl's modules aren't available. I needed an <a href="http://miasap.se/obnc/obncdoc/ext/extArgs.def.html">extArgs</a>,
+      an <a href="http://miasap.se/obnc/obncdoc/ext/extEnv.def.html">extEnv</a> and<a href="http://miasap.se/obnc/obncdoc/ext/extConvert.def.html">extConvert</a>.</p>
+      <p>Mike's own modules that ship with Obc-3 cover allot of common ground
+      with Karl's. They are organized differently. The trivial solution is
+      to implement wrapping modules using Mike's modules for implementation.
       That takes case of extArgs and extEnv.</p>
-      <p>The module extConvert is in a another category. Mike's <code>Conv</code> module is<br />
-      significantly minimalist. To solve that case I've create C code to perform<br />
-      the needed tasks based on Karl's examples and used Mike's share library<br />
+      <p>The module extConvert is in a another category. Mike's <code>Conv</code> module is
+      significantly minimalist. To solve that case I've create C code to perform
+      the needed tasks based on Karl's examples and used Mike's share library
       compilation instructions to make it available inside his run time.</p>
-      <h2 id="background-material">Background material</h2>
+      <h2>Background material</h2>
       <ul>
       <li><a href="https://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Obc-3 website</a>
       <ul>
@@ -63,50 +68,50 @@
       </li>
       <li><a href="http://github.com/Spivoxity/obc-3">Obc-3 at GitHub</a></li>
       </ul>
-      <h2 id="differences-obnc-and-obc-3">Differences: OBNC and Obc-3</h2>
-      <p>The OBNC compiler written by Karl takes the approach of translating<br />
-      Oberon-07 code to C and then calling the C tool chain to convert that<br />
-      into a   executable.  Karl's compiler is largely written in C<br />
+      <h2>Differences: OBNC and Obc-3</h2>
+      <p>The OBNC compiler written by Karl takes the approach of translating
+      Oberon-07 code to C and then calling the C tool chain to convert that
+      into a   executable.  Karl's compiler is largely written in C
       with some parts written in Oberon.</p>
-      <p>Mike's takes a different approach. His compiler uses a run time JIT<br />
-      and is written mostly in OCaml with some C parts and shell scripting.<br />
-      When you compile an Oberon program (either Oberon-2 or Oberon-07) using<br />
-      Mike's compiler you get a bunch of &quot;*.k&quot; files that the object code<br />
-      for Mike's thunder virtual machine and JIT.  This can in turn be used<br />
+      <p>Mike's takes a different approach. His compiler uses a run time JIT
+      and is written mostly in OCaml with some C parts and shell scripting.
+      When you compile an Oberon program (either Oberon-2 or Oberon-07) using
+      Mike's compiler you get a bunch of &quot;*.k&quot; files that the object code
+      for Mike's thunder virtual machine and JIT.  This can in turn be used
       to create a executable.</p>
-      <p>For implementing Oberon procedures in C Karl's expects an empty<br />
+      <p>For implementing Oberon procedures in C Karl's expects an empty
       procedure body. e.g.</p>
       <pre><code class="language-oberon">PROCEDURE DoMyThing();
       BEGIN
       END DoMyThing;
       </code></pre>
-      <p>While Mike has added a &quot;IS&quot; phrase to the procedure signature to<br />
-      indicate what the C implementation is known as. There is no procedure<br />
-      body in Mike's implementation and the parameters need to map<br />
+      <p>While Mike has added a &quot;IS&quot; phrase to the procedure signature to
+      indicate what the C implementation is known as. There is no procedure
+      body in Mike's implementation and the parameters need to map
       directly into a C data type.</p>
       <pre><code class="language-oberon">PROCEDURE DoMyThing() IS &quot;do_my_thing&quot;;
       </code></pre>
-      <p>Of course both compilers have completely different command line options<br />
-      and when you're integrating C shared libraries in Mike's you need to<br />
-      call your local CC (e.g. GCC, clang) to create a share library file.<br />
-      Mike has extended Oberon-07 SYSTEM to include <code>SYSTEM.LOADLIB()</code> which<br />
+      <p>Of course both compilers have completely different command line options
+      and when you're integrating C shared libraries in Mike's you need to
+      call your local CC (e.g. GCC, clang) to create a share library file.
+      Mike has extended Oberon-07 SYSTEM to include <code>SYSTEM.LOADLIB()</code> which
       takes a string containing the path to the compiler shared library.</p>
-      <p>In Karl's own Oberon-07 modules he uses the <code>.obn</code> file extension but<br />
-      also accepts <code>.Mod</code>.  In Mike's he uses <code>.m</code> and also accepts <code>.Mod</code>.<br />
-      In this article I will be using <code>.m</code> as that simplified the recipe<br />
+      <p>In Karl's own Oberon-07 modules he uses the <code>.obn</code> file extension but
+      also accepts <code>.Mod</code>.  In Mike's he uses <code>.m</code> and also accepts <code>.Mod</code>.
+      In this article I will be using <code>.m</code> as that simplified the recipe
       of building and integrating the shared C libraries.</p>
-      <h2 id="similarities-of-obnc-and-obc-3">Similarities of OBNC and Obc-3</h2>
-      <p>Both compilers provide for compiling Oberon-07 code, Mike's requires<br />
-      the <code>-07</code> option to be used to switch from Oberon-2. Both offer the<br />
-      ability to extend reach into the host POSIX system by wrapping<br />
-      C shared libraries. Both run on a wide variety of POSIX systems and<br />
-      you can read the source code at your leisure. This last bit is<br />
+      <h2>Similarities of OBNC and Obc-3</h2>
+      <p>Both compilers provide for compiling Oberon-07 code, Mike's requires
+      the <code>-07</code> option to be used to switch from Oberon-2. Both offer the
+      ability to extend reach into the host POSIX system by wrapping
+      C shared libraries. Both run on a wide variety of POSIX systems and
+      you can read the source code at your leisure. This last bit is
       important.</p>
-      <h2 id="args-extargs-and-extenv">Args, extArgs and extEnv.</h2>
-      <p>Mike provides two features in his Args module. The first is access<br />
-      to the command line arguments of the compiled program. The<br />
-      second feature is to provide access to the host environment variables.<br />
-      In Karl's implementation he separates Mikes <code>Args.GetEvn()</code> into<br />
+      <h2>Args, extArgs and extEnv.</h2>
+      <p>Mike provides two features in his Args module. The first is access
+      to the command line arguments of the compiled program. The
+      second feature is to provide access to the host environment variables.
+      In Karl's implementation he separates Mikes <code>Args.GetEvn()</code> into
       a module called <code>extEnv</code>. Here's Mike's module definition looks like ---</p>
       <pre><code class="language-oberon">DEFINITION Args;
       
@@ -144,12 +149,12 @@
         count := Args.argc - 1;
       END extArgs.
       </code></pre>
-      <p>NOTE: In Mike's approach the zero-th arg is the program name.<br />
-      In Karl's the zero-th arg is the first argument after the program<br />
-      name. To get Karl's behavior with Mike's <code>GetArg()</code> I need to<br />
+      <p>NOTE: In Mike's approach the zero-th arg is the program name.
+      In Karl's the zero-th arg is the first argument after the program
+      name. To get Karl's behavior with Mike's <code>GetArg()</code> I need to
       adjust the offsets.</p>
       <p>So far so good. How about implementing Karl's <code>extEnv</code>?</p>
-      <p>We've already seen Mike's Args so he doesn't have a matching<br />
+      <p>We've already seen Mike's Args so he doesn't have a matching
       definition.  Karl's <code>extEnv</code> looks like</p>
       <pre><code class="language-oberon">DEFINITION extEnv;
       
@@ -183,13 +188,11 @@
       
       END extEnv.
       </code></pre>
-      <h2 id="extconvert-requires-more-work">extConvert requires more work</h2>
-      <p>Mike provides a module called <code>Conv.m</code> for converting numbers<br />
-      to strings.  It is a little minimal for my current purpose.<br />
-      That is easy enough to solve as Mike, like Karl provides a means<br />
-      of extending Oberon code with C.  That means I need to write<br />
-      <code>extConvert</code> as both <code>extConvert.m</code> (the Oberon-07 part) and<br />
-      <code>extConvert.c</code> (the C part).</p>
+      <h2>extConvert requires more work</h2>
+      <p>Mike provides a module called <code>Conv.m</code> for converting numbers
+      to strings.  It is a little minimal for my current purpose.
+      That is easy enough to solve as Mike, like Karl provides a means
+      of extending Oberon code with C.  That means I need to write<code>extConvert</code> as both <code>extConvert.m</code> (the Oberon-07 part) and<code>extConvert.c</code> (the C part).</p>
       <p>Here's Karl's definition</p>
       <pre><code class="language-oberon">DEFINITION extConvert;
       
@@ -203,7 +206,7 @@
       
       END extConvert.
       </code></pre>
-      <p>I have implement my <code>extConvert</code> as a hybrid of Oberon-07 and calls<br />
+      <p>I have implement my <code>extConvert</code> as a hybrid of Oberon-07 and calls
       to a C shared library I will create called <code>extConvert.c</code>.</p>
       <p>The Oberon file (i.e. extConvert.m)</p>
       <pre><code class="language-oberon">MODULE extConvert;
@@ -250,7 +253,7 @@
       </code></pre>
       <p>If you review Mike's module code you'll see I have followed a similar pattern. Before calling out to C I take care of what house keeping I can in Oberon, then I call a &quot;0&quot; version of the function implemented in C. The C implementation are not exported only the wrapping Oberon procedures are.</p>
       <p>Notice how the initialization block calls <code>SYSTEM.LOADLIB(&quot;./extConvert.so&quot;);</code> this loads the C shared library so that the Oberon module can call out it it.</p>
-      <p>The C code in <code>extConvert.c</code> looks very traditional without the macros<br />
+      <p>The C code in <code>extConvert.c</code> looks very traditional without the macros
       you'd see in OBNC's implementation. Here's what the C code look like.</p>
       <pre><code class="language-C">#include &lt;stdlib.h&gt;
       #include &lt;stdio.h&gt;
@@ -275,10 +278,10 @@
           *r = atof(s);
       }
       </code></pre>
-      <p>The dance to compile the module and C shared library is very different<br />
-      between OBNC and Obc-3.  With Obc-3 we compile and skip linking<br />
-      the wrapping Oberon module <code>extConvert.m</code>. We compile using CC<br />
-      our C shared library. We can then put it all together to test<br />
+      <p>The dance to compile the module and C shared library is very different
+      between OBNC and Obc-3.  With Obc-3 we compile and skip linking
+      the wrapping Oberon module <code>extConvert.m</code>. We compile using CC
+      our C shared library. We can then put it all together to test
       everything out in <code>ConvertTest.m</code>.</p>
       <pre><code class="language-shell">obc -07 -c extConvert.m
       gcc -fPIC -shared extConvert.c -o extConvert.so
@@ -337,15 +340,14 @@
         ASSERT(T.Run(ts));
       END ConvertTest.
       </code></pre>
-      <p>We compile and run our test program use the following commands<br />
-      (NOTE: Using Obc-3 you list all the dependent modules to possibly<br />
+      <p>We compile and run our test program use the following commands
+      (NOTE: Using Obc-3 you list all the dependent modules to possibly
       be compiled one the command line along with your program module).</p>
       <pre><code class="language-shell">obc -07 -o converttest extConvert.m Tests.m ConvertTest.m
       ./converttest
       </code></pre>
-      <p>Source code for these modules is available on GitHub at<br />
-      <a href="https://github.com/rsdoiel/obc-3-libext">github.com/rsdoiel/obc-3-libest</a></p>
-      <h2 id="next--previous">Next &amp; Previous</h2>
+      <p>Source code for these modules is available on GitHub at<a href="https://github.com/rsdoiel/obc-3-libext">github.com/rsdoiel/obc-3-libest</a></p>
+      <h2>Next &amp; Previous</h2>
       <ul>
       <li>Next <a href="../../11/22/Revisiting-Files.html">Revisiting Files</a></li>
       <li>Previous <a href="../../05/16/Beyond-Oakwood-Modules-and-Aliases.html">Beyond Oakwood, Modules and Aliases</a></li>
@@ -353,17 +355,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

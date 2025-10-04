@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="finding-blue-sky-rss-feeds.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta content="antenna/0.0.10" name="generator" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="finding-blue-sky-rss-feeds.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" />
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" />
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,31 +35,30 @@
 
   <section>
     <article data-published="2023-12-23" data-link="https://rsdoiel.github.io/blog/2023/12/23/finding-blue-sky-rss-feeds.html">
-      <h1 id="find-bluesky-rss-feeds">Find Bluesky RSS Feeds</h1>
-      <p>With the update to <a href="https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i">1.60</a> of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me.<br />
-      The RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is<br />
+      <h1>Find Bluesky RSS Feeds</h1>
+      <p>With the update to <a href="https://bsky.app/profile/bsky.app/post/3kh5rjl6bgu2i">1.60</a> of Bluesky we can now follow people on Bluesky via RSS feeds. This makes things much more convienient for me.
+      The RSS feed is visible via the HTML markup on a person's profile page (which are now public). E.g. My Bluesky profile page is
       at <a href="https://bsky.app/profile/rsdoiel.bsky.social">https://bsky.app/profile/rsdoiel.bsky.social</a> and if you look at that pages HTML markup you'll see a link element in the head</p>
       <pre><code class="language-html"> &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; href=&quot;/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss&quot;&gt;
       </code></pre>
       <p>That's the RSS feed. So now if you want to follow you can expand the URL to</p>
       <pre><code>https://bsky.app/profile/did:plc:nbdlhw2imk2m2yqhwxb5ycgy/rss
       </code></pre>
-      <p>And use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website<br />
+      <p>And use if via your feed reader. This is a sweat feature. It allows me to move my reading from visiting the website
       to getting updates via my feed reader.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

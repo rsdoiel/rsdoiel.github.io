@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="installing-via-cargo-etc.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="installing-via-cargo-etc.md" rel="altenate" type="text/markdown" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2024-12-13" data-link="https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html">
-      <h1 id="installing-deno-via-cargo-and-other-options">Installing Deno via Cargo and other options</h1>
+      <h1>Installing Deno via Cargo and other options</h1>
       <p>By R. S. Doiel, 2024-12-13</p>
       <p>I've recently needed to install Deno on several Debian flavored Linux boxes.  I wanted to install Deno using the <code>cargo install --locked deno</code> command. Notice the <code>--locked</code> option, you need that for Deno. This worked for the recent Ubuntu 22.04 LTS release. I needed alternatives for Ubuntu 20.04 LTS and Raspberry Pi OS.</p>
-      <h2 id="using-cargo">Using Cargo</h2>
+      <h2>Using Cargo</h2>
       <p>Prerequisites:</p>
       <ul>
       <li>Rust (install with <a href="https://rustup.rs">Rustup</a>)</li>
@@ -49,13 +55,13 @@
       rustup update
       cargo install deno --locked
       </code></pre>
-      <h2 id="other-options">Other options</h2>
+      <h2>Other options</h2>
       <p>For Ubuntu 20.04 LTS and Raspberry Pi OS, use <code>curl -fsSL https://deno.land/install.sh | sh</code> to install.</p>
       <p>For Windows on ARM64 use <code>iwr https://deno.land/install.ps1 -useb | iex</code>.</p>
-      <p><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code><br />
+      <p><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code>
       On Raspberry Pi OS I added a <code>nice</code> before calling <code>cargo</code>. Without the &quot;nice&quot; it failed after the &quot;spin&quot; module.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>I failed to install Deno this way on Ubuntu 20.04 LTS, just use the cURL + sh script.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -65,17 +71,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

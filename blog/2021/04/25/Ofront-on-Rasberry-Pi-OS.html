@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Ofront-on-Rasberry-Pi-OS.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Ofront-on-Rasberry-Pi-OS.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" />
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,37 +35,37 @@
 
   <section>
     <article data-published="2021-04-25" data-link="https://rsdoiel.github.io/blog/2021/04/25/Ofront-on-Rasberry-Pi-OS.html">
-      <h1 id="ofront-on-raspberry-pi-os">Ofront on Raspberry Pi OS</h1>
+      <h1>Ofront on Raspberry Pi OS</h1>
       <p>By R. S. Doiel, 2021-04-25</p>
-      <p>This post is about getting Ofront<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> up and running on Raspberry Pi OS<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.<br />
-      Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup><br />
-      development environment. There are additional clever tools like <code>ocat</code><br />
-      that are helpful working with the differences in text file formats between<br />
-      Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of<br />
+      <p>This post is about getting Ofront<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> up and running on Raspberry Pi OS<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.
+      Ofront provides a Oberon-2 to C transpiler as well as a Oberon V4<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>
+      development environment. There are additional clever tools like <code>ocat</code>
+      that are helpful working with the differences in text file formats between
+      Oberon System 3, V4 and POSIX. The V4 implementation sits nicely on top of
       POSIX with minimal compromises that distract from the Oberon experience.</p>
-      <h2 id="an-initial-impression">An Initial Impression</h2>
-      <p>I first heard of running Ofront/V4 via the ETH Oberon Mail list<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.<br />
-      What caught my eye is the reference to running on Raspberry Pi. Prof. Templ<br />
-      provides two flavors of Ofront. One targets the Raspberry Pi OS on ARM<br />
-      hardware the second Linux on i386. The Raspberry Pi OS for Intel is an<br />
-      i386 variant. I downloaded the tar file, unpacked it and immediately ran<br />
-      the &quot;oberon.bash&quot; script provided eager to see a V4 environment. It<br />
-      renders but the fonts rendered terribly slowly. I should have read the<br />
-      documentation first!  Prof. Templ provides man pages for the tools that<br />
-      come with Ofront including the oberon application. Reading the<br />
-      man page for oberon quickly addresses the point of slow font rendering.<br />
-      It also discusses how to convert Oberon fonts to X Windows bitmap fonts.<br />
-      If you use the X Window fonts the V4 environment is very snappy. It does<br />
-      require that X Windows knows where to find the fonts used in V4. That is<br />
-      done by appending the V4 converted fonts to the X Window font map. I had<br />
+      <h2>An Initial Impression</h2>
+      <p>I first heard of running Ofront/V4 via the ETH Oberon Mail list<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.
+      What caught my eye is the reference to running on Raspberry Pi. Prof. Templ
+      provides two flavors of Ofront. One targets the Raspberry Pi OS on ARM
+      hardware the second Linux on i386. The Raspberry Pi OS for Intel is an
+      i386 variant. I downloaded the tar file, unpacked it and immediately ran
+      the &quot;oberon.bash&quot; script provided eager to see a V4 environment. It
+      renders but the fonts rendered terribly slowly. I should have read the
+      documentation first!  Prof. Templ provides man pages for the tools that
+      come with Ofront including the oberon application. Reading the
+      man page for oberon quickly addresses the point of slow font rendering.
+      It also discusses how to convert Oberon fonts to X Windows bitmap fonts.
+      If you use the X Window fonts the V4 environment is very snappy. It does
+      require that X Windows knows where to find the fonts used in V4. That is
+      done by appending the V4 converted fonts to the X Window font map. I had
       installed the Ofront system in my home directory so the command was</p>
       <pre><code class="language-bash">xset +fp $HOME/ofront_1.4/fonts
       </code></pre>
-      <p>Running &quot;oberon.bash&quot; after that immediately improved things. Since I didn't<br />
-      need the Oberon fonts outside of V4 I added the <code>xset</code> command to the<br />
+      <p>Running &quot;oberon.bash&quot; after that immediately improved things. Since I didn't
+      need the Oberon fonts outside of V4 I added the <code>xset</code> command to the
       &quot;oberon.bash&quot; script just before it invokes the <code>oberon</code> command.</p>
-      <h2 id="goals-in-my-setup">Goals in my setup</h2>
-      <p>I had three goals in wanting to play with Ofront and running the V4<br />
+      <h2>Goals in my setup</h2>
+      <p>I had three goals in wanting to play with Ofront and running the V4
       Oberon.</p>
       <ol>
       <li>I wanted to work in an Oberon System environment</li>
@@ -67,24 +73,24 @@
       <li>I wanted to understand the Linz/V4 variation in Oberon's evolution</li>
       </ol>
       <p>Ofront address all three once you get the X Window side setup correctly.</p>
-      <h2 id="setting-up-ofront-and-v4">Setting up Ofront and V4</h2>
-      <p>First we need to boot up a Raspberry Pi OS device (or an i386 Linux with X11).<br />
-      We need to retrieve the software from Joseph Templ's <a href="https://software-templ.com">software-templ.com</a>.<br />
-      Two 1.4 versions are available precompiled. The first is for ARM running<br />
-      Raspberry Pi OS and the second is for generic Linux i386 with X11. I initially<br />
+      <h2>Setting up Ofront and V4</h2>
+      <p>First we need to boot up a Raspberry Pi OS device (or an i386 Linux with X11).
+      We need to retrieve the software from Joseph Templ's <a href="https://software-templ.com">software-templ.com</a>.
+      Two 1.4 versions are available precompiled. The first is for ARM running
+      Raspberry Pi OS and the second is for generic Linux i386 with X11. I initially
       tested this on an old laptop where running the i386 version of Raspberry Pi OS.</p>
-      <h2 id="what-we-need">What we need</h2>
-      <p>The following software is usually already installed on your<br />
+      <h2>What we need</h2>
+      <p>The following software is usually already installed on your
       Raspberry Pi OS.</p>
       <ul>
       <li>curl to download the files<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></li>
       <li>gunzip to uncompressed the archive file</li>
       <li>tar to unpack the archive file</li>
       </ul>
-      <h2 id="what-we-do">What we do</h2>
+      <h2>What we do</h2>
       <ol>
-      <li>Download the appropriate tar file<br />
-      a. ARM: <a href="http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz">http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz</a><br />
+      <li>Download the appropriate tar file
+      a. ARM: <a href="http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz">http://www.software-templ.com/shareware/ofront-1.4_raspbian-Pi3.tar.gz</a>
       b. Intel i386: <a href="http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz">http://www.software-templ.com/shareware/ofront-1.4_linux-386-3.2.tar.gz</a></li>
       <li>Make sure we can read the compressed archive file</li>
       <li>Gunzip and untar the file</li>
@@ -99,32 +105,31 @@
           tar ztvf ofront-1.4_linux-386-3.2.tar.gz
           tar zxvf ofront-1.4_linux-386-3.2.tar.gz
       </code></pre>
-      <p>At this point there should be an <code>ofront_1.4</code> directory<br />
-      where you gunziped and untared the archive file. At this point<br />
-      you can test to make sure everything runs by doing the following<br />
+      <p>At this point there should be an <code>ofront_1.4</code> directory
+      where you gunziped and untared the archive file. At this point
+      you can test to make sure everything runs by doing the following
       (remember the font rendering with be very slow).</p>
       <pre><code>    cd ofront_1.4
           ./oberon.bash
       </code></pre>
-      <p>You can exit the V4 environment by closing the window or typing<br />
-      <code>System.Quit ~</code> in an Oberon viewer and middle clicking with your<br />
+      <p>You can exit the V4 environment by closing the window or typing<code>System.Quit ~</code> in an Oberon viewer and middle clicking with your
       mouse<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>.</p>
-      <p>The reason the system is so slow is that X is having to write bitmaps<br />
-      a pixel at a time in the window holding our Oberon System. What we<br />
-      want X to do is render an X Window font.  Joseph as provided us with<br />
-      the Oberon fonts already converted for X! We just need to let the<br />
+      <p>The reason the system is so slow is that X is having to write bitmaps
+      a pixel at a time in the window holding our Oberon System. What we
+      want X to do is render an X Window font.  Joseph as provided us with
+      the Oberon fonts already converted for X! We just need to let the
       X Window system know where to look.</p>
-      <h2 id="what-we-need-1">What we need</h2>
+      <h2>What we need</h2>
       <ul>
       <li>an editor for editing <code>oberon.bash</code></li>
       </ul>
-      <h2 id="what-well-do">What we'll do</h2>
+      <h2>What we'll do</h2>
       <ol>
       <li>Exit the running Oberon System using <code>System.Quit ~</code> or just close the window</li>
       <li>Edit <code>oberon.bash</code> to speed up font rendering</li>
       <li>Try <code>oberon.bash</code> again and see the speed bump</li>
       </ol>
-      <p>With your favorite editor add the <code>xset</code> line before the <code>oberon</code><br />
+      <p>With your favorite editor add the <code>xset</code> line before the <code>oberon</code>
       command is invoked. My &quot;oberon.bash&quot; looks like this.</p>
       <pre><code>#!/bin/bash
       
@@ -138,95 +143,91 @@
       xset +fp $HOME/ofront_1.4/fonts
       $OFRONT_HOME/bin/oberon -f ./V4/Big.Map -u 8000 -c $* &amp;
       </code></pre>
-      <p>The <code>xset</code> command adds the provided X fonts to X Window. This<br />
-      results in a huge speedup of rendering. I also add the options<br />
-      for using the largest font sizes via a font map file, &quot;V4/Big.Map&quot;<br />
-      and set the display units to 8000. Your vision or monitor may<br />
-      not need this so you want to only add the line to include the<br />
+      <p>The <code>xset</code> command adds the provided X fonts to X Window. This
+      results in a huge speedup of rendering. I also add the options
+      for using the largest font sizes via a font map file, &quot;V4/Big.Map&quot;
+      and set the display units to 8000. Your vision or monitor may
+      not need this so you want to only add the line to include the
       X fonts needed by Oberon.</p>
-      <p>Now re-launch Oberon using the updated &quot;oberon.bash&quot; and<br />
+      <p>Now re-launch Oberon using the updated &quot;oberon.bash&quot; and
       see the improvement.</p>
       <pre><code>    vi oberon.bash
           ./oberon.bash
       </code></pre>
-      <p>You now have a functioning V4 Oberon System to play with and<br />
+      <p>You now have a functioning V4 Oberon System to play with and
       explore.</p>
-      <p>There are some additional POSIX environment setup you can<br />
-      add to improve the integration with your Linux setup. These<br />
-      are covered in the man pages for the tools that come with Ofront.<br />
-      Additional information is also provided in the Oberon Texts<br />
+      <p>There are some additional POSIX environment setup you can
+      add to improve the integration with your Linux setup. These
+      are covered in the man pages for the tools that come with Ofront.
+      Additional information is also provided in the Oberon Texts
       and Tools files in the V4 environment. All are worth reading.</p>
-      <h2 id="what-does-this-setup-provide">What does this setup provide?</h2>
-      <p>At the point we have V4 available we have a rich development<br />
-      and text environment. One which I feel is conducive to both<br />
-      writing in general and programming specifically. You are running<br />
+      <h2>What does this setup provide?</h2>
+      <p>At the point we have V4 available we have a rich development
+      and text environment. One which I feel is conducive to both
+      writing in general and programming specifically. You are running
       under an adapted Oberon System so there are somethings to consider.</p>
-      <p>The Oberon V4 file system does support punctuation characters aside<br />
-      from periods and slashes.  So when I tried to edit a file with hyphens<br />
-      in the name Oberon assumed the filename stopped at the first hyphens.<br />
-      The Oberon file systems are typically case sensitive so this can<br />
-      be worked around with letter case. Of course I could modify the V4<br />
-      system to allow for more letters too. That's the nice thing about<br />
+      <p>The Oberon V4 file system does support punctuation characters aside
+      from periods and slashes.  So when I tried to edit a file with hyphens
+      in the name Oberon assumed the filename stopped at the first hyphens.
+      The Oberon file systems are typically case sensitive so this can
+      be worked around with letter case. Of course I could modify the V4
+      system to allow for more letters too. That's the nice thing about
       having the source code.</p>
-      <p>The second issue if file format.  In Oberon we can embed fonts<br />
-      and coloring and that is treated as normal text. End of line<br />
-      characters are represented as a carriage return. In POSIX environments<br />
-      we have &quot;plain text&quot; without specific font directives and we use<br />
-      a line feed to terminate lines. Fortunately Prof. Templ provided<br />
-      a program called <code>ocat</code><sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> that makes short work of converting an<br />
-      Oberon text into a POSIX friendly format. On the Oberon side of things<br />
-      it's also easy because Oberon will treat an ASCII file as a text we<br />
-      only need to convert the line endings and in the Ofront implementation<br />
+      <p>The second issue if file format.  In Oberon we can embed fonts
+      and coloring and that is treated as normal text. End of line
+      characters are represented as a carriage return. In POSIX environments
+      we have &quot;plain text&quot; without specific font directives and we use
+      a line feed to terminate lines. Fortunately Prof. Templ provided
+      a program called <code>ocat</code><sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> that makes short work of converting an
+      Oberon text into a POSIX friendly format. On the Oberon side of things
+      it's also easy because Oberon will treat an ASCII file as a text we
+      only need to convert the line endings and in the Ofront implementation
       of V4 it handles the differences in line endings behind the scenes.</p>
-      <p>If you create or store a file in the Oberon environment it'll become<br />
-      Oberon text. If you need to have a plain text version use <code>ocat</code>.<br />
-      If you only read POSIX files in the Oberon environment then they remain<br />
-      plain text files but V4 takes care of translating the POSIX line ending<br />
+      <p>If you create or store a file in the Oberon environment it'll become
+      Oberon text. If you need to have a plain text version use <code>ocat</code>.
+      If you only read POSIX files in the Oberon environment then they remain
+      plain text files but V4 takes care of translating the POSIX line ending
       to ones that are displayed nicely in Oberon.</p>
-      <h2 id="what-to-explore-next">What to explore next?</h2>
-      <p>Now that we have a fast running V4 system we have some choices<br />
-      for development. Joseph Templ has adapted the display for X<br />
-      and also the file system so the files are visible from the Unix<br />
-      shell.  This is a powerful arrangement. This supports both Oberon<br />
-      development and the use of Oberon language for the development of<br />
-      POSIX friendly programs.  The Ofront collection provides the<br />
-      <code>ofront</code> an Oberon-2 to C translator, <code>ocl</code> is a tool that will<br />
-      combine <code>ofront</code> with your C compiler and linker to produce<br />
-      programs and libraries for Linux. There is also <code>ocat</code> for<br />
-      converting Oberon texts to POSIX plain text and <code>showdef</code> for<br />
-      showing module definitions.  Finally Ofront provides the<br />
-      <code>oberon</code> command so we have an Oberon System available as a<br />
+      <h2>What to explore next?</h2>
+      <p>Now that we have a fast running V4 system we have some choices
+      for development. Joseph Templ has adapted the display for X
+      and also the file system so the files are visible from the Unix
+      shell.  This is a powerful arrangement. This supports both Oberon
+      development and the use of Oberon language for the development of
+      POSIX friendly programs.  The Ofront collection provides the<code>ofront</code> an Oberon-2 to C translator, <code>ocl</code> is a tool that will
+      combine <code>ofront</code> with your C compiler and linker to produce
+      programs and libraries for Linux. There is also <code>ocat</code> for
+      converting Oberon texts to POSIX plain text and <code>showdef</code> for
+      showing module definitions.  Finally Ofront provides the<code>oberon</code> command so we have an Oberon System available as a
       development environment.</p>
-      <p>One thing I recommend exploring is Jospeh Templ's GitHub repository.<br />
-      The makefile provided with the GitHub version assuming an existing<br />
-      installation of ofront. Since we have one we can compile our own copy<br />
-      from scratch. If you're running i386 you'll want to look at<br />
-      <code>V4_ofront/linix386</code> for Pi hardware take a look at <code>V4_ofront/raspbian</code>.</p>
+      <p>One thing I recommend exploring is Jospeh Templ's GitHub repository.
+      The makefile provided with the GitHub version assuming an existing
+      installation of ofront. Since we have one we can compile our own copy
+      from scratch. If you're running i386 you'll want to look at<code>V4_ofront/linix386</code> for Pi hardware take a look at <code>V4_ofront/raspbian</code>.</p>
       <p>Here's how I generated a new version on my Pi hardware.</p>
       <pre><code>    git clone https://github.com/jtempl/ofront
           cd ofront/V4_ofront/raspbian
           make
           ./oberon.bash
       </code></pre>
-      <p>There is a note in the README of that directory about finding<br />
-      <code>libX11.so</code> but I did not need the symbolic link suggested. Since the<br />
-      font path was previously adjusted for the original version I downloaded<br />
-      from Templ's website I didn't need to add the fonts again. If I fork<br />
-      Templ's version or GitHub I will probably update the &quot;oberon.bash&quot;<br />
-      file included to check to see if the X fonts are available and if not<br />
-      add them via <code>xset</code>. That's on a someday maybe list, for now I am<br />
+      <p>There is a note in the README of that directory about finding<code>libX11.so</code> but I did not need the symbolic link suggested. Since the
+      font path was previously adjusted for the original version I downloaded
+      from Templ's website I didn't need to add the fonts again. If I fork
+      Templ's version or GitHub I will probably update the &quot;oberon.bash&quot;
+      file included to check to see if the X fonts are available and if not
+      add them via <code>xset</code>. That's on a someday maybe list, for now I am
       content exploring the system as is.</p>
-      <h2 id="someday-maybe">Someday, Maybe</h2>
+      <h2>Someday, Maybe</h2>
       <p>Things that come to mind after initial exploration include--</p>
       <ul>
       <li>Figure out how to make Atkinson-Hyperlegible<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup> available to V4</li>
       <li>Replace the X11 integration with SDL 2 integration and run under macOS or Windows</li>
       <li>Exploring porting V4 to run natively Raspberry Pi via Clang cross compilers</li>
       </ul>
-      <p>Not sure I'll get the time or have the energy to do these things but<br />
+      <p>Not sure I'll get the time or have the energy to do these things but
       they are certainly seem feasible with Ofront as it stands now.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>Ofront was developed by Joseph Templ, see <a href="http://www.software-templ.com/">http://www.software-templ.com/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -257,17 +258,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

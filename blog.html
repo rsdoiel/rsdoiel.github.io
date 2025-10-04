@@ -1,16 +1,20 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.7">
-  <meta name="date" content="2025-09-23T08:17:37-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/css" href="/css/site.css" rel="stylesheet" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
+  <link type="application/rss+xml" href="http://localhost:8000/blogxml" rel="alternate" />
 </head>
 <body>
-  <header>
-    (date: 2025-09-23 08:17:37)
-  </header>
   <nav>
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -21,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -30,446 +34,205 @@
   </nav>
   <section>
 
+    <article data-published="2025-10-01T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.html">
+      <h1>Computer related terminology that bugs me</h1>
+
+(date: 2025-10-01)
+      <p>
+      <h1>Computer related words that bug me</h1>
+<p>Sometimes specific terms bug me on popular usage. This is particularly true when related to computer science (or better term, information science).</p>
+<p>Two terms really grate on my nerves these days.</p>
+<ol>
+<li>“AI” was a marketing term to get the DOD to fund researching in to cognitive approaches to computation.  The generals like the term Artificial Intelligence in the 1970s because the idea of robot solders who could be destroyed with out the having to write the letters to their parents was desirable after Vietnam and previous wars. For the researchers it was sufficiently vague to be a goldmine of grant possibilities.</li>
+<li>Information Security became Cyber Security for marketing reasons</li>
+</ol>
+<p>Terms that change for marketing reasons quickly loose meaning. In the computers as communication devices space this isn't a good feature.</p>
+<p>The stupidest phrase I've heard a politician and business leaders say in interviews, &quot;We've got to have cyber&quot;.  In my head I change &quot;cyber&quot; to &quot;coffee&quot; so I don't think have to remember their names.</p>
+
+      <address>
+        <a href="https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.html">https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.html</a>
+      </address>
+    </article>
+
     <article data-published="2025-09-22T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html">
       <h1>Getting started with Go</h1>
 
-(date: 2025-09-22)
+(date: 2025-09-22, updated: 2025-09-26)
       <p>
-      A quick intro to Go and tool chain
+      <h1>Getting started with Go</h1>
+<p>By R. S. Doiel, 2025-09-22</p>
+<p>This is just a quick tutorial covering installing the Go compiler, tool chain and learning the basics through creating three programs -- hello world, a web server and a Markdown server. It is not a <a href="https://go.dev/learn/#selected-tutorials">tutorial</a> on the Go language. The <a href="https://go.dev">Go website</a> has that covered. This is really just the bare minimum to get started with the <code>go</code> command.</p>
+<p>Here's the files source files we'll be using in this tutorial</p>
+<ul>
+<li><a href="helloworld/helloworld.go">helloworld.go</a></li>
+<li><a href="webserver/webserver.go">webserver.go</a></li>
+<li><a href="mdserver/markdown.go">markdown.go</a></li>
+<li><a href="mdserver/markdown_test.go">markdown_test.go</a></li>
+<li><a href="mdserver/handler.go">handler.go</a></li>
+<li><a href="mdserver/handler_test.go">handler_test.go</a></li>
+<li><a href="mdserver/cmd/mdserver/main.go">mdserver's main.go</a></li>
+</ul>
+<h2>Installing Go and making sure it works</h2>
+<p>It covers the basics of how the Go compiler and tool change work by walking throw three Go programs. The first one is to create a hello world program to make sure Go is available and working. The steps will be as follows.</p>
+<ol>
+<li>Download and install Go, see <a href="https://go.dev/dl/">https://go.dev/dl/</a> (latest is currently 1.25.1)</li>
+</ol>
+<h2>Creating hello world, making sure Go tool chain is working</h2>
+<ol>
+<li>Open a terminal</li>
+<li>create a directory/folder you'll use for you creating a hello world program</li>
+<li>Change into that directory</li>
+<li>Type in the hello world program below and save it as &quot;hello.go&quot;</li>
+<li>Try running &quot;hello.go&quot;</li>
+<li>Follow the instruction to &quot;build&quot; the hello.go program (you're compiling the Go source into an executable)</li>
+<li>Run you newly created executable</li>
+</ol>
+<p>Here's the steps we'll take starting with step #3.</p>
+<pre><code class="language-shell">
+mkdir helloworld
+cd helloworld
+edit hello.go
+go run hello.go
+go build hello.go
+./hello
+cd ..
+</code></pre>
+<p>Here's the source code to hello world in Go</p>
+<pre><code class="language-go">
+package main
+
+import (
+    &quot;fmt&quot;
+) 
+
+func main() {
+    fmt.Println(&quot;Hello World!&quot;)
+}
+</code></pre>
+<p>If you got this far you've created your first Go program.</p>
+<p>What are the parts of the source code package to take note of?</p>
+<dl>
+<dt><code>package main</code></dt>
+<dd>Identifies what &quot;package&quot; or module that the source file belongs to. The &quot;main&quot; package is special in that it what represents a stand alone program.</dd>
+<dt><code>import</code></dt>
+<dd>This is a statement (including the contents inside the parenthesis) that shows what modules your program relies on.</dd>
+<dt><code>func</code></dt>
+<dd>This defines a functions, in this case the main function.</dd>
+<dt><code>&quot;fmt&quot;</code></dt>
+<dd>This is the name of the module for formatting text, includes functions like Println that display a line of text.</dd>
+</dl>
+<p>Things to keep in mind.  Go is a typed language. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using &quot;let&quot;.</p>
+<p>Capitalized functions, variables and constants are &quot;exported&quot; from the current module and can be referenced when that package is later imported. When we use the imported &quot;fmt&quot; package with the &quot;Println&quot; function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of &quot;fmt&quot; which are not capitalized don't get exported and are not visible inside the current package scope. Capitalization is like the &quot;export&quot; keyword in TypeScript or JavaScript.</p>
+<p>Packages and modules are Go's reusable unit of code. Originally Go called them &quot;packages&quot;, hence the &quot;package&quot; declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don't necessarily carry dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistent regardless of the latest release of a package that was imported. See the &quot;mod&quot; command below.</p>
+<p>Let's look at the go command before looking at the source code. The go command is actually a collection of tools. The commons I used most frequently are the following.</p>
+<dl>
+<dt>run</dt>
+<dd>Run the main package Go file</dd>
+<dt>build</dt>
+<dd>This compiles the program into an executable. It can also be used to cross compile if you set some environment variables</dd>
+<dt>fmt</dt>
+<dd>Format the source code to a standard set by the Go community</dd>
+<dt>vet</dt>
+<dd>Perform analysis on your Go source file(s) and indicate potential issues</dd>
+</dl>
+<p>We'll use the following two when we build our web server since it'll be constructed as a module.</p>
+<dl>
+<dt>mod</dt>
+<dd>Setup and maintain go module (this is be covered later)</dd>
+<dt>test</dt>
+<dd>Test a go module (e.g. files that end in &quot;_test.go&quot;)</dd>
+</dl>
+<h2>Build a static web server</h2>
+<p>We'll be doing the following next.</p>
+<ol>
+<li>Create a new directory for our web server</li>
+<li>Change into it.</li>
+<li>Go to the http package docs, <a href="https://pkg.go.dev/net/http#example-FileServer-DotFileHiding">https://pkg.go.dev/net/http#example-FileServer-DotFileHiding</a></li>
+<li>Copy the example for the dot file hiding file server and save as webserver.go</li>
+<li>Create a hello world index.html file.</li>
+<li>Use Go &quot;run&quot; our static web server</li>
+</ol>
+<pre><code class="language-shell">
+mkdir webserver
+cd webserver
+edit webserver.go
+edit hello.html
+go run webserver.go
+# You can open your web browser to http://localhost:8080/hello.html
+cd ..
+</code></pre>
+<h2>Build a Markdown web server</h2>
+<ol>
+<li>Create a new directory called &quot;mdserver&quot;</li>
+<li>Change into it</li>
+<li>Initialize the Go module we'll build (e.g. 'github.com/rsdoiel/mdserver', you'd use something that makes sense for you)</li>
+<li>Add a Go modules for working with Markdown, &quot;github.com/yuin/goldmark&quot;</li>
+<li>Write a function to convert Markdown into HTML in a file called markdown.go</li>
+<li>Write a test function called MarkdownToHTML in a file called markdown_test.go</li>
+<li>Run the test to make sure it works</li>
+<li>Write a the function MarkdownHandler function and save it markdown.go</li>
+<li>mkdir called &quot;cli&quot;</li>
+<li>Copy &quot;../webserver/webserver.go&quot; to &quot;cli/mdserver.go&quot;</li>
+<li>Update &quot;cmd/mdserver/mdserver.go&quot; to import our mdserver package</li>
+<li>Wrap the dot file handler function with our MarkdownHandler function</li>
+<li>Using go run to test our web server</li>
+</ol>
+<pre><code class="language-shell">
+mkdir mdserver
+cd mdserver
+go mod init 'github.com/rsdoiel/mdserver'
+go mod tidy
+go get &quot;github.com/yuin/goldmark&quot;
+edit markdown.go
+edit markdown_test.go
+go test
+# Now we're going to create our handler function and test of it
+edit handler.go
+edit handler_test.go
+go test
+# Now let's create our wrapping cli
+mkdir -p cmd/mdserver
+copy ../webserver/webserver.go cmd/mdserver/main.go
+# Import our mdserver package and wrap the dotFileHandler function with the Markdown function
+edit cmd/mdserver/main.go
+go run cmd/mdserver/main.go
+</code></pre>
+<p>We can make a mdserver executable using the build command and specify an output name.</p>
+<pre><code class="language-shell">
+go build -o bin/mdserver cmd/mdserver/main.go
+</code></pre>
+<p>You've not create Go program that is defined by a module/package &quot;mdserver&quot; and runs that package in a command line program. What's left is to learn the language itself, get familiar with the standard library and write more Go programs.</p>
+<h2>Next Steps</h2>
+<ul>
+<li>Go through some of the Go.dev tutorials to better understand Go
+<ul>
+<li>See <a href="https://gobyexample.com/">Go by Example</a>, <a href="https://go.dev/doc/effective_go">Effective Go</a> and <a href="https://awesome-go.com/">Awesome Go</a></li>
+<li>Familiarize yourself with the <a href="https://pkg.go.dev/std#section-directories">standard library</a></li>
+</ul>
+</li>
+<li>Try adding a YAML configuration to our two web server example, <a href="https://pkg.go.dev/gopkg.in/yaml.v3">gopkg.in/yaml.v3</a></li>
+<li>Try out cross compiling to other computer platforms
+<ul>
+<li>See <a href="https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program">Go command documentation</a> and <a href="https://rakyll.org/cross-compilation/">https://rakyll.org/cross-compilation/</a></li>
+</ul>
+</li>
+</ul>
+
       <address>
         <a href="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html">https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html</a>
       </address>
     </article>
-
-    <article data-published="2025-09-11T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.html">
-      <h1>RSS 23 years on</h1>
-
-(date: 2025-09-11)
-      <p>
-      Reflection on Dave Winer's recent post "It's Really Simple"
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.html">https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-09-10T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/09/10/Two_Recent_Articles_on_LLM.html">
-      <h1>Two recent articles on working with Large Language Models</h1>
-
-(date: 2025-09-10)
-      <p>
-      Two online articles discussing application and challenges in using large
-language models for generative work (e.g. generating software source code).
-They are written in clear non technical language.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/09/10/Two_Recent_Articles_on_LLM.html">https://rsdoiel.github.io/blog/2025/09/10/Two_Recent_Articles_on_LLM.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-09-05T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.html">
-      <h1>Build a Blog with Antenna</h1>
-
-(date: 2025-09-05)
-      <p>
-      This is a short post on using antennaApp to build a traditional blog.
-All you need is antennaApp, a text editor and a little knowledge of
-Markdown.
-
-antennaApp uses the front matter expressed as YAML as metadata for
-processing the blog post and collecting the metadata for rendering
-a page listing all the posts (an aggregation of posts) as HTML and
-as an RSS 2.0 feeed.
-
-HTML pages can be customized for your sight in a simple YAML
-configuration file.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.html">https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-08-31T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.html">
-      <h1>Building Your Own Antenna</h1>
-
-(date: 2025-08-31)
-      <p>
-      I have been prototyping my personal news site called [Antenna](https://rsdoiel.github.io/antenna)
-since 2023. It was inspired by Dave Winer's [news.scripting.com](https://news.scripting.com). It
-has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available
-over my home network and I make it public by publishing via GitHub pages. Over the last two years it
-has become the first place I go to consume content from the web (second is Dave's news.scripting.com).
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.html">https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-08-10T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.html">
-      <h1>Generating RSS with FlatLake</h1>
-
-(date: 2025-08-10)
-      <p>
-      A show post describing a prototype in Deno+TypeScript for generating RSS 2.0 feeds from a FlatLake generated JSON API.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.html">https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-08-09T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html">
-      <h1>Opensearch Description Document needs love</h1>
-
-(date: 2025-08-09)
-      <p>
-      Opensearch Description Document is a specification for describing how a site search can integrate into your web browser. In 2025 it is still supported by Firefox, Safari and Chrome. It lets you integrate your site search into your browsers URL box (a.k.a. omnibox) as a first class search citizen. It is a means for us to take back search.
-In this article I use a simple case study of integrating a PageFind search using an Opensearch Description Document.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html">https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-07-26T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html">
-      <h1>Build a CommonMark Processor</h1>
-
-(date: 2025-07-26, updated: 2025-07-28)
-      <p>
-      In this post I go over the process of building a TypeScript module called `commonMarkDoc.ts` along with a simple command line CommonMark processor called `cmarkprocess`.
-CommonMark pre-processor features are
-
-  - support `@include-code-block` for including code samples as code blocks
-  - support `@include-text-block` for include plain text into a CommonMark document
-  - transform Hashtags into front matter
-  - transform @Tags into front matter
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html">https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-07-24T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html">
-      <h1>Signed Binaries and Business Models</h1>
-
-(date: 2025-07-24, updated: 2025-07-28)
-      <p>
-      This post explains why I don't provide signed binaries in the open source software I create and release.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html">https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-07-21T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html">
-      <h1>Simplifying BlogIt</h1>
-
-(date: 2025-07-21, updated: 2025-07-28)
-      <p>
-      BlogIt is a command I've written many times over the years. At it's core
-is did a two simple things. 
-
-1. Copy CommonMark files into a blog directory three
-2. Use Front Matter as a source for aggregated blog metadata
-
-In it the new incarnation it is primarily focus on curating the front matter
-followed by copying the document into the blog directory structure. 
-
-1. Curate CommonMark file front matter
-2. Copy CommonMark files into the blog directory tree
-
-Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html">https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-06-30T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html">
-      <h1>Build a Static Web Server with Deno</h1>
-
-(date: 2025-06-30, updated: 2025-07-23)
-      <p>
-      This post discusses static web server implementation using Deno.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html">https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-06-07T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html">
-      <h1>Rethinking REST</h1>
-
-(date: 2025-06-07, updated: 2025-07-23)
-      <p>
-      I am re-thinking my reliance on REST's implementation of the CRUD abstraction in favor of the simpler
-read write file abstraction in my web application. This can be accomplished in SQL easily. This post
-covers an example of doing this in SQLite3 while also implementing JSON object versioning.
-
-Coverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3's
-`on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.
-The trigger maintains the version number and updated timestamp.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html">https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-06-05T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html">
-      <h1>PowerShell and Edit for macOS, Linux and Windows</h1>
-
-(date: 2025-06-05, updated: 2025-07-23)
-      <p>
-      One of the challenges of multi platform support is the variance in tools. Unix and related operating systems are pretty unified these days. The differences are minor today as opposed to twenty years ago. If you need to support Windows too it's a whole different story. You can jump to Linux Subsystem for Windows but that is really like using a container inside Windows and doesn't solve the problem when you need to work across the whole system. 
-
-Windows' shell experience is varied. Originally it was command com, essentially a enhanced CP/M shell. Much later as Windows moved beyond then replaced MS-DOS they invented PowerShell. Initially a Windows only system. Fast forward today things have change. PowerShell runs across Windows, macOS and Linux. It is even licensed under an MIT style license.
-
-...
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html">https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-05-25T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html">
-      <h1>A quick note on types in Deno+TypeScript</h1>
-
-(date: 2025-05-25, updated: 2025-07-23)
-      <p>
-      Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.
-
-There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following
-the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)
-
-...
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html">https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-04-10T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html">
-      <h1>New Life for Fielded Search</h1>
-
-(date: 2025-04-10, updated: 2025-07-23)
-      <p>
-      A day dreaming in response to a Simon Willison post on using language models
-to convert queries into fielded searches. In this post I extrapolate how this
-could result in a more private search experience and allow for an enhanced
-search experience for static websites.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html">https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-03-30T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html">
-      <h1>LLM first impressions a few weeks in</h1>
-
-(date: 2025-03-30, updated: 2025-07-23)
-      <p>
-      A first take of LLM use for coding projects.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html">https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-03-13T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html">
-      <h1>Building Web Components using Large Language Models</h1>
-
-(date: 2025-03-13, updated: 2025-07-23)
-      <p>
-      Quick discussion of my recent experience bootstrapping the CL-web-components project
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html">https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-02-14T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html">
-      <h1>Setting up my Raspberry Pi 500, a Portable Workstation</h1>
-
-(date: 2025-02-14, updated: 2025-07-23)
-      <p>
-      Quick notes on configuring a Raspberry Pi 500 as a portable workstation along with a price list.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html">https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-02-10T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html">
-      <h1>Book review, "Man and the Computer"</h1>
-
-(date: 2025-02-10, updated: 2025-07-23)
-      <p>
-      A book review of a vintage computer publication, "Man and the Computer" by
-John G. Kemeny, published 1972, ISBN: 0684130092
-Read at the Open Library, <https://openlibrary.org/books/OL5282840M/Man_and_the_computer> 
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html">https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-02-03T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html">
-      <h1>Working with Structured Data in Deno and TypeScript</h1>
-
-(date: 2025-02-03, updated: 2025-07-23)
-      <p>
-      A short discourse on working with structured data in TypeScript and easily
-converting from JSON, YAML and XML representations.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html">https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-01-31T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html">
-      <h1>Moving beyond git template repositories with CodeMeta</h1>
-
-(date: 2025-01-31, updated: 2025-07-23)
-      <p>
-      An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html">https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-01-29T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html">
-      <h1>Deno 2.1.7, Project Idioms</h1>
-
-(date: 2025-01-29, updated: 2025-07-23)
-      <p>
-      Notes on some of the file and code idioms I'm using with Deno+TypeScript projects.
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html">https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-01-26T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html">
-      <h1>Deno 2.1.7, Points of Friction</h1>
-
-(date: 2025-01-26, updated: 2025-07-23)
-      <p>
-      A short discussion of working with file input in TypeScript+Deno coming from the
-perspective of Go's idiomatic use of io buffers.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html">https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-12-13T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html">
-      <h1>Installing Deno via Cargo and other options</h1>
-
-(date: 2024-12-13, updated: 2025-07-22)
-      <p>
-      Notes on setting up a Debian flavored Linux boxes, macOS and Windows to install Deno via `cargo install deno`,
-`curl -fsSL https://deno.land/install.sh | sh` or
-`iwr https://deno.land/install.ps1 -useb | iex`
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html">https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-12-06T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html">
-      <h1>When Deno+TypeScript, when Go?</h1>
-
-(date: 2024-12-06, updated: 2025-07-22)
-      <p>
-      Brief discussion of when I choose Deno+TypeScript versus Go for work projects.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html">https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-11-21T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html">
-      <h1>Transpiling & Bundling with Emit</h1>
-
-(date: 2024-11-21, updated: 2025-07-23)
-      <p>
-      A brief discussion of using the Deno emit module to transpile and bundle
-TypeScript.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html">https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-11-20T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html">
-      <h1>Raspberry Pi 4 & 400 Power Supply Issues</h1>
-
-(date: 2024-11-20, updated: 2025-07-23)
-      <p>
-      Quick notes on some low voltage issues I ran into with my Raspberry Pi 4 and 400 using the stock power supply with thumb drives.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html">https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-11-06T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html">
-      <h1>Rust tools for Web Work</h1>
-
-(date: 2024-11-06, updated: 2025-07-23)
-      <p>
-      A quick review of a PageFind and FlatLake by Cloud Cannon. A brief description of how I use them.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html">https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-10-31T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html">
-      <h1>SQLite3 json_patch is a jewel</h1>
-
-(date: 2024-10-31, updated: 2025-07-23)
-      <p>
-      Quick note about json_path function in SQLite3
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html">https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-10-31T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html">
-      <h1>Limit and offset for row pruning</h1>
-
-(date: 2024-10-31, updated: 2025-07-23)
-      <p>
-      Noted are how to combine a select statement with limit and offset clauses with a delete statement to prune rows.
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html">https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html</a>
-      </address>
-    </article>
-
-    <article data-published="2024-10-18T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html">
-      <h1>Quick tour of Deno 2.0.2</h1>
-
-(date: 2024-10-18, updated: 2025-07-23)
-      <p>
-      A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,
-ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile
-TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html">https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html</a>
-      </address>
-    </article>
   </section>
   <footer>
+    <footer>
     <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
-  </footer>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
+  </footer>
 </body>
 </html>

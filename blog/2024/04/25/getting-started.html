@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="getting-started.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="getting-started.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,9 +35,9 @@
 
   <section>
     <article data-published="2024-04-25" data-link="https://rsdoiel.github.io/blog/2024/04/25/getting-started.html">
-      <h1 id="getting-started-with-miranda">Getting Started with Miranda</h1>
+      <h1>Getting Started with Miranda</h1>
       <p>I've been interested in exploring the Miranda programming language. Miranda influenced Haskell. Haskell was used for programs I use almost daily such as <a href="https://pandoc.org">Pandoc</a> and <a href="https://www.shellcheck.net/">shellcheck</a>. I've given a quick review of <a href="https://miranda.org.uk">miranda.org.uk</a> to get a sense of the language but to follow along with the <a href="https://www.cs.kent.ac.uk/people/staff/sjt/Miranda_craft/">Miranda: The Craft of Functional Programming</a> it is really helpful to have Miranda available on my machine. Today that machine is a Mac Mini, M1 processor, running macOS Sonoma (14.4.x) and the related Xcode C tool chain.  I ran into to minor hiccups in compilation and installation. Both easy to overcome but ones I will surely forget in the future. Thus I write myself another blog post.</p>
-      <h2 id="compilation">Compilation</h2>
+      <h2>Compilation</h2>
       <p>First down load Miranda source code at <a href="http://miranda.org.uk/downloads">http://miranda.org.uk/downloads</a>. The version 2.066 is the most recent release I saw linked (2024-04-25), <a href="http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11">http://www.cs.kent.ac.uk/people/staff/dat/ccount/click.php?id=11</a>. The <a href="https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/COPYING">COPYING</a> link shows the terms under which this source release is made available.</p>
       <p>Next you need to untar/gzip the tarball you downloaded. Try running <code>make</code> to see if it compiles. On my Mac Mini I got a compile error that looks like</p>
       <pre><code class="language-shell">make
@@ -61,8 +67,8 @@
       6
       /q
       </code></pre>
-      <p>Miranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into <code>/usr</code>).<br />
-      I'd rather it install into my home directory so I copied the Makefile to <code>miranda.mak</code> and change the lines setting <code>BIN</code>, <code>LIB</code> and <code>MAN</code> to the following<br />
+      <p>Miranda seems to work. The Makefile comes with a an install rule but the install defaults doesn't really work with macOS (it wants to install into <code>/usr</code>).
+      I'd rather it install into my home directory so I copied the Makefile to <code>miranda.mak</code> and change the lines setting <code>BIN</code>, <code>LIB</code> and <code>MAN</code> to the following
       lines.</p>
       <pre><code class="language-Makefile">BIN=$(HOME)/bin
       LIB=$(HOME)/lib#beware no spaces after LIB
@@ -72,17 +78,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

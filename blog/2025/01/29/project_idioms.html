@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="project_idioms.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="project_idioms.md" rel="altenate" type="text/markdown" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" />
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,34 +35,40 @@
 
   <section>
     <article data-published="2025-01-29" data-link="https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html">
-      <h1 id="deno-217-project-idioms">Deno 2.1.7, Project Idioms</h1>
+      <h1>Deno 2.1.7, Project Idioms</h1>
       <p>I've noticed a collection of file and code idioms I've been used in my recent Deno+TypeScript projects at work. I've captured them here as a future reference.</p>
-      <h2 id="project-files">Project files</h2>
+      <h2>Project files</h2>
       <p>My project generally have the following files, these are derived from the <a href="https://codemeta.github.io">CodeMeta</a> file using <a href="https://caltechlibrary.github.io/CMTools">CMTools</a>.</p>
-      <p>codemeta.json<br />
-      : Primary source of project metadata, used to generate various files</p>
-      <p>CITATION.cff<br />
-      : used by GitHub for citations. version, dateModified, datePublished and releaseNotes</p>
-      <p>about.md<br />
-      : A project about page. This is generated based on the codemeta.json file.</p>
-      <p>README.md, README<br />
-      : A general read me describing the project and pointing to INSTALL.md, user_manual.md as appropriate</p>
-      <p>INSTALL.md<br />
-      : These are boiler plate description of how to install and compile the software</p>
-      <p>user_manual.md<br />
-      : This is an index document, a table of contents. It points to other document including Markdown versions of the man page(s).</p>
+      <dl>
+      <dt>codemeta.json</dt>
+      <dd>Primary source of project metadata, used to generate various files</dd>
+      <dt>CITATION.cff</dt>
+      <dd>used by GitHub for citations. version, dateModified, datePublished and releaseNotes</dd>
+      <dt>about.md</dt>
+      <dd>A project about page. This is generated based on the codemeta.json file.</dd>
+      <dt>README.md, README</dt>
+      <dd>A general read me describing the project and pointing to INSTALL.md, user_manual.md as appropriate</dd>
+      <dt>INSTALL.md</dt>
+      <dd>These are boiler plate description of how to install and compile the software</dd>
+      <dt>user_manual.md</dt>
+      <dd>This is an index document, a table of contents. It points to other document including Markdown versions of the man page(s).</dd>
+      </dl>
       <p>For TypeScript projects I also include a following</p>
-      <p>version.ts<br />
-      : This hold project version information used in the TypeScript co-debase. It is generated from the codemeta.json via CMTools.</p>
-      <p>helptext.ts<br />
-      : This is where I place a function, <code>fmtHelp()</code>, for rendering response to the &quot;help&quot; command line option.</p>
+      <dl>
+      <dt>version.ts</dt>
+      <dd>This hold project version information used in the TypeScript co-debase. It is generated from the codemeta.json via CMTools.</dd>
+      <dt>helptext.ts</dt>
+      <dd>This is where I place a function, <code>fmtHelp()</code>, for rendering response to the &quot;help&quot; command line option.</dd>
+      </dl>
       <p>I'm currently ambivalent about &quot;main.ts&quot; file which is created by <code>deno init</code>. My ambivalent is that most of my projects wind up producing more than one program from a shared code base. a single &quot;main.ts&quot; doesn't really fit that situation.</p>
       <p>The command line tool will have a TypeScript with it's name. Inside this file I'll have a main function and use the Deno idiom <code>if (import.meta.main) main();</code> to invoke it. I don't generally put the command line  TypeScript in my &quot;mod.ts&quot; file since it's not going to work in a browser or be useful outside my specific project.</p>
-      <p>mod.ts<br />
-      : I usually re-export modules here that maybe useful outside my project (or in the web browser).</p>
-      <p>deps.ts<br />
-      : I use this if there are allot of files consistently being imported across the project, otherwise I skip it.</p>
-      <h2 id="what-i-put-in-main">What I put in Main</h2>
+      <dl>
+      <dt>mod.ts</dt>
+      <dd>I usually re-export modules here that maybe useful outside my project (or in the web browser).</dd>
+      <dt>deps.ts</dt>
+      <dd>I use this if there are allot of files consistently being imported across the project, otherwise I skip it.</dd>
+      </dl>
+      <h2>What I put in Main</h2>
       <p>I use the main function to define command line options, handle parameters such as data input, output and errors. It usually invokes a primary function modeled in the rest of the project code.</p>
       <p>Here is an example Main for a simple &quot;cat&quot; like program.</p>
       <pre><code class="language-TypeScript">import { parseArgs } from &quot;jsr:@std/cli&quot;;
@@ -117,7 +129,7 @@
       
       if (import.meta.main) main();
       </code></pre>
-      <h2 id="helptextts">helptext.ts</h2>
+      <h2>helptext.ts</h2>
       <p>The following is an example of the <a href="helptext.ts">helptext.ts</a> file for the demo <a href="mycat.ts">mycat.ts</a>.</p>
       <pre><code class="language-TypeScript">export function fmtHelp(
         txt: string,
@@ -171,24 +183,23 @@
       ~~~
       `;
       </code></pre>
-      <h2 id="generating-versionts">Generating version.ts</h2>
+      <h2>Generating version.ts</h2>
       <p>The <a href="version.ts">version.ts</a> is generated form two files, [codemeta.json] and [LICENSE] using the CMTools, <code>cmt</code> command.</p>
       <pre><code>cmt codemeta.json veresion.ts
       </code></pre>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

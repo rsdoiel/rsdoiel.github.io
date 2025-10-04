@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="node-npm-electron.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" />
+  <meta content="antenna/0.0.10" name="generator" />
+  <meta name="date" content="2025-10-03T16:58:06-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="EN" name="language" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="node-npm-electron.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,14 +35,14 @@
 
   <section>
     <article data-published="2017-10-20" data-link="https://rsdoiel.github.io/blog/2017/10/20/node-npm-electron.html">
-      <h1 id="nodejs-npm-electron">NodeJS, NPM, Electron</h1>
+      <h1>NodeJS, NPM, Electron</h1>
       <p>By R. S. Doiel 2017-10-20</p>
-      <p>Electron is an app platform leveraging web technologies. Conceptually it is a<br />
-      mashup of NodeJS and Chrome browser. <a href="https://electron.atom.io/">Electron</a> site<br />
-      has a nice starter app. It displays a window with Electron version info and<br />
+      <p>Electron is an app platform leveraging web technologies. Conceptually it is a
+      mashup of NodeJS and Chrome browser. <a href="https://electron.atom.io/">Electron</a> site
+      has a nice starter app. It displays a window with Electron version info and
       'hello world'.</p>
-      <p>Before you can get going with <em>Electron</em> you need to have a<br />
-      working <em>NodeJS</em> and <em>NPM</em>. I usually compile from source and this<br />
+      <p>Before you can get going with <em>Electron</em> you need to have a
+      working <em>NodeJS</em> and <em>NPM</em>. I usually compile from source and this
       was my old recipe (adjusted for v8.7.0).</p>
       <pre><code class="language-shell">    cd
           git clone https://github.com/nodejs/node.git
@@ -52,18 +58,17 @@
           npm install
           npm start
       </code></pre>
-      <p>Notice <em>Electron</em> depends on a working <em>node</em> and <em>npm</em>.  When I<br />
-      tried this recipe it failed on <code>npm install</code> with errors regarding<br />
+      <p>Notice <em>Electron</em> depends on a working <em>node</em> and <em>npm</em>.  When I
+      tried this recipe it failed on <code>npm install</code> with errors regarding
       internal missing node modules.</p>
-      <p>After some fiddling I confirmed my node/npm install failed because<br />
-      I had install the new version of over a partially installed previous<br />
-      version. This causes the node_modules to be populated with various<br />
+      <p>After some fiddling I confirmed my node/npm install failed because
+      I had install the new version of over a partially installed previous
+      version. This causes the node_modules to be populated with various
       conflicting versions of internal modules.</p>
-      <p>Sorting that out allowed me to test the current version of<br />
-      <em>electron-quick-start</em> cloned on 2017-10-20 under <em>NodeJS</em> v8.7.0.</p>
-      <h2 id="avoiding-setup-issues-in-the-future">Avoiding Setup Issues in the future</h2>
-      <p>The <em>Makefile</em> for <em>NodeJS</em> includes an 'uninstall' option. Revising<br />
-      my <em>NodeJS</em> install recipe above I now do the following to setup a machine<br />
+      <p>Sorting that out allowed me to test the current version of<em>electron-quick-start</em> cloned on 2017-10-20 under <em>NodeJS</em> v8.7.0.</p>
+      <h2>Avoiding Setup Issues in the future</h2>
+      <p>The <em>Makefile</em> for <em>NodeJS</em> includes an 'uninstall' option. Revising
+      my <em>NodeJS</em> install recipe above I now do the following to setup a machine
       to work with <em>NodeJS</em> or <em>Electron</em>.</p>
       <pre><code class="language-shell">    git clone git@github.com:nodejs/node.git
           cd node
@@ -73,29 +78,27 @@
           make -j 5
           make install
       </code></pre>
-      <p>If I am on a device with a multi-core CPU (most of the time) you can speed<br />
-      up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option (e.g. <code>-j 5</code><br />
+      <p>If I am on a device with a multi-core CPU (most of the time) you can speed
+      up the make process using a <code>-j CPU_CORE_COUNT_PLUS_ONE</code> option (e.g. <code>-j 5</code>
       for my 4 core x86 laptop).</p>
-      <p>Once <em>node</em> and <em>npm</em> were working normally the instructions in the<br />
-      <em>electron-quick-start</em> worked flawlessly on my x86.</p>
-      <p>I have tested the node install recipe change on my Pine64 Pinebook, on<br />
+      <p>Once <em>node</em> and <em>npm</em> were working normally the instructions in the<em>electron-quick-start</em> worked flawlessly on my x86.</p>
+      <p>I have tested the node install recipe change on my Pine64 Pinebook, on
       several Raspberry Pi 3s as well as my x86 Ubuntu Linux laptop.</p>
-      <p>I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi's yet.<br />
+      <p>I have not gotten Electron up on my Pine64 Pinebook or Raspberry Pi's yet.
       <code>npm install</code> outputs errors suggesting that it is expecting an x86 architecture.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Build_a_Static_Web_Server.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta name="date" content="2025-10-03T16:58:07-07:00" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Build_a_Static_Web_Server.md" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-06-30" data-link="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html">
-      <h1 id="build-your-own-static-web-server-with-deno">Build your own static web server with Deno</h1>
+      <h1>Build your own static web server with Deno</h1>
       <p>By R. S. Doiel, 2025-06-30</p>
       <p>One of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as &quot;application/javascript&quot; not as &quot;text/plain&quot;). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the &quot;htdocs&quot; directory in my current working directory.</p>
       <p>When I started working with the web (when people used the NCSA web server), web servers were considered complex and hard to implement. I remember most network systems were presumed complex. Today most programming languages have some sort of library, module or package that makes implementing a web server trivial. This is true for JavaScript running under a JavaScript run time engine.</p>
@@ -60,7 +66,7 @@
       
       1 directory, 2 files
       </code></pre>
-      <h2 id="first-prototype">First prototype</h2>
+      <h2>First prototype</h2>
       <p>Using a text editor, I create a file called <code>webserver_v1.js</code>. I need to do several things in JavaScript to build our static web server.</p>
       <ol>
       <li>import a function called <code>serveDir</code> from the &quot;@std/http/file-server&quot; module</li>
@@ -151,7 +157,7 @@
       No such file or directory (os error 2): stat '/Users/rsdoiel/Sandbox/Writing/Books/A_Simple_Web/htdocs/favicon.ico'
       [2025-06-30 16:27:31] [GET] /favicon.ico 404
       </code></pre>
-      <p>I reload my web browser page, what do I see? A list of files. I know that file directory listing works.<br />
+      <p>I reload my web browser page, what do I see? A list of files. I know that file directory listing works.
       One of the files is &quot;helloworld.html&quot;.  I click on it. I my simple web page with the words &quot;Hello World&quot; and &quot;Hello World 2&quot;. Yippee, I've created a static web server.</p>
       <p>You might be wondering how I shutdown the web server. In the terminal window I press control and the letter c, aka &quot;Ctrl-C&quot;. This will shuts down the web server. I can confirm it is shutdown in the web browser by reloading the page. I see an connection error page now.</p>
       <p>I don't want to answer questions about permissions each time I run my prototype. I can specify the permissions I want to grant on the command line.  I know from my test that my program needs &quot;net&quot; and &quot;read&quot; permissions. I can grant this using the following command.</p>
@@ -161,7 +167,7 @@
       <pre><code class="language-shell">deno compile --allow-net --allow-read webserver_v1.js
       </code></pre>
       <p>This results in a file being created called &quot;webserver_v1&quot; (or on Windows, &quot;webserver_v1.exe&quot;). This file can be run from this directory or moved to another directory where I store other programs (e.g. <code>$HOME/bin</code> or <code>$HOME\bin</code> on Windows).</p>
-      <h2 id="improving-on-v1">Improving on v1</h2>
+      <h2>Improving on v1</h2>
       <p>While webserver_v1.js is helpful it could be more friendly. What if I want to use a different port number? What if I want to server out content my current directory or maybe I want to service content on a different mounted drive? I can do that by adding support for command line arguments.</p>
       <pre><code class="language-JavaScript">/**
        * webserver_v2.js - A simple static file server with configurable port and root directory.
@@ -353,17 +359,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

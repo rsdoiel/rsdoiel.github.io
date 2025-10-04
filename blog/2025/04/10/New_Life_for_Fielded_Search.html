@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="New_Life_for_Fielded_Search.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" />
+  <meta name="generator" content="antenna/0.0.10" />
+  <meta content="2025-10-03T16:58:07-07:00" name="date" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="language" content="EN" />
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="New_Life_for_Fielded_Search.md" rel="altenate" />
+  <link rel="stylesheet" type="text/css" href="/css/site.css" />
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" />
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" />
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" />
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-04-10" data-link="https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html">
-      <h1 id="new-life-for-fielded-searches">New Life for Fielded Searches</h1>
+      <h1>New Life for Fielded Searches</h1>
       <p>By R. S. Doiel, 2025-04-10</p>
       <p><a href="https://simonwillison.net/2025/Apr/9/an-llm-query-understanding-service/">Simon Willison</a> posted an article yesterday that caught my eye. He was pointing out how even small language models can be used to breakdown a search query into fielded tokens.  Some of the earliest search engine, way before Google's one box, search engines were built on SQL databases. Full text search was tricky. Eventually full text search become a distinct service, e.g. <a href="https://solr.apache.org">Solr</a>. The full text search engine enabled the simple search to become the expected way to handle search. Later search engines like Google's use log analysis to improve this experience further. When you use a common search string like &quot;spelling of anaconda&quot;, &quot;meaning of euphemism&quot;, &quot;time in Hawaii&quot; these results are retrieved from a cache. The ones that are location/time sensitive can be handled by simple services that either populate the cache or return a result then populate the cache with a short expatriation time. Life in search land was good.  Then large language models hit the big time and the &quot;AI&quot; hyperbole cranked up to 11.</p>
       <p>There has been flirtation with replacing full text engines or more venerable SQL databases with large language models.  There is a catch. Well many catches but let me focus on just one. The commercial large language models are a few years out of date. When you use a traditional search engine you expect the results to reflect recent changes. Take shopping a price from two years ago isn't has useful as today's price given the tariff fiasco. Assembling large language models takes allot of time, compute resources and energy. Updating them with today's changes isn't a quick process even if you can afford the computer and energy costs. So what do? One approach as been to allow the results of a large language model to have agency. Agency is to use a traditional search engine to get results.  They're serious challenges with this approach. These include performance, impact on other web services and of course security.</p>
@@ -43,7 +49,7 @@
       </ol>
       <p>The key point in Simon Willison's post is that you can use a smaller language model. This means you don't need more hardware to add the Ollama integration. You can shoe horn it into your existing infrastructure.</p>
       <p>This pipeline is a simple to construct.  This trick part is finding the right model and evaluating the results and deciding when the LLM translation to a JSON search object is good enough. Worst case is the original query string can still be passed off to your full text engine. So far so good. A slightly more complex search stack with hopefully improved usefulness.</p>
-      <h2 id="a-few-steps-down-the-rabbit-hole">a few steps down the rabbit hole</h2>
+      <h2>a few steps down the rabbit hole</h2>
       <p>Where I think things become interesting is when you consider where search processing can happen. In the old days the whole stack had to be on the server. Today that's isn't true.  The LLM piece might still be best running server side but the full text search engine can be provided along with your statically hosted website. You can even integrate with a statically hosted JSON API. In light of that let's revisit my sequence.</p>
       <ol>
       <li>Front end web service response with a search page to the browser</li>
@@ -59,17 +65,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>
