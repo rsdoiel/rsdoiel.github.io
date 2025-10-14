@@ -1,294 +1,683 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:source="https://source.scripting.com/">
   <atom:link href="http://localhost:8000/blogxml" rel="self" type="application/rss+xml" />
   <channel>
     <title>Robert's Ramblings</title>
     <description>
-      Robert's blog on software development and technology
+      Recent posts on software development and technology
     </description>
     <link>http://localhost:8000/blogxml</link>
-    <lastBuildDate>23 Sep 25 08:17 -0700</lastBuildDate>
-    <generator>antenna/0.0.7</generator>
+    <lastBuildDate>14 Oct 25 15:45 -0700</lastBuildDate>
+    <generator>antenna/0.0.13</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
-      <title>Getting started with Go</title>
-      <link>https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html</link>
+      <title>Simple websites with Markdown and CSS</title>
+      <link>https://rsdoiel.github.io/blog/2025/10/14/simple_website_with_Markdown_and_CSS.html</link>
       <description>
-        <![CDATA[A quick intro to Go and tool chain]]>
+        <![CDATA[I've come to think of the Web as a network hypertext system instead of thinking about it in terms of the technology that built it. Doing so has shown we have a human friendly tool to express hypertext in Markdown. Markdown allows many more people to participate in creating content for the web. A web we can own. This I think can allow us to focus web writing around the writing itself rather than on the tools we use to express the writing on the web. Sprinkle in a little CSS and you can have presentable website expressing what you want to say. This post explores that concept where Markdown as our primary means of creating a text oriented website using a text editor, a web browser and the [Antenna App](https://rsdoiel.github.io/antennaApp)]]>
       </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.md" length="7360" type="text/markdown" />
+      <source:markdown># Create Simple Websites using only Markdown
+
+&#62; The [Antenna App](/antennaApp) is shaping the way I write and build websites
+
+By R. S. Doiel, 2025-10-14
+
+The Web as a __networked hypertext system__. A human friendly way of expressing hypertext is [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown has allowed many people to participate in creating content for the web. I think it deserves more focus. Between Markdown and a sprinkle of CSS and you can create entire websites using your own computer or hosted on a static site host  provider[^1]. In this post I show how Markdown can be the central focus in creating basic websites. All it requires is knowing a little Markdown, a text editor, web browser and the [Antenna App](https://rsdoiel.github.io/antennaApp).
+
+[^1]: Example, GitHub Pages, Dreamhost or in S3 buckets setup as static websites at AWS
+
+Demonstrated in this post:
+
+- A means of creating a web page (HTML page) using Markdown and the Antenna App
+- A means of creating a simple multi page website with navigation using an Antenna App theme
+- A means of styling the web site using CSS expressed as part of an Antenna App theme 
+
+NOTE: Antenna supports creating many types of websites. Examples include [microblogs](https://en.wikipedia.org/wiki/Microblogging), [blogs](https://en.wikipedia.org/wiki/Blog), [linkblogs](https://en.wikipedia.org/wiki/Linklog), [wikis](https://en.wikipedia.org/wiki/Wiki) and hybrids of these. Pretty much what you need to be social on the web without resorting to the silos of Big Corp.
+
+## What you need to get started
+
+- A computer
+- A terminal app
+- A text editor
+- A web browser
+- Antenna App
+
+Chances are you have the first four if you&#39;re reading this. What I describe in this ports should work on computers running Windows, macOS and Linux based systems. If you need to acquire a computer and already have a HDMI television I recommend getting a Raspberry Pi Computer. The Raspberry Pi 500 Kit is a nice middle range device that runs about $120.00 US. It includes a book about using Raspberry Pi computers. If you can afford a bit more the Raspberry Pi 500+ Kit should be out by Christmas 2025 and that&#39;ll probably run in the ballpark of $240.00 US. That&#39;s a nice computer with lots of storage and the bells and whistles to do image, audio and light video work. If you are on a budget then you can squeak by with a Raspberry Pi Zero 2W running the software. That setup will set you back about $50.00 US with the minimum accessories needed like case, keyboard, mouse, power supply and cables to connect things up. The Official Raspberry Pi Handbook print edition runs between $25.00 US but the electronic edition that you can read on your phone or tablet is free. My point is that for a little bit of investment or using your existing resources you have the means of building websites for yourself and others. You don&#39;t need to be a programmer or even a web designer if you are comfortable editing text and doing a bit of writing. 
+
+The [Antenna App](https://rsdoiel.github.io/antennaApp) is software I wrote to prove to myself that building websites could be made simpler. I currently use it to curate my own websites include my blog and personal news site, &#60;https://rsdoiel.github.io/antenna&#62; and &#60;https://rsdoiel.github.io/antennaApp/INSTALL.html&#62;.
+
+## Installing Antenna App
+
+If you need to install the Antenna App you need to use your terminal to run the following command on macOS and Linux like systems.
+
+~~~shell
+curl https://rsdoiel.github.io/antennaApp/installer.sh | sh
+~~~
+
+or on Windows in Powershell you can use this command.
+
+~~~shell
+irm https://rsdoiel.github.io/antennaApp/installer.ps1 | iex
+~~~
+
+You can find detailed instructions in getting the latest version of the Antenna App at &#60;https://rsdoiel.github.io/antennaApp/INSTALL.html&#62;.
+
+## Build a simple website
+
+On your computer open the Terminal application. The basic steps you&#39;ll be taking are the following.
+
+1. Create a project directory, &#34;simple&#34;, and change into it
+2. Use the Antenna App to setup your site using the &#34;init&#34; command
+3. Create a home page in Markdown called &#34;index.md&#34;
+4. Generate the HTML page, &#34;index.html&#34; using Antenna
+5. Preview your website in your web browser
+
+Here is what you type in the terminal for steps one through two.
+
+~~~shell
+
+mkdir simple
+cd simple
+antenna init
+~~~
+
+If you look at the contents of that directory.
+
+~~~shell
+
+ls
+~~~
+
+You should see the following files in the simple directory.
+
+~~~shell
+
+antenna.yaml
+page.yaml
+~~~
+
+These files are used by Antenna App to generate your website. The &#34;antenna.yaml&#34; is the main configuration file. The &#34;page.yaml&#34; file is used by Antenna App to know how to construct an HTML page.
+
+For step three we need to use a text editor. On Raspberry Pi mousepad is the the default editor. On Windows it is notepad and macOS its textedit. Many people use [VS Code](https://code.visualstudio.com/download) editor which is available on macOS, Windows and Raspberry Pi OS. That is what I&#39;ll be using in my examples. You can change the &#34;code&#34; references to the editor you prefer.
+
+On my Raspberry Pi I can run the editor creating &#34;index.md&#34; when I save it. Here is the command I type into my terminal to do that.
+
+~~~shell
+
+code index.md
+~~~
+
+In the editor window you should see an empty file. Type in the following and save the file as &#34;index.md&#34; in the simple directory.
+
+~~~markdown
+
+Hello World! 
+
+~~~
+
+Now we want to use Antenna App &#34;page&#34; command to turn that &#34;index.md&#34; into our home web page. This is the command you type into your Terminal window.
+
+~~~shell
+
+antenna page index.md
+~~~
+
+If you check the contents of the simple directory.
+
+~~~shell
+
+ls
+~~~
+
+You should see three four files now.
+
+~~~
+
+antenna.yaml
+index.md
+index.html
+page.yaml
+~~~
+
+We can new preview the website by run the Antenna App&#39;s &#34;preview&#39; command. This command runs a little web server on your computer so you can view the results of your handy work in your web browser.
+
+~~~shell
+
+antenna preview
+~~~
+
+Started your web browser and open the URL &#60;http://localhost:8000&#62;.  You should see your Hello World homepage. If you open &#60;view-source:http://localhost:8000&#62; you&#39;ll see the HTML source generated by the &#34;page&#34; command. When you are finished go back to your Terminal window and hold down the control key and press the &#34;C&#34; key (Ctrl-C). This exits the preview command. If you reload the pages in your web browser you&#39;ll get your browser&#39;s default page indicating that the pages are not available.
+
+### Expanding our site
+
+Our site isn&#39;t useful website yet. There are no links. Modify &#34;index.md&#34; file to look like this.
+
+~~~markdown
+
+# Hello World!
+
+Learn about [Markdown](https://en.wikipedia.org/wiki/Markdown) on
+John Grubber&#39;s website &#60;https://daringfireball.net/projects/markdown/&#62;.
+
+~~~
+
+Once you&#39;ve saved this revision use the page command to update the HTML. After that run the preview command like before. Switch back to your terminal and type the following.
+
+~~~shell
+
+antenna page index.md
+antenna preview
+~~~
+
+Refresh (reload) your web browser page for the URL &#60;http://localhost:8000&#62;.  Our &#34;Hello World&#34; homepage, &#34;index.md&#34;, now should be transformed with &#34;Hello World&#34; displaying as a heading and our added paragraph with links to Wikipedia and Daring Fireball websites. Refresh the &#34;view-source&#34; version of the pages and see the additional HTML markup generated by the page command.
+
+### Elaboration
+
+A single page website is very limited.  You can create more pages going through the process we used for &#34;index.md&#34;. Here&#39;s the basic sequence.
+
+1. create or edit the markdown document in your editor, save it
+2. use the page command to render the HTML version
+3. use the preview command and your web browser to see your handy work
+
+Let&#39;s add a page called &#34;fruit.md&#34; with a list of heading and list fruits.
+
+~~~shell
+
+code fruit.md
+~~~
+
+Here&#39;s the text of the fruits.md page.
+
+~~~Markdown
+
+# Fruit
+
+- Dragon Fruit
+- Lime
+- Mango
+
+~~~
+
+You turn the page into HTML using the page command and then preview the website again
+
+~~~shell
+
+antenna page fruit.md
+antenna preview
+~~~
+
+You have two pages in your website now. The URL are
+
+- http://localhost:8000/index.html
+- http://localhost:8000/fruit.html
+
+Look at each in your web browser. Notice the pages aren&#39;t linked in anyway. That&#39;s not ideal. What we need is an easy way to navigation the main pages of our site. Antenna App supports a concept called themes. This let&#39;s you define how a page is generated through assigning content to specific parts of the page. One of the parts of an Antenna generated page is called &#34;nav&#34; and it is expressed as Markdown. Other parts include header, footer, top_content and bottom_content (the last two are before and after the section holding the contents our   original Markdown documents). 
+
+To create a theme we need to first create a directory. Then we need to include the desired parts in the theme. Let&#39;s create a theme that has the nav element for our website that will make it easy to switch from the homepage to the fruit page. The steps we&#39;ll take to create our theme follows.
+
+1. create a directory called &#34;theme&#34;
+2. create a file in the &#34;theme&#34; directory called &#34;nav.md&#34;
+3. Add two links using Markdown to &#34;nav.md&#34; and save the file
+4. &#34;apply&#34; our theme
+5. regenerate our HTML pages and preview the site
+
+Here&#39;s what I&#39;d type in the terminal for steps one and two.
+
+~~~shell
+
+mkdir theme
+code theme/nav.md
+~~~
+
+The content to type into &#34;nav.md&#34; is as follows.
+
+~~~Markdown
+
+[home](index.html) [fruit](fruit.html)
+~~~
+
+Save the result then in the terminal window type the following to finish steps four and five.
+
+~~~shell
+
+antenna apply theme
+antenna page index.md
+antenna page fruit.md
+antenna preview
+~~~
+
+You can now refresh the browser pages and exploring our site by clicking on the links provided by the navigation.
+
+## Antenna Themes
+
+An Antenna App theme is defined as a directory with Markdown files to express the visible common HTML elements. Other non-visible elements in the head element of an HTML page are also able to be set with in a theme. Those aren&#39;t expressed in Markdown. Here&#39;s the names of files which are recognized by the Antenna App as valid parts of a theme.
+
+- header.md
+- nav.md
+- top_content.md
+- bottom_content.md
+- footer.md
+- head.yaml
+- style.css
+
+The files ending with &#34;.md&#34; are Markdown files. Markdown describes the content we want to include in those sections of our webpage. Any Markdown content can be used. If one of the files does not exist in the theme then that element is not populated in the resulting page. Example if you include nav.md then navigation will be included otherwise it will not be included. The page order of the Markdown elements are 
+
+1. header.md
+2. nav.md
+3. top_content.md
+4. The content of the Markdown document used with the page command
+5. bottom_content.md
+6. footer.md
+
+When we create a file like &#34;index.md&#34; and &#34;fruits.md&#34; the resulting HTML is inserted between the &#34;top_content&#34; and &#34;bottom_content&#34; sections of the webpage. 
+
+To keep things simple I started by showing you how to create the &#34;nav&#34; element using the &#34;nav.md&#34; site your theme folder.
+The theme name can be anything, it&#39;s just a directory. Here&#39;s the basic steps in creating a new theme
+
+1. create a directory to hold the theme parts
+2. Inside your directory create Markdown documents for the parts of the them you want defined
+3. Apply the theme by using the directory name and the apply command 
+4. Generate or regenerate HTML for each page in your site
+5. Preview the site
+
+Editing the theme is just a matter of adding, editing or removing elements from the theme folder. The two elements that are not Markdown documents are &#34;style.css&#34; and &#34;head.yaml&#34; if you choose to include them. The &#34;style.css&#34; file should contain valid CSS.
+The &#34;head.yaml&#34; gives you find grained control of the meta, link and script elements that get rendered into the head element of your web page.
+
+### Spicing pages up with CSS
+
+So far the website is functional but relies on the defaults provided by your web browser. The visual appearance can be enhanced through using CSS. CSS is a language that describes to the web browser how it should layout the HTML page contents. The Antenna App&#39;s themes supports embedding a style element in the HTML page&#39;s head element by including a &#34;style.css&#34; file inside the theme directory. Let&#39;s do that now.
+
+Use your terminal to create &#34;theme/style.css&#34;
+
+~~~shell
+
+code theme/style.css
+~~~
+
+Paste in the follow CSS. It&#39;ll turn your top level page titles vertical using CSS.
+
+~~~css
+
+/* Turn the H1 elements vertical */
+h1 {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
+}
+~~~
+
+After creating and save the &#34;style.css&#34; you theme directory should have two files.
+
+~~~
+
+theme/nav.md
+theme/style.css
+~~~
+
+You can now apply the theme, regenerate the HTML pages and preview them.
+
+~~~shell
+
+antenna apply theme
+antenna page index.md
+antenna page fruits.md
+antenna preview
+~~~
+
+When you preview the site you should see the effect the CSS had on how the page displayed. The changes to layout using CSS can be very elaborate and CSS is a topic I encourage you to explore on your own. A good reference and tutorial website for CSS is &#60;https://developer.mozilla.org/en-US/docs/Web/CSS&#62;. A historic example of what people have done with CSS can be seen at [CSS Zen Garden](https://csszengarden.com/). A web search on [DuckDuckGo](https://duckduckgo.com?q=learning CSS) or other search engine will turn up lots of additional resources. There are also book available through [Open Library](https://openlibrary.org/search?q=CSS&#38;mode=everything).
+
+## Next steps
+
+- Create a few more pages for your website using Markdown for the text content
+- Explore adding additional theme elements like &#34;header&#34; and &#34;footer&#34;
+
+Happy site building!</source:markdown>
     </item>    <item>
-      <title>RSS 23 years on</title>
-      <link>https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.html</link>
+      <title>Simple websites using Markdown</title>
+      <link>https://rsdoiel.github.io/blog/2025/10/14/simple_websites_using_Markdown.html</link>
       <description>
-        <![CDATA[Reflection on Dave Winer's recent post "It's Really Simple"]]>
+        <![CDATA[Markdown allows many more people to participate in creating content for the web. The [Antenna App](https://rsdoiel.github.io/antennaApp) is a tool for creating Markdown focused websites. This post explores creating a simple website using Antenna App,
+        your favorite text editor and your web browser.]]>
       </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/09/11/RSS_23_years_on.md" length="6376" type="text/markdown" />
+      <source:markdown># Simple Websites using Markdown
+
+&#62; The [Antenna App](/antennaApp) is shaping the way I write and build websites
+
+By R. S. Doiel, 2025-10-14
+
+The Web as a __networked hypertext system__. A human friendly way of expressing hypertext is [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown has allowed many people to participate in creating content for the web. I think it deserves more focus. Between Markdown and a sprinkle of CSS and you can create entire websites using your own computer or hosted on a static site service[^1]. In this post I show how Markdown can be used for basic websites[^2]. All it requires is knowing a little Markdown, a text editor, web browser and the [Antenna App](https://rsdoiel.github.io/antennaApp).
+
+[^1]: Examples: [GitHub Pages](https://pages.github.com), S3 buckets setup as static websites at AWS, Dreamhost, my favorite [Mythic Beasts](https://www.mythic-beasts.com/)
+
+Demonstrated in this post:
+
+- A means of creating a web page (HTML page) using Markdown and the Antenna App
+- A means of creating a simple multi page website with navigation using an Antenna App theme
+- A means of styling the web site using CSS expressed as part of an Antenna App theme 
+
+[^2]: Antenna supports creating many types of websites. Examples include [microblogs](https://en.wikipedia.org/wiki/Microblogging), [blogs](https://en.wikipedia.org/wiki/Blog), [linkblogs](https://en.wikipedia.org/wiki/Linklog), [wikis](https://en.wikipedia.org/wiki/Wiki) and hybrids of these. Pretty much what you need to be social on the web without resorting to the silos of Big Corp.
+
+## What you need to get started
+
+- A computer
+- A terminal app
+- A text editor
+- A web browser
+- Antenna App
+
+Chances are you have the first four if you&#39;re reading this. What I describe in this ports should work on computers running Windows, macOS and Linux based systems. If you need to acquire a computer and already have a HDMI television I recommend getting a Raspberry Pi Computer. The Raspberry Pi 500 Kit is a nice middle range device that runs about $120.00 US. It includes a book about using Raspberry Pi computers. If you can afford a bit more the Raspberry Pi 500+ Kit should be out by Christmas 2025 and that&#39;ll probably run in the ballpark of $240.00 US. That&#39;s a nice computer with lots of storage and the bells and whistles to do image, audio and light video work. If you are on a budget then you can squeak by with a Raspberry Pi Zero 2W running the software. That setup will set you back about $50.00 US with the minimum accessories needed like case, keyboard, mouse, power supply and cables to connect things up. The Official Raspberry Pi Handbook print edition runs between $25.00 US but the electronic edition that you can read on your phone or tablet is free. My point is that for a little bit of investment or using your existing resources you have the means of building websites for yourself and others. You don&#39;t need to be a programmer or even a web designer if you are comfortable editing text and doing a bit of writing. 
+
+The [Antenna App](https://rsdoiel.github.io/antennaApp) is software I wrote to prove to myself that building websites could be made simpler. I currently use it to curate my own websites include my blog and personal news site, &#60;https://rsdoiel.github.io/antenna&#62; and &#60;https://rsdoiel.github.io/antennaApp/INSTALL.html&#62;.
+
+## Installing Antenna App
+
+If you need to install the Antenna App you need to use your terminal to run the following command on macOS and Linux like systems.
+
+~~~shell
+curl https://rsdoiel.github.io/antennaApp/installer.sh | sh
+~~~
+
+or on Windows in Powershell you can use this command.
+
+~~~shell
+irm https://rsdoiel.github.io/antennaApp/installer.ps1 | iex
+~~~
+
+You can find detailed instructions in getting the latest version of the Antenna App at &#60;https://rsdoiel.github.io/antennaApp/INSTALL.html&#62;.
+
+## Build a simple website
+
+On your computer open the Terminal application. The basic steps you&#39;ll be taking are the following.
+
+1. Create a project directory, &#34;simple&#34;, and change into it
+2. Use the Antenna App to setup your site using the &#34;init&#34; command
+3. Create a home page in Markdown called &#34;index.md&#34;
+4. Generate the HTML page, &#34;index.html&#34; using Antenna
+5. Preview your website in your web browser
+
+Here is what you type in the terminal for steps one through two.
+
+~~~shell
+
+mkdir simple
+cd simple
+antenna init
+~~~
+
+If you look at the contents of that directory.
+
+~~~shell
+
+ls
+~~~
+
+You should see the following files in the simple directory.
+
+~~~shell
+
+antenna.yaml
+page.yaml
+~~~
+
+These files are used by Antenna App to generate your website. The &#34;antenna.yaml&#34; is the main configuration file. The &#34;page.yaml&#34; file is used by Antenna App to know how to construct an HTML page.
+
+For step three we need to use a text editor. On Raspberry Pi mousepad is the the default editor. On Windows it is notepad and macOS its textedit. Many people use [VS Code](https://code.visualstudio.com/download) editor which is available on macOS, Windows and Raspberry Pi OS. That is what I&#39;ll be using in my examples. You can change the &#34;code&#34; references to the editor you prefer.
+
+On my Raspberry Pi I can run the editor creating &#34;index.md&#34; when I save it. Here is the command I type into my terminal to do that.
+
+~~~shell
+
+code index.md
+~~~
+
+In the editor window you should see an empty file. Type in the following and save the file as &#34;index.md&#34; in the simple directory.
+
+~~~markdown
+
+Hello World! 
+
+~~~
+
+Now we want to use Antenna App &#34;page&#34; command to turn that &#34;index.md&#34; into our home web page. This is the command you type into your Terminal window.
+
+~~~shell
+
+antenna page index.md
+~~~
+
+If you check the contents of the simple directory.
+
+~~~shell
+
+ls
+~~~
+
+You should see three four files now.
+
+~~~
+
+antenna.yaml
+index.md
+index.html
+page.yaml
+~~~
+
+We can new preview the website by run the Antenna App&#39;s &#34;preview&#39; command. This command runs a little web server on your computer so you can view the results of your handy work in your web browser.
+
+~~~shell
+
+antenna preview
+~~~
+
+Started your web browser and open the URL &#60;http://localhost:8000&#62;.  You should see your Hello World homepage. If you open &#60;view-source:http://localhost:8000&#62; you&#39;ll see the HTML source generated by the &#34;page&#34; command. When you are finished go back to your Terminal window and hold down the control key and press the &#34;C&#34; key (Ctrl-C). This exits the preview command. If you reload the pages in your web browser you&#39;ll get your browser&#39;s default page indicating that the pages are not available.
+
+### Expanding our site
+
+Our site isn&#39;t useful website yet. There are no links. Modify &#34;index.md&#34; file to look like this.
+
+~~~markdown
+
+# Hello World!
+
+Learn about [Markdown](https://en.wikipedia.org/wiki/Markdown) on
+John Grubber&#39;s website &#60;https://daringfireball.net/projects/markdown/&#62;.
+
+~~~
+
+Once you&#39;ve saved this revision use the page command to update the HTML. After that run the preview command like before. Switch back to your terminal and type the following.
+
+~~~shell
+
+antenna page index.md
+antenna preview
+~~~
+
+Refresh (reload) your web browser page for the URL &#60;http://localhost:8000&#62;.  Our &#34;Hello World&#34; homepage, &#34;index.md&#34;, now should be transformed with &#34;Hello World&#34; displaying as a heading and our added paragraph with links to Wikipedia and Daring Fireball websites. Refresh the &#34;view-source&#34; version of the pages and see the additional HTML markup generated by the page command.
+
+### Elaboration
+
+A single page website is very limited.  You can create more pages going through the process we used for &#34;index.md&#34;. Here&#39;s the basic sequence.
+
+1. create or edit the markdown document in your editor, save it
+2. use the page command to render the HTML version
+3. use the preview command and your web browser to see your handy work
+
+Let&#39;s add a page called &#34;fruit.md&#34; with a list of heading and list fruits.
+
+~~~shell
+
+code fruit.md
+~~~
+
+Here&#39;s the text of the fruits.md page.
+
+~~~Markdown
+
+# Fruit
+
+- Dragon Fruit
+- Lime
+- Mango
+
+~~~
+
+You turn the page into HTML using the page command and then preview the website again
+
+~~~shell
+
+antenna page fruit.md
+antenna preview
+~~~
+
+You have two pages in your website now. The URL are
+
+- http://localhost:8000/index.html
+- http://localhost:8000/fruit.html
+
+Look at each in your web browser. Notice the pages aren&#39;t linked in anyway. That&#39;s not ideal. What we need is an easy way to navigation the main pages of our site. Antenna App supports a concept called themes. This let&#39;s you define how a page is generated through assigning content to specific parts of the page. One of the parts of an Antenna generated page is called &#34;nav&#34; and it is expressed as Markdown. Other parts include header, footer, top_content and bottom_content (the last two are before and after the section holding the contents our   original Markdown documents). 
+
+### theming
+
+To create a theme we need to first create a directory. Then we need to include the desired parts in the theme. Let&#39;s create a theme that has the nav element for our website that will make it easy to switch from the homepage to the fruit page. The steps we&#39;ll take to create our theme follows.
+
+1. create a directory called &#34;theme&#34;
+2. create a file in the &#34;theme&#34; directory called &#34;nav.md&#34;
+3. Add two links using Markdown to &#34;nav.md&#34; and save the file
+4. &#34;apply&#34; our theme
+5. regenerate our HTML pages and preview the site
+
+Here&#39;s what I&#39;d type in the terminal for steps one and two.
+
+~~~shell
+
+mkdir theme
+code theme/nav.md
+~~~
+
+The content to type into &#34;nav.md&#34; is as follows.
+
+~~~Markdown
+
+[home](index.html) [fruit](fruit.html)
+~~~
+
+Save the result then in the terminal window type the following to finish steps four and five.
+
+~~~shell
+
+antenna apply theme
+antenna page index.md
+antenna page fruit.md
+antenna preview
+~~~
+
+You can now refresh the browser pages and exploring our site by clicking on the links provided by the navigation.
+
+## Antenna Themes
+
+An Antenna App theme is defined as a directory with Markdown files to express the visible common HTML elements. Other non-visible elements in the head element of an HTML page are also able to be set with in a theme. Those aren&#39;t expressed in Markdown. Here&#39;s the names of files which are recognized by the Antenna App as valid parts of a theme.
+
+- header.md
+- nav.md
+- top_content.md
+- bottom_content.md
+- footer.md
+- head.yaml
+- style.css
+
+The files ending with &#34;.md&#34; are Markdown files. Markdown describes the content we want to include in those sections of our webpage. Any Markdown content can be used. If one of the files does not exist in the theme then that element is not populated in the resulting page. Example if you include nav.md then navigation will be included otherwise it will not be included. The page order of the Markdown elements are 
+
+1. header.md
+2. nav.md
+3. top_content.md
+4. The content of the Markdown document used with the page command
+5. bottom_content.md
+6. footer.md
+
+When we create a file like &#34;index.md&#34; and &#34;fruits.md&#34; the resulting HTML is inserted between the &#34;top_content&#34; and &#34;bottom_content&#34; sections of the webpage. 
+
+To keep things simple I started by showing you how to create the &#34;nav&#34; element using the &#34;nav.md&#34; site your theme folder.
+The theme name can be anything, it&#39;s just a directory. Here&#39;s the basic steps in creating a new theme
+
+1. create a directory to hold the theme parts
+2. Inside your directory create Markdown documents for the parts of the them you want defined
+3. Apply the theme by using the directory name and the apply command 
+4. Generate or regenerate HTML for each page in your site
+5. Preview the site
+
+Editing the theme is just a matter of adding, editing or removing elements from the theme folder. The two elements that are not Markdown documents are &#34;style.css&#34; and &#34;head.yaml&#34; if you choose to include them. The &#34;style.css&#34; file should contain valid CSS.
+The &#34;head.yaml&#34; gives you find grained control of the meta, link and script elements that get rendered into the head element of your web page.
+
+### Spicing pages up with CSS
+
+So far the website is functional but relies on the defaults provided by your web browser. The visual appearance can be enhanced through using CSS. CSS is a language that describes to the web browser how it should layout the HTML page contents. The Antenna App&#39;s themes supports embedding a style element in the HTML page&#39;s head element by including a &#34;style.css&#34; file inside the theme directory. Let&#39;s do that now.
+
+Use your terminal to create &#34;theme/style.css&#34;
+
+~~~shell
+
+code theme/style.css
+~~~
+
+Paste in the follow CSS. It&#39;ll turn your top level page titles vertical using CSS.
+
+~~~css
+
+/* Turn the H1 elements vertical */
+h1 {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
+}
+~~~
+
+After creating and save the &#34;style.css&#34; you theme directory should have two files.
+
+~~~
+
+theme/nav.md
+theme/style.css
+~~~
+
+You can now apply the theme, regenerate the HTML pages and preview them.
+
+~~~shell
+
+antenna apply theme
+antenna page index.md
+antenna page fruits.md
+antenna preview
+~~~
+
+When you preview the site you should see the effect the CSS had on how the page displayed. The changes to layout using CSS can be very elaborate and CSS is a topic I encourage you to explore on your own. A good reference and tutorial website for CSS is &#60;https://developer.mozilla.org/en-US/docs/Web/CSS&#62;. A historic example of what people have done with CSS can be seen at [CSS Zen Garden](https://csszengarden.com/). A web search on [DuckDuckGo](https://duckduckgo.com?q=learning CSS) or other search engine will turn up lots of additional resources. There are also book available through [Open Library](https://openlibrary.org/search?q=CSS&#38;mode=everything).
+
+## Next steps
+
+- Create a few more pages for your website using Markdown for the text content
+- Explore adding additional theme elements like &#34;header&#34; and &#34;footer&#34;
+
+Happy site building!</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2025/10/14/simple_websites_using_Markdown.md" length="14516" type="text/markdown" />
     </item>    <item>
-      <title>Two recent articles on working with Large Language Models</title>
-      <link>https://rsdoiel.github.io/blog/2025/09/10/Two_Recent_Articles_on_LLM.html</link>
+      <title>Computer related terminology that bugs me</title>
+      <link>https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.html</link>
       <description>
-        <![CDATA[Two online articles discussing application and challenges in using large
-        language models for generative work (e.g. generating software source code).
-        They are written in clear non technical language.]]>
+        <![CDATA[AI, Artificial Intelligence, Cyber\* are poor choices of terms but pickup because
+        they marketed well.]]>
       </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/09/10/Two_Recent_Articles_on_LLM.md" length="1718" type="text/markdown" />
-    </item>    <item>
-      <title>Build a Blog with Antenna</title>
-      <link>https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.html</link>
-      <description>
-        <![CDATA[This is a short post on using antennaApp to build a traditional blog.
-        All you need is antennaApp, a text editor and a little knowledge of
-        Markdown.
-        
-        antennaApp uses the front matter expressed as YAML as metadata for
-        processing the blog post and collecting the metadata for rendering
-        a page listing all the posts (an aggregation of posts) as HTML and
-        as an RSS 2.0 feeed.
-        
-        HTML pages can be customized for your sight in a simple YAML
-        configuration file.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.md" length="7888" type="text/markdown" />
-    </item>    <item>
-      <title>Building Your Own Antenna</title>
-      <link>https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.html</link>
-      <description>
-        <![CDATA[I have been prototyping my personal news site called [Antenna](https://rsdoiel.github.io/antenna)
-        since 2023. It was inspired by Dave Winer's [news.scripting.com](https://news.scripting.com). It
-        has always run on a Raspberry Pi 3B+ running Raspberry Pi OS (Linux). The content is available
-        over my home network and I make it public by publishing via GitHub pages. Over the last two years it
-        has become the first place I go to consume content from the web (second is Dave's news.scripting.com).]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/08/31/Building_Your_Own_Antenna.md" length="21208" type="text/markdown" />
-    </item>    <item>
-      <title>Generating RSS with FlatLake</title>
-      <link>https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.html</link>
-      <description>
-        <![CDATA[A show post describing a prototype in Deno+TypeScript for generating RSS 2.0 feeds from a FlatLake generated JSON API.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.md" length="8187" type="text/markdown" />
-    </item>    <item>
-      <title>Opensearch Description Document needs love</title>
-      <link>https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.html</link>
-      <description>
-        <![CDATA[Opensearch Description Document is a specification for describing how a site search can integrate into your web browser. In 2025 it is still supported by Firefox, Safari and Chrome. It lets you integrate your site search into your browsers URL box (a.k.a. omnibox) as a first class search citizen. It is a means for us to take back search.
-        In this article I use a simple case study of integrating a PageFind search using an Opensearch Description Document.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/08/09/opensearch_description_documents_need_love.md" length="9888" type="text/markdown" />
-    </item>    <item>
-      <title>Build a CommonMark Processor</title>
-      <link>https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html</link>
-      <description>
-        <![CDATA[In this post I go over the process of building a TypeScript module called `commonMarkDoc.ts` along with a simple command line CommonMark processor called `cmarkprocess`.
-        CommonMark pre-processor features are
-        
-          - support `@include-code-block` for including code samples as code blocks
-          - support `@include-text-block` for include plain text into a CommonMark document
-          - transform Hashtags into front matter
-          - transform @Tags into front matter]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.md" length="21518" type="text/markdown" />
-    </item>    <item>
-      <title>Signed Binaries and Business Models</title>
-      <link>https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.html</link>
-      <description>
-        <![CDATA[This post explains why I don't provide signed binaries in the open source software I create and release.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/07/24/WHY_NO_SIGNED_BINARIES.md" length="3428" type="text/markdown" />
-    </item>    <item>
-      <title>Simplifying BlogIt</title>
-      <link>https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.html</link>
-      <description>
-        <![CDATA[BlogIt is a command I've written many times over the years. At it's core
-        is did a two simple things. 
-        
-        1. Copy CommonMark files into a blog directory three
-        2. Use Front Matter as a source for aggregated blog metadata
-        
-        In it the new incarnation it is primarily focus on curating the front matter
-        followed by copying the document into the blog directory structure. 
-        
-        1. Curate CommonMark file front matter
-        2. Copy CommonMark files into the blog directory tree
-        
-        Other tools can aggregate blog metadata like [FlatLake](https://flatlake.app).]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/07/21/Simplifying_BlogIt.md" length="30684" type="text/markdown" />
-    </item>    <item>
-      <title>Build a Static Web Server with Deno</title>
-      <link>https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html</link>
-      <description>
-        <![CDATA[This post discusses static web server implementation using Deno.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.md" length="18161" type="text/markdown" />
-    </item>    <item>
-      <title>Rethinking REST</title>
-      <link>https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html</link>
-      <description>
-        <![CDATA[I am re-thinking my reliance on REST's implementation of the CRUD abstraction in favor of the simpler
-        read write file abstraction in my web application. This can be accomplished in SQL easily. This post
-        covers an example of doing this in SQLite3 while also implementing JSON object versioning.
-        
-        Coverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3's
-        `on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.
-        The trigger maintains the version number and updated timestamp.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.md" length="13860" type="text/markdown" />
-    </item>    <item>
-      <title>PowerShell and Edit for macOS, Linux and Windows</title>
-      <link>https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html</link>
-      <description>
-        <![CDATA[One of the challenges of multi platform support is the variance in tools. Unix and related operating systems are pretty unified these days. The differences are minor today as opposed to twenty years ago. If you need to support Windows too it's a whole different story. You can jump to Linux Subsystem for Windows but that is really like using a container inside Windows and doesn't solve the problem when you need to work across the whole system. 
-        
-        Windows' shell experience is varied. Originally it was command com, essentially a enhanced CP/M shell. Much later as Windows moved beyond then replaced MS-DOS they invented PowerShell. Initially a Windows only system. Fast forward today things have change. PowerShell runs across Windows, macOS and Linux. It is even licensed under an MIT style license.
-        
-        ...]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.md" length="6272" type="text/markdown" />
-    </item>    <item>
-      <title>A quick note on types in Deno+TypeScript</title>
-      <link>https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html</link>
-      <description>
-        <![CDATA[Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, `typeof`. This works nicely for simple types like `string`, `boolean`, `number` but is  less useful when compared to a class or interface name of a data structure.
-        
-        There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following
-        the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)
-        
-        ...]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.md" length="2708" type="text/markdown" />
-    </item>    <item>
-      <title>New Life for Fielded Search</title>
-      <link>https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.html</link>
-      <description>
-        <![CDATA[A day dreaming in response to a Simon Willison post on using language models
-        to convert queries into fielded searches. In this post I extrapolate how this
-        could result in a more private search experience and allow for an enhanced
-        search experience for static websites.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/04/10/New_Life_for_Fielded_Search.md" length="6630" type="text/markdown" />
-    </item>    <item>
-      <title>LLM first impressions a few weeks in</title>
-      <link>https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.html</link>
-      <description>
-        <![CDATA[A first take of LLM use for coding projects.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/03/30/LLM_first_impressions_a_few_weeks_in.md" length="7909" type="text/markdown" />
-    </item>    <item>
-      <title>Building Web Components using Large Language Models</title>
-      <link>https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.html</link>
-      <description>
-        <![CDATA[Quick discussion of my recent experience bootstrapping the CL-web-components project]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/03/13/Building_Web_Component_using_an_LLM.md" length="13386" type="text/markdown" />
-    </item>    <item>
-      <title>Setting up my Raspberry Pi 500, a Portable Workstation</title>
-      <link>https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.html</link>
-      <description>
-        <![CDATA[Quick notes on configuring a Raspberry Pi 500 as a portable workstation along with a price list.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/02/14/Review_Pi-500_as_portable_workstation.md" length="5262" type="text/markdown" />
-    </item>    <item>
-      <title>Book review, &#34;Man and the Computer&#34;</title>
-      <link>https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.html</link>
-      <description>
-        <![CDATA[A book review of a vintage computer publication, "Man and the Computer" by
-        John G. Kemeny, published 1972, ISBN: 0684130092
-        Read at the Open Library, <https://openlibrary.org/books/OL5282840M/Man_and_the_computer>]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/02/10/Man_and_the_Computer.md" length="3691" type="text/markdown" />
-    </item>    <item>
-      <title>Working with Structured Data in Deno and TypeScript</title>
-      <link>https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html</link>
-      <description>
-        <![CDATA[A short discourse on working with structured data in TypeScript and easily
-        converting from JSON, YAML and XML representations.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.md" length="5882" type="text/markdown" />
-    </item>    <item>
-      <title>Moving beyond git template repositories with CodeMeta</title>
-      <link>https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html</link>
-      <description>
-        <![CDATA[An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.md" length="10051" type="text/markdown" />
-    </item>    <item>
-      <title>Deno 2.1.7, Project Idioms</title>
-      <link>https://rsdoiel.github.io/blog/2025/01/29/project_idioms.html</link>
-      <description>
-        <![CDATA[Notes on some of the file and code idioms I'm using with Deno+TypeScript projects.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/01/29/project_idioms.md" length="5390" type="text/markdown" />
-    </item>    <item>
-      <title>Deno 2.1.7, Points of Friction</title>
-      <link>https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.html</link>
-      <description>
-        <![CDATA[A short discussion of working with file input in TypeScript+Deno coming from the
-        perspective of Go's idiomatic use of io buffers.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/01/26/points_of_friction.md" length="6144" type="text/markdown" />
-    </item>    <item>
-      <title>Installing Deno via Cargo and other options</title>
-      <link>https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.html</link>
-      <description>
-        <![CDATA[Notes on setting up a Debian flavored Linux boxes, macOS and Windows to install Deno via `cargo install deno`,
-        `curl -fsSL https://deno.land/install.sh | sh` or
-        `iwr https://deno.land/install.ps1 -useb | iex`]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/12/13/installing-via-cargo-etc.md" length="2345" type="text/markdown" />
-    </item>    <item>
-      <title>When Deno+TypeScript, when Go?</title>
-      <link>https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html</link>
-      <description>
-        <![CDATA[Brief discussion of when I choose Deno+TypeScript versus Go for work projects.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.md" length="5344" type="text/markdown" />
-    </item>    <item>
-      <title>Transpiling &#38; Bundling with Emit</title>
-      <link>https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html</link>
-      <description>
-        <![CDATA[A brief discussion of using the Deno emit module to transpile and bundle
-        TypeScript.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.md" length="3411" type="text/markdown" />
-    </item>    <item>
-      <title>Raspberry Pi 4 &#38; 400 Power Supply Issues</title>
-      <link>https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.html</link>
-      <description>
-        <![CDATA[Quick notes on some low voltage issues I ran into with my Raspberry Pi 4 and 400 using the stock power supply with thumb drives.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/11/20/power-supply-issues.md" length="2775" type="text/markdown" />
-    </item>    <item>
-      <title>Rust tools for Web Work</title>
-      <link>https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.html</link>
-      <description>
-        <![CDATA[A quick review of a PageFind and FlatLake by Cloud Cannon. A brief description of how I use them.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/11/06/rust-tools-for-web-work.md" length="10495" type="text/markdown" />
-    </item>    <item>
-      <title>SQLite3 json_patch is a jewel</title>
-      <link>https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html</link>
-      <description>
-        <![CDATA[Quick note about json_path function in SQLite3]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.md" length="1114" type="text/markdown" />
-    </item>    <item>
-      <title>Limit and offset for row pruning</title>
-      <link>https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.html</link>
-      <description>
-        <![CDATA[Noted are how to combine a select statement with limit and offset clauses with a delete statement to prune rows.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/10/31/limit_and_offset_for_row_pruning.md" length="2621" type="text/markdown" />
-    </item>    <item>
-      <title>Quick tour of Deno 2.0.2</title>
-      <link>https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html</link>
-      <description>
-        <![CDATA[A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,
-        ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile
-        TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.]]>
-      </description>
-      <enclosure url="https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.md" length="15960" type="text/markdown" />
+      <source:markdown># Computer related words that bug me
+
+Sometimes specific terms bug me on popular usage. This is particularly true when related to computer science (or better term, information science). 
+
+Two terms really grate on my nerves these days.
+
+1. “AI” was a marketing term to get the DOD to fund researching in to cognitive approaches to computation.  The generals like the term Artificial Intelligence in the 1970s because the idea of robot solders who could be destroyed with out the having to write the letters to their parents was desirable after Vietnam and previous wars. For the researchers it was sufficiently vague to be a goldmine of grant possibilities.
+2. Information Security became Cyber Security for marketing reasons
+
+Terms that change for marketing reasons quickly loose meaning. In the computers as communication devices space this isn&#39;t a good feature.
+
+The stupidest phrase I&#39;ve heard a politician and business leaders say in interviews, &#34;We&#39;ve got to have cyber&#34;.  In my head I change &#34;cyber&#34; to &#34;coffee&#34; so I don&#39;t think have to remember their names.</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.md" length="1399" type="text/markdown" />
     </item>
   </channel>
 </rss>
