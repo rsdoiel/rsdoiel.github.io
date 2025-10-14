@@ -33,12 +33,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         baseUrl: "/shorthand/"
       },
       {
-        bundlePath: "https://rsdoiel.github.io/pttk/pagefind",
-        baseUrl: "/pttk/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/skimmer/pagefind",
-        baseUrl: "/skimmer/"
+        bundlePath: "https://rsdoiel.github.io/antennaApp/pagefind",
+        baseUrl: "/antennaApp/"
       },
       {
         bundlePath: "https://rsdoiel.github.io/fountain/pagefind",
