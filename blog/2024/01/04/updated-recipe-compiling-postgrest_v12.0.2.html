@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="updated-recipe-compiling-postgrest_v12.0.2.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="updated-recipe-compiling-postgrest_v12.0.2.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2024-01-04" data-link="https://rsdoiel.github.io/blog/2024/01/04/updated-recipe-compiling-postgrest_v12.0.2.html">
-      <h1 id="updated-recipe-compile-postgrest-1202-m1">Updated recipe, compile PostgREST 12.0.2 (M1)</h1>
+      <h1>Updated recipe, compile PostgREST 12.0.2 (M1)</h1>
       <p>by R. S. Doiel, 2024-01-04</p>
-      <p>These are my updated &quot;quick notes&quot; for compiling PostgREST v12.0.2 on a M1 Mac Mini using the current recommended<br />
-      versions of ghc, cabal and stack supplied <a href="https://www.haskell.org/ghcup">GHCup</a>.  When I recently tried to use<br />
+      <p>These are my updated &quot;quick notes&quot; for compiling PostgREST v12.0.2 on a M1 Mac Mini using the current recommended
+      versions of ghc, cabal and stack supplied <a href="https://www.haskell.org/ghcup">GHCup</a>.  When I recently tried to use
       my previous <a href="/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md">quick recipe</a> I was disappointed it failed with errors like</p>
       <pre><code>Resolving dependencies...
       Error: cabal: Could not resolve dependencies:
@@ -55,26 +61,26 @@
       ...
       
       </code></pre>
-      <p>So this type of output means GHC and Cabal are not finding the versions of things they need<br />
-      to compile PostgREST. I then tried picking ghc 9.2.8 since the default.nix file indicated<br />
-      a minimum of ghc 9.2.4.  The <code>ghcup tui</code> makes it easy to grab a listed version then set it<br />
+      <p>So this type of output means GHC and Cabal are not finding the versions of things they need
+      to compile PostgREST. I then tried picking ghc 9.2.8 since the default.nix file indicated
+      a minimum of ghc 9.2.4.  The <code>ghcup tui</code> makes it easy to grab a listed version then set it
       as the active one.</p>
-      <p>I made sure I was working in the v12.0.2 tagged release version of the Git repo for PostgREST.<br />
-      Then ran the usual suspects for compiling the project. I really wish PostgREST came with<br />
-      install from source documentation. It took me a while to think about looking in the default.nix<br />
+      <p>I made sure I was working in the v12.0.2 tagged release version of the Git repo for PostgREST.
+      Then ran the usual suspects for compiling the project. I really wish PostgREST came with
+      install from source documentation. It took me a while to think about looking in the default.nix
       file for a minimum GHC version. That's why I am writing this update.</p>
       <p>A similar recipe can be used for building PostgREST on Linux.</p>
       <ol>
-      <li>Upgrade <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a good Haskell setup (I accept all the default choices)<br />
-      a. Use the curl example command to install it or <code>gchup upgrade</code><br />
+      <li>Upgrade <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a good Haskell setup (I accept all the default choices)
+      a. Use the curl example command to install it or <code>gchup upgrade</code>
       b. Make sure the environment is active (e.g. source <code>$HOME/.ghcup/env</code>)</li>
       <li>Make sure GHCup is pointing at the version PostgREST v12.0.2 needs, i.e. ghc v9.2.8. I chose to keep &quot;recommended&quot; versions of Cabal and Stack</li>
       <li>Clone <a href="https://github.com/PostgREST/postgrest">https://github.com/PostgREST/postgrest</a> to my local machine</li>
       <li>Check out the version you want to build, i.e. v12.0.2</li>
-      <li>Run the &quot;usual&quot; Haskell build sequence with cabal<br />
-      a. <code>cabal clean</code><br />
-      b. <code>cabal update</code><br />
-      c. <code>cabal build</code><br />
+      <li>Run the &quot;usual&quot; Haskell build sequence with cabal
+      a. <code>cabal clean</code>
+      b. <code>cabal update</code>
+      c. <code>cabal build</code>
       d. <code>cabal install</code> (I use the <code>--overwrite-policy=always</code> option to overwrite my old v11 postgrest install)</li>
       </ol>
       <p>Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).</p>
@@ -90,22 +96,21 @@
       cabal build
       cabal install --overwrite-policy=always
       </code></pre>
-      <p>This will install PostgREST in your <code>$HOME/.cabal/bin</code> directory. Make sure<br />
+      <p>This will install PostgREST in your <code>$HOME/.cabal/bin</code> directory. Make sure
       it is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

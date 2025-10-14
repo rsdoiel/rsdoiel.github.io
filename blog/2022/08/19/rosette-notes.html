@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="rosette-notes.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="EN" name="language" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="rosette-notes.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,13 +35,13 @@
 
   <section>
     <article data-published="2022-08-19" data-link="https://rsdoiel.github.io/blog/2022/08/19/rosette-notes.html">
-      <h1 id="rosette-notes">Rosette Notes</h1>
+      <h1>Rosette Notes</h1>
       <p>By R. S. Doiel, 2022-08-19</p>
       <blockquote>
       <p>A dance around two relational databases, piecing together similarities as with the tiny mosaic tiles of a guitar's rosette</p>
       </blockquote>
       <p>What follows are my preliminary notes learning Postgres 12 and 14.</p>
-      <h2 id="postgres--mysql">Postgres &amp; MySQL</h2>
+      <h2>Postgres &amp; MySQL</h2>
       <p>This is a short comparison of some administrative commands I commonly use. The first column describes the task followed by the SQL to execute for Postgres 14.5 and then MySQL 8. The presumption is you're using <code>psql</code> to access Postgres and <code>mysql</code> to  access MySQL. Values between <code>&lt;</code> and <code>&gt;</code> should be replaced with an appropriate value.</p>
       <table>
       <thead>
@@ -68,12 +74,12 @@
       </tr>
       </tbody>
       </table>
-      <h2 id="reflections">Reflections</h2>
+      <h2>Reflections</h2>
       <p>The Postgres shell, <code>psql</code>, provides the functionality of showing a list of tables via a short cut while MySQL choose to add the <code>SHOW TABLES</code> query. For me <code>SHOW ...</code> feels like SQL where as <code>\d</code> or <code>\dt</code> takes me out of SQL space. On the other hand given Postgres metadata structure the shortcut is appreciated and I often query for table names as I forget them. <code>\dt</code> quickly becomes second nature and is shorter to type than <code>SHOW TABLES</code>.</p>
       <p>Connecting to a database with <code>\c</code> in <code>psql</code> is like calling an &quot;open&quot; in programming language. The &quot;connection&quot; in <code>psql</code> is open until explicitly closed or the shell is terminated.  Like <code>USE ...</code> in the MySQL shell it make working with multiple database easy.  The difference are apparent when you execute a <code>DROP DATABASE ...</code> command. In <code>psql</code> you need to <code>CLOSE</code> the database first or the <code>DROP</code> will fail.  The MySQL shell will happily let you drop the current database you are currently using.</p>
       <p>The challenge I've experienced learning <code>psql</code> after knowing MySQL is my lack of familiarity with the metadata Postgres maintains about databases and structures.  On the other hand everything I've learned about standards base SQL applies to managing Postgres once remember the database/table I need to work with.  A steeper learning curve from MySQL's <code>SHOW</code> but it also means writing external programs for managing Postgres databases and tables is far easier because everything is visible because that is how you manage Postgres. MySQL's <code>SHOW</code> is very convenient but at the cost of hiding some of its internal structures.</p>
       <p>Both MySQL and Postgres support writing programs in SQL. They also support stored procedures, views and triggers. They've converged in the degree in which they have both implemented SQL language standards.  The differences are mostly in approach to managing databases.  There are some differences, necessitated by implementation choices, in the <code>CREATE DATABASE</code>, <code>CREATE TABLE</code> or <code>ALTER</code> statements but you can often use the basic form described in ANSI SQL and get the results you need. When doing performance tuning the dialect differences are more important.</p>
-      <h2 id="dump--restore">Dump &amp; Restore</h2>
+      <h2>Dump &amp; Restore</h2>
       <p>Both Postgres and MySQL provide command line programs for dumping a database. MySQL provides a single program where as Postgres splits it in two. Check the man pages (or website docs) for details in their options. Both sets of programs are highly configurable allowing you to dump just schema, just data or both with different expectations.</p>
       <table>
       <thead>
@@ -118,9 +124,9 @@
       </tbody>
       </table>
       <p>NOTE: These instructions work for a database dumped with <code>pg_dump</code> for the Postgres example. In principle it is the same way you can restore from <code>pg_dumpall</code> but if you Postgres instance already exists then you're going to run into various problems, e.g. errors about <code>template1</code> db.</p>
-      <h2 id="lessons-learned-along-the-way">Lessons learned along the way</h2>
+      <h2>Lessons learned along the way</h2>
       <p>2022-08-22</p>
-      <p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &quot;REPLACE&quot; is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I've used &quot;?&quot; with SQLite and MySQL but with Postgres I need to use &quot;$1&quot;, &quot;$2&quot;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
+      <p>8:00 - 11:30; SQL; Postgres; Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &quot;REPLACE&quot; is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I've used &quot;?&quot; with SQLite and MySQL but with Postgres I need to use &quot;<span class="math inline">\(1", "\)</span>2&quot;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
       <p>2022-08-24</p>
       <p>11:00 - 12:00; SQL; Postgres; I miss <code>SHOW TABLES</code> it's just muscle memory from MySQL, the SQL to show tables is <code>SELECT tablename FROM pg_catalog.pg_tables WHERE tablename NOT LIKE 'pg_%';</code>. I could write a SHOWTABLE in PL/pgSQL procedure implementing MySQL's &quot;SHOW TABLES&quot;. Might be a good way to learn PL/pgSQL. I could then do one for MySQL and compare the PL/SQL language implementations.</p>
       <p>2022-08-26</p>
@@ -130,17 +136,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

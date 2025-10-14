@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Chars.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Chars.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,46 +35,48 @@
 
   <section>
     <article data-published="2020-11-27" data-link="https://rsdoiel.github.io/blog/2020/11/27/Chars.html">
-      <h1 id="chars">Chars</h1>
+      <h1>Chars</h1>
       <p>This module provides common character oriented tests.</p>
-      <p>InRange<br />
-      : Check to see if a character, c, is in an inclusive range from a lower to upper character.</p>
-      <p>IsUpper<br />
-      : Check to see if a character is upper case</p>
-      <p>IsLower<br />
-      : Check to see if a character is lower case</p>
-      <p>IsAlpha<br />
-      : Check to see if a character is alphabetic, i.e. in the range of &quot;a&quot; to &quot;z&quot;<br />
-      or &quot;A&quot; to &quot;Z&quot;.</p>
-      <p>IsDigit<br />
-      : Check to see if a character is a digit, i.e. in range of &quot;0&quot; to &quot;9&quot;</p>
-      <p>IsAlphaNum<br />
-      : Check to see if a character is alpha or a digit</p>
-      <p>IsSpace<br />
-      : Check to see if a character is a space, tab, carriage return or line feed</p>
-      <p>AppendChar<br />
-      : Append a single char to the end of an ARRAY OF CHAR adjusting the terminating null character and return TRUE on success or FALSE otherwise.</p>
-      <p>AppendChars<br />
-      : Append an ARRAY OF CHAR to another the destination ARRAY OF CHAR.</p>
-      <p>Equal<br />
-      : Compares two ARRAY OF CHAR and returns TRUE if they match, FALSE otherwise</p>
-      <p>Clear<br />
-      : Sets all cells in an ARRAY OF CHAR to 0X.</p>
-      <p>TrimSpace<br />
-      : Trim the leading and trailing space characters from an ARRAY OF CHAR</p>
-      <p>TrimLeftSpace<br />
-      : Trim the leading space characters from an ARRAY OF CHAR</p>
-      <p>TrimRightSpace<br />
-      : Trim the trailing space characters from an ARRAY OF CHAR</p>
-      <p>StartsWith<br />
-      : Checks to see if a prefix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise</p>
-      <p>EndsWith<br />
-      : Checks to see if a suffix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise</p>
-      <p>TrimPrefix<br />
-      : Trim a prefix ARRAY OF CHAR from a target ARRAY OF CHAR</p>
-      <p>TrimSuffix<br />
-      : Trim a suffix ARRAY OF CHAR from a target ARRAY OF CHAR</p>
-      <h2 id="source-code-for-charsmod">Source code for <strong>Chars.Mod</strong></h2>
+      <dl>
+      <dt>InRange</dt>
+      <dd>Check to see if a character, c, is in an inclusive range from a lower to upper character.</dd>
+      <dt>IsUpper</dt>
+      <dd>Check to see if a character is upper case</dd>
+      <dt>IsLower</dt>
+      <dd>Check to see if a character is lower case</dd>
+      <dt>IsAlpha</dt>
+      <dd>Check to see if a character is alphabetic, i.e. in the range of &quot;a&quot; to &quot;z&quot;
+      or &quot;A&quot; to &quot;Z&quot;.</dd>
+      <dt>IsDigit</dt>
+      <dd>Check to see if a character is a digit, i.e. in range of &quot;0&quot; to &quot;9&quot;</dd>
+      <dt>IsAlphaNum</dt>
+      <dd>Check to see if a character is alpha or a digit</dd>
+      <dt>IsSpace</dt>
+      <dd>Check to see if a character is a space, tab, carriage return or line feed</dd>
+      <dt>AppendChar</dt>
+      <dd>Append a single char to the end of an ARRAY OF CHAR adjusting the terminating null character and return TRUE on success or FALSE otherwise.</dd>
+      <dt>AppendChars</dt>
+      <dd>Append an ARRAY OF CHAR to another the destination ARRAY OF CHAR.</dd>
+      <dt>Equal</dt>
+      <dd>Compares two ARRAY OF CHAR and returns TRUE if they match, FALSE otherwise</dd>
+      <dt>Clear</dt>
+      <dd>Sets all cells in an ARRAY OF CHAR to 0X.</dd>
+      <dt>TrimSpace</dt>
+      <dd>Trim the leading and trailing space characters from an ARRAY OF CHAR</dd>
+      <dt>TrimLeftSpace</dt>
+      <dd>Trim the leading space characters from an ARRAY OF CHAR</dd>
+      <dt>TrimRightSpace</dt>
+      <dd>Trim the trailing space characters from an ARRAY OF CHAR</dd>
+      <dt>StartsWith</dt>
+      <dd>Checks to see if a prefix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise</dd>
+      <dt>EndsWith</dt>
+      <dd>Checks to see if a suffix ARRAY OF CHAR matches a target ARRAY OF CHAR return TRUE if found, FALSE otherwise</dd>
+      <dt>TrimPrefix</dt>
+      <dd>Trim a prefix ARRAY OF CHAR from a target ARRAY OF CHAR</dd>
+      <dt>TrimSuffix</dt>
+      <dd>Trim a suffix ARRAY OF CHAR from a target ARRAY OF CHAR</dd>
+      </dl>
+      <h2>Source code for <strong>Chars.Mod</strong></h2>
       <pre><code>MODULE Chars;
       
       IMPORT Strings;
@@ -384,17 +392,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

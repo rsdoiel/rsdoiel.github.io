@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Build_a_Blog_with_Antenna_App.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:21-07:00" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Build_a_Blog_with_Antenna_App.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2025-09-05" data-link="https://rsdoiel.github.io/blog/2025/09/05/Build_a_Blog_with_Antenna_App.html">
-      <h1 id="build-a-blog-with-antenna">Build a Blog with Antenna</h1>
+      <h1>Build a Blog with Antenna</h1>
       <p>By R. S. Doiel, 2025-09-05</p>
       <p>Antenna is a feed orient content management tool. It can use to build a and run a blog. What follows are the steps needed to create a simple blog using only Antenna application, Markdown and the Antenna YAML configuration files.</p>
-      <h2 id="setting-up">Setting up</h2>
+      <h2>Setting up</h2>
       <p>The first thing we need is a directory to hold our website. That can be done from a terminal on Linux, macOS or Windows using the following command.</p>
       <pre><code class="language-shell">mkdir myblog
       </code></pre>
@@ -40,7 +46,7 @@
       <pre><code class="language-shell">cd myblog
       </code></pre>
       <p>Now we're ready to begin.</p>
-      <h2 id="initializing-the-blog">Initializing the blog</h2>
+      <h2>Initializing the blog</h2>
       <p>The Antenna application, <code>antenna</code> has an &quot;initialization&quot; action. This creates the configuration file needed for your blog. Here's what you need to type in the terminal (same for Linux, macOS and Windows).</p>
       <pre><code class="language-shell">antenna init
       </code></pre>
@@ -50,16 +56,16 @@
       <p>On Windows you would use the <code>dir</code> command instead.</p>
       <pre><code class="language-shell">dir
       </code></pre>
-      <h2 id="defining-our-blog-collection">Defining our blog collection</h2>
+      <h2>Defining our blog collection</h2>
       <p>A blog is built from three parts</p>
       <ul>
       <li>file system path(s) holding the blog posts<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
       <li>One or more HTML pages showing the available posts in reverse chronological order</li>
       <li>An RSS feed of the recent blog posts</li>
       </ul>
-      <p>In terms of Antenna these are contained in a collection which needs to be defined. Then<br />
-      we use the post action to add Markdown documents, with front matter, as blog posts. The post<br />
-      action also generates an HTML version of the post based on the settings in the front matter. Finally<br />
+      <p>In terms of Antenna these are contained in a collection which needs to be defined. Then
+      we use the post action to add Markdown documents, with front matter, as blog posts. The post
+      action also generates an HTML version of the post based on the settings in the front matter. Finally
       the RSS feed and HTML aggregation page are render by Antenna's generate action. That's pretty much it.</p>
       <p>Let's first create our collection. I am going to call it &quot;index.md&quot;. The reason I call the collection &quot;index.md&quot; is it'll result in an HTML page called &quot;index.html&quot;, a RSS file called &quot;index.xml&quot; a configuration page page called &quot;index.yaml&quot; and an SQLite3 database file called &quot;index.db&quot;.  Here's an example of a Markdown document defining the blog.</p>
       <pre><code class="language-markdown">  ---
@@ -83,7 +89,7 @@
       <p>or for Windows.</p>
       <pre><code class="language-shell">dir index.*
       </code></pre>
-      <h2 id="adding-the-first-blog-post">Adding the first blog post</h2>
+      <h2>Adding the first blog post</h2>
       <p>I am going to assume the first blog post is called &quot;welcome.md&quot;. I am also going to assume you'll using a blog oriented directory structure. For this example today's date is September 5th, 2025. I need to create a place to hold my blog post &quot;welcome.md&quot;. I will first create a directory to hold it.</p>
       <pre><code class="language-shell">mkdir -p blog/2025/09/05
       </code></pre>
@@ -120,14 +126,14 @@
       <p>You can preview your new blog post at <code>http://localhost:8000</code> using the preview action and pointing your web browser at that URL.</p>
       <pre><code class="language-shell">antenna preview
       </code></pre>
-      <h2 id="updating-a-post">Updating a post</h2>
+      <h2>Updating a post</h2>
       <p>Any time you run the post command on your Markdown file the post with the matching link and postPath gets updated. Below I open and update the &quot;welcome.md&quot; file. Then I post it again to regenerate the HTML page.</p>
       <pre><code class="language-shell">code blog/2025/09/05/welcome.md
       antenna post index.md blog/2025/09/05/welcome.md
       </code></pre>
       <p>That's it you now can add and update posts for your blog. Antenna will manage the index.html and index.xml documents for you when you run the <code>antenna generate</code> command again. You then use the preview action to view it in your web browser.</p>
       <p>NOTE: If this was your blog you'd change the value I used for the link element to match how your website is structured and use it's URL.  I used a localhost URL with port number just to keep things simple and to allow us to test using the <code>antenna preview</code>.</p>
-      <h2 id="enhancing-you-blog">Enhancing you blog</h2>
+      <h2>Enhancing you blog</h2>
       <p>You will likely want some navigation and other text on your blog pages. This is accomplished by updating the &quot;index.yaml&quot; file. In this file you can set the path to your custom CSS, to any JavaScript script you might want to include. You can also set your site header, footer and nav elements. Finally you can even include HTML elements before and after the generated content. Here's an example of a customized &quot;index.yaml&quot; file.</p>
       <pre><code class="language-yaml">css: css/site.css
       header: |
@@ -151,7 +157,7 @@
       <p>You're blog is staged you can now publish on the Internet using the tools provided by your host. If you're using GitHub that might mean committing and pushing to a specific branch setup for your website (see GitHub pages documentation).</p>
       <p>Happy blogging!</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>The file paths to posts can be whatever you want. Antenna doesn't impose an structure. Traditionally a structure broken down for year, two digit month and another for two digit days is common. So posts are contained in a director called &quot;blog&quot; it'll have a path broken to by year, month and day. The day directory holds the blog post. Example I have a post called &quot;updates.md&quot; for the date August 5th, 2025. That might be held in <code>blog/2025/08/05/updates.md</code> Markdown file.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -161,17 +167,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

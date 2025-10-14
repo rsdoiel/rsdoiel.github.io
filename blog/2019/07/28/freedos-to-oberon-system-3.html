@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="freedos-to-oberon-system-3.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta content="2025-10-14T15:32:23-07:00" name="date" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="EN" name="language" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="freedos-to-oberon-system-3.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,55 +35,55 @@
 
   <section>
     <article data-published="2019-07-28" data-link="https://rsdoiel.github.io/blog/2019/07/28/freedos-to-oberon-system-3.html">
-      <h1 id="freedos-to-oberon-system-3">FreeDOS to Oberon System 3</h1>
+      <h1>FreeDOS to Oberon System 3</h1>
       <p>By R. S. Doiel, 2019-07-28</p>
       <blockquote>
-      <p>UPDATE: (2021-02-26, RSD) Under VirtualBox 6.1 these<br />
-      instructions still fail. My hope is to revise these<br />
+      <p>UPDATE: (2021-02-26, RSD) Under VirtualBox 6.1 these
+      instructions still fail. My hope is to revise these
       instructions when I get it all sorted out.</p>
-      <p>Many links such as the ftp site at ETH Oberon are<br />
-      no more. I've updated this page to point at Wayback machine<br />
+      <p>Many links such as the ftp site at ETH Oberon are
+      no more. I've updated this page to point at Wayback machine
       or included content in here where I cannot find it else where.</p>
-      <p>UPDATE: (2021-02-19, RSD) Under VirtualBox 6.1 these instructions<br />
-      fail. For VirtualBox I’ve used FreeDOS 1.3rc3 Live CD installing<br />
+      <p>UPDATE: (2021-02-19, RSD) Under VirtualBox 6.1 these instructions
+      fail. For VirtualBox I’ve used FreeDOS 1.3rc3 Live CD installing
       the “Plain DOS” without problems.</p>
-      <p>UPDATE: (2021-03-16, RSD) After reviewing my post, correcting<br />
-      some mistakes I finally was able to get FreeDOS up and running<br />
-      on VirtualBox 6.1. This allows NativeOberon 2.3.6 to be brought<br />
-      up by booting the &quot;oberon0.dsk&quot; virtual floppy and following<br />
-      the instructions included. You need to know how to use<br />
+      <p>UPDATE: (2021-03-16, RSD) After reviewing my post, correcting
+      some mistakes I finally was able to get FreeDOS up and running
+      on VirtualBox 6.1. This allows NativeOberon 2.3.6 to be brought
+      up by booting the &quot;oberon0.dsk&quot; virtual floppy and following
+      the instructions included. You need to know how to use
       the Oberon mouse and the way commands work in Oberon.</p>
       </blockquote>
-      <p>What follows are notes on getting a FreeDOS 1.2<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and<br />
-      then Native Oberon<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> running under VirtualBox 6.0. You might<br />
-      wonder why these two are together. While it was<br />
-      easy to run the Native Oberon installation process that process<br />
-      assumes you have a properly partitioned hard disk and VirtualBox<br />
-      seems to skip that process. I found taking advantage of FreeDOS<br />
+      <p>What follows are notes on getting a FreeDOS 1.2<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and
+      then Native Oberon<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> running under VirtualBox 6.0. You might
+      wonder why these two are together. While it was
+      easy to run the Native Oberon installation process that process
+      assumes you have a properly partitioned hard disk and VirtualBox
+      seems to skip that process. I found taking advantage of FreeDOS
       simplified things for me.</p>
-      <p>My goal was running Oberon System 3, but setting up a Virtual Box<br />
-      with FreeDOS 1.2 gave me a virtual machine that functions like a<br />
-      1999 era PC. From there all the steps in the Oberon instructions<br />
+      <p>My goal was running Oberon System 3, but setting up a Virtual Box
+      with FreeDOS 1.2 gave me a virtual machine that functions like a
+      1999 era PC. From there all the steps in the Oberon instructions
       just worked.</p>
-      <h2 id="creating-freedos-12-virtual-box">Creating FreeDOS 1.2 Virtual Box</h2>
-      <p>I've been doing a bit if computer history reading and decided to<br />
-      bring up some older systems as a means to understand where<br />
-      things were.  The first computers I had access to were 8080, 8086<br />
-      machines running MS DOS based. My first computer programming language<br />
-      was Turbo Pascal. Feeling a bit nostalgic I thought it would be<br />
-      interesting to use it again and see what I remembered from the days<br />
-      of old. While PC and MS DOS no longer exist as commercial productions<br />
-      an wonderful group of Open Source hackers have brought new life into<br />
-      DOS with FreeDOS 1.2<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. You'll find many of your old familiar commands<br />
-      but also some nice improvements. You can even run it under VirtualBox<br />
+      <h2>Creating FreeDOS 1.2 Virtual Box</h2>
+      <p>I've been doing a bit if computer history reading and decided to
+      bring up some older systems as a means to understand where
+      things were.  The first computers I had access to were 8080, 8086
+      machines running MS DOS based. My first computer programming language
+      was Turbo Pascal. Feeling a bit nostalgic I thought it would be
+      interesting to use it again and see what I remembered from the days
+      of old. While PC and MS DOS no longer exist as commercial productions
+      an wonderful group of Open Source hackers have brought new life into
+      DOS with FreeDOS 1.2<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. You'll find many of your old familiar commands
+      but also some nice improvements. You can even run it under VirtualBox
       which is what I proceeded to do.</p>
-      <h3 id="virtualbox-60-setup">VirtualBox 6.0 setup</h3>
-      <p>The <a href="https://freedos.org">FreeDOS</a> website includes a CD ROM image<br />
-      that you can use to install it. There are couple small hitches though<br />
+      <h3>VirtualBox 6.0 setup</h3>
+      <p>The <a href="https://freedos.org">FreeDOS</a> website includes a CD ROM image
+      that you can use to install it. There are couple small hitches though
       to get it working under VirtualBox. First go to the <a href="https://freedos.org/download">download</a> page and download the <a href="http://www.freedos.org/download/download/FD12CD.iso">CDROM &quot;standard&quot; installer&quot;</a>.</p>
-      <p>While that is downloading you can setup your VirtualBox machine.<br />
-      First to remember is DOS compared to today's operating systems is<br />
-      frugal in its hardware requirements. As a result I picked very modest<br />
+      <p>While that is downloading you can setup your VirtualBox machine.
+      First to remember is DOS compared to today's operating systems is
+      frugal in its hardware requirements. As a result I picked very modest
       settings for my virtual machine.</p>
       <ol>
       <li>Launch VirtualBox</li>
@@ -88,9 +94,9 @@
       <li>Hard disk file type, pick &quot;VHD (Virtual Hard Disk)&quot;</li>
       <li>Storage on physical hard disk, I picked Dynamically allocated both either is fine</li>
       <li>File location and size, I accepted the default location and size</li>
-      <li>Before starting my FreeDOS box I made a couple of changes using &quot;settings&quot; menu icon<br />
-      a. Display, I picked bumped memory up to 128M and picked VBoxSVGA with 33D acceleration (for games)<br />
-      b. Storage, I added a second floppy drive (empty)<br />
+      <li>Before starting my FreeDOS box I made a couple of changes using &quot;settings&quot; menu icon
+      a. Display, I picked bumped memory up to 128M and picked VBoxSVGA with 33D acceleration (for games)
+      b. Storage, I added a second floppy drive (empty)
       c. Network, I picked attached to NAT</li>
       <li>When looking at my virtual machine's detail page I clicked on the Optical drive (empty), click &quot;choose disc image&quot; and pointed at the downloaded installed CD</li>
       <li>Click Start.</li>
@@ -105,19 +111,19 @@
       <li>At this point its a normal FreeDOS install</li>
       <li>When the install is done and reboots &quot;eject&quot; the virtual CD form the &quot;Optical Drive&quot; in the VirtualBox panel, then choose &quot;boot from system disk&quot;,you now should have a working FreeDOS on VirtualBox</li>
       </ol>
-      <h2 id="native-oberon-system-3-on-virtual-box">Native Oberon System 3 on Virtual Box</h2>
-      <p>Native Oberon can be found at <a href="http://www.ethoberon.ethz.ch/native/">http://www.ethoberon.ethz.ch/native/</a>.<br />
-      There is a related ftp site<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> where you can download the necessary<br />
+      <h2>Native Oberon System 3 on Virtual Box</h2>
+      <p>Native Oberon can be found at <a href="http://www.ethoberon.ethz.ch/native/">http://www.ethoberon.ethz.ch/native/</a>.
+      There is a related ftp site<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> where you can download the necessary
       files for the stand alone version.</p>
-      <p>Here's the steps I used in my Mac to download Native Oberon and<br />
-      into a file on my desktop called &quot;NativeOberon-Standalone&quot;. Open<br />
-      the macOS Terminal application. I assume you've got a Unix<br />
-      command called <a href="https://en.wikipedia.org/wiki/Wget">wget</a><br />
+      <p>Here's the steps I used in my Mac to download Native Oberon and
+      into a file on my desktop called &quot;NativeOberon-Standalone&quot;. Open
+      the macOS Terminal application. I assume you've got a Unix
+      command called <a href="https://en.wikipedia.org/wiki/Wget">wget</a>
       already installed<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
       <blockquote>
-      <p>NOTE: The ETH ftp server is no more. I've included Web Archive<br />
-      links and links to my own copies of the files needed to<br />
-      install Native Oberon 2.3.6 in the paragraphs that follow.<br />
+      <p>NOTE: The ETH ftp server is no more. I've included Web Archive
+      links and links to my own copies of the files needed to
+      install Native Oberon 2.3.6 in the paragraphs that follow.
       RSD, 2021-03-16</p>
       </blockquote>
       <pre><code class="language-bash">
@@ -127,16 +133,16 @@
           wget ftp://ftp.ethoberon.ethz.ch/ETHOberon/Native/StdAlone/
       
       </code></pre>
-      <p>Clone your FreeDOS Box first. You'll want to do a &quot;Full Clone&quot;. You'll<br />
-      also want to &quot;remove&quot; any optical disks or floppies. You do that from<br />
-      the virtual boxes' detail page and clicking on the drive and picking the<br />
+      <p>Clone your FreeDOS Box first. You'll want to do a &quot;Full Clone&quot;. You'll
+      also want to &quot;remove&quot; any optical disks or floppies. You do that from
+      the virtual boxes' detail page and clicking on the drive and picking the
       &quot;Remove disk from virtual drive&quot; in the popup menu.</p>
-      <p>At this point we have a a virtual machine that is very similar to an<br />
-      1999 era PC installed with MS DOS.  <a href="http://web.archive.org/web/20190929033749/http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you'd<br />
-      install <a href="/blog/2019/07/28/NativeOberon-StnAlone-2.3.6.zip" title="Zip file of individual floppies">Native Oberon via 1.44MB floppy disks</a>.<br />
-      We can simulate that with our Virtual machine.<br />
-      In the folder of you downloaded there is disc called &quot;oberon0.dsk&quot;. That<br />
-      can go in our first floppy drive. But how to we get the rest of the<br />
+      <p>At this point we have a a virtual machine that is very similar to an
+      1999 era PC installed with MS DOS.  <a href="http://web.archive.org/web/20190929033749/http://www.ethoberon.ethz.ch/native/">Native Oberon</a> Normally you'd
+      install <a href="/blog/2019/07/28/NativeOberon-StnAlone-2.3.6.zip" title="Zip file of individual floppies">Native Oberon via 1.44MB floppy disks</a>.
+      We can simulate that with our Virtual machine.
+      In the folder of you downloaded there is disc called &quot;oberon0.dsk&quot;. That
+      can go in our first floppy drive. But how to we get the rest of the
       files onto a virtual floppies? This wasn't obvious to me at first.</p>
       <p>The Oberon install disks were organized as follows</p>
       <table>
@@ -211,20 +217,20 @@
       </tr>
       </tbody>
       </table>
-      <p>It turns out you can create 1.44MB Fat16 disc images from the<br />
-      Virtual Box 6.0 floppy drive link.  When you click on the floppy<br />
-      drive in the details page you have a choice that includes &quot;create a new floppy disc&quot;. Select this, find the disc a filename like &quot;disk1&quot;. Click<br />
-      on the virtual floppy disk in the Virtual Box and &quot;remove&quot;<br />
-      the disc then create disk2, disk3, etc. In each the empty disc image<br />
-      files places the files from the table above. These image files can then<br />
-      be opened on your host operating system and files copied to them.<br />
-      It's a tedious process but this gives you something the Oberon System<br />
-      can read and install from. Originally I just put all the files into an<br />
-      ISO CD ROM image but I could not figure out how to mount that from this<br />
-      version of Oberon. Now when you start up your Oberon V3 virtual machine<br />
+      <p>It turns out you can create 1.44MB Fat16 disc images from the
+      Virtual Box 6.0 floppy drive link.  When you click on the floppy
+      drive in the details page you have a choice that includes &quot;create a new floppy disc&quot;. Select this, find the disc a filename like &quot;disk1&quot;. Click
+      on the virtual floppy disk in the Virtual Box and &quot;remove&quot;
+      the disc then create disk2, disk3, etc. In each the empty disc image
+      files places the files from the table above. These image files can then
+      be opened on your host operating system and files copied to them.
+      It's a tedious process but this gives you something the Oberon System
+      can read and install from. Originally I just put all the files into an
+      ISO CD ROM image but I could not figure out how to mount that from this
+      version of Oberon. Now when you start up your Oberon V3 virtual machine
       you can install the rest of the software like Gadgets.</p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>FreeDOS is an Open Source implementation of PC/MS DOC&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -246,17 +252,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

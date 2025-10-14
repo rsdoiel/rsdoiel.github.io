@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Simple websites using Markdown](/blog/2025/10/14/simple_websites_using_Markdown.md), 2025-10-14
 - [Computer related terminology that bugs me](/blog/2025/10/01/words_that_bug_me.md), 2025-10-01
 - [Getting started with Go](/blog/2025/09/22/getting_started_with_go.md), 2025-09-22
 - [RSS 23 years on](/blog/2025/09/11/RSS_23_years_on.md), 2025-09-11

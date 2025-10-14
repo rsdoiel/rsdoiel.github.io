@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="PowerShell_and_Edit.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="PowerShell_and_Edit.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-06-05" data-link="https://rsdoiel.github.io/blog/2025/06/05/PowerShell_and_Edit.html">
-      <h1 id="powershell-and-edit-on-windows-macos-and-linux">PowerShell and Edit on Windows, macOS and Linux</h1>
+      <h1>PowerShell and Edit on Windows, macOS and Linux</h1>
       <p>By R. S. Doiel, 2025-06-05</p>
       <p>One of the challenges of multi platform support is the variance in tools. Unix and related operating systems are pretty unified these days. The differences are minor today as opposed to twenty years ago. If you need to support Windows too it's a whole different story. You can jump to Linux Subsystem for Windows but that is really like using a container inside Windows and doesn't solve the problem when you need to work across the whole system.</p>
       <p>Windows' shell experience is varied. Originally it was command com, essentially a enhanced CP/M shell. Much later as Windows moved beyond then replaced MS-DOS they invented PowerShell. Initially a Windows only system. Fast forward today things have change. PowerShell runs across Windows, macOS and Linux. It is even licensed under an MIT style license.</p>
@@ -53,7 +59,7 @@
       <p>Here's an example of formatting the previous example so it uses tabs instead of spaces.</p>
       <pre><code class="language-pwsh">Edit-DTWBeautifyScript ./installer.ps1 -IndentType Tabs
       </code></pre>
-      <h1 id="now-that-i-got-a-shell-running-across-systems-what-about-an-editor">Now that I got a shell running across systems, what about an editor?</h1>
+      <h1>Now that I got a shell running across systems, what about an editor?</h1>
       <p>MS-DOS acquired an editor called &quot;edit&quot; at some point in time (version 4 or 5?).  I remember it was a simple full screen non model editor. Recently Microsoft has created a similar editor that runs in a terminal on Windows and Linux. Like PowerShell it arrived as an Open Source Project. You don't mind some rough edges I have compiled it successfully on macOS. A few features are not implemented but it can open and save files.  It builds with the latest Rust (e.g. run <code>rustup update</code> if you haven't in a while) and generates an installable executable using Cargo. While I'm not likely to switch editors it's nice to have one that is really cross platform in doesn't require odd Unix adapter libraries to be installed to compile it. It's just a Rust program so like Go the build process is pretty consistent when you compile on Windows, Linux or macOS.</p>
       <ul>
       <li><a href="https://github.com/Microsoft/edit">https://github.com/Microsoft/edit</a></li>
@@ -62,17 +68,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

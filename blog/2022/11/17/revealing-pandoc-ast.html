@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="revealing-pandoc-ast.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="revealing-pandoc-ast.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,22 +35,22 @@
 
   <section>
     <article data-published="2022-11-17" data-link="https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html">
-      <h1 id="revealing-the-pandoc-ast">Revealing the Pandoc AST</h1>
-      <p>I've used Pandoc for a number of years, probably a decade. It's been wonderful<br />
-      watching it grow in capability. When Pandoc started accepting JSON documents as<br />
-      a support metadata file things really started to click for me. Pandoc became<br />
+      <h1>Revealing the Pandoc AST</h1>
+      <p>I've used Pandoc for a number of years, probably a decade. It's been wonderful
+      watching it grow in capability. When Pandoc started accepting JSON documents as
+      a support metadata file things really started to click for me. Pandoc became
       my go to tool for rendering content in my writing and documentation projects.</p>
-      <p>Recently I've decided I want a little bit more from Pandoc. I've become curious<br />
-      about prototyping some document conversion via Pandoc's filter mechanism. To do<br />
-      that you need to understand the AST, aka abstract syntax tree.<br />
+      <p>Recently I've decided I want a little bit more from Pandoc. I've become curious
+      about prototyping some document conversion via Pandoc's filter mechanism. To do
+      that you need to understand the AST, aka abstract syntax tree.
       How is the AST structure?</p>
-      <p>It turns out I just wasn't thinking simply enough (or maybe just not paying<br />
-      enough attention while I skimmed Pandoc's documentation). Pandoc's processing<br />
+      <p>It turns out I just wasn't thinking simply enough (or maybe just not paying
+      enough attention while I skimmed Pandoc's documentation). Pandoc's processing
       model looks like</p>
       <pre><code>	INPUT --reader--&gt; AST --filter AST --writer--&gt; OUTPUT
       </code></pre>
-      <p>I've &quot;known&quot; this forever. The missing piece for me was understanding<br />
-      the AST can be an output format.  Use the <code>--to</code> option with the value<br />
+      <p>I've &quot;known&quot; this forever. The missing piece for me was understanding
+      the AST can be an output format.  Use the <code>--to</code> option with the value
       &quot;native&quot; you get the Haskell representation of the AST. It's that simple.</p>
       <pre><code>	pandoc --from=markdown --to=native \
       	   learning-to-write-a-pandoc-filter.md | \
@@ -72,27 +78,26 @@
           , Str &quot;used&quot;
           , Space
       </code></pre>
-      <p>If you prefer JSON over Haskell use <code>--to=json</code> for similar effect. Here's<br />
+      <p>If you prefer JSON over Haskell use <code>--to=json</code> for similar effect. Here's
       an example piping through <a href="https://stedolan.github.io/jq/">jq</a>.</p>
       <pre><code>	pandoc --from=markdown --to=json \
       	   learning-to-write-a-pandoc-filter.md | jq .
       </code></pre>
-      <p>Writing filters makes much sense to me now. I can see the AST and see<br />
+      <p>Writing filters makes much sense to me now. I can see the AST and see
       how the documentation describes writing hooks in Lua to process it.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

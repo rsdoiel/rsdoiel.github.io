@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="cross-compiling-go.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="cross-compiling-go.md" rel="altenate" type="text/markdown" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,19 +35,19 @@
 
   <section>
     <article data-published="2017-06-16" data-link="https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html">
-      <h1 id="cross-compiling-go-183-for-pine64-pinebook">Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
+      <h1>Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
       <p>By R. S. Doiel 2017-06-16</p>
-      <p>Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is<br />
-      not the same ARM processor found on a Raspberry Pi 3. As a<br />
-      result it needs its own compiled version of Go. Fortunately cross<br />
-      compiling Go is very straight forward. I found two helpful Gists<br />
+      <p>Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is
+      not the same ARM processor found on a Raspberry Pi 3. As a
+      result it needs its own compiled version of Go. Fortunately cross
+      compiling Go is very straight forward. I found two helpful Gists
       on GitHub discussing compiling Go for a 64-Bit ARM processor.</p>
       <ul>
       <li><a href="https://gist.github.com/conoro/4fca191fad018b6e47922a21fab499ca">conoro's gist</a></li>
       <li><a href="https://gist.github.com/truedat101/5898604b1f7a1ec42d65a75fa6a0b802">truedat101's gist</a></li>
       </ul>
-      <p>I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile<br />
-      host. Go 1.8.3 is already compiled and available.  Inspired by the<br />
+      <p>I am using a Raspberry Pi 3, raspberrypi.local, as my cross compile
+      host. Go 1.8.3 is already compiled and available.  Inspired by the
       gists I worked up with this recipe to bring a Go 1.8.3 to my Pinebook.</p>
       <pre><code class="language-shell">    cd
           mkdir -p gobuild
@@ -55,8 +61,8 @@
           cd src
           ./bootstrap.bash
       </code></pre>
-      <p>After the bootstrap compile is finished I switch to my Pinebook,<br />
-      copy the bootstrap compiler to my Pinebook and use it to compile<br />
+      <p>After the bootstrap compile is finished I switch to my Pinebook,
+      copy the bootstrap compiler to my Pinebook and use it to compile
       a new go1.8.3 for Pine64.</p>
       <pre><code class="language-shell">    cd
           scp -r raspberrypi.local:gobuild/*.tbz ./
@@ -71,24 +77,23 @@
           cd src
           ./all.bash
       </code></pre>
-      <p><em>all.bash</em> will successfully compile <em>go</em> and <em>gofmt</em> but fail on<br />
-      the tests. It's not perfect but appears to work as I explore<br />
-      building Go applications on my Pinebook. Upcoming Go releases should<br />
+      <p><em>all.bash</em> will successfully compile <em>go</em> and <em>gofmt</em> but fail on
+      the tests. It's not perfect but appears to work as I explore
+      building Go applications on my Pinebook. Upcoming Go releases should
       provide better support for 64 bit ARM.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

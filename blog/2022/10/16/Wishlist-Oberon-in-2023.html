@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Wishlist-Oberon-in-2023.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Wishlist-Oberon-in-2023.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,31 +35,30 @@
 
   <section>
     <article data-published="2022-10-16" data-link="https://rsdoiel.github.io/blog/2022/10/16/Wishlist-Oberon-in-2023.html">
-      <h1 id="wish-list-for-oberon-in-2023">Wish list for Oberon in 2023</h1>
+      <h1>Wish list for Oberon in 2023</h1>
       <p>Next year will be ten years since Prof. Wirth and Paul Reed released <a href="https://www.projectoberon.com">Project Oberon 2013</a>.  It took me most of that decade to stumble on the project and community.  I am left wondering if Prof. Wirth and Paul Reed sat down today what would they design? I think only minor changes are needed and those mostly around assumptions.</p>
-      <h2 id="oberon-07-changing-assumptions">Oberon-07 changing assumptions</h2>
+      <h2>Oberon-07 changing assumptions</h2>
       <p>The language of Oberon-07 doesn't need to change. I do think the assumptions of the compiler are worth revisiting.  A CHAR should not be assumed to be an eight bit byte.  A CHAR should represent a character or symbol in a language. Many if not most of the Oberon community speaks language other than American English and that which is trivially represented in seven or eight bit ASCII.  While changing the representation assumption in Oberon-07 does increase complexity I feel restrict the character presentation of a CHAR to eight bits puts us on the side of &quot;too simple&quot; in the equation of &quot;Simpler but not to simple&quot;.</p>
       <p>I am concerned about the assumption of an INTEGER as 32 bits. Increasingly I've seen single board computer implementations that are 64 bits.  Today feels allot like when I started in computing where personal computers were shifting from eight or sixteen bits to thirty two.  I suspect increasingly we will find that eight, sixteen and thirty two bit computers are relegated to the realm of specialized computers. While supporting these other widths will remain important I think shifting assumptions to sixty four bit machines makes sense now. Is a 32 bit machine &quot;too simple&quot; in our equation of &quot;simpler but not too simple&quot;?</p>
-      <h2 id="oberon-as-operating-system">Oberon as Operating System</h2>
+      <h2>Oberon as Operating System</h2>
       <p>The operating system I still find liberating in 2023 as when I first was able to use it.  The challenge in 2023 though is the three button mouse. I think the supporting the historic mouse remains important but that the viewers should also support navigation via the keyboard and easily support touch systems that lack a mouse.  Being backward compatibly while adopting an enhance UI would make things more complex bit if care is taken I think that it can be done while keep the equation balanced as &quot;simpler, but not too simple&quot;.</p>
-      <h2 id="transforming-my-assumptions-in-2023">Transforming my assumptions in 2023</h2>
+      <h2>Transforming my assumptions in 2023</h2>
       <p>I think the Artemis Project should presume that the representation of CHAR and INTEGER may change and probably should change. The portable modules should support compiling Oberon-07 programs on non-Oberon 2014 Systems without change.  I am skeptical that I can create a module system that provides a base line with the historic Oberon implementations. I think the Oakwood modules are just too limited. I think the assumption is I need implementations for Project Oberon 2013 modules as the base line perhaps enhanced with a few additional modules to supporting networking, UTF-8, JSON, and XML. The goal I think is that using Artemis on a non-Oberon System should facilitate bootstrapping an Oberon System 2023 should one come to exist.</p>
-      <h2 id="errata">Errata</h2>
+      <h2>Errata</h2>
       <p>7:00 - 7:30; Oberon Language; A minimum SYSTEM module; It occurred to me that while the SYSTEM module will need to address the specifics of the hardware and host environment it could support a minimum set of useful constants. What would be extremely helpful would be able to rely on knowing the max size of an INTEGER, the size of CHAR (e.g. 8, 16 or 32 bits), default character encoding used by the compiler (e.g. ASCII, UTF-8). Likewise it would be extremely helpful to know the the CPU type (e.g. arm64, amd64, x86-32), Operating System/version and name/version of the compiler.  I think this would allow the modules that depend on SYSTEM directly to become slightly more portable.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

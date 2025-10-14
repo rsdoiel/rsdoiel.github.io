@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Setting-up-Go-under-Bash-for-Windows-10.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Setting-up-Go-under-Bash-for-Windows-10.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,14 +35,14 @@
 
   <section>
     <article data-published="2016-08-15" data-link="https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html">
-      <h1 id="exploring-bash-for-windows-10-pro">Exploring Bash for Windows 10 Pro</h1>
+      <h1>Exploring Bash for Windows 10 Pro</h1>
       <p>By R. S. Doiel 2016-08-15</p>
       <pre><code>UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
       Windows 10 Pro I've am getting compile errors when the 
       assembler is being built.  I can compile go1.4.3 but see errors 
       in some of the tests results.
       </code></pre>
-      <h2 id="initial-setup-and-configuration">Initial Setup and configuration</h2>
+      <h2>Initial Setup and configuration</h2>
       <p>I am running Windows 10 Pro (64bit) Anniversary edition under Virtual Box. The VM was upgraded from an earlier version of Windows 10 Pro (64bit). The VM was allocated 4G or ram, 200G disc and simulating 2 cores.  After the upgrade I took the following steps</p>
       <ul>
       <li>Search with Bing for &quot;Bash for Windows&quot;
@@ -60,8 +66,8 @@
       <li>Launched &quot;Bash on Ubuntu on Windows&quot;</li>
       <li>Authenticate with your username/password</li>
       </ul>
-      <h2 id="setting-up-go-under-bash-for-windows-10">Setting up Go under Bash for Windows 10</h2>
-      <p>With Bash installed these are the steps I took to compile Go<br />
+      <h2>Setting up Go under Bash for Windows 10</h2>
+      <p>With Bash installed these are the steps I took to compile Go
       under Bash on Ubuntu on Windows.</p>
       <pre><code class="language-shell">    sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
           sudo apt-get autoremove
@@ -83,16 +89,16 @@
           export PATH=$HOME/go/bin:$HOME/bin:$PATH
           export GOPATH=$HOME
       </code></pre>
-      <p>Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed<br />
-      around network sockets.  This is probably a result of the limitations in the Linux subsystem<br />
+      <p>Note some tests failing during compilation in both 1.4.3 and 1.7. They mostly failed
+      around network sockets.  This is probably a result of the limitations in the Linux subsystem
       under Windows.</p>
-      <p>If successful you should be able to run <code>go version</code> as well as install additional Go based software<br />
+      <p>If successful you should be able to run <code>go version</code> as well as install additional Go based software
       with the usual <code>go get ...</code> syntax.</p>
       <p>In your <code>.bashrc</code> or <code>.profile</code> add the following</p>
       <pre><code class="language-shell">    export PATH=$HOME/go/bin:$HOME/bin:$PATH
           export GOPATH=$HOME
       </code></pre>
-      <h2 id="improved-vim-setup">Improved vim setup</h2>
+      <h2>Improved vim setup</h2>
       <p>I like the vim-go packages for editing Go code in vim. They are easy to setup.</p>
       <pre><code class="language-shell">     mkdir -p ~/.vim/autoload ~/.vim/bundle 
            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -111,29 +117,28 @@
           let &amp;background = ( &amp;background == &quot;dark&quot;? &quot;light&quot; : &quot;dark&quot; )
           let g:vim_markdown_folding_disabled=1
       </code></pre>
-      <p>Color schemes are browsable at <a href="http://vimcolors.com">vimcolors.com</a>. They can be installed in<br />
+      <p>Color schemes are browsable at <a href="http://vimcolors.com">vimcolors.com</a>. They can be installed in
       $HOME/.vim/colors.</p>
       <ol>
       <li>git clone and place the colorscheme</li>
       <li>place the *.vim file holding the color scheme into $HOME/.vim/colors</li>
       <li>start vim and at the : do colorscheme NAME where NAME is the scheme you want to try</li>
       </ol>
-      <p>You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number<br />
+      <p>You can find the default shipped color schemes in /usr/share/vim/vimNN/colors where vimNN is the version number
       e.g. /usr/share/vim/vim74/colors.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

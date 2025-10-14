@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="a-quick-tour-of-deno-2.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="a-quick-tour-of-deno-2.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,21 +35,21 @@
 
   <section>
     <article data-published="2024-10-18" data-link="https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html">
-      <h1 id="quick-tour-of-deno-202">Quick tour of Deno 2.0.2</h1>
+      <h1>Quick tour of Deno 2.0.2</h1>
       <p>By R. S. Doiel</p>
       <p>I've been working with TypeScript this year using Deno. Deno has reached version 2.0. It has proven to be a nice platform for projects. Deno includes thoughtful tooling, good language support, ECMAScript module support and a <a href="https://jsr.io/@std">good standard library</a>.  As a TypeScript and JavaScript platform I find it much more stable and compelling than NodeJS. Deno has the advantage of being able to cross compile TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.</p>
-      <h2 id="easy-install-with-cargo">Easy install with Cargo</h2>
+      <h2>Easy install with Cargo</h2>
       <p>Deno is written in Rust. I like installing Deno via Rust's Cargo. You can installed Rust via <a href="https://rustup.rs">Rustup</a>. When I install Deno on a new machine I first check to make sure my Rust is the latest then I use Cargo to install Deno.</p>
       <pre><code class="language-shell">rustup update
       cargo install deno
       </code></pre>
-      <h2 id="easy-deno-upgrade">Easy Deno upgrade</h2>
+      <h2>Easy Deno upgrade</h2>
       <p>Deno is in active development. You'll want to run the latest releases.  That's easy using Deno. It has a self upgrade option.</p>
       <pre><code class="language-shell">deno upgrade
       </code></pre>
-      <h2 id="exploring-typescript">Exploring TypeScript</h2>
+      <h2>Exploring TypeScript</h2>
       <p>When I started using Deno this year I wasn't familiar with TypeScript. Unlike NodeJS Deno can run TypeScript natively. Why write in TypeScript? TypeScript is a superset of JavaScript. That means if you know JavaScript you know most of TypeScript already. Where TypeScript differs is in the support for type safety and other modern language features. Writing TypeScript for Deno is a joy because it supports the web standard ECMAScript Models. That means the code I develop to run server side can be easily targetted to work in modern browsers too. TypeScript began life as a transpiled language targeting JavaScript. With Deno's emit module I can easily transpile my TypeScript to JavaScript. No more messying about with NodeJS and npm.</p>
-      <h2 id="exploring-deno">Exploring Deno</h2>
+      <h2>Exploring Deno</h2>
       <p>As a learning platform I find Deno very refreshing. Deno provides a <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>. That means you can easily try out TypeScript interactively. Deno is smart about when it runs &quot;programs&quot; versus running as a REPL. This is an improvement over NodeJS.</p>
       <p>Deno, like your web browser, runs TypeScript and JavaScript in a sand boxed environment. The REPL gives you full access to your machine but running programs via Deno requires you to give explicit permissions to resources like reading from your file system, accessing your environment, accessing the network or importing models from remote systems. This might sound tedious but Deno makes it easy in practice.</p>
       <p>Deno projects use a <code>deno.json</code> file for initialization. Creating the file is as easy as typing <code>deno init</code> in your project directory. Here's an example of setting up a <code>happy_deno</code> project.</p>
@@ -55,13 +61,15 @@
       <pre><code class="language-shell">ls 
       </code></pre>
       <p>The init action created the following files.</p>
-      <p><code>deno.json</code><br />
-      : The project configuration for Deno. It includes default tasks and module imports.</p>
-      <p><code>main.ts</code><br />
-      : This is the &quot;main&quot; program for your project. It's where you'll add your TypeScript code.</p>
-      <p><code>main_test.ts</code><br />
-      : This is a test program so you can test the code you've written in your &quot;main&quot; module.</p>
-      <p>The task action by itself will list currently defined tasks, e.g. <code>deno task</code> (the &quot;dev&quot; task<br />
+      <dl>
+      <dt><code>deno.json</code></dt>
+      <dd>The project configuration for Deno. It includes default tasks and module imports.</dd>
+      <dt><code>main.ts</code></dt>
+      <dd>This is the &quot;main&quot; program for your project. It's where you'll add your TypeScript code.</dd>
+      <dt><code>main_test.ts</code></dt>
+      <dd>This is a test program so you can test the code you've written in your &quot;main&quot; module.</dd>
+      </dl>
+      <p>The task action by itself will list currently defined tasks, e.g. <code>deno task</code> (the &quot;dev&quot; task
       was defined by the init action).</p>
       <pre><code class="language-shell">Available tasks:
       - dev
@@ -100,7 +108,7 @@
       </code></pre>
       <p>Adding additional tasks is just a matter of editing the <code>deno.json</code> file and adding them to the <code>tasks</code> attributes.</p>
       <p>See <a href="https://docs.deno.com/runtime/reference/cli/task_runner/">deno task</a> documentation for details.</p>
-      <h3 id="modules-in-deno">Modules in Deno</h3>
+      <h3>Modules in Deno</h3>
       <p>TypeScript and JavaScript support &quot;modules&quot;. Specifically Deno supports <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">ES</a> modules. The nice thing about this is ES modules can be used with the same import export syntax in your web browser supports. Deno supports local modules and remote modules accessed via URL just like your browser. At work I have our project documentation hosted on GitHub. I can write a TypeScript modules there too. I can then import them into a another project just by using the URL.</p>
       <p>Why is the significant? I don't need to rely on an external system like <a href="https://npmjs.com">npm</a> for module repositories. All I need is a simple static website. Modules in the Deno community often use <a href="https://jsr.io/">https://jsr.io/</a> as a common module registery. This includes Deno's standard library modules.  Let's add the standard &quot;fs&quot; and &quot;path&quot; module to our happy deno project. Use Deno's &quot;add&quot; action.</p>
       <pre><code class="language-shell">deno add jsr:@std/fs
@@ -124,7 +132,7 @@
       <pre><code>    &quot;dev&quot;: &quot;deno run --allow-read --watch main.ts&quot;
       </code></pre>
       <p>You can include multiple permissions by adding the related &quot;allow&quot; option (E.g. <code>--allow-import</code>, <code>--allow-env</code>, <code>--allow-net</code>). It is important to realize that importing a moddel doesn't give you permission, you need to explicitly allow Deno to do that. When you compile a program the permissions you allow will also be allowed in the compiled version.</p>
-      <h3 id="an-exercise-for-the-reader">An exercise for the reader</h3>
+      <h3>An exercise for the reader</h3>
       <p>Create a TypeScript file called <a href="show_deno_json.ts">show_deno_json.ts</a>. Read in and display the contents of the &quot;deno.json&quot; file in the same directory.</p>
       <p>Here's so links to documentation that may be helpful in finishing the exercise.</p>
       <ul>
@@ -139,7 +147,7 @@
       <li><a href="https://docs.deno.com/runtime/fundamentals/configuration/">deno.json</a></li>
       <li><a href="https://docs.deno.com/runtime/fundamentals/security/">security</a></li>
       </ul>
-      <h2 id="compiling-typescript-to-executable-code">Compiling TypeScript to executable code</h2>
+      <h2>Compiling TypeScript to executable code</h2>
       <p>One of the really nice things about Deno + TypeScript is that your development experience can be interactive like interpretive languages (e.g. Python, Lisp) and as convenient to deploy as a <a href="https://golang.org">Go</a> executable. You can compile our &quot;main.ts&quot; file with the following command.</p>
       <pre><code>deno compile --allow-read main.ts
       </code></pre>
@@ -151,7 +159,7 @@
       <p>NOTE: On a Windows the compiled program is named <code>happy_deno.exe</code>, to execute it I would type <code>.\happy_deno.exe</code> in your Powershell session.</p>
       <p>By default Deno uses the project directory for the executable name. You can explicitly set the executable name with a <a href="https://docs.deno.com/runtime/getting_started/command_line_interface/">command line option</a>. You can also use command line options with the compile action to <a href="https://en.wikipedia.org/wiki/Cross_compiler">cross compile</a> your executable similar to how it is done with Go.</p>
       <p>Why compile your program?  Well it runs slightly fast but more importantly you can now copy the executable to another machine and run it even if Deno isn't installed. This means you no longer have the version dependency problems I typically experience with deploying code from Python and NodeJS projects.  Like Go the Deno compiler is a cross compiler. That means I can compile versions for macOS, Windows and Linux on one machine then copy the platform specific executable to the machines where they are needed. Deno's compiler provides similar advantages to Go.</p>
-      <h2 id="typescript-to-javascript-with-deno">TypeScript to JavaScript with Deno</h2>
+      <h2>TypeScript to JavaScript with Deno</h2>
       <p>JavaScript is a first class language in modern web browsers but TypeScript is not.  When TypeScript was invented it was positioned as a <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpiled</a> language. Deno is a first class TypeScript environment but how do I get my TypeScript transpiled to JavaScript?  Deno provides an <a href="https://jsr.io/@deno/emit">emit</a> module for that. With a five lines of TypeScript I can write a bundler to convert my TypeScript to JavaScript. I can even add running that as a task to my <code>deno.json</code> file. Here's an example of &quot;main_to_js.ts&quot;.</p>
       <pre><code class="language-typescript">import { bundle } from &quot;jsr:@deno/emit&quot;;
       const url = new URL(&quot;./main.ts&quot;, import.meta.url);
@@ -176,7 +184,7 @@
       }
       </code></pre>
       <p>Now when I want to see the <code>main.ts</code> in JavaScript I can do <code>deno task transpile</code>.</p>
-      <h2 id="contrasting-deno--typescript-with-go-and-python">Contrasting Deno + TypeScript with Go and Python</h2>
+      <h2>Contrasting Deno + TypeScript with Go and Python</h2>
       <p>For me working in Go has been a pleasure in large part because of its tooling. The &quot;go&quot; command comes with module management, code formatter, linting, testing and cross compiler right out of the box. I like a garbage collected language. I like type safety. I like the ease which you can work with structured data. I've enjoyed programming with the excellent Go standard library while having the option to include third party modules if needed.</p>
       <p>Deno with TypeScript gives me most of what I like about Go out of the box. The <code>deno</code> command includes a task runner, module manager, testing, linting (aka check), cross compiler and formatter out of the box. TypeScript interfaces provide a similar experience to working with <code>struct</code> types in Go. Unlike Go you can work with Deno interactively similar to using the REPL in Python, Lisp or your favorite SQL client. I like the ES module experience of Deno better than Go's module experience.</p>
       <p>What makes Deno + TypeScript compelling over writing web services over Python is Deno's cross compiler.  Like Go I can compile executables for macOS, Windows and Linux on one box and target x86_64 and ARM 64 CPUs.No more need to manage virtual environments and no more sorting out things when virtual environments inevitably get crossed up. Copying an executable to the production machines is so much easier.  Many deployments boil down to an <code>scp</code> and restarting the services on the report machines. Example <code>scp myservice apps.example.edu:/serivces/bin/; ssh apps.example.edu &quot;systemctl restart myservice&quot;</code>.  It also means curl installs are trivial. All you need is an SH or Powershell script that can download a zip file, unpack it and copy it into the search path of the host system. Again the single self contained executable is a huge simplifier.</p>
@@ -188,17 +196,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

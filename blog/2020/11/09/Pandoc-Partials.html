@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Pandoc-Partials.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Pandoc-Partials.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,26 +35,25 @@
 
   <section>
     <article data-published="2020-11-09" data-link="https://rsdoiel.github.io/blog/2020/11/09/Pandoc-Partials.html">
-      <h1 id="pandoc-partial-templates">Pandoc Partial Templates</h1>
-      <p>Most people know about <a href="https://pandoc.org/">Pandoc</a> from its<br />
-      fantastic ability to convert various markup formats from one to<br />
-      another. A little less obvious is Pandoc can be a template engine<br />
-      for rendering static websites allowing you full control over the<br />
+      <h1>Pandoc Partial Templates</h1>
+      <p>Most people know about <a href="https://pandoc.org/">Pandoc</a> from its
+      fantastic ability to convert various markup formats from one to
+      another. A little less obvious is Pandoc can be a template engine
+      for rendering static websites allowing you full control over the
       rendered content.</p>
-      <p>The main Pandoc documentation of the template engine can be found<br />
-      in the <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a>.<br />
-      The documentation is complete in terms of describing the template<br />
-      capabilities but lacks a tutorial for using as a replacement for more<br />
-      ambitious rendering systems like <a href="https://jekyllrb.com/">Jekyll</a> or<br />
-      <a href="https://gohugo.io/">Hugo</a>. Pandoc takes a vary direct approach and<br />
+      <p>The main Pandoc documentation of the template engine can be found
+      in the <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a>.
+      The documentation is complete in terms of describing the template
+      capabilities but lacks a tutorial for using as a replacement for more
+      ambitious rendering systems like <a href="https://jekyllrb.com/">Jekyll</a> or<a href="https://gohugo.io/">Hugo</a>. Pandoc takes a vary direct approach and
       can be deceptively simple to implement.</p>
-      <h2 id="use-your-own-template">Use your own template</h2>
-      <p>First thing in this tutorial is to use our own template with Pandoc<br />
-      when rendering a single webpage. You use the <code>–-template</code> option to<br />
-      provide your a template name. I think of this as the page level template.<br />
-      This template, as I will show later, can then call other partial<br />
+      <h2>Use your own template</h2>
+      <p>First thing in this tutorial is to use our own template with Pandoc
+      when rendering a single webpage. You use the <code>–-template</code> option to
+      provide your a template name. I think of this as the page level template.
+      This template, as I will show later, can then call other partial
       templates as needed.</p>
-      <p>Example, render the <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> file using the<br />
+      <p>Example, render the <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> file using the
       template named <a href="index1.tmpl">index1.tmpl</a>:</p>
       <pre><code class="language-{.shell}">
           pandoc --from=markdown --to=html \
@@ -67,22 +72,21 @@
           &lt;/html&gt;
       
       </code></pre>
-      <p>When we run our Pandoc command the file called<br />
-      <a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> is passed into the template as<br />
-      the &quot;body&quot; element where it says <code>${body}</code>. See this Pandoc<br />
+      <p>When we run our Pandoc command the file called<a href="Pandoc-Partials.txt">Pandoc-Partials.txt</a> is passed into the template as
+      the &quot;body&quot; element where it says <code>${body}</code>. See this Pandoc
       <a href="https://pandoc.org/MANUAL.html#templates">User Guide</a> for the basics.</p>
       <p>Example 1 rendered: <a href="index1.htm">index1.htm</a></p>
-      <h2 id="variables-and-metadata">Variables and metadata</h2>
-      <p>Pandoc's documentation is good at describing the<br />
-      ways of referencing a variable or using the built-in<br />
-      template functions. Where do the variables get their values?<br />
-      The easiest way I've found is to set the variables values in<br />
-      a JSON metadata file.  While Pandoc can also use the metadata<br />
-      described in YAML front matter Pandoc doesn't support some of the<br />
-      other common front matter formats.  If you're using another format<br />
-      like JSON or TOML for front matter there are tools which can split<br />
-      the front matter from the rest of the markdown document. For<br />
-      this example I have created the metadata as JSON in a file<br />
+      <h2>Variables and metadata</h2>
+      <p>Pandoc's documentation is good at describing the
+      ways of referencing a variable or using the built-in
+      template functions. Where do the variables get their values?
+      The easiest way I've found is to set the variables values in
+      a JSON metadata file.  While Pandoc can also use the metadata
+      described in YAML front matter Pandoc doesn't support some of the
+      other common front matter formats.  If you're using another format
+      like JSON or TOML for front matter there are tools which can split
+      the front matter from the rest of the markdown document. For
+      this example I have created the metadata as JSON in a file
       called <a href="metadata.json">metadata.json</a>.</p>
       <p>Example <a href="metadata.json">metadata.json</a>:</p>
       <pre><code class="language-{.json}">
@@ -97,7 +101,7 @@
           }
       
       </code></pre>
-      <p>Let's modify our initial template to include our simple navigation<br />
+      <p>Let's modify our initial template to include our simple navigation
       and title.</p>
       <p>Example <a href="index2.tmpl">index2.tmpl</a>:</p>
       <pre><code class="language-{.html-code}">
@@ -124,23 +128,21 @@
                  --metadata-file=metadata.json Pandoc-Partials.txt &gt; index2.htm
       
       </code></pre>
-      <p>When we render this we now should be able to view a web page<br />
-      with simple navigation driven by the JSON file as well as the<br />
+      <p>When we render this we now should be able to view a web page
+      with simple navigation driven by the JSON file as well as the
       body content contained in the Pandoc-Partials.txt file.</p>
       <p>Example 2 rendered: <a href="index2.htm">index2.htm</a></p>
-      <h2 id="partials">Partials</h2>
-      <p>Sometimes you have more complex documents. Putting this all in<br />
-      one template can become tedious. Web designers use a term called<br />
-      &quot;partials&quot;. This usually means a template for a &quot;part&quot; of a page.<br />
-      In our initial example we can split our navigation into it's own<br />
+      <h2>Partials</h2>
+      <p>Sometimes you have more complex documents. Putting this all in
+      one template can become tedious. Web designers use a term called
+      &quot;partials&quot;. This usually means a template for a &quot;part&quot; of a page.
+      In our initial example we can split our navigation into it's own
       template.</p>
-      <h2 id="implementing-partials">Implementing partials</h2>
-      <p>Pandoc will look in the current directory for partials as well<br />
-      as in a sub directory called &quot;templates&quot; of the current direct.<br />
-      In this example I am going to include my partial template for<br />
-      navigation in the current directory along side my<br />
-      <a href="index3.tmpl">index3.tmpl</a>.  My navigation template is called<br />
-      <a href="nav.tmpl">nav.tmpl</a>.</p>
+      <h2>Implementing partials</h2>
+      <p>Pandoc will look in the current directory for partials as well
+      as in a sub directory called &quot;templates&quot; of the current direct.
+      In this example I am going to include my partial template for
+      navigation in the current directory along side my<a href="index3.tmpl">index3.tmpl</a>.  My navigation template is called<a href="nav.tmpl">nav.tmpl</a>.</p>
       <p>Here's my partial template:</p>
       <pre><code class="language-{.html-code}">
           &lt;nav&gt;
@@ -166,18 +168,18 @@
           &lt;/html&gt;
       
       </code></pre>
-      <p>Pandoc only requires you to reference the partial by using<br />
-      its base name. Many people will name their templates with the<br />
-      extension &quot;.html&quot;. I find this problematic as if you're trying<br />
-      to list the templates in the directory you can not easily list<br />
-      them separately. I use the &quot;.tmpl&quot; extension to identify my templates.<br />
-      Since I have other documents that share the base name &quot;nav&quot; I<br />
-      explicit call my navigation partial using the full filename followed<br />
-      by the open and closed parenthesis. I have also chosen to wrap<br />
-      the template in an &quot;if&quot; condition. That way if I don't want navigation<br />
+      <p>Pandoc only requires you to reference the partial by using
+      its base name. Many people will name their templates with the
+      extension &quot;.html&quot;. I find this problematic as if you're trying
+      to list the templates in the directory you can not easily list
+      them separately. I use the &quot;.tmpl&quot; extension to identify my templates.
+      Since I have other documents that share the base name &quot;nav&quot; I
+      explicit call my navigation partial using the full filename followed
+      by the open and closed parenthesis. I have also chosen to wrap
+      the template in an &quot;if&quot; condition. That way if I don't want navigation
       on a page I skip defining it in my metadata file.</p>
-      <p>Inside the partial template we inherit the parent metadata object.<br />
-      You can use all the built-in Pandoc template functions and variables<br />
+      <p>Inside the partial template we inherit the parent metadata object.
+      You can use all the built-in Pandoc template functions and variables
       provided by Pandoc in your partial templates.</p>
       <p>Putting it all together:</p>
       <pre><code class="language-{.shell}">
@@ -190,17 +192,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

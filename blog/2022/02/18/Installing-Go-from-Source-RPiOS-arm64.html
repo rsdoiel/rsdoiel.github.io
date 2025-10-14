@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Installing-Go-from-Source-RPiOS-arm64.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Installing-Go-from-Source-RPiOS-arm64.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,36 +35,35 @@
 
   <section>
     <article data-published="2022-02-18" data-link="https://rsdoiel.github.io/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.html">
-      <h1 id="installing-golang-from-source-on-rpi-os-for-arm64">Installing Golang from Source on RPi-OS for arm64</h1>
+      <h1>Installing Golang from Source on RPi-OS for arm64</h1>
       <p>By R. S. Doiel, 2022-02-18</p>
       <p>This are my quick notes on installing Golang from source on the Raspberry Pi OS 64 bit.</p>
       <ol>
-      <li>Get a working compiler<br />
-      a. go to <a href="https://go.dev/dl/">https://go.dev/dl/</a> and download go1.17.7.linux-arm64.tar.gz<br />
-      b. untar the tarball in your home directory (it'll unpack to $HOME/go)<br />
+      <li>Get a working compiler
+      a. go to <a href="https://go.dev/dl/">https://go.dev/dl/</a> and download go1.17.7.linux-arm64.tar.gz
+      b. untar the tarball in your home directory (it'll unpack to $HOME/go)
       c. <code>cd go/src</code> and <code>make.bash</code></li>
       <li>Move go directory to go1.17</li>
       <li>Clone go from GitHub</li>
-      <li>Compile with the downloaded compiler<br />
-      a. <code>cd go/src</code><br />
-      b. <code>env GOROOT_BOOTSTRAP=$HOME/go1.17 ./make.bash</code><br />
-      c. Make sure <code>$HOME/go/bin</code> is in the path<br />
+      <li>Compile with the downloaded compiler
+      a. <code>cd go/src</code>
+      b. <code>env GOROOT_BOOTSTRAP=$HOME/go1.17 ./make.bash</code>
+      c. Make sure <code>$HOME/go/bin</code> is in the path
       d. <code>go version</code></li>
       </ol>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

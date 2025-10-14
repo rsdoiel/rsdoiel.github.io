@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="installing-pgloader-from-source.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="installing-pgloader-from-source.md" rel="altenate" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2024-02-01" data-link="https://rsdoiel.github.io/blog/2024/02/01/installing-pgloader-from-source.html">
-      <h1 id="installing-pgloader-from-source">Installing pgloader from source</h1>
+      <h1>Installing pgloader from source</h1>
       <p>By R. S. Doiel, 2024-02-01</p>
       <p>I'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.</p>
-      <h2 id="getting-your-lisps-in-order">Getting your Lisps in order</h2>
+      <h2>Getting your Lisps in order</h2>
       <p>pgloader is written in common list but the instructions at <a href="https://pgloader.readthedocs.io/en/latest/install.html">https://pgloader.readthedocs.io/en/latest/install.html</a> specifically mention compiling with <a href="https://sbcl.org">SBCL</a> which is one of the Lisps I've used in the past. But SBCL isn't (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter <a href="https://ecl.common-lisp.dev/">ECL</a>, aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like</p>
       <ol>
       <li>Compile then install ECL</li>
@@ -41,7 +47,7 @@
       <li>Now that we have a working SBCL, follow the instructions to compile pgloader and install</li>
       </ol>
       <p>NOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled</p>
-      <h2 id="getting-ecl-up-and-running">Getting ECL up and running</h2>
+      <h2>Getting ECL up and running</h2>
       <p>This recipe is straight forward.</p>
       <ol>
       <li>Review ECL's current website, find latest releases</li>
@@ -57,7 +63,7 @@
       make
       make install
       </code></pre>
-      <h2 id="getting-sbcl-up-and-running">Getting SBCL up and running</h2>
+      <h2>Getting SBCL up and running</h2>
       <p>To get SBCL up and running I grab the sources using Git then compile it with the options recommended by pgloader as well as the options to compile SBCL with another common lisp, i.e. ECL. (note: the <code>--xc-host='ecl'</code>)</p>
       <pre><code>cd
       git clone git://git.code.sf.net/p/sbcl/sbcl src/git.code.sf.net/p/sbcl/sbcl
@@ -70,7 +76,7 @@
       env INSTALL_ROOT=$HOME sh install.sh
       </code></pre>
       <p>At this time SBCL should be available to compile pgloader.</p>
-      <h2 id="install-quicklisp">Install Quicklisp</h2>
+      <h2>Install Quicklisp</h2>
       <p>Quicklisp is a package manager for Lisp. It is used by pgloader so also needs to be installed. We have two lisp on our system but since SBCL is the one I need to work for pgloader I install Quicklisp for SBCL.</p>
       <ol>
       <li>Check the <a href="https://www.quicklisp.org/beta/">Quicklisp website</a> and see how things are done (it has been a long time since I did some lisp work)</li>
@@ -93,7 +99,7 @@
       <pre><code>(quicklisp-quickstart:install)
       (quit)
       </code></pre>
-      <h2 id="compiling-pgloader">Compiling pgloader</h2>
+      <h2>Compiling pgloader</h2>
       <p>Once you have SBCL and Quicklisp working you're now ready to look at the rest of the dependencies. Based on the what other Linux systems required I figure I need to have the following available</p>
       <ul>
       <li>SQLite 3, libsqlite shared library (already installed)</li>
@@ -121,26 +127,25 @@
       make save
       ./build/bin/pgloader -h
       </code></pre>
-      <p>If all works well I should see the help/usage text for pgloader. The binary executable<br />
+      <p>If all works well I should see the help/usage text for pgloader. The binary executable
       is located in <code>./build/bin</code> so I can copy this into place in <code>$HOME/bin/</code> directory.</p>
       <pre><code>cp ./build/bin/pgloader $HOME/bin/
       </code></pre>
-      <p>Happy Loading.<br />
+      <p>Happy Loading.
       , &quot;PostgreSQL&quot;</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

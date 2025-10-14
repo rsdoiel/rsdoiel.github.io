@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="generating_rss_with_flatlake.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="generating_rss_with_flatlake.md" rel="altenate" type="text/markdown" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,21 +35,20 @@
 
   <section>
     <article data-published="2025-08-10" data-link="https://rsdoiel.github.io/blog/2025/08/10/generating_rss_with_flatlake.html">
-      <h1 id="generating-rss-with-flatlake">Generating RSS with FlatLake</h1>
+      <h1>Generating RSS with FlatLake</h1>
       <p>By R. S. Doiel, 2025-08-10</p>
-      <p>One of the must have features missing from many static websites are RSS feeds.<br />
-      Many people produce blogs using CommonMark/Markdown documents with front matter.<br />
-      <a href="https://flatlake.app" title="an open source tool from Cloud Cannon">FlatLake</a><br />
-      produces a JSON API from front matter. The API makes it easy to generate various<br />
-      types of feeds. All that is needed is something to translate the JSON API<br />
-      documents to the feed format you want. In this post I will show a proof of<br />
-      concept using Deno+TypeScript to process the Flatlake generate JSON API into an<br />
+      <p>One of the must have features missing from many static websites are RSS feeds.
+      Many people produce blogs using CommonMark/Markdown documents with front matter.<a href="https://flatlake.app" title="an open source tool from Cloud Cannon">FlatLake</a>
+      produces a JSON API from front matter. The API makes it easy to generate various
+      types of feeds. All that is needed is something to translate the JSON API
+      documents to the feed format you want. In this post I will show a proof of
+      concept using Deno+TypeScript to process the Flatlake generate JSON API into an
       RSS feed.</p>
-      <h2 id="requirements-for-your-site">Requirements for your site</h2>
-      <p>You need <a href="https://flatlake.app">FlateLake</a> installed. You also need to have<br />
-      front matter in your CommonMark/Markdown documents. No front matter, no API. I<br />
-      rely on front matter in my publication process for blog so FlatLake is a good<br />
-      fit. I only use a mimum of features in FlatLake. Here's the configuration file I<br />
+      <h2>Requirements for your site</h2>
+      <p>You need <a href="https://flatlake.app">FlateLake</a> installed. You also need to have
+      front matter in your CommonMark/Markdown documents. No front matter, no API. I
+      rely on front matter in my publication process for blog so FlatLake is a good
+      fit. I only use a mimum of features in FlatLake. Here's the configuration file I
       use.</p>
       <pre><code class="language-yaml">global:
         outputs:
@@ -60,31 +65,30 @@
             - path: &quot;./blog&quot;
               glob: &quot;**/*{md}&quot;
       </code></pre>
-      <h2 id="generating-the-json-api">Generating the json api</h2>
-      <p>Once you have FlatLake configured generating the JSON API is as simple as<br />
+      <h2>Generating the json api</h2>
+      <p>Once you have FlatLake configured generating the JSON API is as simple as
       running the command</p>
       <pre><code class="language-shell">flatlake
       </code></pre>
-      <p>That's it. It scans the directory named &quot;blog&quot; in the directory where I stage my<br />
-      website. The output goes to a directory called &quot;api&quot;. If you prefer a diffent<br />
-      path FlatLake has options to support that. See <code>flatlake --help</code> or the website<br />
-      <a href="https://flatlake.app/docs">FlatLake/docs</a>. The verbose and logging options are<br />
+      <p>That's it. It scans the directory named &quot;blog&quot; in the directory where I stage my
+      website. The output goes to a directory called &quot;api&quot;. If you prefer a diffent
+      path FlatLake has options to support that. See <code>flatlake --help</code> or the website<a href="https://flatlake.app/docs">FlatLake/docs</a>. The verbose and logging options are
       helpful in understanding what FlatLake is doing.</p>
-      <h2 id="short-anatomy-of-rss-xml">Short anatomy of RSS XML</h2>
-      <p>The RSS XML has two parts. A channel description and the items in the feed. The<br />
-      items map the data about your blog posts. The channel description isn't directly<br />
-      available from the FlatLake generated data. The easy solution I've chosen is to<br />
+      <h2>Short anatomy of RSS XML</h2>
+      <p>The RSS XML has two parts. A channel description and the items in the feed. The
+      items map the data about your blog posts. The channel description isn't directly
+      available from the FlatLake generated data. The easy solution I've chosen is to
       describe the channel in a YAML. Here's the example I use for my blog.</p>
       <pre><code class="language-yaml">title: &quot;Robert's Ramblings&quot;
       description: &quot;Robert's website and blog posts&quot;
       link: &quot;https://rsdoiel.github.io&quot;
       </code></pre>
-      <h2 id="json-api-to-rss">JSON API to RSS</h2>
-      <p>In my publication process the next thing I do is used a Deno+TypeScript program<br />
-      to convert the JSON API into an RSS feed. I have one feed for my site contains<br />
-      recent posts. The path in the api tree I use it <code>api/posts/all/page-1.json</code>.<br />
-      Based on my configuration file this contains the most recent 24 posts sorted by<br />
-      descending publication date. At this point it's just a matter of cross walking<br />
+      <h2>JSON API to RSS</h2>
+      <p>In my publication process the next thing I do is used a Deno+TypeScript program
+      to convert the JSON API into an RSS feed. I have one feed for my site contains
+      recent posts. The path in the api tree I use it <code>api/posts/all/page-1.json</code>.
+      Based on my configuration file this contains the most recent 24 posts sorted by
+      descending publication date. At this point it's just a matter of cross walking
       the content of &quot;page-1.json&quot; into an RSS XML feed file.</p>
       <p>Here's a TypeScript module I knock together to test out the concept.</p>
       <pre><code class="language-TypeScript">/**
@@ -215,47 +219,44 @@
       &lt;/rss&gt;`;
       }
       </code></pre>
-      <h2 id="putting-it-all-together">Putting it all together</h2>
+      <h2>Putting it all together</h2>
       <p>The demo program can be compiled with the follow.</p>
       <pre><code class="language-shell">git clone https://github.com/rsdoiel/flatlakeToRSS2
       cd flatlakeToRSS2
       deno task build
       </code></pre>
-      <p>The program in the <code>bin</code> directory can then be used to generate the RSS XML from<br />
+      <p>The program in the <code>bin</code> directory can then be used to generate the RSS XML from
       your FlatLake API. Copy it to some place in your PATH.</p>
-      <p>Now I go to my website staging directory. I can take the following steps to test<br />
+      <p>Now I go to my website staging directory. I can take the following steps to test
       RSS generation from FlatLake.</p>
       <pre><code class="language-shell">cd $HOME/Sites/rsdoiel.github.io
       flatlake
       edit rss_channel.yaml # Create the YAML file above
       flatlakeToRSS2 rss_channel.yaml api/posts/all/page-1.json &gt;rss.xml
       </code></pre>
-      <h2 id="lessons-learned">Lessons learned</h2>
-      <p>There are some very good feed libraries out there like<br />
-      <a href="https://scripting.com">Dave Winer's</a><br />
-      <a href="https://github.com/scripting/reallysimple">ReallySimple</a>. That could save using<br />
-      format strings to render XML. It also has the advantage that is can be use to<br />
+      <h2>Lessons learned</h2>
+      <p>There are some very good feed libraries out there like<a href="https://scripting.com">Dave Winer's</a>
+      <a href="https://github.com/scripting/reallysimple">ReallySimple</a>. That could save using
+      format strings to render XML. It also has the advantage that is can be use to
       read feeds as well.</p>
-      <p>Ideally I'd like the generation of RSS feeds to be in integrated into my<br />
-      <a href="/BlogIt">BlogIt</a> tool I am working on.</p>
-      <p>This experiment showed that inspite of the limitted documentation of the<br />
-      FlatLake website that it's worth exploring as an off the shelf open source<br />
-      solution. It might just earn a place along side <a href="https://pagefind.app">PageFind</a><br />
+      <p>Ideally I'd like the generation of RSS feeds to be in integrated into my<a href="/BlogIt">BlogIt</a> tool I am working on.</p>
+      <p>This experiment showed that inspite of the limitted documentation of the
+      FlatLake website that it's worth exploring as an off the shelf open source
+      solution. It might just earn a place along side <a href="https://pagefind.app">PageFind</a>
       and <a href="https://pandoc.org">Pandoc</a> as part of my regular web toolkit.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

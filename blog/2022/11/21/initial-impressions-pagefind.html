@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="initial-impressions-pagefind.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="initial-impressions-pagefind.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2022-11-21" data-link="https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html">
-      <h1 id="initial-impression-of-pagefind">Initial Impression of Pagefind</h1>
+      <h1>Initial Impression of Pagefind</h1>
       <p>By R. S. Doiel, 2022-11-21</p>
       <p>I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>
       <p>Pagefind is a <a href="https://www.rust-lang.org/">rust</a> application build using <code>cargo</code> and <code>rustc</code>. Unlike the documentation on the <a href="https://pagefind.app">Pagefind</a> website which suggests installing via <code>npm</code> and <code>npx</code> I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using <a href="https://rustup.rs/">rustup</a>. Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).</p>
@@ -60,7 +66,7 @@
       </code></pre>
       <p>The indexing is wicked fast and it gives you nice details. I verified everything worked as expected using <code>pttk ws</code> static site web server. I then published my website. You can see the results at <a href="http://rsdoiel.sdf.org/search.html">http://rsdoiel.sdf.org/search.html</a> and <a href="https://rsdoiel.github.io/search.html">https://rsdoiel.github.io/search.html</a></p>
       <div class="footnotes" role="doc-endnotes">
-      <hr />
+      <hr>
       <ol>
       <li id="fn:1">
       <p>I specified the bundle directory because GitHub pages had a problem with the default <code>_pagefind</code>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -70,17 +76,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="working_with_structured_data.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="working_with_structured_data.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-02-03" data-link="https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html">
-      <h1 id="working-with-structured-data-in-deno-and-typescript">Working with Structured Data in Deno and TypeScript</h1>
+      <h1>Working with Structured Data in Deno and TypeScript</h1>
       <p>One of the features in Go that I miss in TypeScript is Go's <a href="https://en.wikipedia.org/wiki/Domain-specific_language" title="Domain Specific Language">DSL</a> for expressing data representations.  Adding JSON, YAML and XML support in Go is simple. Annotating a struct with a string expression. There is no equivalent feature in TypeScript. How do easily support multiple representations in TypeScript?</p>
       <p>Let's start with JSON. TypeScript has <code>JSON.stringify()</code> and <code>JSON.parse()</code>. So getting to JSON representation is trivial, just call the stringify method. Going from text to populated object is done with <code>JSON.parse</code>. But there is a catch.</p>
       <p>Let's take a simple object I'm defining called &quot;ObjectN&quot;. The object has a single attribute &quot;n&quot;. &quot;n&quot; holds a number. The initial values is set to zero. What happens when I instantiate my ObjectN then assign it the result from <code>JSON.parse()</code>.</p>
@@ -45,7 +51,7 @@
       // NOTE: This will fail, addThree method isn't available.
       console.log(o.addThree());
       </code></pre>
-      <p>Huston, we have a problem. No &quot;addThree&quot; method. That is because JSON doesn't include method representation. What we really want to do is inspect the object returned by <code>JSON.parse()</code> and set the values in our ObjectN accordingly. Let's add a method called <code>fromObject()</code>.<br />
+      <p>Huston, we have a problem. No &quot;addThree&quot; method. That is because JSON doesn't include method representation. What we really want to do is inspect the object returned by <code>JSON.parse()</code> and set the values in our ObjectN accordingly. Let's add a method called <code>fromObject()</code>.
       (type the following into the Deno REPL).</p>
       <pre><code class="language-TypeScript">class ObjectN {
           n: number = 0;
@@ -132,22 +138,21 @@
       console.log(`parse with xml, o.addThree() -&gt; ${o.addThree()}`);
       console.log(`xml.stringify(o) -&gt; ${xml.stringify(o)}`);
       </code></pre>
-      <p>As long as the parse method returns an object I can now update my ObjectN instance<br />
+      <p>As long as the parse method returns an object I can now update my ObjectN instance
       from the attributes of the object expressed as JSON, YAML, or XML strings. I like this approach because I can add validation and normalization in my &quot;fromObject&quot; method and use for any parse method that confirms to how JSON, YAML or XML parse works. The coding cost is the &quot;ObjectParseType&quot; type definition and the &quot;parseWith&quot; method boiler plate and defining a class specific &quot;fromObject&quot;. Supporting new representations does require changes to my class definition at all.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

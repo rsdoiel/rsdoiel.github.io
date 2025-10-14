@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="harvesting-my-gists-from-github.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:10-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="harvesting-my-gists-from-github.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,34 +35,34 @@
 
   <section>
     <article data-published="2017-12-10" data-link="https://rsdoiel.github.io/blog/2017/12/10/harvesting-my-gists-from-github.html">
-      <h1 id="harvesting-my-gists-from-github">Harvesting my Gists from GitHub</h1>
+      <h1>Harvesting my Gists from GitHub</h1>
       <p>By R. S. Doiel 2017-12-10</p>
-      <p>This is a just quick set of notes on harvesting my Gists on GitHub so I<br />
+      <p>This is a just quick set of notes on harvesting my Gists on GitHub so I
       have an independent copy for my own website.</p>
-      <h2 id="assumptions">Assumptions</h2>
-      <p>In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian<br />
-      on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,<br />
-      sed, curl). I also use Stephen Dolan's <a href="https://github.com/stedolan/jq">jq</a><br />
-      as well as Caltech Library's <a href="https://github.com/caltechlibrary/datatools">datatools</a>.<br />
-      See the respective GitHub repositories for installation instructions.<br />
-      The gist harvest process was developed against GitHub's v3 API<br />
+      <h2>Assumptions</h2>
+      <p>In this gist I assume you are using Bash on a POSIX system (e.g. Raspbian
+      on a Raspberry Pi) with the standard compliment of Unix utilities (e.g. cut,
+      sed, curl). I also use Stephen Dolan's <a href="https://github.com/stedolan/jq">jq</a>
+      as well as Caltech Library's <a href="https://github.com/caltechlibrary/datatools">datatools</a>.
+      See the respective GitHub repositories for installation instructions.
+      The gist harvest process was developed against GitHub's v3 API
       (see developer.github.com).</p>
-      <p>In the following examples &quot;USER&quot; is assumed to hold your GitHub user id<br />
+      <p>In the following examples &quot;USER&quot; is assumed to hold your GitHub user id
       (e.g. rsdoiel for <a href="https://github.com/rsdoiel)">https://github.com/rsdoiel)</a>.</p>
-      <h2 id="getting-my-basic-profile">Getting my basic profile</h2>
+      <h2>Getting my basic profile</h2>
       <p>This retrieves the public view of your profile.</p>
       <pre><code class="language-shell">    curl -o USER &quot;https://api.github.com/users/USER&quot;
       </code></pre>
-      <h2 id="find-the-url-for-your-gists">Find the urL for your gists</h2>
+      <h2>Find the urL for your gists</h2>
       <p>Get the gists url from `USER.json.</p>
       <pre><code class="language-shell">    GISTS_URL=$(jq &quot;.gists_url&quot; &quot;USER.json&quot; | sed -E 's/&quot;//g' | cut -d '{' -f 1)
           curl -o gists.json &quot;${GISTS_URL}&quot;
       </code></pre>
       <p>Now <code>gists.json</code> should hold a JSON array of objects representing your Gists.</p>
-      <h2 id="harvesting-the-individual-gists">Harvesting the individual Gists.</h2>
-      <p>When you look at <em>gists.json</em> you'll see a multi-level JSON structure.  It has been<br />
-      formatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library<br />
-      has some nice utilities for working with JSON I'll use <em>jsonrange</em> and <em>jq</em> to pull out a list<br />
+      <h2>Harvesting the individual Gists.</h2>
+      <p>When you look at <em>gists.json</em> you'll see a multi-level JSON structure.  It has been
+      formatted by the API so be easy to scrape.  But since this data is JSON and Caltech Library
+      has some nice utilities for working with JSON I'll use <em>jsonrange</em> and <em>jq</em> to pull out a list
       of individual Gists URLS.</p>
       <pre><code class="language-shell">    jsonrange -i gists.json | while read I; do 
               jq &quot;.[$I].files&quot; gists.json | sed -E 's/&quot;//g'
@@ -70,8 +76,8 @@
           done
       </code></pre>
       <p>Now that we have URLs to the raw gist files we can use curl again to fetch each.</p>
-      <p>What do we want to store with our harvested gists?  The raw files, metadata<br />
-      about the Gist (e.g. when it was created), the Gist ID. Putting it all together<br />
+      <p>What do we want to store with our harvested gists?  The raw files, metadata
+      about the Gist (e.g. when it was created), the Gist ID. Putting it all together
       we have the following script.</p>
       <pre><code class="language-shell">    #!/bin/bash
           if [[ &quot;$1&quot; = &quot;&quot; ]]; then
@@ -109,17 +115,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

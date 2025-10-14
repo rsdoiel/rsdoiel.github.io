@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="transpiling_with_deno.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="transpiling_with_deno.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2024-07-03" data-link="https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html">
-      <h1 id="transpiling-with-deno">Transpiling with Deno</h1>
+      <h1>Transpiling with Deno</h1>
       <p><a href="https://deno.land">Deno</a> is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the <a href="https://github.com/denoland/deno_emit/blob/main/js/README.md">deno_emit</a> module.  Let's say I have a TypeScript module called <code>hithere.ts</code>. I want to make it available as JavaScript so I can run it in a web browser. How do I use the <code>deno_emit</code> module to accomplish that?</p>
       <ul>
       <li>Write a short TypeScript program
@@ -78,7 +84,7 @@
       <pre><code class="language-shell">deno run --allow-read --allow-env --allow-net \
         transpile.ts
       </code></pre>
-      <p>The result is JavaScript. It still has my comments in the code but doesn't have the TypeScript specific<br />
+      <p>The result is JavaScript. It still has my comments in the code but doesn't have the TypeScript specific
       annotations.</p>
       <pre><code class="language-javascript">/**
        * hithere takes a name and returns a string of &quot;hi there &quot;, a name and &quot;!&quot;. If the name is null
@@ -96,17 +102,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

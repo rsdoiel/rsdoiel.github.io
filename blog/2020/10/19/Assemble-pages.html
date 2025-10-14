@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Assemble-pages.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta content="2025-10-14T15:32:23-07:00" name="date" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Assemble-pages.md" rel="altenate" type="text/markdown" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,15 +35,14 @@
 
   <section>
     <article data-published="2020-10-19" data-link="https://rsdoiel.github.io/blog/2020/10/19/Assemble-pages.html">
-      <h1 id="assembling-pages">Assembling pages</h1>
+      <h1>Assembling pages</h1>
       <p>This is the thirteenth post in the <a href="https://rsdoiel.github.io/blog/2020/04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-      <h2 id="pandoc-and-json">Pandoc and JSON</h2>
-      <p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown documents. I like to keep my<br />
-      front matter in JSON rather than Pandoc's YAML. Fortunately Pandoc<br />
-      does support working with JSON as a metadata file include. Normally I would<br />
-      manually split the JSON front matter and the rest of the markup into two<br />
-      separate files, then process with Pandoc and other tooling like<br />
-      <a href="https://lunrjs.com">LunrJS</a>. <a href="AssemblePage.Mod">AssemblePage</a> automates this<br />
+      <h2>Pandoc and JSON</h2>
+      <p>I use <a href="https://pandoc.org">Pandoc</a> to process Markdown documents. I like to keep my
+      front matter in JSON rather than Pandoc's YAML. Fortunately Pandoc
+      does support working with JSON as a metadata file include. Normally I would
+      manually split the JSON front matter and the rest of the markup into two
+      separate files, then process with Pandoc and other tooling like<a href="https://lunrjs.com">LunrJS</a>. <a href="AssemblePage.Mod">AssemblePage</a> automates this
       process.</p>
       <p>Example shell usage:</p>
       <pre><code>
@@ -50,7 +55,7 @@
             document.md &gt;MyText.html
       
       </code></pre>
-      <h2 id="source-code-for-assemblepagemod">Source code for <strong>AssemblePage.Mod</strong></h2>
+      <h2>Source code for <strong>AssemblePage.Mod</strong></h2>
       <pre><code>
       MODULE AssemblePage;
         IMPORT Out, Strings, Files, Args := extArgs;
@@ -151,7 +156,7 @@
       END AssemblePage.
       
       </code></pre>
-      <h3 id="next-previous">Next, Previous</h3>
+      <h3>Next, Previous</h3>
       <ul>
       <li>Next <a href="../../11/27/Dates-and-Clock.html">Dates &amp; Clock</a></li>
       <li>Previous <a href="../../10/03/Oberon-to-markdown.html">Oberon To Markdown</a></li>
@@ -159,17 +164,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

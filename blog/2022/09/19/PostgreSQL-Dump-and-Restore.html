@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="PostgreSQL-Dump-and-Restore.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link href="PostgreSQL-Dump-and-Restore.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,12 +35,10 @@
 
   <section>
     <article data-published="2022-09-19" data-link="https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html">
-      <h1 id="postgresql-dump-and-restore">PostgreSQL dump and restore</h1>
-      <p>This is a quick note on easily dumping and restoring a specific database<br />
-      in Postgres 14.5.  This example has PostgreSQL running on localhost and<br />
-      <a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and<br />
-      <a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available.<br />
-      Our database administrator username is &quot;admin&quot;, the database to dump is called &quot;collections&quot;. The SQL dump<br />
+      <h1>PostgreSQL dump and restore</h1>
+      <p>This is a quick note on easily dumping and restoring a specific database
+      in Postgres 14.5.  This example has PostgreSQL running on localhost and<a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and<a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available.
+      Our database administrator username is &quot;admin&quot;, the database to dump is called &quot;collections&quot;. The SQL dump
       file will be named &quot;collections-dump-2022-09-19.sql&quot;.</p>
       <pre><code class="language-shell">	pg_dump --username=admin --column-inserts \
       	    collections &gt;collections-dump-2022-09-19.sql
@@ -58,27 +62,26 @@
       	createdb collections_snapshot
       	psql -U dbadmin --dbname=collections_snapshot -f ./collections-dump-2022-09-19.sql
       </code></pre>
-      <p>NOTE: During this restore process <code>psql</code> will display some output. This is normal. The two<br />
+      <p>NOTE: During this restore process <code>psql</code> will display some output. This is normal. The two
       types of lines output are shown below.</p>
       <pre><code class="language-sql">	INSERT 0 1
       	ALTER TABLE
       </code></pre>
-      <p>If you want to stop the input on error you can use the <code>--set</code> option to set the error behavior<br />
+      <p>If you want to stop the input on error you can use the <code>--set</code> option to set the error behavior
       to abort the reload if an error is encountered.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

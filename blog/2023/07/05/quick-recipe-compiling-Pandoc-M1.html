@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="quick-recipe-compiling-Pandoc-M1.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta content="2025-10-14T15:32:22-07:00" name="date" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="quick-recipe-compiling-Pandoc-M1.md" rel="altenate" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,18 +35,18 @@
 
   <section>
     <article data-published="2023-07-05" data-link="https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.html">
-      <h1 id="quick-recipe-compile-pandoc-m1">Quick recipe, compile Pandoc (M1)</h1>
+      <h1>Quick recipe, compile Pandoc (M1)</h1>
       <p>These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).</p>
       <ol>
-      <li>Install <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a good Haskell setup (I accept all the default choices)<br />
-      a. Use the curl example command to install it<br />
+      <li>Install <a href="https://www.haskell.org/ghcup/">GHCup</a> to get a good Haskell setup (I accept all the default choices)
+      a. Use the curl example command to install it
       b. Make sure the environment is active (e.g. source <code>$HOME/.ghcup/env</code>)</li>
       <li>Make sure GHCup is pointing at the &quot;recommended&quot; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)</li>
       <li>Clone <a href="https://github.com/jgm/pandoc">https://github.com/jgm/pandoc</a> to your local machine</li>
       <li>Check out the version you want to build (e.g. 3.1.4)</li>
-      <li>Run the &quot;usual&quot; Haskell build sequence with cabal per Pandoc's installation documentation for building from source<br />
-      a. <code>cabal clean</code><br />
-      b. <code>cabal update</code><br />
+      <li>Run the &quot;usual&quot; Haskell build sequence with cabal per Pandoc's installation documentation for building from source
+      a. <code>cabal clean</code>
+      b. <code>cabal update</code>
       c. <code>cabal install pandoc-cli</code></li>
       </ol>
       <p>Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).</p>
@@ -56,24 +62,23 @@
       cabal update
       cabal install pandoc-cli
       </code></pre>
-      <p>This will install Pandoc in your <code>$HOME/.cabal/bin</code> directory. Make sure<br />
+      <p>This will install Pandoc in your <code>$HOME/.cabal/bin</code> directory. Make sure
       it is in your path (it should be if you've sourced the GHCup environment after you installed GHCup).</p>
-      <h2 id="libiconv-compile-issues">libiconv compile issues</h2>
+      <h2>libiconv compile issues</h2>
       <p>If you use Mac Ports it can confuse Cabal/Haskell which one to link to. You'll get an error talking about undefined symbols and iconv.  To get a clean compile I've typically worked around this issue by removing the Mac Ports installed libiconv temporarily (e.g. <code>sudo port uninstall libiconv</code>, an using the &quot;all&quot; option when prompted).  After I've got a clean install of Pandoc then I re-install libiconv for those Ports based applications that need it. Putting libiconv back is important, as Mac Ports version of Git expects it.</p>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

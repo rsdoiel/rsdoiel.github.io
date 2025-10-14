@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="building_cmarkprocess.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:08-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta name="date" content="2025-10-14T15:32:22-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="building_cmarkprocess.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2025-07-26" data-link="https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html">
-      <h1 id="building-a-commonmark-processor-in-denotypescript">Building a CommonMark Processor in Deno+TypeScript</h1>
+      <h1>Building a CommonMark Processor in Deno+TypeScript</h1>
       <p>By R. S. Doiel, 2025-07-26</p>
       <p>CommonMark and Markdown are easier to proof read and edit than HTML. CommonMark is a super set of John Grubber's original Markdown. It incorporates common practices and extensions to the original Markdown. I've found over the years the &quot;Markdown&quot; I type is really &quot;CommonMark&quot;. I use <a href="https://pandoc.org">Pandoc</a> for processing my CommonMark documents into HTML. There are a few transforms I'd like to make before I send the text off to Pandoc. That is what I'll be covering.</p>
       <p>My CommonMark Processor will be responsible for several things. The features I miss are simple. Here's the short list.</p>
@@ -39,7 +45,7 @@
       <li>transform Hashtags into front matter</li>
       <li>transform web Mentions into front matter</li>
       </ul>
-      <p>My homepage is built from a sequence of plain text files.<br />
+      <p>My homepage is built from a sequence of plain text files.
       I also commonly need to include source code in my blog posts.  That has lead me to think about an include mechanisms. A source file should be included in a CommonMark code block while plain text can be included as is.</p>
       <p>The include blocks, text and code, can also be detected through regular expression. The difference for those is they require reading files from disk. That needs to be handled.</p>
       <p>Here's the syntax I'd use for code block and included texts.</p>
@@ -117,7 +123,7 @@
       </code></pre>
       <p>This object makes it easy to work the front matter and the main content parts of a CommonMark document. The <code>parse</code> and <code>stringify</code> methods can bookend the <code>process</code> method implementing the transform sequence. This provides the functionality needed to implement a CommonMark Processor.</p>
       <p>The <code>process</code> method will evolve overtime. I need to minimize its complexity. The <code>process</code> method is only responsible for sequencing the transforms defined in their own modules.</p>
-      <h2 id="inclusion-mechanisms">Inclusion mechanisms</h2>
+      <h2>Inclusion mechanisms</h2>
       <p>Before writing the <code>process</code> method I will work through the transform modules.</p>
       <p>I need two inclusion mechanisms. One will support plain text file inclusion. The other will wrap the included file in the CommonMark markup for code blocks. Here's the syntax I want to use in my CommonMark document.</p>
       <blockquote>
@@ -217,7 +223,7 @@
       
       </code></pre>
       <p>These modules are very similar. I've implemented them as separate modules because I want the option of evolving them independently. I don't want to entangled the two functions unnecessarily. Keeping both simple in separate modules aligns with that.</p>
-      <h2 id="hashtags-and-mentions">Hashtags and Mentions</h2>
+      <h2>Hashtags and Mentions</h2>
       <p>The other transforms needed in the <code>process</code> method are extracting the Hashtags and Mentions which will be used to update the front matter. Both Hashtags and Mentions are similar. They have a prefix, &quot;#&quot; or &quot;@&quot; followed by a sequence of alphanumeric characters, period and underscores. Trailing periods are stripped. They should be kept separate in the front matter. Each plays different content roles.</p>
       <p>Collecting  tags in the text is easy using a regular expression. I have to make a choice about the resulting list. One approach would just be list a tag each time it is encountered. This will result in repeated tags. That can be problematic. Instead I would like the list of tags returned to be a unique list. The extraction function will need a parameter for the source text and the prefix. It should return a list of unique tags. I'm going to call this function, <code>extractTags</code>.</p>
       <p>As I collect tags I will need an ability to merge the unique tag. That suggestions a merge function. That function will take one or more lists of tags and return a single list of unique tags.  I'm going to call these function <code>mergeTags</code>. Both relate to tags and exist because of extraction.  I'll put them in a module called <code>extractTags.ts</code>.  Here is my implementation.</p>
@@ -253,7 +259,7 @@
       }
       
       </code></pre>
-      <h2 id="the-process-method">The <code>process</code> method</h2>
+      <h2>The <code>process</code> method</h2>
       <p>I have the set of transforms I want. I will need to sequence them in the <code>process</code> method.  Here is a look at the internals of the <code>process</code> method.</p>
       <pre><code class="language-TypeScript">
       // Process uses the existing CommonMark object to create a new one transforming the front matter
@@ -308,7 +314,7 @@
       
       
       </code></pre>
-      <h2 id="the-complete-commonmark-processor-module">The complete CommonMark processor module</h2>
+      <h2>The complete CommonMark processor module</h2>
       <p>Here is the complete <code>commonMarkDoc.ts</code> module.</p>
       <pre><code class="language-TypeScript">import * as yaml from &quot;@std/yaml&quot;;
       
@@ -392,7 +398,7 @@
       }
       
       </code></pre>
-      <h2 id="the-commonmark-processor-application">The CommonMark processor application</h2>
+      <h2>The CommonMark processor application</h2>
       <p>To use this module I need to wrap it so I can execute it from the command line. My processor is going to be called <code>cmarkprocess</code> so I'll name the module that becomes the command line program is <code>cmarkprocess.ts</code>. This module will include a &quot;main&quot; function, that function will handle command line options and parameters as well as read data from either standard input or a file.  It'll use the <code>CommonMarkDoc</code> <code>process</code> method and write the results to standard out.</p>
       <pre><code class="language-TypeScript">import * as yaml from &quot;@std/yaml&quot;;
       import { parse as parseArgs } from &quot;@std/flags&quot;;
@@ -512,17 +518,16 @@
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="Portable-Conversions-Integers.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.13" name="generator" >
+  <meta name="date" content="2025-10-14T15:32:23-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="EN" name="language" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Portable-Conversions-Integers.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,10 +35,10 @@
 
   <section>
     <article data-published="2021-11-26" data-link="https://rsdoiel.github.io/blog/2021/11/26/Portable-Conversions-Integers.html">
-      <h1 id="portable-conversions-integers">Portable conversions (Integers)</h1>
+      <h1>Portable conversions (Integers)</h1>
       <p>By R. S. Doiel, 2021-11-26</p>
       <p>An area in working with Oberon-07 on a POSIX machine that has proven problematic is type conversion. In particular converting to and from INTEGER or REAL and ASCII.  None of the three compilers I am exploring provide a common way of handling this. I've explored relying on C libraries but that approach has it's own set of problems.  I've become convinced a better approach is a pure Oberon-07 library that handles type conversion with a minimum of assumptions about the implementation details of the Oberon compiler or hardware. I'm calling my conversion module &quot;Types&quot;. The name is short and descriptive and seems an appropriate name for a module consisting of type conversion tests and transformations.  My initial implementation will focusing on converting integers to and from ASCII.</p>
-      <h2 id="integer-to-ascii-and-back-again">INTEGER to ASCII and back again</h2>
+      <h2>INTEGER to ASCII and back again</h2>
       <p>I don't want to rely on the representation of the INTEGER value in the compiler or at the machine level. That has lead me to think in terms of an INTEGER as a signed whole number.</p>
       <p>The simplest case of converting to/from ASCII is the digits from zero to nine (inclusive). Going from an INTEGER to an ASCII CHAR is just looking up the offset of the character representing the &quot;digit&quot;. Like wise going from ASCII CHAR to a INTEGER is a matter of mapping in the reverse direction.  Let's call these procedures <code>DigitToChar</code> and  <code>CharToDigit*</code>.</p>
       <p>Since INTEGER can be larger than zero through nine and CHAR can hold non-digits I'm going to add two additional procedures for validating inputs -- <code>IsIntDigit</code> and <code>IsCharDigit</code>. Both return TRUE if valid, FALSE if not.</p>
@@ -82,13 +88,13 @@
       
       END Types.
       </code></pre>
-      <p>NOTE: Oberon-07 provides us the ORD and CHR built as part of the<br />
-      language.  These are for working with the encoding and decoding<br />
-      values as integers. This is not the same thing as the meaning<br />
-      of &quot;0&quot; versus the value of 0.  Getting to and from the encoding<br />
-      to the meaning of the presentation can be done with some simple<br />
+      <p>NOTE: Oberon-07 provides us the ORD and CHR built as part of the
+      language.  These are for working with the encoding and decoding
+      values as integers. This is not the same thing as the meaning
+      of &quot;0&quot; versus the value of 0.  Getting to and from the encoding
+      to the meaning of the presentation can be done with some simple
       arithmetic.</p>
-      <h2 id="putting-it-all-together">Putting it all together</h2>
+      <h2>Putting it all together</h2>
       <pre><code>(* DigitToChar converts an INTEGER less than to a character. E.g.
          0 should return &quot;0&quot;, 3 returns &quot;3&quot;, 0 returns &quot;9&quot; *)
       PROCEDURE DigitToChar*(i : INTEGER) : CHAR;
@@ -103,16 +109,15 @@
         RETURN (ORD(ch) - ORD(&quot;0&quot;))
       END CharToDigit;
       </code></pre>
-      <p>This implementation is naive. It assumes the ranges of the input values<br />
+      <p>This implementation is naive. It assumes the ranges of the input values
       was already checked. In practice this is going to encourage bugs.</p>
-      <p>In a language like Go or Python you can return multiple values (in<br />
-      Python you can return a tuple). In Oberon-07 I could use a<br />
-      RECORD type to do that but that feels a little too baroque. Oberon-07<br />
-      like Oberon-2, Oberon, Modula and Pascal does support &quot;VAR&quot; parameters.<br />
-      With a slight modification to our procedure signatures I can support<br />
-      easy assertions about the conversion. Let's create two functional<br />
-      procedures <code>IsIntDigit()</code> and <code>IsCharDigit()</code> then update our<br />
-      <code>DigitToChar()</code> and <code>CharToDigit()</code> with an a  &quot;VAR ok : BOOLEAN&quot;<br />
+      <p>In a language like Go or Python you can return multiple values (in
+      Python you can return a tuple). In Oberon-07 I could use a
+      RECORD type to do that but that feels a little too baroque. Oberon-07
+      like Oberon-2, Oberon, Modula and Pascal does support &quot;VAR&quot; parameters.
+      With a slight modification to our procedure signatures I can support
+      easy assertions about the conversion. Let's create two functional
+      procedures <code>IsIntDigit()</code> and <code>IsCharDigit()</code> then update our<code>DigitToChar()</code> and <code>CharToDigit()</code> with an a  &quot;VAR ok : BOOLEAN&quot;
       parameter.</p>
       <pre><code>(* IsIntDigit returns TRUE is the integer value is zero through nine *)
       PROCEDURE IsIntDigit(i : INTEGER) : BOOLEAN;
@@ -142,17 +147,15 @@
         RETURN (ORD(ch) - ORD(&quot;0&quot;))
       END CharToDigit;
       </code></pre>
-      <p>What about values are greater nine? Here we can take advantage<br />
-      of our integer shift procedures.  <code>IntShiftRight</code> will move the<br />
-      INTEGER value right reducing it's magnitude (i.e. x * 0.1). It<br />
-      also captures the ones column lost in the shift.  Repeatedly calling<br />
-      <code>IntShiftRight</code> will let us peal off the ones columns until the<br />
-      value &quot;x&quot; is zero. <code>IntShiftLeft</code> shifts the integer to the<br />
-      left meaning it raises it a magnitude (i.e. x * 10). <code>IntShiftLeft</code><br />
-      also rakes a value to shift in on the right side of the number.<br />
-      In this way we can shift in a zero and get <code>x * 10</code> or shift in<br />
-      another digit and get <code>(x * 10) + y</code>. This means you can use<br />
-      <code>IntShiftRight</code> and recover an <code>IntShiftLeft</code>.</p>
+      <p>What about values are greater nine? Here we can take advantage
+      of our integer shift procedures.  <code>IntShiftRight</code> will move the
+      INTEGER value right reducing it's magnitude (i.e. x * 0.1). It
+      also captures the ones column lost in the shift.  Repeatedly calling<code>IntShiftRight</code> will let us peal off the ones columns until the
+      value &quot;x&quot; is zero. <code>IntShiftLeft</code> shifts the integer to the
+      left meaning it raises it a magnitude (i.e. x * 10). <code>IntShiftLeft</code>
+      also rakes a value to shift in on the right side of the number.
+      In this way we can shift in a zero and get <code>x * 10</code> or shift in
+      another digit and get <code>(x * 10) + y</code>. This means you can use<code>IntShiftRight</code> and recover an <code>IntShiftLeft</code>.</p>
       <pre><code>
       (* IntShiftRight converts the input integer to a real, multiplies by 0.1
          and converts by to an integer. The value in the ones column is record
@@ -337,27 +340,26 @@
          END;
       
       </code></pre>
-      <h2 id="references-and-resources">References and resources</h2>
+      <h2>References and resources</h2>
       <p>Implementations for modules for this article are linked here <a href="./Types.Mod">Types</a>, <a href="./TypesTest.Mod">TypesTest</a> and <a href="./Tests.Mod">Tests</a>.</p>
       <p>Expanded versions of the <code>Types</code> module will be available as part of Artemis Project -- <a href="https://github.com/rsdoiel/Artemis">github.com/rsdoiel/Artemis</a>.</p>
-      <h2 id="previous">Previous</h2>
+      <h2>Previous</h2>
       <ul>
       <li><a href="../../11/22/Revisiting-Files.html">Revisiting Files</a></li>
       </ul>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>

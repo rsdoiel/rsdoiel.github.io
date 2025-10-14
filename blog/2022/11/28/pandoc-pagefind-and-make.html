@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <link  rel="alternate" type="text/markdown" href="pandoc-pagefind-and-make.md" title=""/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <meta name="generator" content="antenna/0.0.9">
-  <meta name="date" content="2025-10-01T10:52:09-07:00">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.13" >
+  <meta content="2025-10-14T15:32:22-07:00" name="date" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="pandoc-pagefind-and-make.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
 </head>
 <body>
   <nav>
@@ -19,7 +25,7 @@
     <li><a href="/series/">Series</a></li>
     <li><a href="/search.html">Search</a></li>
     <li><a href="https://github.com/rsdoiel">GitHub</a></li>
-    <li><a href="/index.xml" title="RSS, recent posts">
+    <li><a href="/rss.xml" title="RSS Feed">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 11a9 9 0 0 1 9 9"></path>
     <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -29,7 +35,7 @@
 
   <section>
     <article data-published="2022-11-28" data-link="https://rsdoiel.github.io/blog/2022/11/28/pandoc-pagefind-and-make.html">
-      <h1 id="pandoc-pagefind-and-make">Pandoc, Pagefind and Make</h1>
+      <h1>Pandoc, Pagefind and Make</h1>
       <p>Recently I've refresh my approach to website generation using three programs.</p>
       <ul>
       <li><a href="https://pandoc.org">Pandoc</a></li>
@@ -43,7 +49,7 @@
       <p>Pandoc does the heavy lifting. It renders all the HTML pages, CITATION.cff (from the projects <a href="codemeta.github.io" title="codemeta.json is a metadata documentation schema for documenting software projects">codemeta.json</a>) and rendering an about.md file (also from the project's codemeta.json). This is done with three Pandoc templates. Pandoc can also be used to rendering man pages following a simple page recipe.</p>
       <p>I've recently adopted Pagefind for indexing the HTML for the project's website and providing the full text search UI suitable for a static website. The Pagefind indexes can be combined with your group or organization's static website providing a rich cross project search (exercise left for another post).</p>
       <p>Finally I orchestrate the site construction with GNU Make. I do this with a simple dedicated Makefile called <a href="#website.mak">website.mak</a>.</p>
-      <h2 id="websitemak">website.mak</h2>
+      <h2>website.mak</h2>
       <p>The website.mak file is relatively simple.</p>
       <pre><code class="language-makefile">#
       # Makefile for running pandoc on all Markdown docs ending in .md
@@ -79,8 +85,8 @@
       .FORCE:
       </code></pre>
       <p>Only the &quot;PROJECT&quot; value needs to be set. Typically this is just the name of the repository's base directory.</p>
-      <h2 id="pandoc-filters-and-templates">Pandoc, filters and templates</h2>
-      <p>When write my Markdown documents I link to Markdown files instead of the HTML versions. This serves two purposes. First GitHub can use this linking directory and second if you decide to repurposed the website as a Gopher or Gemini resource<br />
+      <h2>Pandoc, filters and templates</h2>
+      <p>When write my Markdown documents I link to Markdown files instead of the HTML versions. This serves two purposes. First GitHub can use this linking directory and second if you decide to repurposed the website as a Gopher or Gemini resource
       you don't linking to the Markdown file makes more sense.  To convert the &quot;.md&quot; names to &quot;.html&quot; when I render the HTML I use a simple Lua filter called <a href="https://stackoverflow.com/questions/40993488/convert-markdown-links-to-html-with-pandoc#49396058" title="see the stackoverflow answer that shows this technique">links-to-html.lua</a>.</p>
       <pre><code class="language-lua"># links-to-html.lua
       function Link(el)
@@ -153,29 +159,28 @@
         $endif$
       </code></pre>
       <p>This same technique can be repurposed to render a CITATION.cff if needed.</p>
-      <h2 id="pagefind">Pagefind</h2>
-      <p>Pagefind provides three levels of functionality. First it will generate indexes for a full text search of your<br />
-      project's HTML pages. It also builds the necessary search UI for your static site. I include the search UI via a<br />
-      Markdown document that embeds the HTML markup described at <a href="https://pagefind.app/docs/">Pagefind.app</a>'s Getting started<br />
+      <h2>Pagefind</h2>
+      <p>Pagefind provides three levels of functionality. First it will generate indexes for a full text search of your
+      project's HTML pages. It also builds the necessary search UI for your static site. I include the search UI via a
+      Markdown document that embeds the HTML markup described at <a href="https://pagefind.app/docs/">Pagefind.app</a>'s Getting started
       page.  When I invoke Pagefind I use the <code>--bundle-dir</code> option to be &quot;pagefind&quot; rather than &quot;_pagefind&quot;.  The reason is GitHub Pages ignores the &quot;<em>pagefind&quot; (probably ignores all directories with &quot;</em>&quot; prefix).</p>
-      <p>If you need a quick static web server while you're writing and developing your documentation website Pagefind can<br />
+      <p>If you need a quick static web server while you're writing and developing your documentation website Pagefind can
       provide that using the <code>--serve</code> option. Assuming you're in your project's directory then something like this should do the trick.</p>
       <pre><code class="language-shell">    pagefind --source . --bundle-dir=pagefind --serve
       </code></pre>
       
     </article>
   </section>
-
-    <script type="module" src="/modules/copyToClipboard.js"></script>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
     <script type="module">
       await import('/pagefind/pagefind-highlight.js');
       new PagefindHighlight({ highlightParam: "highlight" });
     </script>
-  <footer>
-    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-    href="/rssfeed.html">RSS</a> feeds and website built with <a
-    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make and <a
-    href="https://pandoc.org">Pandoc</a>.</p>
   </footer>
 </body>
 </html>
