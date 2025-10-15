@@ -3,17 +3,6 @@
 START_PATH=$(pwd)
 BLOG=blog
 
-# Build blog nav
-if [ ! -f nav.include ]; then
-  echo "Building blog nav"
-  pandoc nav.md >> "nav.include"
-fi
-
-if [ ! -f footer.include ]; then
-  echo "Building blog footer"
-  pandoc footer.md >> "footer.include"
-fi
-
 THIS_YEAR="$(reldate 0 day | cut -d '-' -f 1)"
 LAST_YEAR="$(reldate -- -1 year | cut -d '-' -f 1)"
 START_YEAR="2016"
@@ -22,10 +11,13 @@ for Y in $(range "$THIS_YEAR" "$START_YEAR"); do
     echo "Rendering posts for $Y"
     find "blog/${Y}" -type f | grep -E '.md$' | sort -r | while read FNAME; do
       HNAME="$(basename ${FNAME} ".md").html"
-      printf "Rending ${FNAME} -> ${HNAME}\n"
+      printf "Rendering ${FNAME} -> ${HNAME}\n"
       antenna post blog.md "${FNAME}" || exit 2
+      antenna post archive.md "${FNAME}" || exit 3
     done
 done
+
+exit 0 # DEBUG
 
 cd "$BLOG"
 echo "Work directory now $(pwd)"
@@ -71,15 +63,8 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "" >> index.md
 done
 
-pandoc \
-    -M "year:$(date +%Y)" \
-    -M "title:$TITLE" \
-    -B ../nav.include \
-    -A ../footer.include \
-	--lua-filter=../links-to-html.lua \
-    --template ../page.tmpl \
-    index.md \
-    > index.html
+antenna page index.md
+git add index.html
 
 cd "$START_PATH"
 
