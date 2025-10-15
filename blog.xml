@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:source="https://source.scripting.com/">
+<<<<<<< HEAD
   <atom:link href="https://rsdoiel.github.io/blog.xml" rel="self" type="application/rss+xml" />
+=======
+  <atom:link href="http://localhost:8000/blogxml" rel="self" type="application/rss+xml" />
+>>>>>>> 9ef6e815cba1757e437decb927ab92bbf22b42e2
   <channel>
     <title>Robert's Ramblings</title>
     <description>
       Recent posts on software development and technology
     </description>
+<<<<<<< HEAD
     <link>https://rsdoiel.github.io/blog.xml</link>
     <lastBuildDate>14 Oct 25 20:35 -0700</lastBuildDate>
     <generator>antenna/0.0.15</generator>
@@ -13,9 +18,39 @@
     <item>
       <title>Simple websites with Markdown and CSS</title>
       <link>https://rsdoiel.github.io/blog/2025/10/14/simple_website_with_Markdown_and_CSS.html</link>
+=======
+    <link>http://localhost:8000/blogxml</link>
+    <lastBuildDate>03 Oct 25 16:58 -0700</lastBuildDate>
+    <generator>antenna/0.0.10</generator>
+    <docs>https://cyber.harvard.edu/rss/rss.html</docs>
+    <item>
+      <title>Computer related terminology that bugs me</title>
+      <link>https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.html</link>
+      <description>
+        <![CDATA[AI, Artificial Intelligence, Cyber\* are poor choices of terms but pickup because
+        they marketed well.]]>
+      </description>
+      <source:markdown># Computer related words that bug me
+
+Sometimes specific terms bug me on popular usage. This is particularly true when related to computer science (or better term, information science). 
+
+Two terms really grate on my nerves these days.
+
+1. “AI” was a marketing term to get the DOD to fund researching in to cognitive approaches to computation.  The generals like the term Artificial Intelligence in the 1970s because the idea of robot solders who could be destroyed with out the having to write the letters to their parents was desirable after Vietnam and previous wars. For the researchers it was sufficiently vague to be a goldmine of grant possibilities.
+2. Information Security became Cyber Security for marketing reasons
+
+Terms that change for marketing reasons quickly loose meaning. In the computers as communication devices space this isn&#39;t a good feature.
+
+The stupidest phrase I&#39;ve heard a politician and business leaders say in interviews, &#34;We&#39;ve got to have cyber&#34;.  In my head I change &#34;cyber&#34; to &#34;coffee&#34; so I don&#39;t think have to remember their names.</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.md" length="1399" type="text/markdown" />
+    </item>    <item>
+      <title>Getting started with Go</title>
+      <link>https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.html</link>
+>>>>>>> 9ef6e815cba1757e437decb927ab92bbf22b42e2
       <description>
         <![CDATA[I've come to think of the Web as a network hypertext system instead of thinking about it in terms of the technology that built it. Doing so has shown we have a human friendly tool to express hypertext in Markdown. Markdown allows many more people to participate in creating content for the web. A web we can own. This I think can allow us to focus web writing around the writing itself rather than on the tools we use to express the writing on the web. Sprinkle in a little CSS and you can have presentable website expressing what you want to say. This post explores that concept where Markdown as our primary means of creating a text oriented website using a text editor, a web browser and the [Antenna App](https://rsdoiel.github.io/antennaApp)]]>
       </description>
+<<<<<<< HEAD
       <source:markdown># Create Simple Websites using only Markdown
 
 &#62; The [Antenna App](/antennaApp) is shaping the way I write and build websites
@@ -678,6 +713,192 @@ Terms that change for marketing reasons quickly loose meaning. In the computers 
 
 The stupidest phrase I&#39;ve heard a politician and business leaders say in interviews, &#34;We&#39;ve got to have cyber&#34;.  In my head I change &#34;cyber&#34; to &#34;coffee&#34; so I don&#39;t think have to remember their names.</source:markdown>
       <enclosure url="https://rsdoiel.github.io/blog/2025/10/01/words_that_bug_me.md" length="1399" type="text/markdown" />
+=======
+      <source:markdown># Getting started with Go
+
+By R. S. Doiel, 2025-09-22
+
+This is just a quick tutorial covering installing the Go compiler, tool chain and learning the basics through creating three programs -- hello world, a web server and a Markdown server. It is not a [tutorial](https://go.dev/learn/#selected-tutorials) on the Go language. The [Go website](https://go.dev) has that covered. This is really just the bare minimum to get started with the `go` command. 
+
+Here&#39;s the files source files we&#39;ll be using in this tutorial
+
+- [helloworld.go](helloworld/helloworld.go)
+- [webserver.go](webserver/webserver.go)
+- [markdown.go](mdserver/markdown.go)
+- [markdown_test.go](mdserver/markdown_test.go)
+- [handler.go](mdserver/handler.go)
+- [handler_test.go](mdserver/handler_test.go)
+- [mdserver&#39;s main.go](mdserver/cmd/mdserver/main.go)
+
+
+## Installing Go and making sure it works
+
+ It covers the basics of how the Go compiler and tool change work by walking throw three Go programs. The first one is to create a hello world program to make sure Go is available and working. The steps will be as follows.
+
+1. Download and install Go, see &#60;https://go.dev/dl/&#62; (latest is currently 1.25.1)
+
+## Creating hello world, making sure Go tool chain is working
+
+1. Open a terminal
+2. create a directory/folder you&#39;ll use for you creating a hello world program
+3. Change into that directory
+4. Type in the hello world program below and save it as &#34;hello.go&#34;
+5. Try running &#34;hello.go&#34;
+6. Follow the instruction to &#34;build&#34; the hello.go program (you&#39;re compiling the Go source into an executable)
+7. Run you newly created executable
+
+Here&#39;s the steps we&#39;ll take starting with step #3.
+
+~~~shell
+
+mkdir helloworld
+cd helloworld
+edit hello.go
+go run hello.go
+go build hello.go
+./hello
+cd ..
+~~~
+
+Here&#39;s the source code to hello world in Go
+
+~~~go
+
+package main
+
+import (
+    &#34;fmt&#34;
+) 
+
+func main() {
+    fmt.Println(&#34;Hello World!&#34;)
+}
+~~~
+
+If you got this far you&#39;ve created your first Go program.
+
+What are the parts of the source code package to take note of?
+
+`package main`
+: Identifies what &#34;package&#34; or module that the source file belongs to. The &#34;main&#34; package is special in that it what represents a stand alone program.
+
+`import`
+: This is a statement (including the contents inside the parenthesis) that shows what modules your program relies on.
+
+`func`
+: This defines a functions, in this case the main function.
+
+`&#34;fmt&#34;`
+: This is the name of the module for formatting text, includes functions like Println that display a line of text.
+
+Things to keep in mind.  Go is a typed language. Variables and constants can be declared explicitly or be implicitly used on their first assignment.  Scope is block level like Python, TypeScript or ES6 when using &#34;let&#34;.
+
+Capitalized functions, variables and constants are &#34;exported&#34; from the current module and can be referenced when that package is later imported. When we use the imported &#34;fmt&#34; package with the &#34;Println&#34; function, the fact that it is capitalized means it can be used in the scope of our package. Other things inside of &#34;fmt&#34; which are not capitalized don&#39;t get exported and are not visible inside the current package scope. Capitalization is like the &#34;export&#34; keyword in TypeScript or JavaScript.
+
+Packages and modules are Go&#39;s reusable unit of code. Originally Go called them &#34;packages&#34;, hence the &#34;package&#34; declaration in our program.  There are some technical distinctions. A packages are a collection of Go files in a directory.  They don&#39;t necessarily carry dependencies in them. This can be an issue for you are importing packages that might break between versions. Modules are implemented using packages but carry the dependency information with them so you compiles are consistent regardless of the latest release of a package that was imported. See the &#34;mod&#34; command below.
+
+Let&#39;s look at the go command before looking at the source code. The go command is actually a collection of tools. The commons I used most frequently are the following.
+
+run
+: Run the main package Go file
+
+build
+: This compiles the program into an executable. It can also be used to cross compile if you set some environment variables
+
+fmt
+: Format the source code to a standard set by the Go community
+
+vet
+: Perform analysis on your Go source file(s) and indicate potential issues
+
+We&#39;ll use the following two when we build our web server since it&#39;ll be constructed as a module.
+
+mod
+: Setup and maintain go module (this is be covered later)
+
+test
+: Test a go module (e.g. files that end in &#34;_test.go&#34;)
+
+## Build a static web server
+
+We&#39;ll be doing the following next.
+
+1. Create a new directory for our web server
+2. Change into it.
+3. Go to the http package docs, &#60;https://pkg.go.dev/net/http#example-FileServer-DotFileHiding&#62;
+4. Copy the example for the dot file hiding file server and save as webserver.go
+5. Create a hello world index.html file.
+6. Use Go &#34;run&#34; our static web server
+
+~~~shell
+
+mkdir webserver
+cd webserver
+edit webserver.go
+edit hello.html
+go run webserver.go
+# You can open your web browser to http://localhost:8080/hello.html
+cd ..
+~~~
+
+## Build a Markdown web server
+
+1. Create a new directory called &#34;mdserver&#34;
+2. Change into it
+3. Initialize the Go module we&#39;ll build (e.g. &#39;github.com/rsdoiel/mdserver&#39;, you&#39;d use something that makes sense for you)
+4. Add a Go modules for working with Markdown, &#34;github.com/yuin/goldmark&#34;
+5. Write a function to convert Markdown into HTML in a file called markdown.go
+6. Write a test function called MarkdownToHTML in a file called markdown_test.go
+7. Run the test to make sure it works
+8. Write a the function MarkdownHandler function and save it markdown.go
+8. mkdir called &#34;cli&#34;
+9. Copy &#34;../webserver/webserver.go&#34; to &#34;cli/mdserver.go&#34;
+10. Update &#34;cmd/mdserver/mdserver.go&#34; to import our mdserver package
+11. Wrap the dot file handler function with our MarkdownHandler function
+12. Using go run to test our web server
+
+~~~shell
+
+mkdir mdserver
+cd mdserver
+go mod init &#39;github.com/rsdoiel/mdserver&#39;
+go mod tidy
+go get &#34;github.com/yuin/goldmark&#34;
+edit markdown.go
+edit markdown_test.go
+go test
+# Now we&#39;re going to create our handler function and test of it
+edit handler.go
+edit handler_test.go
+go test
+# Now let&#39;s create our wrapping cli
+mkdir -p cmd/mdserver
+copy ../webserver/webserver.go cmd/mdserver/main.go
+# Import our mdserver package and wrap the dotFileHandler function with the Markdown function
+edit cmd/mdserver/main.go
+go run cmd/mdserver/main.go
+~~~
+
+
+We can make a mdserver executable using the build command and specify an output name.
+
+~~~shell
+
+go build -o bin/mdserver cmd/mdserver/main.go
+~~~
+
+You&#39;ve not create Go program that is defined by a module/package &#34;mdserver&#34; and runs that package in a command line program. What&#39;s left is to learn the language itself, get familiar with the standard library and write more Go programs.
+
+## Next Steps
+
+- Go through some of the Go.dev tutorials to better understand Go
+  - See [Go by Example](https://gobyexample.com/), [Effective Go](https://go.dev/doc/effective_go) and [Awesome Go](https://awesome-go.com/)
+  - Familiarize yourself with the [standard library](https://pkg.go.dev/std#section-directories)
+- Try adding a YAML configuration to our two web server example, [gopkg.in/yaml.v3](https://pkg.go.dev/gopkg.in/yaml.v3)
+- Try out cross compiling to other computer platforms
+  - See [Go command documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) and &#60;https://rakyll.org/cross-compilation/&#62;</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2025/09/22/getting_started_with_go.md" length="7738" type="text/markdown" />
+>>>>>>> 9ef6e815cba1757e437decb927ab92bbf22b42e2
     </item>
   </channel>
 </rss>

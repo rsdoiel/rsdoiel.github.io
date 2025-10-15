@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 # Series
+=======
+<article>
+>>>>>>> 9ef6e815cba1757e437decb927ab92bbf22b42e2
 
 Series start as blog posts but continue as collections
 that explore an idea, topic or theme.
@@ -13,3 +17,8 @@ that explore an idea, topic or theme.
 - [A Personal Search Engine](/series/pse.html), notes regarding my exploration of the viability of a personal search engine
 - [Book Reviews](/series/books.html), reviews of clasic texts available from Open Library
 - [Library Jargon](../library-terminology.html), a slowly accumulating list of terminilogy I've encountered working for a Research Library
+<<<<<<< HEAD
+=======
+
+</article>
+>>>>>>> 9ef6e815cba1757e437decb927ab92bbf22b42e2

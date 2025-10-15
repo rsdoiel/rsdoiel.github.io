@@ -22,46 +22,20 @@ exit 0 # DEBUG
 cd "$BLOG"
 echo "Work directory now $(pwd)"
 # Build index
-echo "Building $BLOG/index.md"
-TITLE="Robert's ramblings"
-
-cat <<EOT> index.md
----
-title: "${TITLE}"
----
-
-### Recent Posts
-
-EOT
-
-echo "Building Index for $THIS_YEAR posts"
-findfile -s .md "$THIS_YEAR" | sort -r | while read ITEM; do
-    echo "Processing index.md <-- $THIS_YEAR/$ITEM"
-    POST_FILENAME=$THIS_YEAR/$ITEM
-    POST_TITLE=$(pttk frontmatter "$POST_FILENAME" | jq -r .title)
-    REL_PATH="$THIS_YEAR/$ITEM"
-    POST_DATE=$(dirname "$REL_PATH")
-    POST_DATE=${POST_DATE//\//-}
-    echo "- [$POST_TITLE](/blog/$THIS_YEAR/${ITEM}), $POST_DATE" >> index.md
+echo "Refreshing Posts"
+for YEAR in 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025; do
+  find "blog/${YEAR}" -type f | grep -E '.md$' | while read -r FNAME;do
+    if antenna post blog.md "${FNAME}"; then
+      printf "OK, ${FNAME}\n"
+    else
+      printf "Problem with post ${FNAME}\n"
+      exit 1
+    fi
+  done
 done
-echo "" >> index.md
-cp -vp index.md ../recent.md
-echo "Building Prior Years $LAST_YEAR to $START_YEAR"
-for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
-    echo "Building index for year $Y"
-    echo "$Y" >> index.md
-    echo "----" >> index.md
-    echo "" >> index.md
-    findfile -s .html "$Y" | sort -r | while read FNAME; do
-        POST_FILENAME="$(dirname $FNAME)/$(basename "${FNAME}" ".html").md"
-        ARTICLE=$(pttk frontmatter "${Y}/${POST_FILENAME}" | jq -r .title)
-        POST_DATE=$(dirname "$FNAME" | sed -e 's/blog\///g;s/\//-/')
-        if [ "${ARTICLE}" != "" ]; then
-          echo " - $POST_DATE, [$ARTICLE](/blog/$Y/${POST_FILENAME})" >> index.md
-        fi
-    done
-    echo "" >> index.md
-done
+echo "Building blog.md"
+antenna generate blog.md
+cp -v blog.html recent.html
 
 antenna page index.md
 git add index.html

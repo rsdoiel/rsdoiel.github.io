@@ -1,4 +1,6 @@
 
+<article>
+
 This is a set of articles based on Kernighan and Plauger's Book,
 [Software Tools in Pascal](https://openlibrary.org/books/OL4258115M/Software_tools_in_Pascal), 1981, Addison-Wesley.
 
@@ -8,8 +10,8 @@ to Oberon-07. In most cases the Oberon code is more compact and the
 features of Oberon avoid the need for macro processors and file
 inclusion through the use of modules.
 
-1. [Getting Started](/blog/2020/09/29/Software-Tools-1.md), 2020-09-29
-2. [Filters](http://localhost:8000/blog/2020/10/31/Filters.md), 2020-10-31
+1. [Getting Started](/blog/2020/09/29/Software-Tools-1.html), 2020-09-29
+2. [Filters](http://localhost:8000/blog/2020/10/31/Filters.html), 2020-10-31
 3. Files
 4. Sorting
 5. Text Patterns
@@ -18,4 +20,6 @@ inclusion through the use of modules.
 8. Macro Processing
 
 [Back](./)
+
+</article>
 

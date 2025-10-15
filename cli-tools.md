@@ -14,6 +14,8 @@
 
 ### Additional text rendering/formatting tools
 
+- [antennaApp](https://rsdoiel.github.io/antennaApp) - A Markdown and feed centric static content engine
+ - for private and public social web without the corporate overlords
 - [commonMarkDoc](https://rsdoiel.github.io/commonMarkDoc) - a TypeScript module for working with CommonMark documents
 - [BlogIt](https://rsdoiel.github.io/BlogIt) - this will be the successor "blogit" as I work to replace pttk.
 - [pttk](https://rsdoiel.github.io/pttk/) - a deconstructed content manage system for managing this site
