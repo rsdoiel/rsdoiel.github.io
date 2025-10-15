@@ -16,7 +16,7 @@ Interests/Projects
   - Standard ML
   - [TypeScript](https://github.com/rsdoiel?tab=repositories&q&type&language=typescript&sort)
 - [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
-- [Project](projects.md)
+- [Projects](projects.md)
 
 Professional Background
 -----------------------
