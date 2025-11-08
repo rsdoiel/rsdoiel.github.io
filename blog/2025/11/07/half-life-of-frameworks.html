@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.16-beta" >
+  <meta name="date" content="2025-11-07T18:34:57-08:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="half-life-of-frameworks.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2025-11-07" data-link="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">
+      <h1>Half-life of Frameworks</h1>
+      <p>By R. S. Doiel, 2025-11-07</p>
+      <p><a href="https://webdirections.org/blog/a-kind-of-farewell-to-the-web/">A Kind of farewell to the web</a> is an interesting read on front-end development. It's thoughtful and like other similar blog posts I think important.</p>
+      <p>Posts like this ask an important question, &quot;What happens when a framework designed to solve a problem is now the problem?&quot;</p>
+      <p>Software libraries and frameworks often emerge by taking something challenging or tedious and provide a solution that is convenient. If successful, they acquire a specific success problem. The become both a technical solution and a form of cultural identity. This often starts of innocently enough, perhaps a job posting with the framework as a desired skill set. Once the framework is tied to the job though institutionalization sets in. The frameworks is fused into the organizational structure and as a technical solution.  Initially this might seem like a good thing.  Unix I think is a good example of a collection of operating system approaches and libraries that vastly simplified it's original requirement as a multi user text processing platform. Fast forward to today, and the operating system on your phone, tablet or personal computer to your home thermostat or automobile is running a multi user system. That multi user solution also is, by its nature, vulnerable to attack. Who is controlling your device(s) today is an open question. Is it you, the vendor, a service, an organization like a government or something more nefarious? The success of Unix also created a new set of problems. How do we keep multi user systems safe?  This success issue isn't unique to operating systems. It holds true for choices of programming languages and the libraries, frameworks and packages associated with them. In my forty years of practice I've found it helpful to avoid the cultural linkages when providing software solutions. It's easy to learn a new library, it's difficult to change people's identity, culture and habits.</p>
+      <p>The way I avoid it is to first considering the problem I'm trying to solve. Looking at the computing devices, operating system and software languages I have at hand. Account for who I want to collaborate with and their preferences for devices, operating systems and programming languages. Once I know the platform and language take a good look at the standard set of libraries, packages or modules.  If the problem can be <strong>simplified enough</strong> using the standard solutions then they're usually the right libraries, packages or models to work with.  This has proven true in my experience even when a new shiny package pops on the scene. The new shiny often proves to be but a siren's song.  That raises the question of why is the standard often the right choice?</p>
+      <p>Programming languages, like human languages generally, evolve overtime. Standard libraries tend to evolve with the needs of the language. This results in a relationship of idioms. Idioms make it easier to quickly understand the proposed solution represented in the source code of your program. Idioms turns out to be extremely helpful in communicating with other developers. It is even helpful communicating with your future self.</p>
+      <p>An often over looked aspect of programming language usage is that it has two audiences. The first audience is people. I think it is the most important. The second is the device and operating system where the program is executed. While the second audience is essential to solving the problem, the first audience is essential to evaluating the solution, implementing the solution and sustaining the correctness of the solution over time. It's also what us humans interact with. Idioms are important in all human languages included those invented to represent how a computer or computation should proceed. I am not suggesting you never use a non-standard framework. I am suggesting <strong>you must know the cost when choosing a third party framework</strong>.</p>
+      <p>Another important thing to remember is that choosing a framework doesn't happen once.  It happens each time you revisit the code. Written programs are like written prose. Almost always the text can be improved. As languages evolve they will pickup features that the communities have already widely adopted in third party frameworks. That is because successful framework address deficits in the language implementation.</p>
+      <p>jQuery is a good example of a framework addressing browser JavaScript twenty years ago. The jQuery library adopted the CSS selector as a means of identifying elements in the DOM. That single feature made working with the DOM much easier. It also unified and encouraged a closer look at the role of CSS in relationship to the browser experience. JavaScript and CSS came into symbiosis. That feature even became compelling compared to other competing frameworks. The CSS selector syntax eventually became a part of the JavaScript standard DOM implementation, example <code>let h1Elements = document.querySelectAll(&quot;h1&quot;);</code>.  You don't need jQuery or other framework to work with selectors and the DOM. Today most of the problems jQuery addressed are better solved using plain old JavaScript or CSS.</p>
+      <p>Recent popular frameworks are also not aging well. Look at the current state of React. jQuery's success arc is predictive of React's success arc. Is data binding really an issue today? Web Components are widely supported an address the UI binding issues. Even if you chose React with its limitations it will block your progress towards a better UI. That's the focus of the article sighted at the start of the post. React has reached problem state. Like jQuery, it'll still be listed on job requirements or in promotion justifications. It is often recommended when you use a large language model to generate JavaScript and CSS source code. React is beyond it's half-life.</p>
+      <p>Today lots of people know React. But does anyone remember <a href="https://en.wikipedia.org/wiki/MooTools">MooTools</a>, <a href="https://en.wikipedia.org/wiki/Prototype_JavaScript_Framework">Prototype</a> or <a href="https://en.wikipedia.org/wiki/YUI_Library">YUI</a>?  Anyone remember <a href="https://en.wikipedia.org/wiki/Aptana#Aptana_Jaxer">Jaxer</a> from Aptana? They were the React of their era. The rise and fall of successful third party frameworks is a cautionary tale.</p>
+      <p>By sticking with or returning to the language's standard modules you accrue an under valued advantage. Languages and the standard libraries tend to remain compatible over long periods of time. Languages grow dormant less frequently than frameworks. The features themselves often see performance improvements or enhancements. A framework beyond its half-life will always struggle to keep up. React, like so many before it, is that that point now.</p>
+      <p>To be clear, I'm not dogmatically say don't use a third party frameworks. I am saying non-standard frameworks have a half-life. You need to evaluate the costs with each 3rd Party framework your project requires. Once you use one you have immediately accrued technical debt. The bill will come due. That the bill comes due far sooner than you'd expect. Always ask can your project afford pay it? Ask yourself how much will it cost to move your source code towards the standard libraries?</p>
+      
+    </article>
+  </section>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>

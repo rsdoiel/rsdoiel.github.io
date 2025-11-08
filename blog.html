@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" >
   <meta name="generator" content="antenna/0.0.16-beta" >
-  <meta name="date" content="2025-11-02T11:49:19-08:00" >
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
+  <meta content="2025-11-07T18:34:46-08:00" name="date" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <link rel="alternate" type="application/rss+xml" href="http://localhost:8000/blogxml" >
-  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
   <nav>
@@ -34,6 +34,31 @@
     </ul>
   </nav>
   <section>
+
+    <article data-published="2025-11-07T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">
+      <h1>Half life of Frameworks</h1>
+
+(date: 2025-11-07)
+      <p>
+      <h1>Half-life of Frameworks</h1>
+<p>By R. S. Doiel, 2025-11-07</p>
+<p><a href="https://webdirections.org/blog/a-kind-of-farewell-to-the-web/">A Kind of farewell to the web</a> is an interesting read on front-end development. It's thoughtful and like other similar blog posts I think important.</p>
+<p>Posts like this ask an important question, &quot;What happens when a framework designed to solve a problem is now the problem?&quot;</p>
+<p>Software libraries and frameworks often emerge by taking something challenging or tedious and provide a solution that is convenient. If successful, they acquire a specific success problem. The become both a technical solution and a form of cultural identity. This often starts of innocently enough, perhaps a job posting with the framework as a desired skill set. Once the framework is tied to the job though institutionalization sets in. The frameworks is fused into the organizational structure and as a technical solution.  Initially this might seem like a good thing.  Unix I think is a good example of a collection of operating system approaches and libraries that vastly simplified it's original requirement as a multi user text processing platform. Fast forward to today, and the operating system on your phone, tablet or personal computer to your home thermostat or automobile is running a multi user system. That multi user solution also is, by its nature, vulnerable to attack. Who is controlling your device(s) today is an open question. Is it you, the vendor, a service, an organization like a government or something more nefarious? The success of Unix also created a new set of problems. How do we keep multi user systems safe?  This success issue isn't unique to operating systems. It holds true for choices of programming languages and the libraries, frameworks and packages associated with them. In my forty years of practice I've found it helpful to avoid the cultural linkages when providing software solutions. It's easy to learn a new library, it's difficult to change people's identity, culture and habits.</p>
+<p>The way I avoid it is to first considering the problem I'm trying to solve. Looking at the computing devices, operating system and software languages I have at hand. Account for who I want to collaborate with and their preferences for devices, operating systems and programming languages. Once I know the platform and language take a good look at the standard set of libraries, packages or modules.  If the problem can be <strong>simplified enough</strong> using the standard solutions then they're usually the right libraries, packages or models to work with.  This has proven true in my experience even when a new shiny package pops on the scene. The new shiny often proves to be but a siren's song.  That raises the question of why is the standard often the right choice?</p>
+<p>Programming languages, like human languages generally, evolve overtime. Standard libraries tend to evolve with the needs of the language. This results in a relationship of idioms. Idioms make it easier to quickly understand the proposed solution represented in the source code of your program. Idioms turns out to be extremely helpful in communicating with other developers. It is even helpful communicating with your future self.</p>
+<p>An often over looked aspect of programming language usage is that it has two audiences. The first audience is people. I think it is the most important. The second is the device and operating system where the program is executed. While the second audience is essential to solving the problem, the first audience is essential to evaluating the solution, implementing the solution and sustaining the correctness of the solution over time. It's also what us humans interact with. Idioms are important in all human languages included those invented to represent how a computer or computation should proceed. I am not suggesting you never use a non-standard framework. I am suggesting <strong>you must know the cost when choosing a third party framework</strong>.</p>
+<p>Another important thing to remember is that choosing a framework doesn't happen once.  It happens each time you revisit the code. Written programs are like written prose. Almost always the text can be improved. As languages evolve they will pickup features that the communities have already widely adopted in third party frameworks. That is because successful framework address deficits in the language implementation.</p>
+<p>jQuery is a good example of a framework addressing browser JavaScript twenty years ago. The jQuery library adopted the CSS selector as a means of identifying elements in the DOM. That single feature made working with the DOM much easier. It also unified and encouraged a closer look at the role of CSS in relationship to the browser experience. JavaScript and CSS came into symbiosis. That feature even became compelling compared to other competing frameworks. The CSS selector syntax eventually became a part of the JavaScript standard DOM implementation, example <code>let h1Elements = document.querySelectAll(&quot;h1&quot;);</code>.  You don't need jQuery or other framework to work with selectors and the DOM. Today most of the problems jQuery addressed are better solved using plain old JavaScript or CSS.</p>
+<p>Recent popular frameworks are also not aging well. Look at the current state of React. jQuery's success arc is predictive of React's success arc. Is data binding really an issue today? Web Components are widely supported an address the UI binding issues. Even if you chose React with its limitations it will block your progress towards a better UI. That's the focus of the article sighted at the start of the post. React has reached problem state. Like jQuery, it'll still be listed on job requirements or in promotion justifications. It is often recommended when you use a large language model to generate JavaScript and CSS source code. React is beyond it's half-life.</p>
+<p>Today lots of people know React. But does anyone remember <a href="https://en.wikipedia.org/wiki/MooTools">MooTools</a>, <a href="https://en.wikipedia.org/wiki/Prototype_JavaScript_Framework">Prototype</a> or <a href="https://en.wikipedia.org/wiki/YUI_Library">YUI</a>?  Anyone remember <a href="https://en.wikipedia.org/wiki/Aptana#Aptana_Jaxer">Jaxer</a> from Aptana? They were the React of their era. The rise and fall of successful third party frameworks is a cautionary tale.</p>
+<p>By sticking with or returning to the language's standard modules you accrue an under valued advantage. Languages and the standard libraries tend to remain compatible over long periods of time. Languages grow dormant less frequently than frameworks. The features themselves often see performance improvements or enhancements. A framework beyond its half-life will always struggle to keep up. React, like so many before it, is that that point now.</p>
+<p>To be clear, I'm not dogmatically say don't use a third party frameworks. I am saying non-standard frameworks have a half-life. You need to evaluate the costs with each 3rd Party framework your project requires. Once you use one you have immediately accrued technical debt. The bill will come due. That the bill comes due far sooner than you'd expect. Always ask can your project afford pay it? Ask yourself how much will it cost to move your source code towards the standard libraries?</p>
+
+      <address>
+        <a href="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html</a>
+      </address>
+    </article>
 
     <article data-published="2025-11-02T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/11/02/is_social_media_a_misnomer.html">
       <h1>Is Social Media a Misnomer</h1>
@@ -57,493 +82,6 @@
 
       <address>
         <a href="https://rsdoiel.github.io/blog/2025/11/02/is_social_media_a_misnomer.html">https://rsdoiel.github.io/blog/2025/11/02/is_social_media_a_misnomer.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-10-14T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/10/14/simple_website_with_Markdown_and_CSS.html">
-      <h1>Simple websites with Markdown and CSS</h1>
-
-(date: 2025-10-14)
-      <p>
-      <h1>Create Simple Websites using only Markdown</h1>
-<blockquote>
-<p>The <a href="/antennaApp">Antenna App</a> is shaping the way I write and build websites</p>
-</blockquote>
-<p>By R. S. Doiel, 2025-10-14</p>
-<p>The Web as a <strong>networked hypertext system</strong>. A human friendly way of expressing hypertext is <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>. Markdown has allowed many people to participate in creating content for the web. I think it deserves more focus. Between Markdown and a sprinkle of CSS and you can create entire websites using your own computer or hosted on a static site host  provider<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. In this post I show how Markdown can be the central focus in creating basic websites. All it requires is knowing a little Markdown, a text editor, web browser and the <a href="https://rsdoiel.github.io/antennaApp">Antenna App</a>.</p>
-<p>Demonstrated in this post:</p>
-<ul>
-<li>A means of creating a web page (HTML page) using Markdown and the Antenna App</li>
-<li>A means of creating a simple multi page website with navigation using an Antenna App theme</li>
-<li>A means of styling the web site using CSS expressed as part of an Antenna App theme</li>
-</ul>
-<p>NOTE: Antenna supports creating many types of websites. Examples include <a href="https://en.wikipedia.org/wiki/Microblogging">microblogs</a>, <a href="https://en.wikipedia.org/wiki/Blog">blogs</a>, <a href="https://en.wikipedia.org/wiki/Linklog">linkblogs</a>, <a href="https://en.wikipedia.org/wiki/Wiki">wikis</a> and hybrids of these. Pretty much what you need to be social on the web without resorting to the silos of Big Corp.</p>
-<h2>What you need to get started</h2>
-<ul>
-<li>A computer</li>
-<li>A terminal app</li>
-<li>A text editor</li>
-<li>A web browser</li>
-<li>Antenna App</li>
-</ul>
-<p>Chances are you have the first four if you're reading this. What I describe in this ports should work on computers running Windows, macOS and Linux based systems. If you need to acquire a computer and already have a HDMI television I recommend getting a Raspberry Pi Computer. The Raspberry Pi 500 Kit is a nice middle range device that runs about <span class="math inline">\(120.00 US. It includes a book about using Raspberry Pi computers. If you can afford a bit more the Raspberry Pi 500+ Kit should be out by Christmas 2025 and that'll probably run in the ballpark of \)</span>240.00 US. That's a nice computer with lots of storage and the bells and whistles to do image, audio and light video work. If you are on a budget then you can squeak by with a Raspberry Pi Zero 2W running the software. That setup will set you back about <span class="math inline">\(50.00 US with the minimum accessories needed like case, keyboard, mouse, power supply and cables to connect things up. The Official Raspberry Pi Handbook print edition runs between \)</span>25.00 US but the electronic edition that you can read on your phone or tablet is free. My point is that for a little bit of investment or using your existing resources you have the means of building websites for yourself and others. You don't need to be a programmer or even a web designer if you are comfortable editing text and doing a bit of writing.</p>
-<p>The <a href="https://rsdoiel.github.io/antennaApp">Antenna App</a> is software I wrote to prove to myself that building websites could be made simpler. I currently use it to curate my own websites include my blog and personal news site, <a href="https://rsdoiel.github.io/antenna">https://rsdoiel.github.io/antenna</a> and <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">https://rsdoiel.github.io/antennaApp/INSTALL.html</a>.</p>
-<h2>Installing Antenna App</h2>
-<p>If you need to install the Antenna App you need to use your terminal to run the following command on macOS and Linux like systems.</p>
-<pre><code class="language-shell">curl https://rsdoiel.github.io/antennaApp/installer.sh | sh
-</code></pre>
-<p>or on Windows in Powershell you can use this command.</p>
-<pre><code class="language-shell">irm https://rsdoiel.github.io/antennaApp/installer.ps1 | iex
-</code></pre>
-<p>You can find detailed instructions in getting the latest version of the Antenna App at <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">https://rsdoiel.github.io/antennaApp/INSTALL.html</a>.</p>
-<h2>Build a simple website</h2>
-<p>On your computer open the Terminal application. The basic steps you'll be taking are the following.</p>
-<ol>
-<li>Create a project directory, &quot;simple&quot;, and change into it</li>
-<li>Use the Antenna App to setup your site using the &quot;init&quot; command</li>
-<li>Create a home page in Markdown called &quot;index.md&quot;</li>
-<li>Generate the HTML page, &quot;index.html&quot; using Antenna</li>
-<li>Preview your website in your web browser</li>
-</ol>
-<p>Here is what you type in the terminal for steps one through two.</p>
-<pre><code class="language-shell">
-mkdir simple
-cd simple
-antenna init
-</code></pre>
-<p>If you look at the contents of that directory.</p>
-<pre><code class="language-shell">
-ls
-</code></pre>
-<p>You should see the following files in the simple directory.</p>
-<pre><code class="language-shell">
-antenna.yaml
-page.yaml
-</code></pre>
-<p>These files are used by Antenna App to generate your website. The &quot;antenna.yaml&quot; is the main configuration file. The &quot;page.yaml&quot; file is used by Antenna App to know how to construct an HTML page.</p>
-<p>For step three we need to use a text editor. On Raspberry Pi mousepad is the the default editor. On Windows it is notepad and macOS its textedit. Many people use <a href="https://code.visualstudio.com/download">VS Code</a> editor which is available on macOS, Windows and Raspberry Pi OS. That is what I'll be using in my examples. You can change the &quot;code&quot; references to the editor you prefer.</p>
-<p>On my Raspberry Pi I can run the editor creating &quot;index.md&quot; when I save it. Here is the command I type into my terminal to do that.</p>
-<pre><code class="language-shell">
-code index.md
-</code></pre>
-<p>In the editor window you should see an empty file. Type in the following and save the file as &quot;index.md&quot; in the simple directory.</p>
-<pre><code class="language-markdown">
-Hello World! 
-
-</code></pre>
-<p>Now we want to use Antenna App &quot;page&quot; command to turn that &quot;index.md&quot; into our home web page. This is the command you type into your Terminal window.</p>
-<pre><code class="language-shell">
-antenna page index.md
-</code></pre>
-<p>If you check the contents of the simple directory.</p>
-<pre><code class="language-shell">
-ls
-</code></pre>
-<p>You should see three four files now.</p>
-<pre><code>
-antenna.yaml
-index.md
-index.html
-page.yaml
-</code></pre>
-<p>We can new preview the website by run the Antenna App's &quot;preview' command. This command runs a little web server on your computer so you can view the results of your handy work in your web browser.</p>
-<pre><code class="language-shell">
-antenna preview
-</code></pre>
-<p>Started your web browser and open the URL <a href="http://localhost:8000">http://localhost:8000</a>.  You should see your Hello World homepage. If you open <a href="view-source:http://localhost:8000">view-source:http://localhost:8000</a> you'll see the HTML source generated by the &quot;page&quot; command. When you are finished go back to your Terminal window and hold down the control key and press the &quot;C&quot; key (Ctrl-C). This exits the preview command. If you reload the pages in your web browser you'll get your browser's default page indicating that the pages are not available.</p>
-<h3>Expanding our site</h3>
-<p>Our site isn't useful website yet. There are no links. Modify &quot;index.md&quot; file to look like this.</p>
-<pre><code class="language-markdown">
-# Hello World!
-
-Learn about [Markdown](https://en.wikipedia.org/wiki/Markdown) on
-John Grubber's website &lt;https://daringfireball.net/projects/markdown/&gt;.
-
-</code></pre>
-<p>Once you've saved this revision use the page command to update the HTML. After that run the preview command like before. Switch back to your terminal and type the following.</p>
-<pre><code class="language-shell">
-antenna page index.md
-antenna preview
-</code></pre>
-<p>Refresh (reload) your web browser page for the URL <a href="http://localhost:8000">http://localhost:8000</a>.  Our &quot;Hello World&quot; homepage, &quot;index.md&quot;, now should be transformed with &quot;Hello World&quot; displaying as a heading and our added paragraph with links to Wikipedia and Daring Fireball websites. Refresh the &quot;view-source&quot; version of the pages and see the additional HTML markup generated by the page command.</p>
-<h3>Elaboration</h3>
-<p>A single page website is very limited.  You can create more pages going through the process we used for &quot;index.md&quot;. Here's the basic sequence.</p>
-<ol>
-<li>create or edit the markdown document in your editor, save it</li>
-<li>use the page command to render the HTML version</li>
-<li>use the preview command and your web browser to see your handy work</li>
-</ol>
-<p>Let's add a page called &quot;fruit.md&quot; with a list of heading and list fruits.</p>
-<pre><code class="language-shell">
-code fruit.md
-</code></pre>
-<p>Here's the text of the fruits.md page.</p>
-<pre><code class="language-Markdown">
-# Fruit
-
-- Dragon Fruit
-- Lime
-- Mango
-
-</code></pre>
-<p>You turn the page into HTML using the page command and then preview the website again</p>
-<pre><code class="language-shell">
-antenna page fruit.md
-antenna preview
-</code></pre>
-<p>You have two pages in your website now. The URL are</p>
-<ul>
-<li>http://localhost:8000/index.html</li>
-<li>http://localhost:8000/fruit.html</li>
-</ul>
-<p>Look at each in your web browser. Notice the pages aren't linked in anyway. That's not ideal. What we need is an easy way to navigation the main pages of our site. Antenna App supports a concept called themes. This let's you define how a page is generated through assigning content to specific parts of the page. One of the parts of an Antenna generated page is called &quot;nav&quot; and it is expressed as Markdown. Other parts include header, footer, top_content and bottom_content (the last two are before and after the section holding the contents our   original Markdown documents).</p>
-<p>To create a theme we need to first create a directory. Then we need to include the desired parts in the theme. Let's create a theme that has the nav element for our website that will make it easy to switch from the homepage to the fruit page. The steps we'll take to create our theme follows.</p>
-<ol>
-<li>create a directory called &quot;theme&quot;</li>
-<li>create a file in the &quot;theme&quot; directory called &quot;nav.md&quot;</li>
-<li>Add two links using Markdown to &quot;nav.md&quot; and save the file</li>
-<li>&quot;apply&quot; our theme</li>
-<li>regenerate our HTML pages and preview the site</li>
-</ol>
-<p>Here's what I'd type in the terminal for steps one and two.</p>
-<pre><code class="language-shell">
-mkdir theme
-code theme/nav.md
-</code></pre>
-<p>The content to type into &quot;nav.md&quot; is as follows.</p>
-<pre><code class="language-Markdown">
-[home](index.html) [fruit](fruit.html)
-</code></pre>
-<p>Save the result then in the terminal window type the following to finish steps four and five.</p>
-<pre><code class="language-shell">
-antenna apply theme
-antenna page index.md
-antenna page fruit.md
-antenna preview
-</code></pre>
-<p>You can now refresh the browser pages and exploring our site by clicking on the links provided by the navigation.</p>
-<h2>Antenna Themes</h2>
-<p>An Antenna App theme is defined as a directory with Markdown files to express the visible common HTML elements. Other non-visible elements in the head element of an HTML page are also able to be set with in a theme. Those aren't expressed in Markdown. Here's the names of files which are recognized by the Antenna App as valid parts of a theme.</p>
-<ul>
-<li>header.md</li>
-<li>nav.md</li>
-<li>top_content.md</li>
-<li>bottom_content.md</li>
-<li>footer.md</li>
-<li>head.yaml</li>
-<li>style.css</li>
-</ul>
-<p>The files ending with &quot;.md&quot; are Markdown files. Markdown describes the content we want to include in those sections of our webpage. Any Markdown content can be used. If one of the files does not exist in the theme then that element is not populated in the resulting page. Example if you include nav.md then navigation will be included otherwise it will not be included. The page order of the Markdown elements are</p>
-<ol>
-<li>header.md</li>
-<li>nav.md</li>
-<li>top_content.md</li>
-<li>The content of the Markdown document used with the page command</li>
-<li>bottom_content.md</li>
-<li>footer.md</li>
-</ol>
-<p>When we create a file like &quot;index.md&quot; and &quot;fruits.md&quot; the resulting HTML is inserted between the &quot;top_content&quot; and &quot;bottom_content&quot; sections of the webpage.</p>
-<p>To keep things simple I started by showing you how to create the &quot;nav&quot; element using the &quot;nav.md&quot; site your theme folder.
-The theme name can be anything, it's just a directory. Here's the basic steps in creating a new theme</p>
-<ol>
-<li>create a directory to hold the theme parts</li>
-<li>Inside your directory create Markdown documents for the parts of the them you want defined</li>
-<li>Apply the theme by using the directory name and the apply command</li>
-<li>Generate or regenerate HTML for each page in your site</li>
-<li>Preview the site</li>
-</ol>
-<p>Editing the theme is just a matter of adding, editing or removing elements from the theme folder. The two elements that are not Markdown documents are &quot;style.css&quot; and &quot;head.yaml&quot; if you choose to include them. The &quot;style.css&quot; file should contain valid CSS.
-The &quot;head.yaml&quot; gives you find grained control of the meta, link and script elements that get rendered into the head element of your web page.</p>
-<h3>Spicing pages up with CSS</h3>
-<p>So far the website is functional but relies on the defaults provided by your web browser. The visual appearance can be enhanced through using CSS. CSS is a language that describes to the web browser how it should layout the HTML page contents. The Antenna App's themes supports embedding a style element in the HTML page's head element by including a &quot;style.css&quot; file inside the theme directory. Let's do that now.</p>
-<p>Use your terminal to create &quot;theme/style.css&quot;</p>
-<pre><code class="language-shell">
-code theme/style.css
-</code></pre>
-<p>Paste in the follow CSS. It'll turn your top level page titles vertical using CSS.</p>
-<pre><code class="language-css">
-/* Turn the H1 elements vertical */
-h1 {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  text-orientation: mixed;
-}
-</code></pre>
-<p>After creating and save the &quot;style.css&quot; you theme directory should have two files.</p>
-<pre><code>
-theme/nav.md
-theme/style.css
-</code></pre>
-<p>You can now apply the theme, regenerate the HTML pages and preview them.</p>
-<pre><code class="language-shell">
-antenna apply theme
-antenna page index.md
-antenna page fruits.md
-antenna preview
-</code></pre>
-<p>When you preview the site you should see the effect the CSS had on how the page displayed. The changes to layout using CSS can be very elaborate and CSS is a topic I encourage you to explore on your own. A good reference and tutorial website for CSS is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">https://developer.mozilla.org/en-US/docs/Web/CSS</a>. A historic example of what people have done with CSS can be seen at <a href="https://csszengarden.com/">CSS Zen Garden</a>. A web search on [DuckDuckGo](<a href="https://duckduckgo.com?q=learning">https://duckduckgo.com?q=learning</a> CSS) or other search engine will turn up lots of additional resources. There are also book available through <a href="https://openlibrary.org/search?q=CSS&amp;mode=everything">Open Library</a>.</p>
-<h2>Next steps</h2>
-<ul>
-<li>Create a few more pages for your website using Markdown for the text content</li>
-<li>Explore adding additional theme elements like &quot;header&quot; and &quot;footer&quot;</li>
-</ul>
-<p>Happy site building!</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Example, GitHub Pages, Dreamhost or in S3 buckets setup as static websites at AWS&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/10/14/simple_website_with_Markdown_and_CSS.html">https://rsdoiel.github.io/blog/2025/10/14/simple_website_with_Markdown_and_CSS.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-10-14T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/10/14/simple_websites_using_Markdown.html">
-      <h1>Simple websites using Markdown</h1>
-
-(date: 2025-10-14)
-      <p>
-      <h1>Simple Websites using Markdown</h1>
-<blockquote>
-<p>The <a href="/antennaApp">Antenna App</a> is shaping the way I write and build websites</p>
-</blockquote>
-<p>By R. S. Doiel, 2025-10-14</p>
-<p>The Web is a <strong>networked hypertext system</strong>. A human friendly way of expressing hypertext is <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>. Markdown has allowed many people to participate in creating content for the web. I think it deserves more focus. Between Markdown and a sprinkle of CSS and you can create entire websites using your own computer or hosted on a static site service<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. In this post I show how Markdown can be used for basic websites<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. All it requires is knowing a little Markdown, a text editor, web browser and the <a href="https://rsdoiel.github.io/antennaApp">Antenna App</a>.</p>
-<p>Demonstrated in this post:</p>
-<ul>
-<li>A means of creating a web page (HTML page) using Markdown and the Antenna App</li>
-<li>A means of creating a simple multi page website with navigation using an Antenna App theme</li>
-<li>A means of styling the web site using CSS expressed as part of an Antenna App theme</li>
-</ul>
-<h2>What you need to get started</h2>
-<ul>
-<li>A computer</li>
-<li>A terminal app</li>
-<li>A text editor</li>
-<li>A web browser</li>
-<li>Antenna App</li>
-</ul>
-<p>Chances are you have the first four if you're reading this. What I describe in this ports should work on computers running Windows, macOS and Linux based systems. If you need to acquire a computer and already have a HDMI television I recommend getting a Raspberry Pi Computer. The Raspberry Pi 500 Kit is a nice middle range device that runs about <span class="math inline">\(120.00 US. It includes a book about using Raspberry Pi computers. If you can afford a bit more the Raspberry Pi 500+ Kit should be out by Christmas 2025 and that'll probably run in the ballpark of \)</span>240.00 US. That's a nice computer with lots of storage and the bells and whistles to do image, audio and light video work. If you are on a budget then you can squeak by with a Raspberry Pi Zero 2W running the software. That setup will set you back about <span class="math inline">\(50.00 US with the minimum accessories needed like case, keyboard, mouse, power supply and cables to connect things up. The Official Raspberry Pi Handbook print edition runs between \)</span>25.00 US but the electronic edition that you can read on your phone or tablet is free. My point is that for a little bit of investment or using your existing resources you have the means of building websites for yourself and others. You don't need to be a programmer or even a web designer if you are comfortable editing text and doing a bit of writing.</p>
-<p>The <a href="https://rsdoiel.github.io/antennaApp">Antenna App</a> is software I wrote to prove to myself that building websites could be made simpler. I currently use it to curate my own websites include my blog and personal news site, <a href="https://rsdoiel.github.io/antenna">https://rsdoiel.github.io/antenna</a> and <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">https://rsdoiel.github.io/antennaApp/INSTALL.html</a>.</p>
-<h2>Installing Antenna App</h2>
-<p>If you need to install the Antenna App you need to use your terminal to run the following command on macOS and Linux like systems.</p>
-<pre><code class="language-shell">curl https://rsdoiel.github.io/antennaApp/installer.sh | sh
-</code></pre>
-<p>or on Windows in Powershell you can use this command.</p>
-<pre><code class="language-shell">irm https://rsdoiel.github.io/antennaApp/installer.ps1 | iex
-</code></pre>
-<p>You can find detailed instructions in getting the latest version of the Antenna App at <a href="https://rsdoiel.github.io/antennaApp/INSTALL.html">https://rsdoiel.github.io/antennaApp/INSTALL.html</a>.</p>
-<h2>Build a simple website</h2>
-<p>On your computer open the Terminal application. The basic steps you'll be taking are the following.</p>
-<ol>
-<li>Create a project directory, &quot;simple&quot;, and change into it</li>
-<li>Use the Antenna App to setup your site using the &quot;init&quot; command</li>
-<li>Create a home page in Markdown called &quot;index.md&quot;</li>
-<li>Generate the HTML page, &quot;index.html&quot; using Antenna</li>
-<li>Preview your website in your web browser</li>
-</ol>
-<p>Here is what you type in the terminal for steps one through two.</p>
-<pre><code class="language-shell">
-mkdir simple
-cd simple
-antenna init
-</code></pre>
-<p>If you look at the contents of that directory.</p>
-<pre><code class="language-shell">
-ls
-</code></pre>
-<p>You should see the following files in the simple directory.</p>
-<pre><code class="language-shell">
-antenna.yaml
-page.yaml
-</code></pre>
-<p>These files are used by Antenna App to generate your website. The &quot;antenna.yaml&quot; is the main configuration file. The &quot;page.yaml&quot; file is used by Antenna App to know how to construct an HTML page.</p>
-<p>For step three we need to use a text editor. On Raspberry Pi mousepad is the the default editor. On Windows it is notepad and macOS its textedit. Many people use <a href="https://code.visualstudio.com/download">VS Code</a> editor which is available on macOS, Windows and Raspberry Pi OS. That is what I'll be using in my examples. You can change the &quot;code&quot; references to the editor you prefer.</p>
-<p>On my Raspberry Pi I can run the editor creating &quot;index.md&quot; when I save it. Here is the command I type into my terminal to do that.</p>
-<pre><code class="language-shell">
-code index.md
-</code></pre>
-<p>In the editor window you should see an empty file. Type in the following and save the file as &quot;index.md&quot; in the simple directory.</p>
-<pre><code class="language-markdown">
-Hello World! 
-
-</code></pre>
-<p>Now we want to use Antenna App &quot;page&quot; command to turn that &quot;index.md&quot; into our home web page. This is the command you type into your Terminal window.</p>
-<pre><code class="language-shell">
-antenna page index.md
-</code></pre>
-<p>If you check the contents of the simple directory.</p>
-<pre><code class="language-shell">
-ls
-</code></pre>
-<p>You should see three four files now.</p>
-<pre><code>
-antenna.yaml
-index.md
-index.html
-page.yaml
-</code></pre>
-<p>We can new preview the website by run the Antenna App's &quot;preview' command. This command runs a little web server on your computer so you can view the results of your handy work in your web browser.</p>
-<pre><code class="language-shell">
-antenna preview
-</code></pre>
-<p>Started your web browser and open the URL <a href="http://localhost:8000">http://localhost:8000</a>.  You should see your Hello World homepage. If you open <a href="view-source:http://localhost:8000">view-source:http://localhost:8000</a> you'll see the HTML source generated by the &quot;page&quot; command. When you are finished go back to your Terminal window and hold down the control key and press the &quot;C&quot; key (Ctrl-C). This exits the preview command. If you reload the pages in your web browser you'll get your browser's default page indicating that the pages are not available.</p>
-<h3>Expanding our site</h3>
-<p>Our site isn't useful website yet. There are no links. Modify &quot;index.md&quot; file to look like this.</p>
-<pre><code class="language-markdown">
-# Hello World!
-
-Learn about [Markdown](https://en.wikipedia.org/wiki/Markdown) on
-John Grubber's website &lt;https://daringfireball.net/projects/markdown/&gt;.
-
-</code></pre>
-<p>Once you've saved this revision use the page command to update the HTML. After that run the preview command like before. Switch back to your terminal and type the following.</p>
-<pre><code class="language-shell">
-antenna page index.md
-antenna preview
-</code></pre>
-<p>Refresh (reload) your web browser page for the URL <a href="http://localhost:8000">http://localhost:8000</a>.  Our &quot;Hello World&quot; homepage, &quot;index.md&quot;, now should be transformed with &quot;Hello World&quot; displaying as a heading and our added paragraph with links to Wikipedia and Daring Fireball websites. Refresh the &quot;view-source&quot; version of the pages and see the additional HTML markup generated by the page command.</p>
-<h3>Elaboration</h3>
-<p>A single page website is very limited.  You can create more pages going through the process we used for &quot;index.md&quot;. Here's the basic sequence.</p>
-<ol>
-<li>create or edit the markdown document in your editor, save it</li>
-<li>use the page command to render the HTML version</li>
-<li>use the preview command and your web browser to see your handy work</li>
-</ol>
-<p>Let's add a page called &quot;fruit.md&quot; with a list of heading and list fruits.</p>
-<pre><code class="language-shell">
-code fruit.md
-</code></pre>
-<p>Here's the text of the fruits.md page.</p>
-<pre><code class="language-Markdown">
-# Fruit
-
-- Dragon Fruit
-- Lime
-- Mango
-
-</code></pre>
-<p>You turn the page into HTML using the page command and then preview the website again</p>
-<pre><code class="language-shell">
-antenna page fruit.md
-antenna preview
-</code></pre>
-<p>You have two pages in your website now. The URL are</p>
-<ul>
-<li>http://localhost:8000/index.html</li>
-<li>http://localhost:8000/fruit.html</li>
-</ul>
-<p>Look at each in your web browser. Notice the pages aren't linked in anyway. That's not ideal. What we need is an easy way to navigation the main pages of our site. Antenna App supports a concept called themes. This let's you define how a page is generated through assigning content to specific parts of the page. One of the parts of an Antenna generated page is called &quot;nav&quot; and it is expressed as Markdown. Other parts include header, footer, top_content and bottom_content (the last two are before and after the section holding the contents our   original Markdown documents).</p>
-<h3>theming</h3>
-<p>To create a theme we need to first create a directory. Then we need to include the desired parts in the theme. Let's create a theme that has the nav element for our website that will make it easy to switch from the homepage to the fruit page. The steps we'll take to create our theme follows.</p>
-<ol>
-<li>create a directory called &quot;theme&quot;</li>
-<li>create a file in the &quot;theme&quot; directory called &quot;nav.md&quot;</li>
-<li>Add two links using Markdown to &quot;nav.md&quot; and save the file</li>
-<li>&quot;apply&quot; our theme</li>
-<li>regenerate our HTML pages and preview the site</li>
-</ol>
-<p>Here's what I'd type in the terminal for steps one and two.</p>
-<pre><code class="language-shell">
-mkdir theme
-code theme/nav.md
-</code></pre>
-<p>The content to type into &quot;nav.md&quot; is as follows.</p>
-<pre><code class="language-Markdown">
-[home](index.html) [fruit](fruit.html)
-</code></pre>
-<p>Save the result then in the terminal window type the following to finish steps four and five.</p>
-<pre><code class="language-shell">
-antenna apply theme
-antenna page index.md
-antenna page fruit.md
-antenna preview
-</code></pre>
-<p>You can now refresh the browser pages and exploring our site by clicking on the links provided by the navigation.</p>
-<h2>Antenna Themes</h2>
-<p>An Antenna App theme is defined as a directory with Markdown files to express the visible common HTML elements. Other non-visible elements in the head element of an HTML page are also able to be set with in a theme. Those aren't expressed in Markdown. Here's the names of files which are recognized by the Antenna App as valid parts of a theme.</p>
-<ul>
-<li>header.md</li>
-<li>nav.md</li>
-<li>top_content.md</li>
-<li>bottom_content.md</li>
-<li>footer.md</li>
-<li>head.yaml</li>
-<li>style.css</li>
-</ul>
-<p>The files ending with &quot;.md&quot; are Markdown files. Markdown describes the content we want to include in those sections of our webpage. Any Markdown content can be used. If one of the files does not exist in the theme then that element is not populated in the resulting page. Example if you include nav.md then navigation will be included otherwise it will not be included. The page order of the Markdown elements are</p>
-<ol>
-<li>header.md</li>
-<li>nav.md</li>
-<li>top_content.md</li>
-<li>The content of the Markdown document used with the page command</li>
-<li>bottom_content.md</li>
-<li>footer.md</li>
-</ol>
-<p>When we create a file like &quot;index.md&quot; and &quot;fruits.md&quot; the resulting HTML is inserted between the &quot;top_content&quot; and &quot;bottom_content&quot; sections of the webpage.</p>
-<p>To keep things simple I started by showing you how to create the &quot;nav&quot; element using the &quot;nav.md&quot; site your theme folder.
-The theme name can be anything, it's just a directory. Here's the basic steps in creating a new theme</p>
-<ol>
-<li>create a directory to hold the theme parts</li>
-<li>Inside your directory create Markdown documents for the parts of the them you want defined</li>
-<li>Apply the theme by using the directory name and the apply command</li>
-<li>Generate or regenerate HTML for each page in your site</li>
-<li>Preview the site</li>
-</ol>
-<p>Editing the theme is just a matter of adding, editing or removing elements from the theme folder. The two elements that are not Markdown documents are &quot;style.css&quot; and &quot;head.yaml&quot; if you choose to include them. The &quot;style.css&quot; file should contain valid CSS.
-The &quot;head.yaml&quot; gives you find grained control of the meta, link and script elements that get rendered into the head element of your web page.</p>
-<h3>Spicing pages up with CSS</h3>
-<p>So far the website is functional but relies on the defaults provided by your web browser. The visual appearance can be enhanced through using CSS. CSS is a language that describes to the web browser how it should layout the HTML page contents. The Antenna App's themes supports embedding a style element in the HTML page's head element by including a &quot;style.css&quot; file inside the theme directory. Let's do that now.</p>
-<p>Use your terminal to create &quot;theme/style.css&quot;</p>
-<pre><code class="language-shell">
-code theme/style.css
-</code></pre>
-<p>Paste in the follow CSS. It'll turn your top level page titles vertical using CSS.</p>
-<pre><code class="language-css">
-/* Turn the H1 elements vertical */
-h1 {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  text-orientation: mixed;
-}
-</code></pre>
-<p>After creating and save the &quot;style.css&quot; you theme directory should have two files.</p>
-<pre><code>
-theme/nav.md
-theme/style.css
-</code></pre>
-<p>You can now apply the theme, regenerate the HTML pages and preview them.</p>
-<pre><code class="language-shell">
-antenna apply theme
-antenna page index.md
-antenna page fruits.md
-antenna preview
-</code></pre>
-<p>When you preview the site you should see the effect the CSS had on how the page displayed. The changes to layout using CSS can be very elaborate and CSS is a topic I encourage you to explore on your own. A good reference and tutorial website for CSS is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">https://developer.mozilla.org/en-US/docs/Web/CSS</a>. A historic example of what people have done with CSS can be seen at <a href="https://csszengarden.com/">CSS Zen Garden</a>. A web search on [DuckDuckGo](<a href="https://duckduckgo.com?q=learning">https://duckduckgo.com?q=learning</a> CSS) or other search engine will turn up lots of additional resources. There are also book available through <a href="https://openlibrary.org/search?q=CSS&amp;mode=everything">Open Library</a>.</p>
-<h2>Next steps</h2>
-<ul>
-<li>Create a few more pages for your website using Markdown for the text content</li>
-<li>Explore adding additional theme elements like &quot;header&quot; and &quot;footer&quot;</li>
-</ul>
-<p>Happy site building!</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Examples: <a href="https://pages.github.com">GitHub Pages</a>, S3 buckets setup as static websites at AWS, Dreamhost, my favorite <a href="https://www.mythic-beasts.com/">Mythic Beasts</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2">
-<p>Antenna supports creating many types of websites. Examples include <a href="https://en.wikipedia.org/wiki/Microblogging">microblogs</a>, <a href="https://en.wikipedia.org/wiki/Blog">blogs</a>, <a href="https://en.wikipedia.org/wiki/Linklog">linkblogs</a>, <a href="https://en.wikipedia.org/wiki/Wiki">wikis</a> and hybrids of these. Pretty much what you need to be social on the web without resorting to the silos of Big Corp.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/10/14/simple_websites_using_Markdown.html">https://rsdoiel.github.io/blog/2025/10/14/simple_websites_using_Markdown.html</a>
       </address>
     </article>
   </section>
