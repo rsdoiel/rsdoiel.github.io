@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta content="antenna/0.0.15" name="generator" >
+  <meta name="date" content="2025-11-13T16:57:57-08:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="EN" name="language" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="urls_for_text_fragments.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2025-11-13" data-link="https://rsdoiel.github.io/blog/2025/11/13/urls_for_text_fragments.html">
+      <h1>URLS for text fragments</h1>
+      <p>By R. S. Doiel, 2025-11-13</p>
+      <p>A web innovation that I missed was the wide spread support for text fragments expressed as a URL. This is extremely helpful for both citation and quoting sections of a web page in a blog post. The URL syntax is now widely supported by ever green browsers (e.g. Firefox, Safari and Chrome). You can find a nice explanation at <a href="https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments">Text fragments</a> on the <a href="https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments">MDN</a> website.</p>
+      <p>The syntax is a little funky. Here's an example of selecting the second paragraph in my recent blog post <a href="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">Half-life of Frameworks</a>,</p>
+      <p><a href="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html#:~:text=The%20way,choice">https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html#:~:text=The%20way,choice</a></p>
+      <p>The sequence <code>#:~:</code> indicates it is a link to a text fragment. The <code>text=The%20way,choice</code> essentially tells the browser to jump to the text block that starts with &quot;The%20way&quot; and ends with &quot;choice&quot;. Using this URL in Firefox will bring up the web page and highlight the text fragment centering it in the view.</p>
+      <p>It is important to realize that web pages with JavaScript can break this feature. I've noticed this on sites like Substack and BlueSky. The link may bring you to the right page but will not behave as expected. Here's an example of a text fragment link that should work but doesn't</p>
+      <p><a href="https://sarahkendzior.substack.com/notes#:~:text=I%20was%20suspended%20from%20BlueSky%20for%20defending%20the%20honor%20of%20Johnny%20Cash%2E">https://sarahkendzior.substack.com/notes#:~:text=I%20was%20suspended%20from%20BlueSky%20for%20defending%20the%20honor%20of%20Johnny%20Cash%2E</a></p>
+      <p>This should link to Sarah Kendzoir's note entry about being banned from BlueSky for her support of rebutting a WSJ article on Johnny Cash. Instead if you want to link to that entry you must resort to a link exposed with the  tiny <a href="https://substack.com/@sarahkendzior/note/c-176537092">&quot;dot dot dot&quot; menu</a>.</p>
+      <p>It is not a browser bug. It's a choice of those who render pages via JavaScript. I get their commercial reasons. One more reason not to link to commercial websites and other walled gardens that break web standards.</p>
+      <h2>How do you easily generate text fragment link?</h2>
+      <p>While the URL syntax for text fragments is verbose getting a link to one is pretty easy with a desktop web browser.
+      Here's the steps I use with desktop Firefox.</p>
+      <ol>
+      <li>navigate to the web page</li>
+      <li>select the text I want a link to</li>
+      <li>using the context menu (e.g. right click with my mouse)</li>
+      <li>click on &quot;Copy Link to Highlight&quot;</li>
+      </ol>
+      <p>I now have a text fragment link saved to my web browser's clipboard (i.e. the copy buffer). I can now paste it into my Markdown document. These steps work on other popular desktop browsers (e.g. Safari, Orion and Chrome).</p>
+      <p>On mobile it's trickier. There isn't really a context menu like their is on the desktop. I haven't found a menu that will take a text selection from the web browser and include a &quot;Copy Link to Highlight&quot; option for sharing. That's shame. While I don't write blog posts on my phone I do take notes. Maybe mobile OS will catch up to that functionality in the future. I'm not holding by breath.</p>
+      <h2>text fragment URL possibilities</h2>
+      <p>As commercial social web platforms continue to devolve into muck. The open web can take advantage of features text fragment URLs. This could be an advantage in demonstrating the fluidity of the open web. In my experiments I've found it easy to take advantage of text fragment links in Markdown. Their just another link.  If you're building Markdown processors you could auto-quote the text when you encounter a text fragment link. That's save some cutting and pasting in the writing process. You could even derive feeds from Markdown documents that include links expressing text fragments.  I'm hoping to have a chance to experiment with these features in my <a href="https://rsdoiel.github.io/antennaApp">antennaApp</a> project.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>

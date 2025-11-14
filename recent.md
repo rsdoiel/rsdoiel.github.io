@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [URLS for text fragments](/blog/2025/11/13/urls_for_text_fragments.md), 2025-11-13
 - [Half life of Frameworks](/blog/2025/11/07/half-life-of-frameworks.md), 2025-11-07
 - [Is Social Media a Misnomer](/blog/2025/11/02/is_social_media_a_misnomer.md), 2025-11-02
 - [Simple websites using Markdown](/blog/2025/10/14/simple_websites_using_Markdown.md), 2025-10-14
