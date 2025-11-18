@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Text fragment links as social expression](/blog/2025/11/17/text_fragment_links_a_social_expression.md), 2025-11-17
 - [URLS for text fragments](/blog/2025/11/13/urls_for_text_fragments.md), 2025-11-13
 - [Half life of Frameworks](/blog/2025/11/07/half-life-of-frameworks.md), 2025-11-07
 - [Is Social Media a Misnomer](/blog/2025/11/02/is_social_media_a_misnomer.md), 2025-11-02
