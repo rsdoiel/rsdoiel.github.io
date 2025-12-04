@@ -4,6 +4,7 @@ title: "Robert's ramblings"
 
 ### Recent Posts
 
+- [Using text fragments](/blog/2025/12/03/using_text_fragments.md), 2025-12-03
 - [Upgrade my Raspberry Pi 500+ to Trixie](/blog/2025/11/28/Upgrade-Pi-500-plus.md), 2025-11-28
 - [Text fragment links as social expression](/blog/2025/11/17/text_fragment_links_a_social_expression.md), 2025-11-17
 - [URLS for text fragments](/blog/2025/11/13/urls_for_text_fragments.md), 2025-11-13

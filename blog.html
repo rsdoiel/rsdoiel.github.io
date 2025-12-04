@@ -2,17 +2,17 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.16-gamma" >
-  <meta name="date" content="2025-11-28T13:02:05-08:00" >
+  <meta content="antenna/0.0.17" name="generator" >
+  <meta name="date" content="2025-12-03T19:12:14-08:00" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
-  <link type="application/rss+xml" href="http://localhost:8000/blogxml" rel="alternate" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link href="http://localhost:8000/blogxml" rel="alternate" type="application/rss+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
@@ -34,6 +34,38 @@
     </ul>
   </nav>
   <section>
+
+    <article data-published="2025-12-03T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html">
+      <h1>Using text fragments</h1>
+
+(date: 2025-12-03)
+      <p>
+      <h1>Using text fragments</h1>
+<p>By R. S. Doiel, 2025-12-03</p>
+<blockquote>
+<p>We've forgotten how important links are</p>
+</blockquote>
+<p>(<a href="http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are">scripting.com</a>, accessed 2025-12-03)</p>
+<p><a href="https://scripting.com">Dave</a>'s right. We can't forget the humble link. His one line post nudged me to add a feature to <a href="https://github.com/rsdoiel/antennaApp/releases" title="see v0.0.17">Antenna App</a>. The feature is implemented as a new &quot;action&quot; called &quot;reply&quot;. Here's how I started this post you're reading.</p>
+<pre><code class="language-shell">antenna reply http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are
+</code></pre>
+<p>That generate a first draft of this post that looked like this.</p>
+<pre><code class="language-markdown">
+&gt; We've forgotten how important links are
+
+[cited](http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are) 2025-12-03
+
+</code></pre>
+<p>It was enough to start things off but the &quot;cited&quot; isn't a useful label IMO. I wound up doing to copy editing. In the next release it'll be more like how this post started.</p>
+<p>The reply feature is intended to be minimal. Just enough to avoid a blank page and minimizing the amount of select, copy, paste and formatting I need to do to get going.</p>
+<p>The current implementation takes the text fragment URL and turns it into Markdown. The Markdown consists of a block quote holding the reference to what would be highlighted if you clicked the link below it.</p>
+<p>The code that parses the text fragment is naive. It only supports the &quot;copy link to highlight&quot; current generated in Desktop Firefox and Chrome. The specification has several ways of indicating the text to &quot;highlight&quot;. You can provide the whole text to highlight (this tops out at about a sentence in Firefox). You can provide starting phrase of the text you want to highlight. You can provide start and end phrases bracketing the text to be highlight. I have only implemented the first case. I haven't found a web browser that implements the phrase parts approach yet.</p>
+<p>Since the reply action writes to standard out I pipe the result to a draft of the post I am creating. Long run I way want to add explicit filename support, or to allow a quoted text fragment to be appended to an existing post.</p>
+
+      <address>
+        <a href="https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html">https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html</a>
+      </address>
+    </article>
 
     <article data-published="2025-11-28T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/11/29/Upgrade-Pi-500-plus.html">
       <h1>Upgrade my Raspberry Pi 500+ to Trixie</h1>
@@ -248,31 +280,6 @@ Here's the steps I use with desktop Firefox.</p>
 
       <address>
         <a href="https://rsdoiel.github.io/blog/2025/11/13/urls_for_text_fragments.html">https://rsdoiel.github.io/blog/2025/11/13/urls_for_text_fragments.html</a>
-      </address>
-    </article>
-
-    <article data-published="2025-11-07T00:00:00Z" data-link="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">
-      <h1>Half-life of Frameworks</h1>
-
-(date: 2025-11-07)
-      <p>
-      <h1>Half-life of Frameworks</h1>
-<p>By R. S. Doiel, 2025-11-07</p>
-<p><a href="https://webdirections.org/blog/a-kind-of-farewell-to-the-web/">&quot;A Kind of Farewell to the Web&quot;</a> is an interesting read on front-end development. It's thoughtful and like other similar blog posts I think important.</p>
-<p>Posts like this ask an important question, &quot;What happens when a framework designed to solve a problem is now the problem?&quot;</p>
-<p>Software libraries and frameworks often emerge by taking something challenging or tedious and provide a solution that is convenient. If successful, they acquire a specific success problem. The become both a technical solution and a form of cultural identity. This often starts of innocently enough, perhaps a job posting with the framework as a desired skill set. Once the framework is tied to the job though institutionalization sets in. The frameworks is fused into the organizational structure and as a technical solution.  Initially this might seem like a good thing.  Unix I think is a good example of a collection of operating system approaches and libraries that vastly simplified it's original requirement as a multi user text processing platform. Fast forward to today, and the operating system on your phone, tablet or personal computer to your home thermostat or automobile is running a multi user system. That multi user solution also is, by its nature, vulnerable to attack. Who is controlling your device(s) today is an open question. Is it you, the vendor, a service, an organization like a government or something more nefarious? The success of Unix also created a new set of problems. How do we keep multi user systems safe?  This success issue isn't unique to operating systems. It holds true for choices of programming languages and the libraries, frameworks and packages associated with them. In my forty years of practice I've found it helpful to avoid the cultural linkages when providing software solutions. It's easy to learn a new library, it's difficult to change people's identity, culture and habits.</p>
-<p>The way I avoid it is to first consider the problem I'm trying to solve. Looking at the computing devices, operating system and software languages I have at hand. Account for who I want to collaborate with and their preferences for devices, operating systems and programming languages. Once I know the platform and language take a good look at the standard set of libraries, packages or modules.  If the problem can be <strong>simplified enough</strong> using the standard solutions then they're usually the right libraries, packages or models to work with.  This has proven true in my experience even when a new shiny package pops on the scene. The new shiny often proves to be but a siren's song.  That raises the question of why is the standard often the right choice?</p>
-<p>Programming languages, like human languages generally, evolve overtime. Standard libraries tend to evolve with the needs of the language. This results in a relationship of idioms. Idioms make it easier to quickly understand the proposed solution represented in the source code of your program. The idiom turns out to be extremely helpful in communicating with other developers. It is even helpful communicating with your future self.</p>
-<p>An often over looked aspect of programming language usage is that it has two audiences. The first audience is people. I think it is the most important. The second is the device and operating system where the program is executed. While the second audience is essential to solving the problem, the first audience is essential to evaluating the solution, implementing the solution and sustaining the correctness of the solution over time. It's also what us humans interact with. Idioms are important in all human languages included those invented to represent how a computer or computation should proceed. I am not suggesting you never use a non-standard framework. I am suggesting <strong>you must know the cost when choosing a third party framework</strong>.</p>
-<p>Another important thing to remember is that choosing a framework doesn't happen once.  It happens each time you revisit the code. Written programs are like written prose. Almost always the text can be improved. As languages evolve they will pickup features that the communities have already widely adopted in third party frameworks. That is because successful framework address deficits in the language implementation.</p>
-<p>jQuery is a good example of a framework addressing browser JavaScript twenty years ago. The jQuery library adopted the CSS selector as a means of identifying elements in the DOM. That single feature made working with the DOM much easier. It also unified and encouraged a closer look at the role of CSS in relationship to the browser experience. JavaScript and CSS came into symbiosis. That feature even became compelling compared to other competing frameworks. The CSS selector syntax eventually became a part of the JavaScript standard DOM implementation, example <code>let h1Elements = document.querySelectorAll(&quot;h1&quot;);</code>.  You don't need jQuery or other framework to work with selectors and the DOM. Today most of the problems jQuery addressed are better solved using plain old JavaScript or CSS.</p>
-<p>Recent popular frameworks are also not aging well. Look at the current state of React. jQuery's success arc is predictive of React's success arc. Is data binding really an issue today? Web Components are widely supported an address the UI binding issues. Even if you chose React with its limitations it will block your progress towards a better UI. That's the focus of the article sighted at the start of the post. React has reached problem state. Like jQuery, it'll still be listed on job requirements or in promotion justifications. It is often recommended when you use a large language model to generate JavaScript and CSS source code. React is beyond it's half-life.</p>
-<p>Today lots of people know React. But does anyone remember <a href="https://en.wikipedia.org/wiki/MooTools">MooTools</a>, <a href="https://en.wikipedia.org/wiki/Prototype_JavaScript_Framework">Prototype</a> or <a href="https://en.wikipedia.org/wiki/YUI_Library">YUI</a>?  Anyone remember <a href="https://en.wikipedia.org/wiki/Aptana#Aptana_Jaxer">Jaxer</a> from Aptana? They were the React of their era. The rise and fall of successful third party frameworks is a cautionary tale.</p>
-<p>By sticking with or returning to the language's standard modules you accrue an under valued advantage. Languages and the standard libraries tend to remain compatible over long periods of time. Languages grow dormant less frequently than frameworks. The features themselves often see performance improvements or enhancements. A framework beyond its half-life will always struggle to keep up. React, like so many before it, is that that point now.</p>
-<p>To be clear, I'm not dogmatically say don't use a third party framework. I am saying non-standard frameworks have a half-life. You need to evaluate the costs with each 3rd Party framework your project requires. Once you use one you have immediately accrued technical debt. The bill will come due. That the bill comes due far sooner than you'd expect. Always ask can your project afford pay it? Ask yourself how much will it cost to move your source code towards the standard libraries?</p>
-
-      <address>
-        <a href="https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html">https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html</a>
       </address>
     </article>
   </section>
