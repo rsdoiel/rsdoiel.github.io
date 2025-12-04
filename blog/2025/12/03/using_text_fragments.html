@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.17" >
+  <meta name="date" content="2025-12-03T19:12:21-08:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="using_text_fragments.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2025-12-03" data-link="https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html">
+      <h1>Using text fragments</h1>
+      <p>By R. S. Doiel, 2025-12-03</p>
+      <blockquote>
+      <p>We've forgotten how important links are</p>
+      </blockquote>
+      <p>(<a href="http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are">scripting.com</a>, accessed 2025-12-03)</p>
+      <p><a href="https://scripting.com">Dave</a>'s right. We can't forget the humble link. His one line post nudged me to add a feature to <a href="https://github.com/rsdoiel/antennaApp/releases" title="see v0.0.17">Antenna App</a>. The feature is implemented as a new &quot;action&quot; called &quot;reply&quot;. Here's how I started this post you're reading.</p>
+      <pre><code class="language-shell">antenna reply http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are
+      </code></pre>
+      <p>That generate a first draft of this post that looked like this.</p>
+      <pre><code class="language-markdown">
+      &gt; We've forgotten how important links are
+      
+      [cited](http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are) 2025-12-03
+      
+      </code></pre>
+      <p>It was enough to start things off but the &quot;cited&quot; isn't a useful label IMO. I wound up doing to copy editing. In the next release it'll be more like how this post started.</p>
+      <p>The reply feature is intended to be minimal. Just enough to avoid a blank page and minimizing the amount of select, copy, paste and formatting I need to do to get going.</p>
+      <p>The current implementation takes the text fragment URL and turns it into Markdown. The Markdown consists of a block quote holding the reference to what would be highlighted if you clicked the link below it.</p>
+      <p>The code that parses the text fragment is naive. It only supports the &quot;copy link to highlight&quot; current generated in Desktop Firefox and Chrome. The specification has several ways of indicating the text to &quot;highlight&quot;. You can provide the whole text to highlight (this tops out at about a sentence in Firefox). You can provide starting phrase of the text you want to highlight. You can provide start and end phrases bracketing the text to be highlight. I have only implemented the first case. I haven't found a web browser that implements the phrase parts approach yet.</p>
+      <p>Since the reply action writes to standard out I pipe the result to a draft of the post I am creating. Long run I way want to add explicit filename support, or to allow a quoted text fragment to be appended to an existing post.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>
