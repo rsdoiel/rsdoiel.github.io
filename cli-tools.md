@@ -6,8 +6,7 @@
 - [fdx](https://rsdoiel.github.io/fdx/) - A Go package for working with Final Draft XML files (.fdx)
 - [osf](https://rsdoiel.github.io/osf/) - A Go package for working with Open Screen Play formatted files
 
-### Reading tools
-
+### Web Reading and Writing tools
 
 - [Antenna App](https://rsdoiel.github.io/antennaApp) - Build news sites, microblogs, blogs, and linkblogs with Markdown
 - [skimmer](https://rsdoiel.github.io/skimmer/) - A extremely minimal feed reader and markdown reading list generator
