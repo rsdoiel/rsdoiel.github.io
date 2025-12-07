@@ -18,88 +18,92 @@ nav.include: nav.md .FORCE
 footer.include: footer.md
 	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua footer.md > footer.include
 
-index.md: index.txt blog/index.md presentations.md projects.md cli-tools.md .FORCE
-	pttk include index.txt >index.md
-
-index.html: nav.include footer.include index.md page.tmpl
-	$(PANDOC) --template index.tmpl index.md > index.html
+index.html: .FORCE
+	antenna page index.txt index.html
 	git add index.html
-
-reading_list: .FORCE
-	pandoc --metadata title="Readings from the web" --from=markdown --to=html5 --template page.tmpl reading_list.md > reading_list.html
 
 presentations.html: presentations.md footer.include nav.include page.tmpl
 	$(PANDOC) --template page.tmpl presentations.md > presentations.html
 	git add presentations.html
 
 projects.html: projects.md
-	$(PANDOC) --template page.tmpl projects.md > projects.html
+	antenna page projects.md projects.html
 	git add projects.html
 
-about.html: nav.include footer.include bio.md index.tmpl
-	$(PANDOC) --template page.tmpl bio.md > about.html
+about.html: bio.md
+	antenna page bio.md about.html
 	git add about.html
 
-search.html: nav.include footer.include search.md search.tmpl
-	$(PANDOC) --template search.tmpl search.md > search.html
+search.html: search.md
+	antenna page search.md search.html
 	git add search.html
 
 pagefind: .FORCE
+	if [ -d pagefind ]; then rm -fR pagefind; fi
 	pagefind --verbose --exclude-selectors="nav,header,footer" --output-path ./pagefind --site .
 	git add pagefind
 
-cv.html: nav.include footer.include cv.md page.tmpl
-	$(PANDOC) --template page.tmpl cv.md > cv.html
+cv.html: cv.md
+	antenna page cv.md cv.html
 	git add cv.html
 
-resume.html: nav.include footer.include resume.md page.tmpl
-	$(PANDOC) --template page.tmpl resume.md > resume.html
+resume.html: resume.md
+	antenna page resume.md resume.html
 	git add resume.html
 
-project-index.html: nav.include footer.include project-index.md page.tmpl
-	$(PANDOC) --template page.tmpl project-index.md > project-index.html
+project-index.html: project-index.md
+	antenna page project-index.md project-index.html
 	git add project-index.html
 
-library-terminology.html: nav.include footer.include library-terminology.md index.tmpl
-	$(PANDOC) --template index.tmpl library-terminology.md > library-terminology.html
+library-terminology.html: library-terminology.md
+	antenna page library-terminology.md library-terminology.html
 	git add library-terminology.html
 
 series: series/index.html series/deno-and-typescript.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html series/books.html
 
-series/index.html: nav.include footer.include series/index.md
-	$(PANDOC) -M "title:Article Series" --template page.tmpl series/index.md > series/index.html
+series/index.html: series/index.md
+	sed --in-place -E 's/\.md\)/.html\)/g' series/index.md
+	antenna page series/index.md series/index.html
 	git add series/index.html
 
-series/deno-and-typescript.html: nav.include footer.include series/deno-and-typescript.md
-	$(PANDOC) --template page.tmpl -M "title:Deno & TypeScript" series/deno-and-typescript.md > series/deno-and-typescript.html
+series/deno-and-typescript.html: series/deno-and-typescript.md
+	sed --in-place -E 's/\.md\)/.html\)/g' series/deno-and-typescript.md
+	antenna page series/deno-and-typescript.md series/deno-and-typescript.html
 	git add series/deno-and-typescript.html
 	
-series/mostly-oberon.html: nav.include footer.include series/mostly-oberon.md
-	$(PANDOC) --template page.tmpl -M "title:Mostly Oberon Series" series/mostly-oberon.md > series/mostly-oberon.html
+series/mostly-oberon.html: series/mostly-oberon.md
+	sed --in-place -E 's/\.md\)/.html\)/g' series/mostly-oberon.md
+	antenna page series/mostly-oberon.md series/mostly-oberon.html
 	git add series/mostly-oberon.html
 
-series/software-tools.html: nav.include footer.include series/software-tools.md
-	$(PANDOC) --template page.tmpl -M "title:Software Tools Series" series/software-tools.md > series/software-tools.html
+series/software-tools.html: series/software-tools.md
+	sed --in-place -E 's/\.md\)/.html\)/g' series/software-tools.md
+	antenna page series/software-tools.md series/software-tools.html
 	git add series/software-tools.html
 
 series/pandoc-techniques.html: series/pandoc-techniques.md
-	$(PANDOC) --template page.tmpl -M "title:Pandoc Techniques Series" series/pandoc-techniques.md > series/pandoc-techniques.html
+	sed --in-place -E 's/\.md\)/.html\)/g' series/pandoc-techniques.md
+	antenna page series/pandoc-techniques.md series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
 
 series/freedos.html: series/freedos.md
-	$(PANDOC) --template page.tmpl -M "title:Exploring FreeDOS" series/freedos.md > series/freedos.html
+	sed --in-place -E 's/\.md\)/.html\)/g' series/freedos.md
+	antenna page series/freedos.md series/freedos.html
 	git add series/freedos.html
 
 series/sql-reflections.html: series/sql-reflections.md
-	$(PANDOC) --template page.tmpl -M "title:SQL Reflections" series/sql-reflections.md >series/sql-reflections.html
+	sed --in-place -E 's/\.md\)/.html\)/g' series/sql-reflections.md
+	antenna page series/sql-reflections.md series/sql-reflections.html
 	git add series/sql-reflections.html
 
 series/pse.html: series/pse.md
-	$(PANDOC) --template page.tmpl -M "title:A Personal Search Engine" series/pse.md > series/pse.html
+	sed --in-place -E 's/\.md\)/.html\)/g' series/pse.md
+	antenna page series/pse.md series/pse.html
 	git add series/pse.html
 
 series/books.html: series/books.md
-	$(PANDOC) --template page.tmpl -M "title:Book Reviews" series/books.md > series/books.html
+	sed --in-place -E 's/\.md\)/.html\)/g' series/books.md
+	antenna page series/books.md series/books.html
 	git add series/books.html
 
 redirects: .FORCE
@@ -110,12 +114,15 @@ rss.xml: .FORCE
 	cp -v blog.xml index.xml
 	cp -v blog.xml rss.xml
 
-archive.xml: .FORCE
-	pttk rss -channel-title="R. S. Doiel Blog" \
-		-atom-link="https://rsdoiel.github.io/rss.xml" \
-		-base-url="https://rsdoiel.github.io" \
-        -channel-description="All posts from Robert's ramblings and wonderigs" \
-        -channel-link="https://rsdoiel.github.io/blog" blog >archive.xml
+#FIXME: I need to generate the archive XML for the blog via antenna. To do that
+# I need to implement an RSS feed output like the pages action for blog posts.
+#
+# archive.xml: .FORCE
+# 	pttk rss -channel-title="R. S. Doiel Blog" \
+# 		-atom-link="https://rsdoiel.github.io/rss.xml" \
+# 		-base-url="https://rsdoiel.github.io" \
+#         -channel-description="All posts from Robert's ramblings and wonderigs" \
+#         -channel-link="https://rsdoiel.github.io/blog" blog >archive.xml
 
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
@@ -126,8 +133,8 @@ blog: .FORCE
 api: .FORCE
 	-flatlake --source . --dest api
 
-rssfeed.html: nav.include footer.include rssfeed.md
-	$(PANDOC) --template index.tmpl author.md rssfeed.md > rssfeed.html
+rssfeed.html: rssfeed.md
+	antenna page rssfeed.md rssfeed.html
 	git add rssfeed.html
 
 
