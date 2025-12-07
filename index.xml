@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:source="https://source.scripting.com/">
-  <atom:link href="http://localhost:8000/blogxml" rel="self" type="application/rss+xml" />
+  <atom:link href="https://rsdoiel.github.io/pages.xml" rel="self" type="application/rss+xml" />
   <channel>
     <title>Robert's Ramblings</title>
     <description>
       Recent posts on software development and technology
     </description>
-    <link>http://localhost:8000/blogxml</link>
-    <lastBuildDate>03 Dec 25 19:12 -0800</lastBuildDate>
-    <generator>antenna/0.0.17</generator>
+    <link>https://rsdoiel.github.io/pages.xml</link>
+    <lastBuildDate>06 Dec 25 18:50 -0800</lastBuildDate>
+    <generator>antenna/0.0.19</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
       <title>Using text fragments</title>
@@ -53,49 +53,6 @@ The code that parses the text fragment is naive. It only supports the &#34;copy 
 
 Since the reply action writes to standard out I pipe the result to a draft of the post I am creating. Long run I way want to add explicit filename support, or to allow a quoted text fragment to be appended to an existing post.</source:markdown>
       <enclosure url="https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.md" length="2713" type="text/markdown" />
-    </item>    <item>
-      <title>Upgrade my Raspberry Pi 500+ to Trixie</title>
-      <link>https://rsdoiel.github.io/blog/2025/11/29/Upgrade-Pi-500-plus.html</link>
-      <description>
-        <![CDATA[A brief step by step to upgrading from Raspberry Pi OS 5 to Raspberry Pi OS 6
-        for my Raspberry Pi 500+.]]>
-      </description>
-      <source:markdown># Upgrading my Raspberry Pi 500+ to Trixie
-
-By R. S. Doiel, 2025-11-29
-
-I got a Raspberry Pi 500+ running Raspberry Pi OS 5 (bookworm) earlier this month. It has been a really fun computer for my hobby projects. Raspberry Pi OS 6 is now out (Trixie). The official recommendation to update the OS is to back everything, then re-image the drive. My 500+ boots from an NVME drive by default. I don&#39;t have access to boot from Ethernet or network boot. So how to proceed?
-
-I have a several set process.
-
-1. Using a SD Card and Raspberry Pi Imager, create a bootable SD card
-2. Reboot selecting the SD Card as the boot drive
-3. Test Trixie via the SD Card
-4. If the tests work out then install it on the NVME drive and reboot
-
-This is pretty straight forward and reminds me a bit of the old days with DOS and CP/M.  The question is step 2. 
-
-I&#39;ve need the new boot menu flash by when I boot up the 500+ plus but haven&#39;t payed close attention to it. It just came with the original OS install.  The boot menu provides an option to select a boot drive. This makes it much easier than the old days when you had to edit files to change the boot drive.
-
-The challenge was how to make the choice, what key sequence at boot I needed to type out.  That was less obvious to be given how fast the 500+ boots from the NVME drive.
-
-To pause the boot process in the boot menu start from a cold boot (power all the way down then power back on) and press the space bar. This will present you with some choices.
-
-# Actual steps
-
-1. backup home directory on Raspberry Pi 500+ (home was one NVME drive)
-2. Confirm firmware is up to date, following the instruction on Raspberry Pi website
-2. Confirm I have the latest Raspberry Pi Imager
-2. Using Raspberry Pi Imager image an SD Card with latest Raspberry Pi OS 6
-3. Power down Raspberry Pi 500+
-4. Power up Raspberry Pi 500+ pressing space bar during boot process
-5. Select boot from SD Card with fresh OS
-6. Setup Raspberry Pi on SD Card, updating to the latest Raspberry Pi Imager
-7. Using the Pi Imager on the SD Card, install a fresh image on the NVME drive (NOTE: This erases the whole drive!!!)
-8. Then finished, power down the 500+
-9. Remove the SD Card from the 500+
-10. Boot 500+ from the NVME, complete the usual setup process
-11. Restore my home directory backup, install latest Go, Deno, OBNC, etc.</source:markdown>
     </item>    <item>
       <title>Upgrade my Raspberry Pi 500+ to Trixie</title>
       <link>https://rsdoiel.github.io/blog/2025/11/28/Upgrade-Pi-500-plus.html</link>
@@ -222,93 +179,6 @@ Today, I can manually create a post using a text fragment link. It would be bett
 
 It is an interesting opportunity. Little needs to be created to test the concept. Simple automation can improve the writing experience when handling text fragment links. The technical cost are limited while the practical content benefits could be large. Time for me to add this to my to do list for [antennaApp](https://github.com/rsdoiel/antennaApp).</source:markdown>
       <enclosure url="https://rsdoiel.github.io/blog/2025/11/17/text_fragment_links_a_social_expression.md" length="7639" type="text/markdown" />
-    </item>    <item>
-      <title>URLS for text fragments</title>
-      <link>https://rsdoiel.github.io/blog/2025/11/13/urls_and_text_fragments.html</link>
-      <description>
-        <![CDATA[A quick overview of text fragments expressed as URLs.]]>
-      </description>
-      <source:markdown># URLS for text fragments
-
-By R. S. Doiel, 2025-11-13
-
-A web innovation that I missed was the wide spread support for text fragments expressed as a URL. This is extremely helpful for both citation and quoting sections of a web page in a blog post. The URL syntax is now widely supported by ever green browsers (e.g. Firefox, Safari and Chrome). You can find a nice explanation at [Text fragments](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments) on the [MDN](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments) website.
-
-The syntax is a little funky. Here&#39;s an example of selecting the second paragraph in my recent blog post [Half-life of Frameworks](https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html),
-
-&#60;https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html#:~:text=The%20way,choice&#62;
-
-The sequence `#:~:` indicates it is a link to a text fragment. The `text=The%20way,choice` essentially tells the browser to jump to the text block that starts with &#34;The%20way&#34; and ends with &#34;choice&#34;. Using this URL in Firefox will bring up the web page and highlight the text fragment centering it in the view.
-
-It is important to realize that web pages with JavaScript can break this feature. I&#39;ve noticed this on sites like Substack and BlueSky. The link may bring you to the right page but will not behave as expected. Here&#39;s an example of a text fragment link that should work but doesn&#39;t
-
-&#60;https://sarahkendzior.substack.com/notes#:~:text=I%20was%20suspended%20from%20BlueSky%20for%20defending%20the%20honor%20of%20Johnny%20Cash%2E&#62;
-
-This should link to Sarah Kendzoir&#39;s note entry about being banned from BlueSky for her support of rebutting a WSJ article on Johnny Cash. Instead if you want to link to that entry you must resort to a link exposed with the  tiny [&#34;dot dot dot&#34; menu](https://substack.com/@sarahkendzior/note/c-176537092). 
-
-It is not a browser bug. It&#39;s a choice of those who render pages via JavaScript. I get their commercial reasons. One more reason not to link to commercial websites and other walled gardens that break web standards.
-
-## How do you easily generate text fragment link?
-
-While the URL syntax for text fragments is verbose getting a link to one is pretty easy with a desktop web browser.
-Here&#39;s the steps I use with desktop Firefox. 
-
-1. navigate to the web page
-2. select the text I want a link to
-3. using the context menu (e.g. right click with my mouse)
-4. click on &#34;Copy Link to Highlight&#34;
-
-I now have a text fragment link saved to my web browser&#39;s clipboard (i.e. the copy buffer). I can now paste it into my Markdown document. These steps work on other popular desktop browsers (e.g. Safari, Orion and Chrome).
-
-On mobile it&#39;s trickier. There isn&#39;t really a context menu like their is on the desktop. I haven&#39;t found a menu that will take a text selection from the web browser and include a &#34;Copy Link to Highlight&#34; option for sharing. That&#39;s shame. While I don&#39;t write blog posts on my phone I do take notes. Maybe mobile OS will catch up to that functionality in the future. I&#39;m not holding by breath.
-
-## text fragment URL possibilities
-
-As commercial social web platforms continue to devolve into muck. The open web can take advantage of features text fragment URLs. This could be an advantage in demonstrating the fluidity of the open web. In my experiments I&#39;ve found it easy to take advantage of text fragment links in Markdown. Their just another link.  If you&#39;re building Markdown processors you could auto-quote the text when you encounter a text fragment link. That&#39;s save some cutting and pasting in the writing process. You could even derive feeds from Markdown documents that include links expressing text fragments.  I&#39;m hoping to have a chance to experiment with these features in my [antennaApp](https://rsdoiel.github.io/antennaApp) project.</source:markdown>
-    </item>    <item>
-      <title>URLS for text fragments</title>
-      <link>https://rsdoiel.github.io/blog/2025/11/13/urls_for_text_fragments.html</link>
-      <description>
-        <![CDATA[A quick overview of text fragments expressed as URLs.]]>
-      </description>
-      <source:markdown># URLS for text fragments
-
-By R. S. Doiel, 2025-11-13
-
-A web innovation that I missed was the wide spread support for text fragments expressed as a URL. This is extremely helpful for both citation and quoting sections of a web page in a blog post. The URL syntax is now widely supported by ever green browsers (e.g. Firefox, Safari and Chrome). You can find a nice explanation at [Text fragments](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments) on the [MDN](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments) website.
-
-The syntax is a little funky. Here&#39;s an example of selecting the second paragraph in my recent blog post [Half-life of Frameworks](https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html),
-
-&#60;https://rsdoiel.github.io/blog/2025/11/07/half-life-of-frameworks.html#:~:text=The%20way,choice&#62;
-
-The sequence `#:~:` indicates it is a link to a text fragment. The `text=The%20way,choice` essentially tells the browser to jump to the text block that starts with &#34;The%20way&#34; and ends with &#34;choice&#34;. Using this URL in Firefox will bring up the web page and highlight the text fragment centering it in the view.
-
-It is important to realize that web pages with JavaScript can break this feature. I&#39;ve noticed this on sites like Substack and BlueSky. The link may bring you to the right page but will not behave as expected. Here&#39;s an example of a text fragment link that should work but doesn&#39;t
-
-&#60;https://sarahkendzior.substack.com/notes#:~:text=I%20was%20suspended%20from%20BlueSky%20for%20defending%20the%20honor%20of%20Johnny%20Cash%2E&#62;
-
-This should link to Sarah Kendzoir&#39;s note entry about being banned from BlueSky for her support of rebutting a WSJ article on Johnny Cash. Instead if you want to link to that entry you must resort to a link exposed with the  tiny [&#34;dot dot dot&#34; menu](https://substack.com/@sarahkendzior/note/c-176537092). 
-
-It is not a browser bug. It&#39;s a choice of those who render pages via JavaScript. I get their commercial reasons. One more reason not to link to commercial websites and other walled gardens that break web standards.
-
-## How do you easily generate text fragment link?
-
-While the URL syntax for text fragments is verbose getting a link to one is pretty easy with a desktop web browser.
-Here&#39;s the steps I use with desktop Firefox. 
-
-1. navigate to the web page
-2. select the text I want a link to
-3. using the context menu (e.g. right click with my mouse)
-4. click on &#34;Copy Link to Highlight&#34;
-
-I now have a text fragment link saved to my web browser&#39;s clipboard (i.e. the copy buffer). I can now paste it into my Markdown document. These steps work on other popular desktop browsers (e.g. Safari, Orion and Chrome).
-
-On mobile it&#39;s trickier. There isn&#39;t really a context menu like their is on the desktop. I haven&#39;t found a menu that will take a text selection from the web browser and include a &#34;Copy Link to Highlight&#34; option for sharing. That&#39;s shame. While I don&#39;t write blog posts on my phone I do take notes. Maybe mobile OS will catch up to that functionality in the future. I&#39;m not holding by breath.
-
-## text fragment URL possibilities
-
-As commercial social web platforms continue to devolve into muck. The open web can take advantage of features text fragment URLs. This could be an advantage in demonstrating the fluidity of the open web. In my experiments I&#39;ve found it easy to take advantage of text fragment links in Markdown. Their just another link.  If you&#39;re building Markdown processors you could auto-quote the text when you encounter a text fragment link. That&#39;s save some cutting and pasting in the writing process. You could even derive feeds from Markdown documents that include links expressing text fragments.  I&#39;m hoping to have a chance to experiment with these features in my [antennaApp](https://rsdoiel.github.io/antennaApp) project.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/11/13/urls_for_text_fragments.md" length="4226" type="text/markdown" />
     </item>
   </channel>
 </rss>

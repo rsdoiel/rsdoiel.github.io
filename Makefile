@@ -3,13 +3,9 @@
 #
 TODAY = $(shell date "+%Y-%m-%d")
 
-YEARS = 2025,2024,2023,2022,2021,2020,2019,2018,2017,2016
-
 TITLE = R. S. Doiel Software Engineer/Analyst
 
-PANDOC=pandoc -f markdown -t html5 -B nav.include -A footer.include --lua-filter=links-to-html.lua --lua-filter=link-h2-anchor.lua
-
-all: blog api redirects nav.include footer.include about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml pagefind
+all: blog redirects about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml sitemap_index.xml pagefind
 
 
 nav.include: nav.md .FORCE
@@ -22,8 +18,8 @@ index.html: .FORCE
 	antenna page index.txt index.html
 	git add index.html
 
-presentations.html: presentations.md footer.include nav.include page.tmpl
-	$(PANDOC) --template page.tmpl presentations.md > presentations.html
+presentations.html: presentations.md
+	antenna page presentations.md presentations.html
 	git add presentations.html
 
 projects.html: projects.md
@@ -109,10 +105,14 @@ series/books.html: series/books.md
 redirects: .FORCE
 	bash generate-redirect-pages.bash
 
-rss.xml: .FORCE
-	antenna generate blog.md
-	cp -v blog.xml index.xml
-	cp -v blog.xml rss.xml
+rss.xml: pages.xml
+
+index.xml: rss.xml
+
+pages.xml: .FORCE
+	antenna generate
+	cp -v pages.xml index.xml
+	cp -v pages.xml rss.xml
 
 #FIXME: I need to generate the archive XML for the blog via antenna. To do that
 # I need to implement an RSS feed output like the pages action for blog posts.
@@ -128,21 +128,10 @@ rss.xml: .FORCE
 blog: .FORCE
 	bash blog.bash
 	git add blog/index.html
-	git add blog/blog.json
-
-api: .FORCE
-	-flatlake --source . --dest api
 
 rssfeed.html: rssfeed.md
 	antenna page rssfeed.md rssfeed.html
 	git add rssfeed.html
-
-
-blog.zip: .FORCE
-	-rm blog.zip >/dev/null 2>&1
-	-zip -r blog.zip *.md *.html twtxt.txt
-	-zip -r blog.zip $(find blog -type f)
-	-zip -r blog.zip $(find series -type f)
 
 status:
 	-git status
@@ -157,8 +146,9 @@ save:
 # NOTE: this is just here for muscle memory, "all" builds the website and blog quickly with antenna and Pandoc
 website: all .FORCE
 
-#sitemap.xml: .FORCE
-#	sitemapper . sitemap.xml https://rsdoiel.github.io
+sitemap_index.xml: .FORCE
+	antenna sitemap
+	git add sitemap_*.xml
 
 publish: rss.xml all
 	bash blog.bash
