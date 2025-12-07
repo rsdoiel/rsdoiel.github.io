@@ -7,13 +7,6 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 
 all: blog redirects about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml sitemap_index.xml pagefind
 
-
-nav.include: nav.md .FORCE
-	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua nav.md > nav.include
-
-footer.include: footer.md
-	pandoc --from=markdown --to=html5 --lua-filter=links-to-html.lua footer.md > footer.include
-
 index.html: .FORCE
 	antenna page index.txt index.html
 	git add index.html
@@ -114,20 +107,16 @@ pages.xml: .FORCE
 	cp -v pages.xml index.xml
 	cp -v pages.xml rss.xml
 
-#FIXME: I need to generate the archive XML for the blog via antenna. To do that
-# I need to implement an RSS feed output like the pages action for blog posts.
-#
-# archive.xml: .FORCE
-# 	pttk rss -channel-title="R. S. Doiel Blog" \
-# 		-atom-link="https://rsdoiel.github.io/rss.xml" \
-# 		-base-url="https://rsdoiel.github.io" \
-#         -channel-description="All posts from Robert's ramblings and wonderigs" \
-#         -channel-link="https://rsdoiel.github.io/blog" blog >archive.xml
+archive.xml: .FORCE
+	antenna rss pages.md archive.xml
+	git add archive.xml
 
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
 	bash blog.bash
-	git add blog/index.html
+	antenna page blog/index.md blog/index.html
+	antenna page blog/recent.md blog/recent.html
+	git add blog/index.md blog/index.html blog/recent.md blog/recent.html
 
 rssfeed.html: rssfeed.md
 	antenna page rssfeed.md rssfeed.html
