@@ -2,15 +2,6 @@ port: 8000
 base_url: https://rsdoiel.github.io
 generator: page.yaml
 collections:
-    - title: Robert's Ramblings
-      link: http://localhost:8000/blogxml
-      description: Recent posts on software development and technology
-      file: blog.md
-      generator: page.yaml
-      filters:
-        - UPDATE items SET status = 'review';
-        - UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-21 days');
-      dbName: blog.db
     - title: An Antenna Website
       link: https://rsdoiel.github.io/pages.xml
       description: This is the default websites created by the antenna init action.

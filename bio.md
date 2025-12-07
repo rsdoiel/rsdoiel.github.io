@@ -7,7 +7,7 @@ I work as a "Digital Services Programmer" (aka. software engineer, software deve
 Interests/Projects
 ------------------
 
-- [Oberon](series/Mostly-Oberon.md) programming language and system
+- [Oberon](series/mostly-oberon.html) programming language and system
 - [Raspberry Pi](http://raspberrypi.org) as a prototyping platform for projects
 - Writing Code
   - [Golang](https://github.com/rsdoiel?tab=repositories&q&type&language=go&sort)
@@ -16,11 +16,11 @@ Interests/Projects
   - Standard ML
   - [TypeScript](https://github.com/rsdoiel?tab=repositories&q&type&language=typescript&sort)
 - [Recent experiments](https://github.com/rsdoiel?tab=repositories) and explorations
-- [Projects](projects.md)
+- [Projects](projects.html)
 
 Professional Background
 -----------------------
 
-- [CV](cv.md)
-- [Resume](resume.md)
+- [CV](cv.html)
+- [Resume](resume.html)
 

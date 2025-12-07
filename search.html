@@ -1,123 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="EN">
-  <title>R. S. Doiel, Software Engineer/Analyst</title>
-
-  <link rel="stylesheet" type="text/css"  href="/css/site.css">
-  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml">
-  <link title="markdown source for page" rel="alternative" type="application/markdown" href="search.md">
-
-  <link rel="search" type="application/opensearchdescription+xml"
-        title="Robert's Rambling Search Engine"
-        href="osd.xml">
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.19" >
+  <meta content="2025-12-06T22:14:48-08:00" name="date" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="search.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-<nav>
-<ul>
-<li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
-<li><a href="/">R. S. Doiel</a></li>
-<li><a href="/about.html">About</a></li>
-<li><a href="/blog/">Blog</a></li>
-<li><a href="/presentations.html">Presentations</a></li>
-<li><a href="/series/">Series</a></li>
-<li><a href="/search.html">Search</a></li>
-<li><a href="https://github.com/rsdoiel">GitHub</a></li>
-<li><a href="/rss.xml" title="RSS Feed">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M4 11a9 9 0 0 1 9 9"></path>
-<path d="M4 4a16 16 0 0 1 16 16"></path>
-<circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
-</ul>
-</nav>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
 
-<section>
-
-<noscript>
-JavaScript must be enabled for search to work
-</noscript>
-<h1 id="search-roberts-blog-posts-and-selected-projects">Search Robert’s
-blog posts and selected projects</h1>
-<p><search id="search"></search></p>
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
-<script>
-// Fetch the query "q" form the URL
-function getQueryParam(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-// When the page is loaded setup PageFindUI object.
-window.addEventListener('DOMContentLoaded', (event) => {
-  const pagefindUI = new PagefindUI({
-  element: "#search",
-  showSubResults: true,
-  highlightParam: "highlight",
-  mergeIndex: [
-    {
-      bundlePath: "https://rsdoiel.github.io/pagefind",
-      baseUrl: "/"
-    },
-      {
-        bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
-        baseUrl: "/shorthand/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/antennaApp/pagefind",
-        baseUrl: "/antennaApp/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/fountain/pagefind",
-        baseUrl: "/fountain/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/fdx/pagefind",
-        baseUrl: "/fdx/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/stngo/pagefind",
-        baseUrl: "/stngo/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/opml/pagefind",
-        baseUrl: "/opml/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/commonMarkDoc/pagefind",
-        baseUrl: "/commonMarkDoc/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/BlogIt/pagefind",
-        baseUrl: "/BlogIt/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/scripttool/pagefind",
-        baseUrl: "/scripttool/"
-      },
-      {
-        bundlePath: "https://rsdoiel.github.io/osf/pagefind",
-        baseUrl: "/osf/"
-      },
-    ]
-  });
-  
-  const queryString = getQueryParam("q");
-  if (queryString) {
-    pagefindUI.triggerSearch(queryString);
-  }
-});
-</script>
-
-</section>
-
-<footer>
-<p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
-href="/rssfeed.html">RSS</a> feeds and website built with <a
-href="https://rsdoiel.github.io/antennaApp">antennaApp</a>, Bash, Make
-and <a href="https://pandoc.org">Pandoc</a>.</p>
-</footer>
-
+  <section>
+    <p><noscript>JavaScript must be enabled for search to work</noscript></p>
+    <h1>Search Robert's blog posts and selected projects</h1>
+    <search id="search"></search>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
+    <script src="/modules/setup_search.js" type="text/javascript"></script>
+  </section>
+  <footer>
+    <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    </footer>
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
 </body>
 </html>

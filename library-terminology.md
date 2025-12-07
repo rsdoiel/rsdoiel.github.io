@@ -21,7 +21,7 @@ Terminology, Acronyms, Concepts
     - IFLA's [best practice](http://www.ifla.org/best-practice-for-national-bibliographic-agencies-in-a-digital-age/node/8793) description
 - [AS](https://archivesspace.org/) ArchiveSpace
     - ArchivesSpace is an archival collection manager software system
-- [arXiv](arXiv.org)
+- [arXiv](https://arXiv.org)
     - open access to e-prints in Physics, Math, Comp. Sci., Quant. Bio., Quant Finance and Stats (hosted by Cornell University Library)
 - BagIt
     - A hierarchical file packaging format designed to support disk-based or network-based storage and transfer of arbitrary digital content.
