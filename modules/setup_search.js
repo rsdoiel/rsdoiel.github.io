@@ -12,10 +12,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
   showSubResults: true,
   highlightParam: "highlight",
   mergeIndex: [
-    {
-      bundlePath: "https://rsdoiel.github.io/pagefind",
-      baseUrl: "/"
-    },
+      {
+        bundlePath: "https://rsdoiel.github.io/pagefind",
+        baseUrl: "/"
+      },
       {
         bundlePath: "https://rsdoiel.github.io/shorthand/pagefind",
         baseUrl: "/shorthand/"
