@@ -7,10 +7,34 @@
       This is the default websites created by the antenna init action.
     </description>
     <link>https://rsdoiel.github.io/archive.xml</link>
-    <lastBuildDate>06 Dec 25 22:31 -0800</lastBuildDate>
+    <lastBuildDate>19 Dec 25 14:01 -0800</lastBuildDate>
     <generator>antenna/0.0.19</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
+      <title>Python Setup on Raspberry Pi OS 6</title>
+      <link>https://rsdoiel.github.io/blog/2025/12/19/python_setup_pi_os_6.html</link>
+      <description>
+        <![CDATA[A set of quick notes for wrangling Python to work nicely on Raspberry Pi OS 6]]>
+      </description>
+      <source:markdown># Python Setup on Raspberry Pi OS 6
+
+By R. S. Doiel, 2025-12-19
+
+I like the python programming language but I don&#39;t like to program in it as much as I used to. The trouble is the challenge of versions and packages. At work we&#39;re shifting to using [uv](https://docs.astral.sh/uv/getting-started/installation/) to manage the &#34;python environment&#34; (a symptom of how python has become less than fun). It works well on the machines and operating systems I use for work. My personal computing platform of choice these days is a Raspberry Pi 500 though. Raspberry Pi OS is based on Debian but when it comes to Python things can get persnickety pretty quick. The best way to install uv I&#39;ve found isn&#39;t via methods suggested at the beginning of the linked install pages. For me I have found installing via Rust&#39;s cargo command the most reliable.
+
+```shell
+cargo install --locked uv
+```
+
+Once installed you can update it with the following
+
+```shell
+uv self update
+```
+
+Since I don&#39;t setup a new Pi frequently I tend to forget the simplicity of this approach and waste an hour trying the other suggested ways. This post is just a note to myself so I remember that!</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2025/12/19/python_setup_pi_os_6.md" length="1494" type="text/markdown" />
+    </item>    <item>
       <title>Using text fragments</title>
       <link>https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html</link>
       <description>
