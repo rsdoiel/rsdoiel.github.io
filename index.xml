@@ -7,8 +7,8 @@
       This is the default websites created by the antenna init action.
     </description>
     <link>https://rsdoiel.github.io/pages.xml</link>
-    <lastBuildDate>19 Dec 25 14:01 -0800</lastBuildDate>
-    <generator>antenna/0.0.19</generator>
+    <lastBuildDate>27 Dec 25 14:32 -0800</lastBuildDate>
+    <generator>antenna/0.0.20</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
       <title>Python Setup on Raspberry Pi OS 6</title>
@@ -34,91 +34,6 @@ uv self update
 
 Since I don&#39;t setup a new Pi frequently I tend to forget the simplicity of this approach and waste an hour trying the other suggested ways. This post is just a note to myself so I remember that!</source:markdown>
       <enclosure url="https://rsdoiel.github.io/blog/2025/12/19/python_setup_pi_os_6.md" length="1494" type="text/markdown" />
-    </item>    <item>
-      <title>Using text fragments</title>
-      <link>https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.html</link>
-      <description>
-        <![CDATA[An example of using Antenna App's new reply action
-        to transform a text fragment URL into a post. Also
-        highlight a good point that Dave Winer made on his blog.]]>
-      </description>
-      <source:markdown># Using text fragments
-
-By R. S. Doiel, 2025-12-03
-
-
-&#62; We&#39;ve forgotten how important links are
-
-([scripting.com](http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are), accessed 2025-12-03)
-
-[Dave](https://scripting.com)&#39;s right. We can&#39;t forget the humble link. His one line post nudged me to add a feature to [Antenna App](https://github.com/rsdoiel/antennaApp/releases &#34;see v0.0.17&#34; ). The feature is implemented as a new &#34;action&#34; called &#34;reply&#34;. Here&#39;s how I started this post you&#39;re reading.
-
-~~~shell
-antenna reply http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are
-~~~
-
-That generate a first draft of this post that looked like this.
-
-~~~markdown
-
-&#62; We&#39;ve forgotten how important links are
-
-[cited](http://scripting.com/2025/12/01.html#a144337:~:text=We%27ve%20forgotten%20how%20important%20links%20are) 2025-12-03
-
-~~~
-
-It was enough to start things off but the &#34;cited&#34; isn&#39;t a useful label IMO. I wound up doing to copy editing. In the next release it&#39;ll be more like how this post started.
-
-The reply feature is intended to be minimal. Just enough to avoid a blank page and minimizing the amount of select, copy, paste and formatting I need to do to get going.
-
-The current implementation takes the text fragment URL and turns it into Markdown. The Markdown consists of a block quote holding the reference to what would be highlighted if you clicked the link below it. 
-
-The code that parses the text fragment is naive. It only supports the &#34;copy link to highlight&#34; current generated in Desktop Firefox and Chrome. The specification has several ways of indicating the text to &#34;highlight&#34;. You can provide the whole text to highlight (this tops out at about a sentence in Firefox). You can provide starting phrase of the text you want to highlight. You can provide start and end phrases bracketing the text to be highlight. I have only implemented the first case. I haven&#39;t found a web browser that implements the phrase parts approach yet.
-
-Since the reply action writes to standard out I pipe the result to a draft of the post I am creating. Long run I way want to add explicit filename support, or to allow a quoted text fragment to be appended to an existing post.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/12/03/using_text_fragments.md" length="2713" type="text/markdown" />
-    </item>    <item>
-      <title>Upgrade my Raspberry Pi 500+ to Trixie</title>
-      <link>https://rsdoiel.github.io/blog/2025/11/28/Upgrade-Pi-500-plus.html</link>
-      <description>
-        <![CDATA[A brief step by step to upgrading from Raspberry Pi OS 5 to Raspberry Pi OS 6
-        for my Raspberry Pi 500+.]]>
-      </description>
-      <source:markdown># Upgrading my Raspberry Pi 500+ to Trixie
-
-By R. S. Doiel, 2025-11-28
-
-I has a Raspberry Pi 500+ running Raspberry Pi OS 5 (bookworm). It has been a really fun computer for my hobby projects. Raspberry Pi OS 6 is now out (Trixie). The official recommendation to update the OS is to back everything, then re-image the drive. For the Raspberry Pi 500+ the image is on the NVME drive. I don&#39;t have access to boot from Ethernet for the 500+ so how to proceed? One approach is install Pi OS on an SD Card, boot from it to re-image the NVME drive.
-
-Here&#39;s the multi-step process.
-
-1. Using a SD Card and Raspberry Pi Imager, create a boot-able SD card
-2. Reboot selecting the SD Card as the boot drive
-3. Test Trixie via the SD Card
-4. If the tests work out then install Trixie on the NVME drive and reboot
-
-This is pretty straight forward and reminds me a bit of the old days with DOS and CP/M.  The question is step 2. 
-
-I&#39;ve have seen the new boot menu flash by when I boot up the 500+ plus but haven&#39;t payed close attention to it. It came with the original OS install on the Pi 500+.  The boot menu provides an option to select a boot drive. This makes it much easier than the old days when you had to edit files to change the boot drive. 
-
-My missing bit of information was how to interrupt the regular boot sequence to make the selection. The 500+ boots pretty quickly so it was hard to read the text that flashes by. The answer is **to pause the boot process and enter the boot menu start from a cold boot. Power up and press the space bar**. This will present you with some choices. Select the number for the drive and proceed.
-
-## Actual steps
-
-1. Backup home directory on Raspberry Pi 500+ (home was one NVME drive)
-2. Confirm firmware is up to date, following the instruction on Raspberry Pi website
-2. Confirm I have the latest Raspberry Pi Imager
-2. Using Raspberry Pi Imager image an SD Card with latest Raspberry Pi OS 6
-3. Power down Raspberry Pi 500+
-4. Power up Raspberry Pi 500+ pressing space bar during boot process
-5. Select boot from SD Card with fresh OS
-6. Setup Raspberry Pi on SD Card, updating to the latest Raspberry Pi Imager
-7. Using the Pi Imager on the SD Card, install a fresh image on the NVME drive (NOTE: This erases the whole drive!!!)
-8. Then finished, power down the 500+
-9. Remove the SD Card from the 500+
-10. Boot 500+ from the NVME, complete the usual setup process
-11. Restore my home directory backup, install latest Go, Deno, OBNC, etc.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2025/11/28/Upgrade-Pi-500-plus.md" length="2849" type="text/markdown" />
     </item>
   </channel>
 </rss>
