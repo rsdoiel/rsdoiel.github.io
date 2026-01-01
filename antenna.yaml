@@ -11,6 +11,13 @@ collections:
         - UPDATE items SET status = 'review';
         - UPDATE items SET status = 'published' WHERE pubDate >= date('now', '-21 days');
       dbName: pages.db
+    - title: bluesky.md
+      link: bluesky.xml
+      file: bluesky.md
+      generator: page.yaml
+      filters:
+        - UPDATE items SET status = 'published'
+      dbName: bluesky.db
 chunksize: 0
 defaultfreq: ""
 defaultpri: ""
