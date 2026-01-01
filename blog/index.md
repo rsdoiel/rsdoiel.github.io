@@ -5,6 +5,12 @@ title: "Robert's ramblings"
 ### Recent Posts
 
 
+- [Reflection on a few decades](/blog/2026/01/01/reflections_2025.html), 2026-01-01
+
+
+## 2025
+
+
 - [Python Setup on Raspberry Pi OS 6](/blog/2025/12/19/python_setup_pi_os_6.html), 2025-12-19
 - [Using text fragments](/blog/2025/12/03/using_text_fragments.html), 2025-12-03
 - [Upgrade my Raspberry Pi 500+ to Trixie](/blog/2025/11/28/Upgrade-Pi-500-plus.html), 2025-11-28
