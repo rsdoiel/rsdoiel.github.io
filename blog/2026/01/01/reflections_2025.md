@@ -1,103 +1,105 @@
 ---
-title: Reflection on a few decades
 author: R. S. Doiel
-description: |
-  A long post reflecting on things I've been thinking about in 2025 as we start
-  2026.
-
 dateCreated: "2025-12-31"
 dateModified: "2026-01-01"
 datePublished: "2026-01-01"
+description: |
+    A long post reflecting on things I've been thinking about in 2025 as we start
+    2026.
 keywords:
-  - world wide web
+    - world wide web
+postPath: blog/2026/01/01/reflections_2025.md
+title: Reflection on a few decades
+
 ---
+
 
 # Reflection on a few decades
 
 By R. S. Doiel, 2025-12-31
 
-I have been thinking about my career recently. It extends into the prior century. I have also been thinking allot about the Internet and the evolution of the Web. I see a pretty consistant thread in my career. I write software that transforms content and information from one system into another. Sometimes it's structured data and sometimes it's unstructured text. The thread became clearer with the arrival of the World Wide Web in the early 1990s. While the systems used over that time have grown complex I think they can be made far simpler. __I think they can be better implemented for writers. They can be writer centric.__. Finding a path to something simple has preoccupied my nonworking hours for most of 2025.
+I have been thinking about my career recently. It extends into the prior century. I have also been thinking allot about the Internet and the evolution of the Web. I see a pretty consistant thread in my career. I write software that transforms content and information from one system into another. Sometimes it's structured data and sometimes it's unstructured text. The thread became clearer with the arrival of the World Wide Web in the early 1990s. While the systems used over that time have grown complex I think they can be made far simpler. __I think they can be better implemented for writers. They can be writer centric.__ Finding a path to something simple has preoccupied my nonworking hours for much of 2025.
 
 ## A lesson from my past
 
-An early set of programs I wrote for the Web were written in a new at the time language called Perl. My University had a "mail form handler" service that would let you create a web form and have the results sent to your email. I wrote a simple mail filter that would extract email's web form content and append the results to a CSV file. I had another Perl script that would read in the CSV file and generate a set of HTML calendar pages in the directory that the Unix host used for personal websites. It worked pretty good. It was so trivial I didn't keep a copy of it or port it to a new language when I stopped writing software in Perl all those years ago.
+An early set of programs I wrote for the Web were written in a language called Perl. My University had a "mail form handler" service. That service would take the a web form submission and sent the results to your email account. I wrote a simple mail filter that would extract email's web form content and append the results to a CSV file. I had another Perl script that would read in the CSV file and generate a set of HTML calendar pages in the directory that the used for a personal website. It worked pretty good. It was so trivial I didn't keep a copy of it or port it to a new language when I stopped writing software in Perl all those years ago.
 
-This little calendar project lead to career opportunities. I didn't find that out to much later. A colleague mentioned I was considered a hacker (in the good sense of the word) by some of the system admins because I had done that. It was just one of many experiments I've done over my years working with computers.
+This little calendar project lead to career opportunities. I didn't find that out to much later. A colleague mentioned I was considered a hacker (in the good sense of the word) by some of the system admins because I had done that. It was just one of many experiments I've done over my years working with computers and the Web.
 
 That personal project taught me several things. I've kept them in mind over the years.
 
 1. Composible systems are powerful, Unix combined with the Web is composible
 2. Structured data aids in composibility (EMail and CSV are only two examples)
-3. Systems get used in unexpected ways.
+3. Systems get used in unexpected ways
 
-No 3. has proved important. The web can be viewed from both the audience of one and the audience of the general public. You can also split the authoring system from the presentation system. You can divvy those up between machines. It all depends on the project scope, rates of data changes combined with scale of the specific audiences.
+No 3. has proved important. The web can be viewed from both the audience of one and the audience of the general public. You can also split the authoring system from the presentation system. You can divvy those up between machines. It all depends on the project scope, rates of data change all combined with the constraints of scale.
 
-When I first started maintaining and building web publishing system I almost always leveraged a database management system too.  This was particularly true when [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) emerged as the common platform.
+When I first started maintaining and building web publishing system I almost always leveraged a database management system too.  This was particularly true when [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) emerged as the common platform. Today that isn't the case. I avoid relying on database management systems unless there is a clear requirement for them. Most of the time there isn't.
 
-Databases were convenient because structured data is easy to work. The unstructured document can be worked into structure using indirection. A path can point to the unstructured thing. Links are a form of path. A link provides a structured reference to the unstructured object. Structure allows us to use a database to provide locking behaviors and avoid write collisions. In turn that made it easier to write the web programs.
+Databases were convenient because they make working with structured data easy. Database records, even NoSQL database records have a structure. The unstructured document can be worked into structure using indirection. A path can point to the unstructured thing. Links are a form of path. A link provides a structured reference to the unstructured object. You often can simply encapsulate the unstructured content as an element in the structured record. This happens in RSS feeds. Structure allowed us to use a databases to enforce  record locking behaviors. That was needed to avoid write collisions. Originally databases made it easier to write web applications. That isn't necessarily true today.
 
-Eventually the bespoke web publishing systems became content management systems. Bespoke gave way to more standardized software like [Movable Type](https://en.wikipedia.org/wiki/Movable_Type), [Zope](https://en.wikipedia.org/wiki/Zope), [WordPress](https://en.wikipedia.org/wiki/WordPress) and [Drupal](https://en.wikipedia.org/wiki/Drupal). Those arrive in the second Internet age, the age of commercialization.
+Eventually the bespoke web publishing systems became content management systems. Bespoke gave way to more standardized software like [Movable Type](https://en.wikipedia.org/wiki/Movable_Type), [Zope](https://en.wikipedia.org/wiki/Zope), [WordPress](https://en.wikipedia.org/wiki/WordPress) and [Drupal](https://en.wikipedia.org/wiki/Drupal). Those arrived in what I think of as the second Internet age, the age of commercialization.
 
-## Commercialization era
+## The Commercialization Era
 
-When the Internet and Web went from an academic and research platform to a commercial platform many things changed. The Internet and Web came to be consumed by monetization, business models and greed. Those are why we have a surveillance economy today.
+When the Internet and Web went from an academic and research platform to a commercial platform many things changed. The Internet and Web came to be consumed by monetization, business models and greed. Those enabled the surveillance economy we have today.
 
 With these new drivers new demands came to the forefront. One big side effect was the Internet grew very large very quickly. By the time the first [iPhone](https://en.wikipedia.org/wiki/IPhone) was announced the Web was already experiencing growing pains. One of the big issues was spikes in Web traffic.
 
-In the early days we assumed a few dozen concurrent connections. By 2000 you needed to handle much more. Buy 2005 you worried about tens of thousands of concurrent connections. The problem was even large enough to be named. It was the "10K problem". It was talking about by web people in the same way the old aerospace engineers used to talk about the sound barrier.
+In the early days we assumed a few dozen concurrent connections. By 2000 you needed to handle much more. Buy 2005 you worried about tens of thousands of concurrent connections. The problem was even large enough to be named. It was the "10K problem". It was talked about by web people in the same way the old aerospace engineers used to talk about the sound barrier.
 
-Money was on the line so people tried various solutions. Some were hardware approaches, some content approaches others were changing how we implemented web services generally. Eventually the general purpose web services like NginX and Apache2 easily handled 10K concurrent requests. Then the worry was 100K, 1000K, etc. It is one of the reasons that distributed systems came to dominate the commercial web.
+Money was on the line so people tried various solutions. Some were hardware approaches, some content approaches others were changing how we implemented web services generally. Eventually the general purpose web services like NginX and Apache2 easily handled 10K concurrent requests. The next worry point was the worry was 100K, 1000K, etc. That came to be called "google scale". Probably should have been called global scale. Global scale is one of the reasons that distributed systems came to dominate the commercial web. That is interms of practical implementation, the use of the web though was using those distributed services and monolithic systems. Monoliths are eaiser to monetize. Monoliths and scaling up are only one possible direction to push.
 
-What hasn't been acknowledged since the concurrency problems is that we're may be approaching peak human use. Most people on the planet experience the web today either in embedded systems (appliances) or their phones. Most of the growth in traffic I've seen at work for more than a decade isn't human users. The growth in traffic is driven by bots. Bots are software systems. Early on bots  tended to be dominated by web crawlers. Bots that indexed web content, surveyed the content or mirrored content. The bots were largely useful. Since 2024 the problem has been AI bot swarms. These bots were used to harvest web content to train large language models. In practice they were a use to deny services to competing bots and humans. 
+What hasn't been acknowledged since the 10K problem era is that we're may be approaching __peak human use__. Think about it. The web has become global since 2000. Most people on the planet experience the web today either in embedded systems (appliances) or their phones. Cell phone saturation has been a reality for manufacturers for a decade in many countries. I suspect the continued rapid growth in traffic isn't direct human interactions anymore. It's software systems.
 
-Scaling up to bots leads to more bots. Maybe we should be thinking about scaling down instead of up.
+From my own work experiences the growth in traffic to our websites (I work in at a research library) has been bots. It is not human users. Not by a long shot. Bots are software systems. Early on bots tended to be useful. They were dominated by web crawlers. Web crawlers either mirrored sites (e.g. for preservation) or gathered what was needed to create search indexes. While they could be unruley norms and expectations developed making it possible to respond to the bots without delaying responces to real humans. The bots were largely useful. Since 2024 the problem has been AI bot swarms. These bots were initially used to harvest web content to train large language models. In practice they were a use to deny service engines. The continued goal appears to be deny access to website to competing bots and humans. The big monoliths have to protect investments in capturing attention after all.
 
-### Observations on site construction
+Scaling up has lead to more bots. Maybe we should be thinking about scaling down instead of up. Maybe we reach the global by focusing on the local.
+
+### Observations on website construction
 
 Since at least 2005 there has been a gathering renaissance of static websites. There has been many drivers. Static sites often are easier to scale for high volume traffic. They are easier to secure against attacks and fix if defaced. Often they are much cheaper to run and maintain.
 
 Several innovations helped this happen.
 
-1. Template systems are easy to build
-2. Light weight markup adoption, like Markdown, provides a source for generating HTML
-3. Cheap to rent static storage system became commercially available (S3)
-4. The web browser went from a green screen surrogate to a full on rich client. They work even on phones.
-
-Markdown has become a very common markup expression well suited to generating HTML.  Support is easy to integrate into commercial content systems like Atlassian's Confluence and GitHub's pages. Commercial systems like GitHub offer favorable hosting options for static website. Finally, in spite of the term, a static site can be fully interactive without requiring additional resources from the web server for many use cases.
+1. Template systems are easy to build, I've seen lots of these come and go
+2. Light weight markup adoption, like Markdown, provides a source for generating HTML that is easy for writers
+3. Cheap to rent static storage systems became commercially available (S3)
+4. The web browser went from a green screen surrogate to a full on rich client. Web browsers even work on phones now
 
 ### Observations on computer systems
 
-In 2025 commercially available computer systems follow variations of the Von Neuman computer model. A CPU, Memory (RAM) and storage. That model also assumes inputs and outputs that are distinct (people forget this). The scaling problem observed in the commercial era often presumes the input and outputs are used at the same rate for data consumed by us humans or even software. It is important to challenge our assumptions another rates of data changes.
+In 2025 commercially available computer systems still use a Von Neuman computer architecture, a CPU, Memory (RAM) and storage. That model also assumes inputs and outputs that are distinct (people forget this). The scaling problem observed in the commercial era often presumes the input (writes) and outputs (reads) are used at the same frequency. In practice the rates of reads and writes diverage. In data consumed, read, more often than it is written. That's true for us humans or as well as for software. It is why it is important when designing web systems to consider the rates of data changes just as we make choices constrainted around scale. It is really important to challenge our assumptions another rates of data changes and if that is constant or not.
 
-My observation is the rates of change, both in the software implementation and in data, are important in guiding how you approach the lessons of scaling. Curation requires more dynamic responses while consumption is simply a current state problem.
+My experience is that rates of change also change. That is true in both in the software implementation and in data. It is important in guiding how we approach the lessons of scaling. Curation requires more dynamic responses while stability for consumption is simply a reflection of current state problem. Over time the last current state tends to stablize for many communication use cases.
 
-Because of the needs of the monetized Web the there has been an out sized concern with scaling up while assuming dynamic systems are the base line. This is only true when you are creating monoliths like the walled gardens most people used on the Web today. You can scale writing (inputs) separately form reading (outputs) and that leads to better scaling. Unfortunately most developers and many engineers fail to see that distinction. We keep building complex monolithic systems even when you compose the monoliths from distributed systems.
+The needs of the monetized Web have delivered an out sized concern with scaling up. This in part has been a result of over reliance on dynamic content web systems. This is particularly true if the goal is to create and encourage the monoliths like the walled gardens most people use on the Web today. You can scale writing separately form reading. In fact that leads to more options in scaling. Unfortunately most developers and many engineers fail to see that distinction. We keep building complex monolithic systems even when we compose the monoliths from distributed systems. 
 
-Scaling up appears to be the goal, a single direction of scaling. This is a false lesson.Scale goes up and down. That can be an advantage.
+Scaling up appears to be the goal, a single direction of scaling. I believe this is a false lesson. You can scale up as well as down. Scaling down can be an advantage.
 
 ## Are we entering a new web era yet?
 
-Starting before "Web 2.0" there has been cyclic hype about the next web or the web's replacement.  Most of the time this is driven by some sort of technological change being commercialized. There is a good share of doom and gloom along side Utopian thinking in these hype cycles. At some point we will arrive at a new era but I suspect it may not be driven purely by technical changes.
+Long before "Web 2.0" there was already a cyclic hype about the next web or the web's replacement.  Most of the time this is driven by some sort of technological change, buzz or approach. It tended towards peak hype as it was monitized. There is a good share of doom and gloom along side Utopian thinking in these hype cycles. The hype cycle doesn't actually match the actual changes most of the time. It isn't even when the impacts are always felt. At some point we will arrive we do enter a new era. The current status quo is very problematic, how do we get to the new one?
 
 ### My bet, Simplification 
 
-Why is simplification both desirable and possible in leading to an a new era on the Internet and Web? The Internet and Web were built as distributed systems. The specific technologies are largely intact even though commercial interests don't align with distributed systems. A lesson from that late 20th century and early 21st Web are unregulated markets, services, tend to collapse towards monopolies. Centralization inevitably becomes a profit advantage. Yet centralization makes them brittle. Eventually decentralization is re-embraced as Web habits wvolve. Given  the underpinning technology of the Internet and Web remains distributable I don't think reinvention is a requirement to usher in the next era. Easier paths exist.
+Why simplification? Why is this both desirable and possible? How does that lead to a new era of the Internet and Web? The Internet and Web were built as distributed systems. Those specific technologies are largely intact. Commercial interests may not align with distributed systems but globally a peer to peer structure scales. So that is how we've implemented the global Web. On the other hand a lesson from the late 20th century Web is that unregulated markets, unregulated services, tend to collapse towards monopolies. Sometimes they just collapse and cease to exist. Centralization as some advantages if the goal is wealth accomulation. Yet centralization makes them brittle and precarious. In 1990 there were not regular global head lines of Internet outages. In the 2020s this has become common. Eventually decentralization embraced again as our Web habits evolve. Given the underpinning technology of the Internet and Web remains distributable I don't think reinvention is a requirement to usher in the next era. The easier path already exists.
 
-The next web isn't likely to be based on block chain, bitcoin or large language models either. Why? None of these really enhance communication. The Internet and the Web are communication systems. Computers unlike their calculator predecessor are communication devices too. That telephone in your pocket is a computer after all. Making it easier to communicate is likely to be the source of the next evolution. How do we make it easier to communicate?
+The next web isn't likely to be based on block chain, bitcoin or large language models either. Why? None of these really enhance communication. The Internet and the Web are communication systems. Computers unlike their calculator predecessor are communication devices. That telephone in your pocket is a computer after all. Making it easier to communicate is likely to be the source of the next web evolution. How do we make it easier to communicate? We make it simpler.
 
 Market consolidation does not lead to innovation no matter how many startups are bought by conglomerates. I think people are where the next web happens. It's happens at a human scale of a few people at a time. If there is enough critical mass of people doing the "new thing" then that's when the new web will arrive. It'll have roots in the old web, may even be technologically indistinguishable but it'll be different because people choose to use it differently and think about it differently.
 
-I think the next web needs to be more personal, more authentic. Less about algorithms. To make that happen it will start as a countervailing force to the current onslaught of centralization and control. It will likely happen in spite of centralization and control.
+I think the next web needs to be more personal, more authentic, less about algorithms. It needs to be more about human choices. General automation by autonous agents is not necessarily needed. I think the new Web happens as a a countervailing force to the current onslaught of centralization and control. It think the new Web will happen in spite of centralization and control. It will not require W3C blessing because it doesn't require new specifications and aggreements. It requires new individual human interactions.
 
 There are elements I see as being factors in reasserting decentralization. There has been a computer revolution happening that has largely gone unnamed and unnoticed by mainstream media and society. That revolution is in inexpensive single board computers. Some of it has been dismissed as fad in the form of the DIY maker movement. Before that it was buried under the commercial hype of the Internet of Things. Single board computers are real. I've been using them for years. I'm typing this post on one now. They are web friendly.
 
 ### then and now
 
-My first computer cost me about $1800.00 US dollars. My first computer was a clone 286 machine. I ran DOS and Minix on it. I had to go out buy the parts and assemble it myself. This was back in the late 1980s. A mini computer that could host a website in the early 1990s range between $50,000.00 to $250,000.00 US. The cost of a house at that time. Prices came down and eventually personal computers could run websites directly. The price of a web server settled down to about I paid for my  first personal computer.
+My first computer cost me about \$1800.00 US dollars. My first computer was a clone 286 machine. I ran DOS and Minix on it. I had to go out buy the parts and assemble it myself. This was back in the late 1980s. A mini computer that could host a website in the early 1990s range between \$50,000.00 to \$250,000.00 US. The cost of a house at that time. Prices came down and eventually personal computers could run websites directly. The price of a web server settled down to about I paid for my  first personal computer.
 
-Fast forward to now. For $1800.00 US today I can easily assemble four Raspberry Pi 500+ workstations, a 16 port network switch and Ethernet cables to connect them. I can grow out that network with web servers running about $150 to $200.00 US per server depending on the storage I buy. A single Raspberry Pi 5 with solid state disk storage is enough to host a website with concurrent users in the thousands. What that 1990's era mini computer did for $50,000.00 US. That's an important change.
+Fast forward to now. For \$1800.00 US dollars I can easily assemble four Raspberry Pi 500+ workstations, a 16 port network switch and Ethernet cables to connect them. I can grow that network with web servers running about \$150 to \$200.00 US per server depending on the storage I buy. A single Raspberry Pi 5 with solid state disk storage is enough to host a website with concurrent users in the thousands. What that 1990's era mini computer did for \$50,000.00 US can be done for a \$200.00 web appliance today. That's an important change.
 
-Here's how I came up with my $1800.00 budget. A sixteen port Ethernet switch from Netgear runs $100.00 US when I checked Best Buy today. A Raspberry Pi 500+ runs at $200.00 US plus tax and shipping. A Pi Monitor runs $100.00 US. Add in cables and such you'll looking at about $350.00 per work station. That's how I know I can build a four workstation network with room to expand for a $1800.00 budget. I don't even need to assemble the computers I just need to connect them up and power them on.  Each machine can be either a web host, workstation or both. My choice.  Expanding that system is also low coast. You can build useful web servers for less than the price of the Raspberry 500+ and monitor.
+Here's how I came up with my \$1800.00 budget. A sixteen port Ethernet switch from Netgear runs \$100.00 US when I checked Best Buy today. A Raspberry Pi 500+ runs at \$200.00 US plus tax and shipping. A Pi Monitor runs \$100.00 US. Add in cables and such you'll looking at about \$350.00 per work station. That's how I know I can build a four workstation network with room to expand for a \$1800.00 budget. I don't even need to assemble the computers I just need to connect them up and power them on. Each machine can be either a web host, workstation or both. My choice.  Expanding that system is also low coast. You can build useful web servers for less than the price of the Raspberry 500+ and monitor.
 
 My little four workstation network is enough to hardware to support a neighborhood paper. Adding a few more machines and you can provide hardware for a small town paper. You just need the physical space to house them and of course the writers and graphics people to use them.
 
