@@ -1,16 +1,18 @@
-f---
-title: Reflection on a few decades
+---
 author: R. S. Doiel
-description: |
-  A long post reflecting on things I've been thinking about in 2025 as we start
-  2026.
-
 dateCreated: "2025-12-31"
 dateModified: "2026-01-01"
 datePublished: "2026-01-01"
+description: |
+    A long post reflecting on things I've been thinking about in 2025 as we start
+    2026.
 keywords:
-  - world wide web
+    - world wide web
+postPath: blog/2026/01/01/reflections_2025.md
+title: Reflection on a few decades
+
 ---
+
 
 # Reflection on a few decades
 
