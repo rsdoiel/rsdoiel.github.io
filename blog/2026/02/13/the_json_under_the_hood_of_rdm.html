@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.21" >
+  <meta name="date" content="2026-02-13T10:33:58-08:00" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="the_json_under_the_hood_of_rdm.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2026-02-13" data-link="https://rsdoiel.github.io/blog/2026/02/13/the_json_under_the_hood_of_rdm.html">
+      <h1>The JSON under the hood of RDM</h1>
+      <p>By R. S. Doiel, 2026-02-13</p>
+      <p>In my day job I work allot of library and archival repository software. The current favorite is <a href="https://inveniordm.docs.cern.ch/">Invenio RDM</a>. Compared to some other repository systems like <a href="https://https://en.wikipedia.org/wiki/EPrints">EPrints</a> and<a href="https://en.wikipedia.org/wiki/DSpace">DSpace</a> I think RDM is a large step in the right direction.  One thing I really like about both RDM and EPrints is their the RESTful API. It makes it trivial to retrieve records as structured text. In the case of RDM that structure is expressed as JSON (very convenient). All you need to know is how to modify the HTML version URL into the version where you see the structured metadata.</p>
+      <p>Let's say I want to look up an article titled &quot;DIBS: An implementation of Controlled Digital Lending&quot; in Zenodo. I plug the article title (or use the DOI, <a href="https://doi.org/10.5281/zenodo.17162802">https://doi.org/10.5281/zenodo.17162802</a>) into Zenodo and get back a the record page. The record page URL is this.</p>
+      <pre><code>&lt;https://zenodo.org/records/17162802&gt;
+      </code></pre>
+      <p>If I want to view that as structured metadata (JSON). I can insert a &quot;/api&quot; just before &quot;/records&quot;. That URL looks like this.</p>
+      <pre><code>&lt;https://zenodo.org/api/records/17162802&gt;
+      </code></pre>
+      <p>Bingo I have RDM's JSON representation of the record. This is really helpful if I want do some sort of structural analysis on the record. All I need is to determine the identifier for the record and retrieve it. The identifier is the last bit after the URL part, &quot;/records/&quot;.</p>
+      <p>What is I don't have the identifier already? RDM integrates OpenSearch to display lists of records. OpenSearch isn't directly exposed (for good reasons) to the public URL. The trick to getting lists of records is to use the &quot;/records&quot; end point along with query parameters. The means with a simple bit of URL editing I can get arbitrary lists back as JSON objects reflecting the OpenSearch JSON response structure.</p>
+      <h2>URL hacking from HTML search results</h2>
+      <p>Like many OpenSearch/Elasticsearch sites RDM normally generates the results page via requiring JavaScript evaluation. This allows a high degree of flexibility in presenting results. The trouble with the search page relying on JavaScript is that it obscures what is actually happening under the hood of your web browser. Under the hood the JavaScript takes the search query submitted and sends that off to OpenSearch, retrieves the JSON results then inserts them into the HTML page. How do you do this when you don't have JavaScript?</p>
+      <p>Go to an RDM deployment (I'm using Zenodo as an example). Open the search page with your browser's web tools are open. Look at the network calls the search page executes when you enter and submit search terms. That is where you find a clue to the actual URL handling the OpenSearch query processing. Regardless of whether your RDM instance bundled their UI built on Angular or React mess of JavaScript uses the records end point to pass through the OpenSearch results. The trick is knowing the simple the URL mapping of the HTML results to that back end query.</p>
+      <p>Let's say I am looking for the most resent additions to Zenodo from today, 2026-02-13. Using the HTML search page I get a URL that looks like this.</p>
+      <pre><code>&lt;https://zenodo.org/search?q=updated%3A2026-02-13&amp;l=list&amp;p=1&amp;s=10&amp;sort=newest&gt;
+      </code></pre>
+      <p>The query portion of the URL is <code>?q=updated%3A2026-02-13&amp;l=list&amp;p=1&amp;s=10&amp;sort=newest</code> is the important part. If I apply this to the <code>/api/records</code> end point. I get a URL that looks like this.</p>
+      <pre><code>&lt;https://zenodo.org/api/records?q=updated%3A2026-02-13&amp;l=list&amp;p=1&amp;s=10&amp;sort=newest&gt;
+      </code></pre>
+      <p>This is the JSON behind the search HTML page results.  Now I can use this to get lists of records. This works with my library's own RDM instances too. If you can form a search query with results you like in at Zenodo or on your local RDM instance using the HTML search page you can then get the results back in a JSON expression. The results follow the structured returned by OpenSearch. You just need to follow the <a href="https://docs.opensearch.org/latest/query-dsl/query-filter-context/">documentation</a>. The main JSON attribute that is useful is &quot;hits&quot; attribute.</p>
+      <h2>Taking things a step further with curl and jq.</h2>
+      <p><a href="https://curl.se/">curl</a> will let us easily retrieve the search results as JSON from the command line.  We can page through the results using the <code>p=</code> query parameter (page number).  If we take the retrieved JSON we can pull out records using <a href="https://jqlang.org">jq</a>. Here's a simple command line phrase you can use to pull out the URLs to the JSON records of the Zenodo query results.</p>
+      <pre><code class="language-shell">curl 'https://zenodo.org/api/records?q=updated%3A2026-02-13&amp;l=list&amp;p=1&amp;s=10&amp;sort=newest' | jq -r '.hits[][]?.links?.self'
+      </code></pre>
+      <p>This will list the RDM JSON url for the search query I supplied (updated since 2026-02-13). The list returns newest first. Today that list looked like this.</p>
+      <pre><code>
+      https://zenodo.org/api/records/18635105
+      https://zenodo.org/api/records/18635060
+      https://zenodo.org/api/records/18635124
+      https://zenodo.org/api/records/18635117
+      https://zenodo.org/api/records/18634630
+      https://zenodo.org/api/records/18635110
+      https://zenodo.org/api/records/18635099
+      https://zenodo.org/api/records/18635091
+      https://zenodo.org/api/records/18635094
+      https://zenodo.org/api/records/17556135
+      https://zenodo.org/api/records/18635089
+      https://zenodo.org/api/records/18635082
+      https://zenodo.org/api/records/18635087
+      https://zenodo.org/api/records/18635038
+      https://zenodo.org/api/records/18635076
+      https://zenodo.org/api/records/18635074
+      https://zenodo.org/api/records/18634979
+      https://zenodo.org/api/records/18635006
+      https://zenodo.org/api/records/18634916
+      https://zenodo.org/api/records/18635064
+      https://zenodo.org/api/records/18634080
+      https://zenodo.org/api/records/18635066
+      https://zenodo.org/api/records/18635062
+      https://zenodo.org/api/records/18635052
+      https://zenodo.org/api/records/18635020
+      
+      </code></pre>
+      <p>There you have it. You can now retrieve a record or list or records as JSON from Invenio RDM repositories.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>
