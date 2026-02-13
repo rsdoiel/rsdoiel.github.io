@@ -33,7 +33,7 @@ If I want to view that as structured metadata (JSON). I can insert a "/api" just
 
 Bingo I have RDM's JSON representation of the record. This is really helpful if I want do some sort of structural analysis on the record. All I need is to determine the identifier for the record and retrieve it. The identifier is the last bit after the URL part, "/records/".
 
-What is I don't have the identifier already? RDM integrates OpenSearch to display lists of records. OpenSearch isn't directly exposed (for good reasons) to the public URL. The trick to getting lists of records is to use the "/records" end point along with query parameters. The means with a simple bit of URL editing I can get arbitrary lists back as JSON objects reflecting the OpenSearch JSON response structure. 
+What if I don't have the identifier already? RDM integrates OpenSearch to display lists of records. OpenSearch isn't directly exposed (for good reasons) to the public URL. The trick to getting lists of records is to use the "/records" end point along with query parameters. The means with a simple bit of URL editing I can get arbitrary lists back as JSON objects reflecting the OpenSearch JSON response structure. 
 
 ## URL hacking from HTML search results
 
