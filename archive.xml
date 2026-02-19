@@ -7,10 +7,46 @@
       This is the default websites created by the antenna init action.
     </description>
     <link>https://rsdoiel.github.io/archive.xml</link>
-    <lastBuildDate>13 Feb 26 10:33 -0800</lastBuildDate>
+    <lastBuildDate>19 Feb 26 07:23 -0800</lastBuildDate>
     <generator>antenna/0.0.21</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
+      <title>Embracing Markdown as Hypertext</title>
+      <link>https://rsdoiel.github.io/blog/2026/02/19/Embracing_Markdown.html</link>
+      <description>
+        <![CDATA[A short note about Markdown as Hypertext text for the browser.]]>
+      </description>
+      <source:markdown>---
+author: R. S. Doiel
+dateCreated: &#34;2026-02-19&#34;
+dateModified: &#34;2026-02-19&#34;
+datePublished: &#34;2026-02-19&#34;
+description: A short note about Markdown as Hypertext text for the browser.
+keywords:
+    - web
+    - Markdown
+    - mime-types
+    - hypertext
+postPath: blog/2026/02/19/Embracing_Markdown.md
+title: Embracing Markdown as Hypertext
+
+---
+
+
+
+# Embracing Markdown as Hypertext 
+
+By R. S. Doiel, 2026-02-19
+
+There has been a flurry of discussion around Markdown after CloudFlare&#39;s [post](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/) about automatically converting cached HTML pages to Markdown for requests that have an accept header of &#34;text/markdown&#34;.  It fits along side their robots.txt file expression of content signals. Why I think the energy being placed behind the hype around large language models is over done I like acknowledging that Markdown is a hypertext. I&#39;ve been working on blog posts about that over for the last few months.  I fear that the AI hype and eventual crash will distract us from the significance of that realization.
+
+We can have a radically simpler Web by embracing Markdown as a first class representation of hypertext. Now that the cat is out of the bag what if Web browsers acknowledged that too?  When I read content on the web I spend much of that time in my browser&#39;s reader mode already. It just improves the browsing experience. The reader mode would be far simpler to implement if it could just grab the Markdown and display that simply. 
+
+What else can we do with Markdown aside from having content that is easier to read for both humans and machines? Markdown has a beautifully simple way of representing links and lists. We have a really good syndication format that just doesn&#39;t give up call RSS. It is trivial to generate an RSS feed for a simple list of links in Markdown. It is equally possible to take that Markdown list of links and turn it into OPML. Markdown like RSS doesn&#39;t replace HTML&#39;s role in the web but extends the Web&#39;s collection of technology allowing for both simpler composition and reading experience.  It does so without breaking the behavior we currently experience from the AI bot swarms.
+
+Embracing Markdown in this way makes sense. Markdown already in the dialect of rMarkdown enables Jupyter notebooks. It seem appropriate for it to be embraced further both for machine processing and for the browser.</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2026/02/19/Embracing_Markdown.md" length="2409" type="text/markdown" />
+    </item>    <item>
       <title>The JSON under the hood of RDM</title>
       <link>https://rsdoiel.github.io/blog/2026/02/13/the_json_under_the_hood_of_rdm.html</link>
       <description>
@@ -35,6 +71,7 @@ title: The JSON under the hood of RDM
 ---
 
 
+
 # The JSON under the hood of RDM
 
 By R. S. Doiel, 2026-02-13
@@ -51,7 +88,7 @@ If I want to view that as structured metadata (JSON). I can insert a &#34;/api&#
 
 Bingo I have RDM&#39;s JSON representation of the record. This is really helpful if I want do some sort of structural analysis on the record. All I need is to determine the identifier for the record and retrieve it. The identifier is the last bit after the URL part, &#34;/records/&#34;.
 
-What is I don&#39;t have the identifier already? RDM integrates OpenSearch to display lists of records. OpenSearch isn&#39;t directly exposed (for good reasons) to the public URL. The trick to getting lists of records is to use the &#34;/records&#34; end point along with query parameters. The means with a simple bit of URL editing I can get arbitrary lists back as JSON objects reflecting the OpenSearch JSON response structure. 
+What if I don&#39;t have the identifier already? RDM integrates OpenSearch to display lists of records. OpenSearch isn&#39;t directly exposed (for good reasons) to the public URL. The trick to getting lists of records is to use the &#34;/records&#34; end point along with query parameters. The means with a simple bit of URL editing I can get arbitrary lists back as JSON objects reflecting the OpenSearch JSON response structure. 
 
 ## URL hacking from HTML search results
 
@@ -80,6 +117,7 @@ curl &#39;https://zenodo.org/api/records?q=updated%3A2026-02-13&#38;l=list&#38;p
 This will list the RDM JSON url for the search query I supplied (updated since 2026-02-13). The list returns newest first. Today that list looked like this.
 
 ~~~
+
 https://zenodo.org/api/records/18635105
 https://zenodo.org/api/records/18635060
 https://zenodo.org/api/records/18635124
@@ -105,10 +143,11 @@ https://zenodo.org/api/records/18635066
 https://zenodo.org/api/records/18635062
 https://zenodo.org/api/records/18635052
 https://zenodo.org/api/records/18635020
+
 ~~~
 
 There you have it. You can now retrieve a record or list or records as JSON from Invenio RDM repositories.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2026/02/13/the_json_under_the_hood_of_rdm.md" length="6372" type="text/markdown" />
+      <enclosure url="https://rsdoiel.github.io/blog/2026/02/13/the_json_under_the_hood_of_rdm.md" length="6374" type="text/markdown" />
     </item>    <item>
       <title>Reflection on a few decades</title>
       <link>https://rsdoiel.github.io/blog/2026/01/01/reflections_2025.html</link>
