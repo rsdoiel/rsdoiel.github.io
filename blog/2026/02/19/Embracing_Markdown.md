@@ -1,7 +1,7 @@
 ---
 author: R. S. Doiel
 dateCreated: "2026-02-19"
-dateModified: "2026-02-19"
+dateModified: "2026-02-20"
 datePublished: "2026-02-19"
 description: A short note about Markdown as Hypertext text for the browser.
 keywords:
@@ -25,4 +25,4 @@ We can have a radically simpler Web by embracing Markdown as a first class repre
 
 What else can we do with Markdown aside from having content that is easier to read for both humans and machines? Markdown has a beautifully simple way of representing links and lists. We have a really good syndication format that just doesn't give up call RSS. It is trivial to generate an RSS feed for a simple list of links in Markdown. It is equally possible to take that Markdown list of links and turn it into OPML. Markdown like RSS doesn't replace HTML's role in the web but extends the Web's collection of technology allowing for both simpler composition and reading experience.  It does so without breaking the behavior we currently experience from the AI bot swarms.
 
-Embracing Markdown in this way makes sense. Markdown already in the dialect of rMarkdown enables Jupyter notebooks. It seem appropriate for it to be embraced further both for machine processing and for the browser.
+Embracing Markdown in this way makes sense. Markdown already in the dialect of rMarkdown enabled Jupyter notebooks. It seem appropriate for it to be embraced further both for machine processing and for the browser.
