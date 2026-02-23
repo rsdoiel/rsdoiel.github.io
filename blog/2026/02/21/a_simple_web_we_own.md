@@ -2,6 +2,7 @@
 author: R. S. Doiel
 dateCreated: "2026-02-18"
 dateModified: "2026-02-21"
+datePublished: "2026-02-21"
 description: |
     An exploration of what could happen if we choose a simpler end user
     friendly cooperative an ownership model for the Web and Internet.
@@ -9,9 +10,7 @@ keywords:
     - web
     - markdown
 postPath: blog/2026/02/21/a_simple_web_we_own.md
-publishes: "2026-02-21"
 title: A Simple Web We Own
-
 ---
 
 
@@ -31,16 +30,17 @@ Those two questions lead me to a bigger question.
 - What happens when ownership and control of hardware and software shifts from the domain of corporations to a world where a significant percentage are owned by individual people and cooperatives?
 
 
-[^1]: I say a few as many sub-contract to corporations giving the corporations the real control.
+[^1]: I say a few as many sub-contand ract to corporations giving the corporations the real control.
 
 [^2]: Cory Doctorow both defines the term and what brought it about, see <https://us.macmillan.com/books/9780374619329/enshittification/>
 
 I think the answer is suggested by a corollary found in the history of labor movements. When a significant percentage of industries were unionized the unions exerted a strong influence across the political economy. I think ownership of the hardware and software can mirror that impact on the Web and Internet. I think when a significant number of individuals and cooperatives own the hardware and uses simpler software we can impact the Web and Internet in a positive way. That's my hypothesis.
 
-An observations and assumptions.
+An observation and common some assumptions:
 
 - Most content on the web is already created by individuals not Big Co
-- Big Co persuaded people that only they could provide easy Web publication and there was no point in looking for alternatives
+- Big Co persuaded people that only Big Co could provide easy Web publication
+- Big Co convinced many there was no point in looking for alternatives
 
 The assumption that only Big Co can provide easy Web publication is just flat out wrong. These systems don't last for more than a decade before they decay. Each of the origin stories of the current crop of Big Co are similar. They start small, they get to scale where investors are pushing expansion. Innovation slows so they buy up any potential rivals. Either they shut them down or fold them into their product lines. The last real innovation these companies introduced was decades ago.  It is one of the factors that drive the Big Co, Big Tech hype cycle. They must drag out a new shiny thing that claims to solve some problem in order to maintain the circus that accumulates more money. Along the way they insist on tax breaks and zero regulation are required for innovation. Thing is they innovated when they couldn't take advantage of that. It is why they insist they must market all our personal information and why they exploit the content we contribute to the Web. They need the hype cycle to keep the money rolling in.
 
