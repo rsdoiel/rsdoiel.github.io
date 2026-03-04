@@ -16,7 +16,7 @@ title: A Simple Web We Own
 
 # A simple web we own
 
-By R. S. Doiel, 2026-02-21 (revised: 2026-02-23)
+By R. S. Doiel, 2026-02-21 (revised: 2026-03-03)
 
 > Tenant and product or co-owner and participant?
 
