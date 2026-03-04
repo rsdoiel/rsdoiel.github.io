@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.23-dev" >
+  <meta name="date" content="2026-03-03T17:29:08-08:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="LLM_service_and_edge.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2026-03-03" data-link="https://rsdoiel.github.io/blog/2026/03/03/LLM_service_and_edge.html">
+      <h1>Large Language Models, Services and the Edge</h1>
+      <p>By R. S. Doiel, 2026-03-03</p>
+      <p>I have been experimenting with two large language models recently. I've used them via their Web user interface as well as offline via Ollama. The two models are Mistral 3 and <a href="https://publicai.co/">Apertus</a>. Mistral is the more mature of the two. It is from the French company <a href="https://mistral.ai/">Mistral AI</a>. While the training material used for Mistral 3 is not disclosed, the model can be downloaded to use at the edge with Ollama. Mistral AI's models are in the same league as the well-known Anthropic's Claude models. Claude models have been developed over the last three years. Mistral AI's have been developing for about two years. Apertus is been public about six months.</p>
+      <p>Last Fall the Web UI subscriptions for Claude and Mistral were notably different. Claude was pricey. Anthropic has recently dropped their prices to be more competitive (see <a href="https://www.infoworld.com/article/4095894/anthropics-claude-opus-4-5-pricing-cut-signals-a-shift-in-the-enterprise-ai-market.html">https://www.infoworld.com/article/4095894/anthropics-claude-opus-4-5-pricing-cut-signals-a-shift-in-the-enterprise-ai-market.html</a>). Mistral AI's Web UI offering presently runs a few dollars cheaper at $14.99 per month for the base plan and $5.99 per month for students. Switching models does mean re-learning the nuances of prompting for a given model.</p>
+      <p>Apertus is different. It is an effort by the Swiss and Singapore university communities to approach providing large language models as a public service. The models are trained on publicly available material with respect to licensing. It is a multi-lingual model from the get-go. I expect this from the Swiss, European, and Singaporean contexts. Apertus is developed fully in the open. It is aligned with the practices of academic research that spawned it. It is audit-able and the effort can be replicated.</p>
+      <p>Both Mistral 3 and Apertus models can be run on your own hardware using the Ollama command line program. The Mistral 3 model can be found on <a href="https://ollama.com">https://ollama.com</a>. You can run it locally using <code>ollama run mistral</code>. Public AI doesn't directly supply a GUFF model image required by Ollama. Fortunately <a href="https://registry.ollama.com/MichelRosselli">Michel Rosselli</a> has converted the Apertus model into GUFF. You can test Apertus using <code>ollama run MichelRosselli/apertus</code>. It runs reasonably well on my M1 Mac Mini with 16 GB of RAM. It can also run, albeit slower, on a Raspberry Pi 5 with 16 GB RAM.</p>
+      <p>Offline or edge models are where things get interesting. You don't have to give up autonomy. Offline models let you exchange the surveillance and speed of the corporate data center for hardware under your control. I believe that the offline capabilities and performance of LLM will become increasingly crucial over time. Right now, the Web UIs provide faster responses for the three models I've mentioned. Among them, Apertus stands out as the fastest, though its output quality is less mature compared to Mistral 3 or Claude Opus 4.6.</p>
+      <p>Anthropic's price adjustments suggest to me that we have entered LLM services as commodities. If so, the commercial space may become cartel-like. When price stability occurs, expect to see rents rise. Remember that rents should be measured both in monetary terms and in terms of privacy costs. Like social media, the interaction between the LLM and human will result in a massive body of material ripe for exploitation by companies, governments, and nefarious actors.</p>
+      <p>As a response to risk and energy impact I expect offline capability to become increasingly important. This is why I consider using models at the edge as important as the convenience provided by a speedy Web user interface. Open models will be a critical relief valve to pricing pressures and the better models will include provenance for the training data. Apertus is the first where I've seen this happen, given time, the output quality will improve. I think it will follow a similar curve as the closed trained models deployed by corporate providers improved over time.</p>
+      <p>Here's why I think provenance will become key. The flood of generative AI content trained on publicly accessible Internet resources presents a significant problem. The adage 'garbage in, garbage out' is particularly important when it comes to training material for large language models. Provenance is a means of combating this issue. When provenance becomes a key feature Apertus will hold a key advantage.</p>
+      <p>Academia possesses a valuable corpus of open-access materials. It features rich metadata describing the corpus, including licensing terms. Apertus has been innovative in leveraging this resource. While the for-profit companies currently hold an edge, I think that will diminish. I look forward to the Apertus approach being adopted in the Americas as well as across the Pacific nations. Verify the model before you trust it.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2025 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>

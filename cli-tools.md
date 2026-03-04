@@ -9,14 +9,10 @@
 ### Web Reading and Writing tools
 
 - [Antenna App](https://rsdoiel.github.io/antennaApp) - Build news sites, microblogs, blogs, and linkblogs with Markdown
-- [skimmer](https://rsdoiel.github.io/skimmer/) - A extremely minimal feed reader and markdown reading list generator
 
 ### Additional text rendering/formatting tools
 
 - [commonMarkDoc](https://rsdoiel.github.io/commonMarkDoc) - a TypeScript module for working with CommonMark documents
-- [BlogIt](https://rsdoiel.github.io/BlogIt) - this will be the successor "blogit" as I work to replace pttk.
-- [pttk](https://rsdoiel.github.io/pttk/) - a deconstructed content manage system for managing this site
 - [shorthand](https://rsdoiel.github.io/shorthand/) - a text label expander with markdown support
 - [stngo](https://rsdoiel.github.io/stngo/) - Standard Timesheet Notation processor for my personal project time logs
-- [opml](https://rsdoiel.github.io/opml/) - A minimal OPML package that features a OPML sort, cat and to json utility
 

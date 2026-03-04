@@ -33,12 +33,12 @@ for Y in $(range "$LAST_YEAR" "$START_YEAR"); do
     echo "" >> blog/index.md
 done
 # Fix the relative link blog post links
-sed --in-place=.bak -E 's/\(blog/\(\/blog/g' blog/index.md
-sed --in-place=.bak -E 's/\(blog/\(\/blog/g' blog/recent.md
+sed -i.bak -E 's/\(blog/\(\/blog/g' blog/index.md
+sed -i.bak -E 's/\(blog/\(\/blog/g' blog/recent.md
 
 # Fix the link to Markdown files and replace with HTML link
-sed --in-place=.bak -E 's/\.md\)/.html\)/g' blog/index.md
-sed --in-place=.bak -E 's/\.md\)/.html\)/g' blog/recent.md
+sed -i.bak -E 's/\.md\)/.html\)/g' blog/index.md
+sed -i.bak -E 's/\.md\)/.html\)/g' blog/recent.md
 antenna page blog/index.md blog/index.html
 antenna page blog/recent.md blog/recent.html
 
