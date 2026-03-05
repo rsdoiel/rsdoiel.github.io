@@ -5,7 +5,7 @@ title: "Robert's ramblings"
 ### Recent Posts
 
 
-- [Markdown & Frontmatter: taking text further](/blog/2026/03/04/markdown_and_frontmatter.html), 2026-03-04
+- [Markdown & Frontmatter: Taking Text Further](/blog/2026/03/04/markdown_and_frontmatter.html), 2026-03-04
 - [Language Models, Services and the Edge](/blog/2026/03/03/LLM_service_and_edge.html), 2026-03-03
 - [A Simple Web We Own](/blog/2026/02/21/a_simple_web_we_own.html), 2026-02-21
 - [Embracing Markdown as Hypertext](/blog/2026/02/19/Embracing_Markdown.html), 2026-02-19
