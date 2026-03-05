@@ -1,27 +1,29 @@
 ---
-title: 'Android, Termux and Dev Environment'
+abstract: |
+    In this post I explore getting a terminal setup configured on an Android tablet.
 author: rsdoiel@gmail.com (R. S. Doiel)
-date: '2016-09-20'
-keywords:
-  - Bash
-  - cURL
-  - jq
-  - sed
-  - grep
-  - search
-  - golang
-  - Android
-copyright: 'copyright (c) 2016, R. S. Doiel'
-license: 'https://creativecommons.org/licenses/by-sa/4.0/'
-abstract: >
-  In this post I explore getting a terminal setup configured on an Android
-  tablet.
-dateCreated: '2016-09-20'
-dateModified: '2025-07-21'
-datePublished: '2016-09-20'
-copyrightYear: 2016
+copyright: copyright (c) 2016, R. S. Doiel
 copyrightHolder: R. S. Doiel
+copyrightYear: 2016
+date: "2016-09-20"
+dateCreated: "2016-09-20"
+dateModified: "2025-07-21"
+datePublished: "2016-09-20"
+keywords:
+    - Bash
+    - cURL
+    - jq
+    - sed
+    - grep
+    - search
+    - golang
+    - Android
+license: https://creativecommons.org/licenses/by-sa/4.0/
+postPath: blog/2016/09/20/Android-Termux-Dev-environment.md
+title: Android, Termux and Dev Environment
+
 ---
+
 
 # Android, Termux and Dev Environment
 

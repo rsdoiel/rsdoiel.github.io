@@ -7,10 +7,117 @@
       This is the default websites created by the antenna init action.
     </description>
     <link>https://rsdoiel.github.io/pages.xml</link>
-    <lastBuildDate>03 Mar 26 17:35 -0800</lastBuildDate>
+    <lastBuildDate>04 Mar 26 15:50 -0800</lastBuildDate>
     <generator>antenna/0.0.23-dev</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
+      <title>Markdown &#38; Frontmatter: taking text further</title>
+      <link>https://rsdoiel.github.io/blog/2026/03/04/markdown_and_frontmatter.html</link>
+      <description>
+        <![CDATA[Explore the secret sauce of Markdown and frontmatter.  The post discusses how they can
+        transform content management by simplifying metadata, theming, and document structure.
+        Markdown with YAML frontmatter to streamline static site generation, create flexible
+        themes, and even express RSS feeds and OPML aggregations. Markdown and frontmatter
+        can provide a straightforward way to manage content without getting tangled in
+        templates or complex tools.]]>
+      </description>
+      <source:markdown>---
+author: R. S. Doiel
+dateCreated: &#34;2026-03-04&#34;
+dateModified: &#34;2026-03-04&#34;
+datePublished: &#34;2026-03-04&#34;
+description: |
+    Explore the secret sauce of Markdown and frontmatter.  The post discusses how they can
+    transform content management by simplifying metadata, theming, and document structure.
+    Markdown with YAML frontmatter to streamline static site generation, create flexible
+    themes, and even express RSS feeds and OPML aggregations. Markdown and frontmatter
+    can provide a straightforward way to manage content without getting tangled in
+    templates or complex tools.
+keywords:
+    - Markdown
+    - CommonMark
+    - Frontmatter
+    - YAML
+postPath: blog/2026/03/04/markdown_and_frontmatter.md
+title: &#39;Markdown &#38; Frontmatter: taking text further&#39;
+
+---
+
+
+
+# Markdown &#38; Frontmatter: Taking Text Further
+
+By R. S. Doiel, 2026-03-04
+
+There is a secret sauce that came with the adoption of Markdown and CommonMark in static website generators. **Frontmatter** is used to express metadata about the document. Often, this is expressed as a [block of YAML](https://jekyllrb.com/docs/front-matter/), a language created to express structured data like metadata. Early Markdown-oriented static site generators like Jekyll leveraged this language to simplify content management. Today, frontmatter and Markdown are used not only in static content management but also in the data science community, with dialects of [Markdown](https://daringfireball.net/projects/markdown/) like [RMarkdown](https://rmarkdown.rstudio.com/). What does attaching a complex structured data expression bring to the table?
+
+This post is being typed up as a Markdown document. When I am ready to publish it to my blog, I will add YAML frontmatter. The frontmatter will be used in the site rendering process. It will include metadata such as title, authorship, dates, description, and keywords. Some of this metadata will end up in the HTML document, while some will be used to form other documents, like RSS feeds. Here’s a typical example of what I include at the top of my Markdown posts:
+
+~~~yaml
+
+title: Markdown and Frontmatter, taking text further
+author: R. S. Doiel
+dateCreated: &#34;2026-03-04&#34;
+datePublished: &#34;2026-03-04&#34;
+description: |
+  A description of Markdown with frontmatter and a discussion of how it can be used
+keywords:
+  - Markdown
+  - CommonMark
+  - Frontmatter
+  - YAML
+
+~~~
+
+This use case is typical in static content site generators. It allows you to keep the creation of page content simple. By attaching frontmatter at the top of the document, you also make the document’s metadata available for processing[^1]. 
+
+[^1]: Front matter is the name of a practice adapted from print books. Printed books contain metadata at the start of books like title, authorship, publication date, publisher, copyright, preface and table of contents. This allowed for books to be easily aggregated in collections while also providing a small degree of provenance to the document. Applied in the electronic context the words &#34;front matter&#34; have come to form a compound word &#34;frontmatter&#34; in English.
+
+My content management tool, [Antenna App](https://rsdoiel.github.io/antennaApp), like many others, uses this information to determine how to add a post or a single web page. In a dynamic content management system like WordPress or Drupal, this information is collected from a web form and stored in a database. Static site systems avoid complexity by keeping the document metadata as part of the document itself.
+
+For a long time, I used frontmatter in my Markdown documents in just this way. Last year, I realized I could take it a step further. Markdown and frontmatter can directly express the contents of an RSS feed (for example, a list of posts) and can express aggregations of feeds in [OPML](https://en.wikipedia.org/wiki/OPML) using a similar combination of Markdown with frontmatter. Over time, as I’ve continued to develop my content management tools, I’ve taken this approach even further. You can express many parts of an assembled web page as individual Markdown documents held in a folder.
+
+One of the challenges I’ve seen people struggle with in content management systems over the years is that you often ask creators to commit to either a specific template language (for example, PHP) or restrict them to a theme system where specialists provide the templates used to transform content into pages and posts. Theme ecosystems can become a key factor in selecting a specific CMS and are often an indicator of the adoption and health of the CMS project. In the static content management space, there is no dominant player for content management systems. While some systems are very successful (for example, Hugo, Ghost, and Jekyll), there isn&#39;t a WordPress or Drupal **equivalent**. Similarly, there isn&#39;t a single way to express themes between these systems. Often, a theme engine becomes bound up in the language implementation of the content system. Sometimes they embrace something more generic like [Handlebars](https://handlebarsjs.com/). When HTML5 added templates, they went with yet another approach. This makes moving between these systems  **challenging**. There’s a large cognitive shift when mapping one system&#39;s approach to another system&#39;s approach. Is there a possible middle ground?
+
+## Finding a middle path by embracing Markdown
+
+**What is a theme?** Most theme engines include some content structure (for example, headers, footers, navigation elements, and a central content block). For visual layout and design, CSS has become the de facto means to achieve visual placement. But there remains the question of content structure that is common between pages on the website. The goal of a theme is usually to specify these common elements in a uniform way to meet the needs of the website. In a language like PHP, you might output HTML with a pointer to a known CSS location. In a language like Python, you might use some template system to express this. In Go, you’d use Go’s own template language to do this or an extension of it, like that found in Hugo. Can we avoid a third language if we’re already using Markdown and a little YAML?
+
+The humble file system provides an **opportunity**. In the theme engine of Antenna App, I’ve taken the approach that a theme is a CSS file and a set of elements based on Markdown documents, all contained within a folder. Here’s an example layout:
+
+- theme folder
+  - style.css
+  - header.md
+  - nav.md
+  - footer.md
+  - top_content.md
+  - bottom_content.md
+
+This folder represents a general structure. If one of these elements is missing, it will not be included when translating a Markdown document into HTML for presentation on the website. This simple approach means you can write your navigation element just like you write a blog post, using Markdown. The same applies to headers, footers, and any pre- or post-content information. Want to build a theme? Create a new folder. Add the specific elements you require as Markdown documents to the folder and perhaps a CSS file, too. Then apply the theme to your Antenna App site.
+
+This approach doesn&#39;t solve the challenge of writing CSS. Fortunately, there are helpful examples of CSS that target Markdown-generated elements. Additionally, large language models can be used effectively to generate CSS for styling Markdown-generated HTML elements. So there are options for solving the CSS challenge.
+
+In Antenna App, when you apply a theme folder, it takes the directory structure and its documents and folds them into the site or collection configuration. What I hope is that other people who write static content engines could see the value in this approach too (and improve on it!). I picture a simple tool that works similarly to Pandoc, which could convert this structure into other theme and template expressions. You could then replicate them across content management systems, giving you more flexibility as your needs change and evolve.
+
+This would be fine if Antenna App was used by a large number of people. It isn&#39;t; it&#39;s used by me. I think the approach to theming sites can be applied to other static content systems.
+
+## Using Pandoc as a model
+
+Pandoc has been a tried and true converter of Markdown to HTML for a very long time. Pandoc implements CommonMark, which is an **amalgam** of Markdown extensions along with John Gruber&#39;s original specification. Pandoc is also really good at translating other document formats. It does so by leveraging an internal representation (an abstract syntax tree) so that an importer just needs to implement a single mapping, while an exporter does the reverse. What if this simple structure was used in a similar way to translate one theme system to another? While my implementation was designed for use with Antenna App, I could see translating it to work with Pandoc templates or Hugo. You&#39;d just need to create the crosswalks.
+
+## Wait, isn&#39;t Markdown hard to teach?
+
+The other day, I read someone claim that Markdown is hard to teach. Having helped out with Data Carpentry courses from time to time, I&#39;m not sure I buy that. First, when compared to HTML, there is just **a lot** less text to manage. You don&#39;t need to explain the SGML-inspired greater-than and less-than signs. You don&#39;t really need to explain structured documents initially. You start simply by asking someone to type a paragraph and see how it translates.
+
+This isn&#39;t surprising because Markdown was inspired by what people were doing in plain text email back in the day. Similarly, you can add elaboration as it is needed. There is no worry about open and closing elements, no worry about quoting things just right. There are a few complex expressions to pick up (for example, links and embedding image references), but most plain text works as expected. There is a second hidden power in Markdown: it was designed to be easy to read. This latter part is **crucial**. Markdown is far easier to edit than XML or HTML as a result of its readability. What it gives up in the range of nuanced expression, it gains in how easy it is to learn and use day to day.
+
+Of course, just like HTML, you can find WYSIWYG editors that support Markdown. If the editor also provides a **convenient** way to edit frontmatter, then all that I&#39;ve stated before still applies. You learn one tool, and the rest just follows.
+
+## Where does this leave us?
+
+I think Markdown&#39;s application has, to a large extent, been a missed opportunity because it hasn&#39;t been embraced directly as a hypertext expression. I think it should be. When combined with frontmatter, it can provide all that is necessary for driving content systems. It can be used to fully express the types of files needed in a modern website, such as RSS feeds, OPML for subscription lists, and sitemaps, too. I don&#39;t think my exploration of Antenna App is the complete answer. I wrote it to fit my writing preferences. I hope others see what I&#39;ve done and take things a few steps further. It&#39;s time we take back the tooling around our own writing without relying on ever more complex software to do so.</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2026/03/04/markdown_and_frontmatter.md" length="11109" type="text/markdown" />
+    </item>    <item>
       <title>Language Models, Services and the Edge</title>
       <link>https://rsdoiel.github.io/blog/2026/03/03/LLM_service_and_edge.html</link>
       <description>
@@ -71,7 +178,7 @@ Academia possesses a valuable corpus of open-access materials. It features rich 
       <source:markdown>---
 author: R. S. Doiel
 dateCreated: &#34;2026-02-18&#34;
-dateModified: &#34;2026-02-21&#34;
+dateModified: &#34;2026-03-03&#34;
 datePublished: &#34;2026-02-21&#34;
 description: |
     An exploration of what could happen if we choose a simpler end user
@@ -88,11 +195,11 @@ title: A Simple Web We Own
 
 # A simple web we own
 
-By R. S. Doiel, 2026-02-21
+By R. S. Doiel, 2026-02-21 (revised: 2026-03-03)
 
 &#62; Tenant and product or co-owner and participant?
 
-Today the Web and Internet is owned and controlled by large for profit corporations and a few governments[^1]. Corporate ownership combined with government policies has left us as tenant and product. It has given us a surveillance economy and enshittification[^2]. 
+Today, the Web and Internet are owned and controlled by large for-profit corporations and a few governments[^1].  Corporate ownership combined with government policies has left us as tenant and product. It has given us a surveillance economy and enshittification[^2]. 
 
 - What if I do not wish to be tenant and product?
 - What can I do to change the equation? 
@@ -108,7 +215,7 @@ Those two questions lead me to a bigger question.
 
 I think the answer is suggested by a corollary found in the history of labor movements. When a significant percentage of industries were unionized the unions exerted a strong influence across the political economy. I think ownership of the hardware and software can mirror that impact on the Web and Internet. I think when a significant number of individuals and cooperatives own the hardware and uses simpler software we can impact the Web and Internet in a positive way. That&#39;s my hypothesis.
 
-An observation and common some assumptions:
+An observation and some common assumptions:
 
 - Most content on the web is already created by individuals not Big Co
 - Big Co persuaded people that only Big Co could provide easy Web publication
@@ -116,21 +223,21 @@ An observation and common some assumptions:
 
 The assumption that only Big Co can provide easy Web publication is just flat out wrong. These systems don&#39;t last for more than a decade before they decay. Each of Big Co origin story are similar. They started small. They get to scale by having investors who fund and push rapid expansion. Innovation slows so they buy up any potential rivals. Big Co then either shut them down or fold the rival system into their product lines. The last real innovation these companies introduced was decades ago.  Lack of real innovation is one of the factors that drive the Big Co and Big Tech hype cycle. They proclaim a new shiny thing in order to maintain the circus that accumulates more money. Along the way Big Co insists on tax breaks and zero regulation as a prerequisite for innovation which isn&#39;t delivered. When they did innovate they didn&#39;t have the breaks they insist on now, hell they didn&#39;t have the investment or market lock they have now. They only need the hype cycle, not innovation, to keep the money rolling in. At the end of the day we wind up the product, we wind up being exploited and we get very little useful in return.
 
-Folks there is an alternative. In 1992 authoring for the Web did require significant technical knowledge. HTML itself was very challenging to teach people. It was challenging to teach computer enthusiasts! I was involved in helping out at classes that taught HTML back in the early 1990s. I speak from first hand experience. But a funny thing happened on the way to 2026. A tech writer (John Grubber and friends) came up with a simpler expression of hypertext called Markdown. You don&#39;t need to know HTML to create a web page or blog post today. You can write it or read it using Markdown. You can write it using the simple text editor that came with your operating system on the computer you own. You only need a program to flip Markdown into HTML. There are plenty of programs out there that do that.
+Folks, there is an alternative. In 1992 authoring for the Web did require significant technical knowledge. HTML itself was very challenging to teach people. It was challenging to teach computer enthusiasts! I was involved in helping out at classes that taught HTML back in the early 1990s. I speak from first hand experience. But a funny thing happened on the way to 2026. A tech writer (John Grubber and friends) came up with a simpler expression of hypertext called Markdown. You don&#39;t need to know HTML to create a web page or blog post today. You can write it or read it using Markdown. You can write it using the simple text editor that came with your operating system on the computer you own. You only need a program to flip Markdown into HTML. There are plenty of programs out there that do that.
 
-In the past many of our efforts to break free of Big Co have met with limited success. Usually the energy and effort has been spent re-creating the centralized systems as distributed systems. There was a sense we needed to offer the same experience as Big Co. While ideally individuals and groups could easily run these distributed version the reality is that it remains challenging. I&#39;m really happy to see some of them have some degree of success[^3]. It is an impressive effort. They have broken new ground and importantly they are playing an important role in the world today. I don&#39;t think they alone will get us to where we need to go. Even Cory Doctorow uses a system administrator to setup his system. Cory Doctorow is a smart technical guy. It should be easier to do (see &#60;https://pluralistic.net/2025/08/15/dogs-breakfast/#by-clicking-this-you-agree-on-behalf-of-your-employer-to-release-me-from-all-obligations-and-waivers-arising-from-any-a&#62;).
+Many efforts in the past to break free of Big Co have met with limited success. Usually the energy and effort has been spent re-creating the centralized systems as distributed systems. There was a sense we needed to offer the same experience as Big Co. While ideally individuals and groups could easily run these distributed version the reality is that it remains challenging. I&#39;m really happy to see some of them have some degree of success[^3]. It is an impressive effort. They have broken new ground and importantly they are playing an important role in the world today. I don&#39;t think they alone will get us to where we need to go. Even Cory Doctorow uses a system administrator to setup his system. Cory Doctorow is a smart technical guy. It should be easier to do (see &#60;https://pluralistic.net/2025/08/15/dogs-breakfast/#by-clicking-this-you-agree-on-behalf-of-your-employer-to-release-me-from-all-obligations-and-waivers-arising-from-any-a&#62;).
 
 [^3]: Currently Mastodon and BlueSky seem to be the most successful with a possible for longer term persistence.
 
-I think there is a simpler path. The Web itself is a decentralized system. What is needed is an easier way for individuals to create content for it. Markdown I believe is a significant piece of the solution. There are many software programs that can convert Markdown into an HTML page. [Pandoc](https://pandoc.org) is a brilliant example of that. A website is more than a single Web page otherwise we&#39;d be done. This is why content management systems were adopted on the Web. What you need is a way of getting to the HTML typing something easier to read and type. You need a simple way to manage the website structure for what you have written. Again there are programs that do this today. Unfortunately many are complex and come with their own steep learning curve.
+I think there is a simpler path. The Web itself is a decentralized system. What is needed is an easier way for individuals to create content for it. Markdown I believe is a significant piece of the solution. You start learning it just by typing. You add the little decorations as you needed (example linking to another document or creating a bullet list). There are many software programs that can convert Markdown into an HTML page. [Pandoc](https://pandoc.org) is a brilliant example of that. There are WYSIWYG Markdown editors too (see &#60;https://github.com/mundimark/awesome-markdown-editors&#62;). The typing bit is not the problem. It&#39;s the content management piece that becomes the barrier. A website is more than a single Web page otherwise we&#39;d be done. This is why content management systems were adopted on the Web. What you need is a way of getting to the HTML typing something easier to read and type. You need a simple way to manage the website structure for what you have written. Again there are programs that do this today. Unfortunately many are complex and come with their own steep learning curve.
 
 The most popular content system on the web today is WordPress. It was designed to run remotely on a server. It integrates with the social web systems like Mastodon. It is open source software and you could run it on a personal computer in a pinch. Unfortunately WordPress is complex to maintain. WordPress is really a bundle of software. It requires running Apache or NginX Web Server. It requires running a database like MySQL or MariaDB. It is built from a bunch of PHP, JavaScript, CSS and templates.  WordPress out of the box does some really nice things. But it comes with overhead too.
 
 If you are a developer WordPress isn&#39;t a huge barrier. It&#39;s dandy. But running and maintaining it amounts to running and maintaining a whole bundle of interconnected software. That takes up computer resources like memory and computation time. That is problematic. It&#39;s challenging to set it up to use as simply as you use your text editor or word processor. Your stuck because it is designed to run on a remote server. If you only want to type up some Markdown to turn into a web page WordPress adds another whole other level of complexity to that big kettle of fish.
 
-Complex content management systems was what lead to a renaissance of popularity of using static website generators. Static websites are simple to generate, cheap and easy to host and can be surprisingly interactive. You can even hand craft a static website page by page using Markdown and Pandoc. It did that for years. What Pandoc doesn&#39;t do easily for you is provide the trimmings like RSS feeds and sitemaps. If doesn&#39;t help manage this site structure. Many people build websites with more elaborate systems like Jekyll and Hugo because, like WordPress, they provide more in the way of content management. There are literally hundreds of other static website generators out there. Unfortunately they don&#39;t complete solve the problem. The ones I&#39;ve tried have been too complex or didn&#39;t run on the machines I wanted to do my writing on. I think this is because most were created by developers like me. We grew up on large large complex content management systems. So when we build our own they easily become large and complex too. That is a problem. As a writer you shouldn&#39;t need to put on a developer hat to produce a website. You shouldn&#39;t have to use Medium or Substack either. What is needed is different. What is needed is an easy way to go from Markdown documents to websites without extra knowledge. Ideally you&#39;d only need to know Markdown to build a nice website.
+Complex content management systems were what lead to a renaissance of popularity of using static website generators. Static websites are simple to generate, cheap and easy to host and can be surprisingly interactive. You can even hand craft a static website page by page using Markdown and Pandoc. It did that for years. What Pandoc doesn&#39;t do easily for you is provide the trimmings like RSS feeds and sitemaps. If doesn&#39;t help manage this site structure. Many people build websites with more elaborate systems like Jekyll and Hugo because, like WordPress, they provide more in the way of content management. There are literally hundreds of other static website generators out there. Unfortunately they don&#39;t complete solve the problem. The ones I&#39;ve tried have been too complex or didn&#39;t run on the machines I wanted to do my writing on. I think this is because most were created by developers like me. We grew up on large large complex content management systems. So when we build our own they easily become large and complex too. That is a problem. As a writer you shouldn&#39;t need to put on a developer hat to produce a website. You shouldn&#39;t have to use Medium or Substack either. What is needed is different. What is needed is an easy way to go from Markdown documents to websites without extra knowledge. Ideally you&#39;d only need to know Markdown to build a nice website.
 
-This lack of simplicity for writers has disappointed me. The Web is over thirty years old. It is reasonable to expect a simpler writing system for the web. One that can run on small computers. Ones that don&#39;t make you use a text input box for writing. Yet the systems out there are are stuck with complexity because they are solving the problem faced by professional Web developers decades ago. They are making old assumptions about requiring complexity. In a way developers like me keep building formula one race cars when what is needed is a single speed bicycle. How do we get to a simple web?
+This lack of simplicity disappoints me as a writer. The Web is over thirty years old. It is reasonable to expect a simpler writing system for the web. One that can run on small computers. Ones that don&#39;t make you use a text input box for writing. Yet the systems out there are are stuck with complexity because they are solving the problem faced by professional Web developers decades ago. They are making old assumptions about requiring complexity. In a way developers like me keep building formula one race cars when what is needed is a single speed bicycle. How do we get to a simple web?
 
 I&#39;ve been search for an answer. I don&#39;t think any invention of is needed. The answer in 2026 is already built-in to the Web. What is needed to change is the software holding that technology. The Web can interconnect us. The software needs to take Markdown and generate the rest of the website so we can take advantage of that. I think we need to break the assumptions of complexity of use and complexity of multi author or centralized models. The core software requirements include an easy way to express hypertext (Markdown), an easy way to generate the HTML. It needs to make content syndication and discovery automatic (create RSS files and sitemaps). The Web browser will see HTML, CSS, JavaScript, RSS, sitemap.xml but the author only needs to work with Markdown documents. I&#39;ve written experimental software to prove this is possible. My hope with this post and pointing at my own software contribution will shed some light on how easy it could be. I hope it is an example that this can become collectively understood.
 
@@ -151,7 +258,7 @@ The Web and Internet we have today isn&#39;t required by the technologies that c
 
 ### Changes in scarcity of resource and knowledge
 
-Let me illustrate. In 1926 we didn&#39;t have a global e-waste problem. In 2026 it is a huge problem. In 1950 a computer filled a room and could only be afforded by governments and the largest corporations[^5]. They required special high capacity power connections. They required cooling systems. Often required physical changes to the buildings (example sub flooring for cable access and fire supression systems). In 2026 a single computer like the Raspberry Pi 400 runs $60.00 in the United States. It can run off a USB battery or wall socket. It can run in ambient temptures. Throw in a monitor, power supply and cables and you&#39;re your computer budget comes in at about $200.00. That is with the crazy United States tariffs built-in. It includes the crazy AI hype inflated memory pricing[^6]. A good desktop computer capable of producing Web content and hosting it is far less than the price of a smart phone which you don&#39;t control.
+Let me illustrate. In 1926 we didn&#39;t have a global e-waste problem. In 2026 it is a huge problem. In 1950 a computer filled a room and could only be afforded by governments and the largest corporations[^5]. They required special high capacity power connections. They required cooling systems. Often required physical changes to the buildings (example sub flooring for cable access and fire supression systems). A single computer like the Raspberry Pi 400 runs $60.00 in the United States in 2026. It can run off a USB battery or wall socket. It can run in ambient temperatures. Throw in a monitor, power supply and cables and you&#39;re your computer budget comes in at about $200.00. This price includes the crazy United States tariffs. It includes the crazy AI hype inflated memory pricing[^6]. A good desktop computer capable of producing Web content and hosting it is far less than the price of a smart phone which you don&#39;t control.
 
 [^5]: Timeline of Internet history, see &#60;https://www.computerhistory.org/internethistory/&#62;
 
@@ -174,41 +281,42 @@ If you are lucky enough to have Internet access at home that network is probably
 
 There are two versions of Internet Protocols running in parallel today, IPv4 and IPv6 (IP stands for Internet Protocol and &#34;v&#34; is followed by the version number). IPv6 provides a larger possible number of uniquely identifiable connections on the network. Each network connection can provide a Web destination. Much of the globe has already shifted to IPv6. The United States lingers with quite a bit of IPv4. We stopped innovating a long long time ago. I slow WiFi and copper wire networks reflect that.
 
-A Raspberry Pi computer running the Raspberry Pi Operating System supports both IPv4 and IPv6. As a Raspberry Pi computer owner you don&#39;t really need to worry about the distinction. If you are connecting to more than one computer you&#39;ll need a device called a switch or router. There are cheap hardware switches used to connect computers via Ethernet (faster) or WiFi (more convenient). They usually support both protocols. This means individuals can create a local internet (a network compatible with the Internet). When I checked the prices at my local appliance store a four port network switch start at under $50.00. Some were under $20.00. By comparison when the Arpanet (the original Internet) started it required a DEC PDP-1 mini computer to interconnect networks with the Arpanet. A DEC PDP-1 cost approximately $120,000.00 (1960s United States dollars). There was a huge change in cost from then to now. Raspberry Pi and inexpensive network switches are way more available than all the DEC PDP-1 ever made. They consume far less electrical power too. You can spend less than $500.00 to create a nicely little Internet compatible network with a couple computers.
+A Raspberry Pi computer[^8] running the Raspberry Pi Operating System supports both IPv4 and IPv6. As a Raspberry Pi computer owner you don&#39;t really need to worry about the distinction. If you are connecting to more than one computer you&#39;ll need a device called a switch or router. There are cheap hardware switches used to connect computers via Ethernet (faster) or WiFi (more convenient). They usually support both protocols. This means individuals can create a local internet (a network compatible with the Internet). When I checked the prices at my local appliance store a four port network switch start at under $50.00. Some were under $20.00. By comparison when the Arpanet (the original Internet) started it required a DEC PDP-1 mini computer to interconnect networks with the Arpanet. A DEC PDP-1 cost approximately $120,000.00 (1960s United States dollars). There was a huge change in cost from then to now. Raspberry Pi and inexpensive network switches are way more available than all the DEC PDP-1 ever made. They consume far less electrical power too. You can spend less than $500.00 to create a nicely little Internet compatible network with a couple computers.
 
+[^8]: There are many different types of small computers. I am focusing on Raspberry Pi because the 400, 500 and 500+ models present an all in one keyboard and computer combo which is easy to setup with little computing back ground. If you can attach your TV to your cable provider&#39;s box you are likely able to setup one of these computers without much more effort.
 Why do I keep pointing out prices? Back in the late 1980s when I was a student and first encountered the Internet the hardware and software used to connect to it cost a small fortune. The price of an Internet connected Workstation I used at University was more than the value of my parents suburban home! Creating an Internet compatible network at my home was not possible do to coast. I actually talked to the people who setup the University&#39;s network about doing this (I commuted from a long distance). 
 
-Fast forward to 2026. Prices have changed. Computer availability has changed. In 1969 computers were still rare devices. Today there is one built into your TV and probably your toaster. The cost and availability has radically changed since the creation of the Web too. That should inform our expectation of how things can work. Sometime I couldn&#39;t so in 1989 is very doable in 2026. In 2026 rural communities in the United States are forming their own Internet Provider cooperatives[^8]. These cooperatives are connecting homes using fiber optic cables. This transforms their access from none or slow to really fast and very reliable. It also can be done for a lower cost than relying on Big Co Internet Providers if they even service the area.
+Fast forward to 2026. Prices have changed. Computer availability has changed. In 1969 computers were still rare devices. Today there is one built into your TV and probably your toaster. The cost and availability has radically changed since the creation of the Web too. That should inform our expectation of how things can work. Sometime I couldn&#39;t so in 1989 is very doable in 2026. In 2026 rural communities in the United States are forming their own Internet Provider cooperatives[^9]. These cooperatives are connecting homes using fiber optic cables. This transforms their access from none or slow to really fast and very reliable. It also can be done for a lower cost than relying on Big Co Internet Providers if they even service the area.
 
 In 2026 my city of 200,000 plus people we don&#39;t have fiber optic connections to homes. In my case one Big Co paid the another Big Co to stop expanding home fiber access anywhere in the county of Los Angeles. That includes my city. They&#39;ve been paying the other Big Off for more than a decade. The Big Co created scarcity ensures their profit margins. They are like the rail road companies in the nineteenth and twentieth century. Not about public service, not even about being effective transport corporations. It&#39;s all about profit at the expense of the public.
 
-[^8]: Community Networks website is a group that advocates for local network cooperatives, see &#60;https://communitynets.org/content/cooperatives-build-community-networks&#62;
+[^9]: Community Networks website is a group that advocates for local network cooperatives, see &#60;https://communitynets.org/content/cooperatives-build-community-networks&#62;
 
-### the Web on top of the Internet
+### The Web on top of the Internet
 
 Let&#39;s focus on the Web running on top of the Internet.  What is it?  The Web is a hypertext system built on top of the Internet. **hypertext** is the key take away. It&#39;s the Web&#39;s origin killer feature. The Web&#39;s hypertext system is built from a set of core technologies. These technologies are now mature. That collection includes things like HTTP, HTML, CSS, JavaScript and RSS. The two that go back to the beginning are HTTP and HTML. Let&#39;s take a look at where these started and where we are today.
 
-HTTP stands for Hypertext Transport Protocol. It is a way of using the Internet protocol and text to reliability transfer hypertext from one computer to another. The interaction model is a client (requester, web browser) and server (responder, web server). It is a call and response system. In 1992 this required specialized software. It required one or more skilled specialist to run it. Most websites ran on expensive multi user mini computers that cost the price of suburban single family home. The computers required specialists to run and maintain them too. In short it was an expensive luxury affordable only by large institutions with significant government funding[^7].
+HTTP stands for Hypertext Transport Protocol. It is a way of using the Internet protocol and text to reliably transfer hypertext between computers. The interaction model is a client (requester, web browser) and server (responder, web server). It is a call and response system. In 1992 this required specialized software. It required one or more skilled specialist to run it. Most websites ran on expensive multi user mini computers that cost the price of suburban single family home. The computers required specialists to run and maintain them too. In short it was an expensive luxury affordable only by large institutions with significant government funding[^10].
 
-In 2026 most programming languages ship with a standard library that allows creating a web server in a few lines of code. You do not need to be a network systems programmer to create one. No networking engineer required either. Ethernet and WiFi are available as commodity hardware components that largely work plug and play. Today web servers run inside appliances. This allows them to be labeled as &#34;smart&#34; and to fetch a higher price. You can do the same thing these embedded devices do using a $15.00 Raspberry Pi Zero 2W, power supply and SD Card for storage. A Raspberry Pi Zero 2W can even be configured to be a public WiFi access point[^8]. That&#39;s the impact of an abundance of computers and resources. Creating Web services is a solved problem.
+In 2026 most programming languages ship with a standard library that allows creating a web server in a few lines of code. You do not need to be a network systems programmer to create one. No networking engineer required either. Ethernet and WiFi are available as commodity hardware components that largely work plug and play. Today web servers run inside appliances. This allows them to be labeled as &#34;smart&#34; and to fetch a higher price. You can do the same thing these embedded devices do using a $15.00 Raspberry Pi Zero 2W, power supply and SD Card for storage. A Raspberry Pi Zero 2W can even be configured to be a public WiFi access point[^11]. That&#39;s the impact of an abundance of computers and resources. Creating Web services is a solved problem.
 
-[^7]: Originally the Internet, including the Web was available to government funded research institutions. It was created to allow the sharing of science and technology among United States and it&#39;s allies institutions.
+[^10]: Originally the Internet, including the Web was available to government funded research institutions. It was created to allow the sharing of science and technology among United States and it&#39;s allies institutions.
 
-[^8]: See Digital Free Library plans from 2014 at AdaFruit website, &#60;https://learn.adafruit.com/digital-free-library/what-youll-need&#62;
+[^11]: See Digital Free Library plans from 2014 at AdaFruit website, &#60;https://learn.adafruit.com/digital-free-library/what-youll-need&#62;
 
 The technology that originated back in 1990s is still largely the same. It has just been updated slowly over time. That slowness has lead many people to not notice the changes. They haven&#39;t fully revise their assumptions they made back in 1990, 2000, 2010 or 2020. None of what I discussed here is rocket science. It is clearly visible in computing history. Through an understanding of the historical view that you can see how things were and how they can be. I&#39;m making the point that things have change even when the collective wisdom the Tech Bros and Big Co hasn&#39;t.
 
 ### Next neighbor opportunities
 
-The Internet is a next neighbor connection proposition. If I have a home internet owned by me and my neighbor has their own little home internet we can connect them. It forms a slightly larger network. If we choose we could split the costs of connecting to the public Internet assuming we had a provider willing to connect us in their terms of service. Internet cooperatives take advantage of this simple relationship. The recurring bills are electricity and the common connection to a larger publicly connected Internet. The way the Internet evolved is that each organization (university or research institution) payed to connect to their neighbor and agreed to carry their neighbor&#39;s traffic as well as their own. Larger organizations wound up having multiple connections to other institutions. They operated like hubs. Multiple connections enhanced reliability. Smaller institutions might connect only to one other Internet site. That was called a leaf connection on the network. Importantly whether you were a hub or leaf you could reach any other available site in the network just by knowing it&#39;s address.
+The Internet is built on next-neighbor connections. If I have a home internet owned by me and my neighbor has their own little home internet we can connect them. I literally can pass an Ethernet cable through the fence if neccessary. Doing so forms a slightly larger network. If we choose we could split the costs of connecting to the public Internet assuming we had a provider willing to connect us in their terms of service. Internet cooperatives take advantage of this simple relationship. The recurring bills are electricity and the common connection to a larger publicly connected Internet. The way the Internet evolved is that each organization (university or research institution) payed to connect to their neighbor and agreed to carry their neighbor&#39;s traffic as well as their own. Larger organizations wound up having multiple connections to other institutions. They operated like hubs. Multiple connections enhanced reliability. Smaller institutions might connect only to one other Internet site. That was called a leaf connection on the network. Importantly whether you were a hub or leaf you could reach any other available site in the network just by knowing it&#39;s address.
 
 The old metaphor, Internet Super Highway, was based on the corollary that each town paid for its road and they paid for a road connecting to next ones. Roads interconnect. Traffic, in the form of cars, trucks and motorcycles, can follow the roads from one town to another. The road system can be expanded to include new towns, home, cities or other destinations. Like the road system the Internet is extensible. It can be expanded as needed just by adding connections.
 
-A home might be a computer, a town might a local network with a small collection of computers and cities might be large hubs with large data centers owned by Big Co. In the real world most roads are owned collectively by the public. Some roads are private. Some are private roads allow access for a toll. All are still just roads. The Internet today is built as a series of toll roads. There are few public roads. We all pay for access in cash, in loss of privacy and loss of autonomy. Many commercial Internet Providers prohibit direct sharing of the your network with your neighbors in their terms of service. These are human organizational choices. They are not technical choices or constraints. On the Internet today most people might own the device (example phone) but they&#39;re still rent access where the payments are in the form currency, loss privacy and loss autonomy. When the companies wish they can force the purchase of a new devise by using the Internet to delivery software to disable them. This is the big reason I think we need to change our relationship. The country prospered when the public freeway system was created in the 1950s. The country could prosper if we had a real option of public Internet access mirroring our public roads. In the mean time we can take maters into our own hands. Own and control our computers and local networks. Form cooperatives for connecting to the Internet where appropriate.
+A home might be a computer, a town might be a local network with a small collection of computers and cities might be large hubs with large data centers owned by Big Co. In the real world most roads are owned collectively by the public. Some roads are private. Some are private roads allow access for a toll. All are still just roads. The Internet today is built as a series of toll roads. There are few public roads. We all pay for access in cash, in loss of privacy and loss of autonomy. Many commercial Internet Providers prohibit direct sharing of the your network with your neighbors in their terms of service. These are human organizational choices. They are not technical choices or constraints. On the Internet today most people might own the device (example phone) but they&#39;re still rent access where the payments are in the form currency, loss privacy and loss autonomy. When the companies wish they can force the purchase of a new devise by using the Internet to delivery software to disable them. This is the big reason I think we need to change our relationship. The country prospered when the public freeway system was created in the 1950s. The country could prosper if we had a real option of public Internet access mirroring our public roads. In the mean time we can take maters into our own hands. Own and control our computers and local networks. Form cooperatives for connecting to the Internet where appropriate.
 
 ## Changing the ownership model
 
-It feels like a paradox. Ownership and control of our hardware gives us agency to function better collectively. It reminds me of the adage, &#34;you reach the global by first focusing on the local&#34;.  What an interesting human concept. If we own our hardware and control it we can choose to band together in cooperatives. We can change the equation and get out from under the thumb of Big Co and their toll system.
+It feels like a paradox. Ownership and control of our hardware give us agency to function better collectively. It reminds me of the adage, &#34;you reach the global by first focusing on the local&#34;.  What an interesting human concept. If we own our hardware and control it we can choose to band together in cooperatives. We can change the equation and get out from under the thumb of Big Co and their toll system.
 
 Many of us carry a smartphone in our pockets. These are computers but most are not suited to creating a Web of our own. Why? If you are using an iPhone running iOS or an Android phone provisioned with Google&#39;s software then Apple, Google or another Big Co controls your device. This is true even through you may have thought you purchased the phone. Case in point I used to carry a Samsung phone. I really enjoyed it. It ran a version of Android controlled by Samsung. Samsung sent an update that bricked (disabled) the phone. When I reached out to them the automated email reply indicated since my device was over 3 years old I would have to buy a new one. My phone was five years old. It worked really well and I liked it. Samsung had made the decision that they would update the software on my phone knowing that it would make it inoperable. Needless to say I haven&#39;t owned a Samsung phone since. I haven&#39;t trusted any Android device since. My Apple iPod mini faced a similar situation. My point is I owned the hardware but didn&#39;t control the software. It was really convenient that updates were pushed out. I really liked not paying attention to the detail. My life is busy. That arrange worked well right up until it didn&#39;t. If a corporation or government controls the software then they also control the hardware. It doesn&#39;t matter how much you payed to purchase it. You don&#39;t really own it. Good to know.
 
@@ -225,10 +333,10 @@ Here&#39;s what I used for writing this post (it has the advantage of being port
 - Raspberry Pi Mouse
 - cables to connect everything
 - a wireless switch connected to a cable modem and my Internet Provider
-- A Raspberry Pi 3B+ with a 3 gigabyte hard drive setup as a &#34;server&#34; (makes this site available on my home network[^9])
+- A Raspberry Pi 3B+ with a 3 gigabyte hard drive setup as a &#34;server&#34; (makes this site available on my home network[^12])
 - I publish this site via GitHub Pages service for public Internet access (I have the least expensive subscription for this)
 
-[^9]: I can view my personal web on my home network from my phone, tablet and computers. So can the rest of my family.
+[^12]: I can view my personal web on my home network from my phone, tablet and computers. So can the rest of my family.
 
 The software I am using to write this post is as follows (all programs are open source software, free to share, free to use)
 
@@ -245,12 +353,14 @@ The Antenna App software is driven my Markdown files. Markdown is a really good 
 
 ## Tiny computers are like tiny homes
 
-I use two computers (Raspberry Pi 500 and Raspberry Pi 3B+) for my home network. I could actually just use the one. That&#39;s because operating systems like Raspberry Pi OS support the concept of localhost. Localhost presents the machine as if it is a network node.  If I had a Linux based phone I could run the aggregation service directly on it. Then I would have my Web right there in my pocket. I am saving my pennies for a Linux based phone.
+I use two computers for my home network. One is a Raspberry Pi 500 and the other is a Raspberry Pi 3B+ with a USB hard drive.  I write using the Pi 500 but the Pi 3B+ is where this blog lives. A public copy is managed via Git and GitHub. The public copy is where you are likely reading this. But the public copy is just that, a copy. It&#39;s cheap to copy bits in digital space.
+
+I could actually just use the one. That&#39;s because operating systems like Raspberry Pi OS support the concept of localhost. Localhost presents the machine as if it is a network node.  If I had a Linux based phone I could run the aggregation service directly on it. Then I would have my Web right there in my pocket. In the meantime, I am saving my pennies for a Linux-based phone.
 
 Working with small computers is like living in a small or tiny home. It can be very cozy and comfortable. It will never be a mansion. Mansions and castles are fine for some people. While I&#39;ve enjoyed visiting a few castles I would not choose to live in one. There are really expensive to own, heat/cool and maintain. I like small and simple. I choose to live in a cottage.
 
 I accept living in a small home isn&#39;t for everyone just as running little computers isn&#39;t for everyone. That is why I don&#39;t say people should abandon the computer systems that work for them. I am pushing for people, like myself, who have a problem with the predatory Web and Internet we have today. Assert ownership (individually or collectively) to correct our relationship. Collectively we need a Web and Internet where we are co-owner and participant. I am no longer interested in being a tenant and product.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2026/02/21/a_simple_web_we_own.md" length="33673" type="text/markdown" />
+      <enclosure url="https://rsdoiel.github.io/blog/2026/02/21/a_simple_web_we_own.md" length="34784" type="text/markdown" />
     </item>    <item>
       <title>Embracing Markdown as Hypertext</title>
       <link>https://rsdoiel.github.io/blog/2026/02/19/Embracing_Markdown.html</link>
@@ -271,6 +381,7 @@ postPath: blog/2026/02/19/Embracing_Markdown.md
 title: Embracing Markdown as Hypertext
 
 ---
+
 
 
 

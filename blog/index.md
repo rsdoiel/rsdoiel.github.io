@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 ### Recent Posts
 
 
+- [Markdown & Frontmatter: taking text further](/blog/2026/03/04/markdown_and_frontmatter.html), 2026-03-04
 - [Language Models, Services and the Edge](/blog/2026/03/03/LLM_service_and_edge.html), 2026-03-03
 - [A Simple Web We Own](/blog/2026/02/21/a_simple_web_we_own.html), 2026-02-21
 - [Embracing Markdown as Hypertext](/blog/2026/02/19/Embracing_Markdown.html), 2026-02-19
@@ -199,6 +200,8 @@ title: "Robert's ramblings"
 ## 2016
 
 
+- [Android, Termux and Dev Environment](/blog/2016/09/20/Android-Termux-Dev-environment.html), 2016-09-20
+- [From Markdown and Bash to mkpage](/blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.html), 2016-08-16
 - [Exploring Bash for Windows 10 Pro](/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html), 2016-08-15
 - [How to make a Pi-Top more Raspbian](/blog/2016/07/04/How-To-Make-A-PiTop-More-Raspbian.html), 2016-07-04
 - [Instant Articles, Accelerated Mobile Pages, Twitter Cards and Open Graph](/blog/2016/05/30/amp-cards-and-open-graph.html), 2016-05-30

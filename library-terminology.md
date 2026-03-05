@@ -2,13 +2,11 @@
 title : "Robert's Library Terminology and Jargon List"
 ---
 
-Robert's Library Terminology and Jargon list
---------------------------------------------
+# Robert's Library Terminology and Jargon list
 
 This is my running collection of notes to help me remember various terms, abbreviations and concepts I have run across as a software developer working in a Academic/Research library setting.
 
-Terminology, Acronyms, Concepts
--------------------------------
+## Terminology, Acronyms, Concepts
 
 - actors
     - Sending and receiving parties

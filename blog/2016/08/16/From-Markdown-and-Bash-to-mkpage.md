@@ -1,26 +1,26 @@
 ---
-title: From Markdown and Bash to mkpage
+abstract: |
+    In this port I explore deconstructing functionality typically found in content management systems. It explores an approach to publishing a website hosted via GitHub. Covered the [MkPage](https://github.com/rsdoiel/mkpage) tools I developed.
 author: rsdoiel@gmail.com (R. S. Doiel)
-date: '2016-08-16'
-keywords:
-  - Bash
-  - Markdown
-  - site generator
-  - mkpage
-  - pandoc
-copyright: 'copyright (c) 2016, R. S. Doiel'
-license: 'https://creativecommons.org/licenses/by-sa/4.0/'
-abstract: >
-  In this port I explore deconstructing functionality typically found in content
-  management systems. It explores an approach to publishing a website hosted via
-  GitHub. Covered the [MkPage](https://github.com/rsdoiel/mkpage) tools I
-  developed.
-dateCreated: '2016-08-16'
-dateModified: '2025-07-21'
-datePublished: '2016-08-16'
-copyrightYear: 2016
+copyright: copyright (c) 2016, R. S. Doiel
 copyrightHolder: R. S. Doiel
+copyrightYear: 2016
+date: "2016-08-16"
+dateCreated: "2016-08-16"
+dateModified: "2025-07-21"
+datePublished: "2016-08-16"
+keywords:
+    - Bash
+    - Markdown
+    - site generator
+    - mkpage
+    - pandoc
+license: https://creativecommons.org/licenses/by-sa/4.0/
+postPath: blog/2016/08/16/From-Markdown-and-Bash-to-mkpage.md
+title: From Markdown and Bash to mkpage
+
 ---
+
 
 From Markdown and Bash to mkpage
 ================================
