@@ -94,6 +94,7 @@ This is my running collection of notes to help me remember various terms, abbrev
 - [FAIR](https://www.fairdata.fi/en/) is a set of principles and practices for preservation. Should not be confused with the use of the same acronym in defense and DOD use in the federal government. Also see [Fairmetrics](http://fairmetrics.org/) for evaluating compliance with FAIR principles and practices.
 - [FOLIO](https://www.folio.org/) "future of library is open"
     - a library management system and services platform
+- [FRBR](https://www.oclc.org/research/activities/frbr.html "OCLC: Functional Requirements for Bibliographic Records"), Functional Requirements for Bibliographic Records"
 - [GLAM](http://openglam.org/)
     - GLAM is Galleries, Libraries, Archives, and Museums
 - [GOKB](gobk.kuali.org/gokb/)
@@ -212,6 +213,7 @@ predetermined conclusion.
             + Information Services and Use Metrics & Statistics for Libraries and Information Providers – Data Dictionary
         - Z39.50
             + UseZ39.50 to look for records in a catalog or union database allows for better retrieval of records than simply constructing a title or ISBN/ISSN based URL.
+- WEMI, [OpenWEMI](https://www.dublincore.org/specifications/openwemi/ "Open WEMI is an RDF implementation based on WEMI"), stands for Work, Expression, Manifestation, and Item
 
 
 
