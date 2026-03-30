@@ -4,7 +4,7 @@ dateCreated: "2026-03-27"
 dateModified: "2026-03-27"
 datePublished: "2026-03-27"
 description: |
-    A post about using LibreOffice Writer as a WYSIWYG Markdown editor. In it I go over
+    A post about using LibreOffice Writer v26.2.1 as a WYSIWYG Markdown editor. In it I go over
     formatting a table. What was made easy and a two challenges I ran into (frontmatter
     and code fences). It was a positive experience and I think I will be using LibreOffice
     more as a result of the Markdown feature that arrived in version 26.2.
@@ -22,7 +22,7 @@ title: LibreOffice Writer and Markdown
 
 # LibreOffice Writer and Markdown
 
-By R. S. Doiel, 2026-03-27
+By R. S. Doiel, 2026-03-27 (updated 2026-03-30)
 
 In the v26.2 release LibreOffice Writer picked up a new superpower.  Writer now supports reading and writing Markdown. This means we have all the power of a full blown word process and the simplicity of working with Markdown documents. This is true whether you running macOS, Windows, Linux or Raspberry Pi OS as I do. The official help documentation can be found here, <https://help.libreoffice.org/latest/en-US/text/swriter/guide/markdown.html>. Opening a Markdown document is as easy as File → Open then pick your Markdown document to edit. Saving to Markdown is just a mater of picking that document format.
 
@@ -90,7 +90,9 @@ Where things will get interesting is finding the right spot for LibreOffice Writ
 
 ## Closing thoughts
 
-This is the first release with Markdown support. It has some bugs and issues I've discovered using it to write this post.
+Version 26.2 brought Markdown support to LibreOffice. The version used in this post is v26.2.1[^0]. It has some bugs and issues I've discovered using it to write this post.
+
+[^0]: The current release as I type this update is 26.2.2, I think some of the bugs have been fixed.
 
 First issue is specific to blogging. In blogging I use [frontmatter](https://www.markdownlang.com/advanced/frontmatter.html) to include metadata in my posts. Writer doesn’t understand it. In fact it mangles it if you read in a Markdown document with it then save the results back to Markdown. So when I use LibreOffice Writer it'll be in my workflow before I add any metadata to the Markdown post.
 
@@ -107,4 +109,3 @@ These are small issues[^2]. There have been fewer problems than I would expect o
 Writer shines is in its maturity as a word processor that can now work with Markdown documents. All the nice word processor features are there, spell check, thesaurus, document statistics. I suspect I will use Writer more in the coming year than I have in the decade plus since I finished grad school. With LibreOffice Writer I can harmonize my writing tools and let the written documents remain in a simple flexible format. Now it’s time to re-learn Writer and move beyond hunt and click. May even be time to start reading it's source code.
 
 [^2]: In the end I addressed these in my text editor as I previewed content converted to HTML.
-
