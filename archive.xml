@@ -7,14 +7,49 @@
       This is the default websites created by the antenna init action.
     </description>
     <link>https://rsdoiel.github.io/archive.xml</link>
-    <lastBuildDate>27 Mar 26 22:19 -0700</lastBuildDate>
-    <generator>antenna/0.0.23b</generator>
+    <lastBuildDate>15 Apr 26 17:25 -0700</lastBuildDate>
+    <generator>antenna/0.0.24-rc1</generator>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <item>
+      <title>Fountain and recording agents</title>
+      <link>https://rsdoiel.github.io/blog/2026/04/15/fountain_and_recording_agents.html</link>
+      <description>
+        <![CDATA[Exploring using fountain markup for logging interactions for user agents and large language models.]]>
+      </description>
+      <source:markdown>---
+author: R. S. Doiel
+dateCreated: &#34;2026-04-15&#34;
+dateModified: &#34;2026-04-15&#34;
+datePublished: &#34;2026-04-15&#34;
+description: |
+    Exploring using fountain markup for logging interactions for user agents and large language models.
+keywords:
+    - Agents
+    - Fountain
+    - Screenplays
+    - LLM
+    - Large Language Models
+postPath: blog/2026/04/15/fountain_and_recording_agents.md
+title: Fountain and recording agents
+
+---
+
+
+# Fountain and recording agents
+
+By R. S. Doiel, 2026-04-15
+
+I was working on a personal project inspired by a class I am taking. I wanted to create a agent named Harvey in Go that would work with both local language models run by Ollama and with [publicai.co](https://publicai.co) if that was available. The LLM chat bot was the easy bit. It was while debugging the agent mode that I realized it would be helpful to have a recording of the conversation between the parties, Harvey, the Model and myself. First pass was to have the recorder write out a Markdown document structured like a report. That wasn&#39;t really ideal at all. Similarly a steam of conversation wasn&#39;t quite right either. It was very hard to know who was typing or doing. Then it occurred to me that an agent interaction is really structured like a screenplay. A screenplay **shows** you whats happening by building around the structure of scenes, actors, dialog and action. Throw in some timestamps and you have a pretty good idea of who did what, when and how.
+
+Epiphany! [Fountain](https://fountain.io) markup is for screenplays. It is easy to read as plain text and can be evaluated later to find problems. It describes how the agents, humans and LLM interact. It has all the right bits. I guess those humanities classes payed off nicely today.
+
+Now when I test my agent named Harvey, I record the interaction and can go back and read the screenplay version of the interactions. It&#39;s really helpful even if it will not likely result in an actual movie.</source:markdown>
+      <enclosure url="https://rsdoiel.github.io/blog/2026/04/15/fountain_and_recording_agents.md" length="1949" type="text/markdown" />
+    </item>    <item>
       <title>LibreOffice Writer and Markdown</title>
       <link>https://rsdoiel.github.io/blog/2026/03/27/libreoffice_writer_and_markdown.html</link>
       <description>
-        <![CDATA[A post about using LibreOffice Writer as a WYSIWYG Markdown editor. In it I go over
+        <![CDATA[A post about using LibreOffice Writer v26.2.1 as a WYSIWYG Markdown editor. In it I go over
         formatting a table. What was made easy and a two challenges I ran into (frontmatter
         and code fences). It was a positive experience and I think I will be using LibreOffice
         more as a result of the Markdown feature that arrived in version 26.2.
@@ -28,7 +63,7 @@ dateCreated: &#34;2026-03-27&#34;
 dateModified: &#34;2026-03-27&#34;
 datePublished: &#34;2026-03-27&#34;
 description: |
-    A post about using LibreOffice Writer as a WYSIWYG Markdown editor. In it I go over
+    A post about using LibreOffice Writer v26.2.1 as a WYSIWYG Markdown editor. In it I go over
     formatting a table. What was made easy and a two challenges I ran into (frontmatter
     and code fences). It was a positive experience and I think I will be using LibreOffice
     more as a result of the Markdown feature that arrived in version 26.2.
@@ -46,7 +81,7 @@ title: LibreOffice Writer and Markdown
 
 # LibreOffice Writer and Markdown
 
-By R. S. Doiel, 2026-03-27
+By R. S. Doiel, 2026-03-27 (updated 2026-03-30)
 
 In the v26.2 release LibreOffice Writer picked up a new superpower.  Writer now supports reading and writing Markdown. This means we have all the power of a full blown word process and the simplicity of working with Markdown documents. This is true whether you running macOS, Windows, Linux or Raspberry Pi OS as I do. The official help documentation can be found here, &#60;https://help.libreoffice.org/latest/en-US/text/swriter/guide/markdown.html&#62;. Opening a Markdown document is as easy as File → Open then pick your Markdown document to edit. Saving to Markdown is just a mater of picking that document format.
 
@@ -62,12 +97,14 @@ Let me give a table a try. Ctrl-F12 or the table icon on the menu bar will let m
 
 So that was an empty 3x3 table. If I look at the source for this file it looks like correctly format Markdown. Here’s the text in a “*Preformatted Text*” style NOTE: I pasted in the text, then selected it and set the style. You can find the “*Preformatted Text*” style under the style pull down then clicking on “more styles”. This cause a panel to appear on the right side of the editing window.  The style is towards the bottom of the list. Here’s the Markdown.
 
-```Markdown
+~~~Markdown
+
 |  |  |  |  
 | - | - | - |  
 |  |  |  |  
 |  |  |  |
-```
+
+~~~
 
 (NOTE: I reset to the default style before continuing). Let’s give that a try putting in some content. I well make the first row have the column heading style then following rows use the table content style
 
@@ -95,12 +132,14 @@ Adding rows at the bottom is a matter of hitting the return key in the last cell
 
 Format table done. Let’s take a look and see that that looks in *Preformatted Text* style.
 
-```Markdown
+~~~Markdown
+
 | **Column One Heading** | **Column Two Heading** | **Column Three Heading** |  
 | - | :-: | -: |  
 | One | Two | Three |  
 | Four | Five | Six |
-```
+
+~~~
 
 Yep, that looks like slightly more advanced Markdown table.
 
@@ -110,7 +149,9 @@ Where things will get interesting is finding the right spot for LibreOffice Writ
 
 ## Closing thoughts
 
-This is the first release with Markdown support. It has some bugs and issues I&#39;ve discovered using it to write this post.
+Version 26.2 brought Markdown support to LibreOffice. The version used in this post is v26.2.1[^0]. It has some bugs and issues I&#39;ve discovered using it to write this post.
+
+[^0]: The current release as I type this update is 26.2.2, I think some of the bugs have been fixed.
 
 First issue is specific to blogging. In blogging I use [frontmatter](https://www.markdownlang.com/advanced/frontmatter.html) to include metadata in my posts. Writer doesn’t understand it. In fact it mangles it if you read in a Markdown document with it then save the results back to Markdown. So when I use LibreOffice Writer it&#39;ll be in my workflow before I add any metadata to the Markdown post.
 
@@ -127,7 +168,7 @@ These are small issues[^2]. There have been fewer problems than I would expect o
 Writer shines is in its maturity as a word processor that can now work with Markdown documents. All the nice word processor features are there, spell check, thesaurus, document statistics. I suspect I will use Writer more in the coming year than I have in the decade plus since I finished grad school. With LibreOffice Writer I can harmonize my writing tools and let the written documents remain in a simple flexible format. Now it’s time to re-learn Writer and move beyond hunt and click. May even be time to start reading it&#39;s source code.
 
 [^2]: In the end I addressed these in my text editor as I previewed content converted to HTML.</source:markdown>
-      <enclosure url="https://rsdoiel.github.io/blog/2026/03/27/libreoffice_writer_and_markdown.md" length="9329" type="text/markdown" />
+      <enclosure url="https://rsdoiel.github.io/blog/2026/03/27/libreoffice_writer_and_markdown.md" length="9514" type="text/markdown" />
     </item>    <item>
       <title>Markdown &#38; Frontmatter: Taking Text Further</title>
       <link>https://rsdoiel.github.io/blog/2026/03/04/markdown_and_frontmatter.html</link>
