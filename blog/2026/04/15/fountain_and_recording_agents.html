@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.24-rc1" >
+  <meta name="date" content="2026-04-15T17:25:12-07:00" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="EN" name="language" >
+  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="fountain_and_recording_agents.md" rel="altenate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+</head>
+<body>
+  <nav>
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <article data-published="2026-04-15" data-link="https://rsdoiel.github.io/blog/2026/04/15/fountain_and_recording_agents.html">
+      <h1>Fountain and recording agents</h1>
+      <p>By R. S. Doiel, 2026-04-15</p>
+      <p>I was working on a personal project inspired by a class I am taking. I wanted to create a agent named Harvey in Go that would work with both local language models run by Ollama and with <a href="https://publicai.co">publicai.co</a> if that was available. The LLM chat bot was the easy bit. It was while debugging the agent mode that I realized it would be helpful to have a recording of the conversation between the parties, Harvey, the Model and myself. First pass was to have the recorder write out a Markdown document structured like a report. That wasn't really ideal at all. Similarly a steam of conversation wasn't quite right either. It was very hard to know who was typing or doing. Then it occurred to me that an agent interaction is really structured like a screenplay. A screenplay <strong>shows</strong> you whats happening by building around the structure of scenes, actors, dialog and action. Throw in some timestamps and you have a pretty good idea of who did what, when and how.</p>
+      <p>Epiphany! <a href="https://fountain.io">Fountain</a> markup is for screenplays. It is easy to read as plain text and can be evaluated later to find problems. It describes how the agents, humans and LLM interact. It has all the right bits. I guess those humanities classes payed off nicely today.</p>
+      <p>Now when I test my agent named Harvey, I record the interaction and can go back and read the screenplay version of the interactions. It's really helpful even if it will not likely result in an actual movie.</p>
+      
+    </article>
+  </section>
+  <footer>
+    <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>
