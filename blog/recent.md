@@ -5,6 +5,7 @@ title: "Robert's ramblings"
 ### Recent Posts
 
 
+- [Libraries and Archives, a Natural Home for Language Models](/blog/2026/04/25/a_natural_home_for_language_models.html), 2026-04-25
 - [Fountain and recording agents](/blog/2026/04/15/fountain_and_recording_agents.html), 2026-04-15
 - [LibreOffice Writer and Markdown](/blog/2026/03/27/libreoffice_writer_and_markdown.html), 2026-03-27
 - [Markdown & Frontmatter: Taking Text Further](/blog/2026/03/04/markdown_and_frontmatter.html), 2026-03-04
