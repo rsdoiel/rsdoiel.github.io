@@ -227,3 +227,32 @@ img.blog-logo {
   display: inline-block; /* Ensure the image behaves like inline text */
   background: inherit;
 }
+
+
+a.visually-hidden:focus {
+    position: static;
+    display: block;
+    width: 9rem;
+    height: 1rem;
+    margin: 5px;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    padding: 0.5rem 1rem;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+a.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
