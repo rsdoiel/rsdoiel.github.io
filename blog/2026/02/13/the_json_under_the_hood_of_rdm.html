@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta name="date" content="2026-03-04T15:38:47-08:00" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
+  <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="the_json_under_the_hood_of_rdm.md" rel="altenate" type="text/markdown" >
+  <link href="the_json_under_the_hood_of_rdm.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
   <link href="/css/site.css" rel="stylesheet" type="text/css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,24 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2026-02-13" data-link="https://rsdoiel.github.io/blog/2026/02/13/the_json_under_the_hood_of_rdm.html">
+      <hr>
+      <p>author: R. S. Doiel
+      dateCreated: &quot;2026-02-13&quot;
+      dateModified: &quot;2026-02-13&quot;
+      datePublished: &quot;2026-02-13&quot;
+      description: |
+      A step by step for form URLs to retrieve JSON metadata from Invenio RDM and Zenodo.
+      keywords:
+      - Invenio RDM
+      - JSON
+      - curl
+      - jq
+      - metadata
+      postPath: blog/2026/02/13/the_json_under_the_hood_of_rdm.md
+      title: The JSON under the hood of RDM</p>
+      <hr>
       <h1>The JSON under the hood of RDM</h1>
       <p>By R. S. Doiel, 2026-02-13</p>
       <p>In my day job I work allot of library and archival repository software. The current favorite is <a href="https://inveniordm.docs.cern.ch/">Invenio RDM</a>. Compared to some other repository systems like <a href="https://https://en.wikipedia.org/wiki/EPrints">EPrints</a> and<a href="https://en.wikipedia.org/wiki/DSpace">DSpace</a> I think RDM is a large step in the right direction.  One thing I really like about both RDM and EPrints is their the RESTful API. It makes it trivial to retrieve records as structured text. In the case of RDM that structure is expressed as JSON (very convenient). All you need to know is how to modify the HTML version URL into the version where you see the structured metadata.</p>
@@ -93,7 +110,7 @@
       <p>There you have it. You can now retrieve a record or list or records as JSON from Invenio RDM repositories.</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta content="2026-03-04T15:38:46-08:00" name="date" >
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Portable-Conversions-Integers.md" rel="altenate" >
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Portable-Conversions-Integers.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,34 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2021-11-26" data-link="https://rsdoiel.github.io/blog/2021/11/26/Portable-Conversions-Integers.html">
+      <hr>
+      <p>abstract: |
+      An area in working with Oberon-07 on a POSIX machine that has proven problematic is type conversion. In particular converting to and from INTEGER or REAL and ASCII.  None of the three compilers I am exploring provide a common way of handling this. I've explored relying on C libraries but that approach has it's own set of problems.  I've become convinced a better approach is a pure Oberon-07 library that handles type conversion with a minimum of assumptions about the implementation details of the Oberon compiler or hardware. I'm calling my conversion module &quot;Types&quot;. The name is short and descriptive and seems an appropriate name for a module consisting of type conversion tests and transformations.  My initial implementation will focusing on converting integers to and from ASCII.</p>
+      <pre><code>...
+      </code></pre>
+      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
+      copyright: copyright (c) 2021, R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2021
+      date: &quot;2021-11-26&quot;
+      dateCreated: &quot;2021-11-26&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2021-11-26&quot;
+      keywords:
+      - Oberon
+      - Modules
+      - Types
+      - conversion
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      number: 21
+      postPath: blog/2021/11/26/Portable-Conversions-Integers.md
+      series: |
+      Mostly Oberon
+      seriesNo: 19
+      title: Portable Conversions (Integers)</p>
+      <hr>
       <h1>Portable conversions (Integers)</h1>
       <p>By R. S. Doiel, 2021-11-26</p>
       <p>An area in working with Oberon-07 on a POSIX machine that has proven problematic is type conversion. In particular converting to and from INTEGER or REAL and ASCII.  None of the three compilers I am exploring provide a common way of handling this. I've explored relying on C libraries but that approach has it's own set of problems.  I've become convinced a better approach is a pure Oberon-07 library that handles type conversion with a minimum of assumptions about the implementation details of the Oberon compiler or hardware. I'm calling my conversion module &quot;Types&quot;. The name is short and descriptive and seems an appropriate name for a module consisting of type conversion tests and transformations.  My initial implementation will focusing on converting integers to and from ASCII.</p>
@@ -350,7 +377,7 @@
       </ul>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

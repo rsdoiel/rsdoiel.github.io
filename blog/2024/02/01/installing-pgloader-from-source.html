@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta name="date" content="2026-03-04T15:38:46-08:00" >
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
   <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="installing-pgloader-from-source.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
-  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
-  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,48 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2024-02-01" data-link="https://rsdoiel.github.io/blog/2024/02/01/installing-pgloader-from-source.html">
+      <hr>
+      <p>abstract: |
+      I'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.</p>
+      <pre><code>## Getting your Lisps in order
+      
+      pgloader is written in common list but the instructions at https://pgloader.readthedocs.io/en/latest/install.html specifically mention compiling with [SBCL](https://sbcl.org) which is one of the Lisps I've used in the past. But SBCL isn't (yet) installed on my machine and SBCL is usually compiled using SBCL but can be compiled using other common lists.  Enter [ECL](https://ecl.common-lisp.dev/), aka Embedded Common-Lisp. ECL compiles via a C compiler including the funky setup that macOS has. This means the prep for my machine should look something like
+      
+      1. Compile then install ECL
+      2. Use ECL to compile SBCL
+      3. Install SBCL
+      4. Now that we have a working SBCL, follow the instructions to compile pgloader and install
+      
+      NOTE: pgloader requires some specific configuration of SBCL when SBCL is compiled
+      
+      ...
+      </code></pre>
+      <p>author: R. S. Doiel
+      byline: R. S. Doiel, 2024-02-01
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2024
+      dateCreated: &quot;2024-02-01&quot;
+      dateModified: &quot;2025-07-23&quot;
+      datePublished: &quot;2024-02-01&quot;
+      keywords:
+      - SQL
+      - Postgres
+      - PostgreSQL
+      - MySQL
+      - pgloader
+      - lisp
+      - macos
+      - ecl
+      - sbcl
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      number: 6
+      postPath: blog/2024/02/01/installing-pgloader-from-source.md
+      series: SQL Reflections
+      seriesNo: 6
+      title: Installing pgloader from source</p>
+      <hr>
       <h1>Installing pgloader from source</h1>
       <p>By R. S. Doiel, 2024-02-01</p>
       <p>I'm working on macOS at the moment but I don't use Home Brew so the instructions to install pgloader are problematic for me. Except I know pgloader is a Lisp program and once upon a time I had three different Lisps running on a previous Mac.  So what follows is my modified instructions for bringing pgloader up on my current Mac Mini running macOS Sonoma 14.3 with Xcode already installed.</p>
@@ -136,7 +177,7 @@
       , &quot;PostgreSQL&quot;</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

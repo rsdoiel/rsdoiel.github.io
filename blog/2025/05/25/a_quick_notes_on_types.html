@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta name="date" content="2026-03-04T15:38:47-08:00" >
+  <meta content="antenna/0.0.24b" name="generator" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
   <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="a_quick_notes_on_types.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,32 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2025-05-25" data-link="https://rsdoiel.github.io/blog/2025/05/25/a_quick_notes_on_types.html">
+      <hr>
+      <p>abstract: |
+      Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, <code>typeof</code>. This works nicely for simple types like <code>string</code>, <code>boolean</code>, <code>number</code> but is  less useful when compared to a class or interface name of a data structure.</p>
+      <pre><code>There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following
+      the value `VARIABLE_OR_CONSTANT` would be replaced with the object you are querying for type metadata)
+      
+      ...
+      </code></pre>
+      <p>author: R. S. Doiel
+      byline: R. S. Doiel, 2025-05-25
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2025
+      dateCreated: &quot;2025-05-25&quot;
+      dateModified: &quot;2025-07-23&quot;
+      datePublished: &quot;2025-05-25&quot;
+      keywords:
+      - TypeScript
+      - Deno
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2025/05/25/a_quick_notes_on_types.md
+      series: Deno+TypeScript
+      seriesNo: 3
+      title: A quick note on types in Deno+TypeScript</p>
+      <hr>
       <h1>A quick note on types in Deno+TypeScript</h1>
       <p>Understanding the plumbing of a program that is built with Deno in TypeScript can be challenging if you can't identify the type of variables or constants.  TypeScript inherits the JavaScript function, <code>typeof</code>. This works nicely for simple types like <code>string</code>, <code>boolean</code>, <code>number</code> but is  less useful when compared to a class or interface name of a data structure.</p>
       <p>There are three approaches I've found helpful in my exploration of type metadata when working with Deno+TypeScript. (NOTE: in the following
@@ -62,7 +87,7 @@
       </code></pre>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

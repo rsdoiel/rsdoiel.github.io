@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta content="2026-03-04T15:38:47-08:00" name="date" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
   <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="working_with_structured_data.md" >
-  <link href="/css/site.css" rel="stylesheet" type="text/css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,27 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2025-02-03" data-link="https://rsdoiel.github.io/blog/2025/02/03/working_with_structured_data.html">
+      <hr>
+      <p>abstract: |
+      A short discourse on working with structured data in TypeScript and easily
+      converting from JSON, YAML and XML representations.
+      author: R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2025
+      createDate: 2025-02-03T00:00:00Z
+      dateCreated: &quot;2025-02-03&quot;
+      dateModified: &quot;2025-07-23&quot;
+      datePublished: &quot;2025-02-03&quot;
+      keywords:
+      - Deno
+      - TypeScript
+      - Structured Data
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2025/02/03/working_with_structured_data.md
+      title: Working with Structured Data in Deno and TypeScript</p>
+      <hr>
       <h1>Working with Structured Data in Deno and TypeScript</h1>
       <p>One of the features in Go that I miss in TypeScript is Go's <a href="https://en.wikipedia.org/wiki/Domain-specific_language" title="Domain Specific Language">DSL</a> for expressing data representations.  Adding JSON, YAML and XML support in Go is simple. Annotating a struct with a string expression. There is no equivalent feature in TypeScript. How do easily support multiple representations in TypeScript?</p>
       <p>Let's start with JSON. TypeScript has <code>JSON.stringify()</code> and <code>JSON.parse()</code>. So getting to JSON representation is trivial, just call the stringify method. Going from text to populated object is done with <code>JSON.parse</code>. But there is a catch.</p>
@@ -143,7 +163,7 @@
       from the attributes of the object expressed as JSON, YAML, or XML strings. I like this approach because I can add validation and normalization in my &quot;fromObject&quot; method and use for any parse method that confirms to how JSON, YAML or XML parse works. The coding cost is the &quot;ObjectParseType&quot; type definition and the &quot;parseWith&quot; method boiler plate and defining a class specific &quot;fromObject&quot;. Supporting new representations does require changes to my class definition at all.</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

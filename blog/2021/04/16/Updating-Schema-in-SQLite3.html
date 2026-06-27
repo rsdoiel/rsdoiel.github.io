@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta content="2026-03-04T15:38:46-08:00" name="date" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
   <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Updating-Schema-in-SQLite3.md" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,44 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2021-04-16" data-link="https://rsdoiel.github.io/blog/2021/04/16/Updating-Schema-in-SQLite3.html">
+      <hr>
+      <p>abstract: |<a href="https://sqlite.org/docs.html">SQLite3</a> is a handy little
+      database as single file tool.  You can interact with the file
+      through largely standard SQL commands and embed it easily into
+      applications via the C libraries that the project supports.
+      It is also available from various popular scripting languages
+      like Python, PHP, and Lua. One of the things I occasionally
+      need to do and always seems to forget it how to is modify a
+      table schema where I need to remove a column. So here are
+      some of the basics do I can quickly find them later and avoid
+      reading various articles tutorials because the search engines
+      doesn't return the page in the SQLite documentation.</p>
+      <pre><code>In the next sections I'll be modeling a simple person object
+      with a id, uname, display_name, role and updated fields.
+      
+      ...
+      </code></pre>
+      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
+      copyright: copyright (c) 2021, R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2021
+      date: &quot;2021-04-16&quot;
+      dateCreated: &quot;2021-04-16&quot;
+      dateModified: &quot;2025-07-23&quot;
+      datePublished: &quot;2021-04-16&quot;
+      keywords:
+      - SQLite
+      - SQL
+      - database
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      number: 1
+      postPath: blog/2021/04/16/Updating-Schema-in-SQLite3.md
+      series: SQL Reflections
+      seriesNo: 1
+      title: Updating Schema in SQLite3</p>
+      <hr>
       <h1>Updating Schema in SQLite3</h1>
       <p>By R. S. Doiel, 2020-04-16</p>
       <p><a href="https://sqlite.org/docs.html">SQLite3</a> is a handy little
@@ -99,7 +136,7 @@
       </div>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

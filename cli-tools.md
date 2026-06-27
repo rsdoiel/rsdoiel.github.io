@@ -12,9 +12,8 @@
 
 ### Language Model Systems
 
-- [Harvey](harvey) - A scholarly agent repl integrating [Llamafile](https://www.mozilla.ai/open-tools/llamafile) and [Ollama](https://ollama.com) language model services
-- [Henry](henry) - A small factory for generating LLamafile files from HuggingFace.co hosted models
-
+- [Harvey](https://rsdoiel.github.io/harvey) - A scholarly agent integrating [Llamafile](https://www.mozilla.ai/open-tools/llamafile) and [Ollama](https://ollama.com) language model services
+- [Henry](https://rsdoiel.github.io/henry) - A small factory for generating LLamafile files from HuggingFace.co hosted models
 
 ### Additional text rendering/formatting tools
 

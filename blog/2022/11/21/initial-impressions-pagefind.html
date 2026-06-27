@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta name="date" content="2026-03-04T15:38:46-08:00" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="initial-impressions-pagefind.md" >
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="initial-impressions-pagefind.md" rel="altenate" type="text/markdown" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,36 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2022-11-21" data-link="https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html">
+      <hr>
+      <p>abstract: |
+      I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>
+      <pre><code>Pagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).
+      
+      Here's the steps I took to bring Pagefind up on my M1 Mac.
+      
+      ...
+      </code></pre>
+      <p>author: <a href="mailto:rsdoiel@sdf.org">rsdoiel@sdf.org</a> (R. S. Doiel)
+      byline: R. S. Doiel, 2022-11-21
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2022
+      dateCreated: &quot;2022-11-21&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2022-11-21&quot;
+      keywords:
+      - site search
+      - pagefind
+      - rust
+      - cargo
+      - rustup
+      - M1
+      - macOS
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2022/11/21/initial-impressions-pagefind.md
+      title: Initial Impressions of Pagefind</p>
+      <hr>
       <h1>Initial Impression of Pagefind</h1>
       <p>By R. S. Doiel, 2022-11-21</p>
       <p>I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>
@@ -76,7 +105,7 @@
       </div>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

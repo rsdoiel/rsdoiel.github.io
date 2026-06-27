@@ -2,8 +2,9 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.23-dev" name="generator" >
-  <meta name="date" content="2026-03-04T15:38:46-08:00" >
+  <meta content="antenna/0.0.24b" name="generator" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
@@ -11,12 +12,12 @@
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,29 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2022-08-26" data-link="https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html">
+      <hr>
+      <p>abstract: &quot;This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include <code>jane.doe</code> is in the sudo group\n- <code>jane.doe</code> is the one logged in and installing Postgres for machine wide use\n- <code>jane.doe</code> will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add <code>jane.doe</code> user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n...\n&quot;
+      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel
+      byline: R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2022
+      daft: true
+      dateCreated: &quot;2022-08-26&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2022-08-26&quot;
+      keywords:
+      - Postgres
+      - SQL
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      number: 4
+      postPath: blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.md
+      pubDate: 2022-08-26T00:00:00Z
+      series: SQL Reflections
+      seriesNo: 4
+      title: Postgres 14 on Ubuntu 22.04 LTS</p>
+      <hr>
       <h1>Postgres 14 on Ubuntu 22.04 LTS</h1>
       <p>by R. S. Doiel, 2022-08-26</p>
       <p>This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe).</p>
@@ -66,7 +88,7 @@
       <p>NOTE: This post is a distilation of what I learned from reading Digital Ocean's <a href="https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart">How To Install PostgreSQL on Ubuntu 22.04 [Quickstart]</a>, April 25, 2022 by Alex Garnett.</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

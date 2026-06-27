@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.23-dev" name="generator" >
-  <meta name="date" content="2026-03-04T15:38:46-08:00" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
+  <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
   <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="enhanced_form_handling.md" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,24 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2024-02-23" data-link="https://rsdoiel.github.io/blog/2024/02/23/enhanced_form_handling.html">
+      <hr>
+      <p>abstract: &quot;I wish the form element supported a <code>application/json</code> encoding type and there was such a thing as a <code>list-input</code> element.\n\nI've been thinking about how we can get back to basic HTML documents and move away from JavaScript required to render richer web forms. When web forms arrived on scene in the early \n1990s they included a few basic input types. Over the years a few have been added but by and large the data model has remained relatively flat. The exception being the select \nelement with <code>multiple</code> attribute set. I believe we are being limited by the original choice of urlencoding web forms and then resort to JavaScript to address it's limitations.\n\nWhat does the encoding of a web form actually look like?  The web generally encodes the form using urlencoding. It presents a stream of key value pairs where the keys are the form's \ninput names and the values are the value of the input element. With a multi-select element the browser simply repeats the key and adds the next value in the selection list to that \nkey.  In Go you can describe this simple data structure as a <code>map[string][]string</code>. Most of the time a key points to a single element array of string but sometimes it can have \nmultiple elements using that key and then the array expands to accommodate. Most of the time we don't think about this as web developers. The library provided with your programming \nlanguage decodes the form into a more programmer friendly representation. But still I believe this simple urlencoding has held us back. Let me illustrate the problem through a \nseries of simple form examples.\n\nHere's an example of a simple form with a multi select box. It is asking for your choice of ice cream flavors.\n\n...\n&quot;
+      author: R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2024
+      dateCreated: &quot;2024-02-23&quot;
+      dateModified: &quot;2025-07-23&quot;
+      datePublished: &quot;2024-02-23&quot;
+      keywords:
+      - html
+      - web forms
+      - encoding
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2024/02/23/enhanced_form_handling.md
+      title: Two missing features from HTML5, an enhanced form.enctype and a list input type</p>
+      <hr>
       <h1>Two missing features from HTML5, an enhanced form.enctype and a list input type</h1>
       <h2>Robert's wish list for browsers and web forms handling</h2>
       <p>By R. S. Doiel, 2024-02-23</p>
@@ -164,7 +181,7 @@
       </div>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta name="date" content="2026-03-04T15:38:45-08:00" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
+  <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="go-bleve-and-libraries.md" >
+  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="go-bleve-and-libraries.md" rel="altenate" type="text/markdown" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,32 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2018-02-19" data-link="https://rsdoiel.github.io/blog/2018/02/19/go-bleve-and-libraries.html">
+      <hr>
+      <p>abstract: |
+      In 2016, Stephen Davison, asked me, &quot;Why use Go and Blevesearch for
+      our library projects?&quot; After our conversation I wrote up some notes so
+      I would remember. It is now 2018 and I am revising these notes. I
+      think our choice paid off.  What follows is the current state of my
+      reflection on the background, rational, concerns, and risk mitigation
+      strategies so far for using <a href="https://golang.org">Go</a> and<a href="https://blevesearch.com">Blevesearch</a> for Caltech Library projects.
+      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
+      copyright: copyright (c) 2018, R. S. Doiel
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2018
+      date: &quot;2018-02-19&quot;
+      dateCreated: &quot;2018-02-19&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2018-02-19&quot;
+      keywords:
+      - Golang
+      - Bleve
+      - search
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2018/02/19/go-bleve-and-libraries.md
+      title: Go, Bleve and Library oriented software</p>
+      <hr>
       <h1>Go, Bleve and Library oriented software</h1>
       <p>By R. S. Doiel, 2018-02-19
       (updated: 2018-02-22)</p>
@@ -192,7 +217,7 @@
       similar to Python.</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

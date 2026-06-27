@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta content="2026-03-04T15:38:47-08:00" name="date" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="when_deno_when_go.md" rel="altenate" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="when_deno_when_go.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,28 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2024-12-06" data-link="https://rsdoiel.github.io/blog/2024/12/06/when_deno_when_go.html">
+      <hr>
+      <p>abstract: |
+      Brief discussion of when I choose Deno+TypeScript versus Go for work projects.
+      author: R. S. Doiel
+      byline: R. S. Doiel, 2024-11-06
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2024
+      createDate: 2024-11-06T00:00:00Z
+      dateCreated: &quot;2024-11-06&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2024-12-06&quot;
+      keywords:
+      - Go
+      - TypeScript
+      - Programming Languages
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2024/12/06/when_deno_when_go.md
+      pubDate: 2024-11-06T00:00:00Z
+      title: When Deno+TypeScript, when Go?</p>
+      <hr>
       <h1>When Deno+TypeScript, when Go?</h1>
       <p>By R. S. Doiel, 2024-11-06</p>
       <p>Last month I gave a <a href="https://caltechlibrary.github.io/cold/presentations/presentation1.html">presentation</a> on a project written in <a href="https://deno.com">Deno</a>+<a href="https://typescriptlang.org">TypeScript</a>. The project included code that needed to be shared server and browser side.  At the conclusion of my talk the question came up, &quot;When would I choose Go versus Deno+TypeScript for a project?&quot;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. The answer I came up with at the time was I would choose Deno+TypeScript when I needed to share code between server and browser. That was the question that had lead me to Deno in the first place. Deno+TypeScript shared many of the advantages of Go<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. I like writing in Go. The weak point in my Go based projects I thought was limited to porting Go code to JavaScript when I needed it run browser side. I went home and slept well that night. Since then I have been reflecting a little more on the question.</p>
@@ -89,7 +110,7 @@
       </div>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a

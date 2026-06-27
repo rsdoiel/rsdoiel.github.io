@@ -2,21 +2,22 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.23-dev" >
-  <meta content="2026-03-04T15:38:46-08:00" name="date" >
+  <meta name="generator" content="antenna/0.0.24b" >
+  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="thinking-about-gopher.md" rel="altenate" >
+  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="thinking-about-gopher.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
     <li><a href="/">R. S. Doiel</a></li>
@@ -34,8 +35,28 @@
     </ul>
   </nav>
 
-  <section>
+  <main id="main-content">
     <article data-published="2022-09-28" data-link="https://rsdoiel.github.io/blog/2022/09/28/thinking-about-gopher.html">
+      <hr>
+      <p>abstract: |
+      Last weekend I visited the <a href="gopher://gopher.floodgap.com" title="Floodgap is a good starting point for Gopher">Gophersphere</a> for the first time in a very long time. I'm happy to report it is still alive an active. It remains fast, lower resource consuming. This resulted in finding a Gopher protocol package in Go and adding light weight Gopher server to <a href="https://rsdoiel.github.io/pttk">pttk</a> my current vehicle for experimenting with plain text writing tools.</p>
+      <pre><code>I've been thinking allot this past half week about where to explore in Gopher. The biggest issue I ran into turned out to be easily solve. Gopher protocol is traditionally served over port 70 but if you're running a \*nix if you are just experimenting on localhost it is easier to use port 7000 (analogous to port 80 becoming 8000 or 8080 in the websphere). But some Gopher clients will only serve port 70. Two clients work very well at 7000 and they are Lynx (the trusty old console web browser) and one written in Rust called [ncgopher](https://github.com/jansc/ncgopher). The latter I find I use most of the time. It also supports Gemini sites though I am less interested in Gemini at the movement.  Gopher has a really nice sweet spot of straight forward implementation for both client and server. It would be a good exercise for moving from beginner to intermediate programming classes as you would be introducing network programming, a little parsing and the client server application models. It's a really good use case of looking back (Gopher is venerable in Internet age) and looking forward (a radical simplification of distributing readable material and related files).
+      
+      ...
+      </code></pre>
+      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
+      copyrightHolder: R. S. Doiel
+      copyrightYear: 2022
+      dateCreated: &quot;2022-09-28&quot;
+      dateModified: &quot;2025-07-22&quot;
+      datePublished: &quot;2022-09-28&quot;
+      keywords:
+      - Gopher
+      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
+      postPath: blog/2022/09/28/thinking-about-gopher.md
+      pubDate: 2022-09-28T00:00:00Z
+      title: Thinking about Gopher</p>
+      <hr>
       <h1>Thinking about Gopher</h1>
       <p>By R. S. Doiel, 2022-09-28</p>
       <p>Last weekend I visited the <a href="gopher://gopher.floodgap.com" title="Floodgap is a good starting point for Gopher">Gophersphere</a> for the first time in a very long time. I'm happy to report it is still alive an active. It remains fast, lower resource consuming. This resulted in finding a Gopher protocol package in Go and adding light weight Gopher server to <a href="https://rsdoiel.github.io/pttk">pttk</a> my current vehicle for experimenting with plain text writing tools.</p>
@@ -51,7 +72,7 @@
       <p>Client sites there are also many opportunities.  <a href="http://runtimeterror.com/tools/gopher/">Little Gopher Client</a> pulls out the selectors its finds into a nice tree (like a bookmark tree) in a left panel and puts the text in the main window.  ncgopher let's you easily bookmark things and has a very clean, easy on the eyes reading experience in the console. In principle you the client could look at the retrieved selector and choose to display different file types based on the file extension as well as the selector type retrieved. This would let you include a richer experience in the Gophersphere for light weight markup like Commonmark files while still running nicely on Gopher protocol. Lots of room to innovate because the protocol is simple, limited and stable after all these years.</p>
       
     </article>
-  </section>
+  </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
     href="/rssfeed.html">RSS</a> feeds and website built with <a
