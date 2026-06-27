@@ -10,6 +10,12 @@
 
 - [Antenna App](https://rsdoiel.github.io/antennaApp) - Build news sites, microblogs, blogs, and linkblogs with Markdown
 
+### Language Model Systems
+
+- [Harvey](harvey) - A scholarly agent repl integrating [Llamafile](https://www.mozilla.ai/open-tools/llamafile) and [Ollama](https://ollama.com) language model services
+- [Henry](henry) - A small factory for generating LLamafile files from HuggingFace.co hosted models
+
+
 ### Additional text rendering/formatting tools
 
 - [commonMarkDoc](https://rsdoiel.github.io/commonMarkDoc) - a TypeScript module for working with CommonMark documents
