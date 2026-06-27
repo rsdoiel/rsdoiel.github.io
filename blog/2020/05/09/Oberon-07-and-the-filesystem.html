@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.24b" name="generator" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Oberon-07-and-the-filesystem.md" >
+  <title>Oberon-07 and the file system</title>
+  <link rel="alternate" type="text/markdown" title="Oberon-07 and the file system" href="Oberon-07-and-the-filesystem.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
-  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="datePublished" content="2020-05-09">
+  <meta data-pagefind-filter="datePublished[content]" content="2020-05-09">
+  <meta name="keywords" content="Oberon">
+  <meta data-pagefind-filter="keywords[content]" content="Oberon">
+  <meta name="keywords" content="programming">
+  <meta data-pagefind-filter="keywords[content]" content="programming">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="series" content="Mostly Oberon">
+  <meta data-pagefind-filter="series[content]" content="Mostly Oberon">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,28 +50,6 @@
 
   <main id="main-content">
     <article data-published="2020-05-09" data-link="https://rsdoiel.github.io/blog/2020/05/09/Oberon-07-and-the-filesystem.html">
-      <hr>
-      <p>abstract: |+
-      This is the seventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>
-      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2020, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2020
-      date: &quot;2020-05-09&quot;
-      dateCreated: &quot;2020-05-09&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2020-05-09&quot;
-      keywords:
-      - Oberon
-      - programming
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 7
-      postPath: blog/2020/05/09/Oberon-07-and-the-filesystem.md
-      series: Mostly Oberon
-      seriesNo: 7
-      title: Oberon-07 and the file system
-      updated: &quot;2021-10-29&quot;</p>
-      <hr>
       <h1>Oberon-07 and the file system</h1>
       <p>By R. S. Doiel, 2020-05-09 (updated: 2021-10-29)</p>
       <p>This is the seventh post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.</p>

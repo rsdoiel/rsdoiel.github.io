@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.24b" name="generator" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="postgres-14-on-ubuntu-22.04-LTS.md" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <title>Postgres 14 on Ubuntu 22.04 LTS</title>
+  <link rel="alternate" type="text/markdown" title="Postgres 14 on Ubuntu 22.04 LTS" href="postgres-14-on-ubuntu-22.04-LTS.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2022-08-26">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-08-26">
+  <meta name="series" content="SQL Reflections">
+  <meta data-pagefind-filter="series[content]" content="SQL Reflections">
+  <meta name="keywords" content="Postgres">
+  <meta data-pagefind-filter="keywords[content]" content="Postgres">
+  <meta name="keywords" content="SQL">
+  <meta data-pagefind-filter="keywords[content]" content="SQL">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,27 +50,6 @@
 
   <main id="main-content">
     <article data-published="2022-08-26" data-link="https://rsdoiel.github.io/blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.html">
-      <hr>
-      <p>abstract: &quot;This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe). \n\nAssumptions\n\n- include <code>jane.doe</code> is in the sudo group\n- <code>jane.doe</code> is the one logged in and installing Postgres for machine wide use\n- <code>jane.doe</code> will want to work with her own database by default\n\nSteps\n\n1. Install Postgres\n2. Confirm installation\n3. Add <code>jane.doe</code> user providing access\n\nBelow is the commands I typed to run to complete the three steps.\n\n...\n&quot;
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel
-      byline: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      daft: true
-      dateCreated: &quot;2022-08-26&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-08-26&quot;
-      keywords:
-      - Postgres
-      - SQL
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 4
-      postPath: blog/2022/08/26/postgres-14-on-ubuntu-22.04-LTS.md
-      pubDate: 2022-08-26T00:00:00Z
-      series: SQL Reflections
-      seriesNo: 4
-      title: Postgres 14 on Ubuntu 22.04 LTS</p>
-      <hr>
       <h1>Postgres 14 on Ubuntu 22.04 LTS</h1>
       <p>by R. S. Doiel, 2022-08-26</p>
       <p>This is just a quick set of notes for working with Postgres 14 on an Ubuntu 22.04 LTS machine.  The goal is to setup Postgres 14 and have it available for personal work under a user account (e.g. jane.doe).</p>

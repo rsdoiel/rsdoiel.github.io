@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="revealing-pandoc-ast.md" rel="altenate" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <meta content="EN" name="language" >
+  <title>Revealing the Pandoc AST</title>
+  <link rel="alternate" type="text/markdown" title="Revealing the Pandoc AST" href="revealing-pandoc-ast.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="keywords" content="Pandoc">
+  <meta data-pagefind-filter="keywords[content]" content="Pandoc">
+  <meta name="keywords" content="filter">
+  <meta data-pagefind-filter="keywords[content]" content="filter">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2022-11-17">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-11-17">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="series" content="Pandoc Techniques">
+  <meta data-pagefind-filter="series[content]" content="Pandoc Techniques">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,25 +50,6 @@
 
   <main id="main-content">
     <article data-published="2022-11-17" data-link="https://rsdoiel.github.io/blog/2022/11/17/revealing-pandoc-ast.html">
-      <hr>
-      <p>abstract: &quot;I've used Pandoc for a number of years, probably a decade. It's been wonderful\nwatching it grow in capability. When Pandoc started accepting JSON documents as\na support metadata file things really started to click for me. Pandoc became\nmy go to tool for rendering content in my writing and documentation projects.\n\nRecently I've decided I want a little bit more from Pandoc. I've become curious\nabout prototyping some document conversion via Pandoc's filter mechanism. To do\nthat you need to understand the AST, aka abstract syntax tree. \nHow is the AST structure? \n\nIt turns out I just wasn't thinking simply enough (or maybe just not paying\nenough attention while I skimmed Pandoc's documentation). Pandoc's processing\nmodel looks like\n\n...\n&quot;
-      author: R. S. Doiel
-      copyright: copyright (c) 2022, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-11-17&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-11-17&quot;
-      keywords:
-      - Pandoc
-      - filter
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 4
-      postPath: blog/2022/11/17/revealing-pandoc-ast.md
-      series: Pandoc Techniques
-      seriesNo: 4
-      title: Revealing the Pandoc AST</p>
-      <hr>
       <h1>Revealing the Pandoc AST</h1>
       <p>I've used Pandoc for a number of years, probably a decade. It's been wonderful
       watching it grow in capability. When Pandoc started accepting JSON documents as

@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="building_cmarkprocess.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <title>Build a CommonMark Processor</title>
+  <link href="building_cmarkprocess.md" rel="alternate" type="text/markdown" title="Build a CommonMark Processor" >
   <link href="/css/site.css" rel="stylesheet" type="text/css" >
-  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="keywords" content="CommonMark">
+  <meta data-pagefind-filter="keywords[content]" content="CommonMark">
+  <meta name="keywords" content="Markdown">
+  <meta data-pagefind-filter="keywords[content]" content="Markdown">
+  <meta name="keywords" content="Front Matter">
+  <meta data-pagefind-filter="keywords[content]" content="Front Matter">
+  <meta name="dateModified" content="2025-07-28">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-28">
+  <meta name="datePublished" content="2025-07-26">
+  <meta data-pagefind-filter="datePublished[content]" content="2025-07-26">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,32 +50,6 @@
 
   <main id="main-content">
     <article data-published="2025-07-26" data-link="https://rsdoiel.github.io/blog/2025/07/26/building_cmarkprocess.html">
-      <hr>
-      <p>abstract: |
-      In this post I go over the process of building a TypeScript module called <code>commonMarkDoc.ts</code> along with a simple command line CommonMark processor called <code>cmarkprocess</code>.
-      CommonMark pre-processor features are</p>
-      <pre><code>  - support `@include-code-block` for including code samples as code blocks
-        - support `@include-text-block` for include plain text into a CommonMark document
-        - transform Hashtags into front matter
-        - transform @Tags into front matter
-      </code></pre>
-      <p>atTags:
-      - '@include'
-      author: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2025
-      dateCreated: &quot;2025-07-26&quot;
-      dateModified: &quot;2025-07-28&quot;
-      datePublished: &quot;2025-07-26&quot;
-      hashTags: []
-      keywords:
-      - CommonMark
-      - Markdown
-      - Front Matter
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2025/07/26/building_cmarkprocess.md
-      title: Build a CommonMark Processor</p>
-      <hr>
       <h1>Building a CommonMark Processor in Deno+TypeScript</h1>
       <p>By R. S. Doiel, 2025-07-26</p>
       <p>CommonMark and Markdown are easier to proof read and edit than HTML. CommonMark is a super set of John Grubber's original Markdown. It incorporates common practices and extensions to the original Markdown. I've found over the years the &quot;Markdown&quot; I type is really &quot;CommonMark&quot;. I use <a href="https://pandoc.org">Pandoc</a> for processing my CommonMark documents into HTML. There are a few transforms I'd like to make before I send the text off to Pandoc. That is what I'll be covering.</p>

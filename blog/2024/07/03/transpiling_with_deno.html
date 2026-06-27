@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="transpiling_with_deno.md" rel="altenate" >
+  <title>Transpiling with Deno</title>
+  <link href="transpiling_with_deno.md" rel="alternate" type="text/markdown" title="Transpiling with Deno" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="datePublished" content="2024-07-03">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-07-03">
+  <meta name="keywords" content="TypeScript">
+  <meta data-pagefind-filter="keywords[content]" content="TypeScript">
+  <meta name="keywords" content="JavaScript">
+  <meta data-pagefind-filter="keywords[content]" content="JavaScript">
+  <meta name="keywords" content="Deno">
+  <meta data-pagefind-filter="keywords[content]" content="Deno">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,32 +50,6 @@
 
   <main id="main-content">
     <article data-published="2024-07-03" data-link="https://rsdoiel.github.io/blog/2024/07/03/transpiling_with_deno.html">
-      <hr>
-      <p>abstract: |<a href="https://deno.land">Deno</a> is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the <a href="https://github.com/denoland/deno_emit/blob/main/js/README.md">deno_emit</a> module.  Let's say I have a TypeScript module called <code>hithere.ts</code>. I want to make it available as JavaScript so I can run it in a web browser. How do I use the <code>deno_emit</code> module to accomplish that?</p>
-      <pre><code>- Write a short TypeScript program
-        - include the transpiler module provided with emit
-        - use the transpiler to generate the JavaScript code
-        - output the JavaScript code
-      
-      Here's what `transpile.ts` might look like ...
-      </code></pre>
-      <p>author: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      created: 2024-07-03T00:00:00Z
-      dateCreated: &quot;2024-07-03&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-07-03&quot;
-      keywords:
-      - TypeScript
-      - JavaScript
-      - Deno
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/07/03/transpiling_with_deno.md
-      software:
-      - Deno &gt;= v1.44
-      title: Transpiling with Deno</p>
-      <hr>
       <h1>Transpiling with Deno</h1>
       <p><a href="https://deno.land">Deno</a> is a fun environment to work in for learning TypeScript.  As I have become comfortable writing server side TypeScript code I know I want to also be able to use some modules in JavaScript form browser side. The question is then how to you go from TypeScript to JavaScript easily with getting involved with a bunch-o-npm packages?  Turns the solution in deno is to use the <a href="https://github.com/denoland/deno_emit/blob/main/js/README.md">deno_emit</a> module.  Let's say I have a TypeScript module called <code>hithere.ts</code>. I want to make it available as JavaScript so I can run it in a web browser. How do I use the <code>deno_emit</code> module to accomplish that?</p>
       <ul>

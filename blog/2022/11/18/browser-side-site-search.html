@@ -2,21 +2,40 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="browser-side-site-search.md" rel="altenate" type="text/markdown" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <meta content="EN" name="language" >
+  <title>Browser based site search</title>
+  <link href="browser-side-site-search.md" rel="alternate" type="text/markdown" title="Browser based site search" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2022-11-18">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-11-18">
+  <meta name="keywords" content="search">
+  <meta data-pagefind-filter="keywords[content]" content="search">
+  <meta name="keywords" content="web browser">
+  <meta data-pagefind-filter="keywords[content]" content="web browser">
+  <meta name="keywords" content="dweb">
+  <meta data-pagefind-filter="keywords[content]" content="dweb">
+  <meta name="keywords" content="static site">
+  <meta data-pagefind-filter="keywords[content]" content="static site">
+  <meta name="keywords" content="lunrjs">
+  <meta data-pagefind-filter="keywords[content]" content="lunrjs">
+  <meta name="keywords" content="pagefind">
+  <meta data-pagefind-filter="keywords[content]" content="pagefind">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,32 +56,6 @@
 
   <main id="main-content">
     <article data-published="2022-11-18" data-link="https://rsdoiel.github.io/blog/2022/11/18/browser-side-site-search.html">
-      <hr>
-      <p>abstract: |
-      I recently read Brewster Kahle’s 2015 post about his vision for a <a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">distributed web</a>. Many of his ideas have carried over into <a href="https://wiki.mozilla.org/Dweb">DWeb</a>, <a href="https://indieweb.org/">Indie Web</a>, <a href="https://benhoyt.com/writings/the-small-web-is-beautiful/">Small Web</a>, <a href="https://cafebedouin.org/2021/07/28/the-small-internet/">Small Internet</a> and the like. A point he touches on is site search running in the web browser.</p>
-      <pre><code>I've use this approach in my own website relying on [LunrJS](https://lunrjs.com) by Oliver Nightingale. It is a common approach for small sites built using Markdown and [Pandoc](https://pandoc.org).  In the Brewster article he mentions [js-search](https://github.com/cebe/js-search), an implementation I was not familiar with. Like LunrJS the query engine runs in the browser via JavaScript but unlike LunrJS the indexes are built using PHP rather than JavaScript. The last couple of years I've used [Lunr.py](https://github.com/yeraydiazdiaz/lunr.py) to generating indexes for my own website site while using LunrJS for the browser side query engine. Today I check to see what the [Hugo](https://gohugo.io/tools/search/) community is using and found [Pagefind](https://github.com/cloudcannon/pagefind). Pagefind looks impressive. There was a presentation on at [Hugo Conference 2022](https://hugoconf.io/). It takes building a Lucene-like index several steps further. I appears to handle much larger indexes without requiring the full indexes to be downloaded into the browser.  It seems like a good candidate for prototyping personal search engine.
-      
-      ...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@sdf.org">rsdoiel@sdf.org</a> (R. S. Doiel)
-      byline: R. S. Doiel, 2022-11-18
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-11-18&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-11-18&quot;
-      keywords:
-      - search
-      - web browser
-      - dweb
-      - static site
-      - lunrjs
-      - pagefind
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2022/11/18/browser-side-site-search.md
-      pubDate: 2022-11-18T00:00:00Z
-      title: Browser based site search</p>
-      <hr>
       <h1>Browser based site search</h1>
       <p>By R. S. Doiel, 2022-11-18</p>
       <p>I recently read Brewster Kahle’s 2015 post about his vision for a <a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">distributed web</a>. Many of his ideas have carried over into <a href="https://wiki.mozilla.org/Dweb">DWeb</a>, <a href="https://indieweb.org/">Indie Web</a>, <a href="https://benhoyt.com/writings/the-small-web-is-beautiful/">Small Web</a>, <a href="https://cafebedouin.org/2021/07/28/the-small-internet/">Small Internet</a> and the like. A point he touches on is site search running in the web browser.</p>

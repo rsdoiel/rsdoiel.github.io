@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="cross-compiling-go.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <title>Cross compiling Go 1.8.3 for Pine64 Pinebook</title>
+  <link href="cross-compiling-go.md" rel="alternate" type="text/markdown" title="Cross compiling Go 1.8.3 for Pine64 Pinebook" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="keywords" content="Golang">
+  <meta data-pagefind-filter="keywords[content]" content="Golang">
+  <meta name="keywords" content="Pine64">
+  <meta data-pagefind-filter="keywords[content]" content="Pine64">
+  <meta name="keywords" content="ARM">
+  <meta data-pagefind-filter="keywords[content]" content="ARM">
+  <meta name="datePublished" content="2017-06-16">
+  <meta data-pagefind-filter="datePublished[content]" content="2017-06-16">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,25 +50,6 @@
 
   <main id="main-content">
     <article data-published="2017-06-16" data-link="https://rsdoiel.github.io/blog/2017/06/16/cross-compiling-go.html">
-      <hr>
-      <p>abstract: |
-      This is a post on setting cross compilation for a Pine64 Pinebook.
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2016, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2017
-      date: &quot;2016-06-16&quot;
-      dateCreated: &quot;2017-06-16&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2017-06-16&quot;
-      keywords:
-      - Golang
-      - Pine64
-      - ARM
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2017/06/16/cross-compiling-go.md
-      title: Cross compiling Go 1.8.3 for Pine64 Pinebook</p>
-      <hr>
       <h1>Cross compiling Go 1.8.3 for Pine64 Pinebook</h1>
       <p>By R. S. Doiel 2017-06-16</p>
       <p>Pine64's Pinebook has a 64-bit Quad-Core ARM Cortex A53 which is

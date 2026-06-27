@@ -2,21 +2,42 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="initial-impressions-pagefind.md" rel="altenate" type="text/markdown" >
+  <title>Initial Impressions of Pagefind</title>
+  <link rel="alternate" type="text/markdown" title="Initial Impressions of Pagefind" href="initial-impressions-pagefind.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta name="datePublished" content="2022-11-21">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-11-21">
+  <meta name="keywords" content="site search">
+  <meta data-pagefind-filter="keywords[content]" content="site search">
+  <meta name="keywords" content="pagefind">
+  <meta data-pagefind-filter="keywords[content]" content="pagefind">
+  <meta name="keywords" content="rust">
+  <meta data-pagefind-filter="keywords[content]" content="rust">
+  <meta name="keywords" content="cargo">
+  <meta data-pagefind-filter="keywords[content]" content="cargo">
+  <meta name="keywords" content="rustup">
+  <meta data-pagefind-filter="keywords[content]" content="rustup">
+  <meta name="keywords" content="M1">
+  <meta data-pagefind-filter="keywords[content]" content="M1">
+  <meta name="keywords" content="macOS">
+  <meta data-pagefind-filter="keywords[content]" content="macOS">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,34 +58,6 @@
 
   <main id="main-content">
     <article data-published="2022-11-21" data-link="https://rsdoiel.github.io/blog/2022/11/21/initial-impressions-pagefind.html">
-      <hr>
-      <p>abstract: |
-      I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>
-      <pre><code>Pagefind is a [rust](https://www.rust-lang.org/) application build using `cargo` and `rustc`. Unlike the documentation on the [Pagefind](https://pagefind.app) website which suggests installing via `npm` and `npx` I recommend installing it from sources using the latest release of cargo/rustic.  For me I found getting the latest cargo/rustc is easiest using [rustup](https://rustup.rs/). Pagefind will not compile using older versions of cargo/rustc (e.g. the example currently available from Mac Ports for M1 Macs).
-      
-      Here's the steps I took to bring Pagefind up on my M1 Mac.
-      
-      ...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@sdf.org">rsdoiel@sdf.org</a> (R. S. Doiel)
-      byline: R. S. Doiel, 2022-11-21
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-11-21&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-11-21&quot;
-      keywords:
-      - site search
-      - pagefind
-      - rust
-      - cargo
-      - rustup
-      - M1
-      - macOS
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2022/11/21/initial-impressions-pagefind.md
-      title: Initial Impressions of Pagefind</p>
-      <hr>
       <h1>Initial Impression of Pagefind</h1>
       <p>By R. S. Doiel, 2022-11-21</p>
       <p>I'm interested in site search that does not require using server side services (e.g. Solr/Elasticsearch/Opensearch). I've used <a href="https://lunrjs.com">LunrJS</a> on my person blog site for several years.  The challenge with LunrJS is indexes become large and that limits how much your can index and still have a quick loading page. <a href="https://pagefind.app">Pagefind</a> addresses the large index problem. The search page only downloads the portion of the indexes it needs. The index and search functionality are compiled down to WASM files. This does raise challenges if you're targeting older web browsers.</p>

@@ -9,7 +9,9 @@ title : "Search"
 <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 
+<pagefind-config faceted preload></pagefind-config>
 <pagefind-input placeholder="Search…"></pagefind-input>
+<pagefind-filter-pane></pagefind-filter-pane>
 <pagefind-summary></pagefind-summary>
 <pagefind-results></pagefind-results>
 

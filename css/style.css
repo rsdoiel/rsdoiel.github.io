@@ -121,6 +121,13 @@ main, section, article {
     margin-bottom: 0.24em;
 }
 
+main > section,
+main > article {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
 section h1 {
     padding-top: 1.24em;
     margin-block: 0.67em;
@@ -218,13 +225,13 @@ header blockquote {
 }
 
 img.blog-logo {
-  max-height: 2.0em; /* Set the maximum height to that of one line of text */
-  height: auto; /* Allow the height to adjust based on the width, maintaining aspect ratio */
-  width: auto; /* Allow the width to adjust based on the height */
-  padding: 0; /* Remove any padding */
-  margin: 0; /* Remove any margin */
-  vertical-align: bottom; /* Align the image vertically with the text */
-  display: inline-block; /* Ensure the image behaves like inline text */
+  max-height: 2.0em;
+  height: auto;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  vertical-align: bottom;
+  display: inline-block;
   background: inherit;
 }
 

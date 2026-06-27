@@ -8,7 +8,7 @@ postPath: blog/2025/11/17/text_fragment_links_a_social_expression.md
 description:
     An exploration of picking up text fragment links in a Markdown document
     as a means of generating "comment on" feeds.
-keyword:
+keywords:
   - text fragment URLs
   - web
   - feeds

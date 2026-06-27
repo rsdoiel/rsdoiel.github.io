@@ -2,21 +2,32 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta content="2026-06-27T11:13:06-07:00" name="date" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="quick-recipe-compiling-PostgREST-M1.md" >
+  <title>Quick recipe, compiling PostgREST (M1)</title>
+  <link type="text/markdown" title="Quick recipe, compiling PostgREST (M1)" href="quick-recipe-compiling-PostgREST-M1.md" rel="alternate" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
-  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="datePublished" content="2023-07-05">
+  <meta data-pagefind-filter="datePublished[content]" content="2023-07-05">
+  <meta name="keywords" content="PostgREST">
+  <meta data-pagefind-filter="keywords[content]" content="PostgREST">
+  <meta name="keywords" content="M1">
+  <meta data-pagefind-filter="keywords[content]" content="M1">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,38 +48,6 @@
 
   <main id="main-content">
     <article data-published="2023-07-05" data-link="https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.html">
-      <hr>
-      <p>abstract: |
-      These are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.</p>
-      <pre><code>1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)
-          a. Use the curl example command to install it
-          b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)
-      2. Make sure GHCup is pointing at the &quot;recommended&quot; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)
-      3. Clone &lt;https://github.com/PostgREST/postgrest&gt; to your local machine
-      4. Check out the version you want to build (e.g. v11.1.0)
-      5. Run the &quot;usual&quot; Haskell build sequence with cabal
-          a. `cabal clean`
-          b. `cabal update`
-          c. `cabal build`
-          d. `cabal install`
-      
-      Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).
-      
-      ...
-      </code></pre>
-      <p>author: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2023
-      dateCreated: &quot;2023-07-05&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2023-07-05&quot;
-      keywords:
-      - PostgREST
-      - M1
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2023/07/05/quick-recipe-compiling-PostgREST-M1.md
-      title: Quick recipe, compiling PostgREST (M1)</p>
-      <hr>
       <h1>Quick recipe, compile PostgREST (M1)</h1>
       <p>These are my quick notes for compiling PostgREST on a M1 Mac Mini. I use a similar recipe for building PostgREST on Linux.</p>
       <ol>

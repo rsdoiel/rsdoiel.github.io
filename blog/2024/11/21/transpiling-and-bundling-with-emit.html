@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="transpiling-and-bundling-with-emit.md" rel="altenate" type="text/markdown" >
+  <meta name="language" content="EN" >
+  <title>Transpiling & Bundling with Emit</title>
+  <link rel="alternate" type="text/markdown" title="Transpiling & Bundling with Emit" href="transpiling-and-bundling-with-emit.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="keywords" content="Deno">
+  <meta data-pagefind-filter="keywords[content]" content="Deno">
+  <meta name="keywords" content="TypeScript">
+  <meta data-pagefind-filter="keywords[content]" content="TypeScript">
+  <meta name="keywords" content="transpile">
+  <meta data-pagefind-filter="keywords[content]" content="transpile">
+  <meta name="keywords" content="bundle">
+  <meta data-pagefind-filter="keywords[content]" content="bundle">
+  <meta name="datePublished" content="2024-11-21">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-11-21">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,26 +52,6 @@
 
   <main id="main-content">
     <article data-published="2024-11-21" data-link="https://rsdoiel.github.io/blog/2024/11/21/transpiling-and-bundling-with-emit.html">
-      <hr>
-      <p>abstract: |
-      A brief discussion of using the Deno emit module to transpile and bundle
-      TypeScript.
-      author: R. S. Doiel
-      byline: R. S. Doiel, 2024-11-21
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      dateCreated: &quot;2024-11-21&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-11-21&quot;
-      keywords:
-      - Deno
-      - TypeScript
-      - transpile
-      - bundle
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/11/21/transpiling-and-bundling-with-emit.md
-      title: Transpiling &amp; Bundling with Emit</p>
-      <hr>
       <h1>Transpiling &amp; Bundling with Emit</h1>
       <p>One of the nice features of Deno is native TypeScript support.  One of the selling strength though is that the same source can run both server side and browser side.  The challenge is that TypeScript does not have native TypeScript support. This is easy to remedy using Deno's <a href="https://jsr.io/@deno/emit">emit</a> module.</p>
       <p>The emit module supports to important functions, <code>transpile</code> and <code>bundle</code>. Both will render your TypeScript as JavaScript in a browser friendly manner. The <code>transpile</code> function turns a single TypeScript file into an equivalent JavaScript file. Bundle can do that with a TypeScript and all the files it imports so you have a self contained JavaScript file with everything you need.</p>

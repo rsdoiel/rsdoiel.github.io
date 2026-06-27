@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta content="2026-06-27T11:13:06-07:00" name="date" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="riscos_gcc_and_hello.md" >
+  <title>RISC OS 5.30, GCC 4.7 and Hello World</title>
+  <link rel="alternate" type="text/markdown" title="RISC OS 5.30, GCC 4.7 and Hello World" href="riscos_gcc_and_hello.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="datePublished" content="2024-06-08">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-06-08">
+  <meta name="keywords" content="RISC OS">
+  <meta data-pagefind-filter="keywords[content]" content="RISC OS">
+  <meta name="keywords" content="Raspberry Pi">
+  <meta data-pagefind-filter="keywords[content]" content="Raspberry Pi">
+  <meta name="keywords" content="GCC">
+  <meta data-pagefind-filter="keywords[content]" content="GCC">
+  <meta name="keywords" content="C Programming">
+  <meta data-pagefind-filter="keywords[content]" content="C Programming">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,30 +52,6 @@
 
   <main id="main-content">
     <article data-published="2024-06-08" data-link="https://rsdoiel.github.io/blog/2024/06/08/riscos_gcc_and_hello.html">
-      <hr>
-      <p>abstract: |
-      These are my notes on learning to program a Raspberry Pi Zero W
-      under RISC OS using GCC 4.7 and RISC OS 5.30
-      author: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      created: 2024-06-08T00:00:00Z
-      dateCreated: &quot;2024-06-08&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-06-08&quot;
-      keywords:
-      - RISC OS
-      - Raspberry Pi
-      - GCC
-      - C Programming
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/06/08/riscos_gcc_and_hello.md
-      pubDate: 2024-06-08T00:00:00Z
-      references:
-      - Steve Fryatt's tutorial <a href="https://www.stevefryatt.org.uk/risc-os/wimp-prog">https://www.stevefryatt.org.uk/risc-os/wimp-prog</a>
-      - James Hobson's YouTUBE Video showing a summary of Steve Fryatt's tutorial
-      title: RISC OS 5.30, GCC 4.7 and Hello World</p>
-      <hr>
       <h1>RISC OS 5.30, GCC 4.7 and Hello World</h1>
       <p>By R. S. Doiel, 2024-06-08 (updated: 2024-06-16)</p>
       <p>Presently am I learning RISC OS 5.30 on my Raspberry Pi Zero W. I want to write some programs and I learned C back in University. I am familiar with C on POSIX systems but not on RISC OS. These are my notes to remind myself how things work differently on RISC OS.</p>

@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Revisiting-Files.md" >
+  <meta content="EN" name="language" >
+  <title>Revisiting Files</title>
+  <link rel="alternate" type="text/markdown" title="Revisiting Files" href="Revisiting-Files.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
-  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="keywords" content="Oberon">
+  <meta data-pagefind-filter="keywords[content]" content="Oberon">
+  <meta name="keywords" content="Files">
+  <meta data-pagefind-filter="keywords[content]" content="Files">
+  <meta name="keywords" content="plain text">
+  <meta data-pagefind-filter="keywords[content]" content="plain text">
+  <meta name="series" content="Mostly Oberon\n">
+  <meta data-pagefind-filter="series[content]" content="Mostly Oberon\n">
+  <meta name="datePublished" content="2021-11-22">
+  <meta data-pagefind-filter="datePublished[content]" content="2021-11-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,31 +52,6 @@
 
   <main id="main-content">
     <article data-published="2021-11-22" data-link="https://rsdoiel.github.io/blog/2021/11/22/Revisiting-Files.html">
-      <hr>
-      <p>abstract: |
-      In October I had an Email exchange with Algojack regarding a buggy example in <a href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a>. The serious bug was extraneous non-printable characters appearing a plain text file containing the string &quot;Hello World&quot;. The trouble with the example was a result of my misreading the Oakwood guidelines and how <strong>Files.WriteString()</strong> is required to work. The <strong>Files.WriteString()</strong> procedure is supposed to write every element of a string to a file. This <strong>includes the trailing Null character</strong>. The problem for me is <strong>Files.WriteString()</strong> litters plain text files with tailing nulls. What I should have done was write my own <strong>WriteString()</strong> and <strong>WriteLn()</strong>. The program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a more appropriate solution to writing strings and line endings than relying directly on <strong>Files</strong>. In a future post I will explorer making this more generalized in a revised &quot;Fmt&quot; module.</p>
-      <pre><code>...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2021, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2021
-      date: &quot;2021-11-12&quot;
-      dateCreated: &quot;2021-11-22&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2021-11-22&quot;
-      keywords:
-      - Oberon
-      - Files
-      - plain text
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 20
-      postPath: blog/2021/11/22/Revisiting-Files.md
-      series: |
-      Mostly Oberon
-      seriesNo: 20
-      title: Revisiting Files</p>
-      <hr>
       <h1>Revisiting Files</h1>
       <p>By R. S. Doiel, 2021-11-22</p>
       <p>In October I had an Email exchange with Algojack regarding a buggy example in <a href="../../../2020/05/09/Oberon-07-and-the-filesystem.html">Oberon-07 and the file system</a>. The serious bug was extraneous non-printable characters appearing a plain text file containing the string &quot;Hello World&quot;. The trouble with the example was a result of my misreading the Oakwood guidelines and how <strong>Files.WriteString()</strong> is required to work. The <strong>Files.WriteString()</strong> procedure is supposed to write every element of a string to a file. This <strong>includes the trailing Null character</strong>. The problem for me is <strong>Files.WriteString()</strong> litters plain text files with tailing nulls. What I should have done was write my own <strong>WriteString()</strong> and <strong>WriteLn()</strong>. The program <a href="./HelloworldFile.Mod">HelloworldFile</a> below is a more appropriate solution to writing strings and line endings than relying directly on <strong>Files</strong>. In a future post I will explorer making this more generalized in a revised &quot;Fmt&quot; module.</p>

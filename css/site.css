@@ -11,3 +11,9 @@
 /* Import the code-blocks.css file */
 @import url('code-blocks.css');
 
+/* blog-logo SVG sizing — override the img { height: auto } reset in style.css */
+img.blog-logo {
+  height: 2.0em;
+  width: auto;
+  max-width: none;
+}

@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Installing-Go-from-Source-RPiOS-arm64.md" rel="altenate" type="text/markdown" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
-  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <meta name="language" content="EN" >
+  <title>Installing Golang from source on RPi-OS for arm64</title>
+  <link title="Installing Golang from source on RPi-OS for arm64" href="Installing-Go-from-Source-RPiOS-arm64.md" rel="alternate" type="text/markdown" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link href="archive.xml" rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="datePublished" content="2022-02-18">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-02-18">
+  <meta name="series" content="Raspberry Pi">
+  <meta data-pagefind-filter="series[content]" content="Raspberry Pi">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="keywords" content="raspberry pi">
+  <meta data-pagefind-filter="keywords[content]" content="raspberry pi">
+  <meta name="keywords" content="Raspberry Pi OS">
+  <meta data-pagefind-filter="keywords[content]" content="Raspberry Pi OS">
+  <meta name="keywords" content="arm64">
+  <meta data-pagefind-filter="keywords[content]" content="arm64">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,42 +52,6 @@
 
   <main id="main-content">
     <article data-published="2022-02-18" data-link="https://rsdoiel.github.io/blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.html">
-      <hr>
-      <p>abstract: |+
-      By R. S. Doiel, 2022-02-18</p>
-      <pre><code>This are my quick notes on installing Golang from source on the Raspberry Pi OS 64 bit.
-      
-      1. Get a working compiler
-      	a. go to https://go.dev/dl/ and download go1.17.7.linux-arm64.tar.gz
-      	b. untar the tarball in your home directory (it'll unpack to $HOME/go)
-      	c. `cd go/src` and `make.bash`
-      2. Move go directory to go1.17
-      3. Clone go from GitHub
-      4. Compile with the downloaded compiler
-      	a. `cd go/src`
-      	b. `env GOROOT_BOOTSTRAP=$HOME/go1.17 ./make.bash`
-      	c. Make sure `$HOME/go/bin` is in the path
-      	d. `go version`
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2022, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      date: &quot;2022-02-18&quot;
-      dateCreated: &quot;2022-02-18&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-02-18&quot;
-      keywords:
-      - raspberry pi
-      - Raspberry Pi OS
-      - arm64
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 1
-      postPath: blog/2022/02/18/Installing-Go-from-Source-RPiOS-arm64.md
-      series: Raspberry Pi
-      seriesNo: 1
-      title: Installing Golang from source on RPi-OS for arm64</p>
-      <hr>
       <h1>Installing Golang from Source on RPi-OS for arm64</h1>
       <p>By R. S. Doiel, 2022-02-18</p>
       <p>This are my quick notes on installing Golang from source on the Raspberry Pi OS 64 bit.</p>

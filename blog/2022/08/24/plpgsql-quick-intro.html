@@ -2,21 +2,40 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta content="2026-06-27T16:09:05-07:00" name="date" >
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="plpgsql-quick-intro.md" >
-  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <title>A Quick into to PL/pgSQL</title>
+  <link rel="alternate" type="text/markdown" title="A Quick into to PL/pgSQL" href="plpgsql-quick-intro.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="series" content="SQL Reflections">
+  <meta data-pagefind-filter="series[content]" content="SQL Reflections">
+  <meta name="datePublished" content="2022-08-24">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-08-24">
+  <meta name="keywords" content="postgres">
+  <meta data-pagefind-filter="keywords[content]" content="postgres">
+  <meta name="keywords" content="sql">
+  <meta data-pagefind-filter="keywords[content]" content="sql">
+  <meta name="keywords" content="psql">
+  <meta data-pagefind-filter="keywords[content]" content="psql">
+  <meta name="keywords" content="plsql">
+  <meta data-pagefind-filter="keywords[content]" content="plsql">
+  <meta name="keywords" content="plpgsql">
+  <meta data-pagefind-filter="keywords[content]" content="plpgsql">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,29 +56,6 @@
 
   <main id="main-content">
     <article data-published="2022-08-24" data-link="https://rsdoiel.github.io/blog/2022/08/24/plpgsql-quick-intro.html">
-      <hr>
-      <p>abstract: &quot;L/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger. \n\nThe Postgres documentation defines and explains the <a href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and how it works.  This document is just a quick orientation with specific examples to provide context.\n\n...\n&quot;
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      byline: R. S. Doiel, 2022-08-24
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-08-24&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-08-24&quot;
-      keywords:
-      - postgres
-      - sql
-      - psql
-      - plsql
-      - plpgsql
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 3
-      postPath: blog/2022/08/24/plpgsql-quick-intro.md
-      pubDate: 2022-08-24T00:00:00Z
-      series: SQL Reflections
-      seriesNo: 3
-      title: A Quick into to PL/pgSQL</p>
-      <hr>
       <h1>A Quick intro to PL/pgSQL</h1>
       <p>PL/pgSQL is a procedure language extended from SQL. It adds flow control and local state for procedures, functions and triggers. Procedures, functions and triggers are also the compilation unit. Visually PL/pgSQL looks similar to the MySQL or ORACLE counter parts. It reminds me of a mashup of ALGO and SQL. Like the unit of compilation, the unit of execution is also procedure, function or trigger.</p>
       <p>The Postgres documentation defines and explains the <a href="https://www.postgresql.org/docs/14/plpgsql.html">PL/pgSQL</a> and how it works.  This document is just a quick orientation with specific examples to provide context.</p>

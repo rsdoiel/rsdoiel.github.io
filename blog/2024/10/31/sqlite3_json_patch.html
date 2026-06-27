@@ -2,21 +2,32 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="sqlite3_json_patch.md" rel="altenate" >
-  <link href="/css/site.css" rel="stylesheet" type="text/css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <title>SQLite3 json_patch is a jewel</title>
+  <link rel="alternate" type="text/markdown" title="SQLite3 json_patch is a jewel" href="sqlite3_json_patch.md" >
+  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="keywords" content="sql">
+  <meta data-pagefind-filter="keywords[content]" content="sql">
+  <meta name="keywords" content="SQLite3">
+  <meta data-pagefind-filter="keywords[content]" content="SQLite3">
+  <meta name="datePublished" content="2024-10-31">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-10-31">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,24 +48,6 @@
 
   <main id="main-content">
     <article data-published="2024-10-31" data-link="https://rsdoiel.github.io/blog/2024/10/31/sqlite3_json_patch.html">
-      <hr>
-      <p>abstract: Quick note about json_path function in SQLite3
-      author: R. S. Doiel
-      byline: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      created: 2024-10-31T00:00:00Z
-      dateCreated: &quot;2024-10-31&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-10-31&quot;
-      keywords:
-      - sql
-      - SQLite3
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/10/31/sqlite3_json_patch.md
-      pubDate: 2024-10-31T00:00:00Z
-      title: SQLite3 json_patch is a jewel</p>
-      <hr>
       <h1>SQLite3 json_patch is a jewel</h1>
       <p>By R. S. Doiel, 2024-10-31</p>
       <p>If you’re working with an SQLite3 database table and have JSON or columns you need to merge with other columns then the <code>json_path</code> function comes in really handy.

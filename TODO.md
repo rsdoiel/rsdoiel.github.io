@@ -16,52 +16,17 @@ Next
 
 ### Faceted search via PageFind 1.5+ web components
 
-Blocked on antenna improvements described in
-`~/Laboratory/antennaApp/enhanced_front_matter_processing_feature_request.md`.
-Once those antenna changes are built and installed, complete the following steps
-in order:
-
-1. **Rebuild antenna** with the enhanced front matter processing feature:
-   - `GeneratePosts` must call `doc.Parse()` so YAML front matter is stripped
-     from body text and made available as structured metadata.
-   - `writeHeadElement` must emit standard `<meta>` elements (`description`,
-     `author`, `keywords`, `datePublished`) and PageFind filter meta elements
-     (`data-pagefind-filter`) for `keywords`, `series`, `author`, and
-     `datePublished` — one `<meta>` per value for multi-valued fields.
-
-2. **Regenerate the site** so all blog post HTML files contain the new `<head>`
-   metadata. Run `make` (or the relevant `antenna generate` / `antenna post`
-   targets) to rebuild affected pages.
-
-3. **Rebuild the PageFind index** so the new filter attributes are captured:
-   ```
-   make pagefind
-   ```
-
-4. **Update `search.md`** to enable faceted browsing with the PageFind 1.5
-   component API. Replace the current inline search block with:
-   ```html
-   <pagefind-config faceted preload></pagefind-config>
-   <pagefind-input placeholder="Search…"></pagefind-input>
-   <pagefind-filter-pane></pagefind-filter-pane>
-   <pagefind-summary></pagefind-summary>
-   <pagefind-results></pagefind-results>
-   ```
-   The existing URL-sync `<script type="module">` block (reads `?q=` on load,
-   writes `?q=` on each search event via `history.replaceState`) should be kept
-   unchanged — it continues to support OpenSearch / `osd.xml` bookmarking.
-
-5. **Rebuild `search.html`** from the updated `search.md`:
-   ```
-   make search.html
-   ```
-
-6. **Verify** by navigating to `search.html` and confirming that:
-   - The filter pane renders groups for `keywords`, `series`, `author`, and
-     `datePublished`.
-   - Selecting a filter narrows results correctly.
-   - Navigating to `search.html?q=oberon` still pre-populates the search and
-     triggers results (OpenSearch flow remains intact).
+- [x] Rebuilt antenna (0.0.24c) with enhanced front matter processing: `GeneratePosts`
+  calls `doc.Parse()`, `writeHeadElement` emits `data-pagefind-filter` meta elements.
+- [x] Added `allowed_meta_fields: [keywords, series, author, dateModified, datePublished]`
+  to `page.yaml`; normalized two posts from `keyword:` to `keywords:` (in .md and DB).
+- [x] Regenerated all 183 blog post HTML files via `antenna generate`.
+- [x] Updated `search.md` with `<pagefind-config faceted preload>` and
+  `<pagefind-filter-pane>` components; rebuilt `search.html`.
+- [x] Rebuilt PageFind index — 183 pages, 5 filters indexed.
+- [ ] **Verify** in browser: filter pane renders groups for `keywords`, `series`,
+  `author`, `dateModified`, `datePublished`; selecting a filter narrows results;
+  `search.html?q=oberon` still pre-populates search.
 
 Someday Maybe
 -------------

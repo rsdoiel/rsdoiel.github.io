@@ -2,21 +2,38 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.24b" name="generator" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta content="2026-06-27T16:09:05-07:00" name="date" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="fountain_and_recording_agents.md" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
-  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
-  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <title>Fountain and recording agents</title>
+  <link rel="alternate" type="text/markdown" title="Fountain and recording agents" href="fountain_and_recording_agents.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
-  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <meta name="keywords" content="Agents">
+  <meta data-pagefind-filter="keywords[content]" content="Agents">
+  <meta name="keywords" content="Fountain">
+  <meta data-pagefind-filter="keywords[content]" content="Fountain">
+  <meta name="keywords" content="Screenplays">
+  <meta data-pagefind-filter="keywords[content]" content="Screenplays">
+  <meta name="keywords" content="LLM">
+  <meta data-pagefind-filter="keywords[content]" content="LLM">
+  <meta name="keywords" content="Large Language Models">
+  <meta data-pagefind-filter="keywords[content]" content="Large Language Models">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2026-04-15">
+  <meta data-pagefind-filter="dateModified[content]" content="2026-04-15">
+  <meta name="datePublished" content="2026-04-15">
+  <meta data-pagefind-filter="datePublished[content]" content="2026-04-15">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,22 +54,6 @@
 
   <main id="main-content">
     <article data-published="2026-04-15" data-link="https://rsdoiel.github.io/blog/2026/04/15/fountain_and_recording_agents.html">
-      <hr>
-      <p>author: R. S. Doiel
-      dateCreated: &quot;2026-04-15&quot;
-      dateModified: &quot;2026-04-15&quot;
-      datePublished: &quot;2026-04-15&quot;
-      description: |
-      Exploring using fountain markup for logging interactions for user agents and large language models.
-      keywords:
-      - Agents
-      - Fountain
-      - Screenplays
-      - LLM
-      - Large Language Models
-      postPath: blog/2026/04/15/fountain_and_recording_agents.md
-      title: Fountain and recording agents</p>
-      <hr>
       <h1>Fountain and recording agents</h1>
       <p>By R. S. Doiel, 2026-04-15</p>
       <p>I was working on a personal project inspired by a class I am taking. I wanted to create a agent named Harvey in Go that would work with both local language models run by Ollama and with <a href="https://publicai.co">publicai.co</a> if that was available. The LLM chat bot was the easy bit. It was while debugging the agent mode that I realized it would be helpful to have a recording of the conversation between the parties, Harvey, the Model and myself. First pass was to have the recorder write out a Markdown document structured like a report. That wasn't really ideal at all. Similarly a steam of conversation wasn't quite right either. It was very hard to know who was typing or doing. Then it occurred to me that an agent interaction is really structured like a screenplay. A screenplay <strong>shows</strong> you whats happening by building around the structure of scenes, actors, dialog and action. Throw in some timestamps and you have a pretty good idea of who did what, when and how.</p>

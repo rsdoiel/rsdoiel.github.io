@@ -2,21 +2,32 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="a-quick-tour-of-deno-2.md" >
+  <title>Quick tour of Deno 2.0.2</title>
+  <link type="text/markdown" title="Quick tour of Deno 2.0.2" href="a-quick-tour-of-deno-2.md" rel="alternate" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
   <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="datePublished" content="2024-10-18">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-10-18">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="keywords" content="development">
+  <meta data-pagefind-filter="keywords[content]" content="development">
+  <meta name="keywords" content="languages">
+  <meta data-pagefind-filter="keywords[content]" content="languages">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,28 +48,6 @@
 
   <main id="main-content">
     <article data-published="2024-10-18" data-link="https://rsdoiel.github.io/blog/2024/10/18/a-quick-tour-of-deno-2.html">
-      <hr>
-      <p>abstract: |
-      A quick tour of Deno 2 and the features I enjoy. Deno includes thoughtful tooling, good language support,
-      ECMAScript module support and a good standard library. Deno has the advantage of being able to cross compile
-      TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.
-      author: R. S. Doiel
-      byline: R. S. Doiell, 2024-10-18
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      created: 2024-10-18T00:00:00Z
-      dateCreated: &quot;2024-10-18&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-10-18&quot;
-      keywords:
-      - development
-      - languages
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/10/18/a-quick-tour-of-deno-2.md
-      pubDate: 2024-10-18T00:00:00Z
-      title: Quick tour of Deno 2.0.2
-      updated: 2024-10-21T00:00:00Z</p>
-      <hr>
       <h1>Quick tour of Deno 2.0.2</h1>
       <p>By R. S. Doiel</p>
       <p>I've been working with TypeScript this year using Deno. Deno has reached version 2.0. It has proven to be a nice platform for projects. Deno includes thoughtful tooling, good language support, ECMAScript module support and a <a href="https://jsr.io/@std">good standard library</a>.  As a TypeScript and JavaScript platform I find it much more stable and compelling than NodeJS. Deno has the advantage of being able to cross compile TypeScript to an executable which makes deployment of web services as easy for me as it is with Go.</p>

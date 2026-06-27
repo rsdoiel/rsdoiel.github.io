@@ -2,21 +2,40 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta content="antenna/0.0.24c" name="generator" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Beyond-Oakwood-Modules-and-Aliases.md" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
-  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
+  <meta name="language" content="EN" >
+  <title>Beyond Oakwood, Modules and Aliases</title>
+  <link rel="alternate" type="text/markdown" title="Beyond Oakwood, Modules and Aliases" href="Beyond-Oakwood-Modules-and-Aliases.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="keywords" content="Oberon">
+  <meta data-pagefind-filter="keywords[content]" content="Oberon">
+  <meta name="keywords" content="Modules">
+  <meta data-pagefind-filter="keywords[content]" content="Modules">
+  <meta name="keywords" content="Oakwood">
+  <meta data-pagefind-filter="keywords[content]" content="Oakwood">
+  <meta name="keywords" content="Strings">
+  <meta data-pagefind-filter="keywords[content]" content="Strings">
+  <meta name="keywords" content="Chars">
+  <meta data-pagefind-filter="keywords[content]" content="Chars">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="series" content="Mostly Oberon\n">
+  <meta data-pagefind-filter="series[content]" content="Mostly Oberon\n">
+  <meta name="datePublished" content="2021-05-16">
+  <meta data-pagefind-filter="datePublished[content]" content="2021-05-16">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,30 +56,6 @@
 
   <main id="main-content">
     <article data-published="2021-05-16" data-link="https://rsdoiel.github.io/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html">
-      <hr>
-      <p>abstract: &quot;Oakwood is the name used to refer to an early Oberon language\nstandardization effort in the late 20th century.  It's the name\nof a hotel where compiler developers and the creators of Oberon\nand the Oberon System met to discuss compatibility. The lasting\ninfluence on the 21st century Oberon-07 language can be seen\nin the standard set of modules shipped with POSIX based Oberon-07\ncompilers like\n<a href="https://miasap.se/obnc/">OBNC</a>, <a href="https://github.com/vishaps/voc">Vishap Oberon Compiler</a> and the \n<a href="http://spivey.oriel.ox.ac.uk/corner/Oxford_Oberon-2_compiler">Oxford Oberon Compiler</a>.\n\nThe Oakwood guidelines described a minimum expectation for\na standard set of modules to be shipped with compilers.\nThe modules themselves are minimalist in implementation.\nMinimalism can assist in easing the learning curve\nand encouraging a deeper understanding of how things work.\n\nThe Oberon-07 language is smaller than the original Oberon language\nand the many dialects that followed.  I think of Oberon-07 as the\ndistillation of all previous innovation.  It embodies the\nspirit of &quot;Simple but not simpler than necessary&quot;. Minimalism is\na fit description of the adaptions of the Oakwood modules for \nOberon-07 in the POSIX environment.\n\n...\n&quot;
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2021, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2021
-      date: &quot;2021-05-16&quot;
-      dateCreated: &quot;2021-05-16&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2021-05-16&quot;
-      keywords:
-      - Oberon
-      - Modules
-      - Oakwood
-      - Strings
-      - Chars
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 18
-      postPath: blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md
-      series: |
-      Mostly Oberon
-      seriesNo: 18
-      title: Beyond Oakwood, Modules and Aliases</p>
-      <hr>
       <h1>Beyond Oakwood, Modules and Aliases</h1>
       <p>By R. S. Doiel, 2021-05-16</p>
       <p>Oakwood is the name used to refer to an early Oberon language

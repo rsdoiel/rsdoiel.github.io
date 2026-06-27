@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta content="2026-06-27T16:09:05-07:00" name="date" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="Build_a_Static_Web_Server.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <title>Build a Static Web Server with Deno</title>
+  <link rel="alternate" type="text/markdown" title="Build a Static Web Server with Deno" href="Build_a_Static_Web_Server.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="series" content="Deno and TypeScript">
+  <meta data-pagefind-filter="series[content]" content="Deno and TypeScript">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="datePublished" content="2025-06-30">
+  <meta data-pagefind-filter="datePublished[content]" content="2025-06-30">
+  <meta name="keywords" content="web service">
+  <meta data-pagefind-filter="keywords[content]" content="web service">
+  <meta name="keywords" content="static web site">
+  <meta data-pagefind-filter="keywords[content]" content="static web site">
+  <meta name="keywords" content="JavaScript">
+  <meta data-pagefind-filter="keywords[content]" content="JavaScript">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,28 +52,6 @@
 
   <main id="main-content">
     <article data-published="2025-06-30" data-link="https://rsdoiel.github.io/blog/2025/06/30/Build_a_Static_Web_Server.html">
-      <hr>
-      <p>abstract: |
-      This post discusses static web server implementation using Deno.
-      author: R. S. Doiel
-      byline: R. S. Doiel
-      copyright: copyright (c) 2025, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2025
-      dateCreated: &quot;2025-06-30&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2025-06-30&quot;
-      keywords:
-      - web service
-      - static web site
-      - JavaScript
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 8
-      postPath: blog/2025/06/30/Build_a_Static_Web_Server.md
-      series: Deno and TypeScript
-      seriesNo: 8
-      title: Build a Static Web Server with Deno</p>
-      <hr>
       <h1>Build your own static web server with Deno</h1>
       <p>By R. S. Doiel, 2025-06-30</p>
       <p>One of things I have in my web toolbox is a static site web server. It only runs on localhost. It amazes me how often I wind up using it. PHP and Python can launch one easily from the command line but I have always found they were lacking. What I want is a simple web server that runs only on localhost. It can serve content from a specified directory and should handle common content types appropriately (e.g. JavaScript files are served as &quot;application/javascript&quot; not as &quot;text/plain&quot;). I should be able choose the port the server runs on. I should be able to specify a document root for the content I want to expose. It should default to a sensible location like the &quot;htdocs&quot; directory in my current working directory.</p>

@@ -2,21 +2,30 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="PostgreSQL-Dump-and-Restore.md" rel="altenate" type="text/markdown" >
+  <title>PostgreSQL dump and restore</title>
+  <link title="PostgreSQL dump and restore" href="PostgreSQL-Dump-and-Restore.md" rel="alternate" type="text/markdown" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
   <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2022-09-19">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-09-19">
+  <meta name="keywords" content="PostgreSQL">
+  <meta data-pagefind-filter="keywords[content]" content="PostgreSQL">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,28 +46,6 @@
 
   <main id="main-content">
     <article data-published="2022-09-19" data-link="https://rsdoiel.github.io/blog/2022/09/19/PostgreSQL-Dump-and-Restore.html">
-      <hr>
-      <p>abstract: |
-      This is a quick note on easily dumping and restoring a specific database
-      in Postgres 14.5.  This example has PostgreSQL running on localhost and<a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and<a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available.
-      Our database administrator username is &quot;admin&quot;, the database to dump is called &quot;collections&quot;. The SQL dump
-      file will be named &quot;collections-dump-2022-09-19.sql&quot;.</p>
-      <pre><code>...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      byline: R. S. Doiel, 2022-09-19
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-09-19&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-09-19&quot;
-      keywords:
-      - PostgreSQL
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2022/09/19/PostgreSQL-Dump-and-Restore.md
-      pubDate: 2022-09-19T00:00:00Z
-      title: PostgreSQL dump and restore</p>
-      <hr>
       <h1>PostgreSQL dump and restore</h1>
       <p>This is a quick note on easily dumping and restoring a specific database
       in Postgres 14.5.  This example has PostgreSQL running on localhost and<a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a> and<a href="https://www.postgresql.org/docs/current/app-pgdump.html">pg_dump</a> are both available.

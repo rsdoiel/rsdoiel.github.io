@@ -2,21 +2,38 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta content="2026-06-27T16:09:05-07:00" name="date" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Procedures-as-parameters.md" >
+  <title>Procedures as parameters</title>
+  <link href="Procedures-as-parameters.md" rel="alternate" type="text/markdown" title="Procedures as parameters" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2020-06-20">
+  <meta data-pagefind-filter="datePublished[content]" content="2020-06-20">
+  <meta name="keywords" content="Oberon">
+  <meta data-pagefind-filter="keywords[content]" content="Oberon">
+  <meta name="keywords" content="procedures">
+  <meta data-pagefind-filter="keywords[content]" content="procedures">
+  <meta name="keywords" content="passing procedures as parameters">
+  <meta data-pagefind-filter="keywords[content]" content="passing procedures as parameters">
+  <meta name="keywords" content="programming">
+  <meta data-pagefind-filter="keywords[content]" content="programming">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta name="series" content="Mostly Oberon">
+  <meta data-pagefind-filter="series[content]" content="Mostly Oberon">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,28 +54,6 @@
 
   <main id="main-content">
     <article data-published="2020-06-20" data-link="https://rsdoiel.github.io/blog/2020/06/20/Procedures-as-parameters.html">
-      <hr>
-      <p>abstract: &quot;This is the ninth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series.\nMostly Oberon documents my exploration of the Oberon Language, Oberon System and the \nvarious rabbit holes I will inevitably fall into.\n\nOberon-07 supports the passing of procedures as parameters in a procedure. \nLet's create a module name <a href="Noises.Mod">Noises.Mod</a> to explore this.\n\nThe key to supporting this is Oberon's type system.  We need to decide what our \ngeneric procedure will look like first. In our case our procedures that will display \nan animal noise will include the name of the animal speaking.  We'll call this type \nof procedure &quot;Noise&quot;. It'll accept an ARRAY OF CHAR for the name as a parameter \nthen use the standard Out module to display the animal name and noise they make.\n\n\n&quot;
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2020, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2020
-      date: &quot;2020-06-20&quot;
-      dateCreated: &quot;2020-06-20&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2020-06-20&quot;
-      keywords:
-      - Oberon
-      - procedures
-      - passing procedures as parameters
-      - programming
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 9
-      postPath: blog/2020/06/20/Procedures-as-parameters.md
-      series: Mostly Oberon
-      seriesNo: 9
-      title: Procedures as parameters</p>
-      <hr>
       <h1>Procedures as parameters</h1>
       <p>By R. S. Doiel, 2020-06-20</p>
       <p>This is the ninth post in the <a href="../../04/11/Mostly-Oberon.html">Mostly Oberon</a> series.

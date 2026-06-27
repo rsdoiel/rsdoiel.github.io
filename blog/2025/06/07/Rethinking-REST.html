@@ -2,21 +2,44 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta content="antenna/0.0.24b" name="generator" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta content="2026-06-27T16:09:05-07:00" name="date" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Rethinking-REST.md" >
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta content="EN" name="language" >
+  <title>Rethinking REST</title>
+  <link rel="alternate" type="text/markdown" title="Rethinking REST" href="Rethinking-REST.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
-  <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
-  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script src="/modules/copyToClipboard.js" type="module" ></script>
+  <meta name="datePublished" content="2025-06-07">
+  <meta data-pagefind-filter="datePublished[content]" content="2025-06-07">
+  <meta name="keywords" content="web service">
+  <meta data-pagefind-filter="keywords[content]" content="web service">
+  <meta name="keywords" content="web applications">
+  <meta data-pagefind-filter="keywords[content]" content="web applications">
+  <meta name="keywords" content="web browsers">
+  <meta data-pagefind-filter="keywords[content]" content="web browsers">
+  <meta name="keywords" content="REST">
+  <meta data-pagefind-filter="keywords[content]" content="REST">
+  <meta name="keywords" content="read write web">
+  <meta data-pagefind-filter="keywords[content]" content="read write web">
+  <meta name="keywords" content="SQL">
+  <meta data-pagefind-filter="keywords[content]" content="SQL">
+  <meta name="keywords" content="SQLite3">
+  <meta data-pagefind-filter="keywords[content]" content="SQLite3">
+  <meta name="series" content="SQL Reflections">
+  <meta data-pagefind-filter="series[content]" content="SQL Reflections">
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,38 +60,6 @@
 
   <main id="main-content">
     <article data-published="2025-06-07" data-link="https://rsdoiel.github.io/blog/2025/06/07/Rethinking-REST.html">
-      <hr>
-      <p>abstract: |
-      I am re-thinking my reliance on REST's implementation of the CRUD abstraction in favor of the simpler
-      read write file abstraction in my web application. This can be accomplished in SQL easily. This post
-      covers an example of doing this in SQLite3 while also implementing JSON object versioning.</p>
-      <pre><code>Coverted are implenting the write abstraction using an upsert operation based on `insert` and SQLite3's
-      `on conflict` clause. The object versioning is implemented using a simple trigger on the JSON column.
-      The trigger maintains the version number and updated timestamp.
-      </code></pre>
-      <p>author: R. S. Doiel
-      byline: R. S. Doiel
-      copyright: copyright (c) 2025, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2025
-      dateCreated: &quot;2025-05-31&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2025-06-07&quot;
-      keywords:
-      - web service
-      - web applications
-      - web browsers
-      - REST
-      - read write web
-      - SQL
-      - SQLite3
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      number: 7
-      postPath: blog/2025/06/07/Rethinking-REST.md
-      series: SQL Reflections
-      seriesNo: 7
-      title: Rethinking REST</p>
-      <hr>
       <h1>Rethinking REST</h1>
       <h2>How to embrace the read write abstraction using SQL databases</h2>
       <p>By R. S. Doiel, 2025-06-07</p>

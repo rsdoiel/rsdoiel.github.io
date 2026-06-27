@@ -2,21 +2,40 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="compiling-pandoc-from-source.md" rel="altenate" type="text/markdown" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
+  <title>Compiling Pandoc from source</title>
+  <link rel="alternate" type="text/markdown" title="Compiling Pandoc from source" href="compiling-pandoc-from-source.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="keywords" content="pandoc">
+  <meta data-pagefind-filter="keywords[content]" content="pandoc">
+  <meta name="keywords" content="pandoc-server">
+  <meta data-pagefind-filter="keywords[content]" content="pandoc-server">
+  <meta name="keywords" content="pandoc-citeproc">
+  <meta data-pagefind-filter="keywords[content]" content="pandoc-citeproc">
+  <meta name="keywords" content="haskell-stack">
+  <meta data-pagefind-filter="keywords[content]" content="haskell-stack">
+  <meta name="keywords" content="cabal">
+  <meta data-pagefind-filter="keywords[content]" content="cabal">
+  <meta name="keywords" content="ghc">
+  <meta data-pagefind-filter="keywords[content]" content="ghc">
+  <meta name="author" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta name="datePublished" content="2022-11-07">
+  <meta data-pagefind-filter="datePublished[content]" content="2022-11-07">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,34 +56,6 @@
 
   <main id="main-content">
     <article data-published="2022-11-07" data-link="https://rsdoiel.github.io/blog/2022/11/07/compiling-pandoc-from-source.html">
-      <hr>
-      <p>abstract: |
-      I started playing around with Pandoc's <strong>pandoc-server</strong> last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400's SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don't know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc's <a href="https://github.com/jgm/pandoc/blob/master/INSTALL.md">INSTALL.md</a></p>
-      <pre><code>I'm running this first on an Intel Ubuntu box because I have the disk space available there. If it works then I'll try it directly on my Raspberry Pi 400 with an upgrade SD card and running the 64bit version of Raspberry Pi OS.
-      
-      I did not have Haskell or Cabal installed when I started this process.
-      
-      ...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@sdf.org">rsdoiel@sdf.org</a> (R. S. Doiel)
-      byline: R. S. Doiel, 2022-11-07
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2022
-      dateCreated: &quot;2022-11-07&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2022-11-07&quot;
-      keywords:
-      - pandoc
-      - pandoc-server
-      - pandoc-citeproc
-      - haskell-stack
-      - cabal
-      - ghc
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2022/11/07/compiling-pandoc-from-source.md
-      pubDate: 2022-11-07T00:00:00Z
-      title: Compiling Pandoc from source</p>
-      <hr>
       <h1>Compiling Pandoc from source</h1>
       <p>By R. S. Doiel, 2022-11-07</p>
       <p>I started playing around with Pandoc's <strong>pandoc-server</strong> last Friday. I want to play with the latest version of Pandoc.  When I gave it a try this weekend I found that my Raspberry Pi 400's SD card was too small. This lead me to giving the build process a try on my Ubuntu desktop. These are my notes about how I going about building from scratch.  I am not a Haskell programmer and don't know the tool chain or language. Take everything that follows with a good dose of salt but this is what I did to get everything up and running. I am following the compile from source instructions in Pandoc's <a href="https://github.com/jgm/pandoc/blob/master/INSTALL.md">INSTALL.md</a></p>

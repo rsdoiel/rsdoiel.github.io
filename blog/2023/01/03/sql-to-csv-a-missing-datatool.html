@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="sql-to-csv-a-missing-datatool.md" rel="altenate" type="text/markdown" >
-  <link type="text/css" href="/css/site.css" rel="stylesheet" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <title>SQL query to CSV, a missing datatool</title>
+  <link rel="alternate" type="text/markdown" title="SQL query to CSV, a missing datatool" href="sql-to-csv-a-missing-datatool.md" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link title="Recent Blog Post" type="application/rss+xml" href="index.xml" rel="alternate" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
   <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@sdf.org (R. S. Doiel)">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2023-01-13">
+  <meta data-pagefind-filter="datePublished[content]" content="2023-01-13">
+  <meta name="keywords" content="sql">
+  <meta data-pagefind-filter="keywords[content]" content="sql">
+  <meta name="keywords" content="csv">
+  <meta data-pagefind-filter="keywords[content]" content="csv">
+  <meta name="keywords" content="tab delimited">
+  <meta data-pagefind-filter="keywords[content]" content="tab delimited">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,30 +50,6 @@
 
   <main id="main-content">
     <article data-published="2023-01-13" data-link="https://rsdoiel.github.io/blog/2023/01/03/sql-to-csv-a-missing-datatool.html">
-      <hr>
-      <p>abstract: |+
-      At work we maintain allot of metadata related academic and research publications in SQL databases. We use SQL to query the database and export what we need in tab delimited files. Often the exported data includes a column containing publication or article titles.  Titles in library metadata can be a bit messy. They contain a wide set of UTF-8 characters include math symbols and various types of quotation marks. The exported tab delimited data usually needs clean up before you can import it successfully into a spreadsheet.</p>
-      <pre><code>In the worst cases we debug what the problem is then write a Python script to handle the tweak to fix things.  This results in allot of extra work and slows down the turn around for getting reports out quickly. This is particularly true of data stored in MySQL 8 (though we also use SQLite 3 and Postgres).
-      
-      This got me thinking about how to get a clean export (tab or CSV) from our SQL databases today.  It would be nice if you provided a command line tool with a data source string (e.g. in a config file or the environment), a SQL query and the tool would use that to render a CSV or tab delimited file to standard out or a output file. It would work something like this.
-      
-      ...
-      </code></pre>
-      <p>author: <a href="mailto:rsdoiel@sdf.org">rsdoiel@sdf.org</a> (R. S. Doiel)
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2023
-      dateCreated: &quot;2023-01-13&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2023-01-13&quot;
-      keywords:
-      - sql
-      - csv
-      - tab delimited
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2023/01/03/sql-to-csv-a-missing-datatool.md
-      title: SQL query to CSV, a missing datatool
-      updateDate: 2023-03-13T00:00:00Z</p>
-      <hr>
       <h1>SQL query to CSV, a missing datatool</h1>
       <p>By R. S. Doiel, 2023-01-13</p>
       <p>Update: 2023-03-13</p>

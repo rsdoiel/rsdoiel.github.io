@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="moving_beyond_git_templates.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <meta content="EN" name="language" >
+  <title>Moving beyond git template repositories with CodeMeta</title>
+  <link rel="alternate" type="text/markdown" title="Moving beyond git template repositories with CodeMeta" href="moving_beyond_git_templates.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" rel="search" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="series" content="Code Generation">
+  <meta data-pagefind-filter="series[content]" content="Code Generation">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="datePublished" content="2025-01-31">
+  <meta data-pagefind-filter="datePublished[content]" content="2025-01-31">
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="keywords" content="software development">
+  <meta data-pagefind-filter="keywords[content]" content="software development">
+  <meta name="keywords" content="programming">
+  <meta data-pagefind-filter="keywords[content]" content="programming">
+  <meta name="keywords" content="CodeMeta">
+  <meta data-pagefind-filter="keywords[content]" content="CodeMeta">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,30 +52,6 @@
 
   <main id="main-content">
     <article data-published="2025-01-31" data-link="https://rsdoiel.github.io/blog/2025/01/31/moving_beyond_git_templates.html">
-      <hr>
-      <p>abstract: |
-      An exploration of using CodeMeta objects to generate of software artifacts as an alternative to Git template repositories.
-      author: R. S. Doiel
-      byline: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2025
-      createDate: 2025-01-30T00:00:00Z
-      dateCreated: &quot;2025-01-30&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2025-01-31&quot;
-      keywords:
-      - software development
-      - programming
-      - CodeMeta
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2025/01/31/moving_beyond_git_templates.md
-      pubDate: 2025-01-31T00:00:00Z
-      series: Code Generation
-      series_no: 1
-      seriesNo: 1
-      title: Moving beyond git template repositories with CodeMeta
-      updateDate: 2025-02-03T00:00:00Z</p>
-      <hr>
       <h1>Moving beyond git template repositories with CodeMeta</h1>
       <p>By R. S. Doiel, 2025-01-31 (updated: 2025-02-03)</p>
       <p>A nice feature of GitHub is the ease in starting a new repository with a complete set of documents<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. This feature creates a problem. The &quot;template&quot; documents require editing. Then they require more editing to keep them from being stale. If you're serious about keeping documentation up to date then the copy edit work must be continuous. Copy edit work is tedious. Is there a path beyond the git repository templates that avoid stale <a href="https://en.wikipedia.org/wiki/Artifact_(software_development)">software artifacts</a>?</p>

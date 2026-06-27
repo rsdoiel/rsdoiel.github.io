@@ -2,21 +2,34 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="quick-recipe-compiling-Pandoc-M1.md" >
+  <title>Quick recipe, compiling Pandoc (M1)</title>
+  <link rel="alternate" type="text/markdown" title="Quick recipe, compiling Pandoc (M1)" href="quick-recipe-compiling-Pandoc-M1.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
-  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
-  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-07-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-22">
+  <meta name="datePublished" content="2023-07-05">
+  <meta data-pagefind-filter="datePublished[content]" content="2023-07-05">
+  <meta name="keywords" content="Pandoc">
+  <meta data-pagefind-filter="keywords[content]" content="Pandoc">
+  <meta name="keywords" content="GHCup">
+  <meta data-pagefind-filter="keywords[content]" content="GHCup">
+  <meta name="keywords" content="M1">
+  <meta data-pagefind-filter="keywords[content]" content="M1">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,38 +50,6 @@
 
   <main id="main-content">
     <article data-published="2023-07-05" data-link="https://rsdoiel.github.io/blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.html">
-      <hr>
-      <p>abstract: |
-      These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).</p>
-      <pre><code>1. Install [GHCup](https://www.haskell.org/ghcup/) to get a good Haskell setup (I accept all the default choices)
-          a. Use the curl example command to install it
-          b. Make sure the environment is active (e.g. source `$HOME/.ghcup/env`)
-      2. Make sure GHCup is pointing at the &quot;recommended&quot; versions of GHC, Cabal, etc. (others may work but I prefer the stable releases)
-      3. Clone &lt;https://github.com/jgm/pandoc&gt; to your local machine
-      4. Check out the version you want to build (e.g. 3.1.4)
-      5. Run the &quot;usual&quot; Haskell build sequence with cabal per Pandoc's installation documentation for building from source
-          a. `cabal clean`
-          b. `cabal update`
-          c. `cabal install pandoc-cli`
-      
-      Here's an example of the shell commands I run (I'm assuming you're installing GHCup for the first time).
-      
-      ...
-      </code></pre>
-      <p>author: R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2023
-      dateCreated: &quot;2023-07-05&quot;
-      dateModified: &quot;2025-07-22&quot;
-      datePublished: &quot;2023-07-05&quot;
-      keywords:
-      - Pandoc
-      - GHCup
-      - M1
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2023/07/05/quick-recipe-compiling-Pandoc-M1.md
-      title: Quick recipe, compiling Pandoc (M1)</p>
-      <hr>
       <h1>Quick recipe, compile Pandoc (M1)</h1>
       <p>These are my quick notes for compiling Pandoc on a M1 Mac Mini. I use a similar recipe for building Pandoc on Linux (NOTE: the challenges with libiconv and Mac Ports' libiconv below if you get a build error).</p>
       <ol>

@@ -3,7 +3,7 @@ title: Python Setup on Raspberry Pi OS 6
 author: R. S. Doiel
 description: |
   A set of quick notes for wrangling Python to work nicely on Raspberry Pi OS 6
-keyword:
+keywords:
   - python
   - raspberry pi OS
 dateCreated: "2025-12-19"

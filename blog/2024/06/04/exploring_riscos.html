@@ -2,21 +2,32 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="exploring_riscos.md" rel="altenate" type="text/markdown" >
+  <title>Exploring RISC OS 5.30 on a Raspberry Pi Zero W</title>
+  <link type="text/markdown" title="Exploring RISC OS 5.30 on a Raspberry Pi Zero W" href="exploring_riscos.md" rel="alternate" >
   <link href="/css/site.css" rel="stylesheet" type="text/css" >
-  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
   <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2025-07-23">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-23">
+  <meta name="datePublished" content="2024-06-04">
+  <meta data-pagefind-filter="datePublished[content]" content="2024-06-04">
+  <meta name="keywords" content="RISC OS">
+  <meta data-pagefind-filter="keywords[content]" content="RISC OS">
+  <meta name="keywords" content="Raspberry Pi">
+  <meta data-pagefind-filter="keywords[content]" content="Raspberry Pi">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,23 +48,6 @@
 
   <main id="main-content">
     <article data-published="2024-06-04" data-link="https://rsdoiel.github.io/blog/2024/06/04/exploring_riscos.html">
-      <hr>
-      <p>abstract: &quot;In this post I talk about my exploration of using a Raspberry Pi Zero W\nas a desktop computer. This was made possible by the efficiency of \nRISC OS 5.30 which includes native WiFi support for Raspberry Pi computers.\n&quot;
-      author: R. S. Doiel
-      byline: R. S. Doiel, 2024-06-04
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2024
-      dateCreated: &quot;2024-06-04&quot;
-      dateModified: &quot;2025-07-23&quot;
-      datePublished: &quot;2024-06-04&quot;
-      keywords:
-      - RISC OS
-      - Raspberry Pi
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2024/06/04/exploring_riscos.md
-      pubDate: 2024-06-04T00:00:00Z
-      title: Exploring RISC OS 5.30 on a Raspberry Pi Zero W</p>
-      <hr>
       <h1>Exploring RISC OS 5.30 on a Raspberry Pi Zero W</h1>
       <p>By R. S. Doiel, 2024-06-04</p>
       <p>Back on April, 27, 2024 <a href="https://riscosopen.org">RISC OS Open</a> <a href="https://www.riscosopen.org/news/articles/2024/04/27/risc-os-5-30-now-available">announced</a> the release of RISC OS 5.30. This release includes WiFi support for the Raspberry Pi Zero W. This may sound like a small thing. WiFi is taken for granted on many other operating systems.  This is the news I've been waiting for before diving into RISC OS. My Pi Zero W running RISC OS <strong>just works</strong> with my wireless network. That is wonderful.</p>

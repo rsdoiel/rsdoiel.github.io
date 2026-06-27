@@ -2,21 +2,32 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" href="Upgrade-Pi-500-plus.md" >
-  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <title>Upgrade my Raspberry Pi 500+ to Trixie</title>
+  <link rel="alternate" type="text/markdown" title="Upgrade my Raspberry Pi 500+ to Trixie" href="Upgrade-Pi-500-plus.md" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
-  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="datePublished" content="2025-11-28">
+  <meta data-pagefind-filter="datePublished[content]" content="2025-11-28">
+  <meta name="keywords" content="Raspberry Pi">
+  <meta data-pagefind-filter="keywords[content]" content="Raspberry Pi">
+  <meta name="keywords" content="Upgrade">
+  <meta data-pagefind-filter="keywords[content]" content="Upgrade">
+  <meta name="author" content="R. S. Doiel">
+  <meta data-pagefind-filter="author[content]" content="R. S. Doiel">
+  <meta name="dateModified" content="2025-11-28">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-11-28">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,20 +48,6 @@
 
   <main id="main-content">
     <article data-published="2025-11-28" data-link="https://rsdoiel.github.io/blog/2025/11/28/Upgrade-Pi-500-plus.html">
-      <hr>
-      <p>author: R. S. Doiel
-      dateCreated: &quot;2025-11-27&quot;
-      dateModified: &quot;2025-11-28&quot;
-      datePublished: &quot;2025-11-28&quot;
-      description: |
-      A brief step by step to upgrading from Raspberry Pi OS 5 to Raspberry Pi OS 6
-      for my Raspberry Pi 500+.
-      keywords:
-      - Raspberry Pi
-      - Upgrade
-      postPath: blog/2025/11/28/Upgrade-Pi-500-plus.md
-      title: Upgrade my Raspberry Pi 500+ to Trixie</p>
-      <hr>
       <h1>Upgrading my Raspberry Pi 500+ to Trixie</h1>
       <p>By R. S. Doiel, 2025-11-28</p>
       <p>I has a Raspberry Pi 500+ running Raspberry Pi OS 5 (bookworm). It has been a really fun computer for my hobby projects. Raspberry Pi OS 6 is now out (Trixie). The official recommendation to update the OS is to back everything, then re-image the drive. For the Raspberry Pi 500+ the image is on the NVME drive. I don't have access to boot from Ethernet for the 500+ so how to proceed? One approach is install Pi OS on an SD Card, boot from it to re-image the NVME drive.</p>

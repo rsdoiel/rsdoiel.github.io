@@ -2,21 +2,36 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" >
-  <meta name="generator" content="antenna/0.0.24b" >
-  <meta name="date" content="2026-06-27T11:13:06-07:00" >
+  <meta name="generator" content="antenna/0.0.24c" >
+  <meta name="date" content="2026-06-27T16:09:05-07:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <meta content="EN" name="language" >
-  <title>R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings</title>
-  <link href="Setting-up-Go-under-Bash-for-Windows-10.md" rel="altenate" type="text/markdown" title="R. S. Doiel, Software Engineer/Analyst &mdash; Robert's ramblings" >
+  <meta name="language" content="EN" >
+  <title>Exploring Bash for Windows 10 Pro</title>
+  <link rel="alternate" type="text/markdown" title="Exploring Bash for Windows 10 Pro" href="Setting-up-Go-under-Bash-for-Windows-10.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
-  <link type="application/rss+xml" href="index.xml" rel="alternate" title="Recent Blog Post" >
-  <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="index.xml" rel="alternate" title="Recent Blog Post" type="application/rss+xml" >
+  <link rel="alternate" title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" >
+  <link title="Markdown source for page" type="application/markdown" href="index.md" rel="alternate" >
   <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="datePublished" content="2016-08-15">
+  <meta data-pagefind-filter="datePublished[content]" content="2016-08-15">
+  <meta name="dateModified" content="2025-07-21">
+  <meta data-pagefind-filter="dateModified[content]" content="2025-07-21">
+  <meta name="keywords" content="Golang">
+  <meta data-pagefind-filter="keywords[content]" content="Golang">
+  <meta name="keywords" content="Windows">
+  <meta data-pagefind-filter="keywords[content]" content="Windows">
+  <meta name="keywords" content="Bash">
+  <meta data-pagefind-filter="keywords[content]" content="Bash">
+  <meta name="keywords" content="Linux Subsystem">
+  <meta data-pagefind-filter="keywords[content]" content="Linux Subsystem">
+  <meta name="author" content="rsdoiel@gmail.com (R. S. Doiel)">
+  <meta data-pagefind-filter="author[content]" content="rsdoiel@gmail.com (R. S. Doiel)">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav aria-label="Site navigation">
     <ul>
     <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
@@ -37,25 +52,6 @@
 
   <main id="main-content">
     <article data-published="2016-08-15" data-link="https://rsdoiel.github.io/blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.html">
-      <hr>
-      <p>abstract: &quot;&quot;<em>Exploring Bash for Windows 10 Pro</em>&quot; coverse the process of setting up and configuring Bash on Windows 10 Pro within a Virtual Box environment. The setup involves enabling \ndeveloper mode, activating the Linux Subsystem Beta, and installing Bash on Ubuntu on Windows. Also covered is setting Go for this environment.\n&quot;
-      author: <a href="mailto:rsdoiel@gmail.com">rsdoiel@gmail.com</a> (R. S. Doiel)
-      copyright: copyright (c) 2016, R. S. Doiel
-      copyrightHolder: R. S. Doiel
-      copyrightYear: 2016
-      date: &quot;2016-08-15&quot;
-      dateCreated: &quot;2016-08-15&quot;
-      dateModified: &quot;2025-07-21&quot;
-      datePublished: &quot;2016-08-15&quot;
-      keywords:
-      - Golang
-      - Windows
-      - Bash
-      - Linux Subsystem
-      license: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a>
-      postPath: blog/2016/08/15/Setting-up-Go-under-Bash-for-Windows-10.md
-      title: Exploring Bash for Windows 10 Pro</p>
-      <hr>
       <h1>Exploring Bash for Windows 10 Pro</h1>
       <p>By R. S. Doiel 2016-08-15</p>
       <pre><code>UPDATE (2016-10-27, RSD): Today trying to compile Go 1.7.3 under 
