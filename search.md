@@ -9,10 +9,8 @@ title : "Search"
 <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 
-<pagefind-config faceted preload></pagefind-config>
+<pagefind-config preload></pagefind-config>
 <pagefind-input placeholder="Search…"></pagefind-input>
-<pagefind-filter-pane></pagefind-filter-pane>
-<pagefind-summary></pagefind-summary>
 <pagefind-results></pagefind-results>
 
 <script type="module">
@@ -25,6 +23,9 @@ title : "Search"
   const q = new URLSearchParams(location.search).get('q');
   if (q) {
     instance.triggerSearch(q);
+  } else {
+    // When no query, ensure no results are shown
+    instance.triggerSearch('');
   }
 
   // Keep URL in sync with the current search term so results are bookmarkable/shareable

@@ -1,0 +1,6 @@
+<script>
+  if (new URLSearchParams(window.location.search).has('q')) {
+    const q = new URLSearchParams(window.location.search).get('q');
+    window.location.href = '/search.html?q=' + encodeURIComponent(q);
+  }
+</script>

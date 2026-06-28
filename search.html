@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" >
   <meta name="generator" content="antenna/0.0.25" >
-  <meta name="date" content="2026-06-27T17:02:47-07:00" >
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" >
+  <meta content="2026-06-27T19:11:15-07:00" name="date" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>Search</title>
-  <link title="Search" href="search.md" rel="alternate" type="text/markdown" >
+  <link rel="alternate" type="text/markdown" title="Search" href="search.md" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
   <link title="Archive of Blog Posts" type="application/rss+xml" href="archive.xml" rel="alternate" >
-  <link rel="alternate" title="Markdown source for page" type="application/markdown" href="index.md" >
+  <link href="index.md" rel="alternate" title="Markdown source for page" type="application/markdown" >
   <link title="Robert's Rambling Search Engine" href="osd.xml" rel="search" type="application/opensearchdescription+xml" >
   <script type="module" src="/modules/copyToClipboard.js" ></script>
 </head>
@@ -41,10 +41,8 @@
     <h1>Search Robert's blog posts and selected projects</h1>
     <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
     <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
-    <p><pagefind-config faceted preload></pagefind-config>
+    <p><pagefind-config preload></pagefind-config>
     <pagefind-input placeholder="Search…"></pagefind-input>
-    <pagefind-filter-pane></pagefind-filter-pane>
-    <pagefind-summary></pagefind-summary>
     <pagefind-results></pagefind-results></p>
     <script type="module">
       // Wait for the pagefind web components to register before using the API
@@ -56,6 +54,9 @@
       const q = new URLSearchParams(location.search).get('q');
       if (q) {
         instance.triggerSearch(q);
+      } else {
+        // When no query, ensure no results are shown
+        instance.triggerSearch('');
       }
     
       // Keep URL in sync with the current search term so results are bookmarkable/shareable
