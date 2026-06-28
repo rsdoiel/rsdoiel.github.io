@@ -12,7 +12,7 @@
 
 ### Language Model Systems
 
-- [Harvey](https://rsdoiel.github.io/harvey) - A scholarly agent integrating [Llamafile](https://www.mozilla.ai/open-tools/llamafile) and [Ollama](https://ollama.com) language model services
+- [Harvey](https://rsdoiel.github.io/harvey) (proof of concept) - A scholarly agent integrating [Llamafile](https://www.mozilla.ai/open-tools/llamafile) and [Ollama](https://ollama.com) language model services
 - [Henry](https://rsdoiel.github.io/henry) - A small factory for generating LLamafile files from HuggingFace.co hosted models
 
 ### Additional text rendering/formatting tools
