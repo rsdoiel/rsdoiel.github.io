@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.0.25" >
+  <meta name="date" content="2026-06-30T20:17:37-07:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>Natural Language as programming language</title>
+  <link type="text/markdown" title="Natural Language as programming language" href="natural_language_programming.md" rel="alternate" >
+  <link href="/css/site.css" rel="stylesheet" type="text/css" >
+  <link rel="alternate" title="Recent Blog Post" type="application/rss+xml" href="index.xml" >
+  <link type="application/rss+xml" href="archive.xml" rel="alternate" title="Archive of Blog Posts" >
+  <link type="application/markdown" href="index.md" rel="alternate" title="Markdown source for page" >
+  <link href="osd.xml" rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2026-06-30">
+  <meta data-pagefind-filter="dateModified[content]" content="2026-06-30">
+  <meta name="datePublished" content="2026-06-30">
+  <meta data-pagefind-filter="datePublished[content]" content="2026-06-30">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav aria-label="Site navigation">
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+    <article data-published="2026-06-30" data-link="https://rsdoiel.github.io/blog/2026/06/30/natural_language_programming.html">
+      <h1>Natural Language as programming language</h1>
+      <p>By R. S. Doiel, 2026-06-30</p>
+      <p>The goal of using natural language for computer programs was old when I was an undergrad studying computer science last century. With the advent of large language models I think we're getting close to achieving this goal. Language model systems with a human in the loop can produce useful software. Human in the loop is key. With a human in the loop the language model system becomes a tool like a compiler or interpreter. I've spent much of the past six months experimenting and working using conversational English as a programming language. I have some interesting takeaways from those experiences.</p>
+      <ul>
+      <li>core computer science lessons from over five decades still hold</li>
+      <li>the life cycle of software development has been renewed in importance</li>
+      </ul>
+      <p>I have seen benefits from using language model systems to write code. I have seen increased cost in using language model systems successfully. This can be measured in both monetary cost and in communications overhead<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+      <h2>Managing the noise</h2>
+      <p>Code and documentation can easily be generated using language models. It doesn't mean it is either useful or meaningful. That is why it becomes critical to manage the noise level in the communication channel. The content quality, content structure and organization can make the difference between &quot;AI slop&quot; and something useful. In the last six months I have found techniques that help across the models or systems I've used<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+      <ul>
+      <li>take a phased approach and ensure clear boundaries between phases, models can only process so much context</li>
+      <li>acknowledge that <strong>being a good editor</strong> is as important as <strong>being a good programmer</strong> when using language model systems</li>
+      <li>be prepared to slow down
+      <ul>
+      <li>carve thinking time before engaging the model</li>
+      <li>carve out project time for reviewing model results (this takes longer than you plan)</li>
+      <li>use more than one model (one can be used to critique the other)</li>
+      <li>model results <strong>require human vetting</strong> (Humans are responsible for stopping the AI slop)</li>
+      </ul>
+      </li>
+      <li>understand that you are teaching
+      <ul>
+      <li>successful software development often involves discovery</li>
+      <li>the developer learns the problem before a solution is possible</li>
+      <li>you are now obliged to teach that to the model system</li>
+      </ul>
+      </li>
+      </ul>
+      <p>Arriving at a development approach is important. As an example, I might have held off on a literature review until I hit a specific part of the project that required it. With language models you fare better having covered that ground early and making it available in your design, decision and planning phase of your project.</p>
+      <p>I often start with a literature review if I know I will use a language model system. That way I have a small corpus to teach the model.
+      Once a corpus is assembled, I split the development cycle between a documentation phase and an implementation phase. The documentation phase is characterized by three documents collaboratively developed using the model.</p>
+      <ul>
+      <li>Design</li>
+      <li>Decisions</li>
+      <li>Plan (implementation plan)</li>
+      </ul>
+      <p>Using the conversation interface of the model I start with a general discussion of these three activities and direct the model through to writing the specific documents. The reason for the split is that even large language models like Claude or Mistral have a finite context they operate effectively with. During the design phase I keep the model from jumping to implementation, focus on the core design concepts and record the decisions made working through the design process. These are used to determine the implementation plan. The plan will be used for implementation. It is important to review and refine the design, decision and planning documents before proceeding to implementation. I found it helpful (and cheaper) to keep the design, decision and planning phase as a separate model session from the implementation phase. It's all about managing the current context.</p>
+      <p>I still start the implementation session having the model review the implementation plan. If anything needs to be clarified I can refer to specific design or decision choices I've made. The goal is to keep context free to allow the model context space to work. An important step before allowing the model to write code is to reinforce the test-driven development approach. Always write the test first, then write running code. When debugging, write the test that confirms the bug first before writing the fix.  If you allow the model to deviate it is likely the model will &quot;correct the test&quot; rather than implement what was requested or fix the bug. As tempting as it is to allow automatic approval of all model actions doing so radically increases your token budget<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+      <h3>Workflows are noise abatement</h3>
+      <p>I had good success managing the noise by using a two phase workflow.</p>
+      <ol>
+      <li>Design, decisions and planning</li>
+      <li>Implement using test-driven development</li>
+      </ol>
+      <p>Inevitably I found myself in the implementation phase where there is an ambiguity in my design or planning documents. To get back on track I would wrap up the current session recording all open questions in a <code>TODO.md</code> file. In a new session I'd start at the top of the loop with design, decisions and planning based on the existing design, decision and planning documents augmented by my <code>TODO.md</code> file with the questions or problems formatted as a checklist. This new cycle then became about refining the design and plans, and recording the new decisions. Then I would start a new session and reengage the implementation process where I previously left off. The modified loop was repeated until I had the results I was looking for.</p>
+      <h2>Use the tools available</h2>
+      <p>One thing I've found exciting about language models is their ability to understand structured data and use existing programs to process it. As an example, in my projects I usually include a codemeta.json file. This file contains a structured JSON document that describes the project in general terms. I have a tool, <a href="https://github.com/caltechlibrary/CMTools">CMTools</a>, which can read that file and generate most of the common project artifacts. I don't need an AI model to do that. It's a solved problem. Commercial language models bill around token use. If the language model knows how to use a tool that saves processing tokens you're saving money.  The point I'm making is, if you have a specialty tool that can do the heavy lifting, let that tool do it. You just need the model to learn how to use that tool. That's where model skills come in. You can write up a description of how to use your specialty tool and that can save you money, time and effort in the long run.</p>
+      <p>It remains equally important to let the tools provide spaces for the humans in the loop. As an example I don't let models do the commit or push with Git repos. First they don't need to burn tokens on predictable text exchanges at the shell prompt. Second, these are good points to review the project's current state and what the model has accomplished to date. It's a natural space. Similarly if you have a tool that takes a long time to return results, use the time to review what the model system provided. It's a natural space so take advantage of it<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+      <h2>Remember your audiences</h2>
+      <p>When working with language models we have an additional audience to consider. Normally when I write documentation I consider developers and users. When working with language model systems I have a new audience, the language model. Documentation is actionable now. That's a key takeaway from using natural language as a programming language. It has caused me to shift documenting things to being a first step rather than a last one. It might feel upside down but like test-driven development it turns out to be an important way of keeping the model system on track. This is true at all stages of the project's life cycle. Documentation now drives development; it drives bug fixes and it drives enhancements. Understanding that documentation is now a necessity rather than a nice to have is a key indicator of whether or not my projects have been successful. It's why natural language as a programming language takes so much time. It's why we have an exhausting communication overhead when working with language model systems. Exploring this challenge led me to the design, decisions and planning documents I use today. When combined with managing my model's context it has proven to be effective in the projects I've been working on since the start of the year.</p>
+      <h2>Project Workspace</h2>
+      <p>Projects rarely exist in total isolation. They tend to have interfaces with each other. It can be helpful to have those related projects organized such that the model can easily find them when needed. The commercial model clients will gladly read anything from anywhere on your local computer systems. That's a problem I'll leave for a future post. Putting things in a workspace directory minimizes the need to do that. In a workspace I populate it with the source repositories of my projects. I have a &quot;reference&quot; folder that contains any reference documentation or source files that might be needed. I have an agents folder where I keep information that can be shared between model systems. The workspace also contains the base instructions on how I want the models to behave, such as a CLAUDE.md or VIBE.md file. I have a language-model-generated knowledge base (e.g. agents/knowledge.db) implemented as a SQLite3 database.  I create a skill for accessing and updating it. I put the skill in an agents/skills directory. This allows more than one model system to collaborate indirectly through shared knowledge. I've found including session summaries in agents/sessions and &quot;memory files&quot; in agents/memory to be helpful too. At the end of each model session I also have the model generate a &quot;hand off&quot; document in agents/hand-off. This lets the next session have some context to continue work or another model system to do the same.</p>
+      <p>If you have local model systems, you can use this &quot;agents&quot; directory structure to share knowledge between them as well as between the commercial systems like Claude Code or Mistral Vibe. It's a win-win in that sense. Since the documents are just text files (or SQL queries for the knowledge base) it allows us humans to easily keep tabs on things too.</p>
+      <p>The goal is to surround the model system with useful things.</p>
+      <ul>
+      <li>session documentation, this includes hand off and session summarizing</li>
+      <li>common skills with tool use instructions (focus on your discipline's specialty tools)</li>
+      <li>skills are also a way to have models follow a methodology</li>
+      <li>model &quot;memory&quot;<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> documents can be shared, bridging the gap between tools, skills and prompt instructions</li>
+      <li>Use SQLite3 to create a shared knowledge base, then wrap that in skills so all model systems can take advantage of it</li>
+      </ul>
+      <h2>Wrap up</h2>
+      <p>Having good quality, properly organized documentation can make or break the efficiency of your development cycle. The basic practices around software development are more valuable today when using models than I think is commonly acknowledged in the press. Human in the loop is necessary as capability and responsibility must be aligned. Only the human can be responsible.</p>
+      <p>For me the role of language model systems remains as a tool. It's another tool to learn. Unlike a C compiler it has broader application but like a compiler it can assemble a useful output. Understanding that the language model output is just a step in the refinement process is key to discovering how it can be useful to us.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr>
+      <ol>
+      <li id="fn:1">
+      <p>The lessons from Fred Brooks', &quot;The Mythical Man-Month&quot;, hold true because communication overhead remains a critical consideration.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:2">
+      <p>The majority of my testing focused on Mistral Vibe and Claude Code but included small language models as well as free versions including those offered by Microsoft and Google.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:3">
+      <p>The metaphor of &quot;vibe coding&quot; has misled many people into thinking you have self-driving models. That is far from my experience. You need to remain in the driver's seat.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:4">
+      <p>I notice there are times when the model system will try to short-	circuit your workflow, Mistral Vibe was aggressive in wanting to generate code. It's important to stop it. The extra token costs of wasted model effort ultimately mean more review time for you. We all have limited working hours as it is.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      <li id="fn:5">
+      <p>Both Claude Code and Mistral Vibe support the concept called memories. I expect it to become a common feature in model systems much as retrieval-augmented generation (RAG) has become a common way to interface with specialized knowledge bases.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+  </main>
+  <footer>
+    <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>
