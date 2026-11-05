@@ -13,7 +13,7 @@
 ### Language Model Systems
 
 - [Harvey](https://rsdoiel.github.io/harvey) (proof of concept) - A scholarly agent integrating [Ollama](https://ollama.com) and Hailo-Ollama language model services
-- [Knowledge](https://rsdoiel.github.io/knowledge) - A personal knowledge base suitable for use with language model systems
+- [Knowledge](https://rsdoiel.github.io/knowledge) (proof of concept) - A personal knowledge base suitable for use with language model systems
 
 ### Additional text rendering/formatting tools
 
