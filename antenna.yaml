@@ -1,6 +1,11 @@
 port: 8000
 base_url: https://rsdoiel.github.io
 generator: page.yaml
+subsites:
+    - url: https://rsdoiel.github.io/opml
+      title: opml
+    - url: https://rsdoiel.github.io/cmarkbrowser
+      title: cmarkbrowser
 collections:
     - title: An Antenna Website
       link: https://rsdoiel.github.io/pages.xml
