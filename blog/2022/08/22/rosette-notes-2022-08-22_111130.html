@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8" >
   <meta name="generator" content="antenna/0.0.28" >
-  <meta name="date" content="2026-11-19T20:00:10-08:00" >
+  <meta name="date" content="2026-11-19T21:21:10-08:00" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
   <meta name="language" content="EN" >
   <title>11:30 AM, SQL: Postgres</title>
   <link rel="alternate" type="text/markdown" title="11:30 AM, SQL: Postgres" href="rosette-notes-2022-08-22_111130.md" >
+  <link rel="prev" href="../19/rosette-notes.html" >
+  <link rel="next" href="../24/plpgsql-quick-intro.html" >
   <link rel="stylesheet" type="text/css" href="/css/site.css" >
   <link rel="alternate" type="application/rss+xml" title="Recent Blog Post" href="index.xml" >
   <link rel="alternate" type="application/rss+xml" title="Archive of Blog Posts" href="archive.xml" >
@@ -51,6 +53,10 @@
       <p>Three things have turned out to be challenges in the SQL I write, first back ticks is a MySQL-ism for literal quoting of table and column names, causes problems in Postgres. Second issue is &quot;REPLACE&quot; is a none standard extension I picked up from MySQL <a href="https://dev.mysql.com/doc/refman/8.0/en/extensions-to-ansi.html">it wraps a DELETE and INSERT together</a>, should be using UPDATE more than I have done in the past. The third is parameter replacement in SQL statement. This appears to be <a href="http://go-database-sql.org/prepared.html">db implementation specific</a>. I've used &quot;?&quot; with SQLite and MySQL but with Postgres I need to use &quot;$1&quot;, &quot;$2&quot;, etc. Challenging to write SQL once and have it work everywhere. Beginning to understand why GORM has traction.</p>
       
     </article>
+    <nav class="page-nav" aria-label="Previous and next pages">
+      <a rel="prev" href="../19/rosette-notes.html">Previous</a>
+      <a rel="next" href="../24/plpgsql-quick-intro.html">Next</a>
+    </nav>
   </main>
   <footer>
     <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a

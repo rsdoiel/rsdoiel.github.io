@@ -263,3 +263,33 @@ a.visually-hidden {
     border: 0;
 }
 
+
+/* antenna's previous and next links, added after a page's content. The bare
+   "nav" rule above is meant for the site menu, so this takes the previous and
+   next links out of it: they sit after the article, not fixed to the top. */
+nav.page-nav {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    padding: 1em 0 0 0;
+    margin: 2em 0 0 0;
+    color: inherit;
+    background-color: transparent;
+    border-top: 1px solid var(--link-color);
+}
+
+nav.page-nav a, nav.page-nav a:link, nav.page-nav a:visited {
+    font-weight: normal;
+    color: var(--link-color);
+    text-decoration: underline;
+    text-transform: none;
+}
+
+nav.page-nav a:active, nav.page-nav a:focus, nav.page-nav a:hover {
+    color: var(--link-hover-color);
+}
+
+nav.page-nav a[rel="next"] {
+    margin-left: auto;
+}
