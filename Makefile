@@ -8,7 +8,7 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 all: blog redirects about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml sitemap_index.xml pagefind
 
 index.html: .FORCE
-	antenna page index.txt index.html
+	antenna page index.md index.html
 	git add index.html
 
 presentations.html: presentations.md
