@@ -33,7 +33,7 @@ seriesNo: 11
 
 ## using OBNC modules
 
-This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.
+This is the eleventh post in the [Mostly Oberon](../../04/11/Mostly-Oberon.md) series.
 Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the
 various rabbit holes I will inevitably fall into.
 
@@ -383,5 +383,5 @@ project.
 
 ### Next and Previous
 
-+ Next [Oberon to Markdown](../../10/03/Oberon-to-markdown.html)
-+ Previous [Procedures in records](../..//07/07/Procedures-in-records.html)
++ Next [Oberon to Markdown](../../10/03/Oberon-to-markdown.md)
++ Previous [Procedures in records](../../07/07/Procedures-in-records.md)

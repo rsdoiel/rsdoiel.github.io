@@ -47,7 +47,7 @@ Oberon Loops and Conditions
 
 By R. S. Doiel, 2020-04-19
 
-This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
+This is the four post in the [Mostly Oberon](../11/Mostly-Oberon.md) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit holes I will inevitably fall into.
 
 ## Data Flow
 
@@ -242,5 +242,5 @@ the conditional and loop syntax.
 
 ### Next and Previous
 
-+ Next [Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.html)
-+ Previous [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
++ Next [Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.md)
++ Previous [Basic Types](../18/Mostly-Oberon-Basic-Types.md)

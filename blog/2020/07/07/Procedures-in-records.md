@@ -48,7 +48,7 @@ seriesNo: 10
 
 By R. S. Doiel, 2020-07-07
 
-This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.
+This is the tenth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.md) series.
 Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the 
 various rabbit holes I will inevitably fall into.
 
@@ -189,5 +189,5 @@ that would let you change the noise procedure to something new.
 
 ### Next and Previous 
 
-+ Next [Portable Oberon-07](../../08/15/Portable-Oberon-07.html)
-+ Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.html)
++ Next [Portable Oberon-07](../../08/15/Portable-Oberon-07.md)
++ Previous [Procedures as parameters](../../06/20/Procedures-as-parameters.md)

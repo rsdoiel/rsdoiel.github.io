@@ -55,7 +55,7 @@ seriesNo: 9
 
 By R. S. Doiel, 2020-06-20
 
-This is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html) series.
+This is the ninth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.md) series.
 Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the 
 various rabbit holes I will inevitably fall into.
 
@@ -162,5 +162,5 @@ only parameter will be treated as a "Noise" type procedures.
 
 ### Next and Previous 
 
-+ Next [Procedures in Records](../../07/07/Procedures-in-records.html)
-+ Previous [Dynamic types](../../05/25/Dynamic-types.html)
++ Next [Procedures in Records](../../07/07/Procedures-in-records.md)
++ Previous [Dynamic types](../../05/25/Dynamic-types.md)

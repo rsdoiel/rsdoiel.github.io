@@ -82,11 +82,11 @@ Similarities
 ------------
 
 In spite of the divergence I have split the module into two.
-The [Dates](Dates.html) module is the one you would include in your
+The [Dates](Dates.md) module is the one you would include in your
 program, it provides a DateTime record type which holds the integer
 values for year, month, day, hour, minute and second. It provides the
 means of parsing a date or time string, comparison, difference and addition
-of dates.  The second module [Clock](Clock.html) provides a mechanism
+of dates.  The second module [Clock](Clock.md) provides a mechanism
 to retrieve the real time clock value from the host system and map the
 C based time object into our own DateTime record.  Clock is specific to
 OBNC method of interfacing to the C standard libraries of the host system.
@@ -100,7 +100,7 @@ Clock
 The Clock module is built from a skeleton in Oberon-07 describing the
 signatures of the procedure and an implementation in [C](Clock.c) that
 is built using the technique for discussed in my post
-[Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.html). In that article I outline Karl's three step process to create a
+[Combining Oberon-07 and C with OBNC](../../05/01/Combining-Oberon-and-C.md). In that article I outline Karl's three step process to create a
 module that will be an interface to C code.  In Step one I create
 the Oberon module. Normally I'd leave all procedures empty and
 develop them in C. In this specific case I went ahead and wrote
@@ -1166,10 +1166,10 @@ END Dates.
 ~~~
 
 Postscript: In this article I included a reference to the module
-**[Chars](Chars.html)**. This is a non-standard module I wrote
+**[Chars](Chars.md)**. This is a non-standard module I wrote
 for Oberon-07. Here is a link to [Chars](Chars.Mod). RSD, 2021-05-06
 
 ### Next, Previous
 
-+ Next [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.html)
-+ Previous [Assemble Pages](/blog/2020/10/19/Assemble-pages.html)
++ Next [Beyond Oakwood, Modules and Aliases](/blog/2021/05/16/Beyond-Oakwood-Modules-and-Aliases.md)
++ Previous [Assemble Pages](/blog/2020/10/19/Assemble-pages.md)

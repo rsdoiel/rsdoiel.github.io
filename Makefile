@@ -8,8 +8,8 @@ TITLE = R. S. Doiel Software Engineer/Analyst
 all: blog redirects about.html cv.html resume.html library-terminology.html presentations.html rssfeed.html project-index.html series series/index.html projects.html quiddler-scoreboard.html search.html index.html archive.xml index.xml sitemap_index.xml pagefind
 
 index.html: .FORCE
-	antenna page index.md index.html
-	git add index.html
+	antenna page index.txt index.md index.html
+	git add index.txt index.md index.html
 
 presentations.html: presentations.md
 	antenna page presentations.md presentations.html
@@ -20,7 +20,6 @@ projects.html: projects.md
 	git add projects.html
 
 about.html: bio.md
-	sed --in-place -E 's/\.md\)/.html\)/g' bio.md
 	antenna page bio.md about.html
 	git add about.html
 
@@ -52,47 +51,38 @@ library-terminology.html: library-terminology.md
 series: series/index.html series/deno-and-typescript.html series/mostly-oberon.html series/software-tools.html series/pandoc-techniques.html series/freedos.html series/sql-reflections.html series/pse.html series/books.html
 
 series/index.html: series/index.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/index.md
 	antenna page series/index.md series/index.html
 	git add series/index.html
 
 series/deno-and-typescript.html: series/deno-and-typescript.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/deno-and-typescript.md
 	antenna page series/deno-and-typescript.md series/deno-and-typescript.html
 	git add series/deno-and-typescript.html
 	
 series/mostly-oberon.html: series/mostly-oberon.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/mostly-oberon.md
 	antenna page series/mostly-oberon.md series/mostly-oberon.html
 	git add series/mostly-oberon.html
 
 series/software-tools.html: series/software-tools.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/software-tools.md
 	antenna page series/software-tools.md series/software-tools.html
 	git add series/software-tools.html
 
 series/pandoc-techniques.html: series/pandoc-techniques.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/pandoc-techniques.md
 	antenna page series/pandoc-techniques.md series/pandoc-techniques.html
 	git add series/pandoc-techniques.html
 
 series/freedos.html: series/freedos.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/freedos.md
 	antenna page series/freedos.md series/freedos.html
 	git add series/freedos.html
 
 series/sql-reflections.html: series/sql-reflections.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/sql-reflections.md
 	antenna page series/sql-reflections.md series/sql-reflections.html
 	git add series/sql-reflections.html
 
 series/pse.html: series/pse.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/pse.md
 	antenna page series/pse.md series/pse.html
 	git add series/pse.html
 
 series/books.html: series/books.md
-	sed --in-place -E 's/\.md\)/.html\)/g' series/books.md
 	antenna page series/books.md series/books.html
 	git add series/books.html
 
@@ -115,9 +105,7 @@ archive.xml: .FORCE
 # NOTE: Need to add current year after the first post of the year.
 blog: .FORCE
 	bash blog.bash
-	antenna page blog/index.md blog/index.html
-	antenna page blog/recent.md blog/recent.html
-	git add blog/index.md blog/index.html blog/recent.md blog/recent.html
+	git add blog/index.txt blog/recent.txt blog/index.md blog/index.html
 
 rssfeed.html: rssfeed.md
 	antenna page rssfeed.md rssfeed.html
@@ -151,6 +139,5 @@ clean:
 	@for FNAME in $(shell findfile -s .html); do if [ -f $$FNAME ] && [ $$FNAME != "quiddler-scoreboard.html" ]; then rm $$FNAME; fi; done
 	@if [ -f nav.include ]; then rm nav.include; fi
 	@if [ -f footer.include ]; then rm footer.include; fi
-	@if [ -f index.md ]; then rm index.md; fi
 
 .FORCE:

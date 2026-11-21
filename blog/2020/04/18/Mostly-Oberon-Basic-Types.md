@@ -43,7 +43,7 @@ Oberon Basic Types
 
 By R. S. Doiel, 2020-04-18
 
-This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the third post in the [Mostly Oberon](../11/Mostly-Oberon.md) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
 ## Simple Types
 
@@ -547,5 +547,5 @@ is available from his personal website in PDF.
 
 ### Next and Previous
 
-+ Next [Loops and Conditions](../19/Mostly-Oberon-Loops-and-Conditions.html)
-+ Previous [Modules and Procedures](../12/Mostly-Oberon-Modules.html)
++ Next [Loops and Conditions](../19/Mostly-Oberon-Loops-and-Conditions.md)
++ Previous [Modules and Procedures](../12/Mostly-Oberon-Modules.md)

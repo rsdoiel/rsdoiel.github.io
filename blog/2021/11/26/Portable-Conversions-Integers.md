@@ -400,4 +400,4 @@ Expanded versions of the `Types` module will be available as part of Artemis Pro
 Previous
 --------
 
-- [Revisiting Files](../../11/22/Revisiting-Files.html)
+- [Revisiting Files](../22/Revisiting-Files.md)

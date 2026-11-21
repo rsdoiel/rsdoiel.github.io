@@ -364,5 +364,5 @@ with Oberon-07 in a POSIX envinronment.
 
 ### Next, Previous
 
-+ Next [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
-+ Prev [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.html)
++ Next [Combining Oberon-07 with C using Obc-3](/blog/2021/06/14/Combining-Oberon-07-with-C-using-Obc-3.md)
++ Prev [Dates & Clocks](/blog/2020/11/27/Dates-and-Clock.md)

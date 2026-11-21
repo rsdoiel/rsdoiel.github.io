@@ -43,7 +43,7 @@ seriesNo: 8
 
 By R. S. Doiel, 2020-05-25
 
-This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+This is the eighth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.md)
 series. Mostly Oberon documents my exploration of the Oberon Language, 
 Oberon System and the various rabbit holes I will inevitably fall into.
 
@@ -537,5 +537,5 @@ with a test module in the links that follow.
 
 ### Next and Previous 
 
-+ Next [Procedures as parameters](../../06/20/Procedures-as-parameters.html)
-+ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.html)
++ Next [Procedures as parameters](../../06/20/Procedures-as-parameters.md)
++ Previous [Oberon-07 and the file system](../09/Oberon-07-and-the-filesystem.md)

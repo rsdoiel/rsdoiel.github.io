@@ -45,7 +45,7 @@ Oberon Modules and Procedures
 
 By R. S. Doiel, 2020-04-12
 
-This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.html) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
+This is the second post in the [Mostly Oberon](../11/Mostly-Oberon.md) series. Mostly Oberon documents my exploration of the Oberon Language, Oberon System and the various rabbit wholes I inevitably fell into.
 
 ## Modules
 
@@ -523,5 +523,5 @@ other programs.
 
 ### Next and Previous
 
-+ Next [Basic Types](../18/Mostly-Oberon-Basic-Types.html)
-+ Previous [Mostly Oberon](../11/Mostly-Oberon.html)
++ Next [Basic Types](../18/Mostly-Oberon-Basic-Types.md)
++ Previous [Mostly Oberon](../11/Mostly-Oberon.md)

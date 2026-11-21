@@ -44,7 +44,7 @@ Revisiting Files
 
 By R. S. Doiel, 2021-11-22
 
-In October I had an Email exchange with Algojack regarding a buggy example in [Oberon-07 and the file system](../../../2020/05/09/Oberon-07-and-the-filesystem.html). The serious bug was extraneous non-printable characters appearing a plain text file containing the string "Hello World". The trouble with the example was a result of my misreading the Oakwood guidelines and how **Files.WriteString()** is required to work. The **Files.WriteString()** procedure is supposed to write every element of a string to a file. This __includes the trailing Null character__. The problem for me is **Files.WriteString()** litters plain text files with tailing nulls. What I should have done was write my own **WriteString()** and **WriteLn()**. The program [HelloworldFile](./HelloworldFile.Mod) below is a more appropriate solution to writing strings and line endings than relying directly on **Files**. In a future post I will explorer making this more generalized in a revised "Fmt" module.
+In October I had an Email exchange with Algojack regarding a buggy example in [Oberon-07 and the file system](../../../2020/05/09/Oberon-07-and-the-filesystem.md). The serious bug was extraneous non-printable characters appearing a plain text file containing the string "Hello World". The trouble with the example was a result of my misreading the Oakwood guidelines and how **Files.WriteString()** is required to work. The **Files.WriteString()** procedure is supposed to write every element of a string to a file. This __includes the trailing Null character__. The problem for me is **Files.WriteString()** litters plain text files with tailing nulls. What I should have done was write my own **WriteString()** and **WriteLn()**. The program [HelloworldFile](./HelloworldFile.Mod) below is a more appropriate solution to writing strings and line endings than relying directly on **Files**. In a future post I will explorer making this more generalized in a revised "Fmt" module.
 
 ~~~
 MODULE HelloworldFile;
@@ -136,5 +136,5 @@ You can see a definition of the [Files](https://miasap.se/obnc/obncdoc/basic/Fil
 Next & Previous
 ---------------
 
-- Next [Portable Conversions (Integers)](../../11/26/Portable-Conversions-Integers.html)
-- Prev [Combining Oberon-07 with C using Obc-3](../../06/14/Combining-Oberon-07-with-C-using-Obc-3.html)
+- Next [Portable Conversions (Integers)](../26/Portable-Conversions-Integers.md)
+- Prev [Combining Oberon-07 with C using Obc-3](../../06/14/Combining-Oberon-07-with-C-using-Obc-3.md)

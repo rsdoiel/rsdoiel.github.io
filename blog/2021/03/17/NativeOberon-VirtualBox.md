@@ -53,7 +53,7 @@ By R. S. Doiel, 2021-03-17
 In this post I am walking through installing Native Oberon 2.3.7
 (aka ETH Oberon System 3) on a virtual machine running under
 VirtualBox 6.1. It is a follow up to my 2019 post 
-[FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.html "Link to old blog post for bringing up Oberon System 3 in VirtualBox 6.0 using FreeDOS 1.2"). To facilitate the install I will first prepare
+[FreeDOS to Oberon System 3](/blog/2019/07/28/freedos-to-oberon-system-3.md "Link to old blog post for bringing up Oberon System 3 in VirtualBox 6.0 using FreeDOS 1.2"). To facilitate the install I will first prepare
 my virtual machine as a FreeDOS 1.2 box. This simplifies getting the
 virtual machines' hard disk partitioned and formatted correctly.
 When Native Oberon was released back in 1990's most Intel flavored

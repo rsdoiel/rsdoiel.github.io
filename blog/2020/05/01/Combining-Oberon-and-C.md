@@ -64,7 +64,7 @@ seriesNo: 5
 
 By R. S. Doiel, 2020-05-01
 
-This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.html)
+This is the fifth post in the [Mostly Oberon](../../04/11/Mostly-Oberon.md)
 series. Mostly Oberon documents my exploration of the Oberon
 Language, Oberon System and the various rabbit holes I will
 inevitably fall into.
@@ -294,5 +294,5 @@ Recompile and test.
 
 ### Next and Previous
 
-+ Next [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.html)
-+ Previously [Oberon Loops and Conditions](../../04/19/Mostly-Oberon-Loops-and-Conditions.html)
++ Next [Compiling OBNC on macOS](../06/Compiling-OBNC-on-macOS.md)
++ Previously [Oberon Loops and Conditions](../../04/19/Mostly-Oberon-Loops-and-Conditions.md)

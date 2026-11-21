@@ -61,7 +61,7 @@ By R. S. Doiel, 2021-06-14
 
 This post explores integrating C code with an Oberon-07 module use
 Mike Spivey's Obc-3 Oberon Compiler.  Last year I wrote a similar post
-for Karl Landström's [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.html).
+for Karl Landström's [OBNC](/blog/2020/05/01/Combining-Oberon-and-C.md).
 This goal of this post is to document how I created a version of Karl's
 Extension Library that would work with Mike's Obc-3 compiler.
 If you want to take a shortcut you can see the results on GitHub
@@ -440,5 +440,5 @@ Source code for these modules is available on GitHub at
 Next & Previous
 ---------------
 
-- Next [Revisiting Files](../../11/22/Revisiting-Files.html)
-- Previous [Beyond Oakwood, Modules and Aliases](../../05/16/Beyond-Oakwood-Modules-and-Aliases.html)
+- Next [Revisiting Files](../../11/22/Revisiting-Files.md)
+- Previous [Beyond Oakwood, Modules and Aliases](../../05/16/Beyond-Oakwood-Modules-and-Aliases.md)
