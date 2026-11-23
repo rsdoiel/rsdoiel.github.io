@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" >
+  <meta name="generator" content="antenna/0.1.0" >
+  <meta name="date" content="2026-11-22T20:00:51-08:00" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <meta name="language" content="EN" >
+  <title>The Markdown Web</title>
+  <link rel="alternate" type="text/markdown" title="The Markdown Web" href="The_Markdown_Web.md" >
+  <link rel="prev" href="../../06/30/natural_language_programming.html" >
+  <link rel="stylesheet" type="text/css" href="/css/site.css" >
+  <link rel="alternate" type="application/rss+xml" title="Recent Blog Post" href="index.xml" >
+  <link rel="alternate" type="application/rss+xml" title="Archive of Blog Posts" href="archive.xml" >
+  <link rel="search" type="application/opensearchdescription+xml" title="Robert's Rambling Search Engine" href="osd.xml" >
+  <script type="module" src="/modules/copyToClipboard.js" ></script>
+  <meta name="dateModified" content="2026-11-22">
+  <meta data-pagefind-filter="dateModified[content]" content="2026-11-22">
+  <meta name="keywords" content="Markdown, Web, browser">
+  <meta data-pagefind-filter="keywords[content]" content="Markdown, Web, browser">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav aria-label="Site navigation">
+    <ul>
+    <li><a href="/" title="R. S. Doiel"><img class="blog-logo" src="/media/Wee-Free-Doiels-Summer-Reading.svg" alt="Wee Free Doiels, Summer Reading"></a></li>
+    <li><a href="/">R. S. Doiel</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/presentations.html">Presentations</a></li>
+    <li><a href="/series/">Series</a></li>
+    <li><a href="/search.html">Search</a></li>
+    <li><a href="https://github.com/rsdoiel">GitHub</a></li>
+    <li><a href="/rss.xml" title="RSS Feed">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle> </svg> RSS </a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content" tabindex="-1">
+    <article data-published="2026-11-23" data-link="https://rsdoiel.github.io/blog/2026/11/22/The_Markdown_Web.html">
+      <h1>The Markdown Web</h1>
+      <p>By R. S. Doiel, 2026-11-22</p>
+      <p>Dave Winer implements interesting software. His latest is BonBon, an Electron-based Web browser for Markdown documents. By treating Markdown documents as a first-class hypertext format, BonBon enables what Dave calls the Markdown Web. The Markdown Web is a Web for writers and readers. It is a Web ripe for innovation. BonBon is provided for two platforms, Linux (Intel only) and macOS. You can download BonBon from <a href="https://github.com/scripting/bonBon/releases/">https://github.com/scripting/bonBon/releases/</a>. Why do I find this so interesting?</p>
+      <p>The Markdown Web is a simple Web. At first glance it might seem limited. Publishers don't have control of the CSS used to render their sites. They don't get to leverage JavaScript and WASM. In fact, Markdown Web browsers like BonBon strip out HTML completely. The Markdown Web is still hypertext, but limited to the capability found in Markdown. The Markdown Web's restricted features allow for more creativity and more focus on content. This delivers a less distracting Web than the HTML one we have. The Markdown Web delivers what we had before profit took over. The Markdown Web is a place where we can be participants.</p>
+      <p>Dave added some metadata capability alongside BonBon. BonBon reads metadata from YAML front matter on Markdown documents and supports simple innovations like <code>.well-known/toc.opml</code>. The <code>toc.opml</code> file reveals next-neighbor relationships, which lets a Markdown Web browser offer a reading experience like an eBook. Writers control the text and multimedia content. Readers control the reading experience. BonBon is a working proof of creative opportunity.</p>
+      <h2>Building the Markdown Web</h2>
+      <p>If a Web site publishes Markdown files it can be part of the Markdown Web. If those Web sites that publish Markdown files link to other Markdown files, you now connect to the core of the Markdown Web. This Web can include more than text; for example, Markdown supports embedding images and multimedia. What it doesn't support is JavaScript, WASM or the site publisher's CSS. Readability is under the control of the reader. The reader chooses the fonts, font size, color, and spacing much like most eBook readers allow you to do. BonBon Markdown Browser is the flagship demonstrator of this simpler Web. A Web for the rest of us.</p>
+      <p>The Markdown Web isn't just Markdown pages though. As we learned in the early Web, site navigation is an important element. Metadata in the form of <code>.well-known/toc.opml</code> provides the missing piece that takes a Markdown preview to a new level. The <code>toc.opml</code> file provides the next-neighbor relationships between Web pages. This means the browser can show &quot;previous&quot; and &quot;next&quot; Markdown pages automatically. Getting this right doesn't require editing every Markdown document's front matter; your content management system or site builder workflow can provide it. I was able to retrofit my personal content management system, <a href="https://rsdoiel.github.io/antennaApp/index.md">AntennaApp</a>, and others have done similar work with WordPress sites. Dave's own Web publication platform provides it for his own sites, see <a href="https://dave.writersweb.org/scripting/">https://dave.writersweb.org/scripting/</a>. Click into one of his posts on that Markdown scripting homepage and bingo, you can start paging back from item to item through the history he has published.</p>
+      <p>So what else is needed to make your Web site Markdown Web friendly? Not much. You can start with a traditional Web server that responds correctly to the requested HTTP type of &quot;text/markdown&quot;. The BonBon browser requests HTTP URLs expecting content including the &quot;text/markdown&quot; content. A properly configured server will return Markdown as a default for links<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. It does this through a standard HTTP request accept header specifying only <code>text/markdown</code>. If the Web server is configured correctly, a URL like <a href="https://rsdoiel.github.io/">https://rsdoiel.github.io/</a> would return a Markdown default page. In the past that's been assumed to be a page named &quot;index.html&quot; or &quot;index.htm&quot;. The Web server can be configured to respond with &quot;index.md&quot; for requests where a Web browser like BonBon expects Markdown instead of HTML content. The technical term for this is &quot;content negotiation&quot;, and the Web has had it built into the HTTP spec since the earliest days of the Web. If the Web server doesn't have the content negotiation set up, you can usually just make sure you're linking to the actual Markdown document. If your Web site is on Cloudflare, then you also get the Markdown support out of the box. Cloudflare is using this to support their Agentic Web proposal.</p>
+      <h2>The Agentic Web meets Markdown Web</h2>
+      <p>One of the challenges of running Web sites on the public Internet today is the swarms of AI-driven bots. They wind up performing denial-of-service attacks on the human Web we created. Cloudflare, a content delivery network company, has proposed mechanisms in the Web site configuration that would let bots retrieve the Markdown content rather than shipping the much more verbose HTML content of Web pages. In their proposal, the content they deliver can be made into bot-friendly Markdown. This reduces the size of the object sent over the network (Markdown is less verbose than HTML) as well as delivering the content in a form easier for a large language model (LLM) to digest, since LLMs were trained on plain text and Markdown is much closer to plain text than HTML.</p>
+      <p>This proposal is described in <a href="https://blog.cloudflare.com/the-agentic-internet">Building an open Agentic Internet</a>. Since Cloudflare provides automatic Markdown responses even for HTML content, that previous link returns Markdown and is readable by BonBon. You can find out more details in <a href="https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/?cf_page=the-agentic-internet" title="This page supports Markdown if requested with text/markdown accept header">Markdown for Agents</a> also rendered as Markdown for the BonBon browser. So the Agentic Web is the Markdown Web too.</p>
+      <h2>Putting the pieces together for more possibilities</h2>
+      <p>Dave provided three key documents beyond the open source BonBon browser:</p>
+      <ul>
+      <li><a href="https://dave.writersweb.org/index.md">Dave's Writers Web home page</a>: it explains the approach and what he was aiming for with BonBon</li>
+      <li><a href="https://raw.githubusercontent.com/scripting/bonBon/refs/heads/main/docs/charter.md">The Charter</a>: it goes into more detail of his vision</li>
+      <li><a href="https://raw.githubusercontent.com/scripting/bonBon/refs/heads/main/docs/bonbonSkillFromClaude.md">The BonBon skill for Claude Code</a></li>
+      </ul>
+      <p>With these I built my own proof of concept <a href="https://rsdoiel.github.io/cmarkbrowser/index.md">cmarkbrowser</a>. This allowed me to view the Markdown Web from any of my Raspberry Pi computers, including a little Raspberry Pi Zero 2W. It also let me experiment with additional features. cmarkbrowser will attempt to turn HTML into Markdown for viewing non-Markdown Web sites.</p>
+      <p>You can also clone and build BonBon from its git repo. That meant I could run BonBon on my more capable Raspberry Pi. Claude made very short work of that. BonBon is nicer than my terminal version but takes more RAM and CPU to run it. cmarkbrowser remains, for me, an important way to use the Markdown Web on lower-powered devices and a platform for experiments and innovation.</p>
+      <p>It took me one evening's work with a large language model system to get to a working prototype terminal-based Markdown Web browser. I followed the chain of blog posts Dave and others made about using it, and used them to guide improvements. By the end of the next day I had released my working prototype. I like Dave's BonBon Web browser, but his idea isn't just a new Web browser; it's about interop at the level of the Markdown Web! I am currently working on some personal search engine ideas that run browser-side for the Markdown Web.</p>
+      <h2>Possibilities of a simpler Web</h2>
+      <p>The Markdown Web makes room for innovation too. For example, a server-side dynamic system can return results in Markdown just as easily as HTML. I can imagine a browser-side personal search engine or knowledge base driven by Markdown Web surfing. Search has an opportunity to be rethought as well. A Markdown Web browser could take advantage of <a href="https://raw.githubusercontent.com/mdn/content/refs/heads/main/files/en-us/web/xml/guides/opensearch/index.md">Open Search Description Documents</a>. Once the browser knows a site supports search, the search form doesn't need to be provided by the site. The browser could directly supply the inputs for the search action. One advantage of this approach is that the search experience becomes consistent across in-page searching as well as site searching. There's room for aggregated searches too. You could store the Open Search Description Documents encountered while surfing the Markdown Web. Then you could send out search queries to multiple sites and merge their Markdown results. This would open the possibility of a distributed search tailored to sites you trust.</p>
+      <h2>What do we do with this lightweight portable Web?</h2>
+      <p>We write, read and innovate. That is the simple answer. Large language models have opened the door for individuals beyond the trained programmer types to explore this space too. The Markdown Web is about content creators not publishers. It's about personal innovation not corporations. It's about us readers. Think about a search engine like <a href="https://marginalia-search.com/">Marginalia</a> that returned Markdown content instead of HTML when requested with the text/markdown content type. Many have assumed that search is a solved problem, but that isn't true. Do search engines even need to be centralized at all? Why not have the browser build in the capabilities of PageFind for sites you visit by aggregating the indexes of those sites through its own search interface? This could be done without shipping JavaScript and WASM-encoded indexes, by leveraging the <code>.well-known/toc.opml</code> files you encounter along with existing services like <a href="https://en.wikipedia.org/wiki/Open_Archives_Initiative_Protocol_for_Metadata_Harvesting">OAI-PMH</a> or even the API of sites like the Wayback Machine and the Internet Archive. It would be cool if Wikipedia provided a Markdown Web view of content; that would be a huge boost.</p>
+      <p>So, as Dave suggests in the <a href="https://dave.writersweb.org/scripting/2026/10/26/233752.md">Big Undo</a>, this is a reset that opens the Web back up to all of us. We just need to embrace it.</p>
+      <div class="footnotes" role="doc-endnotes">
+      <hr>
+      <ol>
+      <li id="fn:1">
+      <p>Unfortunately many sites are hosted on GitHub and GitHub doesn't support proper content negotiation for requests of &quot;text/markdown&quot; MIME types. I've worked around this by using links that point to Markdown documents explicitly. GitHub does serve Markdown content as &quot;text/markdown&quot;.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+      </li>
+      </ol>
+      </div>
+      
+    </article>
+    <nav class="page-nav" aria-label="Previous and next pages">
+      <a rel="prev" href="../../06/30/natural_language_programming.html">Previous</a>
+    </nav>
+  </main>
+  <footer>
+    <p>copyright © 2016 - 2026 R. S. Doiel<br /> <a
+    href="/rssfeed.html">RSS</a> feeds and website built with <a
+    href="https://rsdoiel.github.io/antennaApp">antennaApp</a>.
+    <script type="module">
+      await import('/pagefind/pagefind-highlight.js');
+      new PagefindHighlight({ highlightParam: "highlight" });
+    </script>
+  </footer>
+</body>
+</html>

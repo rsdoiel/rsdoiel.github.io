@@ -1,0 +1,63 @@
+---
+author: R. S. Doiel
+dateCreated: 2026-11-22T00:00:00Z
+dateModified: "2026-11-22"
+datePublished: 2026-11-23T00:00:00Z
+description: "First impressions of BonBon and the Markdown Web. \n"
+keywords: Markdown, Web, browser
+postPath: blog/2026/11/22/The_Markdown_Web.md
+title: The Markdown Web
+
+---
+
+
+# The Markdown Web
+
+By R. S. Doiel, 2026-11-22
+
+Dave Winer implements interesting software. His latest is BonBon, an Electron-based Web browser for Markdown documents. By treating Markdown documents as a first-class hypertext format, BonBon enables what Dave calls the Markdown Web. The Markdown Web is a Web for writers and readers. It is a Web ripe for innovation. BonBon is provided for two platforms, Linux (Intel only) and macOS. You can download BonBon from <https://github.com/scripting/bonBon/releases/>. Why do I find this so interesting?
+
+The Markdown Web is a simple Web. At first glance it might seem limited. Publishers don't have control of the CSS used to render their sites. They don't get to leverage JavaScript and WASM. In fact, Markdown Web browsers like BonBon strip out HTML completely. The Markdown Web is still hypertext, but limited to the capability found in Markdown. The Markdown Web's restricted features allow for more creativity and more focus on content. This delivers a less distracting Web than the HTML one we have. The Markdown Web delivers what we had before profit took over. The Markdown Web is a place where we can be participants. 
+
+Dave added some metadata capability alongside BonBon. BonBon reads metadata from YAML front matter on Markdown documents and supports simple innovations like `.well-known/toc.opml`. The `toc.opml` file reveals next-neighbor relationships, which lets a Markdown Web browser offer a reading experience like an eBook. Writers control the text and multimedia content. Readers control the reading experience. BonBon is a working proof of creative opportunity.
+
+## Building the Markdown Web
+
+If a Web site publishes Markdown files it can be part of the Markdown Web. If those Web sites that publish Markdown files link to other Markdown files, you now connect to the core of the Markdown Web. This Web can include more than text; for example, Markdown supports embedding images and multimedia. What it doesn't support is JavaScript, WASM or the site publisher's CSS. Readability is under the control of the reader. The reader chooses the fonts, font size, color, and spacing much like most eBook readers allow you to do. BonBon Markdown Browser is the flagship demonstrator of this simpler Web. A Web for the rest of us.
+
+The Markdown Web isn't just Markdown pages though. As we learned in the early Web, site navigation is an important element. Metadata in the form of `.well-known/toc.opml` provides the missing piece that takes a Markdown preview to a new level. The `toc.opml` file provides the next-neighbor relationships between Web pages. This means the browser can show "previous" and "next" Markdown pages automatically. Getting this right doesn't require editing every Markdown document's front matter; your content management system or site builder workflow can provide it. I was able to retrofit my personal content management system, [AntennaApp](https://rsdoiel.github.io/antennaApp/index.md), and others have done similar work with WordPress sites. Dave's own Web publication platform provides it for his own sites, see <https://dave.writersweb.org/scripting/>. Click into one of his posts on that Markdown scripting homepage and bingo, you can start paging back from item to item through the history he has published.
+
+So what else is needed to make your Web site Markdown Web friendly? Not much. You can start with a traditional Web server that responds correctly to the requested HTTP type of "text/markdown". The BonBon browser requests HTTP URLs expecting content including the "text/markdown" content. A properly configured server will return Markdown as a default for links[^1]. It does this through a standard HTTP request accept header specifying only `text/markdown`. If the Web server is configured correctly, a URL like <https://rsdoiel.github.io/> would return a Markdown default page. In the past that's been assumed to be a page named "index.html" or "index.htm". The Web server can be configured to respond with "index.md" for requests where a Web browser like BonBon expects Markdown instead of HTML content. The technical term for this is "content negotiation", and the Web has had it built into the HTTP spec since the earliest days of the Web. If the Web server doesn't have the content negotiation set up, you can usually just make sure you're linking to the actual Markdown document. If your Web site is on Cloudflare, then you also get the Markdown support out of the box. Cloudflare is using this to support their Agentic Web proposal.
+
+[^1]: Unfortunately many sites are hosted on GitHub and GitHub doesn't support proper content negotiation for requests of "text/markdown" MIME types. I've worked around this by using links that point to Markdown documents explicitly. GitHub does serve Markdown content as "text/markdown". 
+
+## The Agentic Web meets Markdown Web
+
+One of the challenges of running Web sites on the public Internet today is the swarms of AI-driven bots. They wind up performing denial-of-service attacks on the human Web we created. Cloudflare, a content delivery network company, has proposed mechanisms in the Web site configuration that would let bots retrieve the Markdown content rather than shipping the much more verbose HTML content of Web pages. In their proposal, the content they deliver can be made into bot-friendly Markdown. This reduces the size of the object sent over the network (Markdown is less verbose than HTML) as well as delivering the content in a form easier for a large language model (LLM) to digest, since LLMs were trained on plain text and Markdown is much closer to plain text than HTML.
+
+This proposal is described in [Building an open Agentic Internet](https://blog.cloudflare.com/the-agentic-internet). Since Cloudflare provides automatic Markdown responses even for HTML content, that previous link returns Markdown and is readable by BonBon. You can find out more details in [Markdown for Agents](https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/?cf_page=the-agentic-internet "This page supports Markdown if requested with text/markdown accept header") also rendered as Markdown for the BonBon browser. So the Agentic Web is the Markdown Web too.
+
+## Putting the pieces together for more possibilities
+
+Dave provided three key documents beyond the open source BonBon browser:
+
+- [Dave's Writers Web home page](https://dave.writersweb.org/index.md): it explains the approach and what he was aiming for with BonBon
+- [The Charter](https://raw.githubusercontent.com/scripting/bonBon/refs/heads/main/docs/charter.md): it goes into more detail of his vision
+- [The BonBon skill for Claude Code](https://raw.githubusercontent.com/scripting/bonBon/refs/heads/main/docs/bonbonSkillFromClaude.md)
+
+With these I built my own proof of concept [cmarkbrowser](https://rsdoiel.github.io/cmarkbrowser/index.md). This allowed me to view the Markdown Web from any of my Raspberry Pi computers, including a little Raspberry Pi Zero 2W. It also let me experiment with additional features. cmarkbrowser will attempt to turn HTML into Markdown for viewing non-Markdown Web sites. 
+
+You can also clone and build BonBon from its git repo. That meant I could run BonBon on my more capable Raspberry Pi. Claude made very short work of that. BonBon is nicer than my terminal version but takes more RAM and CPU to run it. cmarkbrowser remains, for me, an important way to use the Markdown Web on lower-powered devices and a platform for experiments and innovation.
+
+It took me one evening's work with a large language model system to get to a working prototype terminal-based Markdown Web browser. I followed the chain of blog posts Dave and others made about using it, and used them to guide improvements. By the end of the next day I had released my working prototype. I like Dave's BonBon Web browser, but his idea isn't just a new Web browser; it's about interop at the level of the Markdown Web! I am currently working on some personal search engine ideas that run browser-side for the Markdown Web.
+
+## Possibilities of a simpler Web
+
+The Markdown Web makes room for innovation too. For example, a server-side dynamic system can return results in Markdown just as easily as HTML. I can imagine a browser-side personal search engine or knowledge base driven by Markdown Web surfing. Search has an opportunity to be rethought as well. A Markdown Web browser could take advantage of [Open Search Description Documents](https://raw.githubusercontent.com/mdn/content/refs/heads/main/files/en-us/web/xml/guides/opensearch/index.md). Once the browser knows a site supports search, the search form doesn't need to be provided by the site. The browser could directly supply the inputs for the search action. One advantage of this approach is that the search experience becomes consistent across in-page searching as well as site searching. There's room for aggregated searches too. You could store the Open Search Description Documents encountered while surfing the Markdown Web. Then you could send out search queries to multiple sites and merge their Markdown results. This would open the possibility of a distributed search tailored to sites you trust.
+
+## What do we do with this lightweight portable Web?
+
+We write, read and innovate. That is the simple answer. Large language models have opened the door for individuals beyond the trained programmer types to explore this space too. The Markdown Web is about content creators not publishers. It's about personal innovation not corporations. It's about us readers. Think about a search engine like [Marginalia](https://marginalia-search.com/) that returned Markdown content instead of HTML when requested with the text/markdown content type. Many have assumed that search is a solved problem, but that isn't true. Do search engines even need to be centralized at all? Why not have the browser build in the capabilities of PageFind for sites you visit by aggregating the indexes of those sites through its own search interface? This could be done without shipping JavaScript and WASM-encoded indexes, by leveraging the `.well-known/toc.opml` files you encounter along with existing services like [OAI-PMH](https://en.wikipedia.org/wiki/Open_Archives_Initiative_Protocol_for_Metadata_Harvesting) or even the API of sites like the Wayback Machine and the Internet Archive. It would be cool if Wikipedia provided a Markdown Web view of content; that would be a huge boost. 
+
+So, as Dave suggests in the [Big Undo](https://dave.writersweb.org/scripting/2026/10/26/233752.md), this is a reset that opens the Web back up to all of us. We just need to embrace it.
+
